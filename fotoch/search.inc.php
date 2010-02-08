@@ -1,4 +1,4 @@
-<?
+<?php
 function subgenformitem(&$def, $template, $label, $value, $name ){
 	$def->assign("label",$label);
 	$def->assign("name",$name);

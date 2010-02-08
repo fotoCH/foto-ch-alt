@@ -1,4 +1,4 @@
-<?
+<?php
 error_reporting(!(E_ALL));
 
 function clean_entry($t){ // cleanup for entries

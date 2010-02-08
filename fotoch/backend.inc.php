@@ -1,4 +1,4 @@
-<?
+<?php
 
 function mabstand($def){  // benutzt in edit und iedit
 	$def->parse("bearbeiten.form.tr");

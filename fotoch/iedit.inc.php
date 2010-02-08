@@ -1,4 +1,4 @@
-<?
+<?php
 
 function bestaende($def,$id){
 	$sql = "SELECT * FROM `bestand` WHERE inst_id = $id ORDER BY bestand.nachlass DESC, bestand.name ASC"; // Weitere Formdaten aus Tabelle 'bestaende' holen

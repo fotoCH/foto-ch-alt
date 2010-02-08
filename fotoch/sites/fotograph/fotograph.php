@@ -1,4 +1,4 @@
-<?
+<?php
 $fotograph = new XTemplate("././templates/contents.xtpl");
 
 include("././search.inc.php");

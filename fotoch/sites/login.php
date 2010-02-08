@@ -1,4 +1,4 @@
-<?
+<?php
 
 $log=new XTemplate ("templates/contents.xtpl"); // neus Instanz des Login-Temaplte
 $log->assign("BENUTZERNAME",getLangContent("sprache",$_GET['lang'],"benutzername"));

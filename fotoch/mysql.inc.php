@@ -1,4 +1,4 @@
-<?
-mysql_connect("host","fotochadmin","apass");
-mysql_select_db("fotoch");
+<?php
+mysql_connect("127.0.0.1","fotochadmin","Td4BMGDSn6wM3tma");
+mysql_select_db("foto-ch");
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 function namen($def,$id){ //nur fotograf
 	$sql = "SELECT * FROM namen WHERE fotografen_id=$id ORDER BY id"; // Weitere Formdaten aus Tabelle 'Namen' holen
 	$result = mysql_query($sql);

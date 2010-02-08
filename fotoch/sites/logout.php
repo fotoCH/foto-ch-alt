@@ -1,4 +1,4 @@
-<?
+<?php
 
 	$_SESSION[s_uid]=="";											
 	session_destroy();

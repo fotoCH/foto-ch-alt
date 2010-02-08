@@ -1,4 +1,4 @@
-<?
+<?php
 $def=new XTemplate ("././templates/list_results.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);

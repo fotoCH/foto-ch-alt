@@ -1,4 +1,4 @@
-<?
+<?php
 //$xtpl->assign("CSS","css/handbuchformats.css");
 
 $handbuch = new XTemplate("./templates/contents.xtpl");
