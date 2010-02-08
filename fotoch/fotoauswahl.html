@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Fotobetest</title>
+        <script type="text/javascript" src="js/vorschlag.js"></script>
+        <script type="text/javascript" src="js/fotovor.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/autosuggest.css" />
+        <script type="text/javascript">
+            window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("txt1"),document.getElementById("val1"), new FotoSuggestions("ilist/ftas.php?"));
+var ioTextbox = new AutoSuggestControl(document.getElementById("txt2"),document.getElementById("val2"), new FotoSuggestions("ilist/gentas.php?table=institution&retfeld=ort&suchfeld=name&"));
+var aoTextbox = new AutoSuggestControl(document.getElementById("txt3"),document.getElementById("val3"), new FotoSuggestions("ilist/gentas.php?table=ausstellung&retfeld=concat(ort,',%20',institution)&suchfeld=titel&"));
+var loTextbox = new AutoSuggestControl(document.getElementById("txt4"),document.getElementById("val4"), new FotoSuggestions("ilist/gentas.php?table=literatur&retfeld=CONCAT(verfasser_name,', ',verfasser_vorname)&suchfeld=titel&"));
+var boTextbox = new AutoSuggestControl(document.getElementById("txt5"),document.getElementById("val5"), new FotoSuggestions("ilist/gentas.php?table=bestand&retfeld=name&suchfeld=name&"));
+var lvoTextbox = new AutoSuggestControl(document.getElementById("txt6"),document.getElementById("val6"), new FotoSuggestions("ilist/gentas.php?table=literatur&retfeld=verfasser_vorname&ergfeld=titel&suchfeld=verfasser_name&erg=,%20&erg2=:%20&"));
+
+            }
+        </script>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    </head>
+
+    <body>
+        <p>neue Suche f&uuml;r Fotobe</p>
+	<form name="ff" id="ff">
+	Fotografen<br />
+        <p><input type="text" id="txt1" size="50 "/><input type="text" id="val1" size="7 "/><input type="button" value="anzeigen" onclick="document.location='./?a=lexikon&amp;id='+(this.form.val1.value)"></p>
+Institutionen<br />
+<p><input type="text" id="txt2" size="50 "/><input type="text" id="val2" size="7 "/><input type="button" value="anzeigen" onclick="document.location='./?a=institution&amp;id='+(this.form.val2.value)"></p>
+Ausstellungen<br />
+<p><input type="text" id="txt3" size="50 "/><input type="text" id="val3" size="7 "/><input type="button" value="anzeigen" onclick="document.location='./?a=ausstellung&amp;id='+(this.form.val3.value)"></p>
+Literatur (Titel)<br />
+<p><input type="text" id="txt4" size="50 "/><input type="text" id="val4" size="7 "/><input type="button" value="anzeigen" onclick="document.location='./?a=literatur&amp;id='+(this.form.val4.value)"></p>
+Literatur (Verfasser)<br />
+<p><input type="text" id="txt6" size="50 "/><input type="text" id="val6" size="7 "/><input type="button" value="anzeigen" onclick="document.location='./?a=literatur&amp;id='+(this.form.val6.value)"></p>
+Bestand<br />
+<p><input type="text" id="txt5" size="50 "/><input type="text" id="val5" size="7 "/><input type="button" value="anzeigen" onclick="document.location='./?a=bestand&amp;id='+(this.form.val5.value)"></p>
+	</form>
+    </body>
+</html>

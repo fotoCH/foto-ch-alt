@@ -1,0 +1,120 @@
+<!-- BEGIN:autodetail -->
+	<h2>{TITLE}</h2>
+	<a id="top"></a>
+
+<!--BEGIN:idd -->
+	<p>{idd}</p>
+<!--END:idd -->
+	  <table class="item_details" cellpadding="2" cellspacing="0">  	
+
+<!-- BEGIN:namen -->    		
+    		<tr>
+    				<td valign="baseline"  class="detail_label"><span class="subtitle2">{NACHNAME}{KOMMA1} {VORNAME}</span></td>
+    				<td valign="baseline"><span class="subtitle3{g}">{FETCH4.titel} {FETCH4.nachname}{KOMMA} {FETCH4.vorname} {FETCH4.namenszusatz}{FETCH4.idf}</span>&nbsp;&nbsp;{bearb}</td>
+ 		</tr>
+<!-- END:namen -->
+<!-- BEGIN:fldatum -->
+		<tr>
+			<td valign="top" class="detail_label"></td>
+			<td><span class="date">{FETCH.fldatum}</span></td>
+		</tr>
+<!-- END:fldatum -->    		    	    		
+<!-- BEGIN:z -->
+<!-- BEGIN:abstand -->
+    		<tr>
+    				<td>&nbsp;</td>    				
+    				<td>&nbsp;</td>
+ 		</tr>
+<!-- END:abstand -->
+<!-- BEGIN:line -->
+    		<br/>
+<!-- END:line -->
+<!-- BEGIN:sfeld -->    		
+    		<tr>
+    				<td valign="top" class="detail_label"><span class="subtitle2">{label}</span></td>    				
+    				<td valign="top"><span class="text2{g}">{value}</span>{bearbeiten}</td>
+ 		</tr>    		
+<!-- END:sfeld -->
+<!-- BEGIN:arb -->
+					<tr>
+    					<td valign="top"><span class="subtitle2">{Arbeitsort}</span></td>
+    					<td><span class="text2">{FETCH2.arbeitsort} 
+<!-- BEGIN:vonbis --> {FETCH2.um_vonf}{FETCH2.von} - {FETCH2.um_bisf}{FETCH2.bis}
+
+<!-- END:vonbis -->
+					</span></td>
+ 				</tr>
+    		    		
+<!-- END:arb -->
+<!-- BEGIN:autorow -->
+    		<tr>
+    				<td valign="baseline" class="detail_label" ><span class="subtitle2">{key}</span></td>    				
+    				<td valign="baseline"><span class="date">{value}</span></td>
+ 		</tr>    		
+<!-- END:autorow -->
+<!-- BEGIN:bestn -->    		
+    		<tr>
+    				<td valign="top"><span class="subtitle2">{FETCH6.Bestand}</span></td>
+    				<td valign="top"><span class="subtitle3{gb}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a></span>, &nbsp; 
+				Institution: <span class="subtitle3{gi}"><a href="./?a=institution&amp;id={FETCH6.inst_id}&amp;lang={LANG}">{FETCH6.inst_name}</a></span></td>
+ 		</tr>    		
+<!-- END:bestn -->
+<!-- BEGIN:bestn_2 -->
+    		<tr>
+    			<td class="detail_label"><span class="subtitle2">{Fotograf}</span></td>    				
+    			<td><span class="subtitle3{g}"><!-- BEGIN:flink --><a href="./?a=fotograph&amp;id={FETCH6.fotografen_id}&amp;lang={LANG}">{FETCH6.name}</a><!-- END:flink --><!-- BEGIN:fnlink -->{FETCH6.name}<!-- END:fnlink --></span></td>
+ 		</tr>    	
+<!-- END:bestn_2 -->
+<!-- BEGIN:bestn_3 -->    		
+    		<tr>
+    				<td class="detail_label" valign="top"><span class="subtitle2" >{Bestand}</span></td>    				
+    				<td><span class="subtitle3{g}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a> &nbsp; &nbsp;  {FETCH6.zeitraum} </span></td>
+ 		</tr>
+<!-- END:bestn_3 -->
+
+<!-- BEGIN:best -->
+
+    		
+    		<tr>
+    				<td valign="top"><span class="subtitle2">{alt_best}</span></td>
+    				<td><span class="subtitle3">{FETCH3.institution} Findmittel:{FETCH3.findmittel}</span></td>
+ 		</tr>
+    		
+
+<!-- END:best -->
+<!-- BEGIN:lit -->
+		<tr>
+    				<td class="detail_label" valign="top"><span class="subtitle2">{FETCH7.Literatur}</span></td>
+    				<td><span class="subtitle3">{FETCH7.text}</span></td>
+ 		</tr>    		
+<!-- END:lit -->
+<!-- BEGIN:aus -->
+		<tr>
+    				<td class="detail_label" valign="top"><span class="subtitle2">{FETCH8.Ausstellung}</span></td>
+    				<td><span class="subtitle3">{FETCH8.text}.</span></td>
+ 		</tr>    		
+<!-- END:aus -->
+<!-- BEGIN:bearbeiten_ausstellung -->
+		<tr>
+    				<td valign="baseline" class="detail_label"><span class="subtitle2"><a href="./?a=aedit&amp;id={ID}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>    				
+    				<td valign="baseline"><span class="date">&nbsp;</span></td>
+ 		</tr>
+<!-- END:bearbeiten_ausstellung -->
+<!-- BEGIN:bearbeiten_literatur -->
+		<tr>
+    				
+    				<td class="detail_label"><a href="./?a=ledit&amp;id={ID}&amp;lang={LANG}">{BEARBEITEN}</a></td>
+    				<td valign="baseline"><span class="date">&nbsp;</span></td>
+ 		</tr> 
+<!-- END:bearbeiten_literatur -->
+<!-- BEGIN:bearbeiten_glossar -->
+    		<tr>
+    				<td valign="baseline"><span class="subtitle2"><a href="./?a=gedit&amp;id={ID}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+    				<td valign="baseline"><span class="date"> </span></td>
+ 		</tr>   
+<!-- END:bearbeiten_glossar --> 
+<!-- END:z -->    		
+   		</table>
+	  
+<!-- END:autodetail -->
+

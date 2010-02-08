@@ -1,0 +1,107 @@
+<!-- BEGIN:contents -->
+<!-- BEGIN:hand_kon_imp_par_site -->
+
+			<div id="content_items">
+				{ITEM}
+			</div>
+
+			<div id="content_data">
+				{DATA}
+			</div>
+
+<!-- END:hand_kon_imp_par_site -->
+<!-- BEGIN:home_detail -->
+
+			<div id="content_left">
+				{CONTENT}
+			</div>
+
+			<div id="content_image">
+				{LOGOS}
+			</div>
+
+<!-- END:home_detail -->
+<!-- BEGIN:search -->
+			<div id="search">
+				{SEARCH}
+			</div>
+
+			<div id="list">
+				{LIST}
+			</div>
+
+<!-- END:search -->
+<!-- BEGIN:log -->
+			<div id="content_left">
+				<h1>Login</h1>
+				<br /><br />
+
+<!-- BEGIN:ok -->
+				eingeloggt es geht gleich weiter...
+				<meta http-equiv="refresh" content="1; URL=./?a=fotograph&amp;lang={LANG}">
+<!-- END:ok -->
+<!-- BEGIN:form -->
+		<form action="./?a={ACTION}&amp;lang={LANG}" method="post">
+			<fieldset class="login">
+				<legend></legend>
+				<table class="login" cellspacing="0" cellpadding="1">				
+					<tr>
+						<td class="login_label"><label for="usr_uid">{BENUTZERNAME}</label></td>
+						<td class="login_input"><input class="text" type="text" name="usr_uid" id="usr_uid" /></td>	
+					</tr>
+					<tr>
+						<td class="login_label"><label for="usr_pw" >{PASSWORT}</label></td>
+						<td class="login_input"><input class="text" type="password" name="usr_pw" id="usr_pw"/></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td class="login_submit"><input class="submit" type="submit"  name="submit" value="{SUBMIT}"/></td>
+					</tr>
+				
+				</table>
+			</fieldset>
+		</form>
+<!-- END:form -->
+			</div>
+			<div id="content_image">
+			</div>
+<!-- END:log -->
+<!-- BEGIN:editpages -->
+			<div id="content_items">
+				{ITEM}
+			</div>
+
+			<div id="content_data">
+			<table class="editpages">
+				<tr> 
+					<td>{DATA}</td>
+				
+	<!-- BEGIN:select -->
+					<td> 
+						<form action="./?a=editpages&amp;lang={LANG}" method="get">	
+							<input type="hidden" name="lang" value="{LANG}"/>
+							<input type="hidden" name="a" value="{ACTION}"/>
+							<select name="pages" onchange="this.form.submit()">
+		<!-- BEGIN:option -->
+							<option name={OPTION}> {OPTION}</option>
+		<!-- END:option -->
+							</select>
+						</form>
+					</td>
+				</tr>
+			</table>
+	<!-- END:select -->
+
+			<br />
+				<form action="?a=editpages&amp;lang={LANG}" method="post">
+					<input type="hidden" id="FCKeditor1" name="FCKeditor1" value="{PAGECONTENT}" style="display:none" />	
+					<input type="hidden" id="FCKeditor1___Config" value="" style="display:none" />
+					<input type="hidden" name="page" value="{PAGE}" />
+					<iframe id="FCKeditor1_" src="./fckeditor/editor/fckeditor.html?InstanceName=FCKeditor1&amp;Toolbar=Default" width="98%" height="600" frameborder="0">
+						{PAGECONTENT}
+					</iframe>				
+					<input type="submit" value="{SELECT}" name="submit">
+				</form>			
+			</div>
+<!-- END:editpages -->
+<!-- END:contents -->

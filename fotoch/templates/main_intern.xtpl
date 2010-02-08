@@ -1,0 +1,47 @@
+<!-- BEGIN: main --><?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">  
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	<link type="text/css" href="css/styles.css" rel="stylesheet" media="screen,print"/>
+	<title>{SPR.fotoch} - Interner Bereich - Zone interne</title>
+</head>
+
+<body>
+<div id="container">
+	<div id="header">
+		<div id="top_header"> 
+			<ul>
+				<li>&nbsp;</li>
+				<li>{SPR.fotoch}</li>
+				<li>&nbsp;</li>
+				<li><a href="?{URLDE}">de</a>&nbsp; <a href="?{URLFR}">fr</a> &nbsp;</li>
+				<li><a href="?a={LOG}&amp;lang={LANG}">{LOG}</a></li>
+				<li>&nbsp;</li>
+				<li>&nbsp;</li>
+			</ul>
+		</div>
+		<div id="navi_header">
+			<ul>
+
+				<li><a href="./?a=fotograph&amp;lang={LANG}">{SPR.lexikon}</a></li>
+				<li><a href="./?a=institution&amp;lang={LANG}">{SPR.repertorium}</a></li>
+				<li><a href="./?a=bestand&amp;lang={LANG}">{SPR.bestand}</a></li>
+				<li><a href="./?a=literatur&amp;lang={LANG}">{SPR.literatur}</a></li>
+				<li><a href="./?a=ausstellung&amp;lang={LANG}">{SPR.ausstellung}</a></li>
+				<li><a href="./?a=glossar&amp;lang={LANG}">{SPR.glossar}</a></li>
+				<li><a href="./?a=editpages&amp;lang={LANG}">{SPR.editpages}</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="content_container">
+		{OUT}
+	</div>
+	<div id="footer">
+	<div>
+</div>
+</body>
+
+</html>
+<!-- END: main -->

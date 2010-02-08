@@ -1,0 +1,48 @@
+fotoBE Lexikon-Applikation
+--------------------------
+
+php/mysql-Applikation, die das fotoBE-Lexikon über das Web
+abrufbar macht.
+
+Directories:
+------------
+/fotobe/               php-Applikationscode
+/fotobe/templates      HTML-Templates zur Anpassung des Layouts
+                       und Content der home- und info-Seiten
+/fotobe/bilder         Content Bilder
+/fotobe/css            Stylesheet
+/fotobe/img            Layout Image
+/sql                   Anfangszustand DB
+/                      README und index.php zum redirect
+
+
+Installation:
+-------------
+Direkt ins Virtualhost-Verzeichnis kopieren!
+Die Detail-Apachekonfiguration wir über .htaccess-Dateien gesteuert.
+Falls kein entsprechendes AllowOverwrite konfiguriert ist, müssen diese 
+Details von Hand eingepflegt werden.
+
+DB-Installation:
+Eine Datenbank fotobe muss erzeugt werden. Darin muss die Datei 
+/sql/fotobe.sql ausgeführt werden.
+
+Ein DB-Benutzer für die DB fotobe muss erzeugt werden.
+
+
+Konfiguration:
+--------------
+in der Datei /fotobe/mysql.inc.php werden die Verbindungsdaten der 
+Datenbankverbindung konfiguriert.
+
+in der Datei /fotobe/login.php werden die Authentizierungsdaten für 
+die Administrationsschnittstelle konfiguriert (direkt im Code: Zeile 10)
+
+Die Datei index.php erzeugt ein Redirect auf die Startseite. Das Code-Snippet 
+kann auch zur Einbindung in einen nicht V-Host fähigen webserver verwendet werden.
+
+
+im Autrag der StUB und des Büros für Fotogeschichte Bern
+(c) Catatec Bern 2005
+c.schweingrber@catatec.ch
+031 330 26 30

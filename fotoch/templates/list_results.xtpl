@@ -1,0 +1,208 @@
+<!-- BEGIN:list -->
+    	<h2>{TITLE}</h2> 
+	<a id="top"></a>
+	<table class="list_results" cellpadding="2" cellspacing="0">  
+<!-- BEGIN:head_ausstellung -->	
+    		<tr valign="top">
+    				<td><span class="subtitle2">{Id}</td>
+    				<td><span class="subtitle2">{TITEL}</span></td>
+				<td><span class="subtitle2">{INSTITUTION}</span></td>
+    				<td><span class="subtitle2">{ORT}</span></td>
+    				<td><span class="subtitle2">{JAHR}</span></td>
+    				<td><span class="subtitle2">&nbsp;</span></td>
+    		</tr>		
+<!-- END:head_ausstellung -->
+<!-- BEGIN:row_ausstellung -->
+        <tr>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=ausstellung&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.titel}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.institution}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.ort}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.jahr}</span></td>
+		<td valign="baseline" align="right"><span class="subtitle3"><a href="./?a=aedit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+	 </tr>	
+<!-- END:row_ausstellung -->
+
+
+	 
+<!-- BEGIN:head_bestand -->
+     		<tr valign="top">
+    				<td><span class="subtitle2">{ID} </td>
+    				<td><span class="subtitle2">{NAME}</span></td>
+				<td>&nbsp;</td>
+    				<td><span class="subtitle2">{INSTITUTION}-Id</span></td>
+    		</tr>
+		
+<!-- END:head_bestand -->
+<!-- BEGIN:row_normal_bestand --><!-- Listenzeile -->
+        <tr>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=bestand&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="subtitle3">&nbsp;{FETCH.name}</span></td>		
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=institution&amp;id={FETCH.inst_id}&amp;lang={LANG}">{FETCH.inst_id}</a></span></td>
+	 </tr>
+<!-- END:row_normal_bestand -->
+<!-- BEGIN:row_admin_bestand -->
+        <tr>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=bestand&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="{FETCH.nameclass}">{FETCH.name}</span></td>
+		<td valign="baseline"><span class="subtitle3">&nbsp;<a href="./?a=bedit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+		<td valign="baseline" align="right"><a href="./?a=institution&amp;id={FETCH.inst_id}&amp;lang={LANG}">{FETCH.inst_id}&nbsp;&nbsp;&nbsp;</a></td>
+		<td valign="baseline"><span class="subtitle3"> <a href="./?a=iedit&amp;id={FETCH.inst_id}&amp;lang={LANG}">Inst.&nbsp;{BEARBEITEN}</a></span></td>
+	 </tr>	
+<!-- END:row_admin_bestand -->
+
+
+<!-- BEGIN:head_glossar -->
+	 	<tr valign="top">    				
+    			<td><span class="subtitle2">{BEGRIFF}</span></td>
+    			<td><span class="subtitle2">{ZEITRAUM}</span></td>
+    			<td><span class="subtitle2">{ERLAEUTERUNG}</span></td>
+    		</tr>
+<!-- END:head_glossar -->
+<!-- BEGIN:head_admin_glossar -->
+	 	<tr valign="top">    				
+    			<td><span class="subtitle2">{BEGRIFF}</span></td>
+    			<td><span class="subtitle2">{ZEITRAUM}</span></td>
+    			<td><span class="subtitle2">{ERLAEUTERUNG}</span></td>
+    			<td><span class="subtitle2"></span></td>
+    		</tr>
+<!-- END:head_admin_glossar -->		
+<!-- BEGIN:row_glossar -->
+        <tr>		
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=glossar&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.begriff}</a></span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.zeitraum}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.erlaeuterung}</span></td>
+	</tr>	
+<!-- END:row_glossar -->
+<!-- BEGIN:row_admin_glossar -->
+        <tr>		
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=glossar&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.begriff}</a></span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.zeitraum}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.erlaeuterung}</span></td>
+		<td valign="baseline"><span class="subtitle3"><span class="subtitle3"><a href="./?a=gedit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+	 </tr>
+<!-- END:row_admin_glossar -->
+				
+
+
+
+
+<!-- BEGIN:listhead_normal_institution -->	
+    		<tr valign="top">
+    			<td class="title_width" >{NAME} </td>
+   			<td>{ORT}</td>
+    		</tr>		
+<!-- END:listhead_normal_institution -->
+<!-- BEGIN:listhead_admin_institution -->
+    		<tr valign="top" >
+    			<td><span class="subtitle2">{ID} </span></td>
+    			<td><span class="subtitle2">{NAME}</span></td>
+    			<td><span class="subtitle2">{ORT}</span></td>
+    			<td><span class="subtitle2">&nbsp;</span></td>
+    		</tr>
+<!-- END:listhead_admin_institution -->
+<!-- BEGIN:row_normal_institution -->
+        <tr>
+		<td valign="baseline"><span class="{FETCH.nameclass}"><a href="./?a=institution&amp;id={FETCH.id}&amp;lang={LANG}"  class="{FETCH.nameclass}">{FETCH.name}</a>&nbsp;&nbsp;{FETCH.abkuerzung}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.ort}</span></td>
+	 </tr>
+<!-- END:row_normal_institution -->
+<!-- BEGIN:row_admin_institution -->
+        <tr>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=institution&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="{FETCH.nameclass}">{FETCH.name}&nbsp;&nbsp;{FETCH.abkuerzung}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.ort}</span></td>
+		<td valign="baseline" align="right"><span class="subtitle3">&nbsp;<a href="./?a=iedit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+	 </tr>
+<!-- END:row_admin_institution -->
+
+
+
+
+<!-- BEGIN:head_literatur -->
+    		<tr valign="top">
+    				<td><span class="subtitle2">{Id}</td>
+    				<td><span class="subtitle2">{VERFASSER}</span></td>
+    				<td><span class="subtitle2">{TITEL}</span></td>
+    				<td><span class="subtitle2">{ORT}</span></td>
+    				<td><span class="subtitle2">{JAHR}</span></td>
+				<td><span class="subtitle2">&nbsp;</span></td>
+    		</tr>		
+<!-- END:head_literatur -->
+<!-- BEGIN:row_literatur -->
+        <tr>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=literatur&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.verfasser}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.titel}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.ort}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.jahr}</span></td>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=ledit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></td>
+	 </tr>
+<!-- END:row_literatur -->
+
+
+
+<!-- BEGIN:listhead_normal_arb -->
+    		<tr valign="top">
+    			<td class="title_width">{NACHNAME}, {VORNAME}</td>
+    			<td>{ARBEITSORT}</td>
+    		</tr>
+
+<!-- END:listhead_normal_arb -->
+<!-- BEGIN:listhead_normal -->
+    		<tr valign="top">
+    			<td class="title_width">{NACHNAME}, {VORNAME}</td>
+    			<td>{LEBENSDATEN}</td>
+    		</tr>	  
+<!-- END:listhead_normal -->
+<!-- BEGIN:listhead_admin_arb -->
+    		<tr valign="top">
+    			<td><span class="subtitle2">{ID}</span></td>
+    			<td><span class="subtitle2">{NACHNAME}</span></td>
+    			<td><span class="subtitle2">{VORNAME}</span></td>
+    			<td><span class="subtitle2">{ARBEITSORT}</span></td>
+			<td align="right"><span class="subtitle2">&nbsp;</span></td>
+    		</tr>		
+<!-- END:listhead_admin_arb -->
+<!-- BEGIN:listhead_admin -->
+    		<tr valign="top">
+    			<td><span class="subtitle2">{ID} </span></td>
+    			<td><span class="subtitle2">{NACHNAME}</span></td>
+    			<td><span class="subtitle2">{VORNAME}</span></td>
+    			<td><span class="subtitle2">{LEBENSDATEN}</span></td>
+			<td align="right"><span class="subtitle2">&nbsp;</span></td>
+    		</tr>		
+<!-- END:listhead_admin -->
+<!-- BEGIN:row_normal_arb -->
+  	 <tr>		
+		<td valign="baseline"><span class="{FETCH.bioclass}"><a href="./?a=fotograph&amp;id={FETCH.id}&amp;lang={LANG}" class="{FETCH.bioclass}">{FETCH.nachname}</a>&nbsp; {FETCH.vorname} {FETCH.namenszusatz}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.arbeitsort}</span></td>
+	 </tr>
+	
+<!-- END:row_normal_arb -->
+<!-- BEGIN:row_normal --><!-- Listenzeile -->
+         <tr>
+		<td valign="baseline"><span class="{FETCH.bioclass}"><a href="./?a=fotograph&amp;id={FETCH.id}&amp;lang={LANG}" class="{FETCH.bioclass}">{FETCH.nachname}</a> &nbsp;{FETCH.vorname} {FETCH.namenszusatz}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.fldatum}</span></td>
+	 </tr>
+<!-- END:row_normal -->
+<!-- BEGIN:row_admin_arb -->
+         <tr>
+		<td valign="baseline"><span class="{FETCH.bioclass}"><a href="./?a=fotograph&amp;id={FETCH.id}&amp;lang={LANG}" class="{FETCH.bioclass}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="{FETCH.bioclass}">&nbsp;{FETCH.nachname}</span></td>
+		<td valign="baseline"><span class="subtitle3">&nbsp;{FETCH.vorname} {FETCH.namenszusatz}</span></td>
+		<td valign="baseline"><span class="subtitle3">&nbsp;{FETCH.arbeitsort}</span></td>
+		<td valign="baseline" align="right" class="edit_width"><span class="subtitle3">&nbsp;<a href="./?a=edit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+	 </tr>	
+<!-- END:row_admin_arb -->
+<!-- BEGIN:row_admin -->
+         <tr>
+		<td valign="baseline"><span class="{FETCH.bioclass}"><a href="./?a=fotograph&amp;id={FETCH.id}&amp;lang={LANG}" class="{FETCH.bioclass}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="{FETCH.bioclass}">&nbsp;{FETCH.nachname}</span></td>
+		<td valign="baseline"><span class="subtitle3">&nbsp;{FETCH.vorname} {FETCH.namenszusatz}</span></td>
+		<td valign="baseline"><span class="subtitle3">&nbsp;{FETCH.fldatum}</span></td>
+		<td valign="baseline" align="right"  class="edit_width"><span class="subtitle3">&nbsp;<a href="./?a=edit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+	 </tr>
+<!-- END:row_admin -->				
+      </table>
+<!-- END:list -->

@@ -1,0 +1,4 @@
+AddDefaultCharset       iso-8859-1
+Directoryindex index.php
+Options -Indexes
+AddType text/html     .xtpl
