@@ -3,10 +3,11 @@
 function shakeImages() {
 	$imgPlaceholders = array();		
 	$imgFiles = array();
-	
+	//TODO: down't read directory on each page load
 	$dir = opendir("images");
+	
 	while (($file = readdir($dir)) !== false) {
-		if($file!='..' && $file!='.' && $file!=''){
+		if($file[0]!='.'){
 			$imgFiles[] = $file;
 		}
 	}

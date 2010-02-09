@@ -9,7 +9,7 @@ $xtpl->assign("LANG", $_GET['lang']);
 
 if ($_POST['usr_uid']=="fotobe" && $_POST['usr_pw']=="jrgntlspch"){
 	$_SESSION['s_uid']=$_POST['usr_uid'];
-	$_SESSION['s_pw']=$_POST['usr_pw'];
+	// $_SESSION['s_pw']=$_POST['usr_pw'];
 	$log->parse("contents.log.ok");
 	$xtpl->assign("LOG","logout");
  
