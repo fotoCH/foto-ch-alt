@@ -1,5 +1,5 @@
 <?php
-/////////////////////////////
+///////////////////////////// testumlaut הצü
 function procbestand($def,$array){
 	$cufo=getallnam($array['fotografen_id']);
 	//print_r($cufo);
