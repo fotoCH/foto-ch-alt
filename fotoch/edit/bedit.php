@@ -90,7 +90,7 @@ if($_REQUEST['new_fotograf']){
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Fotograf lÃ¶schen////////////////////////////
+//////////////Fotograf löschen////////////////////////////
 if($_GET['f']=="del"){
 	$sql = "DELETE FROM `bestand_fotograf` WHERE id='$_GET[f_id]' LIMIT 1";
 	$result = mysql_query($sql);
@@ -142,7 +142,7 @@ if($_POST['submit']){
 	`gesperrt` = $unpubliziert WHERE `id` =$_POST[hidden_id] LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////GrundsÃ¤tzliches: Template, assigns ect.////////////////////////////
+//////////////Grundsätzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
 } else {
 	if($last_insert_id){
