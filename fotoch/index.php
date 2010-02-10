@@ -1,6 +1,6 @@
 <?php
 //global stuff
-require("templates/xtpl.p");
+require("templates/xtemplate.class.php");
 require("mysql.inc.php");
 require("nav.inc.php");
 session_start();
