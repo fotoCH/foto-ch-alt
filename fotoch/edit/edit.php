@@ -13,25 +13,17 @@ $def->assign("id",$_GET['id']);
 $def->assign("LANG", $_GET['lang']);
 $lang = $_GET['lang'];
 
-foreach($spr as $key => $value){
-	$def->assign(strtoupper($key), $value);	
-}
+$def->assign("SPR", $spr);	
 
+//assign options in [ ]
 $def->assign("LOESCHEN", "[&nbsp;".$spr['loeschen']."&nbsp;]");
 $def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 $def->assign("INSTITUTIONBEARBEITEN", "[&nbsp;".$spr['institution_bearbeiten']."&nbsp;]");
 $def->assign("ARBEITSORTHINZUFUEGEN",  "[&nbsp;".$spr['arbeitsort_hinzufuegen']."&nbsp;]");
 $def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
 $def->assign("BEZEICHNUNGHINZUFUEGEN", "[&nbsp;".$spr['bezeichnung_hinzufuegen']."&nbsp;]");
+$def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
 
-$def->assign("NEUERARBEITSORT", $spr['neuer_arbeitsort']);
-$def->assign("NEUEAUSSTELLUNG", $spr['neue_ausstellung']);
-$def->assign("NEUELITERATUR", $spr['neue_literatur']);
-$def->assign("NEUERBESTAND", $spr['neuer_bestand']);
-
-$def->assign("bestand", $spr['bestand']);
-$def->assign("ausstellung",$spr['ausstellung']);
-$def->assign("literatur",$spr['literatur']);
 
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
@@ -234,14 +226,14 @@ if ($fertig==1){
 	if($last_insert_id){
 		$def->assign("ID",$last_insert_id);
 		$id=$last_insert_id;
-		$def->assign("LANG", $_GET['lang']);
+		//$def->assign("LANG", $_GET['lang']);
 		$entrymsg = $spr['newentrymsg'];
 		$def->assign("NEW_ENTRY_MSG", $entrymsg."<br /><br />");
 	}else{
 		$def->assign("ID",$_GET['id']);
 		$id=$_GET['id'];
-		$def->assign("LANG", $_GET['lang']);
-		$lang = $_GET['lang'];
+		//$def->assign("LANG", $_GET['lang']);
+		//$lang = $_GET['lang'];			
 	}
 	
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
@@ -390,7 +382,7 @@ if ($fertig==1){
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag[notiz],'notiz');
 	genformitem($def,'textfield',$spr['autorIn'],$array_eintrag[autorIn],'autor');
 	gencheckitem($def,$spr['npublizieren'],$array_eintrag[unpubliziert],'unpubliziert');
-	$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
+	//$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
 	$def->assign("bearbeitungsdatum", $array_eintrag[bearbeitungsdatum]);
 	
 	$def->parse("bearbeiten.form.fieldset_end");

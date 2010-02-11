@@ -8,15 +8,12 @@ $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
 $lang = $_GET['lang'];
 $def->assign("LANG", $lang);
+
+$def->assign("SPR",$spr);
+
 $def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
 $def->assign("EINTRAGNEU", "|&nbsp;&nbsp;&nbsp;[&nbsp;".$spr['neuereintrag']."&nbsp;]");
-$def->assign("SPEICHERN", $spr['speichern']);
-$def->assign("VERKNUEPFUNGEN", $spr['verknuepfungen']);
-//$def->assign("VERKNUEPFUNG", getLangContent("sprache", $lang, "verknuepfung"));
-$def->assign("ANSEHEN", $spr['ansehen']);
-$def->assign("AUSSTELLUNGBEARBEITEN", $spr['ausstellungbearbeiten']);
-$def->assign("JA", $spr['ja']);
-$def->assign("NEIN", $spr['nein']);
+
 
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
@@ -59,7 +56,7 @@ if($_POST['submit']){
 	`text_alt` = '$_POST[text_alt]' WHERE `id` =$_POST[hidden_id] LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Grunds√§tzliches: Template, assigns ect.////////////////////////////
+//////////////Grunds‰tzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
 } else {
 	if($last_insert_id){

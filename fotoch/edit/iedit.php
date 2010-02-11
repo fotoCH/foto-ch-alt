@@ -10,32 +10,16 @@ $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
 $lang = $_GET['lang'];
 $def->assign("LANG",$lang);
-$def->assign("EINTRAGLOESCHEN", "[&nbsp;".getLangContent("sprache", $lang, "eintragloeschen")."&nbsp;]");
-$def->assign("SPEICHERN", getLangContent("sprache", $lang, "speichern"));
-$def->assign("INSTITUTIONBEARBEITEN", getLangContent("sprache", $lang, "institutionbearbeiten"));
-$def->assign("VERKNUEPFUNGEN", getLangContent("sprache", $lang, "verknuepfungen"));
-$def->assign("ANSEHEN", getLangContent("sprache", $lang, "ansehen"));
-$def->assign("DATENEXPORTIEREN", getLangContent("sprache", $lang, "datenexportieren"));
-$def->assign("VERKNUEPFEN", getLangContent("sprache", $lang, "verknuepfen"));
-$def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache", $lang, "bearbeiten")."&nbsp;]");
-$def->assign("LINKLOESCHEN", "[&nbsp;".getLangContent("sprache", $lang, "linkloeschen")."&nbsp;]");
-$def->assign("LOESCHEN", "[&nbsp;".getLangContent("sprache", $lang, "loeschen")."&nbsp;]");
-//$def->assign("BEARBEITUNGSDATUM", getLangContent("sprache", $lang, "bearbeitungsdatum"));
-$def->assign("bestaende", getLangContent("sprache", $_GET['lang'], "bestaende"));
-$def->assign("bestand", getLangContent("sprache", $_GET['lang'], "bestand"));
-$def->assign("literatur", getLangContent("sprache", $_GET['lang'], "literatur"));
-$def->assign("ausstellungen", getLangContent("sprache", $_GET['lang'], "ausstellungen"));
-$def->assign("ausstellung", getLangContent("sprache", $_GET['lang'], "ausstellung"));
-$def->assign("NEUEREINTRAG", getLangContent("sprache", $_GET['lang'], "neuereintrag"));
-$def->assign("ORT", getLangContent("sprache", $_GET['lang'], "ort"));
-$def->assign("JAHR", getLangContent("sprache", $_GET['lang'], "jahr"));
-$def->assign("ZEITRAUM", getLangContent("sprache", $_GET['lang'], "zeitraum"));
-$def->assign("UMFANG", getLangContent("sprache", $_GET['lang'], "umfang"));
-$def->assign("TYP", getLangContent("sprache", $_GET['lang'], "typ"));
-$def->assign("LITERATUR_NACH_VERFASSER", getLangContent("sprache", $_GET['lang'], "literatur_nach_verfasser"));
-$def->assign("LITERATUR_NACH_TITEL", getLangContent("sprache", $_GET['lang'], "literatur_nach_titel"));
-$def->assign("JA", getLangContent("sprache", $_GET['lang'], "ja"));
-$def->assign("NEIN", getLangContent("sprache", $_GET['lang'], "nein"));
+
+$def->assign("SPR",$spr);
+
+// assign the [ ] functions
+$def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
+$def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
+$def->assign("LINKLOESCHEN", "[&nbsp;".$spr['linkloeschen']."&nbsp;]");
+$def->assign("LOESCHEN", "[&nbsp;".$spr['loeschen']."&nbsp;]");
+$def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
+
 if ($_POST) escposts();
 if ($_GET[id]=="new"){
 	$sql = "INSERT INTO `institution` (`name`,`gesperrt`) VALUES ( 'neue Institution','1')";
@@ -134,45 +118,41 @@ if ($fertig==1){
 	if($last_insert_id){
 		$def->assign("ID",$last_insert_id);
 		$id=$last_insert_id;
-		$newentrymsg = getLangContent("sprache", $_GET['lang'],"newentrymsg");
-		$def->assign("NEW_ENTRY_MSG", "$newentrymsg<br/>");
-		$def->assign("LANG", $_GET['lang']);
+		$def->assign("NEW_ENTRY_MSG", $spr['newentrymsg']."<br/>");
+		//$def->assign("LANG", $_GET['lang']);
 	}else{
 		$def->assign("ID",$_GET['id']);
 		$id=$_GET['id'];
-		$def->assign("LANG", $_GET['lang']);
+		//$def->assign("LANG", $_GET['lang']);
 	}
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
 	$sql = "SELECT * FROM institution WHERE id ='$id'";
 	$result = mysql_query($sql);
 	$array_eintrag = mysql_fetch_array($result);
 	
-	
-	
-	$institutiondetails = getLangContent("sprache", $lang, "institution_details");
-	$def->assign("LEGEND", "<b>$institutiondetails</b>");
+	$def->assign("LEGEND", "<b>".$spr['institution_details']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
 	//$def->parse("bearbeiten.form");	
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");
 	
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "name"),$array_eintrag['name'],'name');
+	genformitem($def,'textfield',$spr['name'],$array_eintrag['name'],'name');
 	$def->assign('NAME',$array_eintrag['name']);
 	$def->assign('g',($array_eintrag['gesperrt']==1?'g':''));
 	$def->parse("bearbeiten.bearbeiten_head_institution");
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "abkuerzung"),$array_eintrag['abkuerzung'],'abkuerzung');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "art"),$array_eintrag['art'],'art');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "adresse"),$array_eintrag['adresse'],'adresse');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "plz"),$array_eintrag['plz'],'plz');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "ort"),$array_eintrag['ort'],'ort');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "kontaktperson"),$array_eintrag['kontaktperson'],'kontaktperson');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "telefon"),$array_eintrag['telefon'],'telefon');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "fax"),$array_eintrag['fax'],'fax');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "email"),$array_eintrag['email'],'email');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "homepage"),$array_eintrag['homepage'],'homepage');
-	genformitem($def,'editstext',getLangContent("sprache",$lang, "zugang_zur_sammlung"),$array_eintrag['zugang_zur_sammlung'],'zugang_zur_sammlung');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "sammlungszeit")." ".getLangContent("sprache",$lang, "von"),$array_eintrag['sammlungszeit_von'],'sammlungszeit_von');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "sammlungszeit")." ".getLangContent("sprache",$lang, "bis"),$array_eintrag['sammlungszeit_bis'],'sammlungszeit_bis');
+	genformitem($def,'textfield',$spr['abkuerzung'],$array_eintrag['abkuerzung'],'abkuerzung');
+	genformitem($def,'textfield',$spr['art'],$array_eintrag['art'],'art');
+	genformitem($def,'textfield',$spr['adresse'],$array_eintrag['adresse'],'adresse');
+	genformitem($def,'textfield',$spr['plz'],$array_eintrag['plz'],'plz');
+	genformitem($def,'textfield',$spr['ort'],$array_eintrag['ort'],'ort');
+	genformitem($def,'textfield',$spr['kontaktperson'],$array_eintrag['kontaktperson'],'kontaktperson');
+	genformitem($def,'textfield',$spr['telefon'],$array_eintrag['telefon'],'telefon');
+	genformitem($def,'textfield',$spr['fax'],$array_eintrag['fax'],'fax');
+	genformitem($def,'textfield',$spr['email'],$array_eintrag['email'],'email');
+	genformitem($def,'textfield',$spr['homepage'],$array_eintrag['homepage'],'homepage');
+	genformitem($def,'editstext',$spr['zugang_zur_sammlung'],$array_eintrag['zugang_zur_sammlung'],'zugang_zur_sammlung');
+	genformitem($def,'textfield',$spr['sammlungszeit']." ".$spr['von'],$array_eintrag['sammlungszeit_von'],'sammlungszeit_von');
+	genformitem($def,'textfield',$spr['sammlungszeit']." ".$spr['bis'],$array_eintrag['sammlungszeit_bis'],'sammlungszeit_bis');
 	$sql ="DESCRIBE institution bildgattungen_set";//Beschreibung des Sets bekommen
 	$result = mysql_query($sql);
 	$fetch = mysql_fetch_array($result);
@@ -181,16 +161,16 @@ if ($fertig==1){
 	$array_set_list = explode ("','", $set_list);
 	$set= $array_eintrag[bildgattungen_set];
 	$array_set = explode (",", $set);
-	genselectitem($def, getLangContent("sprache",$lang, "bildgattungen"), $array_set, "bildgattungen", $array_set_list, "true", "", "");
-	genformitem($def,'edittext',getLangContent("sprache",$lang, "sammlungsgeschichte"),$array_eintrag['sammlungsgeschichte'],'sammlungsgeschichte');
-	genformitem($def,'edittext',getLangContent("sprache",$lang, "sammlungsbeschreibung"),$array_eintrag['sammlungsbeschreibung'],'sammlungsbeschreibung');
+	genselectitem($def, $spr['bildgattungen'], $array_set, "bildgattungen", $array_set_list, "true", "", "");
+	genformitem($def,'edittext',$spr['sammlungsgeschichte'],$array_eintrag['sammlungsgeschichte'],'sammlungsgeschichte');
+	genformitem($def,'edittext',$spr['sammlungsbeschreibung'],$array_eintrag['sammlungsbeschreibung'],'sammlungsbeschreibung');
 	$def->parse("bearbeiten.form.tend");
 	$def->parse("bearbeiten.form");
 	$def->parse("bearbeiten.form.fieldset_end");	
 	mabstand($def);
 	
-	$bestaende = getLangContent("sprache", $_GET['lang'], "bestaende");
-	$def->assign("LEGEND","<b>$bestaende</b>");
+	
+	$def->assign("LEGEND","<b>".$spr['bestaende']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");
 	bestaende($def,$id);
 	$def->parse("bearbeiten.form.fieldset_end");
@@ -198,8 +178,7 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form");
 	mabstand($def);
 	
-	$literatur = getLangContent("sprache", $_GET['lang'], "literatur");
-	$def->assign("LEGEND","<b>$literatur</b>");
+	$def->assign("LEGEND","<b>".$spr['literatur']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
 	literatur($def,$id);
 	$def->parse("bearbeiten.form.fieldset_end");
@@ -207,24 +186,21 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form");
 	mabstand($def);
 	
-	$ausstellung = getLangContent("sprache", $_GET['lang'], "ausstellungen");
-	$def->assign("LEGEND","<b>$ausstellung</b>");
+	$def->assign("LEGEND","<b>".$spr['ausstellungen']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
 	ausstellungen($def,$id);
 	$def->parse("bearbeiten.form.fieldset_end");	
 	$def->parse("bearbeiten.form");
 	mabstand($def);
 	
-	$institutionzusatz = getLangContent("sprache", $lang, "institution_zustatz");
-	$def->assign("LEGEND", "<b>$institutionzusatz</b>");
+	$def->assign("LEGEND", "<b>".$spr['institution_zusatz']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
 	$def->parse("bearbeiten.form.start");
 	//$def->parse("bearbeiten.form");
 	
-	genformitem($def,'edittext',getLangContent("sprache",$lang, "notiz"),$array_eintrag['notiz'],'notiz');
-	genformitem($def,'textfield',getLangContent("sprache",$lang, "autorIn"),$array_eintrag['autorin'],'autorin');
-	gencheckitem($def,getLangContent("sprache",$lang, "npublizieren"),$array_eintrag['gesperrt'],'unpubliziert');
-	$def->assign("BEARBEITUNGSDATUM", getLangContent("sprache",$lang, "bearbeitungsdatum"));
+	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz'],'notiz');
+	genformitem($def,'textfield',$spr['autorIn'],$array_eintrag['autorin'],'autorin');
+	gencheckitem($def,$spr['npublizieren'],$array_eintrag['gesperrt'],'unpubliziert');	
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
 	$def->parse("bearbeiten.form.fieldset_end");
 	//$def->parse("bearbeiten.form");	

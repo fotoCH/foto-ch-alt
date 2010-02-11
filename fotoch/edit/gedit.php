@@ -8,14 +8,11 @@ $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
 $lang = $_GET['lang'];
 $def->assign("LANG",$lang);
-$def->assign("EINTRAGLOESCHEN", "[&nbsp;".getLangContent("sprache", $lang, "eintragloeschen")."&nbsp;]");
-$def->assign("SPEICHERN", getLangContent("sprache", $lang, "speichern"));
-$def->assign("GLOSSARBEARBEITEN", getLangContent("sprache", $lang, "glossarbearbeiten"));
-$def->assign("VERKNUEPFUNGEN", getLangContent("sprache", $lang, "verknuepfungen"));
-$def->assign("ANSEHEN", getLangContent("sprache", $lang, "ansehen"));
-$def->assign("JA", getLangContent("sprache", $lang, "ja"));
-$def->assign("NEIN", getLangContent("sprache", $lang, "nein"));
 
+$def->assign("SPR",$spr);
+
+$def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
+$def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
 
 if ($_POST) escposts();
 
@@ -79,14 +76,13 @@ if ($fertig==1){
 	if($last_insert_id){
 		$def->assign("ID",$last_insert_id);
 		$id=$last_insert_id;
-		$def->assign("LANG",$_GET['lang']);
-		$newentrymsg = getLangContent("sprache", $_GET['lang'],"newentrymsg");
-		$def->assign("NEW_ENTRY_MSG", "$newentrymsg<br/>");
+		//$def->assign("LANG",$_GET['lang']);
+		$def->assign("NEW_ENTRY_MSG", $spr['newentrymsg']."<br/>");
 	}else{
 		$def->assign("ID",$_GET['id']);
 		$id=$_GET['id'];
 		$lang = $_GET['lang'];
-		$def->assign("LANG",$lang);
+		//$def->assign("LANG",$lang);
 	}
 
 	
@@ -98,8 +94,8 @@ if ($fertig==1){
 	
 	$def->assign("NAME", $array_eintrag['begriff']);
 	$def->parse("bearbeiten.bearbeiten_head_glossar");
-	$glossardetails = getLangContent("sprache", $lang, "glossardetails");
-	$def->assign("LEGEND", "<b>$glossardetails</b><br/>");
+	
+	$def->assign("LEGEND", "<b>".$spr['glossardetails']."</b><br/>");
 	$def->parse("bearbeiten.form.fieldset_start");
 	
 	//$def->parse("bearbeiten.new_bestand");
@@ -107,18 +103,17 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.start");
 
 
-	genformitem($def,'textfield',getLangContent("sprache", $lang, "begriff"),$array_eintrag['begriff'],'begriff');
+	genformitem($def,'textfield',$spr['begriff'],$array_eintrag['begriff'],'begriff');
 
-	genformitem($def,'textfield',getLangContent("sprache", $lang, "zeitraum"),$array_eintrag['zeitraum'],'zeitraum');
+	genformitem($def,'textfield',$spr['zeitraum'],$array_eintrag['zeitraum'],'zeitraum');
 
-	genformitem($def,'edittext',getLangContent("sprache", $lang, "erlaeuterung"),$array_eintrag['erlaeuterung'],'erlaeuterung');
-	genformitem($def,'edittext',getLangContent("sprache", $lang, "literatur"),$array_eintrag['literatur'],'literatur');
+	genformitem($def,'edittext',$spr['erlaeuterung'],$array_eintrag['erlaeuterung'],'erlaeuterung');
+	genformitem($def,'edittext',$spr['literatur'],$array_eintrag['literatur'],'literatur');
 	
-	$def->assign("BEARBEITUNGSDATUM", getLangContent("sprache", $lang, "bearbeitungsdatum"));
+	//$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
 
-	$neuereintrag = getLangContent("sprache", $lang, "neuereintrag");
-
+	
 	if(auth()){
 		//$def->assign("NEU"," | <a href=\"./?a=gedit&amp;id=new&amp;lang=$lang\">$neuereintrag</a>");
 	}else{

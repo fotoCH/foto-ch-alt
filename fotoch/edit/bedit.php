@@ -34,6 +34,8 @@ function procbestand($def,$array){
 	$def->assign("FOTOGRAF", $cuf);
 	$def->parse("bearbeiten.form.fotograf");
 }
+
+
 include("./fotofunc.inc.php");
 include("./backend.inc.php");
 //error_reporting((E_ALL));
@@ -44,21 +46,15 @@ $def->assign("id",$_GET['id']);
 $def->assign("ID", $_GET['id']);
 $lang = $_GET['lang'];
 $def->assign("LANG", $lang);
-$def->assign("BEARBEITEN", "[&nbsp;". getLangContent("sprache",$lang,"bearbeiten")."&nbsp;]");
-$def->assign("BEARBEITUNGSDATUM", getLangContent("sprache",$lang,"bearbeitungsdatum"));
-$def->assign("LOESCHEN", "[&nbsp;".getLangContent("sprache",$lang,"loeschen")."&nbsp;]");
-$def->assign("SPEICHERN", getLangContent("sprache",$lang,"speichern"));
-$def->assign("ANSEHEN", getLangContent("sprache",$lang,"ansehen"));//
-$def->assign("BESTANDBEARBEITEN", getLangContent("sprache",$lang,"bestandbearbeiten"));
-//$def->assign("BEARBEITEN", getLangContent("sprache",$lang,"bearbeiten"));
-$def->assign("FOTOGRAPHEN", getLangContent("sprache",$lang,"fotographen"));
-$def->assign("FOTOGRAPH", getLangContent("sprache",$lang,"fotograph"));
-$def->assign("EINTRAGLOESCHEN", "[&nbsp;".getLangContent("sprache",$lang,"eintragloeschen")."&nbsp;]");
-//$def->assign("BEARBEITEN", getLangContent("sprache",$lang,"bearbeiten"));
-$def->assign("VERKNUEPFEN", getLangContent("sprache",$lang,"verknuepfen"));
-$def->assign("VERKNUEPFUNGEN", getLangContent("sprache",$lang,"verknuepfungen"));
-$def->assign("JA",getLangContent("sprache",$lang,"ja"));
-$def->assign("NEIN",getLangContent("sprache",$lang,"nein"));
+
+$def->assign("SPR",$spr);
+
+$def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
+$def->assign("LOESCHEN", "[&nbsp;".$spr['loeschen']."&nbsp;]");
+$def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
+$def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
+
+
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
 	$sql = "INSERT INTO `bestand` ( `id` , `inst_id` , `name` , `fotografen` , `zeitraum` , `umfang` , `erschliessungsgrad` , `weiteres` , `fotografen_ref` , `convert_result` , `bildgattungen` , `bearbeitungsdatum` , `notiz` , `gesperrt` ) VALUES (NULL , '0', '', NULL , NULL , NULL , '', NULL , NULL , NULL , '', '0000-01-01', '', '0')";
@@ -148,13 +144,12 @@ if ($fertig==1){
 	if($last_insert_id){
 		$def->assign("ID",$last_insert_id);
 		$id=$last_insert_id;
-		$newentrymsg = getLangContent("sprache", $_GET['lang'], "newentrymsg");
-		$def->assign("NEW_ENTRY_MSG", "<h3>$newentrymsg</h3><br/>");
-		$def->assign("LANG",$_GET['lang']);
+		$def->assign("NEW_ENTRY_MSG", "<h3>".$spr['newentrymsg']."</h3><br/>");
+		//$def->assign("LANG",$_GET['lang']);
 	}else{
 		$def->assign("ID",$_GET['id']);
 		$id=$_GET['id'];
-		$def->assign("LANG",$_GET['lang']);
+		//$def->assign("LANG",$_GET['lang']);
 	}
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
 	$sql = "SELECT * FROM bestand WHERE id ='$id'";
@@ -175,8 +170,8 @@ if ($fertig==1){
 	$def->assign('NAME',$array_eintrag['name']);
 	$def->parse("bearbeiten.bearbeiten_head_bestand");
 	
-	$fotografen = getLangContent("sprache",$lang, "fotographen");
-	$def->assign("LEGEND","<b>$fotografen</b>");
+	
+	$def->assign("LEGEND","<b>".$spr['fotographen']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");
 		
 	$def->parse("bearbeiten.form.new_fotograf");
@@ -185,14 +180,13 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.tr");
 	$def->parse("bearbeiten.form");
 	
-	$bestanddetails = getLangContent("sprache", $lang, "bestand_details");
-	$def->assign("LEGEND","<b>$bestanddetails</b>");
+	$def->assign("LEGEND","<b>".$spr['bestand_details']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
 	$def->parse("bearbeiten.form.start");
 	
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"name"),$array_eintrag['name'],'name');
+	genformitem($def,'textfield',$spr['name'],$array_eintrag['name'],'name');
 	//$def->assign('NAME',$array_eintrag['name']);
-	gencheckitem($def,getLangContent("sprache",$lang,"nachlass"),$array_eintrag['nachlass'],'nachlass');
+	gencheckitem($def,$spr['nachlass'],$array_eintrag['nachlass'],'nachlass');
 	$sql = 'SELECT id , name FROM `institution` WHERE 1 ORDER BY name';
 	$result = mysql_query($sql);
 	while ($fetch = mysql_fetch_array($result)){
@@ -203,14 +197,14 @@ if ($fertig==1){
 	genselectitem($def, "Institution", $array_eintrag['inst_id'], "inst_id", $arr_inst, "", "", "");
 	genformitem($def,'instlink','',$array_eintrag['inst_id'],'');
 	//genformitem($def,'textfield','Institution (id)',$array_eintrag['inst_id'],'inst_id');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"zeitraum"),$array_eintrag['zeitraum'],'zeitraum');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"bestandsbeschreibung"),$array_eintrag['bestandsbeschreibung'],'bestandsbeschreibung');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"link_extern"),$array_eintrag['link_extern'],'link_extern');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"signatur"),$array_eintrag['signatur'],'signatur');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"copy"),$array_eintrag['copyright'],'copyright');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"umfang"),$array_eintrag['umfang'],'umfang');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"erschliessungsgrad"),$array_eintrag['erschliessungsgrad'],'erschliessungsgrad');
-	genformitem($def,'textfield',getLangContent("sprache",$lang,"weitere_materialien"),$array_eintrag['weiteres'],'weiteres');
+	genformitem($def,'textfield',$spr['zeitraum'],$array_eintrag['zeitraum'],'zeitraum');
+	genformitem($def,'textfield',$spr['bestandsbeschreibung'],$array_eintrag['bestandsbeschreibung'],'bestandsbeschreibung');
+	genformitem($def,'textfield',$spr['link_extern'],$array_eintrag['link_extern'],'link_extern');
+	genformitem($def,'textfield',$spr['signatur'],$array_eintrag['signatur'],'signatur');
+	genformitem($def,'textfield',$spr['copy'],$array_eintrag['copyright'],'copyright');
+	genformitem($def,'textfield',$spr['umfang'],$array_eintrag['umfang'],'umfang');
+	genformitem($def,'textfield',$spr['erschliessungsgrad'],$array_eintrag['erschliessungsgrad'],'erschliessungsgrad');
+	genformitem($def,'textfield',$spr['weitere_materialien'],$array_eintrag['weiteres'],'weiteres');
 	$sql ="DESCRIBE bestand bildgattungen";//Beschreibung des Sets bekommen
 	$result = mysql_query($sql);
 	$fetch = mysql_fetch_array($result);
@@ -219,9 +213,9 @@ if ($fertig==1){
 	$array_set_list = explode ("','", $set_list);
 	$set= $array_eintrag['bildgattungen'];
 	$array_set = explode (",", $set);
-	genselectitem($def, getLangContent("sprache",$lang,"bildgattungen"), $array_set, "bildgattungen", $array_set_list, "true", "", "");
-	genformitem($def,'edittext',getLangContent("sprache",$lang,"notiz"),$array_eintrag['notiz'],'notiz');
-	gencheckitem($def,getLangContent("sprache",$lang,"npublizieren"),$array_eintrag['gesperrt'],'unpubliziert');
+	genselectitem($def, $spr['bildgattungen'], $array_set, "bildgattungen", $array_set_list, "true", "", "");
+	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz'],'notiz');
+	gencheckitem($def,$spr['npublizieren'],$array_eintrag['gesperrt'],'unpubliziert');
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
 	$def->parse("bearbeiten.form.fieldset_end");	
 	$def->parse("bearbeiten");

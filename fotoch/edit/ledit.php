@@ -8,14 +8,12 @@ $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
 $lang = $_GET['lang'];
 $def->assign("LANG",$lang);
+
+$def->assign("SPR",$spr);
+
 $def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
 $def->assign("EINTRAGNEU", "|&nbsp;&nbsp;&nbsp;[&nbsp;".$spr['neuereintrag']."&nbsp;]");
-$def->assign("SPEICHERN", $spr['speichern']);
-$def->assign("LITERATURBEARBEITEN", $spr['literaturbearbeiten']);
-$def->assign("VERKNUEPFUNGEN", $spr['verknuepfungen']);
-$def->assign("ANSEHEN", $spr['ansehen']);
-$def->assign("JA", $spr['ja']);
-$def->assign("NEIN", $spr['nein']);
+
 
 if ($_POST) escposts();
 if ($_GET[id]=="new"){
@@ -63,11 +61,11 @@ if ($fertig==1){
 	if($last_insert_id){
 		$def->assign("ID",$last_insert_id);
 		$id=$last_insert_id;
-		$def->assign("LANG", $_GET['lang']);		
+		//$def->assign("LANG", $_GET['lang']);		
 		$def->assign("NEW_ENTRY_MSG", $spr['newentrymsg']."<br/>");
 	}else{
 		$def->assign("ID",$_GET['id']);
-		$def->assign("LANG", $_GET['lang']);
+		//$def->assign("LANG", $_GET['lang']);
 		$id=$_GET['id'];
 	}
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
@@ -100,8 +98,6 @@ if ($fertig==1){
 		//$def->assign("NEU","");
 	}
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
-	$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
-	
 	$def->parse("bearbeiten.form.fieldset_start");
 	$def->parse("bearbeiten");
 	$out.=$def->text("bearbeiten");
