@@ -26,7 +26,7 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 }
 
 
-///volltextsuche
+//volltextsuche
 $volltextsuche =getLangContent("sprache",$_GET['lang'],"volltextsuche");
 subgenformitem($def,'edittext',$volltextsuche,$fetch[test],'volltext');
 

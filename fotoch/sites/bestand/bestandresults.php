@@ -62,7 +62,7 @@ $def->assign("BEARBEITEN","[&nbsp;".getLangContent("sprache", $_GET['lang'], "be
 		
 				if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				$def->assign("FETCH",$fetch);
-				$def->parse("list.row".(($_SESSION['s_uid']=="fotobe")?'_admin':'_normal'));
+				$def->parse("list.row".(($_SESSION['s_uid']=="fotobe")?'_admin_bestand':'_normal_bestand'));
 			}
 		
 			$def->parse("list");
