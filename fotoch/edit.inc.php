@@ -15,7 +15,7 @@ function namen($def,$id){ //nur fotograf
 				$def->assign("STANDARD", "");				
 			}
 			$def->assign("NUM", $num);
-			$def->assign("NAMEN", $array);
+			$def->assign("NAMEN", $array);			
 			$def->parse("bearbeiten.form.namen");
 			$def->parse("bearbeiten.form");
 			$num++;
