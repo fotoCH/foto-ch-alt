@@ -1,5 +1,21 @@
 <!-- BEGIN:suchen --> {NEU} {AJAXBAR}
-	<form action="" method="get">
+
+	<script type="text/javascript">
+		function ifEnter(form, event){
+			if(event.which == 13 && event.shiftKey){
+				
+			}
+			else if(event.which == 13){
+				document.getElementById("search").submit();		
+			}
+			else {
+				
+			}		
+		}
+	</script>
+	
+
+	<form id="search" action="" method="get">	
 	<div>
 		<input type="hidden" name="a" value="{ACTION}" />
 		<input type="hidden" name="mod" value="{SEARCHMODE}" />
@@ -18,7 +34,7 @@
 <!-- BEGIN:edittext -->
     			<tr>
     				<td class="search"><label for="{name}">{label}</label></td>
-    				<td class="search_input"><textarea class="inputtext" id="{name}" name="{name}" rows="1" cols="">{value}</textarea></td>
+    				<td class="search_input"><textarea class="inputtext" id="{name}" name="{name}" rows="1" cols="" onKeyPress="ifEnter(this.form, event)" >{value}</textarea></td>
    			</tr>				
 <!-- END:edittext -->
 <!-- BEGIN:select -->				
