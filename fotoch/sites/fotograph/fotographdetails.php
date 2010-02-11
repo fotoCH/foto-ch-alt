@@ -5,27 +5,15 @@
 	$def->assign("LANG",$_GET['lang']);
 	$id=$_GET['id'];
 	$lang=$_GET['lang'];
-	$bearbeiten = "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bearbeiten")."&nbsp;]";
+	$def->assign("TITLE", $spr['fotographIn']);
+	$bearbeiten = "[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 
+	$def->assign("SPR", $spr);
 		
-	$fotographIn = getLangContent("sprache",$_GET['lang'],"fotographIn");
-	$def->assign("TITLE",$fotographIn);
+	
 	if(auth()) $def->assign("idd",$id);
 	
-	$nachname = getLangContent("sprache",$_GET['lang'],"nachname");
-	$def->assign("NACHNAME",$nachname);
-	
-	$vorname = getLangContent("sprache",$_GET['lang'],"vorname");
-	$def->assign("VORNAME",$vorname);
-	
 	$def->assign("KOMMA1", ", "); //assign komma for name, vorname in header
-	
-	$lebensdaten = getLangContent("sprache",$_GET['lang'],"lebensdaten");
-	$heimatort = getLangContent("sprache",$_GET['lang'],"heimatort");
-	$beruf = getLangContent("sprache",$_GET['lang'],"beruf");
-	$fotografengattungen = getLangContent("sprache",$_GET['lang'],"fotografengattungen");
-	$bildgattungen = getLangContent("sprache",$_GET['lang'],"bildgattungen");
-	$arbeitsort = getLangContent("sprache",$_GET['lang'],"arbeitsort");
 		
 		if(auth()) {
 			$result = mysql_query("SELECT * FROM fotografen WHERE (id=$id)");
@@ -89,15 +77,15 @@
 			$def->parse($det.".fldatum");
 			abstand($def);
 			
-			normfelda($def,$heimatort,trim($fetch['heimatort']));
+			normfelda($def,$spr['heimatort'],trim($fetch['heimatort']));
 			
-			normfelda($def,$beruf,trim($fetch['beruf']));
+			normfelda($def,$spr['beruf'],trim($fetch['beruf']));
 			
-			normfelda($def,$fotografengattungen,trim($fetch['fotografengattungen_set']));
+			normfelda($def,$spr['fotografengattungen'],trim($fetch['fotografengattungen_set']));
 			
-			normfelda($def,$bildgattungen,trim($fetch['bildgattungen_set']));
+			normfelda($def,$spr['bildgattungen'],trim($fetch['bildgattungen_set']));
 						
-			$def->assign("Arbeitsort",$arbeitsort);
+			//$def->assign("Arbeitsort",$spr['arbeitsort']);
 			
 			$result2=mysql_query("SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id");
 			
@@ -120,15 +108,17 @@
 			}
 			if(mysql_num_rows($result2)!=0) abstand($def); 
 			
-			$umfeld = getLangContent("sprache",$_GET['lang'],"umfeld");
-			$werdegang = getLangContent("sprache",$_GET['lang'],"werdegang");
-			$schaffensbeschrieb = getLangContent("sprache",$_GET['lang'],"schaffensbeschrieb");
-			$auszeichnungen_und_stipendien = getLangContent("sprache",$_GET['lang'],"auszeichnungen_und_stipendien");
-			normfelda($def,$umfeld,clean_entry($fetch['fumfeld']));
+			normfelda($def,$spr['umfeld'],clean_entry($fetch['fumfeld']));
 			
-			normfelda($def,$werdegang,clean_entry($fetch['werdegang']));
-			normfelda($def,$schaffensbeschrieb,clean_entry($fetch['schaffensbeschrieb']));
-			normfelda($def,$auszeichnungen_und_stipendien,clean_entry($fetch['auszeichnungen']));
+			if($fetch['showkurzbio'] == 1) {				
+				normfelda($def,$spr['biografie'],clean_entry($fetch['kurzbio']));
+			}
+			else {
+				normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang']));
+				normfelda($def,$spr['schaffensbeschrieb'],clean_entry($fetch['schaffensbeschrieb']));
+			}
+			
+			normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
 			
 			if(auth()){
 				$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, institution.name AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
@@ -140,9 +130,7 @@
 				WHERE (bestand_fotograf.fotografen_id=$id) AND (bestand.gesperrt=0) AND (institution.gesperrt=0) ORDER BY bestand.nachlass DESC, bestand.name ASC");
 			}
 			
-			$bestaende = getLangContent("sprache",$_GET['lang'],"bestaende");
-			
-			$bes=$bestaende;
+			$bes=$spr['bestaende'];
 			while($fetch6=mysql_fetch_array($result6)){
 				if (auth() || $fetch6['instgesp']==0){ 
 					$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
@@ -179,10 +167,7 @@
 			}
 			if(mysql_num_rows($result3)>0) abstand($def);
 			$lit='';
-	
-			$primaerliteratur = getLangContent("sprache",$_GET['lang'],"primaerliteratur");
-			$sekundaerliteratur = getLangContent("sprache",$_GET['lang'],"sekundaerliteratur");
-			
+		
 			$result7=mysql_query("SELECT literatur_fotograf.fotografen_id, literatur_fotograf.id AS if_id, literatur_fotograf.typ AS if_typ, IF(literatur_fotograf.typ='P',literatur.jahr,literatur.verfasser_name) AS sortsp, literatur.*
 			FROM literatur_fotograf INNER JOIN literatur ON literatur_fotograf.literatur_id = literatur.id
 			WHERE literatur_fotograf.fotografen_id=$id ORDER BY if_typ, sortsp");
@@ -195,7 +180,7 @@
 						$litHasChanged = true;
 					}
 					$lit=$fetch7['if_typ'];
-					$fetch7['Literatur']=($lit=='P'?$primaerliteratur:$sekundaerliteratur);
+					$fetch7['Literatur']=($lit=='P'?$spr['primaerliteratur']:$spr['sekundaerliteratur']);
 					//if ($lit=='S') abstand($def);
 				} else {
 					$fetch7['Literatur']='';
@@ -208,15 +193,12 @@
 			}
 			if(mysql_num_rows($result7)!=0) abstand($def); 
 			if (auth()){  //alte Literatur
-				normfelda($def,getLangContent("sprache",$_GET['lang'],"primaerliteratur_alt"),$fetch['primaerliteratur']);
-				normfelda($def,getLangContent("sprache",$_GET['lang'],"sekundaerliteratur_alt"),$fetch['sekundaerliteratur']);
-	
+				normfelda($def,$spr['primaerliteratur_alt'],$fetch['primaerliteratur']);
+				normfelda($def,$spr['sekundaerliteratur_alt'],$fetch['sekundaerliteratur']);
 			}
 	
 			$aus='';
-			$einzelaustellungen = getLangContent("sprache",$_GET['lang'],"einzelaustellungen");
-			$gruppenaustellungen = getLangContent("sprache",$_GET['lang'],"gruppenaustellungen");
-			
+				
 			$result8=mysql_query("SELECT ausstellung_fotograf.fotograf_id, ausstellung_fotograf.id AS af_id, ausstellung.*
 			FROM ausstellung_fotograf INNER JOIN ausstellung ON ausstellung_fotograf.ausstellung_id = ausstellung.id
 			WHERE ausstellung_fotograf.fotograf_id=$id ORDER BY ausstellung.typ, ausstellung.jahr, ausstellung.ort, af_id");
@@ -228,7 +210,7 @@
 						$typeHasChanged=true;
 					}					
 					$aus=$fetch8['typ'];
-					$fetch8['Ausstellung']=($aus=='E'?$einzelaustellungen:$gruppenaustellungen);
+					$fetch8['Ausstellung']=($aus=='E'?$spr['einzelaustellungen']:$spr['gruppenaustellungen']);
 					//if ($aus=='E') abstand($def);
 					//abstand($def);
 				} else {
@@ -242,22 +224,20 @@
 			}
 			if(mysql_num_rows($result8)!=0) abstand($def);
 			if (auth()){  //alte Literatur
-				normfelda($def,getLangContent("sprache",$_GET['lang'],"einzelausstellung_alt"),$fetch['einzelausstellungen']);
-				normfelda($def,getLangContent("sprache",$_GET['lang'],"gruppenausstellung_alt"),$fetch['gruppenausstellungen']);
+				normfelda($def,$spr['einzelausstellung_alt'],$fetch['einzelausstellungen']);
+				normfelda($def,$spr['gruppenausstellung_alt'],$fetch['gruppenausstellungen']);
 				if(!empty($fetch['kanton'])){
 					//add whitespace after every kanton (after ",") in order to allow a table to add <br />. otherwise the layout
 					//will be broken. especially schweizerischer berufsfotografen verband..
 					$kantone = str_replace(",", ", ",$fetch['kanton']);
 					//echo $kantone;
 				}
-				normfelda($def,getLangContent("sprache",$_GET['lang'],"kantone"),$kantone);
-				normfelda($def,getLangContent("sprache",$_GET['lang'],"notiz"),$fetch['notiz']);
-				normfeld($def,getLangContent("sprache",$_GET['lang'],"npublizieren"),$fetch['unpubliziert']);
+				normfelda($def,$spr['kantone'],$kantone);
+				normfelda($def,$spr['notiz'],$fetch['notiz']);
+				normfeld($def,$spr['npublizieren'],$fetch['unpubliziert']);
 			}
-			$autorIn= getLangContent("sprache",$_GET['lang'],"autorIn");
-			$bearbeitungsdatum= getLangContent("sprache",$_GET['lang'],"bearbeitungsdatum");
-			normfeld($def,$autorIn,$fetch['autorIn']);
-			normfeld($def,$bearbeitungsdatum,$fetch['fbearbeitungsdatum']);
+			normfeld($def,$spr['autorIn'],$fetch['autorIn']);
+			normfeld($def,$spr['bearbeitungsdatum'],$fetch['fbearbeitungsdatum']);
 			if (auth()){
 				$def->assign('g',$fetch['unpubliziert']==1?'g':'');
 			}	

@@ -1,5 +1,6 @@
 <?php
 include ("./mysql.inc.php");
+include ("./fotofunc.inc.php");
 $editpages= new XTemplate("./templates/contents.xtpl");
 $editablePages=array("partner_content", "impressum_content", "kontakt_content", "sitemap_content", "handbuch_content", "handbuch_index", "home_content","home_logos");
 $editpages->assign("ITEM", "<h2>".getLangContent("sprache",$_GET['lang'],"editpages")."</h2>");
@@ -15,6 +16,9 @@ for($i = 0 ; $i < sizeof($editablePages); $i++) {
 	$editpages->parse("contents.editpages.select.option");
 }
 $editpages->parse("contents.editpages.select");
+
+if($_POST) escpost();
+
 if($_POST['submit']!=''){
 	//then the content of the fck editor wants to be saved
 	$page = $_POST['page'];

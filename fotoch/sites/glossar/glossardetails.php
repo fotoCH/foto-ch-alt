@@ -5,10 +5,13 @@ $def=new XTemplate ("././templates/item_details.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);
 $def->assign("LANG", $_GET['lang']);
-$def->assign("TITLE", getLangContent("sprache",$_GET['lang'],"glossar"));
+
+$def->assign("SPR",$spr);
+
 $id=$_GET['id'];
 $anf=$_GET['anf'];
-$def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bearbeiten")."&nbsp;]");
+$def->assign("TITLE", $spr['glossar']);
+$def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 
 	$result=mysql_query("SELECT * FROM glossar WHERE id=$id");
 
@@ -23,7 +26,7 @@ $def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bea
 				//print "$key=>$value<br />";
 				//$key=ucfirst($key);
 				if($value!=''){
-					$def->assign("key",getLangContent("sprache",$_GET['lang'],$key));
+					$def->assign("key",$spr[$key]);
 					$def->assign("value",$value);
 					$def->parse("autodetail.z.autorow");
 					$def->parse("autodetail.z");
@@ -45,7 +48,7 @@ $def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bea
 				}else{
 					//$key=ucfirst($key);
 					if($value!=''){
-						$def->assign("key",getLangContent("sprache",$_GET['lang'],$key));
+						$def->assign("key",$spr[$key]);
 						$def->assign("value",$value);
 						$def->parse("autodetail.z.autorow");
 						$def->parse("autodetail.z");

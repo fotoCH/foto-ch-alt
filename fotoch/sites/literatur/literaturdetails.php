@@ -6,8 +6,8 @@
 	$id = $_GET['id'];
 	$lang = $_GET['lang'];
 	$def->assign("LANG", $_GET['lang']);
-	$def->assign("TITLE", getLangContent("sprache",$_GET['lang'], "literatur"));
-	$bearbeiten = "[&nbsp;".getLangContent("sprache",$_GET['lang'], "bearbeiten")."&nbsp;]";
+	$def->assign("TITLE", $spr['literatur']);
+	$bearbeiten = "[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 	
 	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
 	//if(mysql_num_rows($result)>0){ echo "es" ;} else {echo "no";}
@@ -17,7 +17,7 @@
 			foreach ($fetch as $key=>$value){
 				
 				if($value!=''){
-					$def->assign("key",getLangContent("sprache",$_GET['lang'], $key));
+					$def->assign("key",$spr[$key]);
 					$def->assign("value",$value);
 					$def->parse("autodetail.z.autorow");
 					$def->parse("autodetail.z");
@@ -34,7 +34,7 @@
 				}else{
 					//$key=ucfirst($key);
 					if($value!=''){
-						$def->assign("key",getLangContent("sprache",$_GET['lang'], $key));
+						$def->assign("key",$spr[$key]);
 						$def->assign("value",$value);
 						$def->parse("autodetail.z.autorow");
 						$def->parse("autodetail.z");
@@ -46,7 +46,7 @@
 	}
 	$result6=mysql_query("SELECT * FROM literatur_fotograf WHERE literatur_id=$id");
 	
-	$def->assign("Fotograf",getLangContent("sprache",$_GET['lang'], "fotographIn"));
+	$def->assign("fotografIn",$spr['fotografIn']);
 	$fotogr=array();
 	while($fetch6=mysql_fetch_array($result6)){
 		

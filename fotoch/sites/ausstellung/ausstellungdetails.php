@@ -6,8 +6,10 @@
 	$id = $_GET['id'];
 	$lang = $_GET['lang'];
 	$def->assign("LANG", $_GET['lang']);
-	$bearbeiten = "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bearbeiten")."&nbsp;]";
-	$def->assign("TITLE",getLangContent("sprache",$_GET['lang'],"ausstellung"));
+	$bearbeiten = "[&nbsp;".$spr['bearbeiten']."&nbsp;]";
+	$def->assign("TITLE", $spr['ausstellung']);
+	$def->assign("SPR",$spr);
+	
 	$id=$_GET['id'];
 	$anf=$_GET['anf'];
 	$result=mysql_query("SELECT * FROM ausstellung WHERE id=$id");
@@ -18,7 +20,7 @@
 			foreach ($fetch as $key=>$value){
 				
 				if($value!=''){
-					$def->assign("key",getLangContent("sprache",$_GET['lang'],$key));
+					$def->assign("key",$spr[$key]);
 					$def->assign("value",$value);
 					$def->parse("autodetail.z.autorow");
 					$def->parse("autodetail.z");
@@ -35,7 +37,7 @@
 				}else{
 					//$key=ucfirst($key);
 					if($value!=''){
-						$def->assign("key",getLangContent("sprache",$_GET['lang'],$key));
+						$def->assign("key",$spr[$key]);
 						$def->assign("value",$value);
 						$def->parse("autodetail.z.autorow");
 						$def->parse("autodetail.z");
@@ -48,7 +50,7 @@
 	
 	$result6=mysql_query("SELECT * FROM ausstellung_fotograf WHERE ausstellung_id=$id");
 	
-	$def->assign("Fotograf","FotografInnen");
+	$def->assign("fotografIn",$spr['fotografIn']);
 	$fotogr=array();
 	while($fetch6=mysql_fetch_array($result6)){
 		
@@ -68,7 +70,7 @@
 		if (auth() || ($fotogr[$k]['gesperrt']==0)) $def->parse("autodetail.z.bestn_2.flink"); else 		$def->parse("autodetail.z.bestn_2.fnlink");
 		$def->parse("autodetail.z.bestn_2");
 		$def->parse("autodetail.z");
-		$def->assign("Fotograf","");
+		$def->assign("fotografIn","");
 	
 	}
 	if(auth()) $def->assign("BEARBEITEN","<a href=\"./?a=aedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
