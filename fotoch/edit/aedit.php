@@ -8,14 +8,16 @@ $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
 $lang = $_GET['lang'];
 $def->assign("LANG", $lang);
-$def->assign("EINTRAGLOESCHEN", "[&nbsp;".getLangContent("sprache", $lang, "eintragloeschen")."&nbsp;]");
-$def->assign("SPEICHERN", getLangContent("sprache", $lang, "speichern"));
-$def->assign("VERKNUEPFUNGEN", getLangContent("sprache", $lang, "verknuepfungen"));
+$def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
+$def->assign("EINTRAGNEU", "|&nbsp;&nbsp;&nbsp;[&nbsp;".$spr['neuereintrag']."&nbsp;]");
+$def->assign("SPEICHERN", $spr['speichern']);
+$def->assign("VERKNUEPFUNGEN", $spr['verknuepfungen']);
 //$def->assign("VERKNUEPFUNG", getLangContent("sprache", $lang, "verknuepfung"));
-$def->assign("ANSEHEN", getLangContent("sprache", $lang, "ansehen"));
-$def->assign("AUSSTELLUNGBEARBEITEN", getLangContent("sprache", $lang, "ausstellungbearbeiten"));
-$def->assign("JA", getLangContent("sprache", $lang, "ja"));
-$def->assign("NEIN", getLangContent("sprache", $lang, "nein"));
+$def->assign("ANSEHEN", $spr['ansehen']);
+$def->assign("AUSSTELLUNGBEARBEITEN", $spr['ausstellungbearbeiten']);
+$def->assign("JA", $spr['ja']);
+$def->assign("NEIN", $spr['nein']);
+
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
 	$sql = "INSERT INTO `ausstellung` ( `id` , `titel` , `jahr` , `ort` , `institution` , `typ` , `code` , `text_alt` ) VALUES (NULL , '', NULL , NULL , NULL , 'E', NULL , '')";
@@ -63,8 +65,7 @@ if ($fertig==1){
 	if($last_insert_id){
 		$def->assign("ID",$last_insert_id);
 		$id=$last_insert_id;
-		$newentrymsg = getLangContent("sprache", $lang, "newentrymsg");
-		$def->assign("NEW_ENTRY_MSG", "<h3>$newentrymsg</h3><br/>");
+		$def->assign("NEW_ENTRY_MSG", "<h3>".$spr['newentrymsg']."</h3><br/>");
 		$lang = $_GET['lang'];
 		$def->assign("LANG", $lang);
 	}else{
@@ -81,23 +82,21 @@ if ($fertig==1){
 	
 	$def->assign("TITEL", $array_eintrag['titel']);
 	$def->parse("bearbeiten.bearbeiten_head_ausstellung");
-	$ausstellungsdetails = getLangContent("sprache", $lang,"ausstellung_details");
-	$def->assign("LEGEND", "<b>$ausstellungsdetails</b><br/>");
+	$def->assign("LEGEND", "<b>".$spr['ausstellung_details']."</b><br/>");
 	$def->parse("bearbeiten.form.fieldset_start");
 	$def->parse("bearbeiten.form.start");
 	
-	genformitem($def,'textfield',getLangContent("sprache", $lang, "jahr"),$array_eintrag['jahr'],'jahr');
-	genformitem($def,'textfield',getLangContent("sprache", $lang, "ort"),$array_eintrag['ort'],'ort');
-	genformitem($def,'textfield',getLangContent("sprache", $lang, "institution"),$array_eintrag['institution'],'institution');
-	genformitem($def,'textfield',getLangContent("sprache", $lang, "titel"),$array_eintrag['titel'],'titel');
+	genformitem($def,'textfield',$spr['jahr'],'jahr');
+	genformitem($def,'textfield',$spr['ort'],$array_eintrag['ort'],'ort');
+	genformitem($def,'textfield',$spr['institution'],$array_eintrag['institution'],'institution');
+	genformitem($def,'textfield',$spr['titel'],$array_eintrag['titel'],'titel');
 	$arr_typ=array("E" =>"E", "G" =>"G");   //Array füllen für Select
-	genselectitem($def, getLangContent("sprache", $lang, "typ"), $array_eintrag['typ'], "typ", $arr_typ, "", "", "");
-	genformitem($def,'textfield',getLangContent("sprache", $lang, "notiz"),$array_eintrag['notiz'],'notiz');	
-	$def->assign("BEARBEITUNGSDATUM", getLangContent("sprache", $lang, "bearbeitungsdatum"));
+	genselectitem($def, $spr['typ'], $array_eintrag['typ'], "typ", $arr_typ, "", "", "");
+	genformitem($def,'textfield',$spr['notiz'],$array_eintrag['notiz'],'notiz');	
+	$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
-	if(auth()){
-		$neuereintrag = "[&nbsp;".getLangContent("sprache",$_GET['lang'], "neuereintrag")."&nbsp;]";
-		$def->assign("NEU"," | <a href=\"./?a=aedit&amp;id=new\">$neuereintrag</a>");
+	if(auth()){		
+		$def->assign("NEU"," | <a href=\"./?a=aedit&amp;id=new\">".$spr['neuereintrag']."</a>");
 	}else{
 		$def->assign("NEU","");
 	}

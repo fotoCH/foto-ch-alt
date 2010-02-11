@@ -24,6 +24,11 @@ $def->assign("ARBEITSORTHINZUFUEGEN",  "[&nbsp;".$spr['arbeitsort_hinzufuegen'].
 $def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
 $def->assign("BEZEICHNUNGHINZUFUEGEN", "[&nbsp;".$spr['bezeichnung_hinzufuegen']."&nbsp;]");
 
+$def->assign("NEUERARBEITSORT", $spr['neuer_arbeitsort']);
+$def->assign("NEUEAUSSTELLUNG", $spr['neue_ausstellung']);
+$def->assign("NEUELITERATUR", $spr['neue_literatur']);
+$def->assign("NEUERBESTAND", $spr['neuer_bestand']);
+
 $def->assign("bestand", $spr['bestand']);
 $def->assign("ausstellung",$spr['ausstellung']);
 $def->assign("literatur",$spr['literatur']);
