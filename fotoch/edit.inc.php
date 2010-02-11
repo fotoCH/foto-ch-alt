@@ -11,8 +11,9 @@ function namen($def,$id){ //nur fotograf
 			}else{
 				$lang = $_GET['lang'];
 				$loeschen = getLangContent("sprache", $_GET['lang'], "loeschen");
-				$def->assign("DELETE", "[&nbsp;<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">$loeschen</a>&nbsp;]");
-				$def->assign("STANDARD", "");				
+				$def->assign("DELETE", "<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">[&nbsp;".$loeschen."&nbsp;]</a>");
+				$def->assign("STANDARD", "");	
+				$def->assign("BR","<br />")	;		
 			}
 			$def->assign("NUM", $num);
 			$def->assign("NAMEN", $array);			
@@ -104,7 +105,7 @@ function ausstellungen($def,$id){
 		$num=1;
 		while($array=mysql_fetch_array($result)){
 			$def->assign("NUM", $num);
-			$def->assign("AUSSTELLUNG", $array);
+			$def->assign("AUSSTELLUNG", $array);			
 			$def->parse("bearbeiten.form.ausstellung");
 			$def->parse("bearbeiten.form");
 			$num++;
