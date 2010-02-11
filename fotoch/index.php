@@ -33,11 +33,6 @@ if (!in_array($action,$actions)) $action='home';  // default Startseite
 if(!empty($_SESSION['s_uid'])){
 	$xtpl = new XTemplate("templates/main_intern.xtpl");
 	$xtpl->assign("LOG","logout");
-//	$xtpl->assign("BESTAND", getLangContent("sprache", $language, "bestand"));
-//	$xtpl->assign("LITERATUR", getLangContent("sprache", $language, "literatur"));
-//	$xtpl->assign("AUSSTELLUNG", getLangContent("sprache", $language, "ausstellung"));
-//	xtpl->assign("GLOSSAR", getLangContent("sprache", $language, "glossar"));
-//	$xtpl->assign("EDITPAGES", getLangContent("sprache", $language, "editpages"));
 	
 } else {
 	if($action == "fotograph" || $action == "bestand" || $action == "institution"){
