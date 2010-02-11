@@ -42,7 +42,7 @@
 	 </tr>
 <!-- END:row_normal_bestand -->
 <!-- BEGIN:row_admin_bestand -->
-        <tr>
+     <tr>
 		<td valign="baseline"><span class="subtitle3"><a href="./?a=bestand&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
 		<td valign="baseline"><span class="{FETCH.nameclass}">{FETCH.name}</span></td>
 		<td valign="baseline"><span class="subtitle3">&nbsp;<a href="./?a=bedit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
