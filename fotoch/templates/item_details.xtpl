@@ -9,7 +9,7 @@
 
 <!-- BEGIN:namen -->    		
     		<tr>
-    				<td valign="baseline"  class="detail_label"><span class="subtitle2">{NACHNAME}{KOMMA1} {VORNAME}</span></td>
+    				<td valign="baseline"  class="detail_label"><span class="subtitle2">{SPR.nachname}{KOMMA1} {SPR.vorname}</span></td>
     				<td valign="baseline"><span class="subtitle3{g}">{FETCH4.titel} {FETCH4.nachname}{KOMMA} {FETCH4.vorname} {FETCH4.namenszusatz}{FETCH4.idf}</span>&nbsp;&nbsp;{bearb}</td>
  		</tr>
 <!-- END:namen -->
@@ -37,7 +37,7 @@
 <!-- END:sfeld -->
 <!-- BEGIN:arb -->
 					<tr>
-    					<td valign="top"><span class="subtitle2">{Arbeitsort}</span></td>
+    					<td valign="top"><span class="subtitle2">{SPR.arbeitsort}</span></td>
     					<td><span class="text2">{FETCH2.arbeitsort} 
 <!-- BEGIN:vonbis --> {FETCH2.um_vonf}{FETCH2.von} - {FETCH2.um_bisf}{FETCH2.bis}
 
@@ -61,7 +61,7 @@
 <!-- END:bestn -->
 <!-- BEGIN:bestn_2 -->
     		<tr>
-    			<td class="detail_label"><span class="subtitle2">{Fotograf}</span></td>    				
+    			<td class="detail_label"><span class="subtitle2">{fotografIn}</span></td>    				
     			<td><span class="subtitle3{g}"><!-- BEGIN:flink --><a href="./?a=fotograph&amp;id={FETCH6.fotografen_id}&amp;lang={LANG}">{FETCH6.name}</a><!-- END:flink --><!-- BEGIN:fnlink -->{FETCH6.name}<!-- END:fnlink --></span></td>
  		</tr>    	
 <!-- END:bestn_2 -->
@@ -96,20 +96,20 @@
 <!-- END:aus -->
 <!-- BEGIN:bearbeiten_ausstellung -->
 		<tr>
-    				<td valign="baseline" class="detail_label"><span class="subtitle2"><a href="./?a=aedit&amp;id={ID}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>    				
+    				<td valign="baseline" class="detail_label"><span class="subtitle2"><a href="./?a=aedit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></span></td>    				
     				<td valign="baseline"><span class="date">&nbsp;</span></td>
  		</tr>
 <!-- END:bearbeiten_ausstellung -->
 <!-- BEGIN:bearbeiten_literatur -->
 		<tr>
     				
-    				<td class="detail_label"><a href="./?a=ledit&amp;id={ID}&amp;lang={LANG}">{BEARBEITEN}</a></td>
+    				<td class="detail_label"><a href="./?a=ledit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></td>
     				<td valign="baseline"><span class="date">&nbsp;</span></td>
  		</tr> 
 <!-- END:bearbeiten_literatur -->
 <!-- BEGIN:bearbeiten_glossar -->
     		<tr>
-    				<td valign="baseline"><span class="subtitle2"><a href="./?a=gedit&amp;id={ID}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+    				<td valign="baseline"><span class="subtitle2"><a href="./?a=gedit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></span></td>
     				<td valign="baseline"><span class="date"> </span></td>
  		</tr>   
 <!-- END:bearbeiten_glossar --> 

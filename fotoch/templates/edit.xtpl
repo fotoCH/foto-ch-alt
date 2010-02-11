@@ -15,9 +15,9 @@
 	</script>
 
 <!-- BEGIN:bearbeiten_head_fotograf -->
-<h2>{FOTOGRAPHBEARBEITEN}</h2><a name="top"></a>
+<h2>{SPR.fotographbearbeiten}</h2><a name="top"></a>
 <h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAMEN.nachname}, {NAMEN.vorname} </span></h3>
-<a href="./?a=fotograph&amp;id={ID}&amp;lang={LANG}">{ANSEHEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{VERKNUEPFUNGEN}</a>
+<a href="./?a=fotograph&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
 <br/>
 <br/>
 <script>
@@ -71,18 +71,18 @@ function submitita(v)
 <!-- END:bearbeiten_head_fotograf -->
 
 <!-- BEGIN:bearbeiten_head_institution -->
-	<h2>{INSTITUTIONBEARBEITEN}</h2>
+	<h2>{SPR.institutionbearbeiten}</h2>
 	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3>
-	<a href="./institution_export.php?id={ID}&amp;lang={LANG}" target="_new">{DATENEXPORTIEREN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="./?a=institution&amp;id={ID}&amp;lang={LANG}">{ANSEHEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{VERKNUEPFUNGEN}</a><br /></p>
+	<a href="./institution_export.php?id={ID}&amp;lang={LANG}" target="_new">{SPR.datenexportieren}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="./?a=institution&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a><br /></p>
 	<br/>
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 <!-- END:bearbeiten_head_institution -->
 
 <!-- BEGIN:bearbeiten_head_bestand -->
 
-	<h2>{BESTANDBEARBEITEN}</h2>
+	<h2>{SPR.bestandbearbeiten}</h2>
 	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3>
-	<a href="./?a=bestand&amp;id={ID}&amp;lang={LANG}">{ANSEHEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{VERKNUEPFUNGEN}</a><br /></p><br/>
+	<a href="./?a=bestand&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a><br /></p><br/>
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 
 	        <script type="text/javascript" src="js/vorschlag.js"></script>
@@ -98,9 +98,9 @@ function submitita(v)
 
 <!-- BEGIN:bearbeiten_head_ausstellung -->
 
-	<h2>{AUSSTELLUNGBEARBEITEN}</h2>
+	<h2>{SPR.ausstellungbearbeiten}</h2>
 	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{TITEL}</span></h3>
-	<a href="./?a=ausstellung&amp;id={ID}&amp;lang={LANG}">{ANSEHEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{VERKNUEPFUNGEN}</a>
+	<a href="./?a=ausstellung&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 	<br/>
 
@@ -109,9 +109,9 @@ function submitita(v)
 
 <!-- BEGIN:bearbeiten_head_glossar -->
 
-	<h2>{GLOSSARBEARBEITEN}</h2>
+	<h2>{SPR.glossarbearbeiten}</h2>
 	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3>
-	<a href="./?a=glossar&amp;id={ID}&amp;lang={LANG}">{ANSEHEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{VERKNUEPFUNGEN}</a>
+	<a href="./?a=glossar&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
 	<br/>
 	<br/>
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
@@ -121,8 +121,9 @@ function submitita(v)
 
 <!-- BEGIN:bearbeiten_head_literatur -->
 
-	<h2>{LITERATURBEARBEITEN}</h2><h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{TITEL}</span></h3>
-	<a href="./?a=literatur&amp;id={ID}&amp;lang={LANG}">{ANSEHEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{VERKNUEPFUNGEN}</a>
+	<h2>{SPR.literaturbearbeiten}</h2>
+	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{TITEL}</span></h3>
+	<a href="./?a=literatur&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
 	<br/>
 	<br/>
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
@@ -142,30 +143,30 @@ function submitita(v)
 	</fieldset>
 <!-- END:fieldset_end -->
 <!-- BEGIN:namen-->
-
+{BR}
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<tr>
-			<td class="edit"><label class="edit" for="">{NUM}. {BEZEICHNUNG}</label></td>
+			<td class="edit"><label class="edit" for="">{NUM}. {SPR.bezeichnung}</label></td>
 			<td></td>
 		</tr>
 		<tr>	
     			
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="nachname{NAMEN.id}">{NACHNAME}</label></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="nachname{NAMEN.id}">{SPR.nachname}</label></td>
 			<td><input type="text" class="text_edit" id="nachname{NAMEN.id}" name="nachname{NAMEN.id}" value="{NAMEN.nachname}"/></td>
 		</tr>
 		<tr>
 			
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="vorname{NAMEN.id}">{VORNAME}</label></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="vorname{NAMEN.id}">{SPR.vorname}</label></td>
 			<td><input type="text" class="text_edit" id="vorname{NAMEN.id}" name="vorname{NAMEN.id}" value="{NAMEN.vorname}"/></td>
 		</tr>
 		<tr>
 			
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="zusatz{NAMEN.id}">{ZUSATZ}</label></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="zusatz{NAMEN.id}">{SPR.zusatz}</label></td>
 			<td><input type="text" class="text_edit" id="zusatz{NAMEN.id}" name="zusatz{NAMEN.id}" value="{NAMEN.namenszusatz}"/></td>
 		</tr>
 		<tr>
 			
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="titel{NAMEN.id}">{TITEL}</label></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="edit" for="titel{NAMEN.id}">{SPR.titel}</label></td>
 			<td><input type="text" class="text_edit" id="titel{NAMEN.id}" name="titel{NAMEN.id}" value="{NAMEN.titel}"/></td>
 		</tr>
 		<tr>
@@ -173,26 +174,26 @@ function submitita(v)
 				&nbsp;
 			</td>
 			<td >
-				<input type="submit" class="jsubmit" name="submit_namen" value="{SPEICHERN}" onclick="submititn({NAMEN.id});"/>
+				<input type="submit" class="jsubmit" name="submit_namen" value="{SPR.speichern}" onclick="submititn({NAMEN.id});"/>
 				&nbsp;&nbsp;&nbsp;&nbsp;{DELETE}
 				&nbsp;&nbsp;&nbsp;&nbsp;<a href="./?a={ACTION}&amp;n=new&amp;id={ID}&amp;lang={LANG}">{BEZEICHNUNGHINZUFUEGEN}</a>
 			</td>
 						
 		</tr>
 	</table>
-
+	
 <!-- END:namen -->
 <!-- BEGIN:new_fotograf -->
 	
 	<table class="edit" cellpadding="5" cellspacing="0">
 		<input type="hidden" name="id" value="{ID}">
 		<tr>
-			<td class="edit"><label for="foto" class="edit">{FOTOGRAPHEN}:</label></td>
+			<td class="edit"><label for="foto" class="edit">{SPR.fotographen}:</label></td>
     			<td>
 				<input type="text" id="foto" class="jsearch"/>&nbsp;&nbsp;
 				<input type="text" id="newfotoid" class="jindex"/> 
-				<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=fotograph&amp;lang={LANG}&amp;id='+(this.form.newfotoid.value)"/> 
-				<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;new_fotograf=1&amp;id={ID}&amp;fotograf_id='+(this.form.newfotoid.value)"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=fotograph&amp;lang={LANG}&amp;id='+(this.form.newfotoid.value)"/> 
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;new_fotograf=1&amp;id={ID}&amp;fotograf_id='+(this.form.newfotoid.value)"/>
 			</td>
 		</tr>
 	</table>
@@ -203,7 +204,7 @@ function submitita(v)
 	<br />
 	<table class="edit" cellpadding="5" cellspacing="0">
 		<tr>    							
-			<td class="edit"><label for="" class="edit">{NUM}. {FOTOGRAPH}</label></td>
+			<td class="edit"><label for="" class="edit">{NUM}. {SPR.fotographIn}</label></td>
 			<td >
 				<a href="./?a=fotograph&amp;id={FOTOGRAF.fotografen_id}&amp;lang={LANG}">{FOTOGRAF.nachname}, {FOTOGRAF.vorname} {FOTOGRAF.zusatz}  ({FOTOGRAF.fotografen_id})</a>&nbsp;&nbsp;
 				<a href="./?a=edit&amp;id={FOTOGRAF.fotografen_id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -215,7 +216,7 @@ function submitita(v)
 					<option {selected}value="{ovalue}" class="edit">{olabel}</option>
 		<!-- END:option -->
 				</select> 
-				<input type="button" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;f=edit&amp;nid='+(this.form.namenid.value)+'&amp;f_id={FOTOGRAF.bf_id}&amp;id={ID}'" value="Namen ausw&auml;hlen" />
+				<input type="button" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;f=edit&amp;nid='+(this.form.namenid.value)+'&amp;f_id={FOTOGRAF.bf_id}&amp;id={ID}'" value="{SPR.namen_auswaehlen}" />
 	<!-- END:mname -->
 			</td>								
 		</tr>
@@ -228,7 +229,7 @@ function submitita(v)
 
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<tr>			
-    			<td colspan="2"><span class="subtitle2">{NEUERARBEITSORT}:</span>&nbsp;&nbsp;
+    			<td colspan="2"><span class="subtitle2">{SPR.neuer_arbeitsort}:</span>&nbsp;&nbsp;
 			<a href="./?a=edit&amp;ap=new&amp;id={id}&amp;lang={LANG}">{ARBEITSORTHINZUFUEGEN}</a></td>
 		</tr>				
 	</table>
@@ -237,15 +238,15 @@ function submitita(v)
 <!-- BEGIN:arbeitsort-->
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<tr>
-    			<td valign="top" class="edit"><label for="" class="edit">{NUM}. {ARBEITSORTNAME}</label></td>    		
+    			<td valign="top" class="edit"><label for="" class="edit">{NUM}. {SPR.arbeitsort}</label></td>    		
     			<td></td>	
 		</tr>	
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="arbeitsort{ARBEITSORT.id}" class="edit" >{ORT}</label></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="arbeitsort{ARBEITSORT.id}" class="edit" >{SPR.ort}</label></td>
 			<td><input type="text" class="text_edit" name="arbeitsort{ARBEITSORT.id}" id="arbeitsort{ARBEITSORT.id}" value="{ARBEITSORT.arbeitsort}"/></td>
 		</tr>
 		<tr>
 			
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="von{ARBEITSORT.id}" class="edit">{VON}</label></td> 
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="von{ARBEITSORT.id}" class="edit">{SPR.von}</label></td> 
 			<td>
 				<input type="text" class="text_edit" name="von{ARBEITSORT.id}" id="von{ARBEITSORT.id}" value="{ARBEITSORT.von}"/>&nbsp;&nbsp;um&nbsp;&nbsp;
 				<input {check_von} type="checkbox" name="umvon{ARBEITSORT.id}" value="1" /> 
@@ -255,7 +256,7 @@ function submitita(v)
 		</tr>
 		<tr>
 			
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="bis{ARBEITSORT.id}" class="edit">{BIS}</label></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="bis{ARBEITSORT.id}" class="edit">{SPR.bis}</label></td>
 			<td>
 				<input type="text" class="text_edit" name="bis{ARBEITSORT.id}" id="bis{ARBEITSORT.id}" value="{ARBEITSORT.bis}"/>&nbsp;&nbsp;um&nbsp;&nbsp;
 				<input {check_bis} type="checkbox" name="umbis{ARBEITSORT.id}" value="1"/>
@@ -264,9 +265,9 @@ function submitita(v)
 		<tr>			
 			<td></td>
 			<td>
-				<input type="submit" class="jsubmit" name="submit_arbeitsort" value="{SPEICHERN}" onclick="submitita({ARBEITSORT.id});"/>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" class="jsubmit" name="submit_arbeitsort" value="{SPR.speichern}" onclick="submitita({ARBEITSORT.id});"/>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="./?a={ACTION}&amp;ap=del&amp;a_id={ARBEITSORT.id}&amp;id={ID}&amp;lang={LANG}">{LOESCHEN}</a>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="./?a={ACTION}&amp;ap=new&amp;id={ID}&amp;lang={LANG}">{ARBEITSORTHINZUFUEGEN}</a>
+				<!--<a href="./?a={ACTION}&amp;ap=new&amp;id={ID}&amp;lang={LANG}">{ARBEITSORTHINZUFUEGEN}</a>-->
 			</td>
 			
 		</tr>
@@ -278,11 +279,11 @@ function submitita(v)
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="fotografen_id" value="{ID}">	
 		<tr>
-			<td class="edit"><label for="best" class="edit">{NEUERBESTAND}:</label><a name="vk"></a></td>
+			<td class="edit"><label for="best" class="edit">{SPR.neuer_bestand}:</label><a name="vk"></a></td>
     			<td>	<input type="text" id="best" class="jsearch"/>&nbsp;&nbsp;
 				<input type="text" id="newbestandid" class="jindex" /> &nbsp;&nbsp;
-				<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newbestandid.value)"/> &nbsp;&nbsp;
-				<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=edit&amp;new_bestand=1&amp;lang={LANG}&amp;id={ID}&amp;bestand_id='+(this.form.newbestandid.value)"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newbestandid.value)"/> &nbsp;&nbsp;
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;new_bestand=1&amp;lang={LANG}&amp;id={ID}&amp;bestand_id='+(this.form.newbestandid.value)"/>
 			</td>
 		</tr>
 	</table>
@@ -293,8 +294,8 @@ function submitita(v)
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="id" value="{ID}"/>
 		<tr>
-			<td class="edit"><span class="subtitle2"><a name="vk"></a>{bestaende}:</span></td>
-    			<td><a href="./?a=bedit&amp;id=new&amp;lang={LANG}">{NEUEREINTRAG}</a></td>
+			<td class="edit"><span class="subtitle2"><a name="vk"></a>{SPR.bestaende}:</span></td>
+    			<td><a href="./?a=bedit&amp;id=new&amp;lang={LANG}">{EINTRAGNEU}</a></td>
 		</tr>
 	</table>
 
@@ -303,7 +304,7 @@ function submitita(v)
 			
 				<table class="edit" cellpadding="0" cellspacing="5">
 					<tr>    							
-    						<td class="edit"><label for="" class="edit">{NUM}. {bestand}</label><a name="vk"></a></td>
+    						<td class="edit"><label for="" class="edit">{NUM}. {SPR.bestand}</label><a name="vk"></a></td>
 						<td>
 							<a href="./?a=bestand&amp;id={BESTAND.id}&amp;lang={LANG}">{BESTAND.name} ({BESTAND.id})</a>&nbsp;&nbsp;
 							<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -313,18 +314,18 @@ function submitita(v)
 					</tr>
 					<tr>
 						
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{INSTITUTIONNAME}</label></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{SPR.institution_name}</label></td>
 						<td>
 							<a href="./?a=institution&amp;id={BESTAND.inst_id}&amp;lang={LANG}">{BESTAND.inst_name}</a> ({BESTAND.inst_id}) &nbsp;&nbsp;
 							<a href="./?a=iedit&amp;id={BESTAND.inst_id}&amp;lang={LANG}">{INSTITUTIONBEARBEITEN}</a>
 						</td>
 					</tr>
 					<tr>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{ZEITRAUM}</label></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{SPR.zeitraum}</label></td>
 						<td>{BESTAND.zeitraum}</td>
 					</tr>
 					<tr>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{UMFANG}</label></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{SPR.umfang}</label></td>
 						<td>{BESTAND.umfang}</td>
 					</tr>
 				</table>
@@ -334,7 +335,7 @@ function submitita(v)
 		
 			<table class="edit" cellpadding="0" cellspacing="5">
 				<tr>    							
-    					<td class="edit"><label for="" class="edit">{NUM}. {bestand}</label><a name="vk"></a></td>								
+    					<td class="edit"><label for="" class="edit">{NUM}. {SPR.bestand}</label><a name="vk"></a></td>								
 					<td >
 						<a href="./?a=bestand&amp;lang={LANG}&amp;id={BESTAND.id}">{BESTAND.name} ({BESTAND.id})</a>&nbsp;&nbsp;
 						<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;
@@ -343,12 +344,12 @@ function submitita(v)
 								
 				</tr>
 				<tr>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{ZEITRAUM}</label></td>
-					<td>{BESTAND.zeitraum}</td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit"></label></td>
+					<td>{SPR.zeitraum}:&nbsp;{BESTAND.zeitraum}</td>
 				</tr>
 				<tr>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{UMFANG}</label></td>
-					<td>{BESTAND.umfang}</td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit"></label></td>
+					<td>{SPR.umfang}:&nbsp;{BESTAND.umfang}</td>
 				</tr>
 			</table>
 			<br/>
@@ -359,11 +360,11 @@ function submitita(v)
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="fotografen_id" value="{ID}"/>	
 		<tr>
-			<td class="edit"><label for="au" class="edit">{NEUEAUSSTELLUNG}:</label></td>
+			<td class="edit"><label for="au" class="edit">{SPR.neue_ausstellung}:</label></td>
     			<td><input type="text" id="au" class="jsearch"/>&nbsp;&nbsp;
 				<input type="text" id="newauid" class="jindex"/> &nbsp;&nbsp;
-				<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)"> &nbsp;&nbsp;
-				<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)">
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)"> &nbsp;&nbsp;
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)">
 			</td>
 		</tr>
 	</table>
@@ -374,12 +375,12 @@ function submitita(v)
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="id" value="{ID}"/>
 		<tr>
-			<td class="edit"><label for="au" class="edit">{ausstellungen}:</label></td>
+			<td class="edit"><label for="au" class="edit">{SPR.ausstellungen}:</label></td>
 			<td>
 				<input type="text" id="au" class="jsearch"/>&nbsp;&nbsp;
 				<input type="text" id="newauid" class="jindex"/> &nbsp;&nbsp;
-				<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)"/> &nbsp;&nbsp;
-				<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)"/> &nbsp;&nbsp;
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)"/>
 			</td>
 		</tr>
 	</table>
@@ -389,7 +390,7 @@ function submitita(v)
 			
 			<table class="edit" cellpadding="0" cellspacing="5">
 					<tr>    							
-    						<td class="edit"><label for="" class="edit">{NUM}. {ausstellung}</label></td>
+    						<td class="edit"><label for="" class="edit">{NUM}. {SPR.ausstellung}</label></td>
 						<td >
 							<a href="./?a=ausstellung&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">{AUSSTELLUNG.titel} ({AUSSTELLUNG.id}) &nbsp;&nbsp;
 							<a href="./?a=aedit&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">{BEARBEITEN}</a>
@@ -398,11 +399,11 @@ function submitita(v)
 					</tr>
 					<tr>
 						<td class="edit"></td>
-						<td><span class="subtitle2">{ORT}:&nbsp;&nbsp;{AUSSTELLUNG.ort}</span></td>
+						<td><span class="subtitle2">{SPR.ort}:&nbsp;&nbsp;{AUSSTELLUNG.ort}</span></td>
 					</tr>
 					<tr>
 						<td class="edit"></td>
-						<td><span class="subtitle2">{JAHR}:&nbsp;&nbsp;{AUSSTELLUNG.jahr}</span></td>
+						<td><span class="subtitle2">{SPR.jahr}:&nbsp;&nbsp;{AUSSTELLUNG.jahr}</span></td>
 					</tr>
 			</table>
 			<br/>
@@ -412,24 +413,24 @@ function submitita(v)
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="fotografen_id" value="{ID}"/>
 		<tr>
-			<td class="edit"><label for="typ" class="edit">{NEUELITERATUR}:</label></td>
+			<td class="edit"><label for="typ" class="edit">{SPR.neue_literatur}:</label></td>
 			<td> Typ: <select name="typ" id="typ" class="edit"><option value="P" class="edit">P</option><option value="S" class="edit">S</option></select></td>
 		</tr>
 		<tr>
-			<td><label for="litv" class="edit">{NACHVERFASSER}</label></td>
+			<td><label for="litv" class="edit">{SPR.nach_verfasser}</label></td>
 			<td><input type="text" id="litv" class="jsearch"/>&nbsp;&nbsp;
 				<input type="text" id="newlitid" class="jindex"/>&nbsp;&nbsp;
-				<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/>&nbsp;&nbsp;
-				<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlitid.value)"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/>&nbsp;&nbsp;
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlitid.value)"/>
 			</td>
 		</tr>
 		<tr>
-			<td><label for="litt" class="edit">{NACHTITEL}</label></td>
+			<td><label for="litt" class="edit">{SPR.nach_titel}</label></td>
 			<td>
 				<input type="text" id="litt" class="jsearch"/>&nbsp;&nbsp;
 				<input type="text" id="newlittid" class="jindex"/> &nbsp;&nbsp;
-				<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/>  &nbsp;&nbsp;
-				<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlittid.value)"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/>  &nbsp;&nbsp;
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlittid.value)"/>
 			</td>
 		</tr>
 </table>
@@ -440,21 +441,21 @@ function submitita(v)
 <table class="edit" cellpadding="0" cellspacing="5">
 	<input type="hidden" name="id" value="{ID}">
 	<tr>
-		<td class="edit"><label for="litv" class="edit">{LITERATUR_NACH_VERFASSER}:</label></td>
+		<td class="edit"><label for="litv" class="edit">{SPR.literatur_nach_verfasser}:</label></td>
 		<td>
 			<input type="text" id="litv" class="jsearch"/>&nbsp;&nbsp;
 			<input type="text" id="newlitid" class="jindex"/>&nbsp;&nbsp;
-			<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/> &nbsp;&nbsp;
-			<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;literatur_id='+(this.form.newlitid.value)"/>
+			<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/> &nbsp;&nbsp;
+			<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;literatur_id='+(this.form.newlitid.value)"/>
 		</td>
 	</tr>
 	<tr>
-		<td class="edit"><label for="litt" class="edit" >{LITERATUR_NACH_TITEL}:</label></td>
+		<td class="edit"><label for="litt" class="edit" >{SPR.literatur_nach_titel}:</label></td>
 		<td>
 			<input type="text" id="litt" class="jsearch"/>&nbsp;&nbsp;
 			<input type="text" id="newlittid" class="jindex"/>&nbsp;&nbsp;
-			<input type="button" value="{ANSEHEN}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/> &nbsp;&nbsp;
-			<input type="button" value="{VERKNUEPFEN}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;literatur_id='+(this.form.newlittid.value)"/>
+			<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/> &nbsp;&nbsp;
+			<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;literatur_id='+(this.form.newlittid.value)"/>
 		</td>
 	</tr>
 </table>
@@ -464,7 +465,7 @@ function submitita(v)
 
 	<table class="edit" cellpadding="0" cellspacing="5">
 				<tr>    							
-    						<td valign="top" class="edit"><label for="" class="edit">{NUM}. {literatur}</label></td>								
+    						<td valign="top" class="edit"><label for="" class="edit">{NUM}. {SPR.literatur}</label></td>								
 						<td >
 							<a href="./?a=literatur&amp;id={LITERATUR.id}&amp;lang={LANG}">{LITERATUR.text} ({LITERATUR.id})</a> &nbsp;&nbsp;
 							<a href="./?a=ledit&amp;id={LITERATUR.id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -474,7 +475,7 @@ function submitita(v)
 				</tr>
 			<tr>
 				<td class="edit"></td>
-				<td><span class="subtitle2">{TYP}:&nbsp;&nbsp;{LITERATUR.if_typ}</span></td>
+				<td><span class="subtitle2">{SPR.typ}:&nbsp;&nbsp;{LITERATUR.if_typ}</span></td>
 			</tr>
 	</table>
 	<br/>
@@ -589,7 +590,7 @@ function submitita(v)
 						
 						<tr>
     							<td class="edit"></td>
-    							<td><input type="submit" name="submit" class="jsubmit" value="{SPEICHERN}"></td>    							
+    							<td><input type="submit" name="submit" class="jsubmit" value="{SPR.speichern}"></td>    							
    						</tr>
     						    						
 <!-- END:submitfield -->
@@ -599,13 +600,13 @@ function submitita(v)
 <!-- END:form -->
 						<tr>
 							
-    							<td valign="top"><span class="subtitle2">{BEARBEITUNGSDATUM}:</span></td>		
+    							<td valign="top"><span class="subtitle2">{SPR.bearbeitungsdatum}:</span></td>		
 							<td>{bearbeitungsdatum}</td>
 						</tr>						
 					</table>
 					<br/>
 					<input type="hidden" name="hidden_id" value="{ID}">
-					   <input type="submit" name="submit" class="jsubmit" value="{SPEICHERN}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					   <input type="submit" name="submit" class="jsubmit" value="{SPR.speichern}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					   <a href="./?a={ACTION}&amp;delete=1&amp;id={ID}&amp;lang={LANG}">{EINTRAGLOESCHEN}</a>&nbsp;&nbsp;
 					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">{EINTRAGNEU}</a>									
 				</form>
@@ -616,7 +617,7 @@ function submitita(v)
 <br/>
 <h3>{ACTION} mit id {id} l&ouml;schen?</h3> <br />
 
-<a href="./?a={ACTION}&amp;delete=2&amp;id={id}&amp;lang={LANG}">{JA}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="./?a={ACTION}&amp;id={id}&amp;lang={LANG}">{NEIN}</a>
+<a href="./?a={ACTION}&amp;delete=2&amp;id={id}&amp;lang={LANG}">{SPR.ja}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="./?a={ACTION}&amp;id={id}&amp;lang={LANG}">{SPR.nein}</a>
 <!-- END:loeschen1 -->
 <!-- BEGIN:loeschen2 -->
 <br/>

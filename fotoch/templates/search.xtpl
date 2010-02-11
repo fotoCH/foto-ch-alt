@@ -125,8 +125,9 @@
 </form>	  
 <!-- END:ayax_b -->
 <!-- BEGIN:ayax_l -->
-        <script type="text/javascript" src="js/vorschlag.js"></script>
+   <script type="text/javascript" src="js/vorschlag.js"></script>
         <script type="text/javascript" src="js/fotovor.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="css/autosuggest.css" />
         <script type="text/javascript">
             window.onload = function () {
@@ -137,6 +138,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 
             }
         </script>
+
 <form>
 {NACHTITEL}:<br /> <input type="text" id="svbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="svid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.svid.value)" /><br /><br />
 {NACHVERFASSER}: <br /><input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
