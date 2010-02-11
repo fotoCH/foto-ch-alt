@@ -2,15 +2,7 @@
 
 function shakeImages() {
 	$imgPlaceholders = array();		
-	$imgFiles = array();
-	//TODO: down't read directory on each page load
-	$dir = opendir("images");
-	
-	while (($file = readdir($dir)) !== false) {
-		if($file[0]!='.'){
-			$imgFiles[] = $file;
-		}
-	}
+	$imgFiles = array("Bubbadetklein.jpg","bubenbadenklein.jpg","bubenvordembadenklein.jpg","dampfschiffkklein.jpg","kinderspazieren.jpg","suesswassermatroseklein.jpg");
 	
 	for($j = 0; $j < 6; $j++){	
 		$img = $imgFiles[rand(0,sizeof($imgFiles)-1)];
@@ -22,7 +14,6 @@ function shakeImages() {
 			$j--;
 		}	
 	}
-	closedir($dir);
 	return $imgPlaceholders;
 }
 

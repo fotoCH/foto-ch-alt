@@ -66,21 +66,8 @@ $xtpl->assign("SPR",$spr);  // load all languagecontent!
 $xtpl->assign("LANG",$language);
 $xtpl->assign("URLDE", changeurl("de"));
 $xtpl->assign("URLFR", changeurl("fr"));
-//$xtpl->assign("URLIT", changeurl("it"));
-//$xtpl->assign("URLRO", changeurl("ro"));
-//$xtpl->assign("HEADER", getLangContent("sprache", $language, "fotoch"));
-//$xtpl->assign("HOME", getLangContent("sprache", $language, "home"));
-//$xtpl->assign("LEXIKON", getLangContent("sprache", $language, "lexikon"));
-//$xtpl->assign("REPERTORIUM", getLangContent("sprache", $language, "repertorium"));
-//$xtpl->assign("GLOSSAR", getLangContent("sprache", $language, "glossar"));
-//$xtpl->assign("HANDBUCH", getLangContent("sprache", $language, "handbuch"));
-//$xtpl->assign("KONTAKT", getLangContent("sprache", $language, "kontakt"));
-//$xtpl->assign("SITEMAP", getLangContent("sprache", $language, "sitemap"));
-//$xtpl->assign("PARTNER", getLangContent("sprache", $language, "partner"));
-//$xtpl->assign("IMPRESSUM", getLangContent("sprache", $language, "impressum"));
 
-//probably not used anymore
-//$xtpl->assign("SESSION_UID", $_SESSION['s_uid']);
+
 //assign action
 $xtpl->assign("ACTION",$action);
 //choose content sites
