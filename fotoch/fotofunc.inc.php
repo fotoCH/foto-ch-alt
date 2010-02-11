@@ -5,29 +5,35 @@ function clean_entry($t){ // cleanup for entries
     $from=array('<br>',' & ');
     $to  =array('<br />',' &amp; ');
     return(str_replace($from,$to,trim($t)));
-//    return($t);
 }
 
 function escposts(){
-	foreach ($_POST as $k=>$v){
-		if (!is_array($v)){
-			$w=mysql_real_escape_string($v);
-			if ($w!=$v) $_POST[$k]=$w;
+	if(!get_magic_quotes_gpc()){
+		foreach ($_POST as $k=>$v){
+			if (!is_array($v)){
+				$w=mysql_real_escape_string($v);
+				if ($w!=$v) $_POST[$k]=$w;
+			}
 		}
 	}
 }
 
 function escrequest(){
-	foreach ($_REQUEST as $k=>$v){
-		if (!is_array($v)){
-			$w=mysql_real_escape_string($v);
-			if ($w!=$v) $_REQUEST[$k]=$w;
+	if(!get_magic_quotes_gpc()){
+		foreach ($_REQUEST as $k=>$v){
+			if (!is_array($v)){
+				$w=mysql_real_escape_string($v);
+				if ($w!=$v) $_REQUEST[$k]=$w;
+			}
 		}
 	}
 }
 
 function auth(){
 	return !empty($_SESSION['s_uid']);
+}
+function auth_level($level){
+	return ($level >= $_SESSION['level']);	
 }
 
 function testauth(){
