@@ -2,7 +2,7 @@
 
 	<script type="text/javascript">
 		function ifEnter(form, event){
-			if(event.which == 13 && event.shiftKey){
+			if(event.which == 13 && event.ctrlKey){
 				
 			}
 			else if(event.which == 13){
@@ -74,7 +74,7 @@
 
 				<tr>
 					<td class="search">&nbsp;</td>
-					<td class="search_submit" ><input type="submit" class="submit" name="submit" value="{value}"/></td>
+					<td class="search_submit" ><input type="submit" class="submit" name="submitbutton" value="{value}"/></td>
 				</tr>
 <!-- END:submitfield -->			
 <!-- END:form -->	

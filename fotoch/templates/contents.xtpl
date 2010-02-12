@@ -22,7 +22,7 @@
 
 <!-- END:home_detail -->
 <!-- BEGIN:search -->
-			<div id="search">
+			<div id="searchdiv">
 				{SEARCH}
 			</div>
 
