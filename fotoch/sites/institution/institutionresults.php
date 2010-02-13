@@ -21,11 +21,11 @@ $def->assign("ID",getLangContent("sprache",$_GET['lang'],"id"));
 $def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bearbeiten")."&nbsp]");
 $def->assign("NEU","");
 
-if ($_GET['submit']!=""){
+if ($_GET['submitbutton']!=""){
 	$vars=array();
 	$vars=$_GET;
 	unset($vars['a']);
-	unset($vars['submit']);
+	unset($vars['submitbutton']);
 	unset($vars['lang']);
 	unset($vars['mod']);
 	foreach ($vars as $key=>$value){

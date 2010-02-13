@@ -11,8 +11,8 @@ if($_GET['id']==''){
 	$fotograph->assign("SEARCH",$search);
 	
 	//... list
-	if(($_GET['mod']=="alph" && $_GET['anf']!="") || ($_GET['mod']=="erw" && $_GET['submit']!="") || 
-	($_GET['mod']=="ein" && $_GET['submit']!="")){
+	if(($_GET['mod']=="alph" && $_GET['anf']!="") || ($_GET['mod']=="erw" && $_GET['submitbutton']!="") || 
+	($_GET['mod']=="ein" && $_GET['submitbutton']!="")){
 		include("fotographresults.php");
 		//$lexi_repe_gloss_hand->assign("RESULTS",$results);
 		$fotograph->assign("LIST",$results);

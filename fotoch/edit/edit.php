@@ -167,7 +167,7 @@ if($_REQUEST['submit_arbeitsort']){
 	$result = mysql_query($sql);
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
-if($_POST['submit']){
+if($_POST['submitbutton']){
 	foreach ($_REQUEST['bildgattungen'] as $t){
 		$bildgattungen_set .=$t;
 		$bildgattungen_set .=",";

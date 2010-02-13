@@ -49,7 +49,7 @@ if ($del=="1"){
 
 
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
-if($_POST['submit']){
+if($_POST['submitbutton']){
 
 
 	if($_POST['unpubliziert']=="1"){

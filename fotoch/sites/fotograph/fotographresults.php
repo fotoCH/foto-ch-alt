@@ -18,12 +18,12 @@ $def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bea
 $result = "";
 $def->assign("LANG",$_GET['lang']);
 //if mod != alph..
-if($_GET['submit'] != ""){
+if($_GET['submitbutton'] != ""){
 
 	$vars=array();
 	$vars=$_GET;
 	unset($vars['a']);
-	unset($vars['submit']);
+	unset($vars['submitbutton']);
 	unset($vars['mod']);
 	unset($vars['lang']);
 		

@@ -12,7 +12,7 @@ if($_GET['id']==''){
 	include("litsearch.php");
 	$literatur->assign("SEARCH",$search);
 
-	if($_GET['submit']!="" || $_GET['anf']!=''){
+	if($_GET['submitbutton']!="" || $_GET['anf']!=''){
 		include("literaturresults.php");
 		$literatur->assign("LIST",$results);
 	}

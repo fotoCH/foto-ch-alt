@@ -19,7 +19,7 @@ $editpages->parse("contents.editpages.select");
 
 if($_POST) escpost();
 
-if($_POST['submit']!=''){
+if($_POST['submitbutton']!=''){
 	//then the content of the fck editor wants to be saved
 	$page = $_POST['page'];
 	$lang = $_GET['lang'];

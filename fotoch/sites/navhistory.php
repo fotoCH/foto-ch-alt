@@ -10,7 +10,7 @@
 		$_SESSION['url'] = array();		
 		
 		//echo "<h1>id leer</h1>";
-		if($_GET['anf']!="" || $_GET['submit']!=""){ //-> suche und trefferliste von institution bzw. fotograph			
+		if($_GET['anf']!="" || $_GET['submitbutton']!=""){ //-> suche und trefferliste von institution bzw. fotograph			
 			$_SESSION['lastactions'][0] = "suche";
 			$_SESSION['lastactions'][1] = "trefferliste";
 			$_SESSION['url'][0][0] = "suche"; //value

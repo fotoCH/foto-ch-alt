@@ -67,7 +67,7 @@ function submitita(v)
 
 							<input type="hidden" name="fotografen_id" value="{ID}"/>
 							<input type="hidden" name="arbeitsort_id" value="{ARBEITSORT.id}"/>
-							<input type="submit" name="submit" value="speichern" style="display:none"/> <!-- Damit Enter funktioniert zum Speichern -->
+							<input type="submit" name="submitbutton" value="speichern" style="display:none"/> <!-- Damit Enter funktioniert zum Speichern -->
 <!-- END:bearbeiten_head_fotograf -->
 
 <!-- BEGIN:bearbeiten_head_institution -->
@@ -590,7 +590,7 @@ function submitita(v)
 						
 						<tr>
     							<td class="edit"></td>
-    							<td><input type="submit" name="submit" class="jsubmit" value="{SPR.speichern}"></td>    							
+    							<td><input type="submit" name="submitbutton" class="jsubmit" value="{SPR.speichern}"></td>    							
    						</tr>
     						    						
 <!-- END:submitfield -->
@@ -606,7 +606,7 @@ function submitita(v)
 					</table>
 					<br/>
 					<input type="hidden" name="hidden_id" value="{ID}">
-					   <input type="submit" name="submit" class="jsubmit" value="{SPR.speichern}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					   <input type="submit" name="submitbutton" class="jsubmit" value="{SPR.speichern}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					   <a href="./?a={ACTION}&amp;delete=1&amp;id={ID}&amp;lang={LANG}">{EINTRAGLOESCHEN}</a>&nbsp;&nbsp;
 					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">{EINTRAGNEU}</a>									
 				</form>

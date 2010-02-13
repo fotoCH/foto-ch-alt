@@ -12,7 +12,7 @@ if($_GET['id']==''){
 	include("asearch.php");
 	$ausstellung->assign("SEARCH",$search);
 
-	if($_GET['submit']!="" || $_GET['anf']!=''){
+	if($_GET['submitbutton']!="" || $_GET['anf']!=''){
 		include("ausstellungresults.php");
 		$ausstellung->assign("LIST",$results);
 	}

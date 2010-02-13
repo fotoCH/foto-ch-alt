@@ -103,7 +103,7 @@ if($_GET['f']=="edit"){
 	$result = mysql_query($sql);
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
-if($_POST['submit']){
+if($_POST['submitbutton']){
 	foreach ($_POST['bildgattungen'] as $t){
 		$bildgattungen_set .=$t;
 		$bildgattungen_set .=",";

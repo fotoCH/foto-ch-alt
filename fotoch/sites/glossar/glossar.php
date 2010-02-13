@@ -14,7 +14,7 @@ if($_GET['id']==''){
 	$glossar->assign("SEARCH",$search);
 	
 	//echo "include";
-	if($_GET['submit']!="" || $_GET['anf']!=''){
+	if($_GET['submitbutton']!="" || $_GET['anf']!=''){
 		include("glossarresults.php");
 		$glossar->assign("LIST",$results);
 	}

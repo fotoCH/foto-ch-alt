@@ -37,7 +37,7 @@ if ($del=="1"){
 	$fertig=1;
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
-if($_POST['submit']){
+if($_POST['submitbutton']){
 	if($_POST['unpubliziert']=="1"){
 		$unpubliziert = 1;
 	}else{
