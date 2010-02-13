@@ -55,7 +55,7 @@
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
-						<td class="login_submit"><input class="submit" type="submit"  name="submit" value="{SUBMIT}"/></td>
+						<td class="login_submit"><input class="submit" type="submit"  name="submitbutton" value="{SUBMIT}"/></td>
 					</tr>
 				
 				</table>
@@ -100,7 +100,7 @@
 					<iframe id="FCKeditor1_" src="./fckeditor/editor/fckeditor.html?InstanceName=FCKeditor1&amp;Toolbar=Default" width="98%" height="600" frameborder="0">
 						{PAGECONTENT}
 					</iframe>				
-					<input type="submit" value="{SELECT}" name="submit">
+					<input type="submit" value="{SELECT}" name="submitbutton">
 				</form>			
 			</div>
 <!-- END:editpages -->
