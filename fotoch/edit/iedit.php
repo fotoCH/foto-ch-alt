@@ -200,7 +200,7 @@ if ($fertig==1){
 	
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz'],'notiz');
 	genformitem($def,'textfield',$spr['autorIn'],$array_eintrag['autorin'],'autorin');
-	gencheckitem($def,$spr['npublizieren'],$array_eintrag['gesperrt'],'unpubliziert');	
+	if(auth_level($USER_SUPER_USER)) gencheckitem($def,$spr['npublizieren'],$array_eintrag['gesperrt'],'unpubliziert');	
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
 	$def->parse("bearbeiten.form.fieldset_end");
 	//$def->parse("bearbeiten.form");	
