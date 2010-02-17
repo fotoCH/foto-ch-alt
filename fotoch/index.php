@@ -58,7 +58,7 @@ else {
 ($_SESSION['usr_level'] != "") ? $xtpl->assign("LOG","logout"):$xtpl->assign("LOG","login");
 
 $xtpl->assign("SPR",$spr);  // load all languagecontent!
-//$xtpl->assign("FOTOCH", getLangContent("sprache", $language, "fotoch"));
+
 $xtpl->assign("LANG",$language);
 $xtpl->assign("URLDE", changeurl("de"));
 $xtpl->assign("URLFR", changeurl("fr"));
