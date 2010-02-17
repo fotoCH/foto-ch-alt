@@ -95,7 +95,7 @@
             }
         </script>
 <form>
-	<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=fotograph&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
+	<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{SPR.anzeigen}" class="search_jsubmit" onclick="document.location='./?a=fotograph&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
 </form>
 <!-- END:ayax_f -->
 <!-- BEGIN:ayax_i -->
@@ -108,7 +108,7 @@
             }
         </script>
 <form>
-	<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=institution&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
+	<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{SPR.anzeigen}" class="search_jsubmit" onclick="document.location='./?a=institution&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
 </form>  
 <!-- END:ayax_i -->
 <!-- BEGIN:ayax_b -->
@@ -121,7 +121,7 @@
             }
         </script>
 <form>
-	<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=bestand&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
+	<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{SPR.anzeigen}" class="search_jsubmit" onclick="document.location='./?a=bestand&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
 </form>	  
 <!-- END:ayax_b -->
 <!-- BEGIN:ayax_l -->
@@ -140,8 +140,8 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
         </script>
 
 <form>
-{NACHTITEL}:<br /> <input type="text" id="svbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="svid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.svid.value)" /><br /><br />
-{NACHVERFASSER}: <br /><input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
+{SPR.nach_titel}:<br /> <input type="text" id="svbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="svid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{SPR.anzeigen}" class="search_jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.svid.value)" /><br /><br />
+{SPR.nach_verfasser}: <br /><input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{SPR.anzeigen}" class="search_jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
 
 </form>
 <!-- END:ayax_l -->
@@ -157,6 +157,6 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
             }
         </script>
 <form>
-<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{ANZEIGEN}" class="search_jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
+<input type="text" id="sbox" class="search_jsearch"/>&nbsp;&nbsp;<input type="text" id="sid" class="search_jindex"/>&nbsp;&nbsp;<input type="button" value="{SPR.anzeigen}" class="search_jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.sid.value)" />
 </form>  
 <!-- END:ayax_a -->

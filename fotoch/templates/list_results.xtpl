@@ -4,11 +4,11 @@
 	<table class="list_results" cellpadding="2" cellspacing="0">  
 <!-- BEGIN:head_ausstellung -->	
     		<tr valign="top">
-    				<td><span class="subtitle2">{Id}</td>
-    				<td><span class="subtitle2">{TITEL}</span></td>
-					<td><span class="subtitle2">{INSTITUTION}</span></td>
-    				<td><span class="subtitle2">{ORT}</span></td>
-    				<td><span class="subtitle2">{JAHR}</span></td>
+    				<td><span class="subtitle2">{SPR.id}</td>
+    				<td><span class="subtitle2">{SPR.titel}</span></td>
+					<td><span class="subtitle2">{SPR.institution}</span></td>
+    				<td><span class="subtitle2">{SPR.ort}</span></td>
+    				<td><span class="subtitle2">{SPR.jahr}</span></td>
     				<td><span class="subtitle2">&nbsp;</span></td>
     		</tr>		
 <!-- END:head_ausstellung -->
@@ -27,10 +27,10 @@
 	 
 <!-- BEGIN:head_bestand -->
      		<tr valign="top">
-    				<td><span class="subtitle2">{ID} </td>
-    				<td><span class="subtitle2">{NAME}</span></td>
+    				<td><span class="subtitle2">{SPR.id} </td>
+    				<td><span class="subtitle2">{SPR.name}</span></td>
 				<td>&nbsp;</td>
-    				<td><span class="subtitle2">{INSTITUTION}-Id</span></td>
+    				<td><span class="subtitle2">{SPR.institution}-Id</span></td>
     		</tr>
 		
 <!-- END:head_bestand -->
@@ -54,16 +54,16 @@
 
 <!-- BEGIN:head_glossar -->
 	 	<tr valign="top">    				
-    			<td><span class="subtitle2">{BEGRIFF}</span></td>
-    			<td><span class="subtitle2">{ZEITRAUM}</span></td>
-    			<td><span class="subtitle2">{ERLAEUTERUNG}</span></td>
+    			<td><span class="subtitle2">{SPR.begriff}</span></td>
+    			<td><span class="subtitle2">{SPR.zeitraum}</span></td>
+    			<td><span class="subtitle2">{SPR.erlaeuterung}</span></td>
     		</tr>
 <!-- END:head_glossar -->
 <!-- BEGIN:head_admin_glossar -->
 	 	<tr valign="top">    				
-    			<td><span class="subtitle2">{BEGRIFF}</span></td>
-    			<td><span class="subtitle2">{ZEITRAUM}</span></td>
-    			<td><span class="subtitle2">{ERLAEUTERUNG}</span></td>
+    			<td><span class="subtitle2">{SPR.begriff}</span></td>
+    			<td><span class="subtitle2">{SPR.zeitraum}</span></td>
+    			<td><span class="subtitle2">{SPR.erlaeuterung}</span></td>
     			<td><span class="subtitle2"></span></td>
     		</tr>
 <!-- END:head_admin_glossar -->		
@@ -121,11 +121,11 @@
 
 <!-- BEGIN:head_literatur -->
     		<tr valign="top">
-    				<td><span class="subtitle2">{Id}</td>
-    				<td><span class="subtitle2">{VERFASSER}</span></td>
-    				<td><span class="subtitle2">{TITEL}</span></td>
-    				<td><span class="subtitle2">{ORT}</span></td>
-    				<td><span class="subtitle2">{JAHR}</span></td>
+    				<td><span class="subtitle2">{SPR.id}</td>
+    				<td><span class="subtitle2">{SPR.verfasser}</span></td>
+    				<td><span class="subtitle2">{SPR.titel}</span></td>
+    				<td><span class="subtitle2">{SPR.ort}</span></td>
+    				<td><span class="subtitle2">{SPR.jahr}</span></td>
 				<td><span class="subtitle2">&nbsp;</span></td>
     		</tr>		
 <!-- END:head_literatur -->
