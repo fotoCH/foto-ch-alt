@@ -9,8 +9,8 @@ function namen($def,$id){ //nur fotograf
 				$def->assign("DELETE", "");
 				$def->assign("STANDARD", "(Standard)");				
 			}else{
-				$lang = $_GET['lang'];
-				$loeschen = getLangContent("sprache", $_GET['lang'], "loeschen");
+				$lang = $_GET['lang'];	
+				$loeschen = getLangContent("sprache", $_GET['lang'], "loeschen");	//seems to have no other solution...		
 				$def->assign("DELETE", "<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">[&nbsp;".$loeschen."&nbsp;]</a>");
 				$def->assign("STANDARD", "");	
 				$def->assign("BR","<br />")	;		
