@@ -11,29 +11,33 @@ if ($_POST['usr_uid'] !="" && $_POST['usr_pw']!=""){
 	
 	$query = "SELECT * FROM users";
 	$result = mysql_query($query);
+	$success = false;
 	while($fetch = mysql_fetch_array($result)){
 		if($fetch['username'] == $_POST['usr_uid'] && $fetch['password'] == md5($_POST['usr_pw'])){
 			$_SESSION['usr_level'] = $fetch['level'];
 			$_SESSION['s_uid'] = $_POST['usr_uid'];
 			$log->parse("contents.log.ok");
-			$xtpl->assign("LOG","logout");
+			$out=$log->text("contents.log.ok");
+			$success = true;
 		}
-		else{
-			print_error($log);			
+		if(!$success){
+			$out = print_error($log);			
 		}		
 	}
 	
 } else {
-	print_error($log);
+	$out = print_error($log);
 }
 
-$log->parse("contents.log");
-$out=$log->text("contents.log");
+
 
 
 function print_error($log){
+	//$log=new XTemplate ("templates/contents.xtpl"); 
 	$log->assign("ACTION", $_GET['a']);
 	$log->assign("ID", $_GET['id']);
-	$log->parse("contents.log.form");	
+	$log->parse("contents.log.form");
+	$log->parse("contents.log");
+	return $log->text("contents.log");	
 }
 ?>

@@ -2,32 +2,32 @@
 
 $def=new XTemplate ("././templates/list_results.xtpl");
 $def->assign("ACTION",$_GET['a']);
-$def->assign("ID",$_GET['id']);
-//$def->assign("DN",$dn);
 $id=$_GET['id'];
 $anf=$_GET['anf'];
+
 if (!$anf){
-	if (auth() && !$id){
+	if (auth_level($USER_WORKER) && !$id){
 		$ayax=1;
 	} else {
 		$anf='A';
 	}
 }
-$def->assign("LANG",$_GET['lang']);
-$def->assign("TITLE",getLangContent("sprache",$_GET['lang'],"institutionen"));
-$def->assign("NAME",getLangContent("sprache",$_GET['lang'],"name"));
-$def->assign("ORT",getLangContent("sprache",$_GET['lang'],"ort"));
-$def->assign("ID",getLangContent("sprache",$_GET['lang'],"id"));
-$def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache",$_GET['lang'],"bearbeiten")."&nbsp]");
-$def->assign("NEU","");
 
+$def->assign("LANG",$_GET['lang']);
+$def->assign("SPR",$spr);
+$def->assign("title",$spr['institutionen']);
+$def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp]");
+$def->assign("NEU","");
+	
 if ($_GET['submitbutton']!=""){
+
 	$vars=array();
 	$vars=$_GET;
 	unset($vars['a']);
 	unset($vars['submitbutton']);
 	unset($vars['lang']);
 	unset($vars['mod']);
+	
 	foreach ($vars as $key=>$value){
 		if (!empty($vars[$key])){
 			if (!empty($where)){
@@ -52,9 +52,9 @@ if ($_GET['submitbutton']!=""){
 	}
 	
 	$result=mysql_query($query);
-	//echo $query;
+	
 	if(mysql_num_rows($result) > 0){
-		if(auth()){
+		if(auth_level($USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
 			$def->parse("list.listhead_normal_institution");
@@ -69,32 +69,31 @@ if ($_GET['submitbutton']!=""){
 		} else {
 			$fetch['nameclass']='subtitle3';
 		}
-		if(auth()) if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
+		if(auth_level($USER_GUEST_READER_PARTNER) && $fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
 		if ($fetch['abkuerzung']) $fetch['abkuerzung']='('.$fetch['abkuerzung'].')';
-		//
+		
 		
 		$def->assign("FETCH",$fetch);
-		if(auth()){
+		if(auth_level($USER_WORKER)){
 			$def->parse("list.row_admin_institution");
 		}else{
 			if ($fetch['gesperrt']==0) $def->parse("list.row_normal_institution");
 		}
 	}
 	$def->parse("list");
-	$results.=$def->text("list");
-	
-} 
+	$results.=$def->text("list");	
 
-else { 
+} else { 
+
 	if ($id=='' && !$ayax){
 		// Select: code
-		if(auth()){
+		if(auth_level($USER_GUEST_READER_PARTNER)){
 			$result=mysql_query("SELECT * FROM institution WHERE name LIKE '$anf%' ORDER BY  name Asc");
 		} else {
-			$result=mysql_query("SELECT DISTINCT * FROM institution WHERE (name LIKE '$anf%') AND (gesperrt=0) ORDER BY  name Asc");
+			$result=mysql_query("SELECT * FROM institution WHERE (name LIKE '$anf%') AND (gesperrt=0) ORDER BY  name Asc");
 		}
 		
-		if(auth()){
+		if(auth_level($USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
 			$def->parse("list.listhead_normal_institution");
@@ -107,11 +106,11 @@ else {
 			} else {
 				$fetch['nameclass']='subtitle3';
 			}
-			if(auth()) if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
+			if(auth_level($USER_GUEST_READER_PARTNER)) if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
 			if ($fetch['abkuerzung']) $fetch['abkuerzung']='('.$fetch['abkuerzung'].')';
 			$def->assign("FETCH",$fetch);
 			//print_r($fetch);
-			$def->parse("list.row".(($_SESSION['s_uid']=="fotobe")?'_admin_institution':'_normal_institution'));
+			$def->parse("list.row".((auth_level($USER_WORKER))?'_admin_institution':'_normal_institution'));
 			//$def->parse("list.row_normal");
 		}
 	

@@ -1,6 +1,7 @@
 <?php
 
-	$_SESSION[s_uid]=="";											
+	$_SESSION['s_uid'] == "";	
+	$_SESSION['usr_level'] == 0;										
 	session_destroy();
 	$lang = $_GET['lang'];
 	$msg= "<h1>Logout</h1>Sie sind ausgeloggt. Es geht gleich weiter... ";

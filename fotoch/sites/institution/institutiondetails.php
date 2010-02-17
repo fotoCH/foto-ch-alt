@@ -11,7 +11,7 @@
 	$id=$_GET['id'];
 	$anf=$_GET['anf'];
 	if (!$anf){
-		if (auth() && !$id){
+		if (auth_level($USER_WORKER) && !$id){
 			$ayax=1;
 		} else {
 			$anf='A';
@@ -21,7 +21,7 @@
 	$def->assign("SPR", $spr);
 	$bearbeiten = "&nbsp;&nbsp;[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 	
-	if (auth())
+	if (auth_level($USER_GUEST_READER_PARTNER))
 	$result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
 	else  $result=mysql_query("SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
 
@@ -40,7 +40,7 @@
 		if ($fetch['sammlungszeit_von'].$fetch['sammlungszeit_bis']!=''){
 			$fetch['sammlungszeit']=$fetch['sammlungszeit_von'].' - '.$fetch['sammlungszeit_bis'];
 		} else { $fetch['sammlungszeit']=''; }
-		if (auth()) {
+		if (auth_level($USER_WORKER)) {
 			//$fetch['name'].=" <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>";
 			$def->assign("bearbeiten"," <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
 			normfeldg($def,$spr['name'],$fetch['name'],$fetch['gesperrt']);
@@ -52,7 +52,7 @@
 		normfeld($def,$spr['adresse'],$fetch['adresse']);
 		normfeld($def,$spr['ort'],$fetch['ort']);
 		//abstand($def);
-		if (auth()){
+		if (auth_level($USER_WORKER)){
 			normfeld($def,'FAX',$fetch['fax']);
 			normfeld($def,'Email',$fetch['email']);
 			normfeld($def, $spr['kontaktperson'],$fetch['kontaktperson']);
@@ -64,11 +64,11 @@
 		normfelda($def,$spr['zugang_zur_sammlung'],$fetch['zugang_zur_sammlung']);
 		normfelda($def,$spr['sammlungszeit'],$fetch['sammlungszeit']);
 		normfelda($def,$spr['bildgattungen'],$fetch['bildgattungen_set']);
-		if (auth()) normfelda($def, $spr['bildgattungen_alt'],$fetch['bildgattungen']);
+		if (auth_level($USER_WORKER)) normfelda($def, $spr['bildgattungen_alt'],$fetch['bildgattungen']);
 		normfelda($def,$spr['sammlungsgeschichte'],$fetch['sammlungsgeschichte']);
 		normfelda($def,$spr['sammlungsbeschreibung'],$fetch['sammlungsbeschreibung']);
 
-		if (auth()) normfelda($def,'Literatur alt',$fetch['literatur']);
+		if (auth_level($USER_WORKER)) normfelda($def,'Literatur alt',$fetch['literatur']);
 
 
 		$result6=mysql_query("SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
@@ -77,8 +77,8 @@
 		while($fetch6=mysql_fetch_array($result6)){
 
 			$def->assign("FETCH6",$fetch6);
-			if (auth() || ($fetch6['gesperrt']==0)){
-				$def->assign('g',(auth() && $fetch6['gesperrt']==1?'g':''));
+			if (auth_level($USER_WORKER) || ($fetch6['gesperrt']==0)){
+				$def->assign('g',(auth_level($USER_WORKER) && $fetch6['gesperrt']==1?'g':''));
 				$def->parse("autodetail.z.bestn_3");
 				$def->parse("autodetail.z");
 				$def->assign("Bestand","");
@@ -127,8 +127,8 @@
 		}
 		if(mysql_num_rows($result8)!=0) abstand($def); 
 			
-		if (auth()) normfeld($def, $spr['notiz'],$fetch['notiz']);
-		if (auth()) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
+		if (auth_level($USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
+		if (auth_level($USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
 		normfeld($def,$spr['bearbeitungsdatum'],$fetch['bearbeitungsdatum']);
 		normfeld($def,$spr['autorIn'],$fetch['autorin']);
 

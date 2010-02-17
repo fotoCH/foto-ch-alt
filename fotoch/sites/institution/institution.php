@@ -1,5 +1,5 @@
 <?php
-$fotograph = new XTemplate("././templates/contents.xtpl");
+$institution = new XTemplate("././templates/contents.xtpl");
 
 include("././search.inc.php");
 include("././fotofunc.inc.php");
@@ -7,22 +7,22 @@ include("././fotofunc.inc.php");
 if($_GET['id']==''){
 	//search and 
 	include("isearch.php");
-	$fotograph->assign("SEARCH",$search);
+	$institution->assign("SEARCH",$search);
 	
 	//... list
 	if($_GET['anf']!="" || $_GET['submitbutton']!=""){
 		include("institutionresults.php");
 		//$lexi_repe_gloss_hand->assign("RESULTS",$results);
-		$fotograph->assign("LIST",$results);
+		$institution->assign("LIST",$results);
 	}
-	$fotograph->parse("contents.search");
-	$out.= $fotograph->text("contents.search");
+	$institution->parse("contents.search");
+	$out.= $institution->text("contents.search");
 } else {
 	//show details
 	include("institutiondetails.php");
-	$fotograph->assign("CONTENT", $results);
-	$fotograph->parse("contents.home_detail");
-	$out.= $fotograph->text("contents.home_detail");
+	$institution->assign("CONTENT", $results);
+	$institution->parse("contents.home_detail");
+	$out.= $institution->text("contents.home_detail");
 }
 ?>
 
