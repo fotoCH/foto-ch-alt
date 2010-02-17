@@ -70,7 +70,7 @@ function formumfeld($t){  // expandiert Links im Umfeld
 		// echo $name;
 		if ($n==1) $id=$fetch['fotografen_id'];
 		if ($fetch['unpubliziert']==1){
-			if (auth()){
+			if (auth_level($USER_WORKER)){
 				$t=str_replace($treffer[0][$i],'<span class="text2g"><a href="?a=fotograph&amp;id='.$id.'&amp;lang='.$_GET['lang'].'">'.$name.'</a></span>',$t);
 			} else {
 				$t=str_replace($treffer[0][$i],$name,$t);
