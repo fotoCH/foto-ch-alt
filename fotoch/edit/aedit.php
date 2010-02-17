@@ -92,7 +92,7 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['notiz'],$array_eintrag['notiz'],'notiz');	
 	$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
-	if(auth()){		
+	if(auth_level($USER_WORKER)){		
 		$def->assign("NEU"," | <a href=\"./?a=aedit&amp;id=new\">".$spr['neuereintrag']."</a>");
 	}else{
 		$def->assign("NEU","");

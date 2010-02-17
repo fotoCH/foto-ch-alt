@@ -114,11 +114,11 @@ if ($fertig==1){
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
 
 	
-	if(auth()){
+	/*if(auth_level($USER_WORKER)){
 		//$def->assign("NEU"," | <a href=\"./?a=gedit&amp;id=new&amp;lang=$lang\">$neuereintrag</a>");
 	}else{
 		//$def->assign("NEU","");
-	}
+	}*/
 
 	$def->parse("bearbeiten.form.fieldset_end");
 	$def->parse("bearbeiten");
