@@ -3,11 +3,11 @@ include ("./mysql.inc.php");
 include ("./fotofunc.inc.php");
 $editpages= new XTemplate("./templates/contents.xtpl");
 $editablePages=array("partner_content", "impressum_content", "kontakt_content", "sitemap_content", "handbuch_content", "handbuch_index", "home_content","home_logos");
-$editpages->assign("ITEM", "<h2>".getLangContent("sprache",$_GET['lang'],"editpages")."</h2>");
+$editpages->assign("ITEM", "<h2>".$spr['editpages']."</h2>");
 $editpages->assign("LANG", $_GET['lang']);
 $editpages->assign("ACTION", $_GET['a']);
 //$editpages->assign("PAGE", $_GET['pages']);
-$editpages->assign("DATA", getLangContent("sprache",$_GET['lang'],"editpages_comment"));//"W&auml;hlen Sie die zu bearbeitende Seite aus:");
+$editpages->assign("DATA", $spr['editpages_commend']);//"W&auml;hlen Sie die zu bearbeitende Seite aus:");
 //assign option-box
 $editpages->assign("OPTION","...  ");
 $editpages->parse("contents.editpages.select.option");
@@ -52,7 +52,7 @@ if($_POST['submitbutton']!=''){
 		// simply show the page
 	}	
 }
-$editpages->assign("SELECT", getLangContent("sprache", $_GET['lang'],"speichern"));
+$editpages->assign("SELECT", $spr['speichern']);
 $editpages->parse("contents.editpages");
 $out.=$editpages->text("contents.editpages");
 ?>

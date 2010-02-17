@@ -14,13 +14,13 @@ $impressum=new XTemplate ("./templates/contents.xtpl");
 //assign for content
 //$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'impressum'");
 //while($fetch = mysql_fetch_array($result)){
-	$content = getLangContent("sprache",$_GET['lang'],"impressum");
-	$impressum->assign("ITEM","<h1>".$content."</h1>");
+	
+	$impressum->assign("ITEM","<h1>".$spr['impressum']."</h1>");
 //}
 
 //$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'impressum_content'");
 //while($fetch = mysql_fetch_array($result)){
-	$impressum->assign("DATA",getLangContent("sprache",$_GET['lang'],"impressum_content"));
+	$impressum->assign("DATA",$spr['impressum_content']);
 //}
 
 $impressum->parse("contents.hand_kon_imp_par_site");

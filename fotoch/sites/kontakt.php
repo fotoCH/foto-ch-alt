@@ -14,14 +14,14 @@ $kontakt=new XTemplate ("./templates/contents.xtpl");
 //assign for content
 //$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'kontakt'");
 //while($fetch = mysql_fetch_array($result)){
-	$content = getLangContent("sprache",$_GET['lang'],"kontakt");
-	$kontakt->assign("ITEM","<h1>".$content."</h1>");
+	
+	$kontakt->assign("ITEM","<h1>".$spr['kontakt']."</h1>");
 //}
 
 
 //$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'kontakt_content'");
 //while($fetch = mysql_fetch_array($result)){
-	$kontakt->assign("DATA",getLangContent("sprache",$_GET['lang'],"kontakt_content"));
+	$kontakt->assign("DATA",$spr['kontakt_content']);
 //}
 
 //add contents to current template

@@ -14,13 +14,12 @@ $partner=new XTemplate ("./templates/contents.xtpl");
 //assign for content
 //$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'partner'");
 //while($fetch = mysql_fetch_array($result)){
-	$content = getLangContent("sprache",$_GET['lang'],"partner");
-	$partner->assign("ITEM","<h1>".$content."</h1>");
+	$partner->assign("ITEM","<h1>".$spr['partner']."</h1>");
 //}
 
 //$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'partner_content'");
 //while($fetch = mysql_fetch_array($result)){
-	$partner->assign("DATA",getLangContent("sprache",$_GET['lang'],"partner_content"));
+	$partner->assign("DATA",$spr['partner_content']);
 //}
 
 //add contents to current template

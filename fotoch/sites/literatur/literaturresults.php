@@ -6,7 +6,7 @@
 	$def->assign("ID",$_GET['id']);
 	$def->assign("LANG", $_GET['lang']);
 	$lang = $_GET['lang'];
-	$def->assign("title", getLangContent("sprache",$_GET['lang'], "literatur"));
+	$def->assign("title", $spr['literatur']);
 	
 	$def->assign("SPR",$spr);
 	

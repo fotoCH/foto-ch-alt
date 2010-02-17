@@ -87,7 +87,7 @@
 		if (auth_level($USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
 		if (auth_level($USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
 		
-		//$bearbeitungsdatum = getLangContent("sprache",$_GET['lang'],"bearbeitungsdatum");
+		
 		normfeld($def,$spr['bearbeitungsdatum'],$fetch['bearbeitungsdatum']);
 		
 		$def->parse("autodetail");

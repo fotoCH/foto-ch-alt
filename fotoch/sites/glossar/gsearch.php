@@ -9,7 +9,6 @@ $def->assign("SEARCHMODE", "ein");
 
 
 if(auth_level($USER_WORKER)){
-	$neuereintrag = getLangContent("sprache",$_GET['lang'],"neuereintrag");
 	$def->assign("NEU","<a href=\"./?a=gedit&amp;id=new&amp;lang=$language\">[&nbsp;".$spr['neuereintrag']."&nbsp;]</a><br><br>");
 	//$search.=$def->text("ayax_f");	
 }

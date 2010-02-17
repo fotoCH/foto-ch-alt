@@ -65,7 +65,7 @@
 		
 	//parse the $_SESSION['lastactions'][$i] actions...
 	for($i = 0 ; $i < sizeof($_SESSION['lastactions']); $i++){		
-		$value = getLangContent("sprache",$_GET['lang'],$_SESSION['url'][$i][0]);
+		$value = $spr[$_SESSION['url'][$i][0]];
 		$navhist->assign("VALUE",$value);
 		$navhist->assign("HREF", $_SESSION['url'][$i][1]);
 		if($i != 0) $navhist->assign("RARR", "&nbsp; &rarr; &nbsp; ");

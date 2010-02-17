@@ -10,7 +10,7 @@ $handbuch = new XTemplate("./templates/contents.xtpl");
 //while($fetch = mysql_fetch_array($result)){
 //	$search = $fetch["".$language.""];
 //}
-$handbuch->assign("ITEM",getLangContent("sprache",$_GET['lang'],"handbuch_index"));
+$handbuch->assign("ITEM",$spr['handbuch_index']);
 //$lexi_repe_gloss_hand->parse("lexi_repe_gloss_hand.search_results");
 //$out.= $lexi_repe_gloss_hand->text("lexi_repe_gloss_hand.search_results");
 
@@ -19,7 +19,7 @@ $handbuch->assign("ITEM",getLangContent("sprache",$_GET['lang'],"handbuch_index"
 //while($fetch = mysql_fetch_array($result)){
 //	$content = $fetch["".$language.""];
 //}
-$handbuch->assign("DATA",getLangContent("sprache",$_GET['lang'],"handbuch_content"));
+$handbuch->assign("DATA",$spr['handbuch_content']);
 $handbuch->parse("contents.hand_kon_imp_par_site");
 $out.= $handbuch->text("contents.hand_kon_imp_par_site");
 
