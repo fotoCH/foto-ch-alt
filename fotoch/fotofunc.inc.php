@@ -29,12 +29,12 @@ function escrequest(){
 	}
 }
 
+/*
 function auth(){
 	return !empty($_SESSION['s_uid']);
 }
-function auth_level($level){
-	return ($level >= $_SESSION['level']);	
-}
+
+
 
 function testauth(){
 	if (empty($_SESSION['s_uid'])){
@@ -43,6 +43,7 @@ function testauth(){
 	}
 
 }
+*/
 
 function formumfeld($t){  // expandiert Links im Umfeld
 	$suchmuster = "/<.link:(.\d+)>/";
