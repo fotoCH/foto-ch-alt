@@ -6,16 +6,16 @@
 	$def->assign("ID",$_GET['id']);
 	$def->assign("LANG", $_GET['lang']);
 	$lang = $_GET['lang'];
-	$def->assign("TITLE", getLangContent("sprache",$_GET['lang'], "literatur"));
-	$def->assign("Id", getLangContent("sprache",$_GET['lang'], "id"));
-	$def->assign("BEARBEITEN", "&nbsp;&nbsp;[&nbsp;".getLangContent("sprache",$_GET['lang'], "bearbeiten")."&nbsp;]");
-	$def->assign("VERFASSER", getLangContent("sprache",$_GET['lang'], "verfasser"));
-	$def->assign("TITEL", getLangContent("sprache",$_GET['lang'], "titel"));
-	$def->assign("ORT", getLangContent("sprache",$_GET['lang'], "ort"));
-	$def->assign("JAHR", getLangContent("sprache",$_GET['lang'], "jahr"));
+	$def->assign("title", getLangContent("sprache",$_GET['lang'], "literatur"));
+	
+	$def->assign("SPR",$spr);
 	
 	
-	$neuerEintrag = "[&nbsp;".getLangContent("sprache",$_GET['lang'], "neuereintrag")."&nbsp;]";
+	$def->assign("BEARBEITEN", "&nbsp;&nbsp;[&nbsp;".$spr['bearbeiten']."&nbsp;]");
+	
+	
+	
+	$neuerEintrag = "[&nbsp;".$spr['neuereintrag']."&nbsp;]";
 	$volltext = $_GET['volltext'];
 	$id=$_GET['id'];
 	$anf=$_GET['anf'];

@@ -14,7 +14,7 @@ $def=new XTemplate ("././templates/search.xtpl");
 $language = $_GET['lang'];
 $def->assign("LANG",$language);
 $def->assign("SEARCHMODE",$searchmode);
-
+$def->assign("SPR",$spr);
 
 #error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 #ini_set ('error_reporting', E_ALL);
@@ -27,7 +27,6 @@ if(auth_level($USER_WORKER)){
 
 	$def->assign("NEU","<a href=\"./?a=iedit&amp;id=new&amp;lang=$language\">[&nbsp;".$spr['neuereintrag']."&nbsp;]</a><br><br>");
 	
-	$def->assign("ANZEIGEN",$spr['anzeigen']);
 	$def->parse("ayax_i");
 	$text.=$def->text("ayax_i");
 	$def->assign("AJAXBAR", "$text<br />");	

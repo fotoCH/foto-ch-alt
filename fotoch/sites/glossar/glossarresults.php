@@ -11,14 +11,14 @@ $id=$_GET['id'];
 $anf=$_GET['anf'];
 $volltext=$_GET['volltext'];
 
-$def->assign("TITLE",getLangContent("sprache",$lang,"glossar"));
-$def->assign("BEGRIFF", getLangContent("sprache",$lang,"begriff"));
-$def->assign("ZEITRAUM", getLangContent("sprache",$lang,"zeitraum"));
-$def->assign("ERLAEUTERUNG", getLangContent("sprache",$lang,"erlaeuterung"));
-$neuereintrag =  getLangContent("sprache",$lang,"neuereintrag");
-$def->assign("BEARBEITEN", "[&nbsp;".getLangContent("sprache",$lang,"bearbeiten")."&nbsp;]");
+$def->assign("SPR",$spr);
 
-if(auth()){
+$def->assign("title",$spr['glossar']);
+
+$neuereintrag =  $spr['neuereintrag'];
+$def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
+
+if(auth_level($USER_WORKER)){
 	$def->parse("list.head_admin_glossar");
 }else{
 	$def->parse("list.head_glossar");	
@@ -26,14 +26,14 @@ if(auth()){
 
 
 $leerout=" AND LENGTH( `erlaeuterung` ) >0";
-if (auth()) $leerout='';
+if (auth_level($USER_WORKER)) $leerout='';
 
 if ($id==''){
 	// Select: code
 	
 	$result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '$anf%' $leerout ORDER BY begriff Asc");
 	if(!$anf) $result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '%$volltext%' ORDER BY begriff Asc");
-	if (auth()){
+	if (auth_level($USER_WORKER)){
 		$suff='row_admin_glossar';
 	}
 	else {
@@ -49,11 +49,11 @@ if ($id==''){
 		//$def->parse("list.row_normal");
 	}
 
-	if(auth()){
+	/*if(auth_level($USER_WORKER)){
 		//$def->assign("NEU"," | <a href=\"".$_SERVER['PHP_SELF']."?a=gedit&amp;id=new&amp;lang=$lang\">$neuereintrag</a>");
 	}else{
 		$def->assign("NEU","");
-	}
+	}*/
 
 
 	$def->parse("list");

@@ -9,7 +9,7 @@
 	$def->assign("SPR",$spr);
 	$def->assign("TITLE", $spr['bestand']);
 	
-	if (auth()){
+	if (auth_level($USER_WORKER)){
 		$result=mysql_query("SELECT * FROM bestand WHERE id=$id");
 	} else {
 		$result=mysql_query("SELECT * FROM bestand WHERE (id=$id) AND gesperrt=0");
@@ -20,7 +20,7 @@
 		$def->assign("ACTION",$_GET['a']);
 		$def->assign("ID",$_GET['id']);
 		$fetch['bildgattungen']=str_replace(',',', ',$fetch['bildgattungen']);
-		if (auth()) {
+		if (auth_level($USER_WORKER)) {
 			//$fetch['name'].=" <a href=\"./?a=bedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>";
 			$def->assign("bearbeiten"," <a href=\"./?a=bedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
 			normfeldg($def,$spr['name'],$fetch['name'],$fetch['gesperrt']);
@@ -30,7 +30,7 @@
 			//abstand($def);
 		}
 		$inst=getinsta($fetch['inst_id']);
-		if (!auth() && $inst['gesperrt']) exit;
+		if (!auth_level($USER_WORKER) && $inst['gesperrt']) exit;
 
 		normfeldg($def,$spr['institution'],"<a href=\"./?a=institution&amp;id=".$fetch['inst_id']."&amp;lang=".$_GET['lang']."\">".$inst['name']."</a>",$inst['gesperrt']);
 		normfeld($def,$spr['zeitraum'],$fetch['zeitraum']);
@@ -43,7 +43,7 @@
 		normfeld($def,$spr['umfang'],$fetch['umfang']);
 		normfeld($def,$spr['weitere_materialien'],$fetch['weiteres']);
 		normfeld($def,$spr['erschliessungsgrad'],$fetch['erschliessungsgrad']);
-		if (auth()) normfeld($def, $spr['fotografen_alt'],$fetch['fotografen']);
+		if (auth_level($USER_WORKER)) normfeld($def, $spr['fotografen_alt'],$fetch['fotografen']);
 
 		$result6=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=$id");
 		$def->assign("fotografIn",$spr['fotographInnen']);
@@ -70,13 +70,13 @@
 			$fetch6['fotografen_id']=$fotogr[$k]['fid'];
 			 $def->assign("g","");
 			if ($fotogr[$k]['gesperrt']==1){
-				if (auth()){ $def->assign("g","g");
+				if (auth_level($USER_WORKER)){ $def->assign("g","g");
 					}  //$fetch6['name']='X '.$fetch6['name'];
 			}
 
 			$def->assign("FETCH6",$fetch6);
 
-			if (auth() || ($fotogr[$k]['gesperrt']==0)) $def->parse("autodetail.z.bestn_2.flink"); else $def->parse("autodetail.z.bestn_2.fnlink");
+			if (auth_level($USER_WORKER) || ($fotogr[$k]['gesperrt']==0)) $def->parse("autodetail.z.bestn_2.flink"); else $def->parse("autodetail.z.bestn_2.fnlink");
 			$def->parse("autodetail.z.bestn_2");
 			$def->parse("autodetail.z");
 			$def->assign("fotografIn","");
@@ -84,8 +84,8 @@
 		}
 		if(mysql_num_rows($result6)!=0) abstand($def); 
 		//if(mysql_result($result6)!=0) abstand($def);
-		if (auth()) normfeld($def, $spr['notiz'],$fetch['notiz']);
-		if (auth()) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
+		if (auth_level($USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
+		if (auth_level($USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
 		
 		//$bearbeitungsdatum = getLangContent("sprache",$_GET['lang'],"bearbeitungsdatum");
 		normfeld($def,$spr['bearbeitungsdatum'],$fetch['bearbeitungsdatum']);

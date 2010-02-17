@@ -5,13 +5,13 @@ $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);
 $def->assign("LANG", $_GET['lang']);
 $def->assign("SEARCHMODE", "ein");
+$def->assign("SPR",$spr);
 $language = $_GET['lang'];
 
-if(auth()){
-	$neuereintrag = getLangContent("sprache",$_GET['lang'],"neuereintrag");
-	$def->assign("NEU","<a href=\"./?a=bedit&amp;id=new&amp;lang=$language\">[&nbsp;$neuereintrag&nbsp;]</a><br /><br />");
+if(auth_level($USER_WORKER)){
 	
-	$def->assign("ANZEIGEN",getLangContent("sprache",$_GET['lang'],"anzeigen"));
+	$def->assign("NEU","<a href=\"./?a=bedit&amp;id=new&amp;lang=$language\">[&nbsp;".$spr['neuereintrag']."&nbsp;]</a><br /><br />");
+	
 	$def->parse("ayax_b");
 	$text.=$def->text("ayax_b");
 	$def->assign("AJAXBAR", "$text<br />");	
@@ -25,14 +25,11 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 	//$def->out("list");
 }
 
-
 //volltextsuche
-$volltextsuche =getLangContent("sprache",$_GET['lang'],"volltextsuche");
-subgenformitem($def,'edittext',$volltextsuche,$fetch[test],'volltext');
+subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch[test],'volltext');
 
 //such button
-$submit = getLangContent("sprache",$_GET['lang'],"submit");
-subgensubmit($def,'submitfield',$submit);
+subgensubmit($def,'submitfield',$spr['submit']);
 
 //write to template
 $def->parse("suchen");

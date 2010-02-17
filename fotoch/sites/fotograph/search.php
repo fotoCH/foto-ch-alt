@@ -10,6 +10,7 @@ if(! in_array($searchmode,$searchmodes)) {
 //ini_set ('error_reporting', E_ALL);
 $def=new XTemplate ("././templates/search.xtpl");
 
+$def->assign("SPR",$spr);
 
 $language = $_GET['lang'];
 $def->assign("LANG",$language);
@@ -24,8 +25,6 @@ $id=$_GET['id'];
 if(auth_level($USER_WORKER)){
 	
 	$def->assign("NEU","<a href=\"./?a=edit&amp;id=new&amp;lang=$language\">[&nbsp;".$spr['neuereintrag']."&nbsp;]</a><br /><br />");
-	
-	$def->assign("ANZEIGEN",$spr['anzeigen']);
 	$def->parse("ayax_f");
 	$text.=$def->text("ayax_f");
 	$def->assign("AJAXBAR", "$text<br />");	

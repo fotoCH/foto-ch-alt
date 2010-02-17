@@ -16,17 +16,18 @@ $def=new XTemplate ("././templates/list_results.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);
 $def->assign("LANG",$_GET['lang']);
+$def->assign("SPR",$spr);
 
 $lang = $_GET['lang'];
 $id=$_GET['id'];
 $anf=$_GET['anf'];
 $volltext = $_GET['volltext'];
 
-$def->assign("TITLE",getLangContent("sprache",$_GET['lang'],"bestand"));
-$def->assign("NAME", getLangContent("sprache",$_GET['lang'],"name"));
-$def->assign("ID", getLangContent("sprache",$_GET['lang'],"id"));
-$def->assign("INSTITUTION", getLangContent("sprache", $_GET['lang'], "institution"));
-$def->assign("BEARBEITEN","[&nbsp;".getLangContent("sprache", $_GET['lang'], "bearbeiten")."&nbsp;]");
+
+
+$def->assign("title",$spr['bestand']);
+
+$def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 	
 	if ($anf!=''){
 	
@@ -40,7 +41,7 @@ $def->assign("BEARBEITEN","[&nbsp;".getLangContent("sprache", $_GET['lang'], "be
 		
 				if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				$def->assign("FETCH",$fetch);
-				$def->parse("list.row".(($_SESSION['s_uid']=="fotobe")?'_admin_bestand':'_normal_bestand'));
+				$def->parse("list.row".((auth_level($USER_WORKER))?'_admin_bestand':'_normal_bestand'));
 			}
 		
 			$def->parse("list");
@@ -62,7 +63,7 @@ $def->assign("BEARBEITEN","[&nbsp;".getLangContent("sprache", $_GET['lang'], "be
 		
 				if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				$def->assign("FETCH",$fetch);
-				$def->parse("list.row".(($_SESSION['s_uid']=="fotobe")?'_admin_bestand':'_normal_bestand'));
+				$def->parse("list.row".((auth_level($USER_WORKER))?'_admin_bestand':'_normal_bestand'));
 			}
 		
 			$def->parse("list");
