@@ -64,11 +64,11 @@
 		normfelda($def,$spr['zugang_zur_sammlung'],$fetch['zugang_zur_sammlung']);
 		normfelda($def,$spr['sammlungszeit'],$fetch['sammlungszeit']);
 		normfelda($def,$spr['bildgattungen'],$fetch['bildgattungen_set']);
-		if (auth_level($USER_WORKER)) normfelda($def, $spr['bildgattungen_alt'],$fetch['bildgattungen']);
+		if (auth_level($USER_GUEST_READER_PARTNER)) normfelda($def, $spr['bildgattungen_alt'],$fetch['bildgattungen']);
 		normfelda($def,$spr['sammlungsgeschichte'],$fetch['sammlungsgeschichte']);
 		normfelda($def,$spr['sammlungsbeschreibung'],$fetch['sammlungsbeschreibung']);
 
-		if (auth_level($USER_WORKER)) normfelda($def,'Literatur alt',$fetch['literatur']);
+		if (auth_level($USER_GUEST_READER_PARTNER)) normfelda($def,'Literatur alt',$fetch['literatur']);
 
 
 		$result6=mysql_query("SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
@@ -77,8 +77,8 @@
 		while($fetch6=mysql_fetch_array($result6)){
 
 			$def->assign("FETCH6",$fetch6);
-			if (auth_level($USER_WORKER) || ($fetch6['gesperrt']==0)){
-				$def->assign('g',(auth_level($USER_WORKER) && $fetch6['gesperrt']==1?'g':''));
+			if (auth_level($USER_GUEST_READER_PARTNER) || ($fetch6['gesperrt']==0)){
+				$def->assign('g',(auth_level($USER_GUEST_READER_PARTNER) && $fetch6['gesperrt']==1?'g':''));
 				$def->parse("autodetail.z.bestn_3");
 				$def->parse("autodetail.z");
 				$def->assign("Bestand","");
