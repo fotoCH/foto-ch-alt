@@ -37,8 +37,14 @@
 				<br /><br />
 
 <!-- BEGIN:ok -->
+		<div id="content_left">
+				<h1>Login</h1>
+				<br /><br />
 				eingeloggt es geht gleich weiter...
 				<meta http-equiv="refresh" content="1; URL=./?a=fotograph&amp;lang={LANG}">
+				</div>
+			<div id="content_image">
+			</div>
 <!-- END:ok -->
 <!-- BEGIN:form -->
 		<form action="./?a={ACTION}&amp;lang={LANG}" method="post">

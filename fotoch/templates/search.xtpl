@@ -2,7 +2,7 @@
 
 	<script type="text/javascript">
 		function ifEnter(form, event){
-			if(event.which == 13 && event.ctrlKey){
+			if(event.which == 13 && event.shiftKey){
 				
 			}
 			else if(event.which == 13){
