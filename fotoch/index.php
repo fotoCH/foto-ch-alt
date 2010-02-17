@@ -22,6 +22,7 @@ setcookie("lang", $language, (time() + (60*60*24*183)));
 //put this not before the initial language setting
 //define action
 require("lang.inc.php");
+require("auth.inc.php");
 
 $action=$_GET['a'];
 $actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit");
@@ -30,11 +31,11 @@ if (!in_array($action,$actions)) $action='home';  // default Startseite
 //chose main template
 //print_r($spr);
 //echo($spr['fotoch']);
-if(!empty($_SESSION['s_uid'])){
-	$xtpl = new XTemplate("templates/main_intern.xtpl");
-	$xtpl->assign("LOG","logout");
-	
-} else {
+
+if(auth_level($USER_WORKER)){
+	$xtpl = new XTemplate("templates/main_intern.xtpl");	
+} 
+else {
 	if($action == "fotograph" || $action == "bestand" || $action == "institution"){
 		$xtpl = new XTemplate("templates/main_lexirepi.xtpl");
 		include("sites/navhistory.php");		
@@ -53,8 +54,8 @@ if(!empty($_SESSION['s_uid'])){
 		$xtpl->assign("IMG4href", "images/".$placeholders[4]);
 		$xtpl->assign("IMG5href", "images/".$placeholders[5]);		
 	}
-	$xtpl->assign("LOG","login");
 }
+($_SESSION['usr_level'] != "") ? $xtpl->assign("LOG","logout"):$xtpl->assign("LOG","login");
 
 $xtpl->assign("SPR",$spr);  // load all languagecontent!
 //$xtpl->assign("FOTOCH", getLangContent("sprache", $language, "fotoch"));
@@ -81,7 +82,7 @@ if(in_array($action,$adminActions)){
 	}
 } else {
 	if(in_array($action,$editActions)) { 
-		if(!empty($_SESSION['s_uid'])){
+		if(auth_level($USER_WORKER)){
 			include("edit/".$action.".php");
 		} else { 
 			$action = "login";
