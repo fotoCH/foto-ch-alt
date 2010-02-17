@@ -16,7 +16,7 @@
 <!-- BEGIN:fldatum -->
 		<tr>
 			<td valign="top" class="detail_label"></td>
-			<td><span class="date">{FETCH.fldatum}</span></td>
+			<td valign="top"><span class="date">{FETCH.fldatum}</span></td>
 		</tr>
 <!-- END:fldatum -->    		    	    		
 <!-- BEGIN:z -->
@@ -38,7 +38,7 @@
 <!-- BEGIN:arb -->
 					<tr>
     					<td valign="top"><span class="subtitle2">{SPR.arbeitsort}</span></td>
-    					<td><span class="text2">{FETCH2.arbeitsort} 
+    					<td valign="top"><span class="text2">{FETCH2.arbeitsort} 
 <!-- BEGIN:vonbis --> {FETCH2.um_vonf}{FETCH2.von} - {FETCH2.um_bisf}{FETCH2.bis}
 
 <!-- END:vonbis -->
@@ -61,14 +61,14 @@
 <!-- END:bestn -->
 <!-- BEGIN:bestn_2 -->
     		<tr>
-    			<td class="detail_label"><span class="subtitle2">{fotografIn}</span></td>    				
-    			<td><span class="subtitle3{g}"><!-- BEGIN:flink --><a href="./?a=fotograph&amp;id={FETCH6.fotografen_id}&amp;lang={LANG}">{FETCH6.name}</a><!-- END:flink --><!-- BEGIN:fnlink -->{FETCH6.name}<!-- END:fnlink --></span></td>
+    			<td class="detail_label" valign="top"><span class="subtitle2">{fotografIn}</span></td>    				
+    			<td valign="top"><span class="subtitle3{g}"><!-- BEGIN:flink --><a href="./?a=fotograph&amp;id={FETCH6.fotografen_id}&amp;lang={LANG}">{FETCH6.name}</a><!-- END:flink --><!-- BEGIN:fnlink -->{FETCH6.name}<!-- END:fnlink --></span></td>
  		</tr>    	
 <!-- END:bestn_2 -->
 <!-- BEGIN:bestn_3 -->    		
     		<tr>
     				<td class="detail_label" valign="top"><span class="subtitle2" >{Bestand}</span></td>    				
-    				<td><span class="subtitle3{g}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a> &nbsp; &nbsp;  {FETCH6.zeitraum} </span></td>
+    				<td valign="top"><span class="subtitle3{g}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a> &nbsp; &nbsp;  {FETCH6.zeitraum} </span></td>
  		</tr>
 <!-- END:bestn_3 -->
 
@@ -77,7 +77,7 @@
     		
     		<tr>
     				<td valign="top"><span class="subtitle2">{alt_best}</span></td>
-    				<td><span class="subtitle3">{FETCH3.institution} Findmittel:{FETCH3.findmittel}</span></td>
+    				<td valign="top"><span class="subtitle3">{FETCH3.institution} Findmittel:{FETCH3.findmittel}</span></td>
  		</tr>
     		
 
@@ -85,13 +85,13 @@
 <!-- BEGIN:lit -->
 		<tr>
     				<td class="detail_label" valign="top"><span class="subtitle2">{FETCH7.Literatur}</span></td>
-    				<td><span class="subtitle3">{FETCH7.text}</span></td>
+    				<td valign="top"><span class="subtitle3">{FETCH7.text}</span></td>
  		</tr>    		
 <!-- END:lit -->
 <!-- BEGIN:aus -->
 		<tr>
     				<td class="detail_label" valign="top"><span class="subtitle2">{FETCH8.Ausstellung}</span></td>
-    				<td><span class="subtitle3">{FETCH8.text}.</span></td>
+    				<td valign="top"><span class="subtitle3">{FETCH8.text}.</span></td>
  		</tr>    		
 <!-- END:aus -->
 <!-- BEGIN:bearbeiten_ausstellung -->
@@ -103,7 +103,7 @@
 <!-- BEGIN:bearbeiten_literatur -->
 		<tr>
     				
-    				<td class="detail_label"><a href="./?a=ledit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></td>
+    				<td class="detail_label" valign="baseline"><a href="./?a=ledit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></td>
     				<td valign="baseline"><span class="date">&nbsp;</span></td>
  		</tr> 
 <!-- END:bearbeiten_literatur -->
