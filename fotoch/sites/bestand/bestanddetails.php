@@ -30,7 +30,7 @@
 			//abstand($def);
 		}
 		$inst=getinsta($fetch['inst_id']);
-		if (!auth_level(USER_WORKER) && $inst['gesperrt']) exit;
+		if (!auth_level(USER_GUEST_READER_PARTNER) && $inst['gesperrt']) exit;
 
 		normfeldg($def,$spr['institution'],"<a href=\"./?a=institution&amp;id=".$fetch['inst_id']."&amp;lang=".$_GET['lang']."\">".$inst['name']."</a>",$inst['gesperrt']);
 		normfeld($def,$spr['zeitraum'],$fetch['zeitraum']);

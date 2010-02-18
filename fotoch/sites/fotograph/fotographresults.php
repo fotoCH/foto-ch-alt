@@ -24,7 +24,7 @@ if($_GET['submitbutton'] != ""){
 	unset($vars['submitbutton']);
 	unset($vars['mod']);
 	unset($vars['lang']);
-	print_r($vars);
+	//print_r($vars);
 		
 	$fgt="";
 	foreach ($vars['fotografengattungen'] as $fg){
