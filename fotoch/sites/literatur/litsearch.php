@@ -14,7 +14,7 @@
 	
 	
 	
-	if(auth_level($USER_WORKER)){
+	if(auth_level(USER_WORKER)){
 		
 		$def->assign("SPR",$spr);
 		

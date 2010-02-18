@@ -22,7 +22,7 @@ $def->assign("ID",$_GET['id']);
 $id=$_GET['id'];
 
 
-if(auth_level($USER_WORKER)){
+if(auth_level(USER_WORKER)){
 	
 	$def->assign("NEU","<a href=\"./?a=edit&amp;id=new&amp;lang=$language\">[&nbsp;".$spr['neuereintrag']."&nbsp;]</a><br /><br />");
 	$def->parse("ayax_f");
@@ -68,7 +68,7 @@ if($_GET[mod]=="erw"){
 
 	subgenselectitem($def, $spr['kantone'], 5, "kanton[]", $array_set_list, "true", "", "8");
 
-	if(auth_level($USER_GUEST_READER_PARTNER)){
+	if(auth_level(USER_GUEST_READER_PARTNER)){
 		subgenformitem($def,'edittext',$spr['notiz'],$fetch[test],'notiz');
 		subgenformitem($def,'textfield',$spr['autorIn'],$fetch[test],'autorIn');
 	}

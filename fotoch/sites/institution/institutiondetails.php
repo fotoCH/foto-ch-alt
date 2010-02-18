@@ -11,7 +11,7 @@
 	$id=$_GET['id'];
 	$anf=$_GET['anf'];
 	if (!$anf){
-		if (auth_level($USER_WORKER) && !$id){
+		if (auth_level(USER_WORKER) && !$id){
 			$ayax=1;
 		} else {
 			$anf='A';
@@ -40,7 +40,7 @@
 		if ($fetch['sammlungszeit_von'].$fetch['sammlungszeit_bis']!=''){
 			$fetch['sammlungszeit']=$fetch['sammlungszeit_von'].' - '.$fetch['sammlungszeit_bis'];
 		} else { $fetch['sammlungszeit']=''; }
-		if (auth_level($USER_WORKER)) {
+		if (auth_level(USER_WORKER)) {
 			//$fetch['name'].=" <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>";
 			$def->assign("bearbeiten"," <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
 			normfeldg($def,$spr['name'],$fetch['name'],$fetch['gesperrt']);
@@ -52,7 +52,7 @@
 		normfeld($def,$spr['adresse'],$fetch['adresse']);
 		normfeld($def,$spr['ort'],$fetch['ort']);
 		//abstand($def);
-		if (auth_level($USER_WORKER)){
+		if (auth_level(USER_WORKER)){
 			normfeld($def,'FAX',$fetch['fax']);
 			normfeld($def,'Email',$fetch['email']);
 			normfeld($def, $spr['kontaktperson'],$fetch['kontaktperson']);
@@ -127,8 +127,8 @@
 		}
 		if(mysql_num_rows($result8)!=0) abstand($def); 
 			
-		if (auth_level($USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
-		if (auth_level($USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
+		if (auth_level(USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
+		if (auth_level(USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
 		normfeld($def,$spr['bearbeitungsdatum'],$fetch['bearbeitungsdatum']);
 		normfeld($def,$spr['autorIn'],$fetch['autorin']);
 

@@ -61,7 +61,7 @@ if($_GET['submitbutton'] != ""){
 		$arbeitsjahr=$vars['arbeitsjahr'];
 	}
 	
-	if(!auth_level($USER_WORKER)){
+	if(!auth_level(USER_WORKER)){
 		unset($vars['arbeitsjahr']);
 	}
 	
@@ -88,7 +88,7 @@ if($_GET['submitbutton'] != ""){
 
 	$full= (!empty($vars['volltext']));
 	
-	if (!auth_level($USER_GUEST_READER)) $where='(fotografen.unpubliziert=0) AND ('.$where.')';
+	if (!auth_level(USER_GUEST_READER)) $where='(fotografen.unpubliziert=0) AND ('.$where.')';
 	$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.werdegang<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE ".$where." ORDER BY namen.nachname Asc, namen.vorname Asc";
 
 	if ($arb){
@@ -99,7 +99,7 @@ if($_GET['submitbutton'] != ""){
 		$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.werdegang<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND MATCH ( heimatort,geburtsort,todesort,beruf,schaffensbeschrieb,werdegang,auszeichnungen) AGAINST ('".$vars['volltext']."')";
 	}
 
-	if(auth_level($USER_WORKER)){
+	if(auth_level(USER_WORKER)){
 		if ($arb){
 			$def->parse("list.listhead_admin_arb");
 		}else{
@@ -131,10 +131,10 @@ if($_GET['submitbutton'] != ""){
 			$fetch['bioclass']='subtitle3';
 		}
 		
-		if(auth_level($USER_GUEST_READER) && $fetch['unpubliziert']==1) $fetch['bioclass']='subtitle3x';
+		if(auth_level(USER_GUEST_READER) && $fetch['unpubliziert']==1) $fetch['bioclass']='subtitle3x';
 		
 		$def->assign("FETCH",$fetch);
-		if(auth_level($USER_WORKER)){
+		if(auth_level(USER_WORKER)){
 			if ($arb){
 				$def->parse("list.row_admin_arb");
 				//$results.=$def->text("list.row_admin_arb");
@@ -150,7 +150,7 @@ if($_GET['submitbutton'] != ""){
 			}
 		}
 	}
-	if(auth_level($USER_WORKER)){
+	if(auth_level(USER_WORKER)){
 		$def->assign("NEU"," | <a href=\"./?a=edit&amp;id=new&amp;lang=$lang\">".$spr['neuereintrag']."</a>");
 	}else{
 		$def->assign("NEU","");
@@ -164,14 +164,14 @@ if($_GET['submitbutton'] != ""){
 	if ($_GET['id'] =='' && !$ayax){
 	
 		//do query
-		if(auth_level($USER_GUEST_READER)){
+		if(auth_level(USER_GUEST_READER)){
 			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc");
 		}else{
 			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc");		
 		}	
 		
 		//assign title template:
-		(auth_level($USER_WORKER)) ? $def->parse("list.listhead_admin") : $def->parse("list.listhead_normal");
+		(auth_level(USER_WORKER)) ? $def->parse("list.listhead_admin") : $def->parse("list.listhead_normal");
 		
 		while($fetch=mysql_fetch_array($result)){
 			if ($fetch['biog']==1){
@@ -181,11 +181,11 @@ if($_GET['submitbutton'] != ""){
 			}
 			$fetch['fgeburtsdatum']=formdatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum']);
 			$fetch['fldatum']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);
-			if(auth_level($USER_GUEST_READER)) if ($fetch['unpubliziert']==1) $fetch['bioclass']='subtitle3x';
+			if(auth_level(USER_GUEST_READER)) if ($fetch['unpubliziert']==1) $fetch['bioclass']='subtitle3x';
 	
 			$def->assign("FETCH",$fetch);
 	
-			if(auth_level($USER_WORKER)){
+			if(auth_level(USER_WORKER)){
 				$def->parse("list.row_admin");
 				//$results.=$def->text("list.row_admin");
 			}else{

@@ -8,7 +8,7 @@ $def->assign("SEARCHMODE", "ein");
 $def->assign("SPR",$spr);
 $language = $_GET['lang'];
 
-if(auth_level($USER_WORKER)){
+if(auth_level(USER_WORKER)){
 	
 	$def->assign("NEU","<a href=\"./?a=bedit&amp;id=new&amp;lang=$language\">[&nbsp;".$spr['neuereintrag']."&nbsp;]</a><br /><br />");
 	

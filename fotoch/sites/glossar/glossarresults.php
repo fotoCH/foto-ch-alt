@@ -18,7 +18,7 @@ $def->assign("title",$spr['glossar']);
 $neuereintrag =  $spr['neuereintrag'];
 $def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 
-if(auth_level($USER_WORKER)){
+if(auth_level(USER_WORKER)){
 	$def->parse("list.head_admin_glossar");
 }else{
 	$def->parse("list.head_glossar");	
@@ -26,14 +26,14 @@ if(auth_level($USER_WORKER)){
 
 
 $leerout=" AND LENGTH( `erlaeuterung` ) >0";
-if (auth_level($USER_WORKER)) $leerout='';
+if (auth_level(USER_WORKER)) $leerout='';
 
 if ($id==''){
 	// Select: code
 	
 	$result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '$anf%' $leerout ORDER BY begriff Asc");
 	if(!$anf) $result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '%$volltext%' ORDER BY begriff Asc");
-	if (auth_level($USER_WORKER)){
+	if (auth_level(USER_WORKER)){
 		$suff='row_admin_glossar';
 	}
 	else {

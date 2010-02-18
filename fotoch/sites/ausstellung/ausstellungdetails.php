@@ -14,7 +14,7 @@
 	$anf=$_GET['anf'];
 	$result=mysql_query("SELECT * FROM ausstellung WHERE id=$id");
 	
-	if(auth_level($USER_WORKER)){////////////////////////////// Admincode
+	if(auth_level(USER_WORKER)){////////////////////////////// Admincode
 		while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 			
 			foreach ($fetch as $key=>$value){
@@ -65,15 +65,15 @@
 		$fetch6['name']=$fotogr[$k]['namen'];
 		$fetch6['fotografen_id']=$fotogr[$k]['fid'];
 		//if ($fotogr[$k]['gesperrt']==1) if (auth()) $fetch6['name']='X '.$fetch6['name'];
-		$def->assign("g",(auth_level($USER_WORKER) && $fotogr[$k]['gesperrt']==1?'g':''));
+		$def->assign("g",(auth_level(USER_WORKER) && $fotogr[$k]['gesperrt']==1?'g':''));
 		$def->assign("FETCH6",$fetch6);
-		if (auth_level($USER_WORKER) || ($fotogr[$k]['gesperrt']==0)) $def->parse("autodetail.z.bestn_2.flink"); else $def->parse("autodetail.z.bestn_2.fnlink");
+		if (auth_level(USER_WORKER) || ($fotogr[$k]['gesperrt']==0)) $def->parse("autodetail.z.bestn_2.flink"); else $def->parse("autodetail.z.bestn_2.fnlink");
 		$def->parse("autodetail.z.bestn_2");
 		$def->parse("autodetail.z");
 		$def->assign("fotografIn","");
 	
 	}
-	if(auth_level($USER_WORKER)) $def->assign("BEARBEITEN","<a href=\"./?a=aedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
+	if(auth_level(USER_WORKER)) $def->assign("BEARBEITEN","<a href=\"./?a=aedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
 	
 	$def->parse("autodetail.z.bearbeiten_ausstellung");
 	$def->parse("autodetail.z");

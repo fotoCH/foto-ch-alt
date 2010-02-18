@@ -11,11 +11,11 @@
 	$def->assign("SPR", $spr);
 		
 	
-	if(auth_level($USER_GUEST_READER)) $def->assign("idd",$id);
+	if(auth_level(USER_GUEST_READER)) $def->assign("idd",$id);
 	
 	$def->assign("KOMMA1", ", "); //assign komma for name, vorname in header
 		
-		if(auth_level($USER_GUEST_READER)) {
+		if(auth_level(USER_GUEST_READER)) {
 			$result = mysql_query("SELECT * FROM fotografen WHERE (id=$id)");
 		}
 		else {
@@ -24,7 +24,7 @@
 		$det="autodetail";
 		if ($_GET['style']=='print') $det="detailprint";
 		while($fetch=mysql_fetch_array($result)){
-			if (auth_level($USER_WORKER)){
+			if (auth_level(USER_WORKER)){
 				//$def->assign('id','$id');
 				$def->assign('bearb',"<a href=\"./?a=edit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
 				
@@ -61,8 +61,8 @@
 				}else{
 				 $def->assign("KOMMA","");
 				}
-				if (auth_level($USER_GUEST_READER)) $fetch4['idf']="(id=$fetch4[id])";
-				if (auth_level($USER_GUEST_READER)){
+				if (auth_level(USER_GUEST_READER)) $fetch4['idf']="(id=$fetch4[id])";
+				if (auth_level(USER_GUEST_READER)){
 					$def->assign('g',$fetch['unpubliziert']==1?'g':'');
 				}
 				$def->assign("FETCH4",$fetch4);
@@ -120,7 +120,7 @@
 			
 			normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
 			
-			if(auth_level($USER_GUEST_READER)){
+			if(auth_level(USER_GUEST_READER)){
 				$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, institution.name AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
 				WHERE bestand_fotograf.fotografen_id=$id ORDER BY bestand.nachlass DESC, bestand.name ASC");
@@ -132,12 +132,12 @@
 			
 			$bes=$spr['bestaende'];
 			while($fetch6=mysql_fetch_array($result6)){
-				if (auth_level($USER_GUEST_READER) || $fetch6['instgesp']==0){ 
+				if (auth_level(USER_GUEST_READER) || $fetch6['instgesp']==0){ 
 					$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
 				} else {
 					$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
 				}
-				if (auth_level($USER_GUEST_READER)){
+				if (auth_level(USER_GUEST_READER)){
 					$def->assign("gb",($fetch6['gesperrt']==0?'':'g'));
 					$def->assign("gi",($fetch6['instgesp']==0?'':'g'));
 				}
@@ -150,7 +150,7 @@
 			}
 			if(mysql_num_rows($result6)!=0) abstand($def); 
 			
-			if (auth_level($USER_GUEST_READER)){ // alte bestaende
+			if (auth_level(USER_GUEST_READER)){ // alte bestaende
 				$result3=mysql_query("SELECT * FROM bestaende WHERE fotografen_id=$id ORDER BY  id");
 				$def->assign("alt_best", "Alt. Best.");
 				while($fetch3=mysql_fetch_array($result3)){
@@ -192,7 +192,7 @@
 				$def->parse($det.".z");
 			}
 			if(mysql_num_rows($result7)!=0) abstand($def); 
-			if (auth_level($USER_GUEST_READER)){  //alte Literatur
+			if (auth_level(USER_GUEST_READER)){  //alte Literatur
 				normfelda($def,$spr['primaerliteratur_alt'],$fetch['primaerliteratur']);
 				normfelda($def,$spr['sekundaerliteratur_alt'],$fetch['sekundaerliteratur']);
 			}
@@ -223,7 +223,7 @@
 				$def->parse($det.".z");										
 			}
 			if(mysql_num_rows($result8)!=0) abstand($def);
-			if (auth_level($USER_GUEST_READER)){  //alte Literatur
+			if (auth_level(USER_GUEST_READER)){  //alte Literatur
 				normfelda($def,$spr['einzelausstellung_alt'],$fetch['einzelausstellungen']);
 				normfelda($def,$spr['gruppenausstellung_alt'],$fetch['gruppenausstellungen']);
 				if(!empty($fetch['kanton'])){
@@ -233,12 +233,12 @@
 					//echo $kantone;
 				}
 				normfelda($def,$spr['kantone'],$kantone);
-				if(auth_level($USER_GUEST_READER_PARTNER)) normfelda($def,$spr['notiz'],$fetch['notiz']);
+				if(auth_level(USER_GUEST_READER_PARTNER)) normfelda($def,$spr['notiz'],$fetch['notiz']);
 				normfeld($def,$spr['npublizieren'],$fetch['unpubliziert']);
 			}
 			normfeld($def,$spr['autorIn'],$fetch['autorIn']);
 			normfeld($def,$spr['bearbeitungsdatum'],$fetch['fbearbeitungsdatum']);
-			if (auth_level($USER_GUEST_READER)){
+			if (auth_level(USER_GUEST_READER)){
 				$def->assign('g',$fetch['unpubliziert']==1?'g':'');
 			}	
 		}//while	

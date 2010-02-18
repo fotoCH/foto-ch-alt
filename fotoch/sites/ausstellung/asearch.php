@@ -13,7 +13,7 @@
 	$def->assign("ID",$_GET['id']);
 	$id=$_GET['id'];
 	
-	if(auth_level($USER_WORKER)){	
+	if(auth_level(USER_WORKER)){	
 		
 		$def->assign("NEU","<a href=\"./?a=aedit&amp;id=new&amp;lang=$language\">[&nbsp;".$spr['neuereintrag']."&nbsp;]</a><br><br>");
 		$def->parse("ayax_a");

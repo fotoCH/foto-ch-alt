@@ -41,7 +41,7 @@ $def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 		
 				if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				$def->assign("FETCH",$fetch);
-				$def->parse("list.row".((auth_level($USER_WORKER))?'_admin_bestand':'_normal_bestand'));
+				$def->parse("list.row".((auth_level(USER_WORKER))?'_admin_bestand':'_normal_bestand'));
 			}
 		
 			$def->parse("list");
@@ -63,7 +63,7 @@ $def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 		
 				if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				$def->assign("FETCH",$fetch);
-				$def->parse("list.row".((auth_level($USER_WORKER))?'_admin_bestand':'_normal_bestand'));
+				$def->parse("list.row".((auth_level(USER_WORKER))?'_admin_bestand':'_normal_bestand'));
 			}
 		
 			$def->parse("list");

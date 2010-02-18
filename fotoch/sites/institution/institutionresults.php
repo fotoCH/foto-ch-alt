@@ -6,7 +6,7 @@ $id=$_GET['id'];
 $anf=$_GET['anf'];
 
 if (!$anf){
-	if (auth_level($USER_WORKER) && !$id){
+	if (auth_level(USER_WORKER) && !$id){
 		$ayax=1;
 	} else {
 		$anf='A';
@@ -54,7 +54,7 @@ if ($_GET['submitbutton']!=""){
 	$result=mysql_query($query);
 	
 	if(mysql_num_rows($result) > 0){
-		if(auth_level($USER_WORKER)){
+		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
 			$def->parse("list.listhead_normal_institution");
@@ -74,7 +74,7 @@ if ($_GET['submitbutton']!=""){
 		
 		
 		$def->assign("FETCH",$fetch);
-		if(auth_level($USER_WORKER)){
+		if(auth_level(USER_WORKER)){
 			$def->parse("list.row_admin_institution");
 		}else{
 			if ($fetch['gesperrt']==0) $def->parse("list.row_normal_institution");
@@ -93,7 +93,7 @@ if ($_GET['submitbutton']!=""){
 			$result=mysql_query("SELECT * FROM institution WHERE (name LIKE '$anf%') AND (gesperrt=0) ORDER BY  name Asc");
 		}
 		
-		if(auth_level($USER_WORKER)){
+		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
 			$def->parse("list.listhead_normal_institution");
@@ -110,7 +110,7 @@ if ($_GET['submitbutton']!=""){
 			if ($fetch['abkuerzung']) $fetch['abkuerzung']='('.$fetch['abkuerzung'].')';
 			$def->assign("FETCH",$fetch);
 			//print_r($fetch);
-			$def->parse("list.row".((auth_level($USER_WORKER))?'_admin_institution':'_normal_institution'));
+			$def->parse("list.row".((auth_level(USER_WORKER))?'_admin_institution':'_normal_institution'));
 			//$def->parse("list.row_normal");
 		}
 	

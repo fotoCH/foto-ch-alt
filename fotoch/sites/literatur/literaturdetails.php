@@ -11,7 +11,7 @@
 	
 	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
 	//if(mysql_num_rows($result)>0){ echo "es" ;} else {echo "no";}
-	if(auth_level($USER_WORKER)){////////////////////////////// Admincode
+	if(auth_level(USER_WORKER)){////////////////////////////// Admincode
 		while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 					
 			foreach ($fetch as $key=>$value){
@@ -62,9 +62,9 @@
 		$fetch6['name']=$fotogr[$k]['namen'];
 		$fetch6['fotografen_id']=$fotogr[$k]['fid'];
 		//if ($fotogr[$k]['gesperrt']==1) if (auth()) $fetch6['name']='X '.$fetch6['name'];
-		$def->assign("g",(auth_level($USER_WORKER) && $fotogr[$k]['gesperrt']==1?'g':''));
+		$def->assign("g",(auth_level(USER_WORKER) && $fotogr[$k]['gesperrt']==1?'g':''));
 		$def->assign("FETCH6",$fetch6);
-		if (auth_level($USER_WORKER) || ($fotogr[$k]['gesperrt']==0)) $def->parse("autodetail.z.bestn_2.flink"); else 		$def->parse("autodetail.z.bestn_2.fnlink");
+		if (auth_level(USER_WORKER) || ($fotogr[$k]['gesperrt']==0)) $def->parse("autodetail.z.bestn_2.flink"); else 		$def->parse("autodetail.z.bestn_2.fnlink");
 		$def->parse("autodetail.z.bestn_2");
 		$def->parse("autodetail.z");
 		$def->assign("Fotograf","");
