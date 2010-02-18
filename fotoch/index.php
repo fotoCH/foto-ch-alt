@@ -32,7 +32,7 @@ if (!in_array($action,$actions)) $action='home';  // default Startseite
 //print_r($spr);
 //echo($spr['fotoch']);
 
-if(auth_level($USER_WORKER)){
+if(auth_level(USER_WORKER)){
 	$xtpl = new XTemplate("templates/main_intern.xtpl");	
 } 
 else {
@@ -82,7 +82,7 @@ if(in_array($action,$adminActions)){
 	}
 } else {
 	if(in_array($action,$editActions)) { 
-		if(auth_level($USER_WORKER)){
+		if(auth_level(USER_WORKER)){
 			include("edit/".$action.".php");
 		} else { 
 			$action = "login";
