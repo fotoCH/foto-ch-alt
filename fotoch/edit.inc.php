@@ -12,6 +12,7 @@ function namen($def,$id){ //nur fotograf
 				$lang = $_GET['lang'];	
 				$loeschen = getLangContent("sprache", $_GET['lang'], "loeschen");	//seems to have no other solution...		
 				$def->assign("DELETE", "<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">[&nbsp;".$loeschen."&nbsp;]</a>");
+				//$def->assign("DELETE", "<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">[&nbsp;".$spr['loeschen']."&nbsp;]</a>");// does not work ??				
 				$def->assign("STANDARD", "");	
 				$def->assign("BR","<br />")	;		
 			}
