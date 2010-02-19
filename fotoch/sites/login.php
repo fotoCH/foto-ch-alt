@@ -8,7 +8,7 @@ $log->assign("LANG",$_GET['lang']);
 $xtpl->assign("LANG", $_GET['lang']);
 
 if ($_POST['usr_uid'] !="" && $_POST['usr_pw']!=""){
-	
+
 	$query = "SELECT * FROM users";
 	$result = mysql_query($query);
 	$success = false;
@@ -20,11 +20,11 @@ if ($_POST['usr_uid'] !="" && $_POST['usr_pw']!=""){
 			$out=$log->text("contents.log.ok");
 			$success = true;
 		}
-		if(!$success){
-			$out = print_error($log);			
-		}		
 	}
-	
+	if(!$success){
+		$out = print_error($log);
+	}
+
 } else {
 	$out = print_error($log);
 }
@@ -33,11 +33,11 @@ if ($_POST['usr_uid'] !="" && $_POST['usr_pw']!=""){
 
 
 function print_error($log){
-	//$log=new XTemplate ("templates/contents.xtpl"); 
+	//$log=new XTemplate ("templates/contents.xtpl");
 	$log->assign("ACTION", $_GET['a']);
 	$log->assign("ID", $_GET['id']);
 	$log->parse("contents.log.form");
 	$log->parse("contents.log");
-	return $log->text("contents.log");	
+	return $log->text("contents.log");
 }
 ?>
