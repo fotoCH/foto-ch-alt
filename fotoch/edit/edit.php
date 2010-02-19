@@ -5,7 +5,7 @@ ini_set ('error_reporting', E_ALL);
 include("./fotofunc.inc.php");
 include("./backend.inc.php");
 include("./edit.inc.php");
-testauth();
+testauthedit();
 
 $def=new XTemplate ("./templates/edit.xtpl");
 $def->assign("ACTION",$_GET['a']);
@@ -14,16 +14,6 @@ $def->assign("LANG", $_GET['lang']);
 $lang = $_GET['lang'];
 
 $def->assign("SPR", $spr);	
-
-//assign options in [ ]
-$def->assign("LOESCHEN", "[&nbsp;".$spr['loeschen']."&nbsp;]");
-$def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
-$def->assign("INSTITUTIONBEARBEITEN", "[&nbsp;".$spr['institution_bearbeiten']."&nbsp;]");
-$def->assign("ARBEITSORTHINZUFUEGEN",  "[&nbsp;".$spr['arbeitsort_hinzufuegen']."&nbsp;]");
-$def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
-$def->assign("BEZEICHNUNGHINZUFUEGEN", "[&nbsp;".$spr['bezeichnung_hinzufuegen']."&nbsp;]");
-$def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
-
 
 if ($_POST) escposts();
 if ($_GET['id']=="new"){

@@ -4,7 +4,7 @@ include("./fotofunc.inc.php");
 include("./backend.inc.php");
 include("./iedit.inc.php");
 //error_reporting((E_ALL));
-testauth();
+testauthedit();
 $def=new XTemplate ("./templates/edit.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
@@ -12,13 +12,6 @@ $lang = $_GET['lang'];
 $def->assign("LANG",$lang);
 
 $def->assign("SPR",$spr);
-
-// assign the [ ] functions
-$def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
-$def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
-$def->assign("LINKLOESCHEN", "[&nbsp;".$spr['linkloeschen']."&nbsp;]");
-$def->assign("LOESCHEN", "[&nbsp;".$spr['loeschen']."&nbsp;]");
-$def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
 
 if ($_POST) escposts();
 if ($_GET[id]=="new"){

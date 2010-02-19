@@ -176,7 +176,7 @@ function submitita(v)
 			<td >
 				<input type="submit" class="jsubmit" name="submit_namen" value="{SPR.speichern}" onclick="submititn({NAMEN.id});"/>
 				&nbsp;&nbsp;&nbsp;&nbsp;{DELETE}
-				&nbsp;&nbsp;&nbsp;&nbsp;<a href="./?a={ACTION}&amp;n=new&amp;id={ID}&amp;lang={LANG}">{BEZEICHNUNGHINZUFUEGEN}</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href="./?a={ACTION}&amp;n=new&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.bezeichnung_hinzufuegen}&nbsp;]</a>
 			</td>
 						
 		</tr>
@@ -207,8 +207,8 @@ function submitita(v)
 			<td class="edit"><label for="" class="edit">{NUM}. {SPR.fotographIn}</label></td>
 			<td >
 				<a href="./?a=fotograph&amp;id={FOTOGRAF.fotografen_id}&amp;lang={LANG}">{FOTOGRAF.nachname}, {FOTOGRAF.vorname} {FOTOGRAF.zusatz}  ({FOTOGRAF.fotografen_id})</a>&nbsp;&nbsp;
-				<a href="./?a=edit&amp;id={FOTOGRAF.fotografen_id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="./?a={ACTION}&amp;f=del&amp;f_id={FOTOGRAF.bf_id}&amp;id={ID}&amp;lang={LANG}">{LOESCHEN}</a></td>
+				<a href="./?a=edit&amp;id={FOTOGRAF.fotografen_id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="./?a={ACTION}&amp;f=del&amp;f_id={FOTOGRAF.bf_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a></td>
 			<td>
 	<!-- BEGIN:mname -->
 				<select name="namenid" class="edit">
@@ -230,7 +230,7 @@ function submitita(v)
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<tr>			
     			<td colspan="2"><span class="subtitle2">{SPR.neuer_arbeitsort}:</span>&nbsp;&nbsp;
-			<a href="./?a=edit&amp;ap=new&amp;id={id}&amp;lang={LANG}">{ARBEITSORTHINZUFUEGEN}</a></td>
+			<a href="./?a=edit&amp;ap=new&amp;id={id}&amp;lang={LANG}">[&nbsp;{SPR.arbeitsort_hinzufuegen}&nbsp;]</a></td>
 		</tr>				
 	</table>
 
@@ -266,8 +266,8 @@ function submitita(v)
 			<td></td>
 			<td>
 				<input type="submit" class="jsubmit" name="submit_arbeitsort" value="{SPR.speichern}" onclick="submitita({ARBEITSORT.id});"/>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="./?a={ACTION}&amp;ap=del&amp;a_id={ARBEITSORT.id}&amp;id={ID}&amp;lang={LANG}">{LOESCHEN}</a>&nbsp;&nbsp;&nbsp;&nbsp;
-				<!--<a href="./?a={ACTION}&amp;ap=new&amp;id={ID}&amp;lang={LANG}">{ARBEITSORTHINZUFUEGEN}</a>-->
+				<a href="./?a={ACTION}&amp;ap=del&amp;a_id={ARBEITSORT.id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<!--<a href="./?a={ACTION}&amp;ap=new&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.arbeitsort_hinzufuegen}&nbsp;]</a>-->
 			</td>
 			
 		</tr>
@@ -295,7 +295,7 @@ function submitita(v)
 		<input type="hidden" name="id" value="{ID}"/>
 		<tr>
 			<td class="edit"><span class="subtitle2"><a name="vk"></a>{SPR.bestaende}:</span></td>
-    			<td><a href="./?a=bedit&amp;id=new&amp;lang={LANG}">{EINTRAGNEU}</a></td>
+    			<td><a href="./?a=bedit&amp;id=new&amp;lang={LANG}">[&nbsp;{SPR.neuereintrag}&nbsp;]</a></td>
 		</tr>
 	</table>
 
@@ -307,8 +307,8 @@ function submitita(v)
     						<td class="edit"><label for="" class="edit">{NUM}. {SPR.bestand}</label><a name="vk"></a></td>
 						<td>
 							<a href="./?a=bestand&amp;id={BESTAND.id}&amp;lang={LANG}">{BESTAND.name} ({BESTAND.id})</a>&nbsp;&nbsp;
-							<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-							<a href="./?a={ACTION}&amp;b=del&amp;b_id={BESTAND.bf_id}&amp;id={ID}&amp;lang={LANG}">{LOESCHEN}</a>
+							<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+							<a href="./?a={ACTION}&amp;b=del&amp;b_id={BESTAND.bf_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
 						</td>
 								
 					</tr>
@@ -317,7 +317,7 @@ function submitita(v)
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="" class="edit">{SPR.institution_name}</label></td>
 						<td>
 							<a href="./?a=institution&amp;id={BESTAND.inst_id}&amp;lang={LANG}">{BESTAND.inst_name}</a> ({BESTAND.inst_id}) &nbsp;&nbsp;
-							<a href="./?a=iedit&amp;id={BESTAND.inst_id}&amp;lang={LANG}">{INSTITUTIONBEARBEITEN}</a>
+							<a href="./?a=iedit&amp;id={BESTAND.inst_id}&amp;lang={LANG}">[&nbsp;{SPR.institution_bearbeiten}&nbsp;]</a>
 						</td>
 					</tr>
 					<tr>
@@ -338,8 +338,8 @@ function submitita(v)
     					<td class="edit"><label for="" class="edit">{NUM}. {SPR.bestand}</label><a name="vk"></a></td>								
 					<td >
 						<a href="./?a=bestand&amp;lang={LANG}&amp;id={BESTAND.id}">{BESTAND.name} ({BESTAND.id})</a>&nbsp;&nbsp;
-						<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;
-						<a href="./?a=bedit&amp;delete=1&amp;id={BESTAND.id}&amp;lang={LANG}">{LINKLOESCHEN}</a>
+						<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>&nbsp;&nbsp;
+						<a href="./?a=bedit&amp;delete=1&amp;id={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.link_loeschen}&nbsp;]</a>
 					</td>
 								
 				</tr>
@@ -393,7 +393,7 @@ function submitita(v)
     						<td class="edit"><label for="" class="edit">{NUM}. {SPR.ausstellung}</label></td>
 						<td >
 							<a href="./?a=ausstellung&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">{AUSSTELLUNG.titel} ({AUSSTELLUNG.id}) &nbsp;&nbsp;
-							<a href="./?a=aedit&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">{BEARBEITEN}</a>
+							<a href="./?a=aedit&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>
 						</td>
 								
 					</tr>
@@ -468,8 +468,8 @@ function submitita(v)
     						<td valign="top" class="edit"><label for="" class="edit">{NUM}. {SPR.literatur}</label></td>								
 						<td >
 							<a href="./?a=literatur&amp;id={LITERATUR.id}&amp;lang={LANG}">{LITERATUR.text} ({LITERATUR.id})</a> &nbsp;&nbsp;
-							<a href="./?a=ledit&amp;id={LITERATUR.id}&amp;lang={LANG}">{BEARBEITEN}</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-							<a href="./?a={ACTION}&amp;l=del&amp;l_id={LITERATUR.if_id}&amp;id={ID}&amp;lang={LANG}">{LOESCHEN}</a>
+							<a href="./?a=ledit&amp;id={LITERATUR.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+							<a href="./?a={ACTION}&amp;l=del&amp;l_id={LITERATUR.if_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
 						</td>
 								
 				</tr>
@@ -566,7 +566,7 @@ function submitita(v)
     							<td valign="top"><label for="{value}" class="edit">{label}</label></td>
     							
     							<td>
-    								<a href="./?a=iedit&amp;id={value}&amp;lang={LANG}"> {BEARBEITEN}</a>												
+    								<a href="./?a=iedit&amp;id={value}&amp;lang={LANG}"> [&nbsp;{SPR.bearbeiten}&nbsp;]</a>												
     							</td>
    						</tr>
     						
@@ -607,8 +607,8 @@ function submitita(v)
 					<br/>
 					<input type="hidden" name="hidden_id" value="{ID}">
 					   <input type="submit" name="submitbutton" class="jsubmit" value="{SPR.speichern}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					   <a href="./?a={ACTION}&amp;delete=1&amp;id={ID}&amp;lang={LANG}">{EINTRAGLOESCHEN}</a>&nbsp;&nbsp;
-					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">{EINTRAGNEU}</a>									
+					   <a href="./?a={ACTION}&amp;delete=1&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.eintragloeschen}&nbsp;]</a>&nbsp;&nbsp;
+					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">[&nbsp;{SPR.neuereintrag}&nbsp;]</a>									
 				</form>
 
 <!-- END:bearbeiten -->

@@ -7,7 +7,7 @@ define("USER_WORKER", 8);
 define("USER_SUPER_USER", 9);
 
 function auth_level($level){
-	return ($_SESSION['usr_level'] >= $level)? true:false;
+	return ($_SESSION['usr_level'] >= $level);
 }
 
 function testauth(){
@@ -16,6 +16,14 @@ function testauth(){
 		exit();
 	}
 }
+
+function testauthedit(){   // sind editierrechte vorhanden?
+	if (empty($_SESSION['s_uid']) || ($_SESSION['usr_level'] < USER_WORKER)){
+		header ("Location: ?a=login&error=1");
+		exit();
+	}
+}
+
 
 
 ?>

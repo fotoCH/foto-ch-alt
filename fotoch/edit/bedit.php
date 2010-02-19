@@ -39,7 +39,7 @@ function procbestand($def,$array){
 include("./fotofunc.inc.php");
 include("./backend.inc.php");
 //error_reporting((E_ALL));
-testauth();
+testauthedit();
 $def=new XTemplate ("./templates/edit.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);

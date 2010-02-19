@@ -2,7 +2,7 @@
 /////////////////////////////
 include("./fotofunc.inc.php");
 include("./backend.inc.php");
-testauth();
+testauthedit();
 $def=new XTemplate ("./templates/edit.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
@@ -87,19 +87,16 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['ort'],$array_eintrag['ort'],'ort');
 	genformitem($def,'textfield',$spr['institution'],$array_eintrag['institution'],'institution');
 	genformitem($def,'textfield',$spr['titel'],$array_eintrag['titel'],'titel');
-	$arr_typ=array("E" =>"E", "G" =>"G");   //Array fÃ¼llen fÃ¼r Select
+	$arr_typ=array("E" =>"E", "G" =>"G");   //Array füllen für Select
 	genselectitem($def, $spr['typ'], $array_eintrag['typ'], "typ", $arr_typ, "", "", "");
 	genformitem($def,'textfield',$spr['notiz'],$array_eintrag['notiz'],'notiz');	
 	$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
-	if(auth_level(USER_WORKER)){		
-		$def->assign("NEU"," | <a href=\"./?a=aedit&amp;id=new\">".$spr['neuereintrag']."</a>");
-	}else{
-		$def->assign("NEU","");
-	}
+	$def->assign("NEU"," | <a href=\"./?a=aedit&amp;id=new\">".$spr['neuereintrag']."</a>");
+	
 	$def->parse("bearbeiten.form.fieldset_end");
 	$def->parse("bearbeiten");
 	$out.=$def->text("bearbeiten");
-	//$def->out("bearbeiten");
 }
+
 ?>

@@ -2,7 +2,7 @@
 /////////////////////////////
 include("./fotofunc.inc.php");
 include("./backend.inc.php");
-testauth();
+testauthedit();
 $def=new XTemplate ("./templates/edit.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("id",$_GET['id']);
@@ -10,10 +10,6 @@ $lang = $_GET['lang'];
 $def->assign("LANG",$lang);
 
 $def->assign("SPR",$spr);
-
-$def->assign("EINTRAGLOESCHEN", "[&nbsp;".$spr['eintragloeschen']."&nbsp;]");
-$def->assign("EINTRAGNEU", "|&nbsp;&nbsp;&nbsp;[&nbsp;".$spr['neuereintrag']."&nbsp;]");
-
 
 if ($_POST) escposts();
 if ($_GET[id]=="new"){
