@@ -24,13 +24,13 @@
 		</div>
 		<div id="img_header">
 			<ul>
-				<li><img src="{IMG0href}" class="image" alt=""/></li>
+				<li><img src="images/{IMGhref.0}" class="image" alt=""/></li>
 				<li><p class="header">{SPR.fotoch}</p></li>
-				<li><img src="{IMG1href}" class="image" alt=""/></li>
-				<li><img src="{IMG2href}" class="image" alt=""/></li>
-				<li><img src="{IMG3href}" class="image" alt=""/></li>
-				<li><img src="{IMG4href}" class="image" alt=""/></li>
-				<li><img src="{IMG5href}" class="image" alt=""/></li>
+				<li><img src="images/{IMGhref.1}" class="image" alt=""/></li>
+				<li><img src="images/{IMGhref.2}" class="image" alt=""/></li>
+				<li><img src="images/{IMGhref.3}" class="image" alt=""/></li>
+				<li><img src="images/{IMGhref.4}" class="image" alt=""/></li>
+				<li><img src="images/{IMGhref.5}" class="image" alt=""/></li>
 			</ul>
 		</div>
 		<div id="navi_header">

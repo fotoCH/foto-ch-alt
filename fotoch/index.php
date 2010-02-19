@@ -47,12 +47,7 @@ else {
 		include("img.inc.php");
 		$placeholders = shakeImages();
 		//print_r($placeholders);
-		$xtpl->assign("IMG0href", "images/".$placeholders[0]);
-		$xtpl->assign("IMG1href", "images/".$placeholders[1]);
-		$xtpl->assign("IMG2href", "images/".$placeholders[2]);
-		$xtpl->assign("IMG3href", "images/".$placeholders[3]);
-		$xtpl->assign("IMG4href", "images/".$placeholders[4]);
-		$xtpl->assign("IMG5href", "images/".$placeholders[5]);		
+		$xtpl->assign("IMGhref",$placeholders);
 	}
 }
 ($_SESSION['usr_level'] != "") ? $xtpl->assign("LOG","logout"):$xtpl->assign("LOG","login");
