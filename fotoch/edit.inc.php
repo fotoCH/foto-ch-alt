@@ -1,5 +1,6 @@
 <?php
 function namen($def,$id){ //nur fotograf
+	global $spr;
 	$sql = "SELECT * FROM namen WHERE fotografen_id=$id ORDER BY id"; // Weitere Formdaten aus Tabelle 'Namen' holen
 	$result = mysql_query($sql);
 	if(mysql_num_rows($result)>0){
@@ -9,10 +10,8 @@ function namen($def,$id){ //nur fotograf
 				$def->assign("DELETE", "");
 				$def->assign("STANDARD", "(Standard)");				
 			}else{
-				$lang = $_GET['lang'];	
-				$loeschen = getLangContent("sprache", $_GET['lang'], "loeschen");	//seems to have no other solution...		
-				$def->assign("DELETE", "<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">[&nbsp;".$loeschen."&nbsp;]</a>");
-				//$def->assign("DELETE", "<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">[&nbsp;".$spr['loeschen']."&nbsp;]</a>");// does not work ??				
+				$lang = $_GET['lang'];
+				$def->assign("DELETE", "<a href=\"./?a=edit&amp;n=del&n_id=$array[id]&amp;id=$id&amp;lang=$lang\">[&nbsp;".$spr['loeschen']."&nbsp;]</a>");// does not work ??				
 				$def->assign("STANDARD", "");	
 				$def->assign("BR","<br />")	;		
 			}
