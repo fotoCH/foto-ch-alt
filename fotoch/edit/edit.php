@@ -58,11 +58,11 @@ if($_GET['n']=="new"){
 	$result = mysql_query($sql);
 }
 //////////////Bezeichnung(Namen) bearbeiten->speichern////////////////////////////
-if($_REQUEST['submit_namen']){
-	$sql="UPDATE `namen` SET `nachname` = '$_REQUEST[nachname]',
-	`vorname` = '$_REQUEST[vorname]',
-	`namenszusatz` = '$_REQUEST[zusatz]',
-	`titel` = '$_REQUEST[titel]' WHERE `id` ='$_REQUEST[namen_id]' LIMIT 1";
+if($_POST['submit_namen']){
+	$sql="UPDATE `namen` SET `nachname` = '$_POST[nachname]',
+	`vorname` = '$_POST[vorname]',
+	`namenszusatz` = '$_POST[zusatz]',
+	`titel` = '$_POST[titel]' WHERE `id` ='$_REQUEST[namen_id]' LIMIT 1";
 	$result = mysql_query($sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[fotografen_id]' LIMIT 1";
@@ -145,7 +145,7 @@ if($_REQUEST['submit_arbeitsort']){
 	}else{
 		$um_bis = 0;
 	}
-	$sql="UPDATE `arbeitsperioden` SET `arbeitsort` = '$_REQUEST[arbeitsort]',
+	$sql="UPDATE `arbeitsperioden` SET `arbeitsort` = '$_POST[arbeitsort]',
 	`von` = '$_REQUEST[von]',
 	`um_von` = '$um_von',
 	`bis` = '$_REQUEST[bis]',

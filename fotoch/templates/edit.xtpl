@@ -282,7 +282,7 @@ function submitita(v)
 			<td class="edit"><label for="best" class="edit">{SPR.neuer_bestand}:</label><a name="vk"></a></td>
     			<td>	<input type="text" id="best" class="jsearch"/>&nbsp;&nbsp;
 				<input type="text" id="newbestandid" class="jindex" /> &nbsp;&nbsp;
-				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newbestandid.value)"/> &nbsp;&nbsp;
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=bestand&amp;lang={LANG}&amp;id='+(this.form.newbestandid.value)"/> &nbsp;&nbsp;
 				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;new_bestand=1&amp;lang={LANG}&amp;id={ID}&amp;bestand_id='+(this.form.newbestandid.value)"/>
 			</td>
 		</tr>
