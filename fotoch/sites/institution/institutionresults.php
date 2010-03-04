@@ -69,7 +69,7 @@ if ($_GET['submitbutton']!=""){
 		} else {
 			$fetch['nameclass']='subtitle3';
 		}
-		if(auth_level($USER_GUEST_READER_PARTNER) && $fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
+		if(auth_level(USER_GUEST_READER_PARTNER) && $fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
 		if ($fetch['abkuerzung']) $fetch['abkuerzung']='('.$fetch['abkuerzung'].')';
 		
 		
@@ -87,7 +87,7 @@ if ($_GET['submitbutton']!=""){
 
 	if ($id=='' && !$ayax){
 		// Select: code
-		if(auth_level($USER_GUEST_READER_PARTNER)){
+		if(auth_level(USER_GUEST_READER_PARTNER)){
 			$result=mysql_query("SELECT * FROM institution WHERE name LIKE '$anf%' ORDER BY  name Asc");
 		} else {
 			$result=mysql_query("SELECT * FROM institution WHERE (name LIKE '$anf%') AND (gesperrt=0) ORDER BY  name Asc");
@@ -106,7 +106,7 @@ if ($_GET['submitbutton']!=""){
 			} else {
 				$fetch['nameclass']='subtitle3';
 			}
-			if(auth_level($USER_GUEST_READER_PARTNER)) if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
+			if(auth_level(USER_GUEST_READER_PARTNER)) if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x';
 			if ($fetch['abkuerzung']) $fetch['abkuerzung']='('.$fetch['abkuerzung'].')';
 			$def->assign("FETCH",$fetch);
 			//print_r($fetch);
