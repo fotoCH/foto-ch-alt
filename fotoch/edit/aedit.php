@@ -87,7 +87,7 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['ort'],$array_eintrag['ort'],'ort');
 	genformitem($def,'textfield',$spr['institution'],$array_eintrag['institution'],'institution');
 	genformitem($def,'textfield',$spr['titel'],$array_eintrag['titel'],'titel');
-	$arr_typ=array("E" =>"E", "G" =>"G");   //Array f�llen f�r Select
+	$arr_typ=array("E" =>"E", "G" =>"G");   //Array füllen für Select
 	genselectitem($def, $spr['typ'], $array_eintrag['typ'], "typ", $arr_typ, "", "", "");
 	genformitem($def,'textfield',$spr['notiz'],$array_eintrag['notiz'],'notiz');	
 	$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
