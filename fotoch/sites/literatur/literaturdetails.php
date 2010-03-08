@@ -7,7 +7,8 @@
 	$lang = $_GET['lang'];
 	$def->assign("LANG", $_GET['lang']);
 	$def->assign("TITLE", $spr['literatur']);
-	$bearbeiten = "[&nbsp;".$spr['bearbeiten']."&nbsp;]";
+	$def->assign("SPR",$spr);
+	//$bearbeiten = "[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 	
 	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
 	//if(mysql_num_rows($result)>0){ echo "es" ;} else {echo "no";}
@@ -69,7 +70,7 @@
 		$def->parse("autodetail.z");
 		$def->assign("Fotograf","");
 	}
-	$def->assign("BEARBEITEN","<a href=\"?a=ledit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
+	//$def->assign("BEARBEITEN","<a href=\"?a=ledit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
 	$def->parse("autodetail.z.bearbeiten_literatur");
 	$def->parse("autodetail.z");
 	$def->parse("autodetail");

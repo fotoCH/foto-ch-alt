@@ -73,7 +73,8 @@
 		$def->assign("fotografIn","");
 	
 	}
-	if(auth_level(USER_WORKER)) $def->assign("BEARBEITEN","<a href=\"./?a=aedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
+	//if(auth_level(USER_WORKER)) $def->assign("BEARBEITEN","rrr<a href=\"./?a=aedit&amp;id=$id&amp;lang=$lang\">sdgsg$bearbeiten</a>");
+	// wirkungslos
 	
 	$def->parse("autodetail.z.bearbeiten_ausstellung");
 	$def->parse("autodetail.z");

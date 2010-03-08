@@ -96,20 +96,20 @@
 <!-- END:aus -->
 <!-- BEGIN:bearbeiten_ausstellung -->
 		<tr>
-    				<td valign="baseline" class="detail_label"><span class="subtitle2"><a href="./?a=aedit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></span></td>    				
+    				<td valign="baseline" class="detail_label"><span class="subtitle2"><a href="./?a=aedit&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a></span></td>    				
     				<td valign="baseline"><span class="date">&nbsp;</span></td>
  		</tr>
 <!-- END:bearbeiten_ausstellung -->
 <!-- BEGIN:bearbeiten_literatur -->
 		<tr>
     				
-    				<td class="detail_label" valign="baseline"><a href="./?a=ledit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></td>
+    				<td class="detail_label" valign="baseline"><a href="./?a=ledit&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a></td>
     				<td valign="baseline"><span class="date">&nbsp;</span></td>
  		</tr> 
 <!-- END:bearbeiten_literatur -->
 <!-- BEGIN:bearbeiten_glossar -->
     		<tr>
-    				<td valign="baseline"><span class="subtitle2"><a href="./?a=gedit&amp;id={ID}&amp;lang={LANG}">{SPR.bearbeiten}</a></span></td>
+    				<td valign="baseline"><span class="subtitle2"><a href="./?a=gedit&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a></span></td>
     				<td valign="baseline"><span class="date"> </span></td>
  		</tr>   
 <!-- END:bearbeiten_glossar --> 
