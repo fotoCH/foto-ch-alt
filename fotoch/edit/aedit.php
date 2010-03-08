@@ -56,7 +56,7 @@ if($_POST['submitbutton']){
 	`text_alt` = '$_POST[text_alt]' WHERE `id` =$_POST[hidden_id] LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Grunds�tzliches: Template, assigns ect.////////////////////////////
+//////////////Grundsätzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
 } else {
 	if($last_insert_id){
