@@ -1,5 +1,5 @@
 <?php
-///////////////////////////// testumlaut äöü
+///////////////////////////// testumlaut Ã¤Ã¶Ã¼
 function procbestand($def,$array){
 	$cufo=getallnam($array['fotografen_id']);
 	//print_r($cufo);
@@ -86,7 +86,7 @@ if($_REQUEST['new_fotograf']){
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Fotograf löschen////////////////////////////
+//////////////Fotograf lÃ¶schen////////////////////////////
 if($_GET['f']=="del"){
 	$sql = "DELETE FROM `bestand_fotograf` WHERE id='$_GET[f_id]' LIMIT 1";
 	$result = mysql_query($sql);
@@ -138,7 +138,7 @@ if($_POST['submitbutton']){
 	`gesperrt` = $unpubliziert WHERE `id` =$_POST[hidden_id] LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Grundsätzliches: Template, assigns ect.////////////////////////////
+//////////////GrundsÃ¤tzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
 } else {
 	if($last_insert_id){
