@@ -6,6 +6,9 @@ $suchfeld=$_REQUEST['suchfeld'];
 $suchbegriff=$_REQUEST['suchbegriff'];
 $table=$_REQUEST['table'];
 $retfeld=$_REQUEST['retfeld'];
+if(get_magic_quotes_gpc()){
+	$retfeld=stripslashes($retfeld);
+}
 $ergfeld=$_REQUEST['ergfeld'];
 $erg=$_REQUEST['erg'];
 $erg2=$_REQUEST['erg2'];
