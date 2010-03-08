@@ -56,7 +56,7 @@ if($_POST['submitbutton']){
 	`text_alt` = '$_POST[text_alt]' WHERE `id` =$_POST[hidden_id] LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Grundsätzliches: Template, assigns ect.////////////////////////////
+//////////////Grundsï¿½tzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
 } else {
 	if($last_insert_id){
@@ -83,11 +83,11 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.fieldset_start");
 	$def->parse("bearbeiten.form.start");
 	
-	genformitem($def,'textfield',$spr['jahr'],'jahr');
+	genformitem($def,'textfield',$spr['jahr'],$array_eintrag['jahr'],'jahr');
 	genformitem($def,'textfield',$spr['ort'],$array_eintrag['ort'],'ort');
 	genformitem($def,'textfield',$spr['institution'],$array_eintrag['institution'],'institution');
 	genformitem($def,'textfield',$spr['titel'],$array_eintrag['titel'],'titel');
-	$arr_typ=array("E" =>"E", "G" =>"G");   //Array füllen für Select
+	$arr_typ=array("E" =>"E", "G" =>"G");   //Array fï¿½llen fï¿½r Select
 	genselectitem($def, $spr['typ'], $array_eintrag['typ'], "typ", $arr_typ, "", "", "");
 	genformitem($def,'textfield',$spr['notiz'],$array_eintrag['notiz'],'notiz');	
 	$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
