@@ -423,6 +423,12 @@ font-size: 12px;
 font-weight: normal; 
 color: #cc2222;
 }
+#container SPAN.subtitle3x a
+{
+font-size: 12px; 
+font-weight: normal; 
+color: #cc2222;
+}
 #container SPAN.subtitle3g
 {
 font-size: 12px; 

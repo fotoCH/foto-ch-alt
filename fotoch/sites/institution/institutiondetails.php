@@ -46,7 +46,11 @@
 			normfeldg($def,$spr['name'],$fetch['name'],$fetch['gesperrt']);
 			$def->assign("bearbeiten","");
 		} else {
-			normfeld($def,$spr['name'],$fetch['name']);
+			if (auth_level(USER_GUEST_READER_PARTNER)){
+				normfeldg($def,$spr['name'],$fetch['name'],$fetch['gesperrt']);
+			} else {
+				normfeld($def,$spr['name'],$fetch['name']);
+			}
 		}
 		normfeld($def,$spr['art'],$fetch['art']);
 		normfeld($def,$spr['adresse'],$fetch['adresse']);

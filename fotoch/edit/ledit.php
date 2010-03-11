@@ -33,7 +33,7 @@ if ($del=="1"){
 	$fertig=1;
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
-if($_POST[submit]){
+if($_POST['submitbutton']){
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql="UPDATE `literatur` SET `titel` = '$_POST[titel]',

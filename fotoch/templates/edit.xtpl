@@ -394,6 +394,7 @@ function submitita(v)
 						<td >
 							<a href="./?a=ausstellung&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">{AUSSTELLUNG.titel} ({AUSSTELLUNG.id}) &nbsp;&nbsp;
 							<a href="./?a=aedit&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>
+							<a href="./?a={ACTION}&amp;au=del&amp;a_id={AUSSTELLUNG.af_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
 						</td>
 								
 					</tr>

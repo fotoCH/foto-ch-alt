@@ -125,7 +125,7 @@ while($fetch=mysql_fetch_array($result)){
 	}
 	normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
 		
-	if(auth_level(USER_GUEST_READER)){
+	if(auth_level(USER_GUEST_READER_PARTNER)){
 		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, institution.name AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
 				WHERE bestand_fotograf.fotografen_id=$id ORDER BY bestand.nachlass DESC, bestand.name ASC");
@@ -137,12 +137,12 @@ while($fetch=mysql_fetch_array($result)){
 		
 	$bes=$spr['bestaende'];
 	while($fetch6=mysql_fetch_array($result6)){
-		if (auth_level(USER_GUEST_READER) || $fetch6['instgesp']==0){
+		if (auth_level(USER_GUEST_READER_PARTNER) || $fetch6['instgesp']==0){
 			$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
 		} else {
 			$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
 		}
-		if (auth_level(USER_GUEST_READER)){
+		if (auth_level(USER_GUEST_READER_PARTNER)){
 			$def->assign("gb",($fetch6['gesperrt']==0?'':'g'));
 			$def->assign("gi",($fetch6['instgesp']==0?'':'g'));
 		}
@@ -155,7 +155,7 @@ while($fetch=mysql_fetch_array($result)){
 	}
 	if(mysql_num_rows($result6)!=0) abstand($def);
 		
-	if (auth_level(USER_GUEST_READER)){ // alte bestaende
+	if (auth_level(USER_GUEST_READER_PARTNER)){ // alte bestaende
 		$result3=mysql_query("SELECT * FROM bestaende WHERE fotografen_id=$id ORDER BY  id");
 		$def->assign("alt_best", "Alt. Best.");
 		while($fetch3=mysql_fetch_array($result3)){

@@ -17,7 +17,7 @@ if($_GET['lang']!=""){
 }
 $supported_langs = array("de","fr");//missing: "en","it",,"rm"
 if(!in_array($language ,$supported_langs)) $language = "de";	
-//für (aktuelle) sprache ein cookie setzen für ca ein halbes jahr:
+//fÃ¼r (aktuelle) sprache ein cookie setzen fÃ¼r ca ein halbes jahr:
 setcookie("lang", $language, (time() + (60*60*24*183)));
 //put this not before the initial language setting
 //define action
@@ -31,9 +31,8 @@ if (!in_array($action,$actions)) $action='home';  // default Startseite
 //chose main template
 //print_r($spr);
 //echo($spr['fotoch']);
-
 if(auth_level(USER_WORKER)){
-	$xtpl = new XTemplate("templates/main_intern.xtpl");	
+	$xtpl = new XTemplate("templates/main_intern.xtpl");
 } 
 else {
 	if($action == "fotograph" || $action == "bestand" || $action == "institution"){
@@ -51,6 +50,7 @@ else {
 	}
 }
 ($_SESSION['usr_level'] != "") ? $xtpl->assign("LOG","logout"):$xtpl->assign("LOG","login");
+$xtpl->assign("USER",' '.$_SESSION['s_uid']);
 
 $xtpl->assign("SPR",$spr);  // load all languagecontent!
 
