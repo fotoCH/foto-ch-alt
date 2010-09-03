@@ -1,5 +1,9 @@
 <?php
 //global stuff
+if (stristr($_SERVER["SERVER_NAME"],'fotobe')){
+    header("Location: /fotobe/index.php?action=home");
+}
+error_reporting(!(E_ALL));
 require("templates/xtemplate.class.php");
 require("mysql.inc.php");
 require("nav.inc.php");
