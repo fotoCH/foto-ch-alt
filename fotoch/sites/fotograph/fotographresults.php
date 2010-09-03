@@ -97,7 +97,6 @@ if($_GET['submitbutton'] != ""){
 
 	if ($full){
 		$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.werdegang<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND MATCH ( heimatort,geburtsort,todesort,beruf,schaffensbeschrieb,werdegang,auszeichnungen,kurzbio) AGAINST ('".$vars['volltext']."')";
-		echo $query;
 	}
 
 	if(auth_level(USER_WORKER)){
