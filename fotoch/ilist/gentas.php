@@ -1,6 +1,7 @@
 <?php
 require("../mysql.inc.php");
 setlocale (LC_ALL, 'de_CH');
+error_reporting(!(E_ALL));
 
 $suchfeld=$_REQUEST['suchfeld'];
 $suchbegriff=$_REQUEST['suchbegriff'];
@@ -12,7 +13,7 @@ if(get_magic_quotes_gpc()){
 $ergfeld=$_REQUEST['ergfeld'];
 $erg=$_REQUEST['erg'];
 $erg2=$_REQUEST['erg2'];
-$sql="SELECT id, $suchfeld, $retfeld".($ergfeld?', '.$ergfeld:'')." FROM $table WHERE LOWER($suchfeld) LIKE '$suchbegriff%' COLLATE latin1_bin ORDER BY $suchfeld LIMIT 18";
+$sql="SELECT id, $suchfeld, $retfeld".($ergfeld?', '.$ergfeld:'')." FROM $table WHERE LOWER($suchfeld) LIKE '$suchbegriff%' ORDER BY $suchfeld LIMIT 18";
 //echo $sql;
 //$sql="SELECT * FROM namen WHERE SUBSTRING(nachname,1,$l) = '$foto%' ORDER BY nachname LIMIT 8";
 //echo($sql);
