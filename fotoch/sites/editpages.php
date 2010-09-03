@@ -1,7 +1,6 @@
 <?php
 include ("./mysql.inc.php");
 include ("./fotofunc.inc.php");
-
 $editpages= new XTemplate("./templates/contents.xtpl");
 $editablePages=array("partner_content", "impressum_content", "kontakt_content", "sitemap_content", "handbuch_content", "handbuch_index", "home_content","home_logos");
 $editpages->assign("ITEM", "<h2>".$spr['editpages']."</h2>");
@@ -18,10 +17,9 @@ for($i = 0 ; $i < sizeof($editablePages); $i++) {
 }
 $editpages->parse("contents.editpages.select");
 
-if($_POST){
-	escposts();
+if ($_POST){
+ escposts();
 }
-
 
 if($_POST['submitbutton']!=''){
 	//then the content of the fck editor wants to be saved
@@ -36,7 +34,7 @@ if($_POST['submitbutton']!=''){
 		//show updated content...
 		$query1 = "SELECT $lang FROM sprache WHERE name = '$page'";
 		$result1 = mysql_query($query1);
-		$editpages->assign("PAGECONTENT", htmlentities(mysql_result($result1, 0)));
+		$editpages->assign("PAGECONTENT", htmlspecialchars(mysql_result($result1, 0)));
 		$editpages->assign("PAGE", $_POST['page']);
 	}
 	else {
@@ -50,7 +48,7 @@ if($_POST['submitbutton']!=''){
 		$page = $_GET['pages'];
 		$query = "SELECT $lang FROM sprache WHERE name = '$page'";
 		$result = mysql_query($query);
-		$editpages->assign("PAGECONTENT", htmlentities(mysql_result($result, 0)));
+		$editpages->assign("PAGECONTENT", htmlspecialchars(mysql_result($result, 0)));
 		$editpages->assign("PAGE",$page);
 	} else {
 		// simply show the page
