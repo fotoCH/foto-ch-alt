@@ -1,4 +1,11 @@
 <?php
 mysql_connect("host","fotochadmin","apass");
 mysql_select_db("fotoch");
+$utf8 = "SET character_set_client=utf8";
+$result0 = mysql_query($utf8);
+$utf8 = "SET character_set_results=utf8";
+$result0 = mysql_query($utf8);
+$utf8 = "SET character_set_connection=utf8";
+$result0 = mysql_query($utf8);
+mysql_query('SET SQL_MODE=""');
 ?>
