@@ -17,8 +17,8 @@ $def->assign("SPR", $spr);
 
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
-	$sql = "INSERT INTO `fotografen` ( `id` , `nachname` , `vorname` , `namenszusatz` , `zweitname` , `art` , `geschlecht` , `heimatort` , 			`gen_geburtsdatum` , `geburtsdatum` , `geburtsort` , `gen_todesdatum` , `todesdatum` , `todesort` , `umfeld` , `notiz` , `primaerliteratur` , 	`sekundaerliteratur` , `beruf` , `einzelausstellungen` , `gruppenausstellungen` , `werdegang` , `schaffensbeschrieb` , `autorIn` , 		`bearbeitungsdatum` , `fotografengattungen_set` , `bildgattungen_set` )
-	VALUES ('', '', '', '', '', 'P', '', '', '0', '0000-00-00', '', '0', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '')";
+	$sql = "INSERT INTO `fotografen` ( `id` , `nachname` , `vorname` , `namenszusatz` , `zweitname` , `art` , `geschlecht` , `heimatort` , 			`gen_geburtsdatum` , `geburtsdatum` , `geburtsort` , `gen_todesdatum` , `todesdatum` , `todesort` , `umfeld` , `notiz` , `primaerliteratur` , 	`sekundaerliteratur` , `beruf` , `einzelausstellungen` , `gruppenausstellungen` , `werdegang` , `kurzbio` , `schaffensbeschrieb` , `autorIn` , 		`bearbeitungsdatum` , `fotografengattungen_set` , `bildgattungen_set` )
+	VALUES ('', '', '', '', '', 'P', '', '', '0', '0000-00-00', '', '0', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '')";
 	$result = mysql_query($sql);
 	$last_insert_id = mysql_insert_id();
 	$sql = "INSERT INTO `namen` ( `id` , `fotografen_id` , `nachname` , `vorname` , `namenszusatz` , `titel`  )
@@ -43,7 +43,7 @@ if ($del=="1"){
 	//echo("bbcc");
 	$fertig=1;
 }
-//////////////Namen löschen////////////////////////////
+//////////////Namen lï¿½schen////////////////////////////
 if($_GET['n']=="del"){
 	$sql = "DELETE FROM `namen` WHERE id='$_GET[n_id]'";
 	$result = mysql_query($sql);
@@ -68,7 +68,7 @@ if($_POST['submit_namen']){
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[fotografen_id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Bestand löschen////////////////////////////
+//////////////Bestand lï¿½schen////////////////////////////
 if($_GET['b']=="del"){
 	$sql = "DELETE FROM `bestand_fotograf` WHERE id='$_GET[b_id]' LIMIT 1";
 	$result = mysql_query($sql);
@@ -76,7 +76,7 @@ if($_GET['b']=="del"){
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Literatur löschen////////////////////////////
+//////////////Literatur lï¿½schen////////////////////////////
 if($_GET['l']=="del"){
 	$sql = "DELETE FROM `literatur_fotograf` WHERE id='$_GET[l_id]' LIMIT 1";
 	$result = mysql_query($sql);
@@ -94,7 +94,7 @@ if($_GET['au']=="del"){
 	$result = mysql_query($sql);
 }
 //////////////Bestand erstellen////////////////////////////
-//////////////neuer Bestand einfügen////////////////////////////
+//////////////neuer Bestand einfï¿½gen////////////////////////////
 if($_REQUEST['new_bestand']){
 	$sql="INSERT INTO `bestand_fotograf` (`bestand_id`, `fotografen_id`) VALUES ($_REQUEST[bestand_id],$_REQUEST[id])";
 	$result = mysql_query($sql);
@@ -115,11 +115,12 @@ if($_REQUEST['new_literatur']){
 if($_REQUEST['new_ausstellung']){
 	$sql="INSERT INTO `ausstellung_fotograf` (`ausstellung_id`, `fotograf_id`) VALUES ($_REQUEST[ausstellung_id],$_REQUEST[id])";
 	$result = mysql_query($sql);
+	echo $sql;
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Arbeitsperiode löschen////////////////////////////
+//////////////Arbeitsperiode lï¿½schen////////////////////////////
 if($_GET['ap']=="del"){
 	$sql = "DELETE FROM `arbeitsperioden` WHERE id='$_GET[a_id]'";
 	$result = mysql_query($sql);
@@ -210,7 +211,7 @@ if($_POST['submitbutton']){
 	`bildgattungen_set` = '$bildgattungen_set' WHERE `id` ='$_POST[hidden_id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
-//////////////Grundsätzliches: Template, assigns ect.////////////////////////////
+//////////////Grundsï¿½tzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
 } else {
 	if($last_insert_id){
@@ -248,18 +249,18 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.fieldset_start");	
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");	
-	$arr_art=array("P" =>"P", "G" =>"G");   //Array füllen für Select
+	$arr_art=array("P" =>"P", "G" =>"G");   //Array fï¿½llen fï¿½r Select
 	genselectitem($def, $spr['art'], "$array_eintrag[art]", "art", $arr_art, "", "", "");
-	$arr_geschlecht=array(""=> "", "m" =>"Mann", "f" =>"Frau"); //Array füllen für Select
+	$arr_geschlecht=array(""=> "", "m" =>"Mann", "f" =>"Frau"); //Array fï¿½llen fï¿½r Select
 	genselectitem($def, $spr['geschlecht'], $array_eintrag[geschlecht], "geschlecht", $arr_geschlecht, "", "", "");
 	genformitem($def,'textfield',$spr['heimatort'],$array_eintrag[heimatort],'heimatort');
 	genformitem($def,'textfield',$spr['geburtsdatum'],$array_eintrag[geburtsdatum],'geburtsdatum');
-	$arr_geb_code=array(0 =>"0", 1 =>"1", 2 =>"2"); //Array füllen für Select
+	$arr_geb_code=array(0 =>"0", 1 =>"1", 2 =>"2"); //Array fï¿½llen fï¿½r Select
 	
 	genselectitem($def, $spr['geburtscode'], $array_eintrag[gen_geburtsdatum], "geburtscode", $arr_geb_code, "", "", "");
 	genformitem($def,'textfield',$spr['geburtsort'],$array_eintrag[geburtsort],'geburtsort');
 	genformitem($def,'textfield',$spr['todesdatum'],$array_eintrag[todesdatum],'todesdatum');
-	$arr_tod_code=array(0 =>"0", 1 =>"1", 2 =>"2", 8=> "8", 9=>"9"); //Array füllen für Select
+	$arr_tod_code=array(0 =>"0", 1 =>"1", 2 =>"2", 8=> "8", 9=>"9"); //Array fï¿½llen fï¿½r Select
 	genselectitem($def, $spr['todescode'], $array_eintrag[gen_todesdatum], "todescode", $arr_tod_code, "", "", "");
 	genformitem($def,'textfield', $spr['todesort'],$array_eintrag[todesort],'todesort');
 	genformitem($def,'submitfield','','','');
