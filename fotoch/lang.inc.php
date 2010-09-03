@@ -39,4 +39,13 @@ function setuebersetzungen($f,$text){
 	return(str_replace($spade[$f],$spatr[$f],$text));
 }
 
+function getLogos(){
+	global $language;
+	$result = mysql_query('SELECT id, bild_'.$language.' as bild, text_'.$language.' as text, link_'.$language.' as link, width FROM logos ORDER BY id');
+	while($fetch = mysql_fetch_array($result,MYSQL_ASSOC)){
+		$logos[]=$fetch;
+	}
+	return $logos;
+}
+
 ?>

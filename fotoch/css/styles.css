@@ -110,15 +110,22 @@ body {
 /*  --------------------------     CONTENT CONTAINER FOR HOME    --------------------------------- */
 #content_left {
 	margin-left:6px;
-	float:left;
+	/*float:left;*/
 	/*width:15.2cm;*/
 	width:573px;
 }
 #content_image {
-	float:right;
+	/*float:right;*/
 	/*width:11.2cm;*/
-	width:430px;
+	width:700px;
+	 height:140px; overflow:hidden; 
+	 position:relative;
+
+	
 }
+
+#content_image div { position:absolute; top:0; left:0; margin:0; padding:10px; background:none; text-align:left }
+
 /*  --------------------------     CONTENT CONTAINER FOR SEARCH    --------------------------------- */
 #searchdiv {
 	margin-left:6px;
@@ -425,8 +432,8 @@ color: #cc2222;
 }
 #container SPAN.subtitle3x a
 {
-font-size: 12px; 
-font-weight: normal; 
+font-size: 12px;
+font-weight: normal;
 color: #cc2222;
 }
 #container SPAN.subtitle3g
