@@ -339,7 +339,7 @@ function submitita(v)
 					<td >
 						<a href="./?a=bestand&amp;lang={LANG}&amp;id={BESTAND.id}">{BESTAND.name} ({BESTAND.id})</a>&nbsp;&nbsp;
 						<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>&nbsp;&nbsp;
-						<a href="./?a=bedit&amp;delete=1&amp;id={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.link_loeschen}&nbsp;]</a>
+						<a href="./?a=bedit&amp;delete=1&amp;id={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.linkloeschen}&nbsp;]</a>
 					</td>
 								
 				</tr>
