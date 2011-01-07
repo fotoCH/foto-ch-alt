@@ -61,9 +61,9 @@ if($_GET['submitbutton'] != ""){
 		$arbeitsjahr=$vars['arbeitsjahr'];
 	}
 	
-	if(!auth_level(USER_WORKER)){
-		unset($vars['arbeitsjahr']);
-	}
+	//if(!auth_level(USER_WORKER)){
+	unset($vars['arbeitsjahr']);  // no LIKE search for arbeitsjahr
+	//}
 	
 	foreach ($vars as $key=>$value){
 		if (!empty($vars[$key])){
