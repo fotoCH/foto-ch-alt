@@ -55,6 +55,7 @@ while($fetch=mysql_fetch_array($result)){
 	$def->assign("FETCH",$fetch);
 	$result4=mysql_query("SELECT * FROM namen WHERE fotografen_id=$id ORDER BY  id");
 	//echo "SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id";
+	$def->assign("SPR1",$spr);
 	while($fetch4=mysql_fetch_array($result4)){
 		if($fetch4[vorname]!=""){
 			$def->assign("KOMMA",",");
@@ -67,8 +68,8 @@ while($fetch=mysql_fetch_array($result)){
 		}
 		$def->assign("FETCH4",$fetch4);
 		$def->parse($det.".namen");
-		$def->assign("VORNAME", ""); //delete table header
-		$def->assign("NACHNAME", ""); //delete table header
+		$def->assign("SPR1", ""); //delete table header
+		//$def->assign("SPR1.NACHNAME", ""); //delete table header
 		$def->assign("KOMMA1", "");
 		//$results.=$def->text($det.".namen");
 	}
@@ -88,7 +89,7 @@ while($fetch=mysql_fetch_array($result)){
 	//$def->assign("Arbeitsort",$spr['arbeitsort']);
 		
 	$result2=mysql_query("SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id");
-		
+	$def->assign("SPR2",$spr);
 	while($fetch2=mysql_fetch_array($result2)){
 		if ($fetch2['von'].$fetch2['bis']!=''){
 			$fetch2['um_vonf']=$fetch2['um_von']==0?'':'um ';
@@ -103,7 +104,7 @@ while($fetch=mysql_fetch_array($result)){
 		}
 		$def->parse($det.".z.arb");
 		$def->parse($det.".z");
-		$def->assign("Arbeitsort", ""); //delete table-header
+		$def->assign("SPR2", ""); //delete table-header
 		//$results.=$def->text($det.".z");
 	}
 	if(mysql_num_rows($result2)!=0) abstand($def);

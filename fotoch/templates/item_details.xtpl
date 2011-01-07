@@ -9,7 +9,7 @@
 
 <!-- BEGIN:namen -->    		
     		<tr>
-    				<td valign="baseline"  class="detail_label"><span class="subtitle2">{SPR.nachname}{KOMMA1} {SPR.vorname}</span></td>
+    				<td valign="baseline"  class="detail_label"><span class="subtitle2">{SPR1.nachname}{KOMMA1} {SPR1.vorname}</span></td>
     				<td valign="baseline"><span class="subtitle3{g}">{FETCH4.titel} {FETCH4.nachname}{KOMMA} {FETCH4.vorname} {FETCH4.namenszusatz}{FETCH4.idf}</span>&nbsp;&nbsp;{bearb}</td>
  		</tr>
 <!-- END:namen -->
@@ -37,7 +37,7 @@
 <!-- END:sfeld -->
 <!-- BEGIN:arb -->
 					<tr>
-    					<td valign="top"><span class="subtitle2">{SPR.arbeitsort}</span></td>
+    					<td valign="top"><span class="subtitle2">{SPR2.arbeitsort}</span></td>
     					<td valign="top"><span class="text2">{FETCH2.arbeitsort} 
 <!-- BEGIN:vonbis --> {FETCH2.um_vonf}{FETCH2.von} - {FETCH2.um_bisf}{FETCH2.bis}
 
