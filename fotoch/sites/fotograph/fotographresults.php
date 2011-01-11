@@ -131,7 +131,7 @@ if($_GET['submitbutton'] != ""){
 			$fetch['bioclass']='subtitle3';
 		}
 		
-		if(auth_level(USER_GUEST_READER) && $fetch['unpubliziert']==1) $fetch['bioclass']='subtitle3x';
+		if(auth_level(USER_GUEST_READER) && $fetch['unpubliziert']==1) $fetch['bioclass'].='x';
 		
 		$def->assign("FETCH",$fetch);
 		if(auth_level(USER_WORKER)){
@@ -165,9 +165,9 @@ if($_GET['submitbutton'] != ""){
 	
 		//do query
 		if(auth_level(USER_GUEST_READER)){
-			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc");
+			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc");
 		}else{
-			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc");		
+			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc");		
 		}	
 		
 		//assign title template:
@@ -178,6 +178,10 @@ if($_GET['submitbutton'] != ""){
 				$fetch['bioclass']='subtitle3bio';
 			} else {
 				$fetch['bioclass']='subtitle3';
+			}
+			if($fetch['showkurzbio'] == 1) {
+				$fetch['bioclass']='subtitle3kbio';
+				echo $fetch['namen'].' '.$fetch['vornamen'];
 			}
 			$fetch['fgeburtsdatum']=formdatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum']);
 			$fetch['fldatum']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);

@@ -430,12 +430,42 @@ font-size: 12px;
 font-weight: normal; 
 color: #cc2222;
 }
+#container SPAN.subtitle3biox
+{
+font-size: 12px; 
+font-weight: normal; 
+color: #cc2222;
+}
+#container SPAN.subtitle3kbiox
+{
+font-size: 12px; 
+font-weight: normal; 
+color: #cc2222;
+font-style: italic;
+}
 #container SPAN.subtitle3x a
 {
 font-size: 12px;
 font-weight: normal;
 color: #cc2222;
+text-decoration:underline;
 }
+#container SPAN.subtitle3biox a
+{
+font-size: 12px;
+font-weight: normal;
+color: #cc2222;
+text-decoration:underline;
+}
+#container SPAN.subtitle3kbiox a
+{
+font-size: 12px;
+font-weight: normal;
+color: #cc2222;
+text-decoration:underline;
+font-style: italic;
+}
+
 #container SPAN.subtitle3g
 {
 font-size: 12px; 
@@ -454,7 +484,18 @@ font-size: 12px;
 font-weight: normal; 
 color: #000000; 
 }
-A.subtitle3bio {text-decoration:underline;} 
+#container SPAN.subtitle3kbio
+{
+font-size: 12px; 
+font-weight: normal; 
+color: #000000;
+font-style: italic;
+}
+
+A.subtitle3bio {text-decoration:underline;}
+A.subtitle3biox {text-decoration:underline;}
+A.subtitle3kbio {text-decoration:underline;  font-style: italic; }
+A.subtitle3kbiox {text-decoration:underline;  font-style: italic; } 
 SPAN.subtitle4 
 {
 font-size: 12px; 
