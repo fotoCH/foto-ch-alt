@@ -239,6 +239,7 @@ while($fetch=mysql_fetch_array($result)){
 			//echo $kantone;
 		}
 		normfelda($def,$spr['kantone'],$kantone);
+		normfelda($def,'PND',($fetch['pnd']?'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>':''));
 		if(auth_level(USER_GUEST_READER_PARTNER)) normfelda($def,$spr['notiz'],$fetch['notiz']);
 		normfeld($def,$spr['npublizieren'],$fetch['unpubliziert']);
 	}

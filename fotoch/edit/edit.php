@@ -203,6 +203,7 @@ if($_POST['submitbutton']){
 	`showkurzbio` = '$_POST[showkurzbio]',		
 	`schaffensbeschrieb` = '$_POST[schaffensbeschrieb]',
 	`auszeichnungen`= '$_POST[auszeichnungen]',
+	`pnd` = '$_POST[pnd]',
 	`autorIn` = '$_POST[autor]',
 	`bearbeitungsdatum` = '$bearbeitungsdatum',
 	`unpubliziert` = '$unpubliziert',
@@ -370,6 +371,7 @@ if ($fertig==1){
 	$array_set = explode (",", $set);
 	///
 	gencheckarrayitem($def, $spr['kanton'], $array_set_list, "kanton[]", $array_set);
+	genformitem($def,'textfield','PND',$array_eintrag[pnd],'pnd');
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag[notiz],'notiz');
 	genformitem($def,'textfield',$spr['autorIn'],$array_eintrag[autorIn],'autor');
 	gencheckitem($def,$spr['npublizieren'],$array_eintrag[unpubliziert],'unpubliziert');
