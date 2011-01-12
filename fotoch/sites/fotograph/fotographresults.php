@@ -181,11 +181,13 @@ if($_GET['submitbutton'] != ""){
 			}
 			if($fetch['showkurzbio'] == 1) {
 				$fetch['bioclass']='subtitle3kbio';
-				echo $fetch['namen'].' '.$fetch['vornamen'];
+				//echo $fetch['namen'].' '.$fetch['vornamen'];
 			}
 			$fetch['fgeburtsdatum']=formdatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum']);
 			$fetch['fldatum']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);
-			if(auth_level(USER_GUEST_READER)) if ($fetch['unpubliziert']==1) $fetch['bioclass']='subtitle3x';
+			if(auth_level(USER_GUEST_READER)) if ($fetch['unpubliziert']==1){
+				$fetch['bioclass'].='x';
+			}
 	
 			$def->assign("FETCH",$fetch);
 	
