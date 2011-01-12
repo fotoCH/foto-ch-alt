@@ -40,24 +40,24 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 }
 
 
-$fetch[test]="";
+$fetch['empty']="";
 	
 
 
 if($_GET[mod]=="erw"){
 	subgensubmit($def,'submitfield',$spr['submit']);
 	
-	subgenformitem($def,'textfield',$spr['nachname'],$fetch[test],'nachname');
-	subgenformitem($def,'textfield',$spr['vorname'],$fetch[test],'vorname');
+	subgenformitem($def,'textfield',$spr['nachname'],$fetch['empty'],'nachname');
+	subgenformitem($def,'textfield',$spr['vorname'],$fetch['empty'],'vorname');
 	$arr_geschlecht=array(''=>'', 'm' =>$spr['m'], 'f' =>$spr['f']);
 	
 
 	subgenselectitem($def, $spr['geschlecht'], "", "geschlecht", $arr_geschlecht, "", "", "");
-	subgenformitem($def,'textfield',$spr['heimatort'],$fetch[test],'heimatort');
-	subgenformitem($def,'textfield',$spr['geburtsdatum'],$fetch[test],'geburtsdatum');
-	subgenformitem($def,'textfield',$spr['geburtsort'],$fetch[test],'geburtsort');
-	subgenformitem($def,'textfield',$spr['todesdatum'],$fetch[test],'todesdatum');
-	subgenformitem($def,'textfield',$spr['todesort'],$fetch[test],'todesort');
+	subgenformitem($def,'textfield',$spr['heimatort'],$fetch['empty'],'heimatort');
+	subgenformitem($def,'textfield',$spr['geburtsdatum'],$fetch['empty'],'geburtsdatum');
+	subgenformitem($def,'textfield',$spr['geburtsort'],$fetch['empty'],'geburtsort');
+	subgenformitem($def,'textfield',$spr['todesdatum'],$fetch['empty'],'todesdatum');
+	subgenformitem($def,'textfield',$spr['todesort'],$fetch['empty'],'todesort');
 
 	$sql ="DESCRIBE fotografen kanton";
 	$result = mysql_query($sql);
@@ -69,14 +69,14 @@ if($_GET[mod]=="erw"){
 	subgenselectitem($def, $spr['kantone'], 5, "kanton[]", $array_set_list, "true", "", "8");
 
 	if(auth_level(USER_GUEST_READER_PARTNER)){
-		subgenformitem($def,'edittext',$spr['notiz'],$fetch[test],'notiz');
-		subgenformitem($def,'textfield',$spr['autorIn'],$fetch[test],'autorIn');
+		subgenformitem($def,'edittext',$spr['notiz'],$fetch['empty'],'notiz');
+		subgenformitem($def,'textfield',$spr['autorIn'],$fetch['empty'],'autorIn');
 	}
 
-	subgenformitem($def,'textfield',$spr['beruf'],$fetch[test],'beruf');
-	
-	subgenformitem($def,'edittext',$spr['werdegang'],$fetch[test],'werdegang');
-	subgenformitem($def,'edittext',$spr['schaffensbeschrieb'],$fetch[test],'schaffensbeschrieb');
+	subgenformitem($def,'textfield',$spr['beruf'],$fetch['empty'],'beruf');
+	subgenformitem($def,'edittext',$spr['biografie'],$fetch['empty'],'kurzbio');
+	subgenformitem($def,'edittext',$spr['werdegang'],$fetch['empty'],'werdegang');
+	subgenformitem($def,'edittext',$spr['schaffensbeschrieb'],$fetch['empty'],'schaffensbeschrieb');
 
 	$sql ="DESCRIBE fotografen fotografengattungen_set";
 	$result = mysql_query($sql);
