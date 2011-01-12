@@ -198,7 +198,7 @@ if ($fertig==1){
 	genformitem($def,'instlink','',$array_eintrag['inst_id'],'');
 	//genformitem($def,'textfield','Institution (id)',$array_eintrag['inst_id'],'inst_id');
 	genformitem($def,'textfield',$spr['zeitraum'],$array_eintrag['zeitraum'],'zeitraum');
-	genformitem($def,'textfield',$spr['bestandsbeschreibung'],$array_eintrag['bestandsbeschreibung'],'bestandsbeschreibung');
+	genformitem($def,'edittext',$spr['bestandsbeschreibung'],$array_eintrag['bestandsbeschreibung'],'bestandsbeschreibung');
 	genformitem($def,'textfield',$spr['link_extern'],$array_eintrag['link_extern'],'link_extern');
 	genformitem($def,'textfield',$spr['signatur'],$array_eintrag['signatur'],'signatur');
 	genformitem($def,'textfield',$spr['copy'],$array_eintrag['copyright'],'copyright');
