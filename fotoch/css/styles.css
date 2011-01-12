@@ -442,13 +442,13 @@ font-size: 12px;
 font-weight: normal; 
 color: #cc2222;
 font-style: italic;
+text-decoration:underline;
 }
 #container SPAN.subtitle3x a
 {
 font-size: 12px;
 font-weight: normal;
 color: #cc2222;
-text-decoration:underline;
 }
 #container SPAN.subtitle3biox a
 {
