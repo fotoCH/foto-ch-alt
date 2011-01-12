@@ -211,12 +211,12 @@ function submitita(v)
 				<a href="./?a={ACTION}&amp;f=del&amp;f_id={FOTOGRAF.bf_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a></td>
 			<td>
 	<!-- BEGIN:mname -->
-				<select name="namenid" class="edit">
+				<select name="namenid{NUM}" class="edit">
 		<!-- BEGIN:option -->
 					<option {selected}value="{ovalue}" class="edit">{olabel}</option>
 		<!-- END:option -->
 				</select> 
-				<input type="button" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;f=edit&amp;nid='+(this.form.namenid.value)+'&amp;f_id={FOTOGRAF.bf_id}&amp;id={ID}'" value="{SPR.namen_auswaehlen}" />
+				<input type="button" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;f=edit&amp;nid='+(this.form.namenid{NUM}.value)+'&amp;f_id={FOTOGRAF.bf_id}&amp;id={ID}'" value="{SPR.namen_auswaehlen}" />
 	<!-- END:mname -->
 			</td>								
 		</tr>
