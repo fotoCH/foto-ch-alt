@@ -14,7 +14,7 @@ $def->assign("SPR",$spr);
 if ($_POST) escposts();
 
 if ($_GET['id']=="new"){
-	$sql="INSERT INTO `glossar` ( `id` , `begriff` , `zeitraum` , `erlaeuterung` , `literatur` , `bearbeitungsdatum` ) VALUES (NULL,'','','','','0000-00-00')";
+	$sql="INSERT INTO `users` ( `id` , `username` ) VALUES (NULL,'')";
 	$result = mysql_query($sql);
 
 	$last_insert_id = mysql_insert_id();
@@ -25,7 +25,7 @@ $del=$_GET['delete'];
 
 if ($del=="2"){
 	$id=$_GET['id'];
-	$sql = "DELETE FROM `glossar` WHERE id=$id LIMIT 1";
+	$sql = "DELETE FROM `users` WHERE id=$id LIMIT 1";
 	
 	$result = mysql_query($sql);
 
@@ -49,21 +49,18 @@ if ($del=="1"){
 if($_POST['submitbutton']){
 
 
-	if($_POST['unpubliziert']=="1"){
-		$unpubliziert = 1;
-	}else{
-		$unpubliziert = 0;
-	}
 
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 
-	$bearbeitungsdatum = date("Y-m-d");
-	$sql = "UPDATE `glossar` SET `begriff` = '$_POST[begriff]',
-	`zeitraum` = '$_POST[zeitraum]',
-	`erlaeuterung` = '$_POST[erlaeuterung]',
-	`literatur` = '$_POST[literatur]',
-	`bearbeitungsdatum` = '$bearbeitungsdatum'
+//	$bearbeitungsdatum = date("Y-m-d");
+	$sql = "UPDATE `users` SET `username` = '$_POST[username]',
+	`vorname` = '$_POST[vorname]',
+	`nachname` = '$_POST[nachname]',
+	`email` = '$_POST[email]',
+	`password` = '".($_POST['password']?md5($_POST['password']):'').
+	"', `level` = $_POST[level]
 	WHERE `id` =$_POST[hidden_id] LIMIT 1";
+	echo $sql;
 	$result = mysql_query($sql);
 }
 
@@ -85,14 +82,14 @@ if ($fertig==1){
 	
 
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
-	$sql = "SELECT * FROM `glossar` WHERE id ='$id'";
+	$sql = "SELECT * FROM `users` WHERE id ='$id'";
 	$result = mysql_query($sql);
 	$array_eintrag = mysql_fetch_array($result);
 	
-	$def->assign("NAME", $array_eintrag['begriff']);
-	$def->parse("bearbeiten.bearbeiten_head_glossar");
+	$def->assign("NAME", $array_eintrag['username']);
+	$def->parse("bearbeiten.bearbeiten_head_user");
 	
-	$def->assign("LEGEND", "<b>".$spr['glossardetails']."</b><br/>");
+	$def->assign("LEGEND", "<b>".'Userdetails'."</b><br/>");
 	$def->parse("bearbeiten.form.fieldset_start");
 	
 	//$def->parse("bearbeiten.new_bestand");
@@ -100,15 +97,17 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.start");
 
 
-	genformitem($def,'textfield',$spr['begriff'],$array_eintrag['begriff'],'begriff');
+	genformitem($def,'textfield',$spr['username'],$array_eintrag['username'],'username');
 
-	genformitem($def,'textfield',$spr['zeitraum'],$array_eintrag['zeitraum'],'zeitraum');
-
-	genformitem($def,'edittext',$spr['erlaeuterung'],$array_eintrag['erlaeuterung'],'erlaeuterung');
-	genformitem($def,'edittext',$spr['literatur'],$array_eintrag['literatur'],'literatur');
+	genformitem($def,'textfield',$spr['vorname'],$array_eintrag['vorname'],'vorname');
+	genformitem($def,'textfield',$spr['nachname'],$array_eintrag['nachname'],'nachname');
 	
-	//$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
-	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
+	genformitem($def,'textfield',$spr['email'],$array_eintrag['email'],'email');
+	genformitem($def,'textfield','passwort neu setzen','','password');
+	genformitem($def,'textfield','level (2|4|8)',$array_eintrag['level'],'level');
+	
+	//$def->assign("SPR.bearbeitungsdatum", '');  // funktioniert nicht
+	$def->assign("bearbeitungsdatum", '');
 
 	
 	/*if(auth_level($USER_WORKER)){

@@ -113,6 +113,13 @@
     				<td valign="baseline"><span class="date"> </span></td>
  		</tr>   
 <!-- END:bearbeiten_glossar --> 
+<!-- BEGIN:bearbeiten_user -->
+    		<tr>
+    				<td valign="baseline"><span class="subtitle2"><a href="./?a=uedit&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a></span></td>
+    				<td valign="baseline"><span class="date"> </span></td>
+ 		</tr>   
+<!-- END:bearbeiten_user --> 
+
 <!-- END:z -->    		
    		</table>
 	  

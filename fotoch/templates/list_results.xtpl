@@ -23,6 +23,28 @@
 	 </tr>	
 <!-- END:row_ausstellung -->
 
+<!-- BEGIN:head_user -->	
+    		<tr valign="top">
+    				<td><span class="subtitle2">{SPR.id}</td>
+    				<td><span class="subtitle2">username</span></td>
+					<td><span class="subtitle2">{SPR.vorname}</span></td>
+    				<td><span class="subtitle2">{SPR.nachname}</span></td>
+    				<td><span class="subtitle2">{SPR.email}</span></td>
+    				<td><span class="subtitle2">{level</span></td>
+    				<td><span class="subtitle2"> &nbsp;</span></td>
+    		</tr>		
+<!-- END:head_user -->
+<!-- BEGIN:row_user -->
+        <tr>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=user&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.username}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.vorname}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.nachname}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.email}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.level}</span></td>
+		<td valign="baseline" align="right"><span class="subtitle3"><a href="./?a=uedit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+	 </tr>	
+<!-- END:row_user -->
 
 	 
 <!-- BEGIN:head_bestand -->

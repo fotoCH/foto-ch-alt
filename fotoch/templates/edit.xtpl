@@ -118,6 +118,17 @@ function submitita(v)
 
 <!-- END:bearbeiten_head_glossar -->
 
+<!-- BEGIN:bearbeiten_head_user -->
+
+	<h2>User bearbeiten</h2>
+	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3>
+	<a href="./?a=user&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
+	<br/>
+	<br/>
+	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
+
+<!-- END:bearbeiten_head_glossar -->
+
 
 <!-- BEGIN:bearbeiten_head_literatur -->
 

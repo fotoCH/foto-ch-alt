@@ -19,7 +19,7 @@
 				<li><a href="?{URLDE}">de</a>&nbsp; <a href="?{URLFR}">fr</a> &nbsp;</li>
 				<li><a href="?a={LOG}&amp;lang={LANG}">{LOG}{USER}</a></li>
 				<li>&nbsp;</li>
-				<li>&nbsp;</li>
+				<li><a href="./?a=user&amp;lang={LANG}">{SPR.useradmin}</a></li>
 			</ul>
 		</div>
 		<div id="navi_header">
