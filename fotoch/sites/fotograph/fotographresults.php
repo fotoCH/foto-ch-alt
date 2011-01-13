@@ -130,6 +130,9 @@ if($_GET['submitbutton'] != ""){
 		} else {
 			$fetch['bioclass']='subtitle3';
 		}
+		if($fetch['showkurzbio'] == 1) {
+			$fetch['bioclass']='subtitle3kbio';
+		}		
 		
 		if(auth_level(USER_GUEST_READER) && $fetch['unpubliziert']==1) $fetch['bioclass'].='x';
 		
