@@ -19,7 +19,7 @@ if($_COOKIE['lang'] == ""){
 if($_GET['lang']!=""){
 	$language = $_GET['lang'];
 }
-$supported_langs = array("de","fr");//missing: "en","it",,"rm"
+$supported_langs = array("de","fr","it","en","rm");//missing: "en","it",,"rm"
 if(!in_array($language ,$supported_langs)) $language = "de";	
 //für (aktuelle) sprache ein cookie setzen für ca ein halbes jahr:
 setcookie("lang", $language, (time() + (60*60*24*183)));
