@@ -46,6 +46,8 @@ if($_POST['submitbutton']){
 	`seite` = '$_POST[seite]',
 	`code` = '$_POST[code]',
 	`url` = '$_POST[url]',
+	`signatur` = '$_POST[signatur]',
+	`verlag` = '$_POST[verlag]',
 	`notiz` = '$_POST[notiz]',
 	`bearbeitungsdatum` = '$bearbeitungsdatum'
 	WHERE `id` =$_POST[hidden_id] LIMIT 1";
@@ -84,6 +86,8 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['nummer'],$array_eintrag['nummer'],'nummer');
 	genformitem($def,'textfield',$spr['seite'],$array_eintrag['seite'],'seite');
 	genformitem($def,'textfield',$spr['url'],$array_eintrag['url'],'url');
+	genformitem($def,'textfield',$spr['signatur'],$array_eintrag['signatur'],'signatur');
+	genformitem($def,'textfield',$spr['verlag'],$array_eintrag['verlag'],'verlag');
 	
 	$arr_code=array("" => "", "U" =>"Url", "P" =>"Periodika", "T" =>"Tageszeitung", "H" =>"Herausgeber", "Z" =>"Zitiert in", "V" =>"Verlag statt Ort");   //Array füllen für Select
 	genselectitem($def, $spr['code'], $array_eintrag['code'], "code", $arr_code, "", "", "");
