@@ -1,3 +1,3 @@
 <?php
-header("Location: /fotoch/?action=home");
+header("Location: ./fotoch/?action=home");
 ?>

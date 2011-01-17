@@ -91,6 +91,8 @@ function submitita(v)
         <script type="text/javascript">
         window.onload = function () { 
 		var fTextbox = new AutoSuggestControl(document.getElementById("foto"),document.getElementById("newfotoid"), new FotoSuggestions("ilist/ftas.php?"));
+		var iTextbox = new AutoSuggestControl(document.getElementById("inst"),document.getElementById("newinstid"), new FotoSuggestions("ilist/itas.php?"));
+		
 	}
 	</script>
 
@@ -311,6 +313,17 @@ function submitita(v)
 	</table>
 
 <!-- END:new_bestand_institution -->
+<!-- BEGIN:new_institution_bestand -->
+		<tr>
+			<td class="edit"><label for="inst" class="edit">{SPR.institution}:</label></td>
+    			<td>
+				<input type="text" id="inst" class="jsearch"/>&nbsp;&nbsp;
+				<input type="text" id="newinstid" class="jindex"/> 
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=institution&amp;lang={LANG}&amp;id='+(this.form.newinstid.value)"/> 
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;new_inst=1&amp;id={ID}&amp;institution_id='+(this.form.newinstid.value)"/>
+			</td>
+		</tr>
+<!-- END:new_institution_bestand -->
 <!-- BEGIN:bestand-->
 			
 				<table class="edit" cellpadding="0" cellspacing="5">
@@ -494,13 +507,6 @@ function submitita(v)
 
 <!-- END:literatur -->
 
-
-
-
-
-
-
-
 <!-- BEGIN:start -->
 <table class="edit" cellpadding="0" cellspacing="5">
 <!-- END:start -->
@@ -572,6 +578,16 @@ function submitita(v)
    						</tr>
     						
 <!-- END:textfield -->
+<!-- BEGIN:noedit -->
+						<tr>
+    						
+    							<td class="edit"><label class="edit" for="{name}" >{label}</label></td>    							
+    							<td>
+    								{value}
+    							</td>
+   						</tr>
+    						
+<!-- END:noedit -->
 <!-- BEGIN:instlink -->
 						<tr>
     						

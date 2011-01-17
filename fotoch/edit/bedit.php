@@ -86,6 +86,14 @@ if($_REQUEST['new_fotograf']){
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
+if($_REQUEST['new_inst']){
+	$sql="UPDATE `bestand` SET `inst_id`=$_REQUEST[institution_id] WHERE `id`=$_REQUEST[id]";
+	//echo $sql;
+	$result = mysql_query($sql);
+	$bearbeitungsdatum = date("Y-m-d");
+	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
+	$result = mysql_query($sql);
+}
 //////////////Fotograf löschen////////////////////////////
 if($_GET['f']=="del"){
 	$sql = "DELETE FROM `bestand_fotograf` WHERE id='$_GET[f_id]' LIMIT 1";
@@ -122,7 +130,7 @@ if($_POST['submitbutton']){
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `bestand` SET `name` = '$_POST[name]',
-	`inst_id` = '$_POST[inst_id]',
+	
 	`zeitraum` = '$_POST[zeitraum]',
 	`umfang` = '$_POST[umfang]',
 	`erschliessungsgrad` = '$_POST[erschliessungsgrad]',
@@ -187,14 +195,24 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['name'],$array_eintrag['name'],'name');
 	//$def->assign('NAME',$array_eintrag['name']);
 	gencheckitem($def,$spr['nachlass'],$array_eintrag['nachlass'],'nachlass');
-	$sql = 'SELECT id , name FROM `institution` WHERE 1 ORDER BY name';
+	$sql = 'SELECT id , name FROM `institution` WHERE id='.$array_eintrag['inst_id'].' ORDER BY name';
 	$result = mysql_query($sql);
-	while ($fetch = mysql_fetch_array($result)){
-		$iid=$fetch['id'];
-		$iname=$fetch['name'];
-		$arr_inst[$iid]=$iname;
-	}
-	genselectitem($def, "Institution", $array_eintrag['inst_id'], "inst_id", $arr_inst, "", "", "");
+	$fetch = mysql_fetch_array($result);
+	
+	$iname=$fetch['name'];
+	
+	
+	//genselectitem($def, "Institution", $array_eintrag['inst_id'], "inst_id", $arr_inst, "", "", "");
+	genformitem($def, 'noedit', $spr['Institution'], $iname, "inst_name");
+	//$def->assign("LEGEND","<b>".$spr['intitution']."</b>");
+	//$def->parse("bearbeiten.form.fieldset_start");
+		
+	$def->parse("bearbeiten.form.new_institution_bestand");
+//	$def->parse("bearbeiten.form");
+//	$def->parse("bearbeiten.form.fieldset_end");
+//	$def->parse("bearbeiten.form.tr");
+//	$def->parse("bearbeiten.form");
+	
 	genformitem($def,'instlink','',$array_eintrag['inst_id'],'');
 	//genformitem($def,'textfield','Institution (id)',$array_eintrag['inst_id'],'inst_id');
 	genformitem($def,'textfield',$spr['zeitraum'],$array_eintrag['zeitraum'],'zeitraum');

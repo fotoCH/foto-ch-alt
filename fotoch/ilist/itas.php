@@ -1,6 +1,7 @@
 <?php
 require("../mysql.inc.php");
 error_reporting(!(E_ALL));
+setlocale (LC_ALL, 'de_CH');
 $foto=$_REQUEST['suchbegriff'];
 $l=strlen($foto);
 $sql="SELECT * FROM institution WHERE name LIKE '$foto%' ORDER BY name LIMIT 18";
