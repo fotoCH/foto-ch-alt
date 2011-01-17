@@ -213,7 +213,8 @@ if ($fertig==1){
 	$array_set_list = explode ("','", $set_list);
 	$set= $array_eintrag['bildgattungen'];
 	$array_set = explode (",", $set);
-	genselectitem($def, $spr['bildgattungen'], $array_set, "bildgattungen", $array_set_list, "true", "", "");
+	//genselectitem($def, $spr['bildgattungen'], $array_set, "bildgattungen", $array_set_list, "true", "", "");
+	gencheckarrayitemtr($def, $spr['bildgattungen'], $array_set_list, $spatr['bildgattungen_uebersetzungen'], "bildgattungen[]", $array_set);
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz'],'notiz');
 	gencheckitem($def,$spr['npublizieren'],$array_eintrag['gesperrt'],'unpubliziert');
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);

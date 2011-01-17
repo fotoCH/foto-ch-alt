@@ -42,11 +42,15 @@ function gencheckarrayitem(&$def, $label, $list, $name, $list2){
 }
 
 function gencheckarrayitemtr(&$def, $label, $list, $list_tr, $name, $list2){
+	global $language;
 	$def->assign("label", $label);
 	$c=0;
 	foreach($list as $key => $value){
 		$def->assign("ovalue", $value);
-		$def->assign("olabel",$list_tr[$c]);
+		if ($language!='de')
+			$def->assign("olabel",$list_tr[$c]);
+		else
+			$def->assign("olabel",$value);
 		$def->assign("inputname", $name);
 		if(in_array($value, $list2)){
 			//-> checked

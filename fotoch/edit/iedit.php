@@ -154,7 +154,9 @@ if ($fertig==1){
 	$array_set_list = explode ("','", $set_list);
 	$set= $array_eintrag[bildgattungen_set];
 	$array_set = explode (",", $set);
-	genselectitem($def, $spr['bildgattungen'], $array_set, "bildgattungen", $array_set_list, "true", "", "");
+	
+	gencheckarrayitemtr($def, $spr['bildgattungen'], $array_set_list, $spatr['bildgattungen_uebersetzungen'], "bildgattungen[]", $array_set);
+
 	genformitem($def,'edittext',$spr['sammlungsgeschichte'],$array_eintrag['sammlungsgeschichte'],'sammlungsgeschichte');
 	genformitem($def,'edittext',$spr['sammlungsbeschreibung'],$array_eintrag['sammlungsbeschreibung'],'sammlungsbeschreibung');
 	$def->parse("bearbeiten.form.tend");

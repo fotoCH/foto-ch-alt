@@ -338,11 +338,7 @@ if ($fertig==1){
 	$set= $array_eintrag[fotografengattungen_set];
 	$array_set = explode (",", $set);		
 	///
-	if ($_GET['lang']!='de'){
-		gencheckarrayitemtr($def, $spr['fotographengattungen'], $array_set_list, $spatr['fotografengattungen_uebersetzungen'], "fotografengattungen[]", $array_set); 
-	} else {
-		gencheckarrayitem($def, $spr['fotographengattungen'], $array_set_list, "fotografengattungen[]", $array_set);
-	}
+	gencheckarrayitemtr($def, $spr['fotographengattungen'], $array_set_list, $spatr['fotografengattungen_uebersetzungen'], "fotografengattungen[]", $array_set); 
 
 	$sql ="DESCRIBE fotografen bildgattungen_set";//Beschreibung des Sets bekommen
 	$result = mysql_query($sql);
@@ -353,13 +349,8 @@ if ($fertig==1){
 	$set= $array_eintrag[bildgattungen_set];
 	$array_set = explode (",", $set);
 	
+	gencheckarrayitemtr($def, $spr['bildgattungen'], $array_set_list, $spatr['bildgattungen_uebersetzungen'], "bildgattungen[]", $array_set);
 
-	if ($_GET['lang']!='de'){
-		gencheckarrayitemtr($def, $spr['bildgattungen'], $array_set_list, $spatr['bildgattungen_uebersetzungen'], "bildgattungen[]", $array_set);
-	} else {
-		gencheckarrayitem($def, $spr['bildgattungen'], $array_set_list, "bildgattungen[]", $array_set);
-	}
-	
 	genformitem($def,'submitfield','','','');
 	$sql ="DESCRIBE fotografen kanton";//Beschreibung des Sets bekommen
 	$result = mysql_query($sql);
