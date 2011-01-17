@@ -61,6 +61,7 @@ $xtpl->assign("SPR",$spr);  // load all languagecontent!
 $xtpl->assign("LANG",$language);
 $xtpl->assign("URLDE", changeurl("de"));
 $xtpl->assign("URLFR", changeurl("fr"));
+$xtpl->assign("URLIT", changeurl("it"));
 
 
 //assign action
