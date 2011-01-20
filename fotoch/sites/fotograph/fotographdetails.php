@@ -10,8 +10,9 @@ $bearbeiten = "[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 
 $def->assign("SPR", $spr);
 
+$det="autodetail";
+if ($_GET['style']=='print') $det="detailprint";
 
-if(auth_level(USER_GUEST_READER)) $def->assign("idd",$id);
 
 $def->assign("KOMMA1", ", "); //assign komma for name, vorname in header
 
@@ -21,8 +22,7 @@ if(auth_level(USER_GUEST_READER)) {
 else {
 	$result=mysql_query("SELECT * FROM fotografen WHERE (id=$id) AND (unpubliziert=0)");
 }
-$det="autodetail";
-if ($_GET['style']=='print') $det="detailprint";
+
 while($fetch=mysql_fetch_array($result)){
 	if (auth_level(USER_WORKER)){
 		//$def->assign('id','$id');
@@ -30,6 +30,15 @@ while($fetch=mysql_fetch_array($result)){
 
 	} else {
 		$fetch['id']='';
+	}
+	if(auth_level(USER_GUEST_READER)){
+		$def->assign("idd",$id);
+		$def->parse($det.".idd");
+		if ($fetch['pnd']){
+			$def->assign("pnd",'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>');
+			$def->parse($det.".pnd");
+		}
+		//normfelda($def,'PND',($fetch['pnd']?'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>':''));
 	}
 
 	$fetch['fbearbeitungsdatum']=formdatesimp($fetch['bearbeitungsdatum'],0);
@@ -47,12 +56,13 @@ while($fetch=mysql_fetch_array($result)){
 		$fetch['fotografengattungen_set']=str_replace('wissenschaftler','wissenschaftlerin',$fetch['fotografengattungen_set']);	$fetch['fotografengattungen_set']=str_replace('sammler','sammlerin',$fetch['fotografengattungen_set']);
 	}
 
-		
+
 	if ($_GET['lang']!='de'){
 		$fetch['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen_set']);
 	}
 	$fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
 	$def->assign("FETCH",$fetch);
+
 	$result4=mysql_query("SELECT * FROM namen WHERE fotografen_id=$id ORDER BY  id");
 	//echo "SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id";
 	$def->assign("SPR1",$spr);
@@ -77,17 +87,17 @@ while($fetch=mysql_fetch_array($result)){
 	$def->assign("FETCH4",$fetch4);
 	$def->parse($det.".fldatum");
 	abstand($def);
-		
+
 	normfelda($def,$spr['heimatort'],trim($fetch['heimatort']));
-		
+
 	normfelda($def,$spr['beruf'],trim($fetch['beruf']));
-		
+
 	normfelda($def,$spr['fotografengattungen'],trim($fetch['fotografengattungen_set']));
-		
+
 	normfelda($def,$spr['bildgattungen'],trim($fetch['bildgattungen_set']));
 
 	//$def->assign("Arbeitsort",$spr['arbeitsort']);
-		
+
 	$result2=mysql_query("SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id");
 	$def->assign("SPR2",$spr);
 	while($fetch2=mysql_fetch_array($result2)){
@@ -108,9 +118,9 @@ while($fetch=mysql_fetch_array($result)){
 		//$results.=$def->text($det.".z");
 	}
 	if(mysql_num_rows($result2)!=0) abstand($def);
-		
+
 	normfelda($def,$spr['umfeld'],clean_entry($fetch['fumfeld']));
-	
+
 	if(auth_level(USER_GUEST_READER)){
 		normfelda($def,$spr['biografie'],clean_entry($fetch['kurzbio']));
 		normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang']));
@@ -125,7 +135,7 @@ while($fetch=mysql_fetch_array($result)){
 		}
 	}
 	normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
-		
+
 	if(auth_level(USER_GUEST_READER_PARTNER)){
 		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, institution.name AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
@@ -135,7 +145,7 @@ while($fetch=mysql_fetch_array($result)){
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
 				WHERE (bestand_fotograf.fotografen_id=$id) AND (bestand.gesperrt=0) AND (institution.gesperrt=0) ORDER BY bestand.nachlass DESC, bestand.name ASC");
 	}
-		
+
 	$bes=$spr['bestaende'];
 	while($fetch6=mysql_fetch_array($result6)){
 		if (auth_level(USER_GUEST_READER_PARTNER) || $fetch6['instgesp']==0){
@@ -155,7 +165,7 @@ while($fetch=mysql_fetch_array($result)){
 		//$results.=$def->text($det.".z");
 	}
 	if(mysql_num_rows($result6)!=0) abstand($def);
-		
+
 	if (auth_level(USER_GUEST_READER_PARTNER)){ // alte bestaende
 		$result3=mysql_query("SELECT * FROM bestaende WHERE fotografen_id=$id ORDER BY  id");
 		$def->assign("alt_best", "Alt. Best.");
@@ -177,7 +187,7 @@ while($fetch=mysql_fetch_array($result)){
 	$result7=mysql_query("SELECT literatur_fotograf.fotografen_id, literatur_fotograf.id AS if_id, literatur_fotograf.typ AS if_typ, IF(literatur_fotograf.typ='P',literatur.jahr,literatur.verfasser_name) AS sortsp, literatur.*
 			FROM literatur_fotograf INNER JOIN literatur ON literatur_fotograf.literatur_id = literatur.id
 			WHERE literatur_fotograf.fotografen_id=$id ORDER BY if_typ, sortsp");
-		
+
 	while($fetch7=mysql_fetch_array($result7)){
 		//$tmpfetch7 = $fetch7;
 		$litHasChanged = false;

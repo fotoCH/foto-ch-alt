@@ -250,13 +250,14 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.fieldset_start");	
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");	
-	$arr_art=array("P" =>"P", "G" =>"G");   //Array fï¿½llen fï¿½r Select
+	genformitem($def,'textfield','PND',$array_eintrag[pnd],'pnd');
+	$arr_art=array("P" =>"P", "G" =>"G");   //Array füllen für Select
 	genselectitem($def, $spr['art'], "$array_eintrag[art]", "art", $arr_art, "", "", "");
-	$arr_geschlecht=array(""=> "", "m" =>"Mann", "f" =>"Frau"); //Array fï¿½llen fï¿½r Select
+	$arr_geschlecht=array(""=> "", "m" =>"Mann", "f" =>"Frau"); //Array füllen für Select
 	genselectitem($def, $spr['geschlecht'], $array_eintrag[geschlecht], "geschlecht", $arr_geschlecht, "", "", "");
 	genformitem($def,'textfield',$spr['heimatort'],$array_eintrag[heimatort],'heimatort');
 	genformitem($def,'textfield',$spr['geburtsdatum'],$array_eintrag[geburtsdatum],'geburtsdatum');
-	$arr_geb_code=array(0 =>"0", 1 =>"1", 2 =>"2"); //Array fï¿½llen fï¿½r Select
+	$arr_geb_code=array(0 =>"0", 1 =>"1", 2 =>"2"); //Array füllen für Select
 	
 	genselectitem($def, $spr['geburtscode'], $array_eintrag[gen_geburtsdatum], "geburtscode", $arr_geb_code, "", "", "");
 	genformitem($def,'textfield',$spr['geburtsort'],$array_eintrag[geburtsort],'geburtsort');
@@ -362,7 +363,6 @@ if ($fertig==1){
 	$array_set = explode (",", $set);
 	///
 	gencheckarrayitem($def, $spr['kanton'], $array_set_list, "kanton[]", $array_set);
-	genformitem($def,'textfield','PND',$array_eintrag[pnd],'pnd');
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag[notiz],'notiz');
 	genformitem($def,'textfield',$spr['autorIn'],$array_eintrag[autorIn],'autor');
 	gencheckitem($def,$spr['npublizieren'],$array_eintrag[unpubliziert],'unpubliziert');

@@ -2,11 +2,20 @@
 	<h2>{TITLE}</h2>
 	<a id="top"></a>
 
-<!--BEGIN:idd -->
+<!-- BEGIN:idd -->
 	<p>{idd}</p>
-<!--END:idd -->
+<!-- END:idd -->
 	  <table class="item_details" cellpadding="2" cellspacing="0">  	
-
+<!-- BEGIN:pnd -->    		
+    	<tr>
+    				<td valign="top" class="detail_label"><span class="subtitle2">PND</span></td>    				
+    				<td valign="top"><span class="text2">{pnd}</span></td>
+ 		</tr>
+   		<tr>
+    				<td>&nbsp;</td>    				
+    				<td>&nbsp;</td>
+		</tr> 		    		
+<!-- END:pnd -->
 <!-- BEGIN:namen -->    		
     		<tr>
     				<td valign="baseline"  class="detail_label"><span class="subtitle2">{SPR1.nachname}{KOMMA1} {SPR1.vorname}</span></td>
