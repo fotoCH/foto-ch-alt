@@ -251,18 +251,18 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");	
 	genformitem($def,'textfield','PND',$array_eintrag[pnd],'pnd');
-	$arr_art=array("P" =>"P", "G" =>"G");   //Array f¸llen f¸r Select
+	$arr_art=array("P" =>"P", "G" =>"G");   //Array f√ºllen f√ºr Select
 	genselectitem($def, $spr['art'], "$array_eintrag[art]", "art", $arr_art, "", "", "");
-	$arr_geschlecht=array(""=> "", "m" =>"Mann", "f" =>"Frau"); //Array f¸llen f¸r Select
+	$arr_geschlecht=array(""=> "", "m" =>"Mann", "f" =>"Frau"); //Array f√ºllen f√ºr Select
 	genselectitem($def, $spr['geschlecht'], $array_eintrag[geschlecht], "geschlecht", $arr_geschlecht, "", "", "");
 	genformitem($def,'textfield',$spr['heimatort'],$array_eintrag[heimatort],'heimatort');
 	genformitem($def,'textfield',$spr['geburtsdatum'],$array_eintrag[geburtsdatum],'geburtsdatum');
-	$arr_geb_code=array(0 =>"0", 1 =>"1", 2 =>"2"); //Array f¸llen f¸r Select
+	$arr_geb_code=array(0 =>"0", 1 =>"1", 2 =>"2"); //Array f√ºllen f√ºr Select
 	
 	genselectitem($def, $spr['geburtscode'], $array_eintrag[gen_geburtsdatum], "geburtscode", $arr_geb_code, "", "", "");
 	genformitem($def,'textfield',$spr['geburtsort'],$array_eintrag[geburtsort],'geburtsort');
 	genformitem($def,'textfield',$spr['todesdatum'],$array_eintrag[todesdatum],'todesdatum');
-	$arr_tod_code=array(0 =>"0", 1 =>"1", 2 =>"2", 8=> "8", 9=>"9"); //Array fÔøΩllen fÔøΩr Select
+	$arr_tod_code=array(0 =>"0", 1 =>"1", 2 =>"2", 8=> "8", 9=>"9"); //Array f√ºllen f√ºr Select
 	genselectitem($def, $spr['todescode'], $array_eintrag[gen_todesdatum], "todescode", $arr_tod_code, "", "", "");
 	genformitem($def,'textfield', $spr['todesort'],$array_eintrag[todesort],'todesort');
 	genformitem($def,'submitfield','','','');
