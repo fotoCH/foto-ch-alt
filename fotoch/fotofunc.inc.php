@@ -428,7 +428,41 @@ function abstand($tpl){
 }
 
 
+function clangex(){
+	global $clanguage;
+	return ($clanguage=='de'?'':'_'.$clanguage);
+}
+
+function getlanglink($s,$link){
+	global $clanguage;
+	return ($clanguage==$s?$s.'&nbsp;':$link.$s.'">'.$s.'</a>&nbsp;');
+}
 
 
+function checklangsf(&$fetch,$felder,$link){
+	global $spr;
+	$link.='&amp;clang=';
+	$os=$fetch['originalsprache'];
+	$res=$spr['originalsprache'].': '.getlanglink($os,$link). '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$spr['artikelvorhandenin'].': ';
+	$do=false;
+	foreach (array('de','fr','it','rm','en') as $sp){
+		$da=false;
+		foreach ($felder as $feld){
+			if ($os!=$sp){
+				if ($fetch[$feld.($sp=='de'?'':'_'.$sp)]){
+					$da=true;
+					$do=true;
+				}
+			}
+		}
+		if ($da){
+			$res.=getlanglink($sp,$link);
+		}
+	}
+	if (!$do){
+		$res='';
+	}
+	return $res;
+}
 
 ?>

@@ -1,11 +1,16 @@
 <!-- BEGIN:autodetail -->
-	<h2>{TITLE}</h2>
-	<a id="top"></a>
-
-<!-- BEGIN:idd -->
-	<p>{idd}</p>
-<!-- END:idd -->
-	  <table class="item_details" cellpadding="2" cellspacing="0">  	
+<table class="item_details" cellpadding="2" cellspacing="0">
+<tr>
+    <td valign="top" class="detail_label"><h2>{TITLE}</h2></td>
+    <td><span class="text2">{sprachanzeige}</span></td>
+ </tr>
+<tr>
+    <td valign="top" class="detail_label"><a id="top"></a><!-- BEGIN:idd -->
+	{idd}
+<!-- END:idd --></td>
+    <td valign="top"><span class="text2">&nbsp;</span></td>
+ </tr>
+	    	
 <!-- BEGIN:pnd -->    		
     	<tr>
     				<td valign="top" class="detail_label"><span class="subtitle2">PND</span></td>    				

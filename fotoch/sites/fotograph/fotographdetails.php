@@ -24,6 +24,7 @@ else {
 }
 
 while($fetch=mysql_fetch_array($result)){
+	$def->assign('sprachanzeige',checklangsf($fetch,array('beruf','umfeld','werdegang','schaffensbeschrieb'),"<a href=\"./?a=fotograph&amp;id=$id&amp;lang=$lang"));
 	if (auth_level(USER_WORKER)){
 		//$def->assign('id','$id');
 		$def->assign('bearb',"<a href=\"./?a=edit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
@@ -43,7 +44,7 @@ while($fetch=mysql_fetch_array($result)){
 
 	$fetch['fbearbeitungsdatum']=formdatesimp($fetch['bearbeitungsdatum'],0);
 	$fetch['fldatum']=formldatesimp2($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum'],$fetch['geburtsort'],$fetch['todesort']);
-	$fetch['fumfeld']=formumfeld($fetch['umfeld']);
+	$fetch['fumfeld']=formumfeld($fetch['umfeld'.clangex()]);
 	if ($_GET['lang']!='de'){
 		$fetch['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$fetch['fotografengattungen_set']);
 	}
@@ -90,7 +91,7 @@ while($fetch=mysql_fetch_array($result)){
 
 	normfelda($def,$spr['heimatort'],trim($fetch['heimatort']));
 
-	normfelda($def,$spr['beruf'],trim($fetch['beruf']));
+	normfelda($def,$spr['beruf'],trim($fetch['beruf'.clangex()]));
 
 	normfelda($def,$spr['fotografengattungen'],trim($fetch['fotografengattungen_set']));
 
@@ -123,15 +124,15 @@ while($fetch=mysql_fetch_array($result)){
 
 	if(auth_level(USER_GUEST_READER)){
 		normfelda($def,$spr['biografie'],clean_entry($fetch['kurzbio']));
-		normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang']));
-		normfelda($def,$spr['schaffensbeschrieb'],clean_entry($fetch['schaffensbeschrieb']));
+		normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang'.clangex()]));
+		normfelda($def,$spr['schaffensbeschrieb'],clean_entry($fetch['schaffensbeschrieb'.clangex()]));
 	} else {
 		if($fetch['showkurzbio'] == 1) {
 			normfelda($def,$spr['biografie'],clean_entry($fetch['kurzbio']));
 		}
 		else {
-			normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang']));
-			normfelda($def,$spr['schaffensbeschrieb'],clean_entry($fetch['schaffensbeschrieb']));
+			normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang'].clangex()));
+			normfelda($def,$spr['schaffensbeschrieb'],clean_entry($fetch['schaffensbeschrieb'].clangex()));
 		}
 	}
 	normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
