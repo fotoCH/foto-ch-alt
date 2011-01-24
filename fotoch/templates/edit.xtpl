@@ -51,7 +51,7 @@ function submitita(v)
 
 }
 </script>
-			<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
+			<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}&amp;clang={CLANG}" method="post">
 							<input type="hidden" name="namen_id" value=""/>
 							<input type="hidden" name="nachname" value="a"/>
 							<input type="hidden" name="vorname" value=""/>
@@ -544,7 +544,7 @@ function submitita(v)
 <!-- BEGIN:option -->
             								<option {selected}value="{ovalue}" class="edit">{olabel}</option>
 <!-- END:option -->			
-            							</select> 
+            							</select>{sprachauswahl} 
 							</td>
    						</tr>
     					

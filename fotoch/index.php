@@ -24,7 +24,7 @@ if(!in_array($language ,$supported_langs)) $language = "de";
 if($_GET['clang']!=""){   // content_language
 	$clanguage = $_GET['clang'];
 }
-if(!in_array($language ,$supported_langs)) $clanguage = "de";	
+if(!in_array($clanguage ,$supported_langs)) $clanguage = "de";	
 
 //für (aktuelle) sprache ein cookie setzen für ca ein halbes jahr:
 setcookie("lang", $language, (time() + (60*60*24*183)));

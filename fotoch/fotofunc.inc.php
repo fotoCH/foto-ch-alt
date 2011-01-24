@@ -465,4 +465,14 @@ function checklangsf(&$fetch,$felder,$link){
 	return $res;
 }
 
+function gensprachaus($link){
+	global $spr;
+	$link.='&amp;clang=';
+	$res='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$spr['sprache'].' '.$spr['anzeigen'].': ';
+	foreach (array('de','fr','it','rm','en') as $sp){
+		$res.=getlanglink($sp,$link);
+	}
+	return $res;
+}
+
 ?>
