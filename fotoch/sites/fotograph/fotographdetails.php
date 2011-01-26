@@ -132,8 +132,8 @@ while($fetch=mysql_fetch_array($result)){
 			normfelda($def,$spr['biografie'],clean_entry($fetch['kurzbio']));
 		}
 		else {
-			normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang'].clangex()));
-			normfelda($def,$spr['schaffensbeschrieb'],clean_entry($fetch['schaffensbeschrieb'].clangex()));
+			normfelda($def,$spr['werdegang'],clean_entry(clangcont($fetch,'werdegang')));
+			normfelda($def,$spr['schaffensbeschrieb'],clean_entry(clangcont($fetch,'schaffensbeschrieb')));
 		}
 	}
 	normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
