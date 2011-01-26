@@ -427,10 +427,41 @@ function abstand($tpl){
 	$tpl->parse('autodetail.z');
 }
 
+function getsparr(){
+	return array('de','fr','it','rm','en');
+}
 
 function clangex(){
 	global $clanguage;
 	return ($clanguage=='de'?'':'_'.$clanguage);
+}
+
+function clangexl($l){
+	return ($l=='de'?'':'_'.$l);
+}
+
+function clangcont(&$fetch, $key){
+	global $language;
+	global $clanguage;
+	$l=$language;
+	if ($_GET['clang']){
+		$l=$clanguage;
+		$fixed=true;
+	}
+	$lprefs=array(
+		'de'=>array('en','fr','it','rm'),
+		'fr'=>array('it','de','en','rm'),
+		'it'=>array('fr','de','en','rm'),
+		'en'=>array('de','fr','it','rm'),
+		'rm'=>array('fr','it','de','en')
+	);
+	$e=$fetch[$key.clangexl($l)];
+	if ($e || $fixed) return $e;
+	$a=0;
+	while (!($e=$fetch[$key.clangexl($lprefs[$language][$a])]) && ($a<3)){
+		$a++;
+	}
+	return($e);
 }
 
 function getlanglink($s,$link){
@@ -445,7 +476,7 @@ function checklangsf(&$fetch,$felder,$link){
 	$os=$fetch['originalsprache'];
 	$res=$spr['originalsprache'].': '.getlanglink($os,$link);
 	$do=false;
-	foreach (array('de','fr','it','rm','en') as $sp){
+	foreach (getsparr() as $sp){
 		$da=false;
 		foreach ($felder as $feld){
 			if ($os!=$sp){
@@ -472,7 +503,7 @@ function gensprachaus($link){
 	global $spr;
 	$link.='&amp;clang=';
 	$res='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$spr['sprache'].' '.$spr['anzeigen'].': ';
-	foreach (array('de','fr','it','rm','en') as $sp){
+	foreach (getsparr() as $sp){
 		$res.=getlanglink($sp,$link);
 	}
 	return $res;

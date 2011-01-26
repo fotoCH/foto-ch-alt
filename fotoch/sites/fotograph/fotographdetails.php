@@ -45,7 +45,7 @@ while($fetch=mysql_fetch_array($result)){
 
 	$fetch['fbearbeitungsdatum']=formdatesimp($fetch['bearbeitungsdatum'],0);
 	$fetch['fldatum']=formldatesimp2($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum'],$fetch['geburtsort'],$fetch['todesort']);
-	$fetch['fumfeld']=formumfeld($fetch['umfeld'.clangex()]);
+	$fetch['fumfeld']=formumfeld(clangcont($fetch,'umfeld'));
 	if ($_GET['lang']!='de'){
 		$fetch['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$fetch['fotografengattungen_set']);
 	}
@@ -92,7 +92,7 @@ while($fetch=mysql_fetch_array($result)){
 
 	normfelda($def,$spr['heimatort'],trim($fetch['heimatort']));
 
-	normfelda($def,$spr['beruf'],trim($fetch['beruf'.clangex()]));
+	normfelda($def,$spr['beruf'],trim(clangcont($fetch,'beruf')));
 
 	normfelda($def,$spr['fotografengattungen'],trim($fetch['fotografengattungen_set']));
 
@@ -125,8 +125,8 @@ while($fetch=mysql_fetch_array($result)){
 
 	if(auth_level(USER_GUEST_READER)){
 		normfelda($def,$spr['biografie'],clean_entry($fetch['kurzbio']));
-		normfelda($def,$spr['werdegang'],clean_entry($fetch['werdegang'.clangex()]));
-		normfelda($def,$spr['schaffensbeschrieb'],clean_entry($fetch['schaffensbeschrieb'.clangex()]));
+		normfelda($def,$spr['werdegang'],clean_entry(clangcont($fetch,'werdegang')));
+		normfelda($def,$spr['schaffensbeschrieb'],clean_entry(clangcont($fetch,'schaffensbeschrieb')));
 	} else {
 		if($fetch['showkurzbio'] == 1) {
 			normfelda($def,$spr['biografie'],clean_entry($fetch['kurzbio']));
