@@ -24,6 +24,7 @@ else {
 }
 
 while($fetch=mysql_fetch_array($result)){
+	if ($fetch['originalsprache']=='fr' && $_GET['clang']=='') $clanguage='fr';
 	$def->assign('sprachanzeige',checklangsf($fetch,array('beruf','umfeld','werdegang','schaffensbeschrieb'),"<a href=\"./?a=fotograph&amp;id=$id&amp;lang=$lang"));
 	if (auth_level(USER_WORKER)){
 		//$def->assign('id','$id');

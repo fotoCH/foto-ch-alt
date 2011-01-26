@@ -443,7 +443,7 @@ function checklangsf(&$fetch,$felder,$link){
 	global $spr;
 	$link.='&amp;clang=';
 	$os=$fetch['originalsprache'];
-	$res=$spr['originalsprache'].': '.getlanglink($os,$link). '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$spr['artikelvorhandenin'].': ';
+	$res=$spr['originalsprache'].': '.getlanglink($os,$link);
 	$do=false;
 	foreach (array('de','fr','it','rm','en') as $sp){
 		$da=false;
@@ -451,6 +451,9 @@ function checklangsf(&$fetch,$felder,$link){
 			if ($os!=$sp){
 				if ($fetch[$feld.($sp=='de'?'':'_'.$sp)]){
 					$da=true;
+					if ($do==false){
+					    $res.= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$spr['artikelvorhandenin'].': ';
+					}
 					$do=true;
 				}
 			}
@@ -460,7 +463,7 @@ function checklangsf(&$fetch,$felder,$link){
 		}
 	}
 	if (!$do){
-		$res='';
+		if ($os=='de') $res='';
 	}
 	return $res;
 }
