@@ -255,6 +255,10 @@ input.text_edit {
 	width:350px;
 	border:1px solid white;
 }
+input.text_editd {
+	width:100px;
+	border:1px solid white;
+}
 /* javascript inputs in edit */
 input.jsearch {
 	width:300px;

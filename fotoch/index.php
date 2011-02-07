@@ -3,7 +3,8 @@
 if (stristr($_SERVER["SERVER_NAME"],'fotobe')){
     header("Location: /fotobe/index.php?action=home");
 }
-error_reporting(!(E_ALL));
+ini_set('display_errors', 1);
+error_reporting(E_ALL && ~E_NOTICE);
 require("templates/xtemplate.class.php");
 require("mysql.inc.php");
 require("nav.inc.php");
@@ -34,7 +35,7 @@ require("lang.inc.php");
 require("auth.inc.php");
 
 $action=$_GET['a'];
-$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit");
+$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit");
 if (!in_array($action,$actions)) $action='home';  // default Startseite
 //functions
 //chose main template
@@ -73,7 +74,7 @@ $xtpl->assign("URLIT", changeurl("it"));
 $xtpl->assign("ACTION",$action);
 //choose content sites
 $adminActions = array("ausstellung", "bestand", "fotograph", "glossar", "institution", "literatur","user");
-$editActions = array("edit", "aedit", "bedit","gedit", "iedit", "ledit","uedit");
+$editActions = array("edit", "aedit", "bedit","gedit", "iedit", "ledit","uedit","dfedit");
 if(in_array($action,$adminActions)){
 	if((($action == "ausstellung") || ($action == "glossar") || ($action == "literatur") || ($action == "user")) && empty($_SESSION['s_uid'])){
 		$action = "login";

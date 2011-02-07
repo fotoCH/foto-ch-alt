@@ -12,12 +12,99 @@
 		var bTextbox = new AutoSuggestControl(document.getElementById("best"),document.getElementById("newbestandid"), new FotoSuggestions("ilist/gentas.php?table=bestand&retfeld=name&suchfeld=name&"));
 		//var fTextbox = new AutoSuggestControl(document.getElementById("foto"),document.getElementById("newfotoid"), new FotoSuggestions("ilist/ftas.php?"));
 	}
+	function cclick1(checkelement){
+		//alert(checkelement+"!");
+		ce=document.getElementById(checkelement+"_check");
+		cd=document.getElementById(checkelement+"_date");
+		cu=document.getElementById(checkelement+"_user");
+		if (ce.checked){
+			cd.value="{heute}";
+			cu.innerHTML="{user}";
+		} else {
+			cd.value="";
+			cu.innerHTML="";
+		}
+		
+		
+	}
+
+
+	function cclick2(checkelement,num,ol){
+		//alert(checkelement+"!"+num);
+		ce=document.getElementById(checkelement+"_"+num+"_check");
+		cd=document.getElementById(checkelement+"_"+num+"_date");
+		cu=document.getElementById(checkelement+"_"+num+"_user");
+		cub=document.getElementById(checkelement+"_"+num+"_userbox");
+		if (ce.checked){
+			cd.value="{heute}";
+			cu.innerHTML="{user}";
+			
+			if (cub!=null) cub.value=parseInt("{userid}");
+			if (parseInt(num)<6){
+				ce=document.getElementById(checkelement+"_"+(parseInt(num)+1)+"_check");
+				ce.disabled=false;
+			}
+			
+			//alert(checkelement+"_"+(num)+"_check");
+			
+			if (parseInt(num)>1){
+				ce=document.getElementById(checkelement+"_"+(parseInt(num)-1)+"_check");
+				ce.disabled=true;
+			}
+			
+			//alert(checkelement+"_"+(num)+"_check");
+			
+
+		} else {
+			ol=parseInt(document.getElementById(checkelement+"_olevel").value);
+			
+			if (parseInt(num)<=ol){
+				if (!confirm("Wollen Sie den gespeicherten Status loeschen?"))
+					ce=document.getElementById(checkelement+"_"+(parseInt(ol))+"_check");
+					ce.checked=true;
+					return(false);
+			}
+			cd.value="";
+			cu.innerHTML="";
+			if (cub!=null) cub.value=0;
+			
+			if (parseInt(num)<6){
+				ce=document.getElementById(checkelement+"_"+(parseInt(num)+1)+"_check");
+				ce.disabled=true;
+			}
+			if (parseInt(num)>1){
+				ce=document.getElementById(checkelement+"_"+(parseInt(num)-1)+"_check");
+				ce.disabled=false;
+			}
+			num=parseInt(num)+1;
+			//alert(checkelement+"_"+(num)+"_check");
+			
+			
+		}
+		
+		
+	}
+
+	  function st2init(element,level){
+	  for (i=1;i<=6;i++){
+	  		num=i;
+			ce=document.getElementById(element+"_"+num+"_check");
+			cd=document.getElementById(element+"_"+num+"_date");
+			cu=document.getElementById(element+"_"+num+"_user");
+			if (i-1>level){
+				ce.disabled=true;
+			}
+		}
+	  
+	  }
+	
 	</script>
 
 <!-- BEGIN:bearbeiten_head_fotograf -->
 <h2>{SPR.fotographbearbeiten}</h2><a name="top"></a>
 <h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAMEN.nachname}, {NAMEN.vorname} </span></h3>
 <a href="./?a=fotograph&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_new" href="./?a=dfedit&amp;id={ID}&amp;lang={LANG}{dokufichenew}">{dokufichebearbeiten}</a>
 <br/>
 <br/>
 <script>
@@ -142,8 +229,27 @@ function submitita(v)
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 
 <!-- END:bearbeiten_head_literatur -->
+<!-- BEGIN:bearbeiten_head_dokufiche_fotograf -->
 
+	<h2>{SPR.dokufiche} bearbeiten</h2>
+	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3> <a href="./?a=edit&amp;id={ID}&amp;lang={LANG}">Eintrag {SPR.bearbeiten}</a>
+	
+	<br/>
+	<br/>
+	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 
+<!-- END:bearbeiten_head_dokufiche_fotograf -->
+
+<!-- BEGIN:bearbeiten_head_dokufiche_institution -->
+
+	<h2>{SPR.dokufiche} bearbeiten</h2>
+	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3>
+	
+	<br/>
+	<br/>
+	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
+
+<!-- END:bearbeiten_head_dokufiche_institution -->
 
 <!-- BEGIN:form-->
 
@@ -196,6 +302,17 @@ function submitita(v)
 	</table>
 	
 <!-- END:namen -->
+<!-- BEGIN:namendf-->
+{BR}
+	<table class="edit" cellpadding="0" cellspacing="5">
+		<tr>
+			<td class="edit"><label class="edit" for="">{NUM}. {SPR.bezeichnung}</label></td>
+			<td>{NAMEN.vorname} {NAMEN.namenszusatz} {NAMEN.nachname}</td>
+		</tr>
+	</table>
+	
+<!-- END:namendf -->
+
 <!-- BEGIN:new_fotograf -->
 	
 	<table class="edit" cellpadding="5" cellspacing="0">
@@ -514,6 +631,36 @@ function submitita(v)
 <br  />
 <br  />
 <!-- END:tr -->
+<!-- BEGIN:stempel1 -->
+
+		<tr>	
+			<td class="edit"><label for="{E.name}" class="edit">{E.label}</label></td>
+							
+			<td>
+				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_check" id="{E.name}_check" onclick="cclick1('{E.name}');"></input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_date" id="{E.name}_date" value="{E.date}" >&nbsp; &nbsp; <span id="{E.name}_user">{E.user}</span></td>
+   		</tr>					
+
+<!-- END:stempel1 -->
+<!-- BEGIN:stempel2 -->
+
+		<tr>	
+			<td class="edit"><label for="{E.name}" class="edit">{E.label}</label></td>
+							
+			<td><table class="edit" cellpadding="0" cellspacing="3"><!-- BEGIN:rowr --><!-- BEGIN:row -->
+			<tr><td>
+				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_{E.num}_check" id="{E.name}_{E.num}_check" onclick="cclick2('{E.name}','{E.num}');">{E.olabel}</input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_{E.num}_date" id="{E.name}_{E.num}_date" value="{E.date}" ><span id="{E.name}_{E.num}_user">{E.user}</span></td>
+			</tr><!-- END:row --><!-- BEGIN:row2 -->
+			<tr><td>
+				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_{E.num}_check" id="{E.name}_{E.num}_check" onclick="cclick2('{E.name}','{E.num}');">{E.olabel}</input> </div><input maxlength="10" type="hidden" class="text_editd" name="{E.name}_{E.num}_date" id="{E.name}_{E.num}_date" value="{E.date}" ><span id="{E.name}_{E.num}_user" style="display: none;">{E.user}</span>{userbox}</td>
+			</tr><!-- END:row2 --><!-- END:rowr -->
+			</table><input type="hidden" name="{E.name}_olevel" id="{E.name}_olevel" value="{E.olevel}"/>
+			<script type="text/javascript">
+				st2init('{E.name}',{E.level});
+			</script>
+				</td>
+   		</tr>					
+
+<!-- END:stempel2 -->
 <!-- BEGIN:edittext -->
 
 		<tr>	

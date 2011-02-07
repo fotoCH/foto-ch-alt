@@ -235,7 +235,16 @@ if ($fertig==1){
 	$result = mysql_query($sql);
 	$array_eintrag = mysql_fetch_array($result);
 	$def->assign('g',$array_eintrag['unpubliziert']==1?'g':'');
-	
+
+	$sql = "SELECT * FROM doku_fiche_fotograf WHERE id ='$id'";
+	$result = mysql_query($sql);
+	$array_eintrag2 = mysql_fetch_array($result);
+	if ($array_eintrag2){
+		$def->assign('dokufichebearbeiten',$spr['dokufichebearbeiten']);
+	} else {
+		$def->assign('dokufichebearbeiten',$spr['dokuficheneu']);
+		$def->assign('dokufichenew','&amp;new=1');
+	}
 	
 	$def->assign("LEGEND", "<b>".$spr['fotografennamen']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	

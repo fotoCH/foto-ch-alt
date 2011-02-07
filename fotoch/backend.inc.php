@@ -5,6 +5,75 @@ function mabstand($def){  // benutzt in edit und iedit
 	$def->parse("bearbeiten.form");
 }
 
+function gennoedit(&$def, $label, $value){
+	genformitem($def,'noedit', $label, $value, '' );
+}
+
+function gendatnoedit(&$def, $label, $value){
+	genformitem($def,'noedit', $label, formdatesimp($value,0), '' );
+}
+
+function genstempel1(&$def, $label,$name,$refid){
+	$sql="SELECT * FROM doku_ref JOIN users on `dokuref`.`userid`=`users`.`id` WHERE `dokuref`.id=$refid";
+	$result = mysql_query($sql);
+	$ref = mysql_fetch_array($result);
+	$e['label']=$label;
+	$e['name']=$name;
+
+	if ($ref['date']!='0000-00-00' && $ref['date']!=''){
+		$e['date']=formdatesimp($ref['date']);
+		$e['checked']='checked="checked"';
+		$e['user']=$ref['username'];
+	} else {
+		$e['date']='';
+		$e['checked']='';
+		$e['user']='';
+	}
+	$def->assign('E',$e);
+	$def->parse("bearbeiten.form.stempel1");
+	$def->parse("bearbeiten.form");
+
+
+}
+
+function genstempel2(&$def, $label,$name,$refid){
+	global $spr;
+	$sql="SELECT * FROM doku_workflow_ref JOIN users on `doku_workflow_ref`.`userid`=`users`.`id` WHERE `dokuref`.id=$refid";
+	$result = mysql_query($sql);
+	$ref = mysql_fetch_array($result);
+	$e['label']=$label;
+	$e['name']=$name;
+	$e['level']=1;
+	$e['olevel']=1;
+	for ($l=1;$l<=6;$l++){
+		$e['num']=$l;
+		$e['olabel']=$spr['wf_ref_'.$l];
+		if ($ref['l'.$l.'date']!='0000-00-00' && $ref['l'.$l.'date']!=''){
+			$e['date']=formdatesimp($ref['l'.$l.'date']);
+			$e['checked']='checked="checked"';
+			$e['user']=$ref['l'.$l.'user'];
+		} else {
+			$e['date']='';
+			$e['checked']='';
+			$e['user']='';
+		}
+		if (($l==2) || ($l==4)){
+			$ub=getuserbox($name.'_'.$l.'_userbox',$e['user']);
+		}
+		$def->assign('userbox',$ub);
+		$def->assign('E',$e);
+		
+		$def->parse("bearbeiten.form.stempel2.rowr.row".(($l==2) || ($l==4)?'2':''));
+		$def->parse("bearbeiten.form.stempel2.rowr");
+
+	}
+	$def->parse("bearbeiten.form.stempel2");
+	$def->parse("bearbeiten.form");
+
+
+}
+
+
 
 function genformitem(&$def, $template, $label, $value, $name ){
 	$def->assign("label",$label);
@@ -48,9 +117,9 @@ function gencheckarrayitemtr(&$def, $label, $list, $list_tr, $name, $list2){
 	foreach($list as $key => $value){
 		$def->assign("ovalue", $value);
 		if ($language!='de')
-			$def->assign("olabel",$list_tr[$c]);
+		$def->assign("olabel",$list_tr[$c]);
 		else
-			$def->assign("olabel",$value);
+		$def->assign("olabel",$value);
 		$def->assign("inputname", $name);
 		if(in_array($value, $list2)){
 			//-> checked
@@ -176,4 +245,36 @@ function subgensubmit(&$def, $template, $value){
 	$def->parse("suchen.form.".$template);
 	$def->parse("suchen.form");
 }
+
+function getParam($name,$default=''){
+	$p=$_REQUEST[$name];
+	return ($p?$p:$default);
+}
+
+$wusers=array();
+
+function initwar(){
+	global $wusers;
+	if (count($wusers)>0) return;
+	$wusers[0]='';
+	$sql="SELECT * FROM `users` WHERE `level` >= 8 ORDER BY username";
+	$result = mysql_query($sql);
+	while ($fetch = mysql_fetch_array($result)){
+		$wusers[$fetch['id']]=$fetch['username'];
+	}
+	//print_r($wusers);
+	return;
+}
+
+function getuserbox($name, $u){ // selectbox mit ausgewähletem user
+	initwar();
+	global $wusers;
+	$o='<select name="'.$name.'" id="'.$name.'" class="edit" >';
+	foreach ($wusers as $k=>$v){
+           $o.='<option '.($u==$v?'selcted="selscted" ':'').'value="'.$k.'" class="edit">'.$v.'</option>';
+      }
+     $o.='</select>'; 
+	return($o);
+}
+
 ?>

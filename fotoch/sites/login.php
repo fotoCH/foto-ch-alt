@@ -16,6 +16,7 @@ if ($_POST['usr_uid'] !="" && $_POST['usr_pw']!=""){
 		if($fetch['username'] == $_POST['usr_uid'] && $fetch['password'] == md5($_POST['usr_pw'])){
 			$_SESSION['usr_level'] = $fetch['level'];
 			$_SESSION['s_uid'] = $_POST['usr_uid'];
+			$_SESSION['s_id'] = $fetch['id'];
 			$log->parse("contents.log.ok");
 			$out=$log->text("contents.log.ok");
 			$success = true;

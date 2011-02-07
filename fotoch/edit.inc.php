@@ -28,6 +28,27 @@ function namen($def,$id){ //nur fotograf
 		$def->parse("bearbeiten.form");
 	}
 }
+function namendf($def,$id){ //nur fotograf
+	global $spr;
+	$sql = "SELECT * FROM namen WHERE fotografen_id=$id ORDER BY id"; // Weitere Formdaten aus Tabelle 'Namen' holen
+	$result = mysql_query($sql);
+	if(mysql_num_rows($result)>0){
+		$num=1;
+		while($array=mysql_fetch_array($result)){
+			if ($num==1){
+				$def->assign("STANDARD", "(Standard)");				
+			}else{
+				$lang = $_GET['lang'];
+				$def->assign("BR","<br />")	;		
+			}
+			$def->assign("NUM", $num);
+			$def->assign("NAMEN", $array);			
+			$def->parse("bearbeiten.form.namendf");
+			$def->parse("bearbeiten.form");
+			$num++;
+		}
+	}
+}
 function arbeitsperioden($def,$id){//nur fotograf
 	$sql = "SELECT * FROM `arbeitsperioden` WHERE fotografen_id = $id ORDER BY id asc"; // Weitere Formdaten aus Tabelle 'arbeitsperioden' holen
 	$result = mysql_query($sql);
