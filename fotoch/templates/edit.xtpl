@@ -59,10 +59,13 @@
 			ol=parseInt(document.getElementById(checkelement+"_olevel").value);
 			
 			if (parseInt(num)<=ol){
-				if (!confirm("Wollen Sie den gespeicherten Status loeschen?"))
+			    ok=confirm("Wollen Sie den gespeicherten Status loeschen?");
+			    if (ok==true){
+					} else {
 					ce=document.getElementById(checkelement+"_"+(parseInt(ol))+"_check");
 					ce.checked=true;
 					return(false);
+					}
 			}
 			cd.value="";
 			cu.innerHTML="";
