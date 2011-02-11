@@ -13,21 +13,20 @@ function gendatnoedit(&$def, $label, $value){
 	genformitem($def,'noedit', $label, formdatesimp($value,0), '' );
 }
 
-function genstempel1(&$def, $label,$name,$refid){
-	$sql="SELECT * FROM doku_ref JOIN users on `dokuref`.`userid`=`users`.`id` WHERE `dokuref`.id=$refid";
-	$result = mysql_query($sql);
-	$ref = mysql_fetch_array($result);
+function genstempel1(&$def, $label,$name,&$fetch){
 	$e['label']=$label;
 	$e['name']=$name;
 
-	if ($ref['date']!='0000-00-00' && $ref['date']!=''){
-		$e['date']=formdatesimp($ref['date']);
+	if ($fetch[$name.'_date']!='0000-00-00' && $fetch[$name.'_date']!=''){
+		$e['date']=formdatesimp($fetch[$name.'_date']);
 		$e['checked']='checked="checked"';
-		$e['user']=$ref['username'];
+		$e['user']=$fetch[$name.'_user'];
+		$e['usern']=getusername($fetch[$name.'_user']);
 	} else {
 		$e['date']='';
 		$e['checked']='';
 		$e['user']='';
+		$e['usern']='';
 	}
 	$def->assign('E',$e);
 	$def->parse("bearbeiten.form.stempel1");
@@ -36,34 +35,36 @@ function genstempel1(&$def, $label,$name,$refid){
 
 }
 
-function genstempel2(&$def, $label,$name,$refid){
+function genstempel2(&$def, $label,$name,&$fetch,$start){
 	global $spr;
-	$sql="SELECT * FROM doku_workflow_ref JOIN users on `doku_workflow_ref`.`userid`=`users`.`id` WHERE `dokuref`.id=$refid";
-	$result = mysql_query($sql);
-	$ref = mysql_fetch_array($result);
 	$e['label']=$label;
 	$e['name']=$name;
-	$e['level']=1;
-	$e['olevel']=1;
-	for ($l=1;$l<=6;$l++){
+	$e['start']=$start;
+	$e['level']=$start-1;
+	$e['olevel']=$start-1;
+	for ($l=$start;$l<=6;$l++){
 		$e['num']=$l;
 		$e['olabel']=$spr['wf_ref_'.$l];
-		if ($ref['l'.$l.'date']!='0000-00-00' && $ref['l'.$l.'date']!=''){
-			$e['date']=formdatesimp($ref['l'.$l.'date']);
+		if ($fetch[$name.'_l'.$l.'_date']!='0000-00-00' && $fetch[$name.'_l'.$l.'_date']!=''){
+			$e['date']=formdatesimp($fetch[$name.'_l'.$l.'_date']);
 			$e['checked']='checked="checked"';
-			$e['user']=$ref['l'.$l.'user'];
+			$e['user']=$fetch[$name.'_l'.$l.'_user'];
+			$e['usern']=getusername($fetch[$name.'_l'.$l.'_user']);
+			$e['level']=$l;
+			$e['olevel']=$l;
 		} else {
 			$e['date']='';
 			$e['checked']='';
 			$e['user']='';
+			$e['usern']='';
 		}
-		if (($l==2) || ($l==4)){
-			$ub=getuserbox($name.'_'.$l.'_userbox',$e['user']);
+		if (($l==1) || ($l==3)){
+			$ub=getuserbox($name.'_'.$l.'_userbox',$e['usern']);
 		}
 		$def->assign('userbox',$ub);
 		$def->assign('E',$e);
 		
-		$def->parse("bearbeiten.form.stempel2.rowr.row".(($l==2) || ($l==4)?'2':''));
+		$def->parse("bearbeiten.form.stempel2.rowr.row".(($l==1) || ($l==3)?'2':''));
 		$def->parse("bearbeiten.form.stempel2.rowr");
 
 	}
@@ -271,10 +272,20 @@ function getuserbox($name, $u){ // selectbox mit ausgewähletem user
 	global $wusers;
 	$o='<select name="'.$name.'" id="'.$name.'" class="edit" >';
 	foreach ($wusers as $k=>$v){
-           $o.='<option '.($u==$v?'selcted="selscted" ':'').'value="'.$k.'" class="edit">'.$v.'</option>';
+           $o.='<option '.($u==$v?'selected="selected" ':'').'value="'.$k.'" class="edit">'.$v.'</option>';
       }
      $o.='</select>'; 
 	return($o);
+}
+
+function getusername($id){
+	initwar();
+	global $wusers;
+	return($wusers[$id]);
+}
+
+function getHistEntry($wo, $was, $werte){
+	return date("Y-m-d ").$_SESSION['s_uid']." [".$wo."] ".$was.": ".$werte;
 }
 
 ?>

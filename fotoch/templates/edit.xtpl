@@ -16,29 +16,33 @@
 		//alert(checkelement+"!");
 		ce=document.getElementById(checkelement+"_check");
 		cd=document.getElementById(checkelement+"_date");
-		cu=document.getElementById(checkelement+"_user");
+		cu=document.getElementById(checkelement+"_usern");
+		cuh=document.getElementById(checkelement+"_user");
 		if (ce.checked){
 			cd.value="{heute}";
 			cu.innerHTML="{user}";
+			cuh.value="{userid}";
 		} else {
 			cd.value="";
 			cu.innerHTML="";
+			cuh.value="";
 		}
 		
 		
 	}
 
 
-	function cclick2(checkelement,num,ol){
+	function cclick2(checkelement,num){
 		//alert(checkelement+"!"+num);
 		ce=document.getElementById(checkelement+"_"+num+"_check");
 		cd=document.getElementById(checkelement+"_"+num+"_date");
-		cu=document.getElementById(checkelement+"_"+num+"_user");
+		cu=document.getElementById(checkelement+"_"+num+"_usern");
+		cuh=document.getElementById(checkelement+"_"+num+"_user");
 		cub=document.getElementById(checkelement+"_"+num+"_userbox");
 		if (ce.checked){
 			cd.value="{heute}";
 			cu.innerHTML="{user}";
-			
+			cuh.value="{userid}";
 			if (cub!=null) cub.value=parseInt("{userid}");
 			if (parseInt(num)<6){
 				ce=document.getElementById(checkelement+"_"+(parseInt(num)+1)+"_check");
@@ -47,7 +51,7 @@
 			
 			//alert(checkelement+"_"+(num)+"_check");
 			
-			if (parseInt(num)>1){
+			if (parseInt(num)>0){
 				ce=document.getElementById(checkelement+"_"+(parseInt(num)-1)+"_check");
 				ce.disabled=true;
 			}
@@ -69,13 +73,14 @@
 			}
 			cd.value="";
 			cu.innerHTML="";
+			cuh.value="";
 			if (cub!=null) cub.value=0;
 			
 			if (parseInt(num)<6){
 				ce=document.getElementById(checkelement+"_"+(parseInt(num)+1)+"_check");
 				ce.disabled=true;
 			}
-			if (parseInt(num)>1){
+			if (parseInt(num)>0){
 				ce=document.getElementById(checkelement+"_"+(parseInt(num)-1)+"_check");
 				ce.disabled=false;
 			}
@@ -88,15 +93,19 @@
 		
 	}
 
-	  function st2init(element,level){
-	  for (i=1;i<=6;i++){
+	  function st2init(element,level,start){
+	  for (i=start;i<=6;i++){
 	  		num=i;
 			ce=document.getElementById(element+"_"+num+"_check");
 			cd=document.getElementById(element+"_"+num+"_date");
-			cu=document.getElementById(element+"_"+num+"_user");
+			cu=document.getElementById(element+"_"+num+"_usern");
 			if (i-1>level){
 				ce.disabled=true;
 			}
+			if (i<level){
+				ce.disabled=true;
+			}
+			
 		}
 	  
 	  }
@@ -640,7 +649,7 @@ function submitita(v)
 			<td class="edit"><label for="{E.name}" class="edit">{E.label}</label></td>
 							
 			<td>
-				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_check" id="{E.name}_check" onclick="cclick1('{E.name}');"></input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_date" id="{E.name}_date" value="{E.date}" >&nbsp; &nbsp; <span id="{E.name}_user">{E.user}</span></td>
+				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_check" id="{E.name}_check" onclick="cclick1('{E.name}');"></input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_date" id="{E.name}_date" value="{E.date}" >&nbsp; &nbsp; <span id="{E.name}_usern">{E.usern}</span><input type="hidden" name="{E.name}_user" id="{E.name}_user" value="{E.user}"/></td>
    		</tr>					
 
 <!-- END:stempel1 -->
@@ -651,14 +660,14 @@ function submitita(v)
 							
 			<td><table class="edit" cellpadding="0" cellspacing="3"><!-- BEGIN:rowr --><!-- BEGIN:row -->
 			<tr><td>
-				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_{E.num}_check" id="{E.name}_{E.num}_check" onclick="cclick2('{E.name}','{E.num}');">{E.olabel}</input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_{E.num}_date" id="{E.name}_{E.num}_date" value="{E.date}" ><span id="{E.name}_{E.num}_user">{E.user}</span></td>
+				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_{E.num}_check" id="{E.name}_{E.num}_check" onclick="cclick2('{E.name}','{E.num}');">{E.olabel}</input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_{E.num}_date" id="{E.name}_{E.num}_date" value="{E.date}" ><span id="{E.name}_{E.num}_usern">{E.usern}</span><input type="hidden" name="{E.name}_{E.num}_user" id="{E.name}_{E.num}_user" value="{E.user}"/></td>
 			</tr><!-- END:row --><!-- BEGIN:row2 -->
 			<tr><td>
-				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_{E.num}_check" id="{E.name}_{E.num}_check" onclick="cclick2('{E.name}','{E.num}');">{E.olabel}</input> </div><input maxlength="10" type="hidden" class="text_editd" name="{E.name}_{E.num}_date" id="{E.name}_{E.num}_date" value="{E.date}" ><span id="{E.name}_{E.num}_user" style="display: none;">{E.user}</span>{userbox}</td>
+				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_{E.num}_check" id="{E.name}_{E.num}_check" onclick="cclick2('{E.name}','{E.num}');">{E.olabel}</input> </div><input maxlength="10" type="hidden" class="text_editd" name="{E.name}_{E.num}_date" id="{E.name}_{E.num}_date" value="{E.date}" ><span id="{E.name}_{E.num}_usern" style="display: none;">{E.usern}</span><input type="hidden" name="{E.name}_{E.num}_user" id="{E.name}_{E.num}_user" value="{E.user}"/>{userbox}</td>
 			</tr><!-- END:row2 --><!-- END:rowr -->
 			</table><input type="hidden" name="{E.name}_olevel" id="{E.name}_olevel" value="{E.olevel}"/>
 			<script type="text/javascript">
-				st2init('{E.name}',{E.level});
+				st2init('{E.name}',{E.level},{E.start});
 			</script>
 				</td>
    		</tr>					

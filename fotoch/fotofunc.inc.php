@@ -377,6 +377,11 @@ function formldatesimp2($gdate,$gcode,$tdate,$tcode,$go,$to){ // formatiert lebe
 	return date("d.m.Y",strtotime($date));
 }
 
+function rformdate($date){
+	$ndate=preg_replace( '/(\d{1,2})\W(\d{1,2})\W(\d{4})/', '$3-$2-$1', $date);
+	return ($ndate);
+	 
+}
 
 function auth2(){
 	global $s_uid;

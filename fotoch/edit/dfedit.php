@@ -1,4 +1,16 @@
 <?php
+
+function writeHistory($id,$line,$type){
+	$sql="UPDATE  doku_fiche_$type SET history=CONCAT(history,'".mysql_real_escape_string($line."\r\n")."') WHERE id=$id LIMIT 1";
+	echo $sql;
+	$result = mysql_query($sql);
+	return;
+}
+
+function getHChanged($l,$n,$o){
+	return $l.'=\''.$n.'\' old:\''.$o.'\'';
+}
+
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set ('error_reporting', E_ALL);
 /////////////////////////////
@@ -51,29 +63,75 @@ if ($fertig==1){
 	$def->assign("userid",$_SESSION['s_id']);
 	$id=$_GET['id'];
 
-	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
-	$sql = "SELECT * FROM doku_fiche_$type WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag = mysql_fetch_array($result);
-	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
-	$sql = "SELECT * FROM ".($type=='fotograf'?'fotografen':'institution')." WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag2 = mysql_fetch_array($result);
 
-	
+
 	if($_POST['submitbutton']){
+		//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
+		$sql = "SELECT * FROM doku_fiche_$type WHERE id ='$id'";
+		$result = mysql_query($sql);
+		$array_eintrag = mysql_fetch_array($result);
+		//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
+		$sql = "SELECT * FROM ".($type=='fotograf'?'fotografen':'institution')." WHERE id ='$id'";
+		$result = mysql_query($sql);
+		$array_eintrag2 = mysql_fetch_array($result);
+
 		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz");
 		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "interview_vorgesehen", "interview_fertiggestellt","dokumentation");
-		$wrefs=array("werdegang", "schaffensbeschrie", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
+		$wrefs=array("werdegang", "schaffensbeschrieb", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
 		$sql="UPDATE  doku_fiche_$type SET ";
 		$s='';
+		$s2=''; // für history
 		foreach ($fs as $t){
 			$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$t])."'");
-			if ($u) $s.=($s?', ':'').$u;
+			if ($u){
+				$s.=($s?', ':'').$u;
+				$s2.=($s2?', ':'').getHChanged($t,$_POST[$t],$array_eintrag[$t]);
+			}
 		}
+		foreach ($refs as $t){
+			$pdate=rformdate($_POST[$t.'_date']);
+			if ($_POST[$t.'_date']){
+				$u=($pdate==$array_eintrag[$t.'_date']?'':'`'.$t.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
+				if ($u){
+					$s.=($s?', ':'').$u;
+					$s2.=($s2?', ':'').getHChanged($t.'_date',$pdate,$array_eintrag[$t.'_date']);
+				}
+					
+				$u=($_POST[$t.'_user']==$array_eintrag[$t.'_user']?'':'`'.$t.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_user'])."'");
+				if ($u){
+					$s.=($s?', ':'').$u;
+					$s2.=($s2?', ':'').getHChanged($t.'_user',getusername($_POST[$t.'_user']),getusername($array_eintrag[$t.'_user']));
+				}
+			} else { 
+				if ($array_eintrag[$t.'_date']!='' && $array_eintrag[$t.'_date']!='0000-00-00'){ //Eintrag gelöscht
+					//echo "old: ".$array_eintrag[$t.'_date']."<br />";
+					$u='`'.$t.'_date'.'`=\''."'";
+					if ($u){
+						$s.=($s?', ':'').$u;
+						$s2.=($s2?', ':'').$t.' deleted';
+					}
+				}
+			}
+		}
+		foreach ($wrefs as $t){
+			for ($l=0;$l<=6;$l++){
+				$pdate=rformdate($_POST[$t.'_'.$l.'_date']);
+				if ($_POST[$t.'_'.$l.'_date']){
+					$u=($pdate==$array_eintrag[$t.'_l'.$l.'_date']?'':'`'.$t.'_l'.$l.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
+					if ($u) $s.=($s?', ':'').$u;
+						
+					$u=($_POST[$t.'_'.$l.'_user']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_user'])."'");
+					if ($u) $s.=($s?', ':'').$u;
+				}
+			}
+		}
+
+		
 		$sql.=$s." WHERE id ='$id'";
-		echo $sql;
+
 		$bearbeitungsdatum = date("Y-m-d");
+		writeHistory($id, getHistEntry("DF", "edit", $s2), $type);
+		echo $sql;
 		/*	foreach ($_POST as $k=>$v){
 		 echo "\"$k\", ";
 		 }*/
@@ -106,8 +164,17 @@ if ($fertig==1){
 		 `fotografengattungen_set` = '$fotografengattungen_set',
 		 `kanton` = '$kanton',
 		 `bildgattungen_set` = '$bildgattungen_set' WHERE `id` ='$_POST[hidden_id]' LIMIT 1"; */
-		 $result = mysql_query($sql); 
+		$result = mysql_query($sql);
 	}
+
+	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
+	$sql = "SELECT * FROM doku_fiche_$type WHERE id ='$id'";
+	$result = mysql_query($sql);
+	$array_eintrag = mysql_fetch_array($result);
+	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
+	$sql = "SELECT * FROM ".($type=='fotograf'?'fotografen':'institution')." WHERE id ='$id'";
+	$result = mysql_query($sql);
+	$array_eintrag2 = mysql_fetch_array($result);
 
 
 	$def->assign("LEGEND", "<b>".$spr['fotografennamen']."</b>");
@@ -132,7 +199,7 @@ if ($fertig==1){
 
 	gendatnoedit($def,$spr['erstellungsdatum'],$array_eintrag2['erstellungsdatum']);
 
-	gendatnoedit($def,$spr['letzte_aktualisierung'],$array_eintrag['bearbeitungsdatum']);
+	gendatnoedit($def,$spr['letzte_aktualisierung'],$array_eintrag2['bearbeitungsdatum']);
 
 
 	//$arr_bearbeitungstiefe=array(0=>'',1=>'Lokal',2=>'Regional',3=>'Kantonal',4=>'National (Übersetzungen D/F/I)',5=>'International (Übersetzungen D/F/I)');
@@ -140,12 +207,16 @@ if ($fertig==1){
 	genselectitem($def, $spr['bearbeitungstiefe'], $array_eintrag['bearbeitungstiefe'], "bearbeitungstiefe", $arr_bearbeitungstiefe, "", "", "");
 	//genformitem($def,'edittext',$spr['biografie'],$array_eintrag['kurzbio'],'kurzbio');
 
-	genstempel1($def, $spr['bibliografie'].': '.$spr['fertig_gestellt'],'biografie_ref',$array_eintrag['biografie_ref']);
-	genstempel1($def, $spr['ausstellungen'].': '.$spr['fertig_gestellt'],'ausstellungen_ref',$array_eintrag['ausstellungen_ref']);
-	genstempel1($def, $spr['auszeichnungen_stipendien'].': ','auszeichnungen_stipendien_ref',$array_eintrag['auszeichnungen_stipendien_ref']);
-	genstempel1($def, $spr['bestaende2'].': '.$spr['fertig_gestellt'],'bestaende_ref',$array_eintrag['bestaende_ref']);
-	genstempel1($def, $spr['interview_vorgesehen'],'interview_vorgesehen_ref',$array_eintrag['interview_vorgesehen_ref']);
-	genstempel1($def, $spr['interview_fertiggestellt'],'interview_fertiggestellt_ref',$array_eintrag['interview_fertiggestellt_ref']);
+	genstempel1($def, $spr['bibliografie'].': '.$spr['fertig_gestellt'],'biografie',$array_eintrag);
+	genstempel1($def, $spr['ausstellungen'].': '.$spr['fertig_gestellt'],'ausstellungen',$array_eintrag);
+	genstempel1($def, $spr['auszeichnungen_stipendien'].': ','auszeichnungen_stipendien',$array_eintrag);
+	genstempel1($def, $spr['bestaende2'].': '.$spr['fertig_gestellt'],'bestaende_ref',$array_eintrag);
+	genstempel1($def, $spr['interview_vorgesehen'],'interview_vorgesehen',$array_eintrag);
+	genstempel1($def, $spr['interview_fertiggestellt'],'interview_fertiggestellt',$array_eintrag);
+	
+	genformitem($def,'edittext','Aenderungsverfolgung',$array_eintrag['history'],'history_b');
+	
+	
 	$def->parse("bearbeiten.form.tend");
 	$def->parse("bearbeiten.form");
 
@@ -162,20 +233,20 @@ if ($fertig==1){
 	gennoedit($def, $spr['originalsprache'],$array_eintrag2['originalsprache']);
 
 
-	genstempel2($def, $spr['werdegang'],'werdegang_workflow_ref',$array_eintrag['werdegang_workflow_ref']);
+	genstempel2($def, $spr['werdegang'],'werdegang',$array_eintrag,0);
 
-	genstempel2($def, $spr['schaffensbeschrieb'],'schaffensbeschrie_workflow_ref',$array_eintrag['schaffensbeschrie_workflow_ref']);
+	genstempel2($def, $spr['schaffensbeschrieb'],'schaffensbeschrieb',$array_eintrag,0);
 
-	genstempel2($def, $spr['uebersetzung'].' de','uebersetzung_de_wref',$array_eintrag['uebersetzung_de_wref']);
+	genstempel2($def, $spr['uebersetzung'].' de','uebersetzung_de',$array_eintrag,1);
 
-	genstempel2($def, $spr['uebersetzung'].' fr','uebersetzung_fr_wref',$array_eintrag['uebersetzung_fr_wref']);
+	genstempel2($def, $spr['uebersetzung'].' fr','uebersetzung_fr',$array_eintrag,1);
 
-	genstempel2($def, $spr['uebersetzung'].' it','uebersetzung_it_wref',$array_eintrag['uebersetzung_it_wref']);
+	genstempel2($def, $spr['uebersetzung'].' it','uebersetzung_it',$array_eintrag,1);
 
-	genstempel2($def, $spr['uebersetzung'].' rm','uebersetzung_rm_wref',$array_eintrag['uebersetzung_rm_wref']);
+	genstempel2($def, $spr['uebersetzung'].' rm','uebersetzung_rm',$array_eintrag,1);
 
-	genstempel2($def, $spr['uebersetzung'].' en','uebersetzung_en_wref',$array_eintrag['uebersetzung_en_wref']);
-	
+	genstempel2($def, $spr['uebersetzung'].' en','uebersetzung_en',$array_eintrag,1);
+
 	$def->parse("bearbeiten.form.tend");
 	$def->parse("bearbeiten.form");
 
@@ -188,14 +259,14 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form");
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");
-	
-	
-	$arr_dokumentation=array(''=>'','Haegemappen'=>'H&auml;ngemappen','Archivschachteln'=>'Archivschachteln','Elektronisch'=>'Elektronisch'); //Array füllen für Select
+
+
+	$arr_dokumentation=array(''=>'','Haengemappen'=>'H&auml;ngemappen','Archivschachteln'=>'Archivschachteln','Elektronisch'=>'Elektronisch'); //Array füllen für Select
 	genselectitem($def, $spr['dokumentation'], $array_eintrag['dokumentation'], "dokumentation", $arr_dokumentation, "", "", "");
-	
+
 	genformitem($def,'textfield','dokumentation_text',$array_eintrag['dokumentation_text'],'dokumentation_text');
-	genstempel1($def, 'dokumentation_erfasst','dokumentation_ref',$array_eintrag['dokumentation_ref']);
-	
+	genstempel1($def, 'dokumentation_erfasst','dokumentation',$array_eintrag);
+
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz'],'notiz');
 
 	$def->parse("bearbeiten.form.fieldset_end");
