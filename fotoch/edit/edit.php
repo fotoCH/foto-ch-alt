@@ -14,9 +14,9 @@ $def->assign("LANG", $_GET['lang']);
 $def->assign("CLANG", $clanguage);
 $lang = $_GET['lang'];
 
-$def->assign("SPR", $spr);	
+$def->assign("SPR", $spr);
 
-if ($_POST) escposts();
+if ($_POST && !$_POST['submitbutton']) escposts();  // nur noch für nebentabellen
 if ($_GET['id']=="new"){
 	$sql = "INSERT INTO `fotografen` ( `id` , `nachname` , `vorname` , `namenszusatz` , `zweitname` , `art` , `geschlecht` , `heimatort` , 			`gen_geburtsdatum` , `geburtsdatum` , `geburtsort` , `gen_todesdatum` , `todesdatum` , `todesort` , `umfeld` , `notiz` , `primaerliteratur` , 	`sekundaerliteratur` , `beruf` , `einzelausstellungen` , `gruppenausstellungen` , `werdegang` , `kurzbio` , `schaffensbeschrieb` , `autorIn` , `bearbeitungsdatum` , `erstellungsdatum` , `fotografengattungen_set` , `bildgattungen_set` )
 	VALUES ('', '', '', '', '', 'P', '', '', '0', '0000-00-00', '', '0', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', NOW(), '', '')";
@@ -162,6 +162,15 @@ if($_REQUEST['submit_arbeitsort']){
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
 if($_POST['submitbutton']){
+	$id=$_POST['hidden_id'];
+	$spezfs=array('gen_geburtsdatum'=>'geburtscode','gen_todesdatum'=>'todescode','primaerliteratur'=>'prim_literatur',
+	'sekundaerliteratur'=>'sek_literatur','autorIn' => 'autor');  // felder bei denen der SB-name nicht dem formelement-name entspricht
+	$langfs=array('umfeld','beruf','werdegang','schaffensbeschrieb'); // felder mit sprachversionen
+	$textfs=array('art','geschlecht','heimatort','geburtsdatum','geburtsort','originalsprache','notiz','prim_literatur',
+		'todesdatum','todesort','einzelausstellungen','gruppenausstellungen','kurzbio','showkurzbio','auszeichnungen','pnd'); //"normale" felder
+
+	$varfields=array('bearbeitungsdatum','unpubliziert','fotografengattungen_set','bildgattungen_set','kanton');  // felder die aus variablen gelesen werden.
+
 	foreach ($_REQUEST['bildgattungen'] as $t){
 		$bildgattungen_set .=$t;
 		$bildgattungen_set .=",";
@@ -185,35 +194,73 @@ if($_POST['submitbutton']){
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 	$fotografengattungen_set = substr($fotografengattungen_set, 0, strlen($fotografengattungen_set)-1);
 	$bearbeitungsdatum = date("Y-m-d");
-	$sql = "UPDATE `fotografen` SET `art` = '$_POST[art]',
-	`geschlecht` = '$_POST[geschlecht]',
-	`heimatort` = '$_POST[heimatort]',
-	`gen_geburtsdatum` = '$_POST[geburtscode]',
-	`geburtsdatum` = '$_POST[geburtsdatum]',
-	`geburtsort` = '$_POST[geburtsort]',
-	`gen_todesdatum` = '$_POST[todescode]',
-	`todesdatum` = '$_POST[todesdatum]',
-	`todesort` = '$_POST[todesort]',
-	`umfeld".clangex()."` = '$_POST[umfeld]',
-	`originalsprache` = '$_POST[originalsprache]',
-	`notiz` = '$_POST[notiz]',
-	`primaerliteratur` = '$_POST[prim_literatur]',
-	`sekundaerliteratur` = '$_POST[sek_literatur]',
-	`beruf".clangex()."` = '$_POST[beruf]',
-	`einzelausstellungen` = '$_POST[einzelausstellungen]',
-	`gruppenausstellungen` = '$_POST[gruppenausstellungen]',
-	`werdegang".clangex()."` = '$_POST[werdegang]',
-	`kurzbio` = '$_POST[kurzbio]',
-	`showkurzbio` = '$_POST[showkurzbio]',		
-	`schaffensbeschrieb".clangex()."` = '$_POST[schaffensbeschrieb]',
-	`auszeichnungen`= '$_POST[auszeichnungen]',
-	`pnd` = '$_POST[pnd]',
-	`autorIn` = '$_POST[autor]',
-	`bearbeitungsdatum` = '$bearbeitungsdatum',
-	`unpubliziert` = '$unpubliziert',
-	`fotografengattungen_set` = '$fotografengattungen_set',
-	`kanton` = '$kanton',
-	`bildgattungen_set` = '$bildgattungen_set' WHERE `id` ='$_POST[hidden_id]' LIMIT 1";
+
+	$sql = "SELECT * FROM fotografen WHERE id =$id";
+	$result = mysql_query($sql);
+	$array_eintrag = mysql_fetch_array($result);
+	
+	$sql="UPDATE fotografen SET ";
+	$s='';
+	$s2=''; // für history
+	foreach ($textfs as $t){
+		$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$t])."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t,$_POST[$t],$array_eintrag[$t]);
+		}
+	}
+	foreach ($spezfs as $t=>$v){
+		$u=($_POST[$v]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$v])."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t,$_POST[$v],$array_eintrag[$t]);
+		}
+	}
+	foreach ($varfs as $t){
+		$u=($$t==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($$t)."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t,$$t,$array_eintrag[$t]);
+		}
+	}
+	
+	$sql.=$s.", `bearbeitungsdatum`='".date("Y-m-d")."' WHERE id ='$id'";
+
+	$bearbeitungsdatum = date("Y-m-d");
+	writeHistory($id, getHistEntry("FG", "edit", $s2), 'fotograf');
+	echo $sql;
+
+
+
+//	$sql = "UPDATE `fotografen` SET `art` = '$_POST[art]',
+//	`geschlecht` = '$_POST[geschlecht]',
+//	`heimatort` = '$_POST[heimatort]',
+//	`gen_geburtsdatum` = '$_POST[geburtscode]',
+//	`geburtsdatum` = '$_POST[geburtsdatum]',
+//	`geburtsort` = '$_POST[geburtsort]',
+//	`gen_todesdatum` = '$_POST[todescode]',
+//	`todesdatum` = '$_POST[todesdatum]',
+//	`todesort` = '$_POST[todesort]',
+//	`umfeld".clangex()."` = '$_POST[umfeld]',
+//	`originalsprache` = '$_POST[originalsprache]',
+//	`notiz` = '$_POST[notiz]',
+//	`primaerliteratur` = '$_POST[prim_literatur]',
+//	`sekundaerliteratur` = '$_POST[sek_literatur]',
+//	`beruf".clangex()."` = '$_POST[beruf]',
+//	`einzelausstellungen` = '$_POST[einzelausstellungen]',
+//	`gruppenausstellungen` = '$_POST[gruppenausstellungen]',
+//	`werdegang".clangex()."` = '$_POST[werdegang]',
+//	`kurzbio` = '$_POST[kurzbio]',
+//	`showkurzbio` = '$_POST[showkurzbio]',		
+//	`schaffensbeschrieb".clangex()."` = '$_POST[schaffensbeschrieb]',
+//	`auszeichnungen`= '$_POST[auszeichnungen]',
+//	`pnd` = '$_POST[pnd]',
+//	`autorIn` = '$_POST[autor]',
+//	`bearbeitungsdatum` = '$bearbeitungsdatum',
+//	`unpubliziert` = '$unpubliziert',
+//	`fotografengattungen_set` = '$fotografengattungen_set',
+//	`kanton` = '$kanton',
+//	`bildgattungen_set` = '$bildgattungen_set' WHERE `id` ='$_POST[hidden_id]' LIMIT 1";
 	$result = mysql_query($sql);
 }
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
@@ -229,9 +276,9 @@ if ($fertig==1){
 		$def->assign("ID",$_GET['id']);
 		$id=$_GET['id'];
 		//$def->assign("LANG", $_GET['lang']);
-		//$lang = $_GET['lang'];			
+		//$lang = $_GET['lang'];
 	}
-	
+
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
 	$sql = "SELECT * FROM fotografen WHERE id ='$id'";
 	$result = mysql_query($sql);
@@ -247,22 +294,22 @@ if ($fertig==1){
 		$def->assign('dokufichebearbeiten',$spr['dokuficheneu']);
 		$def->assign('dokufichenew','&amp;new=1');
 	}
-	
+
 	$def->assign("LEGEND", "<b>".$spr['fotografennamen']."</b>");
-	$def->parse("bearbeiten.form.fieldset_start");	
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form.fieldset_start");
+	$def->parse("bearbeiten.form");
 	namen($def,$id);
-	$def->parse("bearbeiten.form.fieldset_end");	
-	$def->parse("bearbeiten.form");	
-	
+	$def->parse("bearbeiten.form.fieldset_end");
+	$def->parse("bearbeiten.form");
+
 	$def->parse("bearbeiten.bearbeiten_head_fotograf");
-	mabstand($def);	
-	
-	 
+	mabstand($def);
+
+
 	$def->assign("LEGEND", "<b>".$spr['fotographdetails']."</b>");
-	$def->parse("bearbeiten.form.fieldset_start");	
+	$def->parse("bearbeiten.form.fieldset_start");
 	$def->parse("bearbeiten.form.start");
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form");
 	genformitem($def,'textfield','PND',$array_eintrag['pnd'],'pnd');
 	$arr_art=array("P" =>"P", "G" =>"G");   //Array füllen für Select
 	genselectitem($def, $spr['art'], "$array_eintrag[art]", "art", $arr_art, "", "", "");
@@ -271,7 +318,7 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['heimatort'],$array_eintrag['heimatort'],'heimatort');
 	genformitem($def,'textfield',$spr['geburtsdatum'],$array_eintrag['geburtsdatum'],'geburtsdatum');
 	$arr_geb_code=array(0 =>"0", 1 =>"1", 2 =>"2"); //Array füllen für Select
-	
+
 	genselectitem($def, $spr['geburtscode'], $array_eintrag['gen_geburtsdatum'], "geburtscode", $arr_geb_code, "", "", "");
 	genformitem($def,'textfield',$spr['geburtsort'],$array_eintrag['geburtsort'],'geburtsort');
 	genformitem($def,'textfield',$spr['todesdatum'],$array_eintrag['todesdatum'],'todesdatum');
@@ -280,50 +327,50 @@ if ($fertig==1){
 	genformitem($def,'textfield', $spr['todesort'],$array_eintrag['todesort'],'todesort');
 	genformitem($def,'submitfield','','','');
 	$def->parse("bearbeiten.form.tend");
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form");
 	$def->parse("bearbeiten.form.fieldset_end");
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form");
 	mabstand($def);
-	
-	
+
+
 	$def->assign("LEGEND","<b>".$spr['arbeitsorte']."</b>");
-	$def->parse("bearbeiten.form.fieldset_start");	
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form.fieldset_start");
+	$def->parse("bearbeiten.form");
 	arbeitsperioden($def,$id);
 	$def->parse("bearbeiten.form.fieldset_end");
-	$def->parse("bearbeiten.form");	
-	mabstand($def);	
-	
-	
+	$def->parse("bearbeiten.form");
+	mabstand($def);
+
+
 	$def->assign("LEGEND","<b>".$spr['bestaende']."</b>");
-	$def->parse("bearbeiten.form.fieldset_start");	
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form.fieldset_start");
+	$def->parse("bearbeiten.form");
 	bestand($def,$id);
 	$def->parse("bearbeiten.form.fieldset_end");
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form");
 	mabstand($def);
-	
-	
+
+
 	$def->assign("LEGEND","<b>".$spr['literatur']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");
-	$def->parse("bearbeiten.form");		
+	$def->parse("bearbeiten.form");
 	literatur($def,$id);
 	$def->parse("bearbeiten.form.fieldset_end");
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form");
 	mabstand($def);
-	
+
 	$def->assign("LEGEND","<b>".$spr['ausstellungen']."</b>");
-	$def->parse("bearbeiten.form.fieldset_start");	
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form.fieldset_start");
+	$def->parse("bearbeiten.form");
 	ausstellungen($def,$id);
 	$def->parse("bearbeiten.form.fieldset_end");
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form");
 	mabstand($def);
-	
-	
+
+
 	$def->assign("LEGEND", "<b>".$spr['fotografen_zusatz']."</b>");
-	$def->parse("bearbeiten.form.fieldset_start");		
-	$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.form.fieldset_start");
+	$def->parse("bearbeiten.form");
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");
 	$arr_originalsprache=array('de'=>'de','fr'=>'fr','it'=>'it','rm'=>'rm','en'=>'en'); //Array füllen für Select
@@ -337,8 +384,8 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['beruf'].' ('.$clanguage.')',$array_eintrag['beruf'.clangex()],'beruf');
 	genformitem($def,'edittext',$spr['biografie'],$array_eintrag['kurzbio'],'kurzbio');
 	gencheckitem($def,$spr['biografie_anzeigen'], $array_eintrag['showkurzbio'], 'showkurzbio');
-	
-	
+
+
 	genformitem($def,'submitfield','','','');
 	//genformitem($def,'edittext','Einzelausstellungen alt',$array_eintrag[einzelausstellungen],'einzelausstellungen');
 	//genformitem($def,'edittext','Gruppenausstellungen alt',$array_eintrag[gruppenausstellungen],'gruppenausstellungen');
@@ -353,9 +400,9 @@ if ($fertig==1){
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list);
 	$set= $array_eintrag[fotografengattungen_set];
-	$array_set = explode (",", $set);		
+	$array_set = explode (",", $set);
 	///
-	gencheckarrayitemtr($def, $spr['fotographengattungen'], $array_set_list, $spatr['fotografengattungen_uebersetzungen'], "fotografengattungen[]", $array_set); 
+	gencheckarrayitemtr($def, $spr['fotographengattungen'], $array_set_list, $spatr['fotografengattungen_uebersetzungen'], "fotografengattungen[]", $array_set);
 
 	$sql ="DESCRIBE fotografen bildgattungen_set";//Beschreibung des Sets bekommen
 	$result = mysql_query($sql);
@@ -365,7 +412,7 @@ if ($fertig==1){
 	$array_set_list = explode ("','", $set_list);
 	$set= $array_eintrag[bildgattungen_set];
 	$array_set = explode (",", $set);
-	
+
 	gencheckarrayitemtr($def, $spr['bildgattungen'], $array_set_list, $spatr['bildgattungen_uebersetzungen'], "bildgattungen[]", $array_set);
 
 	genformitem($def,'submitfield','','','');
@@ -384,9 +431,9 @@ if ($fertig==1){
 	gencheckitem($def,$spr['npublizieren'],$array_eintrag[unpubliziert],'unpubliziert');
 	//$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
 	$def->assign("bearbeitungsdatum", $array_eintrag[bearbeitungsdatum]);
-	
+
 	$def->parse("bearbeiten.form.fieldset_end");
-	//$def->parse("bearbeiten.form");	
+	//$def->parse("bearbeiten.form");
 	$def->parse("bearbeiten");
 	//$def->parse("bearbeiten");
 	$out.=$def->text("bearbeiten");

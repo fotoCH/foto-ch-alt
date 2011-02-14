@@ -1,15 +1,5 @@
 <?php
 
-function writeHistory($id,$line,$type){
-	$sql="UPDATE  doku_fiche_$type SET history=CONCAT(history,'".mysql_real_escape_string($line."\r\n")."') WHERE id=$id LIMIT 1";
-	echo $sql;
-	$result = mysql_query($sql);
-	return;
-}
-
-function getHChanged($l,$n,$o){
-	return $l.'=\''.$n.'\' old:\''.$o.'\'';
-}
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set ('error_reporting', E_ALL);

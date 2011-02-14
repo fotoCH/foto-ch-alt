@@ -135,4 +135,17 @@ function ausstellungen($def,$id){
 	$def->parse("bearbeiten.form.new_ausstellung");	
 	$def->parse("bearbeiten.form");
 }
+
+function writeHistory($id,$line,$type){
+	$sql="UPDATE  doku_fiche_$type SET history=CONCAT(history,'".mysql_real_escape_string($line."\r\n")."') WHERE id=$id LIMIT 1";
+	echo $sql;
+	$result = mysql_query($sql);
+	return;
+}
+
+function getHChanged($l,$n,$o){
+	return $l.'=\''.$n.'\' old:\''.$o.'\'';
+}
+
+
 ?>
