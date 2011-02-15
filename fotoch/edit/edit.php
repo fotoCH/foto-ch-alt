@@ -34,7 +34,7 @@ if ($del=="2"){
 	$sql = "DELETE FROM `fotografen` WHERE id=$id LIMIT 1";
 	//echo $sql;
 	$result = mysql_query($sql);
-	$sql = "DELETE FROM `namen` WHERE fotografen_id=$id LIMIT 1";
+	$sql = "DELETE FROM `namen` WHERE fotografen_id=$id LIMIT 1";   //lässt unverknüpfte namen zurück!
 	$result = mysql_query($sql);
 	$def->parse("loeschen2");
 	$out.=$def->text("loeschen2");
@@ -167,9 +167,9 @@ if($_POST['submitbutton']){
 	'sekundaerliteratur'=>'sek_literatur','autorIn' => 'autor');  // felder bei denen der SB-name nicht dem formelement-name entspricht
 	$langfs=array('umfeld','beruf','werdegang','schaffensbeschrieb'); // felder mit sprachversionen
 	$textfs=array('art','geschlecht','heimatort','geburtsdatum','geburtsort','originalsprache','notiz','prim_literatur',
-		'todesdatum','todesort','einzelausstellungen','gruppenausstellungen','kurzbio','showkurzbio','auszeichnungen','pnd'); //"normale" felder
+		'todesdatum','todesort','einzelausstellungen','gruppenausstellungen','kurzbio','auszeichnungen','pnd'); //"normale" felder
 
-	$varfields=array('bearbeitungsdatum','unpubliziert','fotografengattungen_set','bildgattungen_set','kanton');  // felder die aus variablen gelesen werden.
+	$varfields=array('showkurzbio','bearbeitungsdatum','unpubliziert','fotografengattungen_set','bildgattungen_set','kanton');  // felder die aus variablen gelesen werden.
 
 	foreach ($_REQUEST['bildgattungen'] as $t){
 		$bildgattungen_set .=$t;
@@ -191,6 +191,12 @@ if($_POST['submitbutton']){
 	}else{
 		$unpubliziert = 0;
 	}
+	if($_POST['showkurzbio']=="1"){
+		$showkurzbio = 1;
+	}else{
+		$showkurzbio = 0;
+	}
+	
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 	$fotografengattungen_set = substr($fotografengattungen_set, 0, strlen($fotografengattungen_set)-1);
 	$bearbeitungsdatum = date("Y-m-d");
