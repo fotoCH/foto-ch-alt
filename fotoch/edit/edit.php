@@ -221,6 +221,14 @@ if($_POST['submitbutton']){
 	$sql="UPDATE fotografen SET ";
 	$s='';
 	$s2=''; // für history
+	foreach ($langfs as $t){
+		$u=($_POST[$t]==$array_eintrag[$t.clangex()]?'':'`'.$t.clangex().'`=\''.mysql_real_escape_string($_POST[$t])."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t.clangex(),$_POST[$t],$array_eintrag[$t.clangex()]);
+		}
+	}
+
 	foreach ($textfs as $t){
 		$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$t])."'");
 		if ($u){
@@ -228,6 +236,7 @@ if($_POST['submitbutton']){
 			$s2.=($s2?', ':'').getHChanged($t,$_POST[$t],$array_eintrag[$t]);
 		}
 	}
+	
 	foreach ($spezfs as $t=>$v){
 		$u=($_POST[$v]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$v])."'");
 		if ($u){
