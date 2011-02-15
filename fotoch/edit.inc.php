@@ -138,7 +138,7 @@ function ausstellungen($def,$id){
 
 function writeHistory($id,$line,$type){
 	$sql="UPDATE  doku_fiche_$type SET history=CONCAT(history,'".mysql_real_escape_string($line."\r\n")."') WHERE id=$id LIMIT 1";
-	echo $sql;
+	//echo $sql;
 	$result = mysql_query($sql);
 	return;
 }

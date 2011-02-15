@@ -200,7 +200,7 @@ if ($fertig==1){
 	genstempel1($def, $spr['bibliografie'].': '.$spr['fertig_gestellt'],'biografie',$array_eintrag);
 	genstempel1($def, $spr['ausstellungen'].': '.$spr['fertig_gestellt'],'ausstellungen',$array_eintrag);
 	genstempel1($def, $spr['auszeichnungen_stipendien'].': ','auszeichnungen_stipendien',$array_eintrag);
-	genstempel1($def, $spr['bestaende2'].': '.$spr['fertig_gestellt'],'bestaende_ref',$array_eintrag);
+	genstempel1($def, $spr['bestaende2'].': '.$spr['fertig_gestellt'],'bestaende',$array_eintrag);
 	genstempel1($def, $spr['interview_vorgesehen'],'interview_vorgesehen',$array_eintrag);
 	genstempel1($def, $spr['interview_fertiggestellt'],'interview_fertiggestellt',$array_eintrag);
 	

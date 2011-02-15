@@ -16,7 +16,7 @@ $lang = $_GET['lang'];
 
 $def->assign("SPR", $spr);
 
-if ($_POST && !$_POST['submitbutton']) escposts();  // nur noch für nebentabellen
+//if ($_POST && !$_POST['submitbutton']) escposts();  // nur noch für nebentabellen
 if ($_GET['id']=="new"){
 	$sql = "INSERT INTO `fotografen` ( `id` , `nachname` , `vorname` , `namenszusatz` , `zweitname` , `art` , `geschlecht` , `heimatort` , 			`gen_geburtsdatum` , `geburtsdatum` , `geburtsort` , `gen_todesdatum` , `todesdatum` , `todesort` , `umfeld` , `notiz` , `primaerliteratur` , 	`sekundaerliteratur` , `beruf` , `einzelausstellungen` , `gruppenausstellungen` , `werdegang` , `kurzbio` , `schaffensbeschrieb` , `autorIn` , `bearbeitungsdatum` , `erstellungsdatum` , `fotografengattungen_set` , `bildgattungen_set` )
 	VALUES ('', '', '', '', '', 'P', '', '', '0', '0000-00-00', '', '0', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', NOW(), '', '')";
@@ -27,6 +27,7 @@ if ($_GET['id']=="new"){
 	$result = mysql_query($sql);
 	$sql = "INSERT INTO `doku_fiche_fotograf` SET id=".$last_insert_id;
 	$result = mysql_query($sql);
+	writeHistory($last_insert_id, getHistEntry("FG", "created", ''), 'fotograf');
 }
 $del=$_GET['delete'];
 if ($del=="2"){
@@ -34,8 +35,9 @@ if ($del=="2"){
 	$sql = "DELETE FROM `fotografen` WHERE id=$id LIMIT 1";
 	//echo $sql;
 	$result = mysql_query($sql);
-	$sql = "DELETE FROM `namen` WHERE fotografen_id=$id LIMIT 1";   //lässt unverknüpfte namen zurück!
+	$sql = "DELETE FROM `namen` WHERE fotografen_id=$id LIMIT 1";   //lässt unverknüpfte namen und df zurück!
 	$result = mysql_query($sql);
+	writeHistory($last_insert_id, getHistEntry("FG", "deleted", ''), 'fotograf');
 	$def->parse("loeschen2");
 	$out.=$def->text("loeschen2");
 	$fertig=1;
@@ -53,23 +55,26 @@ if($_GET['n']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($id, getHistEntry("FG", "delnamen", $_GET['n_id']), 'fotograf');
 }
 //////////////Bezeichnung(Namen)erstellen////////////////////////////
 if($_GET['n']=="new"){
 	$sql = "INSERT INTO `namen` ( `id` , `fotografen_id` , `nachname` , `vorname` , `namenszusatz` , `titel` )
 	VALUES ('', '$_GET[id]', '', '', '', '')";
 	$result = mysql_query($sql);
+	writeHistory($last_insert_id, getHistEntry("FG", "add name", mysql_insert_id()), 'fotograf');
 }
 //////////////Bezeichnung(Namen) bearbeiten->speichern////////////////////////////
 if($_POST['submit_namen']){
-	$sql="UPDATE `namen` SET `nachname` = '$_POST[nachname]',
-	`vorname` = '$_POST[vorname]',
-	`namenszusatz` = '$_POST[zusatz]',
-	`titel` = '$_POST[titel]' WHERE `id` ='$_REQUEST[namen_id]' LIMIT 1";
+	$sql="UPDATE `namen` SET `nachname` = '".mysql_real_escape_string($_POST['nachname'])."',
+	`vorname` = '".mysql_real_escape_string($_POST['vorname'])."',
+	`namenszusatz` = '".mysql_real_escape_string($_POST[zusatz])."',
+	`titel` = '".mysql_real_escape_string($_POST['titel'])."' WHERE `id` ='$_REQUEST[namen_id]' LIMIT 1";
 	$result = mysql_query($sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[fotografen_id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_REQUEST['fotografen_id'], getHistEntry("FG", "edit name", $_REQUEST['namen_id'].': '.getname($_REQUEST['namen_id'])), 'fotograf');
 }
 //////////////Bestand löschen////////////////////////////
 if($_GET['b']=="del"){
@@ -78,6 +83,7 @@ if($_GET['b']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "del bestand: ",$_GET['b_id'] ), 'fotograf');
 }
 //////////////Literatur löschen////////////////////////////
 if($_GET['l']=="del"){
@@ -87,6 +93,7 @@ if($_GET['l']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "del literatur: ",$_GET['l_id'] ), 'fotograf');
 }
 if($_GET['au']=="del"){
 	$sql = "DELETE FROM `ausstellung_fotograf` WHERE id='$_GET[a_id]' LIMIT 1";
@@ -95,6 +102,7 @@ if($_GET['au']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "del ausstellung: ",$_GET['a_id'] ), 'fotograf');
 }
 //////////////Bestand erstellen////////////////////////////
 //////////////neuer Bestand einfügen////////////////////////////
@@ -106,6 +114,7 @@ if($_REQUEST['new_bestand']){
 	$result = mysql_query($sql);
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[bestand_id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "add bestand: ",$_GET['bestand_id'] ), 'fotograf');
 }
 if($_REQUEST['new_literatur']){
 	$sql="INSERT INTO `literatur_fotograf` (`literatur_id`, `fotografen_id`, `typ`) VALUES ($_REQUEST[literatur_id],$_REQUEST[id],'$_REQUEST[typ]')";
@@ -114,14 +123,16 @@ if($_REQUEST['new_literatur']){
 	//echo $sql;
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "add literatur: ",$_GET['literatur_id'] ), 'fotograf');
 }
 if($_REQUEST['new_ausstellung']){
 	$sql="INSERT INTO `ausstellung_fotograf` (`ausstellung_id`, `fotograf_id`) VALUES ($_REQUEST[ausstellung_id],$_REQUEST[id])";
 	$result = mysql_query($sql);
-	echo $sql;
+	//echo $sql;
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "add ausstellung: ",$_GET['ausstellung_id'] ), 'fotograf');
 }
 //////////////Arbeitsperiode löschen////////////////////////////
 if($_GET['ap']=="del"){
@@ -136,6 +147,7 @@ if($_GET['ap']=="new"){
 	$sql = "INSERT INTO `arbeitsperioden` ( `id` , `fotografen_id` , `arbeitsort` , `von` , `um_von` , `bis` , `um_bis` )
 	VALUES ('', '$_GET[id]', '', '', '0', '', '0')";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "add arbeitsperiode", mysql_insert_id()), 'fotograf');
 }
 //////////////Arbeitsperiode bearbeiten->speichern////////////////////////////
 if($_REQUEST['submit_arbeitsort']){
@@ -149,7 +161,7 @@ if($_REQUEST['submit_arbeitsort']){
 	}else{
 		$um_bis = 0;
 	}
-	$sql="UPDATE `arbeitsperioden` SET `arbeitsort` = '$_POST[arbeitsort]',
+	$sql="UPDATE `arbeitsperioden` SET `arbeitsort` = '".mysql_real_escape_string($_POST['arbeitsort'])."',
 	`von` = '$_REQUEST[von]',
 	`um_von` = '$um_von',
 	`bis` = '$_REQUEST[bis]',
@@ -159,6 +171,7 @@ if($_REQUEST['submit_arbeitsort']){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[fotografen_id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "edit arbeitsperiode", $_REQUEST['arbeitsort_id'].': '.($um_von==1?'um ':'').$_REQUEST['von'].'-'.($um_bis==1?'um ':'').$_REQUEST['bis'].' '.$_POST['arbeitsort']), 'fotograf');
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
 if($_POST['submitbutton']){
@@ -169,7 +182,7 @@ if($_POST['submitbutton']){
 	$textfs=array('art','geschlecht','heimatort','geburtsdatum','geburtsort','originalsprache','notiz','prim_literatur',
 		'todesdatum','todesort','einzelausstellungen','gruppenausstellungen','kurzbio','auszeichnungen','pnd'); //"normale" felder
 
-	$varfields=array('showkurzbio','bearbeitungsdatum','unpubliziert','fotografengattungen_set','bildgattungen_set','kanton');  // felder die aus variablen gelesen werden.
+	$varfields=array('showkurzbio','unpubliziert','fotografengattungen_set','bildgattungen_set','kanton');  // felder die aus variablen gelesen werden.
 
 	foreach ($_REQUEST['bildgattungen'] as $t){
 		$bildgattungen_set .=$t;
@@ -222,7 +235,8 @@ if($_POST['submitbutton']){
 			$s2.=($s2?', ':'').getHChanged($t,$_POST[$v],$array_eintrag[$t]);
 		}
 	}
-	foreach ($varfs as $t){
+	foreach ($varfields as $t){
+		//echo "$t: ".$$t."<br />";
 		$u=($$t==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($$t)."'");
 		if ($u){
 			$s.=($s?', ':'').$u;
@@ -234,7 +248,7 @@ if($_POST['submitbutton']){
 
 	$bearbeitungsdatum = date("Y-m-d");
 	writeHistory($id, getHistEntry("FG", "edit", $s2), 'fotograf');
-	echo $sql;
+	//echo $sql;
 
 
 
