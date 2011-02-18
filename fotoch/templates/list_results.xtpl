@@ -222,7 +222,7 @@
 		<td valign="baseline"><span class="{FETCH.bioclass}">&nbsp;{FETCH.nachname}</span></td>
 		<td valign="baseline"><span class="subtitle3">&nbsp;{FETCH.vorname} {FETCH.namenszusatz}</span></td>
 		<td valign="baseline"><span class="subtitle3">&nbsp;{FETCH.fldatum}</span></td>
-		<td valign="baseline" align="right"  class="edit_width"><span class="subtitle3">&nbsp;<a href="./?a=edit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
+		<td valign="baseline" align="right"  class="edit_width"><span class="subtitle3">&nbsp;<a href="./?a=edit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span> {FETCH.pnd}</td>
 	 </tr>
 <!-- END:row_admin -->				
       </table>
