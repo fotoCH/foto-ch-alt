@@ -458,6 +458,8 @@ if ($fertig==1){
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag[notiz],'notiz');
 	genformitem($def,'textfield',$spr['autorIn'],$array_eintrag[autorIn],'autor');
 	gencheckitem($def,$spr['npublizieren'],$array_eintrag[unpubliziert],'unpubliziert');
+	genformitem($def,'textfield','pnd_status',$array_eintrag['pnd_status'],'pnd_status');
+	genformitem($def,'edittext','pnd_answer',$array_eintrag['pnd_answer'],'pnd_answer');
 	//$def->assign("BEARBEITUNGSDATUM", $spr['bearbeitungsdatum']);
 	$def->assign("bearbeitungsdatum", $array_eintrag[bearbeitungsdatum]);
 
