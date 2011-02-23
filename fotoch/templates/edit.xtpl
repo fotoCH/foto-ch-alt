@@ -390,7 +390,7 @@ function submitita(v)
 			
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="von{ARBEITSORT.id}" class="edit">{SPR.von}</label></td> 
 			<td>
-				<input type="text" class="text_edit" name="von{ARBEITSORT.id}" id="von{ARBEITSORT.id}" value="{ARBEITSORT.von}"/>&nbsp;&nbsp;um&nbsp;&nbsp;
+				<input type="text" class="text_edit" name="von{ARBEITSORT.id}" id="von{ARBEITSORT.id}" value="{ARBEITSORT.von}"/>&nbsp;&nbsp;{SPR.um}&nbsp;&nbsp;
 				<input {check_von} type="checkbox" name="umvon{ARBEITSORT.id}" value="1" /> 
 			</td>
 
@@ -400,7 +400,7 @@ function submitita(v)
 			
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="bis{ARBEITSORT.id}" class="edit">{SPR.bis}</label></td>
 			<td>
-				<input type="text" class="text_edit" name="bis{ARBEITSORT.id}" id="bis{ARBEITSORT.id}" value="{ARBEITSORT.bis}"/>&nbsp;&nbsp;um&nbsp;&nbsp;
+				<input type="text" class="text_edit" name="bis{ARBEITSORT.id}" id="bis{ARBEITSORT.id}" value="{ARBEITSORT.bis}"/>&nbsp;&nbsp;{SPR.um}&nbsp;&nbsp;
 				<input {check_bis} type="checkbox" name="umbis{ARBEITSORT.id}" value="1"/>
 			</td>
 		</tr>
