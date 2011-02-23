@@ -104,8 +104,8 @@ while($fetch=mysql_fetch_array($result)){
 	$def->assign("SPR2",$spr);
 	while($fetch2=mysql_fetch_array($result2)){
 		if ($fetch2['von'].$fetch2['bis']!=''){
-			$fetch2['um_vonf']=$fetch2['um_von']==0?'':'um ';
-			$fetch2['um_bisf']=$fetch2['um_bis']==0?'':'um ';
+			$fetch2['um_vonf']=$fetch2['um_von']==0?'':$spr['um'].' ';
+			$fetch2['um_bisf']=$fetch2['um_bis']==0?'':$spr['um'].' ';
 			$def->assign("FETCH2",$fetch2);
 
 			$def->parse($det.".z.arb.vonbis");
