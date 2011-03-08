@@ -241,7 +241,7 @@ function submitita(v)
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 
 <!-- END:bearbeiten_head_literatur -->
-<!-- BEGIN:bearbeiten_head_dokufiche_fotograf -->
+<!-- BEGIN:bearbeiten_head_dokufiche_fotografen -->
 
 	<h2>{SPR.dokufiche} bearbeiten</h2>
 	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3> <a href="./?a=edit&amp;id={ID}&amp;lang={LANG}">Eintrag {SPR.bearbeiten}</a>
@@ -250,7 +250,7 @@ function submitita(v)
 	<br/>
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 
-<!-- END:bearbeiten_head_dokufiche_fotograf -->
+<!-- END:bearbeiten_head_dokufiche_fotografen -->
 
 <!-- BEGIN:bearbeiten_head_dokufiche_institution -->
 

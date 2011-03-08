@@ -97,7 +97,7 @@ if ($fertig==1){
 
 		$bearbeitungsdatum = date("Y-m-d");
 		writeHistory($id, getHistEntry("DF", "edit", $s2), $type);
-		echo $sql;
+		//echo $sql;
 		/*	foreach ($_POST as $k=>$v){
 		 echo "\"$k\", ";
 		 }*/
