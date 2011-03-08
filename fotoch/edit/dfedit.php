@@ -40,8 +40,8 @@ if ($fertig==1){
 		$sql = "SELECT * FROM $type WHERE id ='$id'";
 		$result = mysql_query($sql);
 		$array_eintrag = mysql_fetch_array($result);
-
-		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz");
+		//print_r($_POST);
+		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz_fiche");
 		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "interview_vorgesehen", "interview_fertiggestellt","dokumentation");
 		$wrefs=array("werdegang", "schaffensbeschrieb", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
 		$sql="UPDATE  $type SET ";
@@ -68,7 +68,7 @@ if ($fertig==1){
 					$s.=($s?', ':'').$u;
 					$s2.=($s2?', ':'').getHChanged($t.'_user',getusername($_POST[$t.'_user']),getusername($array_eintrag[$t.'_user']));
 				}
-			} else { 
+			} else {
 				if ($array_eintrag[$t.'_date']!='' && $array_eintrag[$t.'_date']!='0000-00-00'){ //Eintrag gelöscht
 					//echo "old: ".$array_eintrag[$t.'_date']."<br />";
 					$u='`'.$t.'_date'.'`=\''."'";
@@ -84,15 +84,22 @@ if ($fertig==1){
 				$pdate=rformdate($_POST[$t.'_'.$l.'_date']);
 				if ($_POST[$t.'_'.$l.'_date']){
 					$u=($pdate==$array_eintrag[$t.'_l'.$l.'_date']?'':'`'.$t.'_l'.$l.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
-					if ($u) $s.=($s?', ':'').$u;
-						
-					$u=($_POST[$t.'_'.$l.'_user']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_user'])."'");
-					if ($u) $s.=($s?', ':'').$u;
+					if ($u){
+						$s.=($s?', ':'').$u;
+						$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_date',$pdate,$array_eintrag[$t.'_l'.$l.'_date']);
+					}
+					if ($_POST[$t.'_'.$l.'_userbox']!=0){
+						$u=($_POST[$t.'_'.$l.'_userbox']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_userbox'])."'");
+						if ($u){
+							$s.=($s?', ':'').$u;
+							$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_user',getusername($_POST[$t.'_'.$l.'_userbox']),getusername($array_eintrag[$t.'_l'.$l.'_user']));
+						}
+					}
 				}
 			}
 		}
 
-		
+
 		$sql.=$s." WHERE id ='$id'";
 
 		$bearbeitungsdatum = date("Y-m-d");
@@ -176,10 +183,10 @@ if ($fertig==1){
 	genstempel1($def, $spr['bestaende2'].': '.$spr['fertig_gestellt'],'bestaende',$array_eintrag);
 	genstempel1($def, $spr['interview_vorgesehen'],'interview_vorgesehen',$array_eintrag);
 	genstempel1($def, $spr['interview_fertiggestellt'],'interview_fertiggestellt',$array_eintrag);
-	
+
 	genformitem($def,'edittext','Aenderungsverfolgung',$array_eintrag['history'],'history_b');
-	
-	
+
+
 	$def->parse("bearbeiten.form.tend");
 	$def->parse("bearbeiten.form");
 
@@ -230,7 +237,7 @@ if ($fertig==1){
 	genformitem($def,'textfield','dokumentation_text',$array_eintrag['dokumentation_text'],'dokumentation_text');
 	genstempel1($def, 'dokumentation_erfasst','dokumentation',$array_eintrag);
 
-	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz'],'notiz');
+	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz_fiche'],'notiz_fiche');
 
 	$def->parse("bearbeiten.form.fieldset_end");
 	//$def->parse("bearbeiten.form");
