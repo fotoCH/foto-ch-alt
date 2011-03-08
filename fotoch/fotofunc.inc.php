@@ -2,9 +2,9 @@
 error_reporting(!(E_ALL));
 
 function clean_entry($t){ // cleanup for entries
-    $from=array('<br>',' & ');
-    $to  =array('<br />',' &amp; ');
-    return(str_replace($from,$to,trim($t)));
+	$from=array('<br>',' & ');
+	$to  =array('<br />',' &amp; ');
+	return(str_replace($from,$to,trim($t)));
 }
 
 function escposts(){
@@ -30,20 +30,20 @@ function escrequest(){
 }
 
 /*
-function auth(){
-	return !empty($_SESSION['s_uid']);
-}
+ function auth(){
+ return !empty($_SESSION['s_uid']);
+ }
 
 
 
-function testauth(){
-	if (empty($_SESSION['s_uid'])){
-		header ("Location: ?a=login&error=1");
-		exit();
-	}
+ function testauth(){
+ if (empty($_SESSION['s_uid'])){
+ header ("Location: ?a=login&error=1");
+ exit();
+ }
 
-}
-*/
+ }
+ */
 
 function formumfeld($t){  // expandiert Links im Umfeld
 	$suchmuster = "/<.link:(.\d+)>/";
@@ -56,7 +56,7 @@ function formumfeld($t){  // expandiert Links im Umfeld
 		//$nid=$treffer[0][$i];
 
 		if (substr($id,0,1)=='n'){
-                        $id=substr($id,1);
+			$id=substr($id,1);
 			$n=1;
 
 			$result=mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
@@ -76,7 +76,7 @@ function formumfeld($t){  // expandiert Links im Umfeld
 				$t=str_replace($treffer[0][$i],$name,$t);
 			}
 		} else {
-		/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fotograph  */
+			/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fotograph  */
 			$t=str_replace($treffer[0][$i],'<a href="?a=fotograph&amp;id='.$id.'&amp;lang='.$_GET['lang'].'">'.$name.'</a>',$t);
 		}
 	}
@@ -87,6 +87,14 @@ function getname($id){   // Gibt formatierten Namen mit der id zurück
 	$result=mysql_query("SELECT *  FROM namen WHERE id=$id ORDER BY id Asc");
 	$fetch=mysql_fetch_array($result);
 	$name=$fetch['vorname'] .' '.$fetch['namenszusatz'].' '.$fetch['nachname'];
+
+	return($name);
+}
+
+function getnamer($id){   // Gibt formatierten Namen mit der id zurück
+	$result=mysql_query("SELECT *  FROM namen WHERE id=$id ORDER BY id Asc");
+	$fetch=mysql_fetch_array($result);
+	$name=trim($fetch['nachname'].', '.$fetch['vorname'] .' '.$fetch['namenszusatz']);
 
 	return($name);
 }
@@ -172,7 +180,7 @@ function formlit($f){  // expandiert Verweise in Literatur, formatiert
 	if ($f['code']=='U') {
 		if ($text[strlen($text)-1]!=' ') $text.=', ';
 		$f['url']=preg_replace("/http:\/\/(.*)/","<a href=\"http://\$1\" target=\"_new\">\$1</a> ",$f['url']);
-		$text.=$f['url']; 
+		$text.=$f['url'];
 	}
 
 	if ($f['seite']){ if ($text[strlen($text)-1]!=' ') $text.=', ';
@@ -230,7 +238,7 @@ function formlit2($f){
 	if ($f['code']=='H')  $hg=' (Hg.)';
 	if ($f['verfasser_name']) $text=$f['verfasser_name'].$text.$hg.': ';
 	if ($f['titel']) $text.=$f['titel'].', ';
-	
+
 	if ($f['in']) $text.='in: '.$f['in'].', ';
 	//if ($f['ort']) $text.=$f['ort'].' ';
 	if ($f['code']=='T'){
@@ -243,7 +251,7 @@ function formlit2($f){
 	if ($f['code']=='U') {
 		if ($text[strlen($text)-1]!=' ') $text.=', ';
 		$f['url']=preg_replace("/http:\/\/(.*)/","<a href=\"http://\$1\" target=\"_new\">\$1</a> ",$f['url']);
-		$text.=$f['url'];  
+		$text.=$f['url'];
 	}
 
 	if ($f['seite']){ if ($text[strlen($text)-1]!=' ') $text.=', ';
@@ -380,7 +388,7 @@ function formldatesimp2($gdate,$gcode,$tdate,$tcode,$go,$to){ // formatiert lebe
 function rformdate($date){
 	$ndate=preg_replace( '/(\d{1,2})\W(\d{1,2})\W(\d{4})/', '$3-$2-$1', $date);
 	return ($ndate);
-	 
+
 }
 
 function auth2(){
@@ -488,7 +496,7 @@ function checklangsf(&$fetch,$felder,$link){
 				if ($fetch[$feld.($sp=='de'?'':'_'.$sp)]){
 					$da=true;
 					if ($do==false){
-					    $res.= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$spr['artikelvorhandenin'].': ';
+						$res.= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$spr['artikelvorhandenin'].': ';
 					}
 					$do=true;
 				}
@@ -514,4 +522,165 @@ function gensprachaus($link){
 	return $res;
 }
 
+function dom_dump($obj) {
+	if ($classname = get_class($obj)) {
+		$retval = "Instance of $classname, node list: \n";
+		switch (true) {
+			case ($obj instanceof DOMDocument):
+				$retval .= "XPath: {$obj->getNodePath()}\n".$obj->saveXML($obj);
+				break;
+			case ($obj instanceof DOMElement):
+				$retval .= "XPath: {$obj->getNodePath()}\n".$obj->ownerDocument->saveXML($obj);
+				break;
+			case ($obj instanceof DOMAttr):
+				$retval .= "XPath: {$obj->getNodePath()}\n".$obj->ownerDocument->saveXML($obj);
+				//$retval .= $obj->ownerDocument->saveXML($obj);
+				break;
+			case ($obj instanceof DOMNodeList):
+				for ($i = 0; $i < $obj->length; $i++) {
+					$retval .= "Item #$i, XPath: {$obj->item($i)->getNodePath()}\n".
+"{$obj->item($i)->ownerDocument->saveXML($obj->item($i))}\n";
+				}
+				break;
+			default:
+				return "Instance of unknown class";
+		}
+	} else {
+		return 'no elements...';
+	}
+	return htmlspecialchars($retval);
+}
+
+
+function parseRDF($r){
+	$nsp='http://www.w3.org/1999/02/22-rdf-syntax-ns#';
+	$rdagr2='http://metadataregistry.org/uri/schema/RDARelationshipsGR2/';
+	$pndpre="http://d-nb.info/gnd/";
+	$res=array();
+	foreach ($r->getElementsByTagNameNS($nsp, 'Description') as $element) {
+		$pndc=$element->getAttributeNS($nsp,'about');
+		if (!(strpos($pndc,$pndpre)==0)) continue;
+		$pndc=substr($pndc,strlen($pndpre));
+
+		//echo 'local name: ', $element->localName, ', prefix: ', $element->prefix, "about: ",$element->getAttributeNS($nsp,'about'), "\n";
+
+		$resp=array();
+		//echo $pndc;
+		foreach ($element->getElementsByTagNameNS('*','*') as $element) {
+			
+			$at_res=$element->getAttributeNS($nsp,'resource');
+			if ($at_res){
+				$value=$at_res;
+			} else {
+				$at_res=$element->getAttributeNS($nsp,'parseType');
+				if ($at_res) continue;
+				$value=$element->nodeValue;
+			}
+			//echo 'local name: ', $element->localName, ', prefix: ', $element->prefix, "value: ",$value,"<br />\n";
+			$resp[$element->localName]=$value;
+		}
+		$res[$pndc]=$resp;
+	
+	}
+	//  $attrs = $element->attributes;
+	//   foreach ($attrs as $attrName => $attrNode){  // attributes
+	//   	echo($attrName."::".$attrNode);
+	//    }
+	//	}
+	//	$rdf=$r->ownerDocument->saveXML($r);
+	//	//echo $rdf;
+	//	$dom = new DomDocument();
+	//	$dom->loadXML($rdf);
+	//	foreach ($dom->getElementsByTagNameNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'Description') as $element) {
+	//    echo 'local name: ', $element->localName, ', prefix: ', $element->prefix, "\n";
+	//    echo "XXX";
+	//  $attrs = $element->attributes;
+	//   foreach ($attrs as $attrName => $attrNode){  // attributes
+	//   	echo($attrName."::".$attrNode);
+	//    }
+	//	}
+	//	$nr=$dom->getElementsByTagNameNS("rdf","Description")->item(1);
+	//	//echo dom_dump($nr);
+	
+	return($res);
+}
+
+function rank(&$a, &$fetch){
+	$r=0;
+	if ($a['professionOrOccupation']=='http://d-nb.info/gnd/4045893-3'){ // Photograph
+		$r+=10;
+	}
+	if ($a['professionOrOccupation']=='http://d-nb.info/gnd/4262252-9'){ // Photographin
+		$r+=10;
+	}
+	if ($a['countryCodeForThePerson']=='XA-CH'){
+		$r+=5;
+	}
+
+	if (stripos($a['biographicalInformation'],'photo')>0){
+		$r+=10;
+	}
+	if ($a['surname'] && $a['foreName']){
+		if (($fetch['nachname']==$a['surname']) && ($fetch['vorname']==$a['foreName']))
+			 	$r+=5;
+			 else
+			 	$r-=5; 
+	}
+	if ($a['dateOfBirth'] && substr($fetch['geburtsdatum'],0,4)!='0000'){
+		if (substr($fetch['geburtsdatum'],0,4)==$a['dateOfBirth'])
+			 	$r+=5;
+			 else
+			 	$r-=15; 
+	}
+	if ($a['dateOfDeath'] && substr($fetch['todesdatum'],0,4)!='0000'){
+		if (substr($fetch['todesdatum'],0,4)==$a['dateOfDeath'])
+			 	$r+=5;
+			 else
+			 	$r-=15; 
+	}
+	if ($a['placeOfBirth'] && $fetch['geburtsort']!=''){
+		if ($fetch['geburtsort']==$a['placeOfBirth'])
+			 	$r+=5;
+			 else
+			 	$r-=5; 
+	}	
+	if ($a['placeOfDeath'] && $fetch['todesort']!=''){
+		if ($fetch['todessort']==$a['placeOfDeath'])
+			 	$r+=5;
+			 else
+			 	$r-=5; 
+	}	
+	return $r;
+}
+
+function getPNDfromName($nid, &$fetch){
+	$ret=array();
+	$n=getnamer($nid);
+	echo $n, "<br />\n";
+	$query="http://services.d-nb.de/sru/pnd?version=1.1&operation=searchRetrieve&query=PER%3D".urlencode(utf8_encode($n))."&recordSchema=RDFxml";
+	echo $query;
+	//$ans=file_get_contents($query);
+	$dom = new DomDocument();
+	$dom->load($query);
+	$nr=$dom->getElementsByTagName("record");
+	$c=0;
+	echo ($nr->length. "Ergebnisse: \n");
+	foreach($nr as $r){
+		$a=parseRDF($r);
+		foreach ($a as $k=>$v){
+			$a[$k]['rank']=rank($v,$fetch);
+		}
+		print_r($a);
+		$ret[]=$a;
+	}
+
+	//echo dom_dump($dom);
+	//echo dom_dump($nr);
+
+
+
+	//echo $ans;
+	//$a=parseRDF($ans);
+	return $ret;
+}
 ?>

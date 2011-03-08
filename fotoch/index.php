@@ -35,7 +35,7 @@ require("lang.inc.php");
 require("auth.inc.php");
 
 $action=$_GET['a'];
-$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit");
+$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest");
 if (!in_array($action,$actions)) $action='home';  // default Startseite
 //functions
 //chose main template

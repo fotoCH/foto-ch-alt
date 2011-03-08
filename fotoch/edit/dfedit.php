@@ -19,30 +19,10 @@ $lang = $_GET['lang'];
 $def->assign("SPR", $spr);
 
 //if ($_POST) escposts();
-$type=getParam('type','fotograf');
+$type=getParam('type','fotografen');
 $def->assign("TYPE", $type);
 
-if ($_GET['new']=="1"){
-	$id=$_GET['id'];
-	$sql = "INSERT INTO `doku_fiche_$type` (`id`) VALUES ('$id');";
-	$result = mysql_query($sql);
-}
-$del=$_GET['delete'];
-if ($del=="2"){
-	$id=$_GET['id'];
-	$sql = "DELETE FROM `doku_fiche_$type` WHERE id=$id LIMIT 1";
-	//echo $sql;
-	$result = mysql_query($sql);
-	$def->parse("loeschen2");
-	$out.=$def->text("loeschen2");
-	$fertig=1;
-}
-if ($del=="1"){
-	$def->parse("loeschen1");
-	$out.=$def->text("loeschen1");
-	//echo("bbcc");
-	$fertig=1;
-}
+
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
@@ -57,18 +37,14 @@ if ($fertig==1){
 
 	if($_POST['submitbutton']){
 		//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
-		$sql = "SELECT * FROM doku_fiche_$type WHERE id ='$id'";
+		$sql = "SELECT * FROM $type WHERE id ='$id'";
 		$result = mysql_query($sql);
 		$array_eintrag = mysql_fetch_array($result);
-		//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
-		$sql = "SELECT * FROM ".($type=='fotograf'?'fotografen':'institution')." WHERE id ='$id'";
-		$result = mysql_query($sql);
-		$array_eintrag2 = mysql_fetch_array($result);
 
 		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz");
 		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "interview_vorgesehen", "interview_fertiggestellt","dokumentation");
 		$wrefs=array("werdegang", "schaffensbeschrieb", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
-		$sql="UPDATE  doku_fiche_$type SET ";
+		$sql="UPDATE  $type SET ";
 		$s='';
 		$s2=''; // für history
 		foreach ($fs as $t){
@@ -158,13 +134,10 @@ if ($fertig==1){
 	}
 
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
-	$sql = "SELECT * FROM doku_fiche_$type WHERE id ='$id'";
+	$sql = "SELECT * FROM $type WHERE id ='$id'";
 	$result = mysql_query($sql);
 	$array_eintrag = mysql_fetch_array($result);
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
-	$sql = "SELECT * FROM ".($type=='fotograf'?'fotografen':'institution')." WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag2 = mysql_fetch_array($result);
 
 
 	$def->assign("LEGEND", "<b>".$spr['fotografennamen']."</b>");
@@ -187,9 +160,9 @@ if ($fertig==1){
 	$arr_territoriumszugegoerigkeit=array('de'=>'de','fr'=>'fr','it'=>'it','rm'=>'rm','en'=>'en'); //Array füllen für Select
 	genselectitem($def, $spr['territoriumszugegoerigkeit'], $array_eintrag['territoriumszugegoerigkeit'], "territoriumszugegoerigkeit", $arr_territoriumszugegoerigkeit, "", "", "");
 
-	gendatnoedit($def,$spr['erstellungsdatum'],$array_eintrag2['erstellungsdatum']);
+	gendatnoedit($def,$spr['erstellungsdatum'],$array_eintrag['erstellungsdatum']);
 
-	gendatnoedit($def,$spr['letzte_aktualisierung'],$array_eintrag2['bearbeitungsdatum']);
+	gendatnoedit($def,$spr['letzte_aktualisierung'],$array_eintrag['bearbeitungsdatum']);
 
 
 	//$arr_bearbeitungstiefe=array(0=>'',1=>'Lokal',2=>'Regional',3=>'Kantonal',4=>'National (Übersetzungen D/F/I)',5=>'International (Übersetzungen D/F/I)');
@@ -220,7 +193,7 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");
 
-	gennoedit($def, $spr['originalsprache'],$array_eintrag2['originalsprache']);
+	gennoedit($def, $spr['originalsprache'],$array_eintrag['originalsprache']);
 
 
 	genstempel2($def, $spr['werdegang'],'werdegang',$array_eintrag,0);

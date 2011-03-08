@@ -116,7 +116,7 @@
 <h2>{SPR.fotographbearbeiten}</h2><a name="top"></a>
 <h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAMEN.nachname}, {NAMEN.vorname} </span></h3>
 <a href="./?a=fotograph&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
-&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_new" href="./?a=dfedit&amp;id={ID}&amp;lang={LANG}{dokufichenew}">{dokufichebearbeiten}</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_new" href="./?a=dfedit&amp;id={ID}&amp;lang={LANG}">{dokufichebearbeiten}</a>
 <br/>
 <br/>
 <script>

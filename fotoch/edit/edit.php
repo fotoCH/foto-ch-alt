@@ -25,9 +25,6 @@ if ($_GET['id']=="new"){
 	$sql = "INSERT INTO `namen` ( `id` , `fotografen_id` , `nachname` , `vorname` , `namenszusatz` , `titel`  )
 	VALUES ('', '$last_insert_id', 'Neueintrag', '', '', '')";
 	$result = mysql_query($sql);
-	$sql = "INSERT INTO `doku_fiche_fotograf` SET id=".$last_insert_id;
-	$result = mysql_query($sql);
-	writeHistory($last_insert_id, getHistEntry("FG", "created", ''), 'fotograf');
 }
 $del=$_GET['delete'];
 if ($del=="2"){
@@ -314,15 +311,7 @@ if ($fertig==1){
 	$array_eintrag = mysql_fetch_array($result);
 	$def->assign('g',$array_eintrag['unpubliziert']==1?'g':'');
 
-	$sql = "SELECT * FROM doku_fiche_fotograf WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag2 = mysql_fetch_array($result);
-	if ($array_eintrag2){
-		$def->assign('dokufichebearbeiten',$spr['dokufichebearbeiten']);
-	} else {
-		$def->assign('dokufichebearbeiten',$spr['dokuficheneu']);
-		$def->assign('dokufichenew','&amp;new=1');
-	}
+	$def->assign('dokufichebearbeiten',$spr['dokufichebearbeiten']);
 
 	$def->assign("LEGEND", "<b>".$spr['fotografennamen']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");

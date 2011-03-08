@@ -115,7 +115,7 @@ if($_GET['submitbutton'] != ""){
 			//$results.=$def->text("list.row_admin_arb");
 		}
 	}
-echo $query;
+//echo $query;
 	$result=mysql_query($query);
 	
 	while($fetch=mysql_fetch_array($result)){
