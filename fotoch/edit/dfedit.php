@@ -234,7 +234,7 @@ if ($fertig==1){
 	$arr_dokumentation=array(''=>'','Haengemappen'=>'H&auml;ngemappen','Archivschachteln'=>'Archivschachteln','Elektronisch'=>'Elektronisch'); //Array füllen für Select
 	genselectitem($def, $spr['dokumentation'], $array_eintrag['dokumentation'], "dokumentation", $arr_dokumentation, "", "", "");
 
-	genformitem($def,'textfield','dokumentation_text',$array_eintrag['dokumentation_text'],'dokumentation_text');
+	genformitem($def,'textfield','Dokumentation_Beschreibung',$array_eintrag['dokumentation_text'],'dokumentation_text');
 	genstempel1($def, 'dokumentation_erfasst','dokumentation',$array_eintrag);
 
 	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz_fiche'],'notiz_fiche');

@@ -454,6 +454,7 @@ if ($fertig==1){
 
 	$def->parse("bearbeiten.form.fieldset_end");
 	//$def->parse("bearbeiten.form");
+	$def->parse("bearbeiten.neuloeschen");
 	$def->parse("bearbeiten");
 	//$def->parse("bearbeiten");
 	$out.=$def->text("bearbeiten");

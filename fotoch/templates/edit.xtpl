@@ -794,8 +794,8 @@ function submitita(v)
 					<br/>
 					<input type="hidden" name="hidden_id" value="{ID}">
 					   <input type="submit" name="submitbutton" class="jsubmit" value="{SPR.speichern}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					   <a href="./?a={ACTION}&amp;delete=1&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.eintragloeschen}&nbsp;]</a>&nbsp;&nbsp;
-					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">[&nbsp;{SPR.neuereintrag}&nbsp;]</a>									
+					   <!-- BEGIN:neuloeschen --><a href="./?a={ACTION}&amp;delete=1&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.eintragloeschen}&nbsp;]</a>&nbsp;&nbsp;
+					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">[&nbsp;{SPR.neuereintrag}&nbsp;]</a><!-- END:neuloeschen -->									
 				</form>
 
 <!-- END:bearbeiten -->
