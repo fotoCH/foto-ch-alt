@@ -26,9 +26,9 @@
 			<li><a href="./?a=home&amp;lang={LANG}">{SPR.home}</a></li>
 			<li><a href="./?a=fotograph&amp;lang={LANG}">{SPR.lexikon}</a></li>
 			<li><a href="./?a=institution&amp;lang={LANG}">{SPR.repertorium}</a></li>
+			<li><a href="./?a=ausstellung&amp;lang={LANG}">{SPR.ausstellungen}</a></li>
 			<li><a href="./?a=handbuch&amp;lang={LANG}">{SPR.handbuch}</a></li>
 			<li><a href="./?a=kontakt&amp;lang={LANG}">{SPR.kontakt}</a></li>
-			<li>&nbsp;</li>
 			<li>&nbsp;</li>
 		</ul>
 		</div>

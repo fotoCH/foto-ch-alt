@@ -76,7 +76,7 @@ $xtpl->assign("ACTION",$action);
 $adminActions = array("ausstellung", "bestand", "fotograph", "glossar", "institution", "literatur","user");
 $editActions = array("edit", "aedit", "bedit","gedit", "iedit", "ledit","uedit","dfedit");
 if(in_array($action,$adminActions)){
-	if((($action == "ausstellung") || ($action == "glossar") || ($action == "literatur") || ($action == "user")) && empty($_SESSION['s_uid'])){
+	if((($action == "glossar") || ($action == "literatur") || ($action == "user")) && empty($_SESSION['s_uid'])){
 		$action = "login";
 		include("sites/".$action.".php");
 	} else {

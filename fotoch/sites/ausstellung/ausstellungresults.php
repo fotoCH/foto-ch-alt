@@ -1,6 +1,5 @@
 <?php
 //include("fotofunc.inc.php");
-testauth();
 
 $def=new XTemplate ("././templates/list_results.xtpl");
 $def->assign("ACTION",$_GET['a']);
@@ -18,8 +17,10 @@ $def->assign("title", $spr['ausstellung']);
 $id=$_GET['id'];
 $anf=$_GET['anf'];
 $volltext = $_GET['volltext'];
-testauth();
-$def->parse("list.head_ausstellung");
+
+$admin=(auth_level(USER_WORKER)?'_admin':'');
+
+$def->parse("list.head_ausstellung".$admin);
 
 
 if ($anf=='andere'){
@@ -45,7 +46,7 @@ else {
 }
 while($fetch=mysql_fetch_array($result)){
 	$def->assign("FETCH",$fetch);
-	$def->parse("list.row_ausstellung");
+	$def->parse("list.row_ausstellung".$admin);
 }
 $def->parse("list");
 $results.=$def->text("list");

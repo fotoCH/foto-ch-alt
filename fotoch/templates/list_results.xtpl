@@ -4,6 +4,22 @@
 	<table class="list_results" cellpadding="2" cellspacing="0">  
 <!-- BEGIN:head_ausstellung -->	
     		<tr valign="top">
+     				<td><span class="subtitle2">{SPR.titel}</span></td>
+					<td><span class="subtitle2">{SPR.institution}</span></td>
+    				<td><span class="subtitle2">{SPR.ort}</span></td>
+    				<td><span class="subtitle2">{SPR.jahr}</span></td>
+    		</tr>		
+<!-- END:head_ausstellung -->
+<!-- BEGIN:row_ausstellung -->
+        <tr>
+		<td valign="baseline"><span class="subtitle3">{FETCH.titel}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.institution}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.ort}</span></td>
+		<td valign="baseline"><span class="subtitle3">{FETCH.jahr}</span></td>
+	 </tr>	
+<!-- END:row_ausstellung -->
+<!-- BEGIN:head_ausstellung_admin -->	
+    		<tr valign="top">
     				<td><span class="subtitle2">{SPR.id}</td>
     				<td><span class="subtitle2">{SPR.titel}</span></td>
 					<td><span class="subtitle2">{SPR.institution}</span></td>
@@ -11,8 +27,8 @@
     				<td><span class="subtitle2">{SPR.jahr}</span></td>
     				<td><span class="subtitle2">&nbsp;</span></td>
     		</tr>		
-<!-- END:head_ausstellung -->
-<!-- BEGIN:row_ausstellung -->
+<!-- END:head_ausstellung_admin -->
+<!-- BEGIN:row_ausstellung_admin -->
         <tr>
 		<td valign="baseline"><span class="subtitle3"><a href="./?a=ausstellung&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.id}</a></span></td>
 		<td valign="baseline"><span class="subtitle3">{FETCH.titel}</span></td>
@@ -21,7 +37,7 @@
 		<td valign="baseline"><span class="subtitle3">{FETCH.jahr}</span></td>
 		<td valign="baseline" align="right"><span class="subtitle3"><a href="./?a=aedit&amp;id={FETCH.id}&amp;lang={LANG}">{BEARBEITEN}</a></span></td>
 	 </tr>	
-<!-- END:row_ausstellung -->
+<!-- END:row_ausstellung_admin -->
 
 <!-- BEGIN:head_user -->	
     		<tr valign="top">
