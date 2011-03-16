@@ -14,7 +14,7 @@ if($_GET['id']==''){
 		include("userresults.php");
 		//$lexi_repe_gloss_hand->assign("RESULTS",$results);
 		$user->assign("LIST",$results);
-	
+	$issearch=1;
 	$user->parse("contents.search");
 	$out.= $user->text("contents.search");
 } else {

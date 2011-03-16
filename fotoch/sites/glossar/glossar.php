@@ -20,6 +20,7 @@ if($_GET['id']==''){
 	}
 	
 	//parse lexikon
+	$issearch=1;
 	$glossar->parse("contents.search");
 	$out.= $glossar->text("contents.search");
 }

@@ -15,6 +15,7 @@ if($_GET['id']==''){
 		//$lexi_repe_gloss_hand->assign("RESULTS",$results);
 		$institution->assign("LIST",$results);
 	}
+	$issearch=1;
 	$institution->parse("contents.search");
 	$out.= $institution->text("contents.search");
 } else {

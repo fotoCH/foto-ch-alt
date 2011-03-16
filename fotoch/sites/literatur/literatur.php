@@ -16,7 +16,7 @@ if($_GET['id']==''){
 		include("literaturresults.php");
 		$literatur->assign("LIST",$results);
 	}
-	
+	$issearch=1;
 	$literatur->parse("contents.search");
 	$out.= $literatur->text("contents.search");
 }

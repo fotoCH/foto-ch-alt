@@ -98,6 +98,11 @@ if(in_array($action,$adminActions)){
 		include("sites/".$action.".php");
 	}
 }
+$kategorie='A';
+if ($action=='fotograph') $kategorie='L';
+if ($action=='institution' || $action=='bestand') $kategorie='R';
+$search=0;
+log_page($kategorie,$search,$action,$language,$_SESSION['usr_level'],$_SERVER['REQUEST_URI']);
 //the def variable contains the specific template-entities defined
 //in the file included in $action.php
 $xtpl->assign("OUT", $out);

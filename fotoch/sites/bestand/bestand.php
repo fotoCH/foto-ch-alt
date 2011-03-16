@@ -27,7 +27,7 @@ else {
 	include("bestandresults.php");
 	$bestand->assign("LIST", $results);
 	$bestand->parse("contents.search");
-	
+	$issearch=1;
 	$out.=$bestand->text("contents.search");
 } 
 

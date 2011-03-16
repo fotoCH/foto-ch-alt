@@ -16,7 +16,7 @@ if($_GET['id']==''){
 		include("ausstellungresults.php");
 		$ausstellung->assign("LIST",$results);
 	}
-	
+	$issearch=1;
 	$ausstellung->parse("contents.search");
 	$out.= $ausstellung->text("contents.search");
 }

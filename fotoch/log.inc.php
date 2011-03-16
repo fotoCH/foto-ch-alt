@@ -18,5 +18,11 @@ function log_setLevel(){
 	mysql_query($sql);
 }
 
+function log_page($kategorie,$search,$action,$lang,$level,$url){
+	$action=mysql_real_escape_string($action);
+	$url=mysql_real_escape_string($url);
+	$sql="INSERT INTO log_pages (`kategorie`,`search`,`action`,`lang`,`level`,`url`) VALUES ('$kategorie',$search,'$action','$lang','$level','$url')";
+	mysql_query($sql);
+}
 
 ?>

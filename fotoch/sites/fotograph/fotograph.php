@@ -17,6 +17,7 @@ if($_GET['id']==''){
 		//$lexi_repe_gloss_hand->assign("RESULTS",$results);
 		$fotograph->assign("LIST",$results);
 	}
+	$issearch=1;
 	$fotograph->parse("contents.search");
 	$out.= $fotograph->text("contents.search");
 } else {
