@@ -20,6 +20,7 @@ if ($_POST['usr_uid'] !="" && $_POST['usr_pw']!=""){
 			$log->parse("contents.log.ok");
 			$out=$log->text("contents.log.ok");
 			$success = true;
+			log_setLevel();
 		}
 	}
 	if(!$success){

@@ -9,6 +9,7 @@ require("templates/xtemplate.class.php");
 require("mysql.inc.php");
 require("nav.inc.php");
 session_start();
+
 $_SESSION['lastactions'];
 $_SESSION['url'];
 //set language 
@@ -33,6 +34,9 @@ setcookie("lang", $language, (time() + (60*60*24*183)));
 //define action
 require("lang.inc.php");
 require("auth.inc.php");
+require("log.inc.php");
+
+log_session();
 
 $action=$_GET['a'];
 $actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest");
