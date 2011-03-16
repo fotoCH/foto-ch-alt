@@ -28,7 +28,7 @@ function log_session(){
 	$sid = session_id();
 	$ua=mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']);
 	$req=mysql_real_escape_string($_SERVER['REQUEST_URI']);
-	$isbot=isbot()?1:2;
+	$isbot=isbot()?1:0;
 	$sql="INSERT INTO log_sessions (`session_id`, `start`, `last`,`useragent`,`firstpage`,`isbot`) VALUES ('".$sid."',NOW(),NOW(),'".$ua."','".$req."',$isbot)";
 	mysql_query($sql);
 	$sql="UPDATE log_sessions SET `last`=NOW(), `count`=`count`+1, `seconds`=TIMESTAMPDIFF(SECOND,`start`,`last`)  WHERE `session_id`='".$sid."'";
@@ -46,7 +46,7 @@ function log_setLevel(){
 function log_page($kategorie,$search,$action,$lang,$level,$url){
 	$action=mysql_real_escape_string($action);
 	$url=mysql_real_escape_string($url);
-	$isbot=isbot()?1:3;
+	$isbot=isbot()?1:0;
 	$sql="INSERT INTO log_pages (`kategorie`,`search`,`action`,`lang`,`level`,`url`,`isbot`) VALUES ('$kategorie',$search,'$action','$lang','$level','$url',$isbot)";
 	mysql_query($sql);
 }
