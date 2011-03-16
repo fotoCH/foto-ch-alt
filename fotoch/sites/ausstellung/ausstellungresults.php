@@ -1,6 +1,7 @@
 <?php
 //include("fotofunc.inc.php");
 testauth();
+
 $def=new XTemplate ("././templates/list_results.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);
@@ -29,7 +30,14 @@ else {
 		$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '$anf%' ORDER BY  titel Asc");
 	}
 	elseif($volltext!='') {
-		$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '%$volltext%' OR institution LIKE '%$volltext%' OR ort LIKE '%$volltext%' ORDER BY jahr DESC");
+		if (auth_level(USER_GUEST_READER)){
+			$sql = "SELECT * FROM ausstellung WHERE titel LIKE '%$volltext%' OR institution LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR `jahr`  LIKE '%$volltext%' OR `institution`  LIKE '%$volltext%' OR `text_alt` LIKE '%$volltext%' OR `notiz` LIKE '%$volltext%' ORDER BY jahr DESC";
+		}
+		else {
+			$sql = "SELECT * FROM ausstellung WHERE titel LIKE '%$volltext%' OR institution LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR `jahr`  LIKE '%$volltext%' OR `institution`  LIKE '%$volltext%' OR `text_alt` LIKE '%$volltext%' ORDER BY jahr DESC";
+		}
+			
+		$result=mysql_query($sql);
 	}
 	else {
 		//echo "fehler";
