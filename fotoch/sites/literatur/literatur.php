@@ -11,12 +11,12 @@ if($_GET['id']==''){
 	
 	include("litsearch.php");
 	$literatur->assign("SEARCH",$search);
-
+	$issearch=1;
 	if($_GET['submitbutton']!="" || $_GET['anf']!=''){
 		include("literaturresults.php");
 		$literatur->assign("LIST",$results);
 	}
-	$issearch=1;
+	
 	$literatur->parse("contents.search");
 	$out.= $literatur->text("contents.search");
 }

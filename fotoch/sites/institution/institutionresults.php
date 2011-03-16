@@ -20,6 +20,7 @@ $def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp]");
 $def->assign("NEU","");
 	
 if ($_GET['submitbutton']!=""){
+	$issearch=3;
 
 	$vars=array();
 	$vars=$_GET;
@@ -84,8 +85,9 @@ if ($_GET['submitbutton']!=""){
 	$results.=$def->text("list");	
 
 } else { 
-
+	
 	if ($id=='' && !$ayax){
+		$issearch=2;
 		// Select: code
 		if(auth_level(USER_GUEST_READER_PARTNER)){
 			$result=mysql_query("SELECT * FROM institution WHERE name LIKE '$anf%' ORDER BY  name Asc");

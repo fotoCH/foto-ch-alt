@@ -17,7 +17,7 @@ $def->assign("LANG",$_GET['lang']);
 
 //if mod != alph..
 if($_GET['submitbutton'] != ""){
-
+	$issearch=3;
 	$vars=array();
 	$vars=$_GET;
 	unset($vars['a']);
@@ -167,6 +167,7 @@ if($_GET['submitbutton'] != ""){
 	if ($_GET['id'] =='' && !$ayax){
 	
 		//do query
+		$issearch=2;
 		if(auth_level(USER_GUEST_READER)){
 			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc");
 		}else{

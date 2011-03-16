@@ -12,7 +12,7 @@ include("././fotofunc.inc.php");
 if($_GET['id']==''){
 	include("gsearch.php");
 	$glossar->assign("SEARCH",$search);
-	
+	$issearch=1;
 	//echo "include";
 	if($_GET['submitbutton']!="" || $_GET['anf']!=''){
 		include("glossarresults.php");
@@ -20,7 +20,7 @@ if($_GET['id']==''){
 	}
 	
 	//parse lexikon
-	$issearch=1;
+	
 	$glossar->parse("contents.search");
 	$out.= $glossar->text("contents.search");
 }

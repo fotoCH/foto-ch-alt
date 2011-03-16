@@ -30,7 +30,7 @@ if (auth_level(USER_WORKER)) $leerout='';
 
 if ($id==''){
 	// Select: code
-	
+	$issearch=2;
 	$result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '$anf%' $leerout ORDER BY begriff Asc");
 	if(!$anf) $result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '%$volltext%' ORDER BY begriff Asc");
 	if (auth_level(USER_WORKER)){

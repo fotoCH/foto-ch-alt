@@ -21,6 +21,7 @@ $def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp]");
 $def->assign("NEU","");
 
 if ($_GET['submitbutton']!=""){
+	$issearch=3;
 
 	$vars=array();
 	$vars=$_GET;

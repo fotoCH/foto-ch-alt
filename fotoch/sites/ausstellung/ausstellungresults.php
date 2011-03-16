@@ -29,6 +29,7 @@ if ($anf=='andere'){
 else {
 	if($anf!=''){
 		$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '$anf%' ORDER BY  titel Asc");
+		$issearch=2;
 	}
 	elseif($volltext!='') {
 		if (auth_level(USER_GUEST_READER)){
@@ -37,7 +38,7 @@ else {
 		else {
 			$sql = "SELECT * FROM ausstellung WHERE titel LIKE '%$volltext%' OR institution LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR `jahr`  LIKE '%$volltext%' OR `institution`  LIKE '%$volltext%' OR `text_alt` LIKE '%$volltext%' ORDER BY jahr DESC";
 		}
-			
+		$issearch=3;
 		$result=mysql_query($sql);
 	}
 	else {

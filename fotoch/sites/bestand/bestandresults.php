@@ -35,7 +35,7 @@ $def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 			$def->parse("list.head_bestand");
 			// Select: code
 			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
-		
+			$issearch=2;
 			//echo "SELECT * FROM fotografen WHERE nachname LIKE '$anf%' ORDER BY  nachname Asc, vorname Asc";
 			while($fetch=mysql_fetch_array($result)){
 		
@@ -57,7 +57,7 @@ $def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 			// Select: code
 			//$volltext = $_GET['volltext'];
 			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '%$volltext%' OR `zeitraum` LIKE '%$volltext%' OR `umfang` LIKE '%$volltext%' OR `erschliessungsgrad` LIKE '%$volltext%' OR `weiteres` LIKE '%$volltext%' OR `bildgattungen` LIKE '%$volltext%' OR `bestandsbeschreibung` LIKE '%$volltext%' OR `link_extern` LIKE '%$volltext%' OR `signatur` LIKE '%$volltext%' OR `copyright` LIKE '%$volltext%' OR `notiz` LIKE '%$volltext%' ORDER BY name Asc");
-		
+			$issearch=3;
 			//echo "SELECT * FROM fotografen WHERE nachname LIKE '$anf%' ORDER BY  nachname Asc, vorname Asc";
 			while($fetch=mysql_fetch_array($result)){
 		

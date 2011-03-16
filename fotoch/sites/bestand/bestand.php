@@ -23,11 +23,11 @@ else {
 	include("bsearch.php");
 	$bestand->assign("SEARCH", $search);
 	//$bestand->parse("contents.search");
-	
+	$issearch=1;
 	include("bestandresults.php");
 	$bestand->assign("LIST", $results);
 	$bestand->parse("contents.search");
-	$issearch=1;
+	
 	$out.=$bestand->text("contents.search");
 } 
 

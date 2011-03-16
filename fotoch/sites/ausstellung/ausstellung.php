@@ -11,12 +11,12 @@ if($_GET['id']==''){
 	
 	include("asearch.php");
 	$ausstellung->assign("SEARCH",$search);
-
+	$issearch=1;
 	if($_GET['submitbutton']!="" || $_GET['anf']!=''){
 		include("ausstellungresults.php");
 		$ausstellung->assign("LIST",$results);
 	}
-	$issearch=1;
+	
 	$ausstellung->parse("contents.search");
 	$out.= $ausstellung->text("contents.search");
 }

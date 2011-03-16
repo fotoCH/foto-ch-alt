@@ -8,14 +8,14 @@ if($_GET['id']==''){
 	//search and 
 	include("isearch.php");
 	$institution->assign("SEARCH",$search);
-	
+	$issearch=1;
 	//... list
 	if($_GET['anf']!="" || $_GET['submitbutton']!=""){
 		include("institutionresults.php");
 		//$lexi_repe_gloss_hand->assign("RESULTS",$results);
 		$institution->assign("LIST",$results);
 	}
-	$issearch=1;
+	
 	$institution->parse("contents.search");
 	$out.= $institution->text("contents.search");
 } else {
