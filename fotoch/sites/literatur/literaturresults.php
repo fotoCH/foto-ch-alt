@@ -30,9 +30,8 @@
 	else { 
 		
 		if($volltext!=''){
-			$result=mysql_query("SELECT * FROM literatur WHERE verfasser_name LIKE '%$volltext%' OR verfasser_vorname LIKE '%$volltext%' OR titel LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR jahr LIKE '%$volltext%' ORDER BY titel, verfasser_name, verfasser_vorname ASC"); 
+			$result=mysql_query("SELECT * FROM literatur WHERE verfasser_name LIKE '%$volltext%' OR verfasser_vorname LIKE '%$volltext%' OR titel LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR jahr LIKE '%$volltext%' OR url LIKE '%$volltext%' OR signatur LIKE '%$volltext%' OR verlag LIKE '%$volltext%' OR notiz LIKE '%$volltext%' ORDER BY titel, verfasser_name, verfasser_vorname ASC"); 
 		}
-	
 		elseif ($anf!=''){
 			$result=mysql_query("SELECT * FROM literatur WHERE verfasser_name LIKE '$anf%'  ORDER BY verfasser_name, verfasser_vorname, titel Asc"); 
 		}

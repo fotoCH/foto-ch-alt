@@ -48,7 +48,7 @@
 	
 	$fetch[test]="";
 	
-	subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch[test],'volltext');
+	subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch['test'],'volltext');
 	
 	subgensubmit($def,'submitfield',$spr['submit']);
 	

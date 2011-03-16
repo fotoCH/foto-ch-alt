@@ -91,7 +91,7 @@ if ($fertig==1){
 	
 	$arr_code=array("" => "", "U" =>"Url", "P" =>"Periodika", "T" =>"Tageszeitung", "H" =>"Herausgeber", "Z" =>"Zitiert in", "V" =>"Verlag statt Ort");   //Array füllen für Select
 	genselectitem($def, $spr['code'], $array_eintrag['code'], "code", $arr_code, "", "", "");
-	genformitem($def,'textfield',$spr['notiz'],$array_eintrag['notiz'],'notiz');
+	genformitem($def,'edittext',$spr['notiz'],$array_eintrag['notiz'],'notiz');
 	
 	/*if(auth()){  //  ??
 		//$def->assign("NEU"," | <a href=\"./?a=ledit&amp;id=new\">neuer Eintrag</a>");
