@@ -95,6 +95,7 @@ if ($fertig==1){
 	$def->assign("NEU"," | <a href=\"./?a=aedit&amp;id=new\">".$spr['neuereintrag']."</a>");
 	
 	$def->parse("bearbeiten.form.fieldset_end");
+	$def->parse("bearbeiten.neuloeschen");
 	$def->parse("bearbeiten");
 	$out.=$def->text("bearbeiten");
 }
