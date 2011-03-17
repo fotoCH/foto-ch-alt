@@ -31,9 +31,25 @@ function log_session(){
 	$isbot=isbot()?1:0;
 	$sql="INSERT INTO log_sessions (`session_id`, `start`, `last`,`useragent`,`firstpage`,`isbot`) VALUES ('".$sid."',NOW(),NOW(),'".$ua."','".$req."',$isbot)";
 	mysql_query($sql);
+	if (!mysql_error()){
+		include("./php-user-agent/phpUserAgent.php");
+		$userAgent = new phpUserAgent();
+
+		$name=mysql_real_escape_string($userAgent->getBrowserName());    // firefox
+		$version=mysql_real_escape_string($userAgent->getBrowserVersion());   // 3.6
+		$os=mysql_real_escape_string($userAgent->getOperatingSystem());  // linux
+		$engine=mysql_real_escape_string($userAgent->getEngine());           // gecko
+		$sql="UPDATE log_sessions SET `browser`='".$name."', `version`='".$version."',`os`='".$os."',`engine`='".$engine."'  WHERE `session_id`='".$sid."'";
+		echo $sql;
+		mysql_query($sql);
+	}
 	$sql="UPDATE log_sessions SET `last`=NOW(), `count`=`count`+1, `seconds`=TIMESTAMPDIFF(SECOND,`start`,`last`)  WHERE `session_id`='".$sid."'";
 	//echo $sql;
 	mysql_query($sql);
+}
+
+function updateLog(){
+	
 }
 
 function log_setLevel(){

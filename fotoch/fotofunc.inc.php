@@ -29,21 +29,12 @@ function escrequest(){
 	}
 }
 
-/*
- function auth(){
- return !empty($_SESSION['s_uid']);
- }
+function formmon($m){
+	setlocale (LC_ALL, 'de_CH');
+	$mon=strftime ("%B",mktime(0, 0, 0, substr($m,4,2), 1, 2000));
+	return($mon.' '.substr($m,0,4));
+}
 
-
-
- function testauth(){
- if (empty($_SESSION['s_uid'])){
- header ("Location: ?a=login&error=1");
- exit();
- }
-
- }
- */
 
 function formumfeld($t){  // expandiert Links im Umfeld
 	$suchmuster = "/<.link:(.\d+)>/";
@@ -677,10 +668,22 @@ function getPNDfromName($nid, &$fetch){
 	//echo dom_dump($dom);
 	//echo dom_dump($nr);
 
-
-
 	//echo $ans;
 	//$a=parseRDF($ans);
 	return $ret;
 }
+
+function datest(&$da){
+	if (!$da) return;
+	$d=str_replace(' ','',$da);
+	$a=explode('.',$d);
+	if (strlen($a[2])==2) $a[2]="20".$a[2];
+	$da=sprintf('%02d',$a[0]).'.'.sprintf('%02d',$a[1]).'.'.sprintf('%04d',$a[2]);
+}
+
+function datumtest(){ // testet $REQUEST vondatum und bisdatum auf falsch formatierung
+	datest($_REQUEST['vondatum']);
+	datest($_REQUEST['bisdatum']);
+}
+
 ?>
