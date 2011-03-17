@@ -39,7 +39,7 @@ require("log.inc.php");
 log_session();
 
 $action=$_GET['a'];
-$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest");
+$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest","statistik");
 if (!in_array($action,$actions)) $action='home';  // default Startseite
 //functions
 //chose main template

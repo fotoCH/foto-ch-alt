@@ -11,7 +11,7 @@ function isbot() {
                 'dotbot', 'yeti', 'http://help.naver.com/robots/', 'scoutjet', 
                 'http://yandex.com/bots', 'linkedinbot', 'mj12bot', 'http://www.80legs.com/spider.html',
                 'exabot', 'msnbot', 'yacybot', 'www.oneriot.com', 'http://flipboard.com/', 
-                'baiduspider', 'mxbot', 'bingbot',
+                'baiduspider', 'mxbot', 'bingbot','sitebot','ipsentry','ezooms.bot',
 
 	// twitter specific bots
                 'http://thinglabs.com', 'js-kit url resolver', 'twitterbot', 'njuicebot', 'postrank.com',
