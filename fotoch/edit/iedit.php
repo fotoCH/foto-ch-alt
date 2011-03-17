@@ -198,8 +198,9 @@ if ($fertig==1){
 	if(auth_level(USER_WORKER)) gencheckitem($def,$spr['npublizieren'],$array_eintrag['gesperrt'],'unpubliziert');	
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
 	$def->parse("bearbeiten.form.fieldset_end");
-	$def->parse("bearbeiten.neuloeschen");
-	//$def->parse("bearbeiten.form");	
+	$def->parse("bearbeiten.bearbeitungsdatum");
+	$def->parse("bearbeiten.speichern.neuloeschen");
+	$def->parse("bearbeiten.speichern");
 	$def->parse("bearbeiten");
 	$out.=$def->text("bearbeiten");
 }

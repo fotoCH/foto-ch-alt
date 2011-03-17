@@ -101,10 +101,12 @@ if ($fertig==1){
 	}*/
 	
 	$def->assign("bearbeitungsdatum", $array_eintrag['bearbeitungsdatum']);
-	$def->parse("bearbeiten.form.fieldset_start");
-	$def->parse("bearbeiten.neuloeschen");
+	$def->parse("bearbeiten.form.fieldset_end");
+	$def->parse("bearbeiten.bearbeitungsdatum");
+	$def->parse("bearbeiten.speichern.neuloeschen");
+	$def->parse("bearbeiten.speichern");
 	$def->parse("bearbeiten");
-	$out.=$def->text("bearbeiten");
+		$out.=$def->text("bearbeiten");
 	//$def->out("bearbeiten");
 }
 ?>
