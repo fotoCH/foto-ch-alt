@@ -18,7 +18,7 @@
 				<li>&nbsp;</li>
 				<li><a href="?{URLDE}">de</a>&nbsp; <a href="?{URLFR}">fr</a> &nbsp;<a href="?{URLIT}">it</a> &nbsp;</li>
 				<li><a href="?a={LOG}&amp;lang={LANG}">{LOG}{USER}</a></li>
-				<li>&nbsp;</li>
+				<li><a href="./?a=statistik&amp;lang={LANG}">Statistik</a></li>
 				<li><a href="./?a=user&amp;lang={LANG}">{SPR.useradmin}</a></li>
 			</ul>
 		</div>

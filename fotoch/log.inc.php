@@ -1,4 +1,11 @@
 <?php
+
+function getstatus(){
+	if ($_COOKIE['nolog'])
+		return 9;
+	return 0;
+}
+
 function isbot() {
 	// Get current User-Agent
 	$current = strtolower( $_SERVER['HTTP_USER_AGENT'] );
@@ -29,6 +36,9 @@ function log_session(){
 	$ua=mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']);
 	$req=mysql_real_escape_string($_SERVER['REQUEST_URI']);
 	$isbot=isbot()?1:0;
+	if (getstatus()==9){
+		return;
+	}
 	$sql="INSERT INTO log_sessions (`session_id`, `start`, `last`,`useragent`,`firstpage`,`isbot`) VALUES ('".$sid."',NOW(),NOW(),'".$ua."','".$req."',$isbot)";
 	mysql_query($sql);
 	if (!mysql_error()){
@@ -48,10 +58,6 @@ function log_session(){
 	mysql_query($sql);
 }
 
-function updateLog(){
-	
-}
-
 function log_setLevel(){
 	$sid = session_id();
 	$sql="UPDATE log_sessions SET `level`=".$_SESSION['usr_level']."  WHERE `session_id`='".$sid."'";
@@ -60,6 +66,10 @@ function log_setLevel(){
 }
 
 function log_page($kategorie,$search,$action,$lang,$level,$url){
+	if (getstatus()==9){
+		return;
+	}
+	
 	$action=mysql_real_escape_string($action);
 	$url=mysql_real_escape_string($url);
 	$isbot=isbot()?1:0;

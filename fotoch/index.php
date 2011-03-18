@@ -77,10 +77,10 @@ $xtpl->assign("URLIT", changeurl("it"));
 //assign action
 $xtpl->assign("ACTION",$action);
 //choose content sites
-$adminActions = array("ausstellung", "bestand", "fotograph", "glossar", "institution", "literatur","user");
+$adminActions = array("ausstellung", "bestand", "fotograph", "glossar", "institution", "literatur","user","statistik");
 $editActions = array("edit", "aedit", "bedit","gedit", "iedit", "ledit","uedit","dfedit");
 if(in_array($action,$adminActions)){
-	if((($action == "glossar") || ($action == "literatur") || ($action == "user")) && empty($_SESSION['s_uid'])){
+	if((($action == "glossar") || ($action == "literatur") || ($action == "user") || ($action == "statistik")) && empty($_SESSION['s_uid'])){
 		$action = "login";
 		include("sites/".$action.".php");
 	} else {

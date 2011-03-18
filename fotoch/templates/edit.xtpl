@@ -196,7 +196,6 @@ function submitita(v)
 	</script>
 
 <!-- END:bearbeiten_head_bestand -->
-
 <!-- BEGIN:bearbeiten_head_ausstellung -->
 
 	<h2>{SPR.ausstellungbearbeiten}</h2>
@@ -206,7 +205,13 @@ function submitita(v)
 	<br/>
 
 <!-- END:bearbeiten_head_ausstellung -->
+<!-- BEGIN:bearbeiten_head_statistik -->
 
+	<h2>Statistik</h2>
+	<form action="./?a=statistik" method="post">
+	<br/>
+
+<!-- END:bearbeiten_head_statistik -->
 
 <!-- BEGIN:bearbeiten_head_glossar -->
 
@@ -781,23 +786,31 @@ function submitita(v)
    						</tr>
     						    						
 <!-- END:submitfield -->
+<!-- BEGIN:submit -->
+						
+						<tr>
+    							<td class="edit"></td>
+    							<td><input type="submit" name="{name}" class="jsubmit" value="{value}"></td>    							
+   						</tr>
+    						    						
+<!-- END:submit -->
+
 <!-- BEGIN:tend -->
 </table>
 <!-- END:tend -->
 <!-- END:form -->
-						<tr>
+<!-- BEGIN:bearbeitungsdatum --><tr>
 							
     							<td valign="top"><span class="subtitle2">{SPR.bearbeitungsdatum}:</span></td>		
 							<td>{bearbeitungsdatum}</td>
-						</tr>						
+						</tr><!-- END:bearbeitungsdatum -->						
 					</table>
-					<br/>
+					<!-- BEGIN:speichern --><br/>
 					<input type="hidden" name="hidden_id" value="{ID}">
 					   <input type="submit" name="submitbutton" class="jsubmit" value="{SPR.speichern}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					   <!-- BEGIN:neuloeschen --><a href="./?a={ACTION}&amp;delete=1&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.eintragloeschen}&nbsp;]</a>&nbsp;&nbsp;
-					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">[&nbsp;{SPR.neuereintrag}&nbsp;]</a><!-- END:neuloeschen -->									
+					 <a href="./?a={ACTION}&amp;id=new&amp;lang={LANG}">[&nbsp;{SPR.neuereintrag}&nbsp;]</a><!-- END:neuloeschen --><!-- END:speichern -->									
 				</form>
-
 <!-- END:bearbeiten -->
 <!-- BEGIN:loeschen1 -->
 <br/>

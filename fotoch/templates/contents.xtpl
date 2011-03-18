@@ -1,4 +1,7 @@
 <!-- BEGIN:contents -->
+<!-- BEGIN:statistik --><!-- BEGIN:log1 --><a href="./?a=statistik&amp;nolog=1">Diesen Computer nicht loggen.</a><!-- END:log1 -->
+<!-- BEGIN:log2 --><a href="./?a=statistik&amp;nolog=2">Diesen Computer wieder loggen.</a><!-- END:log2 -->
+<!-- END:statistik -->
 <!-- BEGIN:hand_kon_imp_par_site -->
 
 			<div id="content_items">
