@@ -35,7 +35,6 @@ function formmon($m){
 	return($mon.' '.substr($m,0,4));
 }
 
-
 function formumfeld($t){  // expandiert Links im Umfeld
 	$suchmuster = "/<.link:(.\d+)>/";
 	$tref=preg_match_all($suchmuster,$t,$treffer);
@@ -558,7 +557,7 @@ function parseRDF($r){
 		$resp=array();
 		//echo $pndc;
 		foreach ($element->getElementsByTagNameNS('*','*') as $element) {
-			
+				
 			$at_res=$element->getAttributeNS($nsp,'resource');
 			if ($at_res){
 				$value=$at_res;
@@ -571,7 +570,7 @@ function parseRDF($r){
 			$resp[$element->localName]=$value;
 		}
 		$res[$pndc]=$resp;
-	
+
 	}
 	//  $attrs = $element->attributes;
 	//   foreach ($attrs as $attrName => $attrNode){  // attributes
@@ -592,7 +591,7 @@ function parseRDF($r){
 	//	}
 	//	$nr=$dom->getElementsByTagNameNS("rdf","Description")->item(1);
 	//	//echo dom_dump($nr);
-	
+
 	return($res);
 }
 
@@ -613,34 +612,34 @@ function rank(&$a, &$fetch){
 	}
 	if ($a['surname'] && $a['foreName']){
 		if (($fetch['nachname']==$a['surname']) && ($fetch['vorname']==$a['foreName']))
-			 	$r+=5;
-			 else
-			 	$r-=5; 
+		$r+=5;
+		else
+		$r-=5;
 	}
 	if ($a['dateOfBirth'] && substr($fetch['geburtsdatum'],0,4)!='0000'){
 		if (substr($fetch['geburtsdatum'],0,4)==$a['dateOfBirth'])
-			 	$r+=5;
-			 else
-			 	$r-=15; 
+		$r+=5;
+		else
+		$r-=15;
 	}
 	if ($a['dateOfDeath'] && substr($fetch['todesdatum'],0,4)!='0000'){
 		if (substr($fetch['todesdatum'],0,4)==$a['dateOfDeath'])
-			 	$r+=5;
-			 else
-			 	$r-=15; 
+		$r+=5;
+		else
+		$r-=15;
 	}
 	if ($a['placeOfBirth'] && $fetch['geburtsort']!=''){
 		if ($fetch['geburtsort']==$a['placeOfBirth'])
-			 	$r+=5;
-			 else
-			 	$r-=5; 
-	}	
+		$r+=5;
+		else
+		$r-=5;
+	}
 	if ($a['placeOfDeath'] && $fetch['todesort']!=''){
 		if ($fetch['todessort']==$a['placeOfDeath'])
-			 	$r+=5;
-			 else
-			 	$r-=5; 
-	}	
+		$r+=5;
+		else
+		$r-=5;
+	}
 	return $r;
 }
 
@@ -685,5 +684,6 @@ function datumtest(){ // testet $REQUEST vondatum und bisdatum auf falsch format
 	datest($_REQUEST['vondatum']);
 	datest($_REQUEST['bisdatum']);
 }
+
 
 ?>
