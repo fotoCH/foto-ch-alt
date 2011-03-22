@@ -41,6 +41,13 @@ if ($fertig==1){
 		$result = mysql_query($sql);
 		$array_eintrag = mysql_fetch_array($result);
 		//print_r($_POST);
+		foreach ($_REQUEST['dokumentation'] as $t){
+			$dokumentation .=$t;
+			$dokumentation .=",";
+		}
+		$dokumentation = substr($dokumentation, 0, strlen($dokumentation)-1);
+		$_POST['dokumentation']=$dokumentation;
+		
 		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz_fiche");
 		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "interview_vorgesehen", "interview_fertiggestellt","dokumentation");
 		$wrefs=array("werdegang", "schaffensbeschrieb", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
@@ -230,9 +237,14 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");
 
-
-	$arr_dokumentation=array(''=>'','Haengemappen'=>'H&auml;ngemappen','Archivschachteln'=>'Archivschachteln','Elektronisch'=>'Elektronisch'); //Array füllen für Select
-	genselectitem($def, $spr['dokumentation'], $array_eintrag['dokumentation'], "dokumentation", $arr_dokumentation, "", "", "");
+	///
+	//gencheckarrayitem($def, $spr['kanton'], $array_set_list, "kanton[]", $array_set);
+	
+	
+	$arr_dokumentation=array('Haengemappen'=>'H&auml;ngemappen','Archivschachteln'=>'Archivschachteln','Elektronisch'=>'Elektronisch'); //Array füllen für Select
+	$set= $array_eintrag['dokumentation'];
+	$array_set = explode (",", $set);
+	gencheckarrayitemKv($def, $spr['dokumentation'], $arr_dokumentation, "dokumentation[]",$array_set);
 
 	genformitem($def,'textfield','Dokumentation_Beschreibung',$array_eintrag['dokumentation_text'],'dokumentation_text');
 	genstempel1($def, 'dokumentation_erfasst','dokumentation',$array_eintrag);

@@ -111,6 +111,26 @@ function gencheckarrayitem(&$def, $label, $list, $name, $list2){
 	$def->parse("bearbeiten.form");
 }
 
+function gencheckarrayitemKv(&$def, $label, $list, $name, $list2){  // werteliste mit key/value
+	$def->assign("label", $label);
+	foreach($list as $key => $value){
+		$def->assign("ovalue", $key);
+		$def->assign("olabel",$value);
+		$def->assign("inputname", $name);
+		if(in_array($key, $list2)){
+			//-> checked
+			$def->assign("checked","checked");
+		}
+		else {
+			$def->assign("checked","");
+		}
+		$def->parse("bearbeiten.form.check.box");
+	}
+	$def->parse("bearbeiten.form.check");
+	$def->parse("bearbeiten.form");
+}
+
+
 function gencheckarrayitemtr(&$def, $label, $list, $list_tr, $name, $list2){
 	global $language;
 	$def->assign("label", $label);

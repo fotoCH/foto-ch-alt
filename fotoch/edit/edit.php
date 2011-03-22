@@ -440,7 +440,7 @@ if ($fertig==1){
 	$set_list = $fetch[Type];
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list);
-	$set= $array_eintrag[kanton];
+	$set= $array_eintrag['kanton'];
 	$array_set = explode (",", $set);
 	///
 	gencheckarrayitem($def, $spr['kanton'], $array_set_list, "kanton[]", $array_set);
