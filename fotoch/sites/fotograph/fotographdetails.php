@@ -36,11 +36,19 @@ while($fetch=mysql_fetch_array($result)){
 	if(auth_level(USER_GUEST_READER)){
 		$def->assign("idd",$id);
 		$def->parse($det.".idd");
+	}
+	if(auth_level(USER_GUEST_READER_PARTNER)){
 		if ($fetch['pnd']){
 			$def->assign("pnd",'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>');
 			$def->parse($det.".pnd");
 		}
 		//normfelda($def,'PND',($fetch['pnd']?'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>':''));
+	} else {
+		if ($fetch['pnd'] || $fetch['pnd_status']==1){
+			$def->assign("pnd",'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>');
+			$def->parse($det.".pnd");
+		}
+		
 	}
 
 	$fetch['fbearbeitungsdatum']=formdatesimp($fetch['bearbeitungsdatum'],0);
