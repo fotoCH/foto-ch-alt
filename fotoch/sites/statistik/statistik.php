@@ -3,8 +3,9 @@
 include("./fotofunc.inc.php");
 include("./backend.inc.php");
 
-function getheaderrow($ar,$first,$last){
-	$res="<tr><td align=\"right\" class=\"th\">$first</td>";
+function getheaderrow($ar,$first,$last,$second=''){
+	$res="<tr>".($second?"<td align=\"right\" class=\"th\">$second</td>":'');
+	$res.="<td align=\"right\" class=\"th\">$first</td>";
 	foreach ($ar as $a => $l){
 		$res.="<td align=\"right\" class=\"thr\">$l</td>";
 	}
@@ -12,8 +13,9 @@ function getheaderrow($ar,$first,$last){
 	return($res);
 }
 
-function getvaluerow($t,$ar,$first,$last){
-	$res="<tr><td align=\"right\" class=\"th\">$first</td>";
+function getvaluerow($t,$ar,$first,$last,$second=''){
+	$res="<tr>".($second?"<td align=\"right\" class=\"th\">$second</td>":'');
+	$res.="<td align=\"right\" class=\"th\">$first</td>";
 	foreach ($t as $a => $l){
 		if (is_array($ar[$a])){
 			$res.="<td align=\"right\" class=\"tv\">".$ar[$a]['total'].'&nbsp;'."</td>";
@@ -286,24 +288,28 @@ if ($_REQUEST['submitseiten'] || $_REQUEST['submitbesucher']){
 	}
 	
 	$table="";
-	
+	$table.='<br /><table border="1">';
+	$firstline=true;
 	foreach ($times as $t){
-		$table.=$t.'<br /><table border="1">';
-		$table.=getheaderrow($sp, '', '');
+		if ($firstline){
+			$table.=getheaderrow($sp, '', '', ($t?' &nbsp; ':''));
+			$firstline=false;
+		}
 		
 		foreach ($zeil as $z){
 			if ($z){
 				if ($z=='t'){
-					$table.=getvaluerow($sp, $result[$t][''], 'total', '');
+					$table.=getvaluerow($sp, $result[$t][''], 'total', '',$t);
 				} else {
-					$table.=getvaluerow($sp, $result[$t][$z], $z, '');
+					$table.=getvaluerow($sp, $result[$t][$z], $z, '',$t);
 				}
 			} else {
-				$table.=getvaluerow($sp, $result[$t], 'total', '');
+				$table.=getvaluerow($sp, $result[$t], 'total', '',$t);
 			}
 		}
-		$table.='</table><br />';
+		
 	}
+	$table.='</table><br />';
 	$out=$table;
 	//if ()
 
@@ -377,7 +383,7 @@ if ($_REQUEST['submitseiten'] || $_REQUEST['submitbesucher']){
 
 
 	$page->parse('contents.statistik.log'.($logcookie?2:1));
-	$page->parse('contents.statistik');'
+	$page->parse('contents.statistik');
 	$out.=$page->text("contents.statistik");
 	$sql = "SELECT COUNT(id),useragent,level,isbot FROM `log_sessions` WHERE 1 GROUP BY useragent,level ORDER BY isbot,level,useragent LIMIT 0, 30 ";
 	$sql = "SELECT COUNT(id),browser,level,isbot FROM `log_sessions` WHERE 1 GROUP BY browser,level ORDER BY isbot,level,useragent LIMIT 0, 30 ";
