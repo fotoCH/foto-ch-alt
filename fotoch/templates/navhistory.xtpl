@@ -20,4 +20,8 @@
 <a href="?{HREF}&amp;lang={LANG}">{RARR}{VALUE}</a> 
 <!-- END: institution -->
 
+<!-- BEGIN: ausstellung -->
+<a href="?{HREF}&amp;lang={LANG}">{RARR}{VALUE}</a> 
+<!-- END: institution -->
+
 <!-- END: navhistory -->

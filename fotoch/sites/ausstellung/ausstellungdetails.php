@@ -33,7 +33,7 @@
 			
 			foreach ($fetch as $key=>$value){
 				//print "$key=>$value<br>";
-				if($key=="id" || $key=="lexikon" || $key=="kontaktperson" || $key=="xtelefon" || $key=="xfax" || $key=="xemail" || $key=="notiz"){
+				if($key=="id" || $key=="typ" || $key=="text_alt" || $key=="bearbeitungsdatum" || $key=="notiz"){
 				}else{
 					//$key=ucfirst($key);
 					if($value!=''){
@@ -75,9 +75,10 @@
 	}
 	//if(auth_level(USER_WORKER)) $def->assign("BEARBEITEN","rrr<a href=\"./?a=aedit&amp;id=$id&amp;lang=$lang\">sdgsg$bearbeiten</a>");
 	// wirkungslos
-	
-	$def->parse("autodetail.z.bearbeiten_ausstellung");
-	$def->parse("autodetail.z");
+	if(auth_level(USER_WORKER)){
+		$def->parse("autodetail.z.bearbeiten_ausstellung");
+		$def->parse("autodetail.z");
+	}
 	$def->parse("autodetail");
 	$results.=$def->text("autodetail");
 ?>

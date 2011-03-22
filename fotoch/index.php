@@ -49,7 +49,7 @@ if(auth_level(USER_WORKER)){
 	$xtpl = new XTemplate("templates/main_intern.xtpl");
 } 
 else {
-	if($action == "fotograph" || $action == "bestand" || $action == "institution"){
+	if($action == "fotograph" || $action == "bestand" || $action == "institution"|| $action == "ausstellung"){
 		$xtpl = new XTemplate("templates/main_lexirepi.xtpl");
 		include("sites/navhistory.php");		
 		$xtpl->assign("SUBNAVI", $navigationhistory);

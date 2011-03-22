@@ -12,7 +12,7 @@
 <!-- END:head_ausstellung -->
 <!-- BEGIN:row_ausstellung -->
         <tr>
-		<td valign="baseline"><span class="subtitle3">{FETCH.titel}</span></td>
+		<td valign="baseline"><span class="subtitle3"><a href="./?a=ausstellung&amp;id={FETCH.id}&amp;lang={LANG}">{FETCH.titel}</a></span></td>
 		<td valign="baseline"><span class="subtitle3">{FETCH.institution}</span></td>
 		<td valign="baseline"><span class="subtitle3">{FETCH.ort}</span></td>
 		<td valign="baseline"><span class="subtitle3">{FETCH.jahr}</span></td>
