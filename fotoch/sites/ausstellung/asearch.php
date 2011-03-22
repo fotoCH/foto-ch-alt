@@ -34,8 +34,9 @@
 	$def->parse("suchen.abuch");
 	
 	$fetch[test]="";
-	
-	
+	subgenformitem($def,'textfield',$spr['institution'],$fetch[test],'institution');
+	subgenformitem($def,'textfield',$spr['ort'],$fetch[test],'ort');
+	subgenformitem($def,'textfield',$spr['jahr'],$fetch[test],'jahr');
 	subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch[test],'volltext');
 	
 	subgensubmit($def,'submitfield',$spr['submit']);
