@@ -177,7 +177,7 @@ if($_POST['submitbutton']){
 	'sekundaerliteratur'=>'sek_literatur','autorIn' => 'autor');  // felder bei denen der SB-name nicht dem formelement-name entspricht
 	$langfs=array('umfeld','beruf','werdegang','schaffensbeschrieb'); // felder mit sprachversionen
 	$textfs=array('art','geschlecht','heimatort','geburtsdatum','geburtsort','originalsprache','notiz','prim_literatur',
-		'todesdatum','todesort','einzelausstellungen','gruppenausstellungen','kurzbio','auszeichnungen','pnd'); //"normale" felder
+		'todesdatum','todesort','einzelausstellungen','gruppenausstellungen','kurzbio','auszeichnungen','pnd','pnd_status','pnd_answer'); //"normale" felder
 
 	$varfields=array('showkurzbio','unpubliziert','fotografengattungen_set','bildgattungen_set','kanton');  // felder die aus variablen gelesen werden.
 
