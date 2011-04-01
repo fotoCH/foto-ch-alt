@@ -15,7 +15,7 @@ $anf=$_GET['anf'];
 $result=mysql_query("SELECT * FROM ausstellung WHERE id=$id");
 while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	$fetch=formaus($fetch);
-	normfeld($def,'',$fetch['text']);
+	normfeld($def,'',$fetch['text'].'.');
 	unset ($fetch['titel']);
 	unset ($fetch['ort']);
 	unset ($fetch['jahr']);
