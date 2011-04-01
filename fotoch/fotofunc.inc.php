@@ -158,7 +158,14 @@ function formlit($f){  // expandiert Verweise in Literatur, formatiert
 	if ($f['titel']) $text.=$f['titel'].', ';
 
 	if ($f['in']) $text.='in: '.$f['in'].', ';
-	if ($f['ort']) $text.=$f['ort'].' ';
+	if ($f['ort']){
+		if ($f['verlag']){
+			$text.=$f['ort'].', ';
+		} else {
+			$text.=$f['ort'].' ';
+		}
+	}
+	if ($f['verlag']) $text.=$f['verlag'].' ';
 	if ($f['code']=='T'){
 		if ($f['nummer']) $text.=$f['nummer'].' ';
 		if ($f['jahr']) $text.=$f['jahr'];
