@@ -466,9 +466,9 @@ function clangcont(&$fetch, $key){
 		'rm'=>array('fr','it','de','en')
 	);
 	$e=$fetch[$key.clangexl($l)];
-	if ($e || $fixed) return $e;
+	if ($e) return $e;
 	$a=0;
-	while (!($e=$fetch[$key.clangexl($lprefs[$language][$a])]) && ($a<3)){
+	while (!($e=$fetch[$key.clangexl($lprefs[($fixed?$clanguage:$language)][$a])]) && ($a<3)){
 		$a++;
 	}
 	return($e);
