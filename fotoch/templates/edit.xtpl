@@ -466,7 +466,7 @@ function submitita(v)
 						<td>
 							<a href="./?a=bestand&amp;id={BESTAND.id}&amp;lang={LANG}">{BESTAND.name} ({BESTAND.id})</a>&nbsp;&nbsp;
 							<a href="./?a=bedit&amp;id={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-							<a href="./?a={ACTION}&amp;b=del&amp;b_id={BESTAND.bf_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
+							<a href="./?a={ACTION}&amp;b=del&amp;b_id={BESTAND.bf_id}&amp;id={ID}&amp;logid={BESTAND.id}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
 						</td>
 								
 					</tr>
@@ -552,7 +552,7 @@ function submitita(v)
 						<td >
 							<a href="./?a=ausstellung&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">{AUSSTELLUNG.titel} ({AUSSTELLUNG.id}) &nbsp;&nbsp;
 							<a href="./?a=aedit&amp;id={AUSSTELLUNG.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>
-							<a href="./?a={ACTION}&amp;au=del&amp;a_id={AUSSTELLUNG.af_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
+							<a href="./?a={ACTION}&amp;au=del&amp;a_id={AUSSTELLUNG.af_id}&amp;id={ID}&amp;logid={AUSSTELLUNG.id}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
 						</td>
 								
 					</tr>
@@ -628,7 +628,7 @@ function submitita(v)
 						<td >
 							<a href="./?a=literatur&amp;id={LITERATUR.id}&amp;lang={LANG}">{LITERATUR.text} ({LITERATUR.id})</a> &nbsp;&nbsp;
 							<a href="./?a=ledit&amp;id={LITERATUR.id}&amp;lang={LANG}">[&nbsp;{SPR.bearbeiten}&nbsp;]</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-							<a href="./?a={ACTION}&amp;l=del&amp;l_id={LITERATUR.if_id}&amp;id={ID}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
+							<a href="./?a={ACTION}&amp;l=del&amp;l_id={LITERATUR.if_id}&amp;id={ID}&amp;logid={LITERATUR.id}&amp;lang={LANG}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
 						</td>
 								
 				</tr>
