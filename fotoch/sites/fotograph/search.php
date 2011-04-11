@@ -98,7 +98,7 @@ if($_GET[mod]=="erw"){
 	$array_set_list = explode ("','", $set_list);
 
 	if ($_GET['lang']!='de'){
-		subgenselectitemtr($def, $spr['bildgattungen'], 5, "bildgattungen[]", $array_set_list, $spatr['bildgattungen_uebersetzungen'], "true", "", "8");
+		subgenselectitemtr($def, $spr['bildgattungen'], 5, "bildgattungen[]", $array_set_list, $spatr['bildgattungen_uebersetzungen2'], "true", "", "8");
 	} else {
 		subgenselectitem($def, $spr['bildgattungen'], 5, "bildgattungen[]", $array_set_list, "true", "", "8");
 	}
