@@ -155,7 +155,7 @@ if ($fertig==1){
 	$set= $array_eintrag[bildgattungen_set];
 	$array_set = explode (",", $set);
 	
-	gencheckarrayitemtr($def, $spr['bildgattungen'], $array_set_list, $spatr['bildgattungen_uebersetzungen'], "bildgattungen[]", $array_set);
+	gencheckarrayitemtr($def, $spr['bildgattungen'], $array_set_list, $spatr['bildgattungen_uebersetzungen2'], "bildgattungen[]", $array_set);
 
 	genformitem($def,'edittext',$spr['sammlungsgeschichte'],$array_eintrag['sammlungsgeschichte'],'sammlungsgeschichte');
 	genformitem($def,'edittext',$spr['sammlungsbeschreibung'],$array_eintrag['sammlungsbeschreibung'],'sammlungsbeschreibung');
