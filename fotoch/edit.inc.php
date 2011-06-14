@@ -49,6 +49,15 @@ function namendf($def,$id){ //nur fotograf
 		}
 	}
 }
+function namendfi($def,$id,$n){ //nur fotograf
+	global $spr;
+
+			$def->assign("ID", $id);
+			$def->assign("NAME", $n);			
+			$def->parse("bearbeiten.form.namendfi");
+			$def->parse("bearbeiten.form");
+}
+
 function arbeitsperioden($def,$id){//nur fotograf
 	$sql = "SELECT * FROM `arbeitsperioden` WHERE fotografen_id = $id ORDER BY id asc"; // Weitere Formdaten aus Tabelle 'arbeitsperioden' holen
 	$result = mysql_query($sql);

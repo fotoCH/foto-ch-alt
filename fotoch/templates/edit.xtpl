@@ -329,7 +329,15 @@ function submitita(v)
 	</table>
 	
 <!-- END:namendf -->
-
+<!-- BEGIN:namendfi-->
+	<table class="edit" cellpadding="0" cellspacing="5">
+		<tr>
+			<td class="edit"><label class="edit" for="">{ID}</label></td>
+			<td>{NAME}</td>
+		</tr>
+	</table>
+	
+<!-- END:namendf -->
 <!-- BEGIN:new_fotograf -->
 	
 	<table class="edit" cellpadding="5" cellspacing="0">
