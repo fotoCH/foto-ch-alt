@@ -18,6 +18,7 @@ if ($_GET[id]=="new"){
 	$sql = "INSERT INTO `institution` (`name`,`gesperrt`) VALUES ( 'neue Institution','1')";
 	$result = mysql_query($sql);
 	$last_insert_id = mysql_insert_id();
+	writeHistory($last_insert_id, getHistEntry("IN", "add", mysql_insert_id()), 'institution');
 }
 $del=$_GET['delete'];
 if ($del=="2"){
@@ -25,6 +26,7 @@ if ($del=="2"){
 	$sql = "DELETE FROM `institution` WHERE id=$id LIMIT 1";
 	//echo $sql;
 	$result = mysql_query($sql);
+	writeHistory($last_insert_id, getHistEntry("IN", "deleted", ''), 'institution');
 	$def->parse("loeschen2");
 	$out.=$def->text("loeschen2");
 	$fertig=1;
@@ -41,6 +43,7 @@ if($_GET['l']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("IN", "del literatur: ",$_GET['logid'] ), 'institution');
 }
 if($_GET['au']=="del"){
 	$sql = "DELETE FROM `ausstellung_institution` WHERE id='$_GET[a_id]' LIMIT 1";
@@ -48,6 +51,7 @@ if($_GET['au']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("IN", "del ausstellung: ",$_GET['logid'] ), 'institution');
 }
 //////////////Bestand bearbeiten->speichern////////////////////////////
 if($_REQUEST['new_literatur']){
@@ -57,6 +61,7 @@ if($_REQUEST['new_literatur']){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("IN", "add literatur: ",$_GET['literatur_id'] ), 'institution');
 }
 if($_REQUEST['new_ausstellung']){
 	
@@ -66,6 +71,8 @@ if($_REQUEST['new_ausstellung']){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("IN", "add ausstellung: ",$_GET['ausstellung_id'] ), 'institution');
+	
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
 if($_POST['submitbutton']){
@@ -75,13 +82,62 @@ if($_POST['submitbutton']){
 	}
 	$bildgattungen_set = substr($bildgattungen_set, 0, strlen($bildgattungen_set)-1);
 	if($_POST['unpubliziert']=="1"){
-		$unpubliziert = 1;
+		$gesperrt = 1;
 	}else{
-		$unpubliziert = 0;
+		$gesperrt = 0;
 	}
+	
+	$spezfs=array();  // felder bei denen der SB-name nicht dem formelement-name entspricht
+	$langfs=array(); // felder mit sprachversionen
+	$textfs=array('abkuerzung','art','adresse','plz','kontaktperson','telefon','fax','email','homepage','zugang_zur_sammlung','sammlungszeit_von','sammlungszeit_bis','sammlungsbeschreibung','sammlungsgeschichte','literatur','notiz','autorin'); //"normale" felder
+
+	$varfields=array('bildgattungen_set','gesperrt');  // felder die aus variablen gelesen werden.
+	
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 	$bearbeitungsdatum = date("Y-m-d");
-	$sql = "UPDATE `institution` SET `name` = '$_POST[name]',
+	
+	$sql="UPDATE fotografen SET ";
+	$s='';
+	$s2=''; // für history
+	foreach ($langfs as $t){
+		$u=($_POST[$t]==$array_eintrag[$t.clangex()]?'':'`'.$t.clangex().'`=\''.mysql_real_escape_string($_POST[$t])."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t.clangex(),$_POST[$t],$array_eintrag[$t.clangex()]);
+		}
+	}
+
+	foreach ($textfs as $t){
+		$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$t])."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t,$_POST[$t],$array_eintrag[$t]);
+		}
+	}
+	
+	foreach ($spezfs as $t=>$v){
+		$u=($_POST[$v]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$v])."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t,$_POST[$v],$array_eintrag[$t]);
+		}
+	}
+	foreach ($varfields as $t){
+		//echo "$t: ".$$t."<br />";
+		$u=($$t==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($$t)."'");
+		if ($u){
+			$s.=($s?', ':'').$u;
+			$s2.=($s2?', ':'').getHChanged($t,$$t,$array_eintrag[$t]);
+		}
+	}
+	
+	$sql.=$s.", `bearbeitungsdatum`='".date("Y-m-d")."' WHERE id =$_POST[hidden_id] LIMIT 1";
+
+	
+	writeHistory($id, getHistEntry("IN", "edit", $s2), 'fotografen');
+	echo $sql;
+	
+/*	$sql = "UPDATE `institution` SET `name` = '$_POST[name]',
 	`abkuerzung` = '$_POST[abkuerzung]',
 	`art` = '$_POST[art]',
 	`adresse` = '$_POST[adresse]',
@@ -102,8 +158,8 @@ if($_POST['submitbutton']){
 	`bearbeitungsdatum` = '$bearbeitungsdatum',
 	`notiz` = '$_POST[notiz]',
 	`autorin` = '$_POST[autorin]',
-	`gesperrt` = $unpubliziert WHERE `id` =$_POST[hidden_id] LIMIT 1";
-	$result = mysql_query($sql);
+	`gesperrt` = $gesperrt WHERE `id` =$_POST[hidden_id] LIMIT 1"; */
+	$result = mysql_query($sql); 
 }
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
