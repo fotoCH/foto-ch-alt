@@ -3,8 +3,6 @@ class EditFotograf extends Edit {
 
 	function __construct($def) {
 		parent::__construct($def,'fotograf');
-		$this->type_plur = "fotografen";
-		$this->type_suffix = '';
 	}
 
 	function namen($id){ //nur fotograf
@@ -74,13 +72,17 @@ class EditFotograf extends Edit {
 class Edit {
 	protected $def;
 	protected $type;
-	protected $type_plur;
-	protected $type_suffix;
+	public $type_plur;
+	public $type_suffix;
 	function __construct($def,$type) {
 		$this->def = $def;
 		$this->type = $type;
 		$this->type_plur = "{$type}";
 		$this->type_suffix = "_{$type}";
+		if( $type == 'fotograf' ) {
+			$this->type_plur = "fotografen";
+			$this->type_suffix = '';
+		}
 	}
 	
 	function bestand_qry($id) {
