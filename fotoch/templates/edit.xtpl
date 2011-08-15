@@ -266,7 +266,7 @@ function submitita(v)
 	
 	<br/>
 	<br/>
-	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
+	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}&amp;type={TYPE}" method="post">
 
 <!-- END:bearbeiten_head_dokufiche_institution -->
 
