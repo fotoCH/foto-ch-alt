@@ -3,6 +3,8 @@
 if (stristr($_SERVER["SERVER_NAME"],'fotobe')){
     header("Location: /fotobe/index.php?action=home");
 }
+header('Content-type: text/html; charset=utf-8');
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL && ~E_NOTICE);
 require("templates/xtemplate.class.php");
