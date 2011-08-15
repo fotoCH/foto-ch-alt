@@ -22,6 +22,7 @@ $def->assign("SPR", $spr);
 $type=getParam('type','fotografen');
 $def->assign("TYPE", $type);
 
+$edit = new Edit( $def, $type );
 
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
@@ -114,7 +115,7 @@ if ($fertig==1){
 		$sql.=$s." WHERE id ='$id'";
 
 		$bearbeitungsdatum = date("Y-m-d");
-		writeHistory($id, getHistEntry("DF", "edit", $s2), $type);
+		$edit->writeHistory($id, getHistEntry("DF", "edit", $s2));
 		//echo $sql;
 		/*	foreach ($_POST as $k=>$v){
 		echo "\"$k\", ";
@@ -161,7 +162,7 @@ if ($fertig==1){
 		$def->assign("LEGEND", "<b>".$spr['fotografennamen']."</b>");
 		$def->parse("bearbeiten.form.fieldset_start");
 		$def->parse("bearbeiten.form");
-		namendf($def,$id);
+		$edit->namendf($id);
 		$def->parse("bearbeiten.form.fieldset_end");
 		$def->parse("bearbeiten.form");
 
@@ -267,7 +268,7 @@ if ($fertig==1){
 		$def->assign("LEGEND", "<b>".$spr['institution']."</b>");
 		$def->parse("bearbeiten.form.fieldset_start");
 		$def->parse("bearbeiten.form");
-		namendfi($def,$id,$array_eintrag['name']);
+		$edit->namendf($id,$array_eintrag['name']);
 		$def->parse("bearbeiten.form.fieldset_end");
 		$def->parse("bearbeiten.form");
 

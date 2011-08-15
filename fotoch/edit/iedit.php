@@ -3,22 +3,27 @@
 include("./fotofunc.inc.php");
 include("./backend.inc.php");
 include("./iedit.inc.php");
+include("./edit.inc.php");
+
 //error_reporting((E_ALL));
 testauthedit();
 $def=new XTemplate ("./templates/edit.xtpl");
 $def->assign("ACTION",$_GET['a']);
+
 $def->assign("id",$_GET['id']);
 $lang = $_GET['lang'];
 $def->assign("LANG",$lang);
 
 $def->assign("SPR",$spr);
 
+$edit = new Edit( $def, 'institution' );
+
 if ($_POST) escposts();
 if ($_GET[id]=="new"){
 	$sql = "INSERT INTO `institution` (`name`,`gesperrt`) VALUES ( 'neue Institution','1')";
 	$result = mysql_query($sql);
 	$last_insert_id = mysql_insert_id();
-	writeHistory($last_insert_id, getHistEntry("IN", "add", mysql_insert_id()), 'institution');
+	$edit->writeHistory($last_insert_id, getHistEntry("IN", "add", mysql_insert_id()));
 }
 $del=$_GET['delete'];
 if ($del=="2"){
@@ -26,7 +31,7 @@ if ($del=="2"){
 	$sql = "DELETE FROM `institution` WHERE id=$id LIMIT 1";
 	//echo $sql;
 	$result = mysql_query($sql);
-	writeHistory($last_insert_id, getHistEntry("IN", "deleted", ''), 'institution');
+	$edit->writeHistory($last_insert_id, getHistEntry("IN", "deleted", ''));
 	$def->parse("loeschen2");
 	$out.=$def->text("loeschen2");
 	$fertig=1;
@@ -43,7 +48,7 @@ if($_GET['l']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
-	writeHistory($_GET['id'], getHistEntry("IN", "del literatur: ",$_GET['logid'] ), 'institution');
+	$edit->writeHistory($_GET['id'], getHistEntry("IN", "del literatur: ",$_GET['logid'] ));
 }
 if($_GET['au']=="del"){
 	$sql = "DELETE FROM `ausstellung_institution` WHERE id='$_GET[a_id]' LIMIT 1";
@@ -51,7 +56,7 @@ if($_GET['au']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
-	writeHistory($_GET['id'], getHistEntry("IN", "del ausstellung: ",$_GET['logid'] ), 'institution');
+	$edit->writeHistory($_GET['id'], getHistEntry("IN", "del ausstellung: ",$_GET['logid'] ));
 }
 //////////////Bestand bearbeiten->speichern////////////////////////////
 if($_REQUEST['new_literatur']){
@@ -61,7 +66,7 @@ if($_REQUEST['new_literatur']){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
-	writeHistory($_GET['id'], getHistEntry("IN", "add literatur: ",$_GET['literatur_id'] ), 'institution');
+	$edit->writeHistory($_GET['id'], getHistEntry("IN", "add literatur: ",$_GET['literatur_id'] ));
 }
 if($_REQUEST['new_ausstellung']){
 	
@@ -71,11 +76,12 @@ if($_REQUEST['new_ausstellung']){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
 	$result = mysql_query($sql);
-	writeHistory($_GET['id'], getHistEntry("IN", "add ausstellung: ",$_GET['ausstellung_id'] ), 'institution');
+	$edit->writeHistory($_GET['id'], getHistEntry("IN", "add ausstellung: ",$_GET['ausstellung_id'] ));
 	
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
 if($_POST['submitbutton']){
+	$id=$_POST['id'];
 	foreach ($_POST['bildgattungen'] as $t){
 		$bildgattungen_set .=$t;
 		$bildgattungen_set .=",";
@@ -134,7 +140,7 @@ if($_POST['submitbutton']){
 	$sql.=$s.", `bearbeitungsdatum`='".date("Y-m-d")."' WHERE id =$_POST[hidden_id] LIMIT 1";
 
 	
-	writeHistory($id, getHistEntry("IN", "edit", $s2), 'fotografen');
+	$edit->writeHistory($id, getHistEntry("IN", "edit", $s2));
 	echo $sql;
 	
 /*	$sql = "UPDATE `institution` SET `name` = '$_POST[name]',
@@ -223,7 +229,7 @@ if ($fertig==1){
 	
 	$def->assign("LEGEND","<b>".$spr['bestaende']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");
-	bestaende($def,$id);
+	$edit->bestand($id);
 	$def->parse("bearbeiten.form.fieldset_end");
 	
 	$def->parse("bearbeiten.form");
@@ -231,7 +237,7 @@ if ($fertig==1){
 	
 	$def->assign("LEGEND","<b>".$spr['literatur']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
-	literatur($def,$id);
+	$edit->literatur($id);
 	$def->parse("bearbeiten.form.fieldset_end");
 	
 	$def->parse("bearbeiten.form");
@@ -239,7 +245,7 @@ if ($fertig==1){
 	
 	$def->assign("LEGEND","<b>".$spr['ausstellungen']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
-	ausstellungen($def,$id);
+	$edit->ausstellungen($id);
 	$def->parse("bearbeiten.form.fieldset_end");	
 	$def->parse("bearbeiten.form");
 	mabstand($def);
