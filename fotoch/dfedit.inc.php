@@ -8,8 +8,7 @@ class DokufichenFotografFormBuilder extends DokuficheFormBuilder {
 	function formName() { global $spr;
 		$spr['fotografennamen'];
 	}
-	function generate($id) {
-		$this->init($id);
+	function generate() {
 		$this->g_head();
 		$this->g_info();
 		$this->g_history();
@@ -26,8 +25,7 @@ class DokufichenInstitutionFormBuilder extends DokuficheFormBuilder {
 	function formName() { global $spr;
 		$spr['institution'];
 	}
-	function generate($id) {
-		$this->init($id);
+	function generate() {
 		$this->g_head();
 		$this->g_basic_info();
 		$this->g_history();
@@ -39,10 +37,10 @@ class DokufichenInstitutionFormBuilder extends DokuficheFormBuilder {
 }
 
 class DokuficheFormBuilder {
-	protected $edit;
+	public $edit;
 	protected $def;
 	protected $id;
-	protected $formData;
+	public $formData;
 	
 	function __construct( $def ) {
 		$this->def = $def;
