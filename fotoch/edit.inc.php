@@ -146,8 +146,9 @@ class Edit {
 	
 	function literatur($id){
 		$def = $this->def;
-		$sql = "SELECT literatur_{$this->type}.{$this->type_plur}_id, literatur_{$this->type}.id AS if_id, literatur_{$this->type}.typ AS if_typ, literatur.*
-		FROM literatur_{$this->type} INNER JOIN literatur ON literatur_{$this->type}.literatur_id = literatur.id
+		$sql = "SELECT literatur_{$this->type}.{$this->type_plur}_id, literatur_{$this->type}.id AS if_id, ".
+		($this->type=='fotograf'?"literatur_{$this->type}.typ AS if_typ, ":"").
+		"literatur.* FROM literatur_{$this->type} INNER JOIN literatur ON literatur_{$this->type}.literatur_id = literatur.id
 		WHERE literatur_{$this->type}.{$this->type_plur}_id=$id ORDER BY if_id"; // Weitere Formdaten aus Tabelle 'bestaende' holen
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result)>0){

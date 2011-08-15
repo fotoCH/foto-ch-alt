@@ -101,8 +101,11 @@ if($_POST['submitbutton']){
 	
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 	$bearbeitungsdatum = date("Y-m-d");
+	$sql = "SELECT * FROM institution WHERE id =$id";
+	$result = mysql_query($sql);
+	$array_eintrag = mysql_fetch_array($result);
 	
-	$sql="UPDATE fotografen SET ";
+	$sql="UPDATE institution SET ";
 	$s='';
 	$s2=''; // für history
 	foreach ($langfs as $t){
@@ -141,7 +144,7 @@ if($_POST['submitbutton']){
 
 	
 	$edit->writeHistory($id, getHistEntry("IN", "edit", $s2));
-	echo $sql;
+	//echo $sql;
 	
 /*	$sql = "UPDATE `institution` SET `name` = '$_POST[name]',
 	`abkuerzung` = '$_POST[abkuerzung]',
