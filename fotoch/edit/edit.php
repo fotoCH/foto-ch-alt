@@ -138,6 +138,7 @@ if($_GET['ap']=="del"){
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
 	$result = mysql_query($sql);
+	writeHistory($_GET['id'], getHistEntry("FG", "del arbeitsperiode", $_GET['a_id']), 'fotografen');
 }
 //////////////Arbeitsperiode erstellen////////////////////////////
 if($_GET['ap']=="new"){
