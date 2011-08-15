@@ -116,7 +116,7 @@
 <h2>{SPR.fotographbearbeiten}</h2><a name="top"></a>
 <h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAMEN.nachname}, {NAMEN.vorname} </span></h3>
 <a href="./?a=fotograph&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
-&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_new" href="./?a=dfedit&amp;id={ID}&amp;lang={LANG}">{dokufichebearbeiten}</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_new" href="./?a=dfedit&amp;id={ID}&amp;lang={LANG}">{SPR.dokufichebearbeiten}</a>
 <br/>
 <br/>
 <script>
@@ -172,7 +172,9 @@ function submitita(v)
 <!-- BEGIN:bearbeiten_head_institution -->
 	<h2>{SPR.institutionbearbeiten}</h2>
 	<h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAME}</span></h3>
-	<a href="./institution_export.php?id={ID}&amp;lang={LANG}" target="_new">{SPR.datenexportieren}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="./?a=institution&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a><br /></p>
+	<a href="./institution_export.php?id={ID}&amp;lang={LANG}" target="_new">{SPR.datenexportieren}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="./?a=institution&amp;id={ID}&amp;lang={LANG}">{SPR.ansehen}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#vk">{SPR.verknuepfungen}</a>
+	&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_new" href="./?a=dfedit&amp;id={ID}&amp;lang={LANG}&amp;type=institution">{SPR.dokufichebearbeiten}</a>
+	<br /></p>
 	<br/>
 	<form action="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}" method="post">
 <!-- END:bearbeiten_head_institution -->

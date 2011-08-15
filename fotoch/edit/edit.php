@@ -312,8 +312,6 @@ if ($fertig==1){
 	$array_eintrag = mysql_fetch_array($result);
 	$def->assign('g',$array_eintrag['unpubliziert']==1?'g':'');
 
-	$def->assign('dokufichebearbeiten',$spr['dokufichebearbeiten']);
-
 	$def->assign("LEGEND", "<b>".$spr['fotografennamen']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");
 	$def->parse("bearbeiten.form");
