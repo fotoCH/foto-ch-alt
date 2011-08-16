@@ -95,7 +95,7 @@ if($_POST['submitbutton']){
 	
 	$spezfs=array();  // felder bei denen der SB-name nicht dem formelement-name entspricht
 	$langfs=array(); // felder mit sprachversionen
-	$textfs=array('abkuerzung','art','adresse','plz','kontaktperson','telefon','fax','email','homepage','zugang_zur_sammlung','sammlungszeit_von','sammlungszeit_bis','sammlungsbeschreibung','sammlungsgeschichte','literatur','notiz','autorin'); //"normale" felder
+	$textfs=array('abkuerzung','art','adresse','ort','name','plz','kontaktperson','telefon','fax','email','homepage','zugang_zur_sammlung','sammlungszeit_von','sammlungszeit_bis','sammlungsbeschreibung','sammlungsgeschichte','literatur','notiz','autorin'); //"normale" felder
 
 	$varfields=array('bildgattungen_set','gesperrt');  // felder die aus variablen gelesen werden.
 	
