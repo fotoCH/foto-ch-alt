@@ -18,7 +18,7 @@ $def->assign("SPR",$spr);
 
 $edit = new Edit( $def, 'institution' );
 
-if ($_POST) escposts();
+//if ($_POST) escposts();
 if ($_GET[id]=="new"){
 	$sql = "INSERT INTO `institution` (`name`,`gesperrt`) VALUES ( 'neue Institution','1')";
 	$result = mysql_query($sql);
