@@ -3,7 +3,9 @@
 class DokufichenFotografFormBuilder extends DokuficheFormBuilder {
 	
 	protected $type = 'fotograf';
-	protected $bearbeitungstiefen = array(0=>'0: L&auml;rm',1=>'1: K U Be Bi A',2=>'2: K U Be Bi A W',3=>'3: K U Be Bi A W S I',4=>'4: K U Be Bi A W S I Ue (I/F/D)',5=>'5: K U Be Bi A W S I Ue (I/F/D/E)');
+	static function bearbeitungstiefen() {
+		return array(0=>'0: L&auml;rm',1=>'1: K U Be Bi A',2=>'2: K U Be Bi A W',3=>'3: K U Be Bi A W S I',4=>'4: K U Be Bi A W S I Ue (I/F/D)',5=>'5: K U Be Bi A W S I Ue (I/F/D/E)');
+	}
 	
 	function formName() { global $spr;
 		$spr['fotografennamen'];
@@ -20,7 +22,9 @@ class DokufichenFotografFormBuilder extends DokuficheFormBuilder {
 
 class DokufichenInstitutionFormBuilder extends DokuficheFormBuilder {
 	protected $type = 'institution';
-	protected $bearbeitungstiefen = array(0=>'0:',1=>'1: Lokal',2=>'2: Regional',3=>'3: Kantonal',4=>'4: National (&Uuml;bersetzungen D/F/I)',5=>'5: International (&Uuml;bersetzungen D/F/I/E)');
+	static function bearbeitungstiefen() {
+		return array(0=>'0:',1=>'1: Lokal',2=>'2: Regional',3=>'3: Kantonal',4=>'4: National (&Uuml;bersetzungen D/F/I)',5=>'5: International (&Uuml;bersetzungen D/F/I/E)');
+	}
 	
 	function formName() { global $spr;
 		$spr['institution'];
@@ -101,7 +105,7 @@ class DokuficheFormBuilder {
 		gendatnoedit($this->def,$spr['erstellungsdatum'],$array_eintrag['erstellungsdatum']);
 		gendatnoedit($this->def,$spr['letzte_aktualisierung'],$array_eintrag['bearbeitungsdatum']);
 
-		$arr_bearbeitungstiefe=$this->bearbeitungstiefen;
+		$arr_bearbeitungstiefe=$this->bearbeitungstiefen();
 		genselectitem($this->def, $spr['bearbeitungstiefe'], $array_eintrag['bearbeitungstiefe'], "bearbeitungstiefe", $arr_bearbeitungstiefe, "", "", "");
 	}
 	function g_info() {

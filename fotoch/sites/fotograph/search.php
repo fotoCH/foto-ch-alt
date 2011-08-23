@@ -1,6 +1,8 @@
 <?php
+require_once( "dfedit.inc.php");
 
-$searchmodes = array("ein","erw");
+
+$searchmodes = array("ein","erw","df");
 $searchmode=$_GET['mod'];
 if(! in_array($searchmode,$searchmodes)) {
 	$searchmode="ein";
@@ -114,7 +116,21 @@ if($_GET[mod]=="erw"){
 	$suche = "<a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=ein&amp;lang=".$language."\">".$spr['einf_search']."</a>";
 	$mehrfachauswahl = $spr['mehrfachauswahl'];
 	
-} else {
+} elseif($_GET[mod]=="df") {
+	subgenformitem($def,'textfield',$spr['nachname'],$fetch[''],'nachname');
+	subgenformitem($def,'textfield',$spr['vorname'],$fetch[''],'vorname');
+	subgenformitem($def,'textfield',$spr['projektname'],$fetch[''],'projektname');
+	subgenselectitem($def, $spr['bearbeitungstiefe'], "", "bearbeitungstiefe", array_merge( array(''),DokufichenFotografFormBuilder::bearbeitungstiefen()), "", "", "");
+	subgenselectitem($def, $spr['bibliografie'], "", "biografie_user", array('',1,0), "", "", "");
+	subgenselectitem($def, $spr['ausstellungen'], "", "ausstellungen_user", array('',1,0), "", "", "");
+	subgenselectitem($def, $spr['auszeichnungen_stipendien'], "", "auszeichnungen_stipendien_user", array('',1,0), "", "", "");
+	subgenselectitem($def, $spr['bestaende2'], "", "bestaende_user", array('',1,0), "", "", "");
+	subgenselectitem($def, $spr['interview_vorgesehen'], "", "vinterview_vorgesehen_user", array('',1,0), "", "", "");
+	subgenselectitem($def, $spr['interview_fertiggestellt'], "", "interview_fertiggestellt_user", array('',1,0), "", "", "");
+			
+	subgensubmit($def,'submitfield',$spr['submit']);
+	$suche = "<a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=ein&amp;lang=".$language."\">".$spr['einf_search']."</a>";
+} else{
 	
 	subgenformitem($def,'textfield',$spr['nachname'],$fetch[''],'nachname');
 	subgenformitem($def,'textfield',$spr['vorname'],$fetch[''],'vorname');
@@ -127,7 +143,9 @@ if($_GET[mod]=="erw"){
 
 	subgensubmit($def,'submitfield',$spr['submit']);
 	$suche = "<a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=erw&amp;lang=".$language."\">".$spr['erw_search']."</a>";
-
+	if(auth_level(USER_WORKER)){
+		$suche .= "<br><a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=df&amp;lang=".$language."\">".$spr['df_search']."</a>";
+	}
 }
 $def->assign("SUCHE", $suche);
 $def->assign("MEHRF",$mehrfachauswahl);

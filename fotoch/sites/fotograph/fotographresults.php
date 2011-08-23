@@ -5,6 +5,7 @@ $def->assign("ID",$_GET['id']);
 $id=$_GET['id'];
 $anf=$_GET['anf'];
 $lang=$_GET['lang'];
+$mod=$_GET['mod'];
 
 $def->assign("SPR",$spr);
 
@@ -72,8 +73,13 @@ if($_GET['submitbutton'] != ""){
 			}
 			if ($key=='nachname') $key='namen.nachname';
 			if ($key=='vorname') $key='namen.vorname';
-
-			$where.="$key LIKE '%$value%' ";
+			if( $value === "0" ) {
+				$where.="$key = '' ";
+			} elseif ( $value === "1" ) {
+				$where.="$key <> '' ";
+			} else {
+				$where.="$key LIKE '%$value%' ";
+			}
 		}
 	}
 
@@ -100,7 +106,9 @@ if($_GET['submitbutton'] != ""){
 	}
 
 	if(auth_level(USER_WORKER)){
-		if ($arb){
+		if( $mod='df' ) {
+			$def->parse("list.listhead_admin_df");
+		} elseif ($arb){
 			$def->parse("list.listhead_admin_arb");
 		}else{
 			$def->parse("list.listhead_admin");			
@@ -138,12 +146,12 @@ if($_GET['submitbutton'] != ""){
 		
 		$def->assign("FETCH",$fetch);
 		if(auth_level(USER_WORKER)){
-			if ($arb){
+			if( $mod='df' ) {
+				$def->parse("list.row_admin_df");
+			} elseif ($arb) {
 				$def->parse("list.row_admin_arb");
-				//$results.=$def->text("list.row_admin_arb");
 			}else{
 				$def->parse("list.row_admin");
-				//$results.=$def->text("list.row_admin");
 			}
 		} else {
 			if ($arb){

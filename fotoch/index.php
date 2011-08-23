@@ -41,7 +41,7 @@ require("log.inc.php");
 log_session();
 
 $action=$_GET['a'];
-$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest","statistik");
+$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest","statistik","ablauf");
 if (!in_array($action,$actions)) $action='home';  // default Startseite
 //functions
 //chose main template
@@ -79,7 +79,7 @@ $xtpl->assign("URLIT", changeurl("it"));
 //assign action
 $xtpl->assign("ACTION",$action);
 //choose content sites
-$adminActions = array("ausstellung", "bestand", "fotograph", "glossar", "institution", "literatur","user","statistik");
+$adminActions = array("ausstellung", "bestand", "fotograph", "glossar", "institution", "literatur","user","statistik","ablauf");
 $editActions = array("edit", "aedit", "bedit","gedit", "iedit", "ledit","uedit","dfedit");
 if(in_array($action,$adminActions)){
 	if((($action == "glossar") || ($action == "literatur") || ($action == "user") || ($action == "statistik")) && empty($_SESSION['s_uid'])){
