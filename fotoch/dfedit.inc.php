@@ -163,7 +163,7 @@ class DokuficheFormBuilder {
 	
 	function g_update() { global $spr;
 		$this->title( $spr['aktualisierung'] );
-		genstempel1($this->def, $spr['aktualisierung'],'dokumentation',$this->formData);
+		genstempel_multi($this->def, $spr['aktualisierung'],'aktualisierung',$this->formData);
 		$this->endPara();
 	}
 	

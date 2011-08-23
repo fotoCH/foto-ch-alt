@@ -664,7 +664,7 @@ function submitita(v)
 			<td class="edit"><label for="{E.name}" class="edit">{E.label}</label></td>
 							
 			<td>
-				<div class="checkboxwrapper"> <input {E.checked} type="checkbox" name="{E.name}_check" id="{E.name}_check" onclick="cclick1('{E.name}');"></input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_date" id="{E.name}_date" value="{E.date}" >&nbsp; &nbsp; <span id="{E.name}_usern">{E.usern}</span><input type="hidden" name="{E.name}_user" id="{E.name}_user" value="{E.user}"/></td>
+				<div class="checkboxwrapper"> <input {E.checked} {DISABLED} type="checkbox" name="{E.name}_check" id="{E.name}_check" onclick="cclick1('{E.name}');"></input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_date" {DISABLED} id="{E.name}_date" value="{E.date}" >&nbsp; &nbsp; <span id="{E.name}_usern">{E.usern}</span><input type="hidden" name="{E.name}_user" id="{E.name}_user" value="{E.user}"/></td>
    		</tr>					
 
 <!-- END:stempel1 -->

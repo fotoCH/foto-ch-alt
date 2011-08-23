@@ -13,7 +13,7 @@ function gendatnoedit(&$def, $label, $value){
 	genformitem($def,'noedit', $label, formdatesimp($value,0), '' );
 }
 
-function genstempel1(&$def, $label,$name,&$fetch){
+function genstempel1(&$def, $label,$name,&$fetch,$disabled=false){
 	$e['label']=$label;
 	$e['name']=$name;
 
@@ -28,12 +28,26 @@ function genstempel1(&$def, $label,$name,&$fetch){
 		$e['user']='';
 		$e['usern']='';
 	}
+	if( $disabled ) {
+		$def->assign('DISABLED','disabled="1"');
+	} else {
+		$def->assign('DISABLED','');
+	}
 	$def->assign('E',$e);
 	$def->parse("bearbeiten.form.stempel1");
 	$def->parse("bearbeiten.form");
 
 
 }
+
+function genstempel_multi(&$def, $label,$name,&$fetch){
+	$newfetch = unserialize($fetch[$name]);
+	$size = sizeof($newfetch)/2;
+	for( $i = 0; $i <= $size; $i++ ) {
+		genstempel1($def,$label,$name."_".$i,$newfetch,$i < $size-1);
+	}
+}
+
 
 function genstempel2(&$def, $label,$name,&$fetch,$start){
 	global $spr;

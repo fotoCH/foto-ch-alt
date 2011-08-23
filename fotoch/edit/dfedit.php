@@ -55,6 +55,7 @@ if ($fertig==1){
 		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz_fiche");
 		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "interview_vorgesehen", "interview_fertiggestellt","dokumentation");
 		$wrefs=array("werdegang", "schaffensbeschrieb", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
+		$multirefs=array("aktualisierung");
 		$sql="UPDATE $type SET ";
 		$s='';
 		$s2=''; // für history
@@ -107,6 +108,36 @@ if ($fertig==1){
 						}
 					}
 				}
+			}
+		}
+		foreach ($multirefs as $t){
+			$update = unserialize($array_eintrag[$t]);
+			//last editable position
+			$first_l = max(0,(sizeof($update)/2)-1);
+			$changed = false;
+			for($l=$first_l;$l<$first_l+2;$l++) {
+				$pdate=rformdate($_POST[$t.'_'.$l.'_date']);
+				if( $pdate!=$update[$t.'_'.$l.'_date'] ) {
+					if(empty($pdate)){
+						unset($update[$t.'_'.$l.'_date']);
+					} else {
+						$update[$t.'_'.$l.'_date'] = mysql_real_escape_string($pdate);
+					}
+					$s2.=($s2?', ':'').getHChanged($t.'_'.$l.'_date',$pdate,$array_eintrag[$t.'_'.$l.'_date']);
+					$changed = true;
+				}
+				if( $_POST[$t.'_'.$l.'_user']!=$update[$t.'_'.$l.'_user'] ) {
+					if(empty($_POST[$t.'_'.$l.'_user'])){
+						unset($update[$t.'_'.$l.'_user']);	
+					} else {
+						$update[$t.'_'.$l.'_user'] = mysql_real_escape_string($_POST[$t.'_'.$l.'_user']);
+					}
+					$s2.=($s2?', ':'').getHChanged($t.'_'.$l.'_user',getusername($_POST[$t.'_'.$l.'_user']),getusername($array_eintrag[$t.'_'.$l.'_user']));
+					$changed = true;
+				}
+			}
+			if( $changed ) {
+				$s .= " `$t`='".mysql_real_escape_string(serialize($update))."' ";
 			}
 		}
 
