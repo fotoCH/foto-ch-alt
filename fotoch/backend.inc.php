@@ -1,4 +1,5 @@
 <?php
+require_once("./users.inc.php");
 
 function mabstand($def){  // benutzt in edit und iedit
 	$def->parse("bearbeiten.form.tr");
@@ -284,38 +285,6 @@ function subgensubmit(&$def, $template, $value){
 function getParam($name,$default=''){
 	$p=$_REQUEST[$name];
 	return ($p?$p:$default);
-}
-
-$wusers=array();
-
-function initwar(){
-	global $wusers;
-	if (count($wusers)>0) return;
-	$wusers[0]='';
-	$sql="SELECT * FROM `users` WHERE `level` >= 8 ORDER BY username";
-	$result = mysql_query($sql);
-	while ($fetch = mysql_fetch_array($result)){
-		$wusers[$fetch['id']]=$fetch['username'];
-	}
-	//print_r($wusers);
-	return;
-}
-
-function getuserbox($name, $u){ // selectbox mit ausgewähletem user
-	initwar();
-	global $wusers;
-	$o='<select name="'.$name.'" id="'.$name.'" class="edit" >';
-	foreach ($wusers as $k=>$v){
-           $o.='<option '.($u==$v?'selected="selected" ':'').'value="'.$k.'" class="edit">'.$v.'</option>';
-      }
-     $o.='</select>'; 
-	return($o);
-}
-
-function getusername($id){
-	initwar();
-	global $wusers;
-	return($wusers[$id]);
 }
 
 function getHistEntry($wo, $was, $werte){

@@ -73,7 +73,14 @@ if($_GET['submitbutton'] != ""){
 			}
 			if ($key=='nachname') $key='namen.nachname';
 			if ($key=='vorname') $key='namen.vorname';
-			if( $value === "0" ) {
+		 
+			if( $key == 'ALL_offene_arbeiten') {
+				foreach( array('werdegang','schaffensbeschrieb','uebersetzung_de','uebersetzung_fr','uebersetzung_it','uebersetzung_rm','uebersetzung_en') as $field ) {
+					$where.= "({$field}_l1_user = '$value' AND {$field}_l2_user = '0') OR ";
+					$where.= "({$field}_l3_user = '$value' AND {$field}_l4_user = '0') OR ";
+				}
+				$where.= "false ";
+			} elseif( $value === "0" ) {
 				$where.="$key = '' ";
 			} elseif ( $value === "1" ) {
 				$where.="$key <> '' ";

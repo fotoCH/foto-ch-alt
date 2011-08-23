@@ -1,5 +1,6 @@
 <?php
 require_once( "dfedit.inc.php");
+require_once( "users.inc.php");
 
 
 $searchmodes = array("ein","erw","df");
@@ -117,17 +118,21 @@ if($_GET[mod]=="erw"){
 	$mehrfachauswahl = $spr['mehrfachauswahl'];
 	
 } elseif($_GET[mod]=="df") {
+	global $wusers;
+	initwar();
 	subgenformitem($def,'textfield',$spr['nachname'],$fetch[''],'nachname');
 	subgenformitem($def,'textfield',$spr['vorname'],$fetch[''],'vorname');
 	subgenformitem($def,'textfield',$spr['projektname'],$fetch[''],'projektname');
+	$fertig_nicht = array('',$spr['fertig'],$spr['nicht_fertig']);
 	subgenselectitem($def, $spr['bearbeitungstiefe'], "", "bearbeitungstiefe", array_merge( array(''),DokufichenFotografFormBuilder::bearbeitungstiefen()), "", "", "");
-	subgenselectitem($def, $spr['bibliografie'], "", "biografie_user", array('',1,0), "", "", "");
-	subgenselectitem($def, $spr['ausstellungen'], "", "ausstellungen_user", array('',1,0), "", "", "");
-	subgenselectitem($def, $spr['auszeichnungen_stipendien'], "", "auszeichnungen_stipendien_user", array('',1,0), "", "", "");
-	subgenselectitem($def, $spr['bestaende2'], "", "bestaende_user", array('',1,0), "", "", "");
-	subgenselectitem($def, $spr['interview_vorgesehen'], "", "vinterview_vorgesehen_user", array('',1,0), "", "", "");
-	subgenselectitem($def, $spr['interview_fertiggestellt'], "", "interview_fertiggestellt_user", array('',1,0), "", "", "");
-			
+	subgenselectitemtr($def, $spr['bibliografie'], "", "biografie_user", array('',1,0),$fertig_nicht, "", "", "");
+	subgenselectitemtr($def, $spr['ausstellungen'], "", "ausstellungen_user", array('',1,0),$fertig_nicht, "", "", "");
+	subgenselectitemtr($def, $spr['auszeichnungen_stipendien'], "", "auszeichnungen_stipendien_user", array('',1,0),$fertig_nicht, "", "", "");
+	subgenselectitemtr($def, $spr['bestaende2'], "", "bestaende_user", array('',1,0),$fertig_nicht, "", "", "");
+	subgenselectitemtr($def, $spr['interview_vorgesehen'], "", "vinterview_vorgesehen_user", array('',1,0),$fertig_nicht, "", "", "");
+	subgenselectitemtr($def, $spr['interview_fertiggestellt'], "", "interview_fertiggestellt_user", array('',1,0),$fertig_nicht, "", "", "");
+	subgenselectitem($def, $spr['offene_arbeit'], "", "ALL_offene_arbeiten", $wusers, "", "", "");
+	
 	subgensubmit($def,'submitfield',$spr['submit']);
 	$suche = "<a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=ein&amp;lang=".$language."\">".$spr['einf_search']."</a>";
 } else{
