@@ -76,8 +76,8 @@ if($_GET['submitbutton'] != ""){
 		 
 			if( $key == 'ALL_offene_arbeiten') {
 				foreach( array('werdegang','schaffensbeschrieb','uebersetzung_de','uebersetzung_fr','uebersetzung_it','uebersetzung_rm','uebersetzung_en') as $field ) {
-					$where.= "({$field}_l1_user = '$value' AND {$field}_l2_datum = '0') OR ";
-					$where.= "({$field}_l3_user = '$value' AND {$field}_l4_datum = '0') OR ";
+					$where.= "({$field}_l1_user = '$value' AND {$field}_l2_date = '0000-00-00') OR ";
+					$where.= "({$field}_l3_user = '$value' AND {$field}_l4_date = '0000-00-00') OR ";
 				}
 				$where.= "false ";
 			} elseif( $value === "0" ) {
