@@ -46,7 +46,7 @@ while($fetch=mysql_fetch_array($result)){
 	} else {
 		if ($fetch['pnd'] && $fetch['pnd_status']==1){
 			$def->assign("pnd",'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>');
-			$def->parse($det.".pnd");
+			$def->parse($det.".pnd2");
 		}
 		
 	}

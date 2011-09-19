@@ -20,6 +20,8 @@
 	$def->assign("TITLE", $spr['institution']);
 	$def->assign("SPR", $spr);
 	$bearbeiten = "&nbsp;&nbsp;[&nbsp;".$spr['bearbeiten']."&nbsp;]";
+	$det="autodetail";
+	if ($_GET['style']=='print') $det="detailprint";
 	
 	if (auth_level(USER_GUEST_READER_PARTNER))
 	$result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
@@ -29,6 +31,10 @@
 		//print_r($fetch);
 		$def->assign("ACTION",$_GET['a']);
 		$def->assign("ID",$_GET['id']);
+		if(auth_level(USER_GUEST_READER)){
+			$def->assign("idd",$id);
+			$def->parse($det.".idd");
+		}
 		if ($fetch['abkuerzung']) $fetch['name'].=' ('.$fetch['abkuerzung'].')';
 		unset($fetch['abkuerzung']);
 		$fetch['ort']=$fetch['plz'].' '.$fetch['ort'];
