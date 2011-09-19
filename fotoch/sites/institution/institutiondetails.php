@@ -35,6 +35,9 @@
 		unset($fetch['plz']);
 		$fetch['homepage']=preg_replace("/http:\/\/(.*)/","<a href=\"http://\$1\" target=\"_new\">\$1</a>",$fetch['homepage']);
 		$fetch['email']=preg_replace("/(.*@.*)/","<a href=\"mailto:\$1\">\$1</a>",$fetch['email']);
+		if ($_GET['lang']!='de'){
+			$fetch['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen_set']);
+		}
 		$fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
 
 		if ($fetch['sammlungszeit_von'].$fetch['sammlungszeit_bis']!=''){
