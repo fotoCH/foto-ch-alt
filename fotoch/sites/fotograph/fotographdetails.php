@@ -44,7 +44,7 @@ while($fetch=mysql_fetch_array($result)){
 		}
 		//normfelda($def,'PND',($fetch['pnd']?'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>':''));
 	} else {
-		if ($fetch['pnd'] || $fetch['pnd_status']==1){
+		if ($fetch['pnd'] && $fetch['pnd_status']==1){
 			$def->assign("pnd",'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>');
 			$def->parse($det.".pnd");
 		}
