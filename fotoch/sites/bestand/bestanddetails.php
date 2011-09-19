@@ -16,9 +16,16 @@
 	}
 
 	$bearbeiten = "&nbsp;&nbsp;[&nbsp;".$spr['bearbeiten']."&nbsp;]";
+	$det="autodetail";
+	if ($_GET['style']=='print') $det="detailprint";
 	while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 		$def->assign("ACTION",$_GET['a']);
 		$def->assign("ID",$_GET['id']);
+		if(auth_level(USER_GUEST_READER)){
+			$def->assign("idd",$id);
+			$def->parse($det.".idd");
+		}
+		
 		$fetch['bildgattungen']=str_replace(',',', ',$fetch['bildgattungen']);
 		if (auth_level(USER_WORKER)) {
 			//$fetch['name'].=" <a href=\"./?a=bedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>";
