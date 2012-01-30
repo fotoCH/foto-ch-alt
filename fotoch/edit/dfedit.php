@@ -100,10 +100,12 @@ if ($fertig==1){
 						$s.=($s?', ':'').$u;
 						$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_date',$pdate,$array_eintrag[$t.'_l'.$l.'_date']);
 					}
-					$u=($_POST[$t.'_'.$l.'_user']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_user'])."'");
-					if ($u){
-						$s.=($s?', ':'').$u;
-						$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_user',getusername($_POST[$t.'_'.$l.'_user']),getusername($array_eintrag[$t.'_l'.$l.'_user']));
+					if ($_POST[$t.'_'.$l.'_userbox']!=0){
+						$u=($_POST[$t.'_'.$l.'_userbox']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_userbox'])."'");
+						if ($u){
+							$s.=($s?', ':'').$u;
+							$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_user',getusername($_POST[$t.'_'.$l.'_userbox']),getusername($array_eintrag[$t.'_l'.$l.'_user']));
+						}
 					}
 				}
 			}
