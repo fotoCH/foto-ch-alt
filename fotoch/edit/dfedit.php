@@ -94,7 +94,7 @@ if ($fertig==1){
 		foreach ($wrefs as $t){
 			for ($l=0;$l<=6;$l++){
 				$pdate=rformdate($_POST[$t.'_'.$l.'_date']);
-				if (isset($_POST[$t.'_'.$l.'_date'])){
+				if ($_POST[$t.'_'.$l.'_date']){
 					$u=($pdate==$array_eintrag[$t.'_l'.$l.'_date']?'':'`'.$t.'_l'.$l.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
 					if ($u){
 						$s.=($s?', ':'').$u;
