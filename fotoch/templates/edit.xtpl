@@ -736,6 +736,19 @@ function submitita(v)
 					</td>
 				</tr>
 <!-- END:check -->
+<!-- BEGIN:radio -->
+				<tr>
+					<td class="edit"><label for="" class="edit"> {label}</label></td>
+							
+					<td class="edit">
+						<fieldset class="checkbox_set">
+	<!-- BEGIN:box -->
+							<div class="checkboxwrapper"> <input {checked} type="radio" value="{ovalue}" name="{inputname}">{olabel}</input> </div>
+	<!-- END:box -->
+						</fieldset>
+					</td>
+				</tr>
+<!-- END:radio -->
 <!-- BEGIN:textfield -->
 						<tr>
     						

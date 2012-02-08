@@ -95,7 +95,7 @@ if($_POST['submitbutton']){
 	
 	$spezfs=array();  // felder bei denen der SB-name nicht dem formelement-name entspricht
 	$langfs=array(); // felder mit sprachversionen
-	$textfs=array('abkuerzung','art','adresse','ort','name','plz','kontaktperson','telefon','fax','email','homepage','zugang_zur_sammlung','sammlungszeit_von','sammlungszeit_bis','sammlungsbeschreibung','sammlungsgeschichte','literatur','notiz','autorin'); //"normale" felder
+	$textfs=array('abkuerzung','art','isil','kanton','adresse','ort','name','plz','kontaktperson','telefon','fax','email','homepage','zugang_zur_sammlung','sammlungszeit_von','sammlungszeit_bis','sammlungsbeschreibung','sammlungsgeschichte','literatur','notiz','autorin'); //"normale" felder
 
 	$varfields=array('bildgattungen_set','gesperrt');  // felder die aus variablen gelesen werden.
 	
@@ -200,9 +200,21 @@ if ($fertig==1){
 	$def->parse("bearbeiten.bearbeiten_head_institution");
 	genformitem($def,'textfield',$spr['abkuerzung'],$array_eintrag['abkuerzung'],'abkuerzung');
 	genformitem($def,'textfield',$spr['art'],$array_eintrag['art'],'art');
+	genformitem($def,'textfield',$spr['isil'],$array_eintrag['isil'],'isil');	
 	genformitem($def,'textfield',$spr['adresse'],$array_eintrag['adresse'],'adresse');
 	genformitem($def,'textfield',$spr['plz'],$array_eintrag['plz'],'plz');
 	genformitem($def,'textfield',$spr['ort'],$array_eintrag['ort'],'ort');
+	$sql ="DESCRIBE institution kanton";//Beschreibung des Sets bekommen
+	$result = mysql_query($sql);
+	$fetch = mysql_fetch_array($result);
+	$set_list = $fetch[Type];
+	$set_list = substr($set_list, 5, strlen($set_list)-7);
+	$array_set_list = explode ("','", $set_list); $array_set_list[0]='';
+	$set= $array_eintrag['kanton'];
+	$array_set = explode (",", $set);
+	///
+	genradioarrayitem($def, $spr['kanton'], $array_set_list, "kanton", $array_set);
+	
 	genformitem($def,'textfield',$spr['kontaktperson'],$array_eintrag['kontaktperson'],'kontaktperson');
 	genformitem($def,'textfield',$spr['telefon'],$array_eintrag['telefon'],'telefon');
 	genformitem($def,'textfield',$spr['fax'],$array_eintrag['fax'],'fax');

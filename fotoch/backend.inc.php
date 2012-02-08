@@ -126,6 +126,26 @@ function gencheckarrayitem(&$def, $label, $list, $name, $list2){
 	$def->parse("bearbeiten.form");
 }
 
+function genradioarrayitem(&$def, $label, $list, $name, $list2){
+	$def->assign("label", $label);
+	foreach($list as $key => $value){
+		$def->assign("ovalue", $value);
+		$def->assign("olabel",$value);
+		$def->assign("inputname", $name);
+		if(in_array($value, $list2)){
+			//-> checked
+			$def->assign("checked","checked");
+		}
+		else {
+			$def->assign("checked","");
+		}
+		$def->parse("bearbeiten.form.radio.box");
+	}
+	$def->parse("bearbeiten.form.radio");
+	$def->parse("bearbeiten.form");
+}
+
+
 function gencheckarrayitemKv(&$def, $label, $list, $name, $list2){  // werteliste mit key/value
 	$def->assign("label", $label);
 	foreach($list as $key => $value){

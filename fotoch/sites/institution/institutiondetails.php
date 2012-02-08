@@ -62,6 +62,7 @@
 			}
 		}
 		normfeld($def,$spr['art'],$fetch['art']);
+		normfeld($def,$spr['isil'],$fetch['isil']);
 		normfeld($def,$spr['adresse'],$fetch['adresse']);
 		normfeld($def,$spr['ort'],$fetch['ort']);
 		//abstand($def);
