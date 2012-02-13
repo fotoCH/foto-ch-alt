@@ -41,6 +41,38 @@ function genstempel1(&$def, $label,$name,&$fetch,$disabled=false){
 
 }
 
+function genstempel1b(&$def, $label,$name,&$fetch,$disabled=false){  // mit userbox
+	$e['label']=$label;
+	$e['name']=$name;
+
+	if ($fetch[$name.'_date']!='0000-00-00' && $fetch[$name.'_date']!=''){
+		$e['date']=formdatesimp($fetch[$name.'_date']);
+		$e['checked']='checked="checked"';
+		$e['user']=$fetch[$name.'_user'];
+		$e['usern']=getusername($fetch[$name.'_user']);
+	} else {
+		$e['date']='';
+		$e['checked']='';
+		$e['user']='';
+		$e['usern']='';
+	}
+	if( $disabled ) {
+		$def->assign('DISABLED','disabled="1"');
+	} else {
+		$def->assign('DISABLED','');
+	}
+	$ub=getuserbox($name.'_userbox',$e['usern']);
+	
+	$def->assign('userbox',$ub);
+	
+	$def->assign('E',$e);
+	$def->parse("bearbeiten.form.stempel1b");
+	$def->parse("bearbeiten.form");
+
+
+}
+
+
 function genstempel_multi(&$def, $label,$name,&$fetch){
 	$newfetch = unserialize($fetch[$name]);
 	$size = sizeof($newfetch)/2;

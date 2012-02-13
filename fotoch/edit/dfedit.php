@@ -53,7 +53,8 @@ if ($fertig==1){
 		$_POST['dokumentation']=$dokumentation;
 
 		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz_fiche");
-		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "interview_vorgesehen", "interview_fertiggestellt","dokumentation");
+		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "pnd_erstellt", "interview_fertiggestellt","dokumentation");
+		$refsb=array("pnd_vorgesehen","interview_vorgesehen");
 		$wrefs=array("werdegang", "schaffensbeschrieb", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
 		$multirefs=array("aktualisierung");
 		$sql="UPDATE $type SET ";
@@ -82,6 +83,32 @@ if ($fertig==1){
 				}
 			} else {
 				if ($array_eintrag[$t.'_date']!='' && $array_eintrag[$t.'_date']!='0000-00-00'){ //Eintrag gelöscht
+					//echo "old: ".$array_eintrag[$t.'_date']."<br />";
+					$u='`'.$t.'_date'.'`=\''."'";
+					if ($u){
+						$s.=($s?', ':'').$u;
+						$s2.=($s2?', ':'').$t.' deleted';
+					}
+				}
+			}
+		}
+		foreach ($refsb as $t){
+			$pdate=rformdate($_POST[$t.'_date']);
+			if ($_POST[$t.'_date']){
+				$u=($pdate==$array_eintrag[$t.'_date']?'':'`'.$t.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
+				if ($u){
+					$s.=($s?', ':'').$u;
+					$s2.=($s2?', ':'').getHChanged($t.'_date',$pdate,$array_eintrag[$t.'_date']);
+				}
+		
+				$u=($_POST[$t.'_userbox']==$array_eintrag[$t.'_user']?'':'`'.$t.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_userbox'])."'");
+				if ($u){
+					$s.=($s?', ':'').$u;
+					$s2.=($s2?', ':'').getHChanged($t.'_user',getusername($_POST[$t.'_userbox']),getusername($array_eintrag[$t.'_user']));
+				}
+			} else {
+				if ($array_eintrag[$t.'_date']!='' && $array_eintrag[$t.'_date']!='0000-00-00'){
+					//Eintrag gelöscht
 					//echo "old: ".$array_eintrag[$t.'_date']."<br />";
 					$u='`'.$t.'_date'.'`=\''."'";
 					if ($u){

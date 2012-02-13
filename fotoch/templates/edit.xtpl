@@ -31,6 +31,27 @@
 		
 	}
 
+	function cclick1b(checkelement){
+		//alert(checkelement+"!");
+		ce=document.getElementById(checkelement+"_check");
+		cd=document.getElementById(checkelement+"_date");
+		cu=document.getElementById(checkelement+"_usern");
+		cuh=document.getElementById(checkelement+"_user");
+		cub=document.getElementById(checkelement+"_userbox");
+		if (ce.checked){
+			cd.value="{heute}";
+			cu.innerHTML="{user}";
+			cuh.value="{userid}";
+			if (cub!=null) cub.value=parseInt("{userid}");
+		} else {
+			cd.value="";
+			cu.innerHTML="";
+			cuh.value="";
+			if (cub!=null) cub.value=0;
+		}
+		
+		
+	}
 
 	function cclick2(checkelement,num){
 		//alert(checkelement+"!"+num);
@@ -679,6 +700,16 @@ function submitita(v)
    		</tr>					
 
 <!-- END:stempel1 -->
+<!-- BEGIN:stempel1b -->
+
+		<tr>	
+			<td class="edit"><label for="{E.name}" class="edit">{E.label}</label></td>
+							
+			<td>
+				<div class="checkboxwrapper"> <input {E.checked} {DISABLED} type="checkbox" name="{E.name}_check" id="{E.name}_check" onclick="cclick1b('{E.name}');"></input> </div><input maxlength="10" type="text" class="text_editd" name="{E.name}_date" {DISABLED} id="{E.name}_date" value="{E.date}" >&nbsp; &nbsp; <span id="{E.name}_usern" style="display: none;">{E.usern}</span><input type="hidden" name="{E.name}_user" id="{E.name}_user" value="{E.user}"/>{userbox}</td>
+   		</tr>					
+
+<!-- END:stempel1b -->
 <!-- BEGIN:stempel2 -->
 
 		<tr>	

@@ -116,7 +116,7 @@ class DokuficheFormBuilder {
 		genstempel1($this->def, $spr['ausstellungen'].': '.$spr['fertig_gestellt'],'ausstellungen',$array_eintrag);
 		genstempel1($this->def, $spr['auszeichnungen_stipendien'].': ','auszeichnungen_stipendien',$array_eintrag);
 		genstempel1($this->def, $spr['bestaende2'].': '.$spr['fertig_gestellt'],'bestaende',$array_eintrag);
-		genstempel1($this->def, $spr['interview_vorgesehen'],'interview_vorgesehen',$array_eintrag);
+		genstempel1b($this->def, $spr['interview_vorgesehen'],'interview_vorgesehen',$array_eintrag);
 		genstempel1($this->def, $spr['interview_fertiggestellt'],'interview_fertiggestellt',$array_eintrag);
 	}
 	
@@ -130,6 +130,10 @@ class DokuficheFormBuilder {
 		$this->title($spr['vita']);
 		$array_eintrag = $this->formData;
 		
+		
+		
+		genstempel1b($this->def, $spr['pnd_vorgesehen'],'pnd_vorgesehen',$array_eintrag);
+		genstempel1($this->def, $spr['pnd_erstellt'],'pnd_erstellt',$array_eintrag);
 		gennoedit($this->def, $spr['originalsprache'],$array_eintrag['originalsprache']);
 		genstempel2($this->def, $spr['werdegang'],'werdegang',$array_eintrag,0);
 		genstempel2($this->def, $spr['schaffensbeschrieb'],'schaffensbeschrieb',$array_eintrag,-1);
