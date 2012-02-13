@@ -107,6 +107,25 @@ if ($fertig==1){
 							$s.=($s?', ':'').$u;
 							$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_user',getusername($_POST[$t.'_'.$l.'_userbox']),getusername($array_eintrag[$t.'_l'.$l.'_user']));
 						}
+					} else {
+						if ($_POST[$t.'_'.$l.'_user']!=0){
+							$u=($_POST[$t.'_'.$l.'_user']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_user'])."'");
+							if ($u){
+								$s.=($s?', ':'').$u;
+								$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_user',getusername($_POST[$t.'_'.$l.'_user']),getusername($array_eintrag[$t.'_l'.$l.'_user']));
+							}
+						}
+						
+					}
+				} else {
+					if ($array_eintrag[$t.'_l'.$l.'_date']!='' && $array_eintrag[$t.'_l'.$l.'_date']!='0000-00-00'){
+						//Eintrag gelöscht
+						//echo "old: ".$array_eintrag[$t.'_date']."<br />";
+						$u='`'.$t.'_l'.$l.'_date'.'`=\''."'";
+						if ($u){
+							$s.=($s?', ':'').$u;
+							$s2.=($s2?', ':'').$t.' deleted';
+						}
 					}
 				}
 			}

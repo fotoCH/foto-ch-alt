@@ -103,8 +103,9 @@
 	}
 
 	  function st2init(element,level,start){
+	  if (level==7) level=-1;
 	  for (i=start;i<=6;i++){
-	  		num=i;
+	  		num=parseInt(i);
 	  		if (num==-1) num=7;
 			ce=document.getElementById(element+"_"+num+"_check");
 			cd=document.getElementById(element+"_"+num+"_date");
