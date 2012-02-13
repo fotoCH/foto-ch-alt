@@ -233,6 +233,8 @@ input {
 .checkboxwrapper{
 	width:140px;
 	float:left;
+	position: relative;
+	top: -4px;
 	
 }
 input.text, input.text {
