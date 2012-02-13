@@ -132,7 +132,7 @@ class DokuficheFormBuilder {
 		
 		gennoedit($this->def, $spr['originalsprache'],$array_eintrag['originalsprache']);
 		genstempel2($this->def, $spr['werdegang'],'werdegang',$array_eintrag,0);
-		genstempel2($this->def, $spr['schaffensbeschrieb'],'schaffensbeschrieb',$array_eintrag,0);
+		genstempel2($this->def, $spr['schaffensbeschrieb'],'schaffensbeschrieb',$array_eintrag,-1);
 		$this->endPara();		
 	}
 	
@@ -174,11 +174,11 @@ class DokuficheFormBuilder {
 	function g_transl() { global $spr;
 		$this->title( $spr['uebersetzung'] );
 		$array_eintrag = $this->formData;
-		genstempel2($this->def, $spr['uebersetzung'].' de','uebersetzung_de',$array_eintrag,1);
-		genstempel2($this->def, $spr['uebersetzung'].' fr','uebersetzung_fr',$array_eintrag,1);
-		genstempel2($this->def, $spr['uebersetzung'].' it','uebersetzung_it',$array_eintrag,1);
-		genstempel2($this->def, $spr['uebersetzung'].' rm','uebersetzung_rm',$array_eintrag,1);
-		genstempel2($this->def, $spr['uebersetzung'].' en','uebersetzung_en',$array_eintrag,1);
+		genstempel2($this->def, $spr['uebersetzung'].' de','uebersetzung_de',$array_eintrag,-1);
+		genstempel2($this->def, $spr['uebersetzung'].' fr','uebersetzung_fr',$array_eintrag,-1);
+		genstempel2($this->def, $spr['uebersetzung'].' it','uebersetzung_it',$array_eintrag,-1);
+		genstempel2($this->def, $spr['uebersetzung'].' rm','uebersetzung_rm',$array_eintrag,-1);
+		genstempel2($this->def, $spr['uebersetzung'].' en','uebersetzung_en',$array_eintrag,-1);
 		$this->endPara();
 	}
 	

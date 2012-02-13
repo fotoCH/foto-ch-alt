@@ -57,7 +57,8 @@ function genstempel2(&$def, $label,$name,&$fetch,$start){
 	$e['start']=$start;
 	$e['level']=$start-1;
 	$e['olevel']=$start-1;
-	for ($l=$start;$l<=6;$l++){
+	for ($ln=$start;$ln<=6;$ln++){  // neu l7: geschrieben
+		$l=($ln==-1?7:$ln); 
 		$e['num']=$l;
 		$e['olabel']=$spr['wf_ref_'.$l];
 		if ($fetch[$name.'_l'.$l.'_date']!='0000-00-00' && $fetch[$name.'_l'.$l.'_date']!=''){
@@ -73,13 +74,13 @@ function genstempel2(&$def, $label,$name,&$fetch,$start){
 			$e['user']='';
 			$e['usern']='';
 		}
-		if (($l==1) || ($l==3)){
+		if (($l==1) || ($l==3) || ($l==7)){
 			$ub=getuserbox($name.'_'.$l.'_userbox',$e['usern']);
 		}
 		$def->assign('userbox',$ub);
 		$def->assign('E',$e);
 		
-		$def->parse("bearbeiten.form.stempel2.rowr.row".(($l==1) || ($l==3)?'2':''));
+		$def->parse("bearbeiten.form.stempel2.rowr.row".(($l==1) || ($l==3) || ($l==7)?'2':''));
 		$def->parse("bearbeiten.form.stempel2.rowr");
 
 	}

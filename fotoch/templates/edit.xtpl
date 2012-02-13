@@ -44,15 +44,19 @@
 			cu.innerHTML="{user}";
 			cuh.value="{userid}";
 			if (cub!=null) cub.value=parseInt("{userid}");
-			if (parseInt(num)<6){
-				ce=document.getElementById(checkelement+"_"+(parseInt(num)+1)+"_check");
+			num2=num;
+			if (num==7) num2=-1;
+			if (parseInt(num2)<6){
+				ce=document.getElementById(checkelement+"_"+(parseInt(num2)+1)+"_check");
 				ce.disabled=false;
 			}
 			
 			//alert(checkelement+"_"+(num)+"_check");
 			
-			if (parseInt(num)>0){
-				ce=document.getElementById(checkelement+"_"+(parseInt(num)-1)+"_check");
+			if (parseInt(num2)>-1){
+				num3=parseInt(num2)-1;
+				if (num3==-1) num3=7;
+				ce=document.getElementById(checkelement+"_"+num3+"_check");
 				ce.disabled=true;
 			}
 			
@@ -61,12 +65,15 @@
 
 		} else {
 			ol=parseInt(document.getElementById(checkelement+"_olevel").value);
-			
-			if (parseInt(num)<=ol){
+			num2=num;
+			if (num==7) num2=-1;
+			if (parseInt(num2)<=ol){
 			    ok=confirm("Wollen Sie den gespeicherten Status loeschen?");
 			    if (ok==true){
 					} else {
-					ce=document.getElementById(checkelement+"_"+(parseInt(ol))+"_check");
+					ol2=ol;
+					if (parseInt(ol2)==-1) ol2=7;
+					ce=document.getElementById(checkelement+"_"+(parseInt(ol2))+"_check");
 					ce.checked=true;
 					return(false);
 					}
@@ -76,15 +83,17 @@
 			cuh.value="";
 			if (cub!=null) cub.value=0;
 			
-			if (parseInt(num)<6){
-				ce=document.getElementById(checkelement+"_"+(parseInt(num)+1)+"_check");
+			if (parseInt(num2)<6){
+				ce=document.getElementById(checkelement+"_"+(parseInt(num2)+1)+"_check");
 				ce.disabled=true;
 			}
-			if (parseInt(num)>0){
-				ce=document.getElementById(checkelement+"_"+(parseInt(num)-1)+"_check");
+			if (parseInt(num2)>-1){
+				num3=parseInt(num2)-1;
+				if (num3==-1) num3=7;
+				ce=document.getElementById(checkelement+"_"+num3+"_check");
 				ce.disabled=false;
 			}
-			num=parseInt(num)+1;
+			num=parseInt(num2)+1;
 			//alert(checkelement+"_"+(num)+"_check");
 			
 			
@@ -96,6 +105,7 @@
 	  function st2init(element,level,start){
 	  for (i=start;i<=6;i++){
 	  		num=i;
+	  		if (num==-1) num=7;
 			ce=document.getElementById(element+"_"+num+"_check");
 			cd=document.getElementById(element+"_"+num+"_date");
 			cu=document.getElementById(element+"_"+num+"_usern");

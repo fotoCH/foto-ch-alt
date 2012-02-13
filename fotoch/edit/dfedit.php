@@ -92,7 +92,8 @@ if ($fertig==1){
 			}
 		}
 		foreach ($wrefs as $t){
-			for ($l=0;$l<=6;$l++){
+			for ($ln=-1;$ln<=6;$ln++){  // neu l7: geschrieben
+				$l=($ln==-1?7:$ln); 
 				$pdate=rformdate($_POST[$t.'_'.$l.'_date']);
 				if ($_POST[$t.'_'.$l.'_date']){
 					$u=($pdate==$array_eintrag[$t.'_l'.$l.'_date']?'':'`'.$t.'_l'.$l.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
