@@ -135,7 +135,7 @@ class DokuficheFormBuilder {
 		genstempel1b($this->def, $spr['pnd_vorgesehen'],'pnd_vorgesehen',$array_eintrag);
 		genstempel1($this->def, $spr['pnd_erstellt'],'pnd_erstellt',$array_eintrag);
 		gennoedit($this->def, $spr['originalsprache'],$array_eintrag['originalsprache']);
-		genstempel2($this->def, $spr['werdegang'],'werdegang',$array_eintrag,0);
+		genstempel2($this->def, $spr['werdegang'],'werdegang',$array_eintrag,-1);
 		genstempel2($this->def, $spr['schaffensbeschrieb'],'schaffensbeschrieb',$array_eintrag,-1);
 		$this->endPara();		
 	}
