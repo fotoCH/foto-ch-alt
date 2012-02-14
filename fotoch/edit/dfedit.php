@@ -53,10 +53,12 @@ if ($fertig==1){
 		$_POST['dokumentation']=$dokumentation;
 
 		$fs=array("projektname", "territoriumszugegoerigkeit", "bearbeitungstiefe","dokumentation","dokumentation_text","notiz_fiche");
-		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "pnd_erstellt", "interview_fertiggestellt","dokumentation");
-		$refsb=array("pnd_vorgesehen","interview_vorgesehen");
-		$wrefs=array("werdegang", "schaffensbeschrieb", "uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
-		$multirefs=array("aktualisierung");
+		$refs=array("biografie", "ausstellungen", "auszeichnungen_stipendien", "bestaende", "pnd_erstellt", "interview_fertiggestellt","interview_vorgesehen","interview_erstellt"
+		,"bestaende_versand","bestaende_antwortinstitution","bestaende_aktualisierungerstellt","bestaende_okinstitution","bestaende_publizieren"
+		,"bibliografie_erstellt","ausstellungen_erstellt","dokumentation");
+		$refsb=array("pnd_vorgesehen","bestaende_vorgesehen","interview_vorgesehen","bibliografie_vorgesehen","ausstellungen_vorgesehen");
+		$wrefs=array("werdegang", "schaffensbeschrieb", "sammlungsbeschreibung", "sammlungsgeschichte","uebersetzung_de", "uebersetzung_fr", "uebersetzung_it", "uebersetzung_rm", "uebersetzung_en");
+		//$multirefs=array("aktualisierung");
 		$sql="UPDATE $type SET ";
 		$s='';
 		$s2=''; // für history
@@ -157,7 +159,7 @@ if ($fertig==1){
 				}
 			}
 		}
-		foreach ($multirefs as $t){
+		/* foreach ($multirefs as $t){
 			$update = unserialize($array_eintrag[$t]);
 			//last editable position
 			$first_l = max(0,(sizeof($update)/2)-1);
@@ -186,7 +188,7 @@ if ($fertig==1){
 			if( $changed ) {
 				$s .= " `$t`='".mysql_real_escape_string(serialize($update))."' ";
 			}
-		}
+		} */
 
 		$sql.=$s." WHERE id ='$id'";
 

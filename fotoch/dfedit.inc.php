@@ -170,8 +170,30 @@ class DokuficheFormBuilder {
 	}
 	
 	function g_update() { global $spr;
-		$this->title( $spr['aktualisierung'] );
-		genstempel_multi($this->def, $spr['aktualisierung'],'aktualisierung',$this->formData);
+		$this->title( $spr['aktualisierung'].' '.$spr['bestaende2'] );
+		$array_eintrag = $this->formData;
+		genstempel1b($this->def, $spr['vorgesehen'],'bestaende_vorgesehen',$array_eintrag);
+		genstempel1($this->def, $spr['versand'],'bestaende_versand',$array_eintrag);
+		genstempel1($this->def, $spr['antwortinstitution'],'bestaende_antwortinstitution',$array_eintrag);
+		genstempel1($this->def, $spr['aktualisierungerstellt'],'bestaende_aktualisierungerstellt',$array_eintrag);
+		genstempel1($this->def, $spr['okinstitution'],'bestaende_okinstitution',$array_eintrag);
+		genstempel1($this->def, $spr['publizieren'],'bestaende_publizieren',$array_eintrag);
+		//genstempel_multi($this->def, $spr['aktualisierung'],'aktualisierung',$this->formData);
+		$this->endPara();
+		$this->title( $spr['aktualisierung']);
+		genstempel1b($this->def, $spr['interview'] .' '.$spr['vorgesehen'],'interview_vorgesehen',$array_eintrag);
+		genstempel1($this->def, $spr['interview'] .' '.$spr['erstellt'],'interview_erstellt',$array_eintrag);
+
+		genstempel2($this->def, $spr['sammlungsgeschichte'],'sammlungsgeschichte',$array_eintrag,-1);
+		genstempel2($this->def, $spr['sammlungsbeschreibung'],'sammlungsbeschreibung',$array_eintrag,-1);
+		
+		genstempel1b($this->def, $spr['bibliografie'].' '.$spr['vorgesehen'],'bibliografie_vorgesehen',$array_eintrag);
+		genstempel1($this->def, $spr['bibliografie'].' '.$spr['erstellt'],'bibliografie_erstellt',$array_eintrag);
+
+		genstempel1b($this->def, $spr['ausstellungen'].' '.$spr['vorgesehen'],'ausstellungen_vorgesehen',$array_eintrag);
+		genstempel1($this->def, $spr['ausstellungen'].' '.$spr['erstellt'],'ausstellungen_erstellt',$array_eintrag);
+		
+		
 		$this->endPara();
 	}
 	
