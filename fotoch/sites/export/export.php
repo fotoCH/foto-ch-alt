@@ -14,10 +14,10 @@ function getbildg(&$fetch,$cb,$cbc){
 			$l++;
 		} else {
 		if (in_array($c,array(33,39,40))){
-			$line.='<td colspan="2">'.(in_array($bgd[$c],$fetch['bildgattungen_set'])?$cbc:$cb).' '.$bgs[$c].'</td>';
+			$line.='<td colspan="2">'.(strpos($fetch['bildgattungen_set'],$bgd[$c])>0?$cbc:$cb).' '.$bgs[$c].'</td>';
 			$l++; $l++;
 		} else {
-			$line.='<td>'.(in_array($bgd[$c],$fetch['bildgattungen_set'])?$cbc:$cb).' '.$bgs[$c].'</td>';
+			$line.='<td>'.(strpos($fetch['bildgattungen_set'],$bgd[$c])>0?$cbc:$cb).' '.$bgs[$c].'</td>';
 			$l++; 
 		}
 		}
@@ -46,7 +46,8 @@ foreach (array('de','fr','it','rm','en') as $l){
 }
 $def->assign('I',$i);
 $cb='<input type="checkbox" checked="checked"/>';
-$cbc='☑☒';
+//$cbc='☑☒';
+$cbc='☒';
 $cb='☐';
 $def->assign('checkbox',$cb);
 $def->assign("SPR", $spr);
