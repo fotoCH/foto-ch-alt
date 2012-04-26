@@ -63,6 +63,8 @@ $def->parse("content.i9");
 $def->assign('bildg',getbildg($i,$cb,$cbc));
 $def->parse("content.i10");
 $def->parse("content.i11");
+$def->parse("content.i12");
+$def->parse("content.i13");
 $def->parse("content");
 $out.=$def->text("content");
 ?>
