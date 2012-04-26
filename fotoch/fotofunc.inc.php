@@ -259,6 +259,17 @@ function formlit2($f){
 	return($f);
 }
 
+function formlite(&$f){  //für export
+	$text=$f['verfasser_vorname'];
+	if ($text!='') $text=' '.$text;
+	$hg='';
+	if ($f['code']=='H')  $hg=' (Hg.)';
+	if ($f['verfasser_name']) $text=$f['verfasser_name'].$text.$hg.': ';
+	$f['verfasser']=$text;
+	return($f);
+}
+
+
 function formlit2_alt($f){
 	$text=$f['verfasser_vorname'];
 	if ($text!='') $text=', '.$text;
