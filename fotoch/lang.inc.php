@@ -6,7 +6,7 @@ $query = "SELECT name, de, array, ".$language." FROM sprache";
 $result = mysql_query($query);
 while($fetch = mysql_fetch_array($result)){
 	if ($fetch['array']>0){
-		if ($language!='de'){ // fotographen- und bildgattungen
+		if ($language!='dede'){ // fotographen- und bildgattungen // immer einsetzen für export
 			$de=explode(',',$fetch['de']);
 			$tr=explode(',',$fetch[$language]);
 			$spade[$fetch['name']]=$de;
