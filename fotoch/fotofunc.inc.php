@@ -98,6 +98,7 @@ function getfon($id){   // Gibt Namen zu einer Namen id als Array zur√ºck
 	$r['fid']=$fetch['fotografen_id'];
 	$r['namen_id']=$id;
 	$r['nachname']=$fetch['nachname'];
+	$r['vorname']=$fetch['vorname'];
 	$r['sortn']=$fetch['nachname'].', '. $fetch['vorname'] .' '.$fetch['namenszusatz'];
 	return($r);
 }
@@ -111,6 +112,7 @@ function getfo($id){  // Gibt ersten Namen zu einer Forografen id als Array zur√
 	$r['id']=$fetch['id'];
 	$r['fid']=$id;
 	$r['nachname']=$fetch['nachname'];
+	$r['vorname']=$fetch['vorname'];
 	$r['sortn']=$fetch['nachname'].', '. $fetch['vorname'] .' '.$fetch['namenszusatz'];
 	return($r);
 }

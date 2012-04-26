@@ -39,3 +39,6 @@ vertical-align: top;
 tr.nb td {
 border: 0px;
 }
+h1.bestandsblatt {
+ page-break-before: always;
+}
