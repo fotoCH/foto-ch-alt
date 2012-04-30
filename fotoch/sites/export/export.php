@@ -190,6 +190,7 @@ while($fetch6=mysql_fetch_array($result6)){
 			$fetch8['name']=$fotogr[$k]['namen'];
 			$fetch8['nachname']=$fotogr[$k]['nachname'];
 			$fetch8['vorname']=$fotogr[$k]['vorname'];
+			$fetch8['lebensdaten']=$fotogr[$k]['lebensdaten'];
 			$fetch8['fotografen_id']=$fotogr[$k]['fid'];
 
 			$def->assign("F",$fetch8);

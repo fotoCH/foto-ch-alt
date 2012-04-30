@@ -114,6 +114,7 @@ function getfo($id){  // Gibt ersten Namen zu einer Forografen id als Array zur√
 	$r['nachname']=$fetch['nachname'];
 	$r['vorname']=$fetch['vorname'];
 	$r['sortn']=$fetch['nachname'].', '. $fetch['vorname'] .' '.$fetch['namenszusatz'];
+	$r['lebensdaten']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);
 	return($r);
 }
 
