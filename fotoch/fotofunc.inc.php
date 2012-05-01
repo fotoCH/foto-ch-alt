@@ -100,6 +100,7 @@ function getfon($id){   // Gibt Namen zu einer Namen id als Array zurück
 	$r['nachname']=$fetch['nachname'];
 	$r['vorname']=$fetch['vorname'];
 	$r['sortn']=$fetch['nachname'].', '. $fetch['vorname'] .' '.$fetch['namenszusatz'];
+	$r['lebensdaten']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);
 	return($r);
 }
 
@@ -267,7 +268,12 @@ function formlite(&$f){  //für export
 	if ($text!='') $text=' '.$text;
 	$hg='';
 	if ($f['code']=='H')  $hg=' (Hg.)';
-	if ($f['verfasser_name']) $text=$f['verfasser_name'].$text.$hg.': ';
+	if ($f['verfasser_name']){
+		if ($text)
+			$text=$f['verfasser_name'].', '.$text.$hg;
+		else 
+			$text=$f['verfasser_name'].$hg;
+	}
 	$f['verfasser']=$text;
 	return($f);
 }
