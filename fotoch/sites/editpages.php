@@ -1,6 +1,7 @@
 <?php
 include ("./mysql.inc.php");
 include ("./fotofunc.inc.php");
+testauthedit();
 $editpages= new XTemplate("./templates/contents.xtpl");
 $editablePages=array("partner_content", "impressum_content", "kontakt_content", "sitemap_content", "handbuch_content", "handbuch_index", "home_content","home_logos");
 $editpages->assign("ITEM", "<h2>".$spr['editpages']."</h2>");
