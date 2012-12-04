@@ -42,6 +42,7 @@
 		normfeldg($def,$spr['institution'],"<a href=\"./?a=institution&amp;id=".$fetch['inst_id']."&amp;lang=".$_GET['lang']."\">".$inst['name']."</a>",$inst['gesperrt']);
 		normfeld($def,$spr['zeitraum'],$fetch['zeitraum']);
 		normfeld($def,$spr['bestandsbeschreibung'],$fetch['bestandsbeschreibung']);
+		$fetch['link_extern']=preg_replace("/http:\/\/(.*)/","<a href=\"http://\$1\" target=\"_new\">\$1</a>",$fetch['link_extern']);
 		normfeld($def,$spr['link_extern'],$fetch['link_extern']);
 		normfeld($def,$spr['signatur'],$fetch['signatur']);
 		normfeld($def,$spr['copy'],$fetch['copyright']);

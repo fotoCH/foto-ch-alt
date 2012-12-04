@@ -7,7 +7,7 @@ $logos=getLogos();
 //print_r($logos);
 foreach ($logos as $logo){
 
-	if ($logo['link']){
+	if (false){ //if ($logo['link']){
 		$e['text']='<a href="'.$logo['link'].'" target="_new">'.$logo['text'].'</a>';
 		if ($logo['bild']){
 			$e['img']='<a href="'.$logo['link'].'" target="_new"><img width="'.$logo['width'].'" border="0" src="Logos/'.$logo['bild'].'" /></a>';
@@ -17,7 +17,7 @@ foreach ($logos as $logo){
 	} else {
 		$e['text']='<b>'.$logo['text'].'</b>';
 		if ($logo['bild']){
-			$e['img']='<img alt="'.$logo['text'].'" width=""'.$logo['width'].'" border="0" src="Logos/'.$logo['bild'].'" />';
+			$e['img']='<img alt="'.$logo['text'].'" width="'.$logo['width'].'" border="0" src="Logos/'.$logo['bild'].'" />';
 		} else {
 			$e['img']=' &nbsp; ';
 		}

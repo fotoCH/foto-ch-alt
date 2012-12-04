@@ -78,6 +78,7 @@ if($_GET['submitbutton'] != ""){
 				foreach( array('werdegang','schaffensbeschrieb','uebersetzung_de','uebersetzung_fr','uebersetzung_it','uebersetzung_rm','uebersetzung_en') as $field ) {
 					$where.= "({$field}_l1_user = '$value' AND {$field}_l2_date = '0000-00-00') OR ";
 					$where.= "({$field}_l3_user = '$value' AND {$field}_l4_date = '0000-00-00') OR ";
+					$where.= "({$field}_l7_user = '$value' AND {$field}_l0_date = '0000-00-00') OR ";
 				}
 				$where.= "false ";
 			} elseif( $value === "0" ) {
@@ -102,14 +103,14 @@ if($_GET['submitbutton'] != ""){
 	$full= (!empty($vars['volltext']));
 	
 	if (!auth_level(USER_GUEST_READER)) $where='(fotografen.unpubliziert=0) AND ('.$where.')';
-	$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.werdegang<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE ".$where." ORDER BY namen.nachname Asc, namen.vorname Asc";
+	$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, CONCAT(fotografen.werdegang,fotografen.werdegang_fr,fotografen.werdegang_it,fotografen.werdegang_en,fotografen.werdegang_rm)<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE ".$where." ORDER BY namen.nachname Asc, namen.vorname Asc";
 
 	if ($arb){
-		$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.werdegang<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, arbeitsperioden.arbeitsort, arbeitsperioden.von, arbeitsperioden.um_von, arbeitsperioden.bis, arbeitsperioden.um_bis, CONCAT(arbeitsperioden.von, arbeitsperioden.bis)<>'' AS arbp FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) INNER JOIN arbeitsperioden ON fotografen.id=arbeitsperioden.fotografen_id WHERE ".$where." ORDER BY arbp DESC, arbeitsperioden.arbeitsort ASC, arbeitsperioden.von ASC, arbeitsperioden.bis ASC";
+		$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, CONCAT(fotografen.werdegang,fotografen.werdegang_fr,fotografen.werdegang_it,fotografen.werdegang_en,fotografen.werdegang_rm<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, arbeitsperioden.arbeitsort, arbeitsperioden.von, arbeitsperioden.um_von, arbeitsperioden.bis, arbeitsperioden.um_bis, CONCAT(arbeitsperioden.von, arbeitsperioden.bis)<>'' AS arbp FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) INNER JOIN arbeitsperioden ON fotografen.id=arbeitsperioden.fotografen_id WHERE ".$where." ORDER BY arbp DESC, arbeitsperioden.arbeitsort ASC, arbeitsperioden.von ASC, arbeitsperioden.bis ASC";
 	}
 
 	if ($full){
-		$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.werdegang<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND MATCH ( heimatort, geburtsort, todesort, beruf ,werdegang ,schaffensbeschrieb ,auszeichnungen ,kurzbio ,beruf_fr ,beruf_it ,beruf_en ,werdegang_fr ,werdegang_it ,werdegang_en ,schaffensbeschrieb_fr ,schaffensbeschrieb_it ) AGAINST ('".$vars['volltext']."')";
+		$query="SELECT fotografen.id, fotografen.nachname, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, CONCAT(fotografen.werdegang,fotografen.werdegang_fr,fotografen.werdegang_it,fotografen.werdegang_en,fotografen.werdegang_rm<>'' AS biog, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND MATCH ( heimatort, geburtsort, todesort, beruf ,werdegang ,schaffensbeschrieb ,auszeichnungen ,kurzbio ,beruf_fr ,beruf_it ,beruf_en ,werdegang_fr ,werdegang_it ,werdegang_en ,schaffensbeschrieb_fr ,schaffensbeschrieb_it ) AGAINST ('".$vars['volltext']."')";
 	}
 
 	if(auth_level(USER_WORKER)){
@@ -130,7 +131,7 @@ if($_GET['submitbutton'] != ""){
 			//$results.=$def->text("list.row_admin_arb");
 		}
 	}
-//echo $query;
+echo $query; exit;
 	$result=mysql_query($query);
 	
 	while($fetch=mysql_fetch_array($result)){
