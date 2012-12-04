@@ -62,8 +62,9 @@ while($fetch=mysql_fetch_array($result)){
 		$fetch['fotografengattungen_set']=str_replace('otograf','otografin',$fetch['fotografengattungen_set']);
 		$fetch['fotografengattungen_set']=str_replace('lehrer','lehrerin',$fetch['fotografengattungen_set']);
 		$fetch['fotografengattungen_set']=str_replace('reporter','reporterin',$fetch['fotografengattungen_set']);
-		$fetch['fotografengattungen_set']=str_replace('fabrikant','fabrikantin',$fetch['fotografengattungen_set']);
-		$fetch['fotografengattungen_set']=str_replace('wissenschaftler','wissenschaftlerin',$fetch['fotografengattungen_set']);	$fetch['fotografengattungen_set']=str_replace('sammler','sammlerin',$fetch['fotografengattungen_set']);
+		$fetch['fotografengattungen_set']=str_replace('abrikant','abrikantin',$fetch['fotografengattungen_set']);
+		$fetch['fotografengattungen_set']=str_replace('issenschaftler','issenschaftlerin',$fetch['fotografengattungen_set']);	
+		$fetch['fotografengattungen_set']=str_replace('ammler','ammlerin',$fetch['fotografengattungen_set']);
 	}
 
 
