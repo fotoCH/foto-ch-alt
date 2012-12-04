@@ -329,7 +329,7 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.fieldset_start");
 	$def->parse("bearbeiten.form.start");
 	$def->parse("bearbeiten.form");
-	genformitem($def,'textfield','PND',$array_eintrag['pnd'],'pnd');
+	genformitem($def,'textfield','GND',$array_eintrag['pnd'],'pnd');
 	$arr_art=array("P" =>"P", "G" =>"G");   //Array füllen für Select
 	genselectitem($def, $spr['art'], "$array_eintrag[art]", "art", $arr_art, "", "", "");
 	$arr_geschlecht=array(""=> "", "m" =>"Mann", "f" =>"Frau"); //Array füllen für Select

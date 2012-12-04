@@ -13,7 +13,7 @@
 	    	
 <!-- BEGIN:pnd -->    		
     	<tr>
-    				<td valign="top" class="detail_label"><span class="subtitle2">PND</span></td>    				
+    				<td valign="top" class="detail_label"><span class="subtitle2">GND</span></td>    				
     				<td valign="top"><span class="text2">{pnd}</span></td>
  		</tr>
    		<tr>
@@ -39,7 +39,7 @@
     				<td>&nbsp;</td>
 		</tr> 
     	<tr>
-    				<td valign="top" class="detail_label"><span class="subtitle2">PND</span></td>    				
+    				<td valign="top" class="detail_label"><span class="subtitle2">GND</span></td>    				
     				<td valign="top"><span class="text2">{pnd}</span></td>
  		</tr>
 <!-- END:pnd2 -->		
