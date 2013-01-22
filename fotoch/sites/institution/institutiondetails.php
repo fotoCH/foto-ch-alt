@@ -35,6 +35,8 @@
 			$def->assign("idd",$id);
 			$def->parse($det.".idd");
 		}
+		$fetch['name']=clean_entry(clangcont($fetch,'name'));
+		$fetch['abkuerzung']=clean_entry(clangcont($fetch,'abkuerzung'));
 		if ($fetch['abkuerzung']) $fetch['name'].=' ('.$fetch['abkuerzung'].')';
 		unset($fetch['abkuerzung']);
 		$fetch['ort']=$fetch['plz'].' '.$fetch['ort'];
