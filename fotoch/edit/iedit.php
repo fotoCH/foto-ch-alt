@@ -95,7 +95,7 @@ if($_POST['submitbutton']){
 	
 	$spezfs=array();  // felder bei denen der SB-name nicht dem formelement-name entspricht
 	$langfs=array(); // felder mit sprachversionen
-	$textfs=array('abkuerzung','art','isil','kanton','adresse','ort','name','plz','kontaktperson','telefon','fax','email','homepage','zugang_zur_sammlung','sammlungszeit_von','sammlungszeit_bis','sammlungsbeschreibung','sammlungsgeschichte','literatur','notiz','autorin'); //"normale" felder
+	$textfs=array('abkuerzung','abkuerzung_fr','abkuerzung_it','abkuerzung_rm','abkuerzung_en','art','isil','kanton','adresse','ort','name','name_fr','name_it','name_rm','name_en','plz','kontaktperson','telefon','fax','email','homepage','zugang_zur_sammlung','sammlungszeit_von','sammlungszeit_bis','sammlungsbeschreibung','sammlungsgeschichte','literatur','notiz','autorin'); //"normale" felder
 
 	$varfields=array('bildgattungen_set','gesperrt');  // felder die aus variablen gelesen werden.
 	
@@ -198,7 +198,15 @@ if ($fertig==1){
 	$def->assign('NAME',$array_eintrag['name']);
 	$def->assign('g',($array_eintrag['gesperrt']==1?'g':''));
 	$def->parse("bearbeiten.bearbeiten_head_institution");
+	genformitem($def,'textfield',$spr['name'].'_fr',$array_eintrag['name_fr'],'name_fr');
+	genformitem($def,'textfield',$spr['name'].'_it',$array_eintrag['name_it'],'name_it');
+	genformitem($def,'textfield',$spr['name'].'_rm',$array_eintrag['name_rm'],'name_rm');
+	genformitem($def,'textfield',$spr['name'].'_en',$array_eintrag['name_en'],'name_en');
 	genformitem($def,'textfield',$spr['abkuerzung'],$array_eintrag['abkuerzung'],'abkuerzung');
+	genformitem($def,'textfield',$spr['abkuerzung'].'_fr',$array_eintrag['abkuerzung_fr'],'abkuerzung_fr');
+	genformitem($def,'textfield',$spr['abkuerzung'].'_it',$array_eintrag['abkuerzung_it'],'abkuerzung_it');
+	genformitem($def,'textfield',$spr['abkuerzung'].'_rm',$array_eintrag['abkuerzung_rm'],'abkuerzung_rm');
+	genformitem($def,'textfield',$spr['abkuerzung'].'_en',$array_eintrag['abkuerzung_en'],'abkuerzung_en');
 	genformitem($def,'textfield',$spr['art'],$array_eintrag['art'],'art');
 	genformitem($def,'textfield',$spr['isil'],$array_eintrag['isil'],'isil');	
 	genformitem($def,'textfield',$spr['adresse'],$array_eintrag['adresse'],'adresse');
