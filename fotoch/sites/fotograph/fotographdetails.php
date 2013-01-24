@@ -148,11 +148,11 @@ while($fetch=mysql_fetch_array($result)){
 	normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
 
 	if(auth_level(USER_GUEST_READER_PARTNER)){
-		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, institution.name AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
+		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, CASE institution.`territoriumszugegoerigkeit` WHEN 'de' THEN institution.name WHEN 'fr' THEN institution.name_fr WHEN 'it' THEN institution.name_it WHEN 'rm' THEN institution.name_rm END AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
 				WHERE bestand_fotograf.fotografen_id=$id ORDER BY bestand.nachlass DESC, bestand.name ASC");
 	} else {
-		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, institution.name AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
+		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, CASE institution.`territoriumszugegoerigkeit` WHEN 'de' THEN institution.name WHEN 'fr' THEN institution.name_fr WHEN 'it' THEN institution.name_it WHEN 'rm' THEN institution.name_rm END AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
 				WHERE (bestand_fotograf.fotografen_id=$id) AND (bestand.gesperrt=0) AND (institution.gesperrt=0) ORDER BY bestand.nachlass DESC, bestand.name ASC");
 	}

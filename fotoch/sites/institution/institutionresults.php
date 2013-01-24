@@ -18,7 +18,9 @@ $def->assign("SPR",$spr);
 $def->assign("title",$spr['institutionen']);
 $def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp]");
 $def->assign("NEU","");
-	
+//SELECT `id`, `territoriumszugegoerigkeit`, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END as uname FROM `institution` WHERE CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END LIKE 'E%' ORDER BY uname	
+$namecase="CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END";
+$abkcase ="CASE `territoriumszugegoerigkeit` WHEN 'de' THEN abkuerzung WHEN 'fr' THEN abkuerzung_fr WHEN 'it' THEN abkuerzung_it WHEN 'rm' THEN abkuerzung_rm END";
 if ($_GET['submitbutton']!=""){
 	$issearch=3;
 
@@ -35,7 +37,11 @@ if ($_GET['submitbutton']!=""){
 				$where.=" AND ";
 			}
 			if($key == 'name'){
-				$where .= "$key LIKE '%$value%' OR abkuerzung LIKE '%$value%'";
+				$where .= "name LIKE '%$value%' OR abkuerzung LIKE '%$value%' OR ";
+				$where .= "name_fr LIKE '%$value%' OR abkuerzung_fr LIKE '%$value%' OR ";
+				$where .= "name_it LIKE '%$value%' OR abkuerzung_it LIKE '%$value%' OR ";
+				$where .= "name_rm LIKE '%$value%' OR abkuerzung_rm LIKE '%$value%' OR ";
+				$where .= "name_en LIKE '%$value%' OR abkuerzung_en LIKE '%$value%'";
 			}
 			else{
 				$where.="$key LIKE '%$value%' ";
@@ -44,14 +50,14 @@ if ($_GET['submitbutton']!=""){
 	}
 	
 	$full= (!empty($vars['volltext']));
-	
-	$query="SELECT * FROM institution WHERE $where ORDER BY name Asc";
 	//print_r($vars);
-
-	if ($full){
-		$query="SELECT * FROM institution WHERE MATCH (zugang_zur_sammlung,sammlungsbeschreibung,sammlungsgeschichte,abkuerzung) AGAINST ('".$vars['volltext']."') OR name LIKE '%".$vars['volltext']."%' OR abkuerzung LIKE '%".$vars['volltext']."%' OR ort LIKE '%".$vars['volltext']."%' ORDER BY name";
-	}
+	$query="SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $where ORDER BY ".$namecase;
 	
+	
+	if ($full){
+		$query="SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE MATCH (zugang_zur_sammlung,sammlungsbeschreibung,sammlungsgeschichte,abkuerzung) AGAINST ('".$vars['volltext']."') OR name LIKE '%".$vars['volltext']."%' OR name_fr LIKE '%".$vars['volltext']."%' OR name_it LIKE '%".$vars['volltext']."%' OR name_rm LIKE '%".$vars['volltext']."%' OR name_en LIKE '%".$vars['volltext']."%' OR abkuerzung LIKE '%".$vars['volltext']."%' OR abkuerzung_fr LIKE '%".$vars['volltext']."%' OR abkuerzung_it LIKE '%".$vars['volltext']."%' OR abkuerzung_rm LIKE '%".$vars['volltext']."%' OR abkuerzung_en LIKE '%".$vars['volltext']."%' OR ort LIKE '%".$vars['volltext']."%' ORDER BY ".$namecase;
+	}
+	//echo $query;
 	$result=mysql_query($query);
 	
 	if(mysql_num_rows($result) > 0){
@@ -90,17 +96,17 @@ if ($_GET['submitbutton']!=""){
 		$issearch=2;
 		// Select: code
 		if(auth_level(USER_GUEST_READER_PARTNER)){
-			$result=mysql_query("SELECT * FROM institution WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$result=mysql_query("SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $namecase LIKE '$anf%' ORDER BY ".$namecase);
 		} else {
-			$result=mysql_query("SELECT * FROM institution WHERE (name LIKE '$anf%') AND (gesperrt=0) ORDER BY  name Asc");
+			$result=mysql_query("SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '$anf%') AND (gesperrt=0) ORDER BY ".$namecase);
 		}
-		
+		echo $mysql_error;
 		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
 			$def->parse("list.listhead_normal_institution");
 		}
-	
+	echo $mysql_error;
 		while($fetch=mysql_fetch_array($result)){
 			$fetch['nameclass']='subtitle3';
 			if ($fetch['autorin']!=''){

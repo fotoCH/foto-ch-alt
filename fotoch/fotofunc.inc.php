@@ -128,16 +128,18 @@ function getallnam($id){  // Gibt alle Namen zu einer Forografen id als Array zu
 	}
 	return($r);
 }
+$namecase="";
+$abkcase ="CASE `territoriumszugegoerigkeit` WHEN 'de' THEN abkuerzung WHEN 'fr' THEN abkuerzung_fr WHEN 'it' THEN abkuerzung_it WHEN 'rm' THEN abkuerzung_rm END";
 
 function getinst($id){ // Institutsname aus Id
-	$result=mysql_query("SELECT *  FROM institution WHERE id=$id ORDER BY id Asc");
+	$result=mysql_query("SELECT *, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END as name FROM institution WHERE id=$id ORDER BY id Asc");
 	$fetch=mysql_fetch_array($result);
 	$name=$fetch['name'];
 	return($name);
 }
 
 function getinsta($id){ // Institut
-	$result=mysql_query("SELECT *  FROM institution WHERE id=$id ORDER BY id Asc");
+	$result=mysql_query("SELECT *, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END as name, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN abkuerzung WHEN 'fr' THEN abkuerzung_fr WHEN 'it' THEN abkuerzung_it WHEN 'rm' THEN abkuerzung_rm END as abkuerzung  FROM institution WHERE id=$id ORDER BY id Asc");
 	$fetch=mysql_fetch_array($result);
 	//$name=$fetch['name'];
 	return($fetch);
