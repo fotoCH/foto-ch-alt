@@ -17,11 +17,15 @@
 <!-- END: bestand -->
 
 <!-- BEGIN: institution -->
-<a href="?{HREF}&amp;lang={LANG}">{RARR}{VALUE}</a> 
+<a href="?{HREF}&amp;lang={LANG}">{RARR}{VALUE}</a>
 <!-- END: institution -->
 
 <!-- BEGIN: ausstellung -->
 <a href="?{HREF}&amp;lang={LANG}">{RARR}{VALUE}</a> 
 <!-- END: institution -->
+
+<!-- BEGIN: fotos -->
+<a href="?{HREF}&amp;lang={LANG}">{RARR}{VALUE}</a>
+<!-- END: fotos -->
 
 <!-- END: navhistory -->

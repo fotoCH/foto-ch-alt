@@ -31,7 +31,7 @@ function subgenselectitem(&$def, $label, $value, $name, $list, $m, $ll, $size){
 			$def->assign("ovalue",$v);
 		}
 		if ($m){
-			$def->assign("selected",(in_array($v,$value))?'selected="selected" ':'');/**/
+			$def->assign("selected",(in_array($v,$value))?'selected="selected" ':'');
 			if ($l=="\x85"){
 				$def->assign("ovalue",0);
 			}

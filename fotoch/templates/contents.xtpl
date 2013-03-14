@@ -14,12 +14,8 @@
 
 <!-- END:hand_kon_imp_par_site -->
 <!-- BEGIN:partner_content -->
-
-			<div id="content_items">
-				<h1>{SPR.partner}</h1>
-			</div>
-
 			<div id="content_data">
+            <h1 id="partner">{SPR.partner}</h1>
 			<table cellspacing="10" cellpadding="0" class="partner">
 <!-- BEGIN:row -->        		<tr>
             		<td valign="top">{e.text}</td>
@@ -29,32 +25,37 @@
 			</div>
 
 <!-- END:partner_content -->
+<!-- BEGIN:imprint_content -->
+            <div id="content_data">
+                {DATA}
+            </div>
+<!-- END:imprint_content -->
 <!-- BEGIN:home_detail -->
 <script type="text/javascript" src="js/prototype.js"></script>
 <script type="text/javascript" src="js/scriptaculous.js?load=effects"></script>
 <script type="text/javascript" src="js/effects.js"></script>
 <script type="text/javascript" src="js/protofade.1.2.js"></script>
 <script type="text/javascript">
-function StartUp() {
-	
-	new Protofade('content_image', { delay:5.0 });
-	
-}
+    function StartUp() {
 
-document.observe ('dom:loaded', StartUp); 
+        new Protofade('content_image', { delay:5.0 });
+
+    }
+
+    document.observe ('dom:loaded', StartUp);
 
 
 </script>
 
-			<div id="content_left">
-				{CONTENT}
-			</div>
-			<br />
-			<div id="content_image">
-			<!-- BEGIN:logo --><div><table border="0" cellspacing="0" cellpadding="0"><tr><td width="200" valign="top"><span style="font-size: larger;" >{SPR.wird_unterstuetzt}</span></td><td><span style="font-size: larger;" >{e.img}</span></td></tr></table>
-			</div><!-- END:logo -->
-			
-			</div>
+<div id="content_left">
+    {CONTENT}
+</div>
+<br />
+<div id="content_image">
+    <!-- BEGIN:logo --><div><table border="0" cellspacing="0" cellpadding="0"><tr><td width="200" valign="top"><span style="font-size: larger;" >{SPR.wird_unterstuetzt}</span></td><td><span style="font-size: larger;" >{e.img}</span></td></tr></table>
+</div><!-- END:logo -->
+
+</div>
 
 <!-- END:home_detail -->
 <!-- BEGIN:search -->

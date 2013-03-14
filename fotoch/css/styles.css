@@ -48,6 +48,8 @@ body {
 	/*height:0.55cm;*/
 	height:21px;
 	line-height:21px;
+    font-size: 20px;
+    font-weight: bold;
 }
 #top_header a, a:visited {
 	color:#DDDDDD;
@@ -59,6 +61,9 @@ body {
 }
 #img_header p {
 	text-indent:5px;
+    line-height:21px;
+    font-size: 20px;
+    font-weight: bold;
 }
 #img_header li{
 	height:85px;
@@ -83,8 +88,15 @@ body {
 	line-height:35px;
 	height:35px;
 }
+#navi_header li.selected, #navi_header li:hover {
+    background-color: #dddddd;
+}
 #navi_header a, a:visited {
-	color:#DDDDDD;
+	display: block;
+    color:#DDDDDD;
+}
+#navi_header li.selected a, #navi_header li:hover a {
+    color: #444444;
 }
 /*  --------------------------    SUBNAVIGATION IN HEADER     --------------------------------- */
 #sub_navi {
@@ -175,14 +187,20 @@ body {
 /*  --------------------------     FOOTER ELEMENTS    --------------------------------- */
 /*  --------------------------     ******************************      --------------------------------- */
 #footer {
+    display: block;
+    clear: both;
 	margin-top:5px;
-	float:left;
+    padding: 10px;
 	width:1018px;
 	height:19px;
+    background-color: #444444;
 	color:#DDDDDD;
 }
 #footer a {
 	color:#DDDDDD;
+}
+#footer a:hover {
+    color: blue;
 }
 #footer ul {
 	list-style-type:none;
@@ -198,6 +216,12 @@ body {
 	height:15px;
 	background-color:#444444;
 	border:1px solid #444444;
+}
+#footer .publisher {
+    float: left;
+}
+#footer .changelanguage {
+    float: right;
 }
 /*  --------------------------     ******************************      --------------------------------- */
 /*  --------------------------          GENERAL BODY ELEMENTS          --------------------------------- */

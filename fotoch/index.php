@@ -41,7 +41,7 @@ require("log.inc.php");
 log_session();
 
 $action=$_GET['a'];
-$actions=array("editpages","fotograph","repertorium","partner","links","kontakt","impressum","institution","ausstellung","bestand","glossar","handbuch","home","literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest","statistik","export","ablauf");
+$actions=array("editpages","fotograph","repertorium","partner","links","ueberuns","impressum","institution","ausstellung","fotos","bestand","glossar","hilfe","home", "literatur","login","logout","aedit","bedit","edit","gedit","iedit","ledit","user","uedit","dfedit","pndtest","statistik","export","ablauf");
 if (!in_array($action,$actions)) $action='home';  // default Startseite
 //functions
 //chose main template
@@ -54,8 +54,8 @@ if(auth_level(USER_WORKER)){
 		$xtpl = new XTemplate("templates/main_intern.xtpl");
 } 
 else {
-	if($action == "fotograph" || $action == "bestand" || $action == "institution"|| $action == "ausstellung"){
-		$xtpl = new XTemplate("templates/main_lexirepi.xtpl");
+	if($action == "fotograph" || $action == "bestand" || $action == "institution"|| $action == "ausstellung" || $action == "fotos"){
+        $xtpl = new XTemplate("templates/main_lexirepi.xtpl");
 		include("sites/navhistory.php");		
 		$xtpl->assign("SUBNAVI", $navigationhistory);
 	}
@@ -67,6 +67,7 @@ else {
 		//print_r($placeholders);
 		$xtpl->assign("IMGhref",$placeholders);
 	}
+    $xtpl->assign($action, " class='selected'");
 }
 ($_SESSION['usr_level'] != "") ? $xtpl->assign("LOG","logout"):$xtpl->assign("LOG","login");
 $xtpl->assign("USER",' '.$_SESSION['s_uid']);
@@ -74,15 +75,15 @@ $xtpl->assign("USER",' '.$_SESSION['s_uid']);
 $xtpl->assign("SPR",$spr);  // load all languagecontent!
 
 $xtpl->assign("LANG",$language);
-$xtpl->assign("URLDE", changeurl("de"));
-$xtpl->assign("URLFR", changeurl("fr"));
-$xtpl->assign("URLIT", changeurl("it"));
-
+$langSwitch.= $language != 'de' ? (' <a href="?'.changeurl("de").'">DE</a>') : '';
+$langSwitch.= $language != 'fr' ? (' <a href="?'.changeurl("fr").'">FR</a>') : '';
+$langSwitch.= $language != 'it' ? (' <a href="?'.changeurl("it").'">IT</a>') : '';
+$xtpl->assign("LANGSWITCH", $langSwitch);
 
 //assign action
 $xtpl->assign("ACTION",$action);
 //choose content sites 
-$adminActions = array("ausstellung", "bestand", "fotograph", "glossar", "institution", "literatur","user","statistik","export","ablauf");
+$adminActions = array("ausstellung", "fotos", "bestand", "fotograph", "glossar", "institution", "literatur","user","statistik","export","ablauf");
 $editActions = array("edit", "aedit", "bedit","gedit", "iedit", "ledit","uedit","dfedit");
 if(in_array($action,$adminActions)){
 	if((($action == "glossar") || ($action == "literatur") || ($action == "user") || ($action == "statistik")) && empty($_SESSION['s_uid'])){
