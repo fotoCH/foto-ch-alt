@@ -1,19 +1,25 @@
 /* CSS Document */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
 	text-align:center;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
-	
+	font-size:14px;
+
 }
 /*  --------------------------     ******************************      --------------------------------- */
 /*  --------------------------     CONTAINER FOR SITE, CENTERED    --------------------------------- */
 /*  --------------------------     ******************************      --------------------------------- */
 #container {
 	text-align:left;
-	margin:10px auto;
+	margin: 0 auto;
 	position:relative;
-	min-height:670px;
 	width:1022px;
+    min-height: 100%;
 }
 /*  --------------------------     ******************************      --------------------------------- */
 /*  --------------------------     HEADER ELEMENTS  NESTED  --------------------------------- */
@@ -109,6 +115,12 @@ body {
 #sub_navi a, a:visited {
 	color:#0000FF;
 }
+/*  --------------------------     WRAPPER FOR THE STICKY FOOTER    --------------------------------- */
+#wrapper {
+    padding-top: 10px;
+    padding-bottom: 39px;
+    overflow: auto;
+}
 /*  --------------------------     ******************************      --------------------------------- */
 /*  --------------------------     CONTENT CONTAINERS FOR DIFFERENT ALIGNMENTS   --------------------------------- */
 /*  --------------------------     ******************************      --------------------------------- */
@@ -116,24 +128,18 @@ body {
 	float:left;
     margin-top:5px;
 	width:1017px;
-	min-height:480px;
 	page-break-inside:auto;
 }
 /*  --------------------------     CONTENT CONTAINER FOR HOME    --------------------------------- */
 #content_left {
 	margin-left:6px;
-	/*float:left;*/
-	/*width:15.2cm;*/
 	width:573px;
 }
 #content_image {
-	/*float:right;*/
-	/*width:11.2cm;*/
 	width:700px;
-	 height:140px; overflow:hidden; 
-	 position:relative;
-
-	
+    height:140px;
+    overflow:hidden;
+	position:relative;
 }
 
 #content_image div { position:absolute; top:0; left:0; margin:0; padding:10px; background:none; text-align:left }
@@ -143,15 +149,23 @@ body {
 	margin-left:6px;
 	margin-top:20px;
 	float:left;
-	/*width:11.3cm;*/
 	width:427px;
 }
 #list {
 	margin-left:4px;
 	margin-top:20px;
 	float:right;
-	/*width:15.10cm;*/
 	width:572px;
+}
+.fotos #list {
+    float: none;
+    clear: both;
+    width: 100%;
+    border-top: 1px solid #444444;
+}
+.fotos .list_results tr:first-child td {
+    font-size: 14px;
+    font-weight: bold;
 }
 /*  --------------------------     CONTENT CONTAINER FOR HANDBUCH, KONTAKT, IMPRESSUM, PARTNER, SITEMAP    --------------------------------- */
 #content_items {
@@ -187,11 +201,11 @@ body {
 /*  --------------------------     FOOTER ELEMENTS    --------------------------------- */
 /*  --------------------------     ******************************      --------------------------------- */
 #footer {
-    display: block;
+    position: relative;
     clear: both;
-	margin-top:5px;
+	margin:-39px auto 0 auto;
     padding: 10px;
-	width:1018px;
+	width:999px;
 	height:19px;
     background-color: #444444;
 	color:#DDDDDD;
@@ -266,7 +280,7 @@ input.text, input.text {
 	background-color:#DDDDDD;
 	width:99%;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
+	font-size:14px;
 }
 input.submit,input.submit {
 	font-size:11px;
@@ -319,7 +333,7 @@ select.select{
 	width:99%;
 	background-color:#DDDDDD;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
+	font-size:14px;
 	border:0px;
 }
 select.edit{
@@ -330,7 +344,7 @@ textarea.inputtext {
 	width:99%;
 	background-color:#DDDDDD;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
+	font-size:14px;
 	border:0px;
 	resize:none;
 }
@@ -338,7 +352,7 @@ textarea.text_edit {
 	width:90%;	
 	height:170px;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
+	font-size:14px;
 	border:0px;
 	resize:none;
 }
@@ -436,7 +450,7 @@ SPAN, P {
 	font-family : Arial, Helvetica, sans-serif;
 	font-style : normal;
 	text-decoration : none; 
-	font-size: 12px; 
+	font-size: 14px;
 	color: black;
 }
 P.header {
@@ -444,31 +458,31 @@ P.header {
 }
 #container SPAN.subtitle2
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #000000;
 }
 #container SPAN.subtitle3
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #000000; 
 }
 #container SPAN.subtitle3x
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #cc2222;
 }
 #container SPAN.subtitle3biox
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #cc2222;
 }
 #container SPAN.subtitle3kbiox
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #cc2222;
 font-style: italic;
@@ -476,20 +490,20 @@ text-decoration:underline;
 }
 #container SPAN.subtitle3x a
 {
-font-size: 12px;
+font-size: 14px;
 font-weight: normal;
 color: #cc2222;
 }
 #container SPAN.subtitle3biox a
 {
-font-size: 12px;
+font-size: 14px;
 font-weight: normal;
 color: #cc2222;
 text-decoration:underline;
 }
 #container SPAN.subtitle3kbiox a
 {
-font-size: 12px;
+font-size: 14px;
 font-weight: normal;
 color: #cc2222;
 font-style: italic;
@@ -497,25 +511,25 @@ font-style: italic;
 
 #container SPAN.subtitle3g
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #cc2222; 
 }
 #container SPAN.subtitle3g a
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #cc2222; 
 }
 #container SPAN.subtitle3bio
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #000000; 
 }
 #container SPAN.subtitle3kbio
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #000000;
 font-style: italic;
@@ -527,65 +541,65 @@ A.subtitle3kbio {text-decoration:underline;  font-style: italic; }
 A.subtitle3kbiox {text-decoration:underline;  font-style: italic; } 
 SPAN.subtitle4 
 {
-font-size: 12px; 
+font-size: 14px;
 font-weight: normal; 
 color: #4C748B; 
 }
 SPAN.path
 {
-font-size: 12px; 
+font-size: 14px;
 color: #333333;
 }
 SPAN.index
 {
-font-size: 12px; 
+font-size: 14px;
 color: #333333;
 }
 SPAN.date
 {
-font-size: 12px; font-weight: normal; 
+font-size: 14px; font-weight: normal;
 color: #000000;
 }
 SPAN.date2
 {
-font-size: 12px; font-weight: normal; 
+font-size: 14px; font-weight: normal;
 color: #598F94;
 }
 SPAN.time
 {
-font-size: 12px; font-weight: normal; 
+font-size: 14px; font-weight: normal;
 color: #000000;
 }
 SPAN.ipi1 
 { 
-font-size: 12px; font-weight: normal; 
+font-size: 14px; font-weight: normal;
 color: #336666; 
 } 
 SPAN.ipi2
 {
 font-family: Arial, Helvetica, sans-serif; 
-font-size: 12px; 
+font-size: 14px;
 color: #152056;
 }
 SPAN.text1
 { 
-font-size: 12px; 
+font-size: 14px;
 color: #333333; 
 }
 SPAN.text2
 { 
-font-size: 12px;
+font-size: 14px;
 color: #000000;
 word-wrap:break-word;
 }
 SPAN.text2g
 { 
-font-size: 12px;
+font-size: 14px;
 color: #cc2222; 
 }
 SPAN.text2g a
 { 
-font-size: 12px;
+font-size: 14px;
 color: #cc2222; 
 }
 SPAN.edittitle
@@ -601,18 +615,18 @@ SPAN.news2
 font-family : Arial, Helvetica, sans-serif;
 font-style : normal;
 text-decoration : none; 
-font-size: 12px; 
+font-size: 14px;
 color: #333333;
 width : 575px;
 }
 SPAN.bottom
 {  
-font-size: 12px;
+font-size: 14px;
 color: #FFFFFF; 
 }
 SPAN.contact
 {
-font-size: 12px;
+font-size: 14px;
 color: #333333;
 }
 span.hidden a  		{color:#ffffff;text-decoration: none; }

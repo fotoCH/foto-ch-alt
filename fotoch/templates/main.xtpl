@@ -8,46 +8,48 @@
 	<title>{SPR.fotoch}</title>
 </head>
 
-<body>
+<body class="{ACTION}">
 <div id="container">
-	<div id="header">
-		<div id="top_header"> 
-			<ul>
-				<li>&nbsp;</li>
-				<li>&nbsp;</li>
-				<li>&nbsp;</li>
-				<li></li>
-				<li></li>
-				<li>&nbsp;</li>
-				<li>&nbsp;</li>
-			</ul>
-		</div>
-		<div id="img_header">
-			<ul>
-				<li><img src="images/{IMGhref.0}" class="image" alt=""/></li>
-				<li><p class="header">{SPR.fotoch}</p></li>
-				<li><img src="images/{IMGhref.1}" class="image" alt=""/></li>
-				<li><img src="images/{IMGhref.2}" class="image" alt=""/></li>
-				<li><img src="images/{IMGhref.3}" class="image" alt=""/></li>
-				<li><img src="images/{IMGhref.4}" class="image" alt=""/></li>
-				<li><img src="images/{IMGhref.5}" class="image" alt=""/></li>
-			</ul>
-		</div>
-		<div id="navi_header">
-		<ul>
-			<li{home}><a href="./?a=home&amp;lang={LANG}">{SPR.home}</a></li>
-			<li{fotograph}><a href="./?a=fotograph&amp;lang={LANG}">{SPR.fotografen}</a></li>
-			<li{institution}><a href="./?a=institution&amp;lang={LANG}">{SPR.institutionen}</a></li>
-			<li{ausstellung}><a href="./?a=ausstellung&amp;lang={LANG}">{SPR.ausstellungen}</a></li>
-			<li{fotos}><a href="./?a=fotos&amp;lang={LANG}">{SPR.fotos}</a></li>
-			<li{hilfe}><a href="./?a=hilfe&amp;lang={LANG}">{SPR.hilfe}</a></li>
-			<li{ueberuns}><a href="./?a=ueberuns&amp;lang={LANG}">{SPR.ueberuns}</a></li>
-		</ul>
-		</div>
-	</div>
-	<div id="content_container">
-		{OUT}
-	</div>
+    <div id="wrapper">
+        <div id="header">
+            <div id="top_header">
+                <ul>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                    <li></li>
+                    <li></li>
+                    <li>&nbsp;</li>
+                    <li>&nbsp;</li>
+                </ul>
+            </div>
+            <div id="img_header">
+                <ul>
+                    <li><img src="images/layout/{IMGhref.0}" class="image" alt=""/></li>
+                    <li><p class="header">{SPR.fotoch}</p></li>
+                    <li><img src="images/layout/{IMGhref.1}" class="image" alt=""/></li>
+                    <li><img src="images/layout/{IMGhref.2}" class="image" alt=""/></li>
+                    <li><img src="images/layout/{IMGhref.3}" class="image" alt=""/></li>
+                    <li><img src="images/layout/{IMGhref.4}" class="image" alt=""/></li>
+                    <li><img src="images/layout/{IMGhref.5}" class="image" alt=""/></li>
+                </ul>
+            </div>
+            <div id="navi_header">
+            <ul>
+                <li{home}><a href="./?a=home&amp;lang={LANG}">{SPR.home}</a></li>
+                <li{fotograph}><a href="./?a=fotograph&amp;lang={LANG}">{SPR.fotografen}</a></li>
+                <li{institution}><a href="./?a=institution&amp;lang={LANG}">{SPR.institutionen}</a></li>
+                <li{ausstellung}><a href="./?a=ausstellung&amp;lang={LANG}">{SPR.ausstellungen}</a></li>
+                <li{fotos}><a href="./?a=fotos&amp;lang={LANG}">{SPR.fotos}</a></li>
+                <li{hilfe}><a href="./?a=hilfe&amp;lang={LANG}">{SPR.hilfe}</a></li>
+                <li{ueberuns}><a href="./?a=ueberuns&amp;lang={LANG}">{SPR.ueberuns}</a></li>
+            </ul>
+            </div>
+        </div>
+        <div id="content_container">
+            {OUT}
+        </div>
+    </div>
 	<div id="footer">
         <div class="publisher">
             {SPR.herausgeber}

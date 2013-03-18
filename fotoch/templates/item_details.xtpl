@@ -4,6 +4,8 @@
     <td valign="top" class="detail_label"><h2>{TITLE}</h2></td>
     <td><span class="text2">{sprachanzeige}</span></td>
  </tr>
+    <!-- BEGIN:fotoitem -->
+    <!-- END: fotoitem -->
 <tr>
     <td valign="top" class="detail_label"><a id="top"></a><!-- BEGIN:idd -->
 	{idd}

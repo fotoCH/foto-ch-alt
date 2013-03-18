@@ -1,5 +1,5 @@
 <?php
-$fotografien = new XTemplate("././templates/contents.xtpl");
+$xtpl_fotos = new XTemplate("././templates/contents.xtpl");
 
 include("././search.inc.php");
 include("././fotofunc.inc.php");
@@ -7,22 +7,20 @@ include("././fotofunc.inc.php");
 if($_GET['id']==''){
     //search and
     include("fsearch.php");
-    $fotografien->assign("SEARCH",$search);
-    $issearch=1;
-    //... list
+    $xtpl_fotos->assign("SEARCH",$search);
+
     if($_GET['anf']!="" || $_GET['submitbutton']!=""){
         include("fotoresults.php");
-        //$lexi_repe_gloss_hand->assign("RESULTS",$results);
-        $fotografien->assign("LIST",$results);
+        $xtpl_fotos->assign("LIST",$results);
     }
 
-    $fotografien->parse("contents.search");
-    $out.= $fotografien->text("contents.search");
+    $xtpl_fotos->parse("contents.search");
+    $out.= $xtpl_fotos->text("contents.search");
 } else {
     //show details
     include("fotodetails.php");
-    $fotografien->assign("CONTENT", $results);
-    $fotografien->parse("contents.home_detail");
-    $out.= $fotografien->text("contents.home_detail");
+    $xtpl_fotos->assign("CONTENT", $results);
+    $xtpl_fotos->parse("contents.detail_item");
+    $out.= $xtpl_fotos->text("contents.detail_item");
 }
 ?>

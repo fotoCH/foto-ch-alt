@@ -1,0 +1,27 @@
+<!-- BEGIN:list -->
+<div class="meta_container">
+    <p class="meta">{RESULTCOUNT} {SPR.results}</p>
+</div>
+<table class="list_results" cellpadding="2" cellspacing="0">
+    <!-- BEGIN:head_fotolist -->
+    <tr valign="top">
+        <td>View-Switch</td>
+        <td>{SPR.titel}</td>
+        <td>{SPR.fotograph}</td>
+        <td>{SPR.zeitraum}</td>
+        <td>{SPR.institution}</td>
+        <td>{SPR.bestand}</td>
+    </tr>
+    <!-- END:head_fotolist -->
+    <!-- BEGIN:row_fotolist -->
+    <tr>
+        <td valign="baseline"><a href="./?a=fotos&amp;id={FETCH.id}"><img src="{FETCH.image}" alt="image" width="50px" height="auto"></a></td>
+        <td valign="baseline"><span class="subtitle3"><a href="./?a=fotos&amp;id={FETCH.id}">{FETCH.title}</a></span></td>
+        <td valign="baseline"><span class="subtitle3">{FETCH.photograph}</span></td>
+        <td valign="baseline"><span class="subtitle3">{FETCH.period}</span></td>
+        <td valign="baseline"><span class="subtitle3">{FETCH.institution}</span></td>
+        <td valign="baseline"><span class="subtitle3">{FETCH.stock}</span></td>
+    </tr>
+    <!-- END:row_fotolist -->
+</table>
+<!-- END:list -->
