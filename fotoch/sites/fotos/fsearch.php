@@ -22,8 +22,8 @@ subgenformitem($xtpl_fotosearch,'textfield',$spr['fotograph'], ($_GET['fotograph
 for($i=PERIOD_START; $i<=date('Y'); $i++){
     $arrYears[$i] = $i;
 }
-subgenselectitem($xtpl_fotosearch, $spr['zeitraum'], ($_GET['period_start'] ? $_GET['period_start'] : ''), "period_start", $arrYears, "", "", "");
-subgenselectitem($xtpl_fotosearch, $spr['zeitraum'], ($_GET['period_end'] ? $_GET['period_end'] : date('Y')), "period_end", $arrYears, "", "", "");
+subgenselectitem($xtpl_fotosearch, $spr['period_start'], ($_GET['period_start'] ? $_GET['period_start'] : ''), "period_start", $arrYears, "", "", "");
+subgenselectitem($xtpl_fotosearch, $spr['period_end'], ($_GET['period_end'] ? $_GET['period_end'] : date('Y')), "period_end", $arrYears, "", "", "");
 
 subgenformitem($xtpl_fotosearch,'textfield',$spr['titel'], ($_GET['title'] ? $_GET['title'] : ''),'title');
 
@@ -67,10 +67,10 @@ switch ($language) {
             }
         }
 }
-subgenselectitem($xtpl_fotosearch, $spr['institution'], ($_GET['institution'] ? $_GET['institution'] : 0), "institution", $arrInstitution, "", "", "");
+subgenselectitem($xtpl_fotosearch, $spr['institution'], ($_GET['institution'] ? $_GET['institution'] : 0), "institution", $arrInstitution, "", "", "", 'getAssociatedStock(this.value)');
 
 // retrieve stock data from the database
-$query = 'SELECT id, name FROM bestand';    // TODO only show stock data associated to the selected institution if institution is selected (AJAX request)
+$query = 'SELECT id, name FROM bestand';
 $objResult=mysql_query($query);
 $arrBestand['0'] = $spr['all'];
 while ($row = mysql_fetch_assoc($objResult)){
@@ -79,6 +79,22 @@ while ($row = mysql_fetch_assoc($objResult)){
 subgenselectitem($xtpl_fotosearch, $spr['bestand'], ($_GET['stock'] ? $_GET['stock'] : 0), "stock", $arrBestand, "", "", "");
 
 subgensubmit($xtpl_fotosearch,'submitfield',$spr['submit']);
+
+$script = "
+<script>
+function getAssociatedStock(institution_id){
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById('stock').innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open('GET','ajax.php?action=getStock&id='+institution_id,true);
+    xmlhttp.send();
+    }
+</script>
+";
+$xtpl->assign('script', $script);
 
 $xtpl_fotosearch->parse("suchen");
 $search.=$xtpl_fotosearch->text("suchen");

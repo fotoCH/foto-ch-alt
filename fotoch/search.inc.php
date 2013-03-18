@@ -16,7 +16,7 @@ function subgencheckitem(&$def, $label, $value, $name ){
 	$def->parse("suchen.form");
 }
 
-function subgenselectitem(&$def, $label, $value, $name, $list, $m, $ll, $size){
+function subgenselectitem(&$def, $label, $value, $name, $list, $m, $ll, $size, $onchange=''){
 	if($name!="geschlecht"){
 		$label.="*";
 	}
@@ -43,7 +43,8 @@ function subgenselectitem(&$def, $label, $value, $name, $list, $m, $ll, $size){
 	}
 	if ($m) $def->parse("suchen.form.select.plink");
 	$def->assign("checked",($value>0)?'checked="checked"':'');
-	$def->parse("suchen.form.select");
+    $def->assign("onchange",($onchange)?" onchange=$onchange":'');
+    $def->parse("suchen.form.select");
 	$def->parse("suchen.form");
 }
 

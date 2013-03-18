@@ -40,7 +40,7 @@
 <!-- BEGIN:select -->				
 			<tr>
     				<td class="search"><label for="{name}">{label}</label></td>
-    				<td class="search_input"><select class="select" name="{name}" id="{name}" size="{size}" {multiple}>
+    				<td class="search_input"><select class="select" name="{name}" id="{name}" size="{size}" {multiple}{onchange}>
 	<!-- BEGIN:option -->
             				<option {selected}value="{ovalue}">{olabel}</option>
 	<!-- END:option -->			
