@@ -25,7 +25,7 @@ for($i=PERIOD_START; $i<=date('Y'); $i++){
 subgenselectitem($xtpl_fotosearch, $spr['period_start'], ($_GET['period_start'] ? $_GET['period_start'] : ''), "period_start", $arrYears, "", "", "");
 subgenselectitem($xtpl_fotosearch, $spr['period_end'], ($_GET['period_end'] ? $_GET['period_end'] : date('Y')), "period_end", $arrYears, "", "", "");
 
-subgenformitem($xtpl_fotosearch,'textfield',$spr['titel'], ($_GET['title'] ? $_GET['title'] : ''),'title');
+subgenformitem($xtpl_fotosearch,'textfield',$spr['volltextsuche'], ($_GET['title'] ? $_GET['title'] : ''),'title');
 
 // retrieve institution data from the database
 $query = 'SELECT id, name, name_fr, name_it FROM institution';

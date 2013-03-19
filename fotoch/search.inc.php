@@ -1,5 +1,5 @@
 <?php
-function subgenformitem(&$def, $template, $label, $value, $name ){
+function subgenformitem(&$def, $template, $label, $value, $name, $attributes='' ){
 	$def->assign("label",$label);
 	$def->assign("name",$name);
 	$def->assign("value",$value);
