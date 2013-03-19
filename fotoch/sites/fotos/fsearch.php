@@ -80,7 +80,7 @@ subgenselectitem($xtpl_fotosearch, $spr['bestand'], ($_GET['stock'] ? $_GET['sto
 
 subgensubmit($xtpl_fotosearch,'submitfield',$spr['submit']);
 
-$script = "
+$script .= "
 <script>
 function getAssociatedStock(institution_id){
     xmlhttp=new XMLHttpRequest();

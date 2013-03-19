@@ -163,9 +163,16 @@ body {
     width: 100%;
     border-top: 1px solid #444444;
 }
-.fotos .list_results tr:first-child td {
+.fotos .list_results thead td {
+    height: 20px;
     font-size: 14px;
     font-weight: bold;
+}
+.list_results tbody tr:hover {
+    background-color: #dddddd;
+}
+.fotos .list_results td {
+    vertical-align: top;
 }
 /*  --------------------------     CONTENT CONTAINER FOR HANDBUCH, KONTAKT, IMPRESSUM, PARTNER, SITEMAP    --------------------------------- */
 #content_items {
