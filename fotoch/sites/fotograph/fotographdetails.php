@@ -275,14 +275,15 @@ while($fetch=mysql_fetch_array($result)){
 $def->parse($det);
 $results.=$def->text($det);
 
-// prepare photograph details
-$objResult=mysql_query("SELECT vorname, nachname FROM namen WHERE fotografen_id=$id");
+// prepare photo details
+$objResult=mysql_query("SELECT vorname, nachname FROM namen WHERE fotografen_id=$id LIMIT 0,1");
 while($result=mysql_fetch_assoc($objResult)){
-    $fotograph->assign('FOTOGRAPH', $result['vorname'].' '.$result['nachname']);
+    $fotograph->assign('panel_headline', $spr['photos_from'].' '.$result['vorname'].' '.$result['nachname']);
 }
-$fotograph->assign("SPR",$spr);
-$fotograph->assign("ALLPHOTOS",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&fotograph='.$result['vorname'].'+'.$result['nachname'].'paul+senn&submitbutton=suchen');
 
+
+$fotograph->assign("SPR",$spr);
+$fotograph->assign("ALLPHOTOS",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&fotograph='.$result['vorname'].'+'.$result['nachname'].'&submitbutton=suchen');
 
 $objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description FROM fotos WHERE dc_creator=$id ORDER BY RAND() LIMIT 0,3");
 while($result=mysql_fetch_assoc($objResult)){

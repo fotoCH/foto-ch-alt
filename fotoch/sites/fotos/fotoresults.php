@@ -41,12 +41,12 @@ if ($_GET['submitbutton']!=""){
                     break;
                 case 'institution':
                     if ($value != 0) {
-                        $where .= "i.name LIKE '%$value%'";
+                        $where .= "i.id='$value'";
                     }
                     break;
                 case 'bestand':
                     if ($value != 0) {
-                        $where .= "b.name LIKE '%$value%'";
+                        $where .= "b.id='$value'";
                     }
                     break;
             }
@@ -60,7 +60,7 @@ if ($_GET['submitbutton']!=""){
 
     $join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
     $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
-    $join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.inst_id ";
+    $join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.id ";
 
     $query="SELECT $select FROM fotos AS f $join";
     if (!empty($where)){

@@ -22,8 +22,8 @@ if($_GET['id']==''){
 	//show details
 	include("institutiondetails.php");
 	$institution->assign("CONTENT", $results);
-	$institution->parse("contents.home_detail");
-	$out.= $institution->text("contents.home_detail");
+	$institution->parse("contents.content_detail");
+	$out.= $institution->text("contents.content_detail");
 }
 ?>
 

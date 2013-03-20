@@ -10,10 +10,10 @@ if($_GET['id']!="") {
 	include("bestanddetails.php");	
 	//echo " included";
 	$bestand->assign("CONTENT",$results);
-	$bestand->parse("contents.home_detail");
+	$bestand->parse("contents.content_detail");
 	//parse lexikon
 	//$fotograph->parse("lexi_repe_gloss_hand");
-	$out.= $bestand->text("contents.home_detail");
+	$out.= $bestand->text("contents.content_detail");
 } 
 else {
 	//include("./lang.inc.php");
@@ -29,6 +29,6 @@ else {
 	$bestand->parse("contents.search");
 	
 	$out.=$bestand->text("contents.search");
-} 
+}
 
 ?>

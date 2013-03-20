@@ -65,7 +65,7 @@
 <aside id="right">
     <!-- BEGIN:photo_panel -->
     <div class="photo_panel">
-        <h2>{SPR.photos_from} {FOTOGRAPH}</h2>
+        <h2>{panel_headline}</h2>
         <div class="photo_container clearfix">
             {PHOTOS}
         </div>
