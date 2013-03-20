@@ -49,9 +49,8 @@ $fetch['empty']="";
 
 if($_GET[mod]=="erw"){
 	subgensubmit($def,'submitfield',$spr['submit']);
-	
-	subgenformitem($def,'textfield',$spr['nachname'],$fetch['empty'],'nachname');
-	subgenformitem($def,'textfield',$spr['vorname'],$fetch['empty'],'vorname');
+	subgenformitem($def,'textfield',$spr['nachname'],($_GET['nachname'] ? $_GET['nachname'] : ''),'nachname');
+	subgenformitem($def,'textfield',$spr['vorname'],($_GET['vorname'] ? $_GET['vorname'] : ''),'vorname');
 	$arr_geschlecht=array(''=>'', 'm' =>$spr['m'], 'f' =>$spr['f']);
 	
 
@@ -107,11 +106,11 @@ if($_GET[mod]=="erw"){
 	}
 
 
-	subgenformitem($def,'textfield',$spr['arbeitsort'],$fetch[''],'arbeitsort');
+	subgenformitem($def,'textfield',$spr['arbeitsort'],($_GET['arbeitsort'] ? $_GET['arbeitsort'] : ''),'arbeitsort');
 
-	subgenformitem($def,'textfield',$spr['arbeitsjahr'],$fetch[''],'arbeitsjahr');
+	subgenformitem($def,'textfield',$spr['arbeitsjahr'],($_GET['arbeitsjahr'] ? $_GET['arbeitsjahr'] : ''),'arbeitsjahr');
 
-	subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch[''],'volltext');
+	subgenformitem($def,'edittext',$spr['volltextsuche'],($_GET['volltext'] ? $_GET['volltext'] : ''),'volltext');
 
 	subgensubmit($def,'submitfield',$spr['submit']);
 	$suche = "<a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=ein&amp;lang=".$language."\">".$spr['einf_search']."</a>";
@@ -120,8 +119,8 @@ if($_GET[mod]=="erw"){
 } elseif($_GET[mod]=="df") {
 	global $wusers;
 	initwar();
-	subgenformitem($def,'textfield',$spr['nachname'],$fetch[''],'nachname');
-	subgenformitem($def,'textfield',$spr['vorname'],$fetch[''],'vorname');
+	subgenformitem($def,'textfield',$spr['nachname'],($_GET['nachname'] ? $_GET['nachname'] : ''),'nachname');
+	subgenformitem($def,'textfield',$spr['vorname'],($_GET['vorname'] ? $_GET['vorname'] : ''),'vorname');
 	subgenformitem($def,'textfield',$spr['projektname'],$fetch[''],'projektname');
 	$fertig_nicht = array('',$spr['fertig'],$spr['nicht_fertig']);
 	subgenselectitem($def, $spr['bearbeitungstiefe'], "", "bearbeitungstiefe", array_merge( array(''),DokufichenFotografFormBuilder::bearbeitungstiefen()), "", "", "");
@@ -137,14 +136,14 @@ if($_GET[mod]=="erw"){
 	$suche = "<a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=ein&amp;lang=".$language."\">".$spr['einf_search']."</a>";
 } else{
 	
-	subgenformitem($def,'textfield',$spr['nachname'],$fetch[''],'nachname');
-	subgenformitem($def,'textfield',$spr['vorname'],$fetch[''],'vorname');
+	subgenformitem($def,'textfield',$spr['nachname'],($_GET['nachname'] ? $_GET['nachname'] : ''),'nachname');
+	subgenformitem($def,'textfield',$spr['vorname'],($_GET['vorname'] ? $_GET['vorname'] : ''),'vorname');
 
-	subgenformitem($def,'textfield',$spr['arbeitsort'],$fetch[''],'arbeitsort');
+	subgenformitem($def,'textfield',$spr['arbeitsort'],($_GET['arbeitsort'] ? $_GET['arbeitsort'] : ''),'arbeitsort');
 
-	subgenformitem($def,'textfield',$spr['arbeitsjahr'],$fetch[''],'arbeitsjahr');
+	subgenformitem($def,'textfield',$spr['arbeitsjahr'],($_GET['arbeitsjahr'] ? $_GET['arbeitsjahr'] : ''),'arbeitsjahr');
 
-	subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch[''],'volltext');
+	subgenformitem($def,'edittext',$spr['volltextsuche'],($_GET['volltext'] ? $_GET['volltext'] : ''),'volltext');
 
 	subgensubmit($def,'submitfield',$spr['submit']);
 	$suche = "<a href=\"".$_SERVER['PHP_SELF']."?a=fotograph&amp;mod=erw&amp;lang=".$language."\">".$spr['erw_search']."</a>";
