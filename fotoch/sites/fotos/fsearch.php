@@ -28,11 +28,10 @@ subgenselectitem($xtpl_fotosearch, $spr['period_end'], ($_GET['period_end'] ? $_
 subgenformitem($xtpl_fotosearch,'textfield',$spr['volltextsuche'], ($_GET['title'] ? $_GET['title'] : ''),'title');
 
 // retrieve institution data from the database
-$query = 'SELECT id, name, name_fr, name_it FROM institution';
+$query = 'SELECT id, name, name_fr, name_it FROM institution WHERE gesperrt = 0 ORDER BY name';
 $objResult=mysql_query($query);
 
 // prepare language specific institution array
-$arrInstitution['0'] = $spr['all'];
 switch ($language) {
     case 'de':
         while ($row = mysql_fetch_assoc($objResult)){
@@ -67,15 +66,29 @@ switch ($language) {
             }
         }
 }
-subgenselectitem($xtpl_fotosearch, $spr['institution'], ($_GET['institution'] ? $_GET['institution'] : 0), "institution", $arrInstitution, "", "", "", 'getAssociatedStock(this.value)');
+// sort the array alphabetically and insert the default selection
+asort($arrInstitution);
+$arrInstitution = array($spr['all']) + $arrInstitution;
+//$arrInstitution['0'] = $spr['all'];
+subgenselectitem($xtpl_fotosearch, $spr['institutionen'], ($_GET['institution'] ? $_GET['institution'] : 0), "institution", $arrInstitution, "", "", "", 'getAssociatedStock(this.value)');
+
 
 // retrieve stock data from the database
-$query = 'SELECT id, name FROM bestand';
+$institutionIDs = array_keys($arrInstitution);
+unset($institutionIDs[0]);
+$institutionList = implode(",", $institutionIDs);
+
+$query = "SELECT id, name FROM bestand where gesperrt = 0 AND inst_id IN($institutionList) ORDER BY name";
 $objResult=mysql_query($query);
-$arrBestand['0'] = $spr['all'];
 while ($row = mysql_fetch_assoc($objResult)){
-    $arrBestand[$row['id']] = $row['name'];
+    if ($row['name']!='') {
+        $arrBestand[$row['id']] = $row['name'];
+    }
 }
+// sort the array alphabetically and insert the default selection
+asort($arrBestand);
+$arrBestand = array($spr['all']) + $arrBestand;
+
 subgenselectitem($xtpl_fotosearch, $spr['bestand'], ($_GET['stock'] ? $_GET['stock'] : 0), "stock", $arrBestand, "", "", "");
 
 subgensubmit($xtpl_fotosearch,'submitfield',$spr['submit']);

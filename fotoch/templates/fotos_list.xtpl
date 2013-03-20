@@ -6,7 +6,7 @@
     <!-- BEGIN:head_fotolist -->
     <thead>
         <tr>
-            <td>View-Switch</td>
+            <td>Vorschau</td>
             <td>{SPR.titel}</td>
             <td>{SPR.fotograph}</td>
             <td>{SPR.zeitraum}</td>
@@ -18,7 +18,7 @@
     <!-- END:head_fotolist -->
     <!-- BEGIN:row_fotolist -->
     <tr>
-        <td valign="baseline"><a href="./?a=fotos&amp;id={FETCH.id}"><img src="{FETCH.image}" alt="image" width="100px" height="auto"></a></td>
+        <td valign="baseline"><a href="./?a=fotos&amp;id={FETCH.id}"><img src="{FETCH.image}" alt="{FETCH.title}" width="100px" height="auto"></a></td>
         <td valign="baseline"><a href="./?a=fotos&amp;id={FETCH.id}">{FETCH.title}</a></td>
         <td valign="baseline">{FETCH.photograph}</td>
         <td valign="baseline">{FETCH.period}</td>

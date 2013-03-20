@@ -12,35 +12,38 @@ $xtpl_fotodetails->assign("LANG", $_GET['lang']);
 $xtpl_fotodetails->assign("TITLE", $spr['fotos']);
 $xtpl_fotodetails->assign("SPR",$spr);
 
-$query = "SELECT 'f.dc_created AS created, f.dc_title AS title, f.dc_description AS description'";
 
+$select = 'CONCAT(f.dc_title, " ", f.dc_description) AS titel, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created AS zeitraum, f.dc_coverage AS coverage, i.name AS institution, b.name AS bestand, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS url';
 
-/*
-SELECT b.name AS stock, i.name AS institution, n.nachname AS name, n.vorname AS firstname
-FROM fotos AS f
-JOIN namen AS n
-ON f.dc_creator=n.fotografen_id
-JOIN institution AS i
-ON f.edm_dataprovider=i.id
-JOIN bestand AS b
-ON b.inst_id=i.id
-WHERE n.vorname LIKE 'Paul'
-*/
+$join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
+$join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
+$join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.inst_id ";
 
+$query = "SELECT $select FROM fotos AS f $join WHERE f.id=$id";
 
-$objResult=mysql_query("SELECT * FROM fotos WHERE id=$id");
+$objResult=mysql_query($query);
 
 while($arrResult=mysql_fetch_assoc($objResult)){
     foreach ($arrResult as $key=>$value){
         if($value!=''){
-            $xtpl_fotodetails->assign("key",$key);
-            $xtpl_fotodetails->assign("value",$value);
+            $xtpl_fotodetails->assign("key",$spr[$key]);
+            if ($key=='zeitraum'){
+                $xtpl_fotodetails->assign("value",date('Y', mktime(0,0,0,1,1,$value)));
+            }
+            else {
+                $xtpl_fotodetails->assign("value",$value);
+            }
             $xtpl_fotodetails->parse("autodetail.z.autorow");
             $xtpl_fotodetails->parse("autodetail.z");
             abstand($xtpl_fotodetails);
         }
     }
 }
+
+// render the photo
+$xtpl_fotodetails->assign("photo_src", PHOTO_PATH.$id.'.jpg');
+$xtpl_fotodetails->assign("photo_alt", 'test');
+$xtpl_fotodetails->parse('autodetail.photo');
 
 $xtpl_fotodetails->parse('autodetail');
 $results.=$xtpl_fotodetails->text("autodetail");

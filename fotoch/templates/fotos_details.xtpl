@@ -1,14 +1,11 @@
-<!-- BEGIN:autodetail -->
+<!-- BEGIN:fotodetails -->
 <table class="item_details" cellpadding="2" cellspacing="0">
 <tr>
     <td valign="top" class="detail_label"><h2>{TITLE}</h2></td>
     <td><span class="text2">{sprachanzeige}</span></td>
-</tr>
-<!-- BEGIN:photo -->
-<tr>
-    <td colspan="2"><img src="{photo_src}" alt="{photo_alt}"></td>
-</tr>
-<!-- END: photo -->
+ </tr>
+    <!-- BEGIN:fotoitem -->
+    <!-- END: fotoitem -->
 <tr>
     <td valign="top" class="detail_label"><a id="top"></a><!-- BEGIN:idd -->
 	{idd}
@@ -152,5 +149,5 @@
 <!-- END:z -->    		
    		</table>
 	  
-<!-- END:autodetail -->
+<!-- END:fotodetails -->
 

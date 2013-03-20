@@ -54,7 +54,7 @@ if ($_GET['submitbutton']!=""){
 	}
 
     $select = 'f.id AS id, f.dc_created AS created, f.dc_title AS title, f.dc_description AS description, ';
-    $select.= 'n.nachname AS name, n.vorname AS firstname, ';
+    $select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
     $select.= 'i.name AS institution, ';
     $select.= 'b.name AS stock';
 
@@ -74,20 +74,42 @@ if ($_GET['submitbutton']!=""){
 			$xtpl_fotolist->parse("list.head_fotolist");
 	}
 
-	while($fetch=mysql_fetch_assoc($result)){
+    $itrRow = 0;
+	while(($fetch=mysql_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS){
         $rowItem['id'] = $fetch['id'];
         $rowItem['image'] = PHOTO_PATH.$fetch['id'].'.jpg';
-        $rowItem['title'] = $fetch['title'].($fetch['title']!='' && $fetch['description']!='' ? ' - ' : '').$fetch['description'];
-        $rowItem['photograph'] = $fetch['firstname'] . ' ' . $fetch['name'];
-        $rowItem['period'] = date('Y', mktime(0,0,0,1,1,$fetch['created']));;
+        $rowItem['title'] = $fetch['title'];
+        $rowItem['title'] .= ($rowItem['title']!='' ? ' - ' : '').$fetch['description'];
+        $rowItem['photograph'] = $fetch['name'];
+        $rowItem['period'] = date('Y', mktime(0,0,0,1,1,$fetch['created']));
         $rowItem['institution'] = $fetch['institution'];
         $rowItem['stock'] = $fetch['stock'];
 
         $xtpl_fotolist->assign("FETCH",$rowItem);
         $xtpl_fotolist->parse('list.row_fotolist');
+        $itrRow++;
 	}
 
 	$xtpl_fotolist->parse("list");
 	$results.=$xtpl_fotolist->text("list");
+
+    // load required scripts for the infinite scroll
+    $script .= '<script src="js/jquery-1.9.1.min.js"></script>';
+    $script .= '<script src="js/jquery.endless-scroll.js"></script>';
+    $script .= '<script>
+            $(function() {
+                $(document).endlessScroll({
+                    bottomPixels: 500,
+                    fireDelay: 10,
+                    callback: function(i) {
+                        var last_item = $("#list tbody tr:last");
+                        console.log(last_item);
+                        last_item.after(last_item.prev().prev().prev().prev().prev().prev().clone());
+                    }
+                });
+            });
+        </script>';
+
+//    $xtpl->assign('script', $script);
 }
 ?>
