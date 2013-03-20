@@ -6,11 +6,11 @@
     <!-- BEGIN:head_fotolist -->
     <thead>
         <tr>
-            <td>Vorschau</td>
-            <td>{SPR.titel}</td>
-            <td>{SPR.fotograph}</td>
-            <td>{SPR.zeitraum}</td>
-            <td>{SPR.institution}</td>
+            <td width=110>Vorschau</td>
+            <td width=400>{SPR.titel}</td>
+            <td width=110>{SPR.fotograph}</td>
+            <td width=80>{SPR.zeitraum}</td>
+            <td width=110>{SPR.institution}</td>
             <td>{SPR.bestand}</td>
         </tr>
     </thead>

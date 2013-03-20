@@ -79,7 +79,7 @@ if ($_GET['submitbutton']!=""){
         $rowItem['id'] = $fetch['id'];
         $rowItem['image'] = PHOTO_PATH.$fetch['id'].'.jpg';
         $rowItem['title'] = $fetch['title'];
-        $rowItem['title'] .= ($rowItem['title']!='' ? ' - ' : '').$fetch['description'];
+        $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
         $rowItem['photograph'] = $fetch['name'];
         $rowItem['period'] = date('Y', mktime(0,0,0,1,1,$fetch['created']));
         $rowItem['institution'] = $fetch['institution'];
