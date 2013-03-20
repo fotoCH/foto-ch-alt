@@ -58,6 +58,22 @@
 </div>
 
 <!-- END:home_detail -->
+<!-- BEGIN:content_detail -->
+<div id="content_left">
+    {CONTENT}
+</div>
+<aside id="right">
+    <!-- BEGIN:photo_panel -->
+    <div class="photo_panel">
+        <h2>{SPR.photos_from} {FOTOGRAPH}</h2>
+        <div class="photo_container clearfix">
+            {PHOTOS}
+        </div>
+        <a href="{ALLPHOTOS}">{SPR.all_photos}</a>
+    </div>
+    <!-- END:photo_panel -->
+</aside>
+<!-- END:content_detail -->
 <!-- BEGIN:search -->
 			<div id="searchdiv">
 				{SEARCH}

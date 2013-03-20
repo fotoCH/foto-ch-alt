@@ -11,6 +11,11 @@ body {
 	font-size:14px;
 
 }
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 /*  --------------------------     ******************************      --------------------------------- */
 /*  --------------------------     CONTAINER FOR SITE, CENTERED    --------------------------------- */
 /*  --------------------------     ******************************      --------------------------------- */
@@ -132,8 +137,26 @@ body {
 }
 /*  --------------------------     CONTENT CONTAINER FOR HOME    --------------------------------- */
 #content_left {
+    float: left;
 	margin-left:6px;
 	width:573px;
+}
+#right {
+    float: right;
+    width: 300px;
+}
+#right .photo_container a {
+    display: block;
+    float: left;
+    width: 98px;
+    margin-right: 2px;
+    background-color: #444444;
+    text-align: center;
+}
+#right .photo_container img {
+    max-width: 98px;
+    max-height: 70px;
+    margin: 0 auto;
 }
 #content_image {
 	width:700px;
@@ -142,7 +165,15 @@ body {
 	position:relative;
 }
 
-#content_image div { position:absolute; top:0; left:0; margin:0; padding:10px; background:none; text-align:left }
+#content_image div {
+    position:absolute;
+    top:0;
+    left:0;
+    margin:0;
+    padding:10px;
+    background:none;
+    text-align:left
+}
 
 /*  --------------------------     CONTENT CONTAINER FOR SEARCH    --------------------------------- */
 #searchdiv {

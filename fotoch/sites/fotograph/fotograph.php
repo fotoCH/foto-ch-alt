@@ -25,7 +25,8 @@ if($_GET['id']==''){
 	//show details
 	include("fotographdetails.php");
 	$fotograph->assign("CONTENT", $results);
-	$fotograph->parse("contents.home_detail");
-	$out.= $fotograph->text("contents.home_detail");
+    $fotograph->assign("CONTENT_RIGHT", $sidebarRight);
+	$fotograph->parse("contents.content_detail");
+	$out.= $fotograph->text("contents.content_detail");
 }
 ?>
