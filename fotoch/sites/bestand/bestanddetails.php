@@ -1,4 +1,5 @@
 <?php
+$_SESSION['referral'] = 'bestand';
 
 $def=new XTemplate ("././templates/item_details.xtpl");
 $def->assign("ACTION",$_GET['a']);
@@ -105,7 +106,6 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 $bestand->assign('panel_headline', $spr['photos_from_stock']);
 $bestand->assign("SPR",$spr);
 $bestand->assign("ALLPHOTOS",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&bestand='.$id.'&submitbutton=suchen');
-
 
 $objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
 while($result=mysql_fetch_assoc($objResult)){

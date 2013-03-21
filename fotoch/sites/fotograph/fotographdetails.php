@@ -1,5 +1,7 @@
 <?php
 include(config.inc.php);
+$_SESSION['referral'] = 'fotograph';
+
 $def=new XTemplate ("././templates/item_details.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);
@@ -280,7 +282,6 @@ $objResult=mysql_query("SELECT vorname, nachname FROM namen WHERE fotografen_id=
 while($result=mysql_fetch_assoc($objResult)){
     $fotograph->assign('panel_headline', $spr['photos_from'].' '.$result['vorname'].' '.$result['nachname']);
 }
-
 
 $fotograph->assign("SPR",$spr);
 $fotograph->assign("ALLPHOTOS",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&fotograph='.$result['vorname'].'+'.$result['nachname'].'&submitbutton=suchen');

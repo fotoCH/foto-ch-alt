@@ -72,6 +72,12 @@
         <a href="{ALLPHOTOS}">{SPR.all_photos}</a>
     </div>
     <!-- END:photo_panel -->
+    <!-- BEGIN:nav_panel -->
+    <div class="nav_panel">
+        {previous_link}
+        {next_link}
+    </div>
+    <!-- END:nav_panel -->
 </aside>
 <!-- END:content_detail -->
 <!-- BEGIN:search -->

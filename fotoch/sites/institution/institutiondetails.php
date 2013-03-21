@@ -1,6 +1,7 @@
 <?php
 include(config.inc.php);
 //include("fotofunc.inc.php");
+$_SESSION['referral'] = 'institution';
 	
 $def=new XTemplate ("././templates/item_details.xtpl");
 $def->assign("ACTION",$_GET['a']);

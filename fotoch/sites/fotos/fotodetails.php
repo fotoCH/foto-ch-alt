@@ -19,12 +19,13 @@ $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
 $join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.id ";
 
 $query = "SELECT $select FROM fotos AS f $join WHERE f.id=$id";
-
-
 $objResult=mysql_query($query);
 
 // prepare the metadata
 while($arrResult=mysql_fetch_assoc($objResult)){
+    $photographID = $arrResult['photograph_id'];
+    $institutionID = $arrResult['institution_id'];
+    $stockID = $arrResult['stock_id'];
     foreach ($arrResult as $key=>$value){
         $isOutput = true;
         switch ($key) {
@@ -38,13 +39,13 @@ while($arrResult=mysql_fetch_assoc($objResult)){
                 $isOutput = false;
                 break;
             case 'fotograph':
-                $value = '<a href="?a=fotograph&id='.$arrResult['photograph_id'].'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
+                $value = '<a href="?a=fotograph&id='.$photographID.'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
                 break;
             case 'institution':
-                $value = '<a href="?a=institution&id='.$arrResult['institution_id'].'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
+                $value = '<a href="?a=institution&id='.$institutionID.'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
                 break;
             case 'bestand':
-                $value = '<a href="?a=bestand&id='.$arrResult['stock_id'].'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
+                $value = '<a href="?a=bestand&id='.$stockID.'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
                 break;
             case 'url':
                 $value = '<a href="'.$value.'" target="_blank">'.$value.'</a>';
@@ -70,4 +71,27 @@ $xtpl_fotodetails->parse('autodetail.photo');
 
 $xtpl_fotodetails->parse('autodetail');
 $results.=$xtpl_fotodetails->text("autodetail");
+
+// generate the links to the previous and next photo according to the referral
+switch($_SESSION['referral']) {
+    case 'institution':
+        $query = "SELECT id FROM fotos WHERE edm_dataprovider=$institutionID ";
+        break;
+    case 'bestand':
+        $query = "SELECT id FROM fotos WHERE dcterms_ispart_of=$stockID ";
+        break;
+    default:
+        $query = "SELECT id FROM fotos WHERE dc_creator=$photographID ";
+}
+$objResult = mysql_query($query."AND id>$id LIMIT 0,1");
+if (mysql_num_rows($objResult)>0){
+    $xtpl_fotos->assign("next_link", '<a href="?a=fotos&id='.mysql_fetch_assoc($objResult)['id'].'">'.$spr['next_photo'].'</a>');
+}
+
+// generate the link to the previous photo
+$objResult = mysql_query($query."AND id<$id LIMIT 0,1");
+if (mysql_num_rows($objResult)>0){
+    $xtpl_fotos->assign("previous_link", '<a href="?a=fotos&id='.mysql_fetch_assoc($objResult)['id'].'">'.$spr['previous_photo'].'</a>');
+}
+$xtpl_fotos->parse('contents.content_detail.nav_panel');
 ?>

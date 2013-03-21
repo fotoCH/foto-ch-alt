@@ -20,7 +20,7 @@ if($_GET['id']==''){
     //show details
     include("fotodetails.php");
     $xtpl_fotos->assign("CONTENT", $results);
-    $xtpl_fotos->parse("contents.detail_item");
-    $out.= $xtpl_fotos->text("contents.detail_item");
+    $xtpl_fotos->parse("contents.content_detail");
+    $out.= $xtpl_fotos->text("contents.content_detail");
 }
 ?>
