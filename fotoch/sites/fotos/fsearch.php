@@ -69,7 +69,6 @@ switch ($language) {
 // sort the array alphabetically and insert the default selection
 asort($arrInstitution);
 $arrInstitution = array($spr['all']) + $arrInstitution;
-//$arrInstitution['0'] = $spr['all'];
 subgenselectitem($xtpl_fotosearch, $spr['institutionen'], ($_GET['institution'] ? $_GET['institution'] : 0), "institution", $arrInstitution, "", "", "", 'getAssociatedStock(this.value)');
 
 

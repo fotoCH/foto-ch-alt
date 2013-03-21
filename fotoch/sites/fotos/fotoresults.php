@@ -5,6 +5,22 @@ $xtpl_fotolist->assign("ACTION",$_GET['a']);
 $xtpl_fotolist->assign("LANG",$_GET['lang']);
 $xtpl_fotolist->assign("SPR",$spr);
 $id=$_GET['id'];
+$photoViewMode = $_GET['view']!='' ? $_GET['view'] : VIEW_TABLE;
+if ($photoViewMode == VIEW_TABLE){
+    if (strpos($_SERVER['REQUEST_URI'], 'view='.VIEW_TABLE)){
+        $viewUrl = str_replace('view='.VIEW_TABLE, 'view='.VIEW_TILE, $_SERVER['REQUEST_URI']);
+    } else {
+        $viewUrl = $_SERVER['REQUEST_URI'].'&view='.VIEW_TILE;
+    }
+    $xtpl_fotolist->assign('view_switch', '<a class="switch_view" href="'.$viewUrl.'">'.$spr['switchToTileView'].'</a>');
+} else {
+    if (strpos($_SERVER['REQUEST_URI'], 'view='.VIEW_TILE)){
+        $viewUrl = str_replace('view='.VIEW_TILE, 'view='.VIEW_TABLE, $_SERVER['REQUEST_URI']);
+    } else {
+        $viewUrl = $_SERVER['REQUEST_URI'].'&view='.VIEW_TABLE;
+    }
+    $xtpl_fotolist->assign('view_switch', '<a class="switch_view" href="'.$viewUrl.'">'.$spr['switchToTableView'].'</a>');
+}
 
 $xtpl_fotolist->assign("SPR",$spr);
 
@@ -20,33 +36,30 @@ if ($_GET['submitbutton']!=""){
 	
 	foreach ($vars as $key=>$value){
 		if (!empty($vars[$key])){
-            if (!empty($where)){
-                $where .= ' AND ';
-            }
             switch ($key){
                 case 'fotograph':
                     $arrStr = explode(' ', $value);     // TODO what about names with more than three parts? e.g. Marco von Allmen
-                    $where .= "(n.nachname LIKE '%$arrStr[0]%' AND n.vorname LIKE '%$arrStr[1]%') OR (n.vorname LIKE '%$arrStr[0]%' AND n.nachname LIKE '%$arrStr[1]%')";
+                    $where .= ($where!='' ? ' AND ' : '')."(n.nachname LIKE '%$arrStr[0]%' AND n.vorname LIKE '%$arrStr[1]%') OR (n.vorname LIKE '%$arrStr[0]%' AND n.nachname LIKE '%$arrStr[1]%')";
                     break;
                 case 'period_start':
                     $period_start = date('Y-m-d', mktime(0,0,0,1,1,$value));
-                    $where .= "f.dc_created >= '$period_start'";
+                    $where .= ($where!='' ? ' AND ' : '')."f.dc_created >= '$period_start'";
                     break;
                 case 'period_end':
                     $period_end = date('Y-m-d', mktime(0,0,0,1,1,$value));
-                    $where .= "f.dc_created <= '$period_end'";
+                    $where .= ($where!='' ? ' AND ' : '')."f.dc_created <= '$period_end'";
                     break;
                 case 'title':
-                    $where .= "f.dc_title LIKE '%$value%' OR f.dc_description LIKE '%$value%' OR f.dc_coverage LIKE '%$value%'";
+                    $where .= ($where!='' ? ' AND ' : '')."f.dc_title LIKE '%$value%' OR f.dc_description LIKE '%$value%' OR f.dc_coverage LIKE '%$value%'";
                     break;
                 case 'institution':
                     if ($value != 0) {
-                        $where .= "i.id='$value'";
+                        $where .= ($where!='' ? ' AND ' : '')."i.id='$value'";
                     }
                     break;
                 case 'bestand':
                     if ($value != 0) {
-                        $where .= "b.id='$value'";
+                        $where .= ($where!='' ? ' AND ' : '')."b.id='$value'";
                     }
                     break;
             }
@@ -69,29 +82,53 @@ if ($_GET['submitbutton']!=""){
 
 	$result=mysql_query($query);
     $rowCount = mysql_num_rows($result);
-	$xtpl_fotolist->assign('RESULTCOUNT', $rowCount);
+	$xtpl_fotolist->assign('result_count', $rowCount);
 	if($rowCount > 0){
-			$xtpl_fotolist->parse("list.head_fotolist");
+        $xtpl_fotolist->parse("list.table_view.head_fotolist");
 	}
 
-    $itrRow = 0;
-	while(($fetch=mysql_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS){
-        $rowItem['id'] = $fetch['id'];
-        $rowItem['image'] = PHOTO_PATH.$fetch['id'].'.jpg';
-        $rowItem['title'] = $fetch['title'];
-        $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
-        $rowItem['photograph'] = $fetch['name'];
-        $rowItem['period'] = date('Y', mktime(0,0,0,1,1,$fetch['created']));
-        $rowItem['institution'] = $fetch['institution'];
-        $rowItem['stock'] = $fetch['stock'];
+    // prepare data depending on the current view
+    if ($photoViewMode==VIEW_TABLE){
+        while(($fetch=mysql_fetch_assoc($result))){
+            $rowItem['id'] = $fetch['id'];
+            $rowItem['image_src'] = PHOTO_PATH.$fetch['id'].'.jpg';
+            $rowItem['title'] = $fetch['title'];
+            $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
+            $rowItem['photograph'] = $fetch['name'];
+            $rowItem['period'] = date('Y', mktime(0,0,0,1,1,$fetch['created']));
+            $rowItem['institution'] = $fetch['institution'];
+            $rowItem['stock'] = $fetch['stock'];
 
-        $xtpl_fotolist->assign("FETCH",$rowItem);
-        $xtpl_fotolist->parse('list.row_fotolist');
-        $itrRow++;
-	}
+            $xtpl_fotolist->assign("row",$rowItem);
+            $xtpl_fotolist->parse('list.table_view.row_fotolist');
+        }
+        $xtpl_fotolist->parse("list");
+        $xtpl_fotolist->parse("list.table_view");
+        $results.=$xtpl_fotolist->text("list");
+        $results.=$xtpl_fotolist->text("list.table_view");
+    } else {
+        while(($fetch=mysql_fetch_assoc($result))){
+            $rowItem['id'] = $fetch['id'];
+            $rowItem['image_src'] = PHOTO_PATH.$fetch['id'].'.jpg';
 
-	$xtpl_fotolist->parse("list");
-	$results.=$xtpl_fotolist->text("list");
+            // build the title
+            $rowItem['title'] = $fetch['title'];
+            $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
+            $pos=strpos($rowItem['title'], ' ', PHOTO_TILE_TITLE_LENGTH);
+            $rowItem['title'] = substr($rowItem['title'],0 , $pos );
+            $rowItem['title'] = str_replace(',', '', $rowItem['title']);
+            $rowItem['title'] = str_replace('/', '', $rowItem['title']);
+            $rowItem['title'] = str_replace(':', '', $rowItem['title']);
+
+            $rowItem['photograph'] = $fetch['name'];
+            $xtpl_fotolist->assign("tile",$rowItem);
+            $xtpl_fotolist->parse('list.tile_view.tile');
+        }
+        $xtpl_fotolist->parse("list");
+        $xtpl_fotolist->parse("list.tile_view");
+        $results.=$xtpl_fotolist->text("list");
+        $results.=$xtpl_fotolist->text("list.tile_view");
+    }
 
     // load required scripts for the infinite scroll
     $script .= '<script src="js/jquery-1.9.1.min.js"></script>';

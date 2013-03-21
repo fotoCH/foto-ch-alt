@@ -1,8 +1,10 @@
 <!-- BEGIN:list -->
-<div class="meta_container">
-    <p class="meta">{RESULTCOUNT} {SPR.results}</p>
+<div class="info">
+    <span>{result_count} {SPR.results}</span>
+    {view_switch}
 </div>
-<table class="list_results" cellpadding="2" cellspacing="0">
+<!-- BEGIN:table_view -->
+<table class="list_view" cellpadding="0" cellspacing="0">
     <!-- BEGIN:head_fotolist -->
     <thead>
         <tr>
@@ -18,14 +20,34 @@
     <!-- END:head_fotolist -->
     <!-- BEGIN:row_fotolist -->
     <tr>
-        <td valign="baseline"><a href="./?a=fotos&amp;id={FETCH.id}"><img src="{FETCH.image}" alt="{FETCH.title}" width="100px" height="auto"></a></td>
-        <td valign="baseline"><a href="./?a=fotos&amp;id={FETCH.id}">{FETCH.title}</a></td>
-        <td valign="baseline">{FETCH.photograph}</td>
-        <td valign="baseline">{FETCH.period}</td>
-        <td valign="baseline">{FETCH.institution}</td>
-        <td valign="baseline">{FETCH.stock}</td>
+        <td><a href="./?a=fotos&amp;id={row.id}"><img src="{row.image_src}" alt="{row.title}"></a></td>
+        <td><a href="./?a=fotos&amp;id={row.id}">{row.title}</a></td>
+        <td>{row.photograph}</td>
+        <td>{row.period}</td>
+        <td>{row.institution}</td>
+        <td>{row.stock}</td>
     </tr>
     <!-- END:row_fotolist -->
     </tbody>
 </table>
+<!-- END:table_view -->
+<!-- BEGIN:tile_view -->
+<div class="tile_view">
+<!-- BEGIN:tile -->
+    <div class="tile photo">
+        <a href="./?a=fotos&amp;id={tile.id}">
+            <figure>
+                <div class="image_container">
+                    <img src="{tile.image_src}" alt="{tile.title}">
+                </div>
+                <figcaption>
+                    <span class="title">{tile.title}</span>
+                    <span class="photograph">{tile.photograph}</span>
+                </figcaption>
+            </figure>
+        </a>
+    </div>
+<!-- END:tile -->
+</div>
+<!-- END:tile_view -->
 <!-- END:list -->

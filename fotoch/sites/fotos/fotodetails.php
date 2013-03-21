@@ -9,7 +9,7 @@ $xtpl_fotodetails->assign("ID",$_GET['id']);
 $id = $_GET['id'];
 $lang = $_GET['lang'];
 $xtpl_fotodetails->assign("LANG", $_GET['lang']);
-$xtpl_fotodetails->assign("TITLE", $spr['fotos']);
+$xtpl_fotodetails->assign("TITLE", $spr['photos']);
 $xtpl_fotodetails->assign("SPR",$spr);
 
 $select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created AS zeitraum, f.dc_coverage AS coverage, i.name AS institution, b.name AS bestand, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS url';

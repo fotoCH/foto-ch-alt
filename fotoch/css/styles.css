@@ -193,17 +193,70 @@ body {
     width: 100%;
     border-top: 1px solid #444444;
 }
-.fotos .list_results thead td {
-    height: 20px;
+.fotos .list_view thead td {
     font-size: 14px;
     font-weight: bold;
 }
-.list_results tbody tr:hover {
+.list_view tbody tr:hover {
     background-color: #dddddd;
 }
-.fotos .list_results td {
+.fotos .list_view td {
     vertical-align: top;
+    padding-bottom: 5px;
 }
+.fotos .list_view tbody td:first-child {
+    height: 105px;
+}
+.fotos .list_view tbody td:first-child a {
+    display: block;
+    text-align: center;
+}
+.fotos .list_view tbody img {
+    max-width: 100px;
+    max-height: 100px;
+}
+.fotos .info {
+    margin-bottom: 15px;
+}
+.fotos .switch_view {
+    float: right;
+}
+
+
+
+/* temporary styles for the tile-view!! */
+.fotos .tile {
+    width: 165px;
+    float: left;
+}
+.fotos .tile .image_container {
+    display: table-cell;
+    width: 155px;
+    height: 155px;
+    vertical-align: middle;
+}
+.fotos .tile img {
+    max-width: 155px;
+    max-height: 155px;
+}
+.fotos .tile a {
+    padding: 5px;
+    display: block;
+}
+.fotos .tile figure {
+    text-align: center;
+}
+.fotos .tile .title {
+    display: block;
+    font-weight: bold;
+}
+figure {
+    margin: 0;
+}
+
+
+
+
 /*  --------------------------     CONTENT CONTAINER FOR HANDBUCH, KONTAKT, IMPRESSUM, PARTNER, SITEMAP    --------------------------------- */
 #content_items {
 	float:left;
