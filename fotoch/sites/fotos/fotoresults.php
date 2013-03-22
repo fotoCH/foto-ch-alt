@@ -38,19 +38,19 @@ if ($_GET['submitbutton']!=""){
 		if (!empty($vars[$key])){
             switch ($key){
                 case 'fotograph':
-                    $arrStr = explode(' ', $value);     // TODO what about names with more than three parts? e.g. Marco von Allmen
-                    $where .= ($where!='' ? ' AND ' : '')."(n.nachname LIKE '%$arrStr[0]%' AND n.vorname LIKE '%$arrStr[1]%') OR (n.vorname LIKE '%$arrStr[0]%' AND n.nachname LIKE '%$arrStr[1]%')";
+                    $arrName = explode(' ', $value);     // TODO what about names with more than three parts? e.g. Marco von Allmen
+                    $where .= ($where!='' ? ' AND ' : '')."((n.nachname LIKE '%$arrName[0]%' AND n.vorname LIKE '%$arrName[1]%') OR (n.vorname LIKE '%$arrName[0]%' AND n.nachname LIKE '%$arrName[1]%'))";
                     break;
                 case 'period_start':
-                    $period_start = date('Y-m-d', mktime(0,0,0,1,1,$value));
+                    $period_start = "$value-01-01";
                     $where .= ($where!='' ? ' AND ' : '')."f.dc_created >= '$period_start'";
                     break;
                 case 'period_end':
-                    $period_end = date('Y-m-d', mktime(0,0,0,1,1,$value));
+                    $period_end = "$value-01-01";
                     $where .= ($where!='' ? ' AND ' : '')."f.dc_created <= '$period_end'";
                     break;
                 case 'title':
-                    $where .= ($where!='' ? ' AND ' : '')."f.dc_title LIKE '%$value%' OR f.dc_description LIKE '%$value%' OR f.dc_coverage LIKE '%$value%'";
+                    $where .= ($where!='' ? ' AND ' : '')."(f.dc_title LIKE '%$value%' OR f.dc_description LIKE '%$value%' OR f.dc_coverage LIKE '%$value%')";
                     break;
                 case 'institution':
                     if ($value != 0) {
@@ -91,6 +91,14 @@ if ($_GET['submitbutton']!=""){
     if ($photoViewMode==VIEW_TABLE){
         while(($fetch=mysql_fetch_assoc($result))){
             $rowItem['id'] = $fetch['id'];
+            // build the url including all necessary filter parameter
+            $rowItem['url'] = '?a=fotos&amp;id='.$fetch['id'];
+            $rowItem['url'] .= $_GET['fotograph']!='' ? '&fotograph='.urlencode($_GET['fotograph']) : '';
+            $rowItem['url'] .= $_GET['period_start']!=PHOTO_PERIOD_START ? '&period_start='.$_GET['period_start'] : '';
+            $rowItem['url'] .= $_GET['period_end']!=date('Y') ? '&period_end='.$_GET['period_end'] : '';
+            $rowItem['url'] .= $_GET['title']!='' ? '&title='.$_GET['title'] : '';
+            $rowItem['url'] .= $_GET['institution']!=0 ? '&institution='.$_GET['institution'] : '';
+            $rowItem['url'] .= $_GET['stock']!=0 ? '&stock='.$_GET['stock'] : '';
             $rowItem['image_src'] = PHOTO_PATH.$fetch['id'].'.jpg';
             $rowItem['title'] = $fetch['title'];
             $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
@@ -114,11 +122,11 @@ if ($_GET['submitbutton']!=""){
             // build the title
             $rowItem['title'] = $fetch['title'];
             $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
+            $length = strlen($rowItem['title']);
             $pos=strpos($rowItem['title'], ' ', PHOTO_TILE_TITLE_LENGTH);
             $rowItem['title'] = substr($rowItem['title'],0 , $pos );
-            $rowItem['title'] = str_replace(',', '', $rowItem['title']);
-            $rowItem['title'] = str_replace('/', '', $rowItem['title']);
-            $rowItem['title'] = str_replace(':', '', $rowItem['title']);
+            $rowItem['title'] = preg_replace('/[-\,;\\/(:*\"<|&]?$/', '', $rowItem['title']);   // remove special char if exists at the end
+            $rowItem['title'].= ($length>PHOTO_TILE_TITLE_LENGTH ? '...' : '');
 
             $rowItem['photograph'] = $fetch['name'];
             $xtpl_fotolist->assign("tile",$rowItem);

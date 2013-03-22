@@ -8,24 +8,24 @@
     <!-- BEGIN:head_fotolist -->
     <thead>
         <tr>
-            <td width=110>Vorschau</td>
-            <td width=400>{SPR.titel}</td>
-            <td width=110>{SPR.fotograph}</td>
-            <td width=80>{SPR.zeitraum}</td>
-            <td width=110>{SPR.institution}</td>
-            <td>{SPR.bestand}</td>
+            <td class="list_photo"></td>
+            <td class="list_title">{SPR.titel} / {SPR.description}</td>
+            <td class="list_photograph">{SPR.fotograph}</td>
+            <td class="list_period">{SPR.zeitraum}</td>
+            <td class="list_institution">{SPR.institution}</td>
+            <td class="list_stock">{SPR.bestand}</td>
         </tr>
     </thead>
     <tbody>
     <!-- END:head_fotolist -->
     <!-- BEGIN:row_fotolist -->
     <tr>
-        <td><a href="./?a=fotos&amp;id={row.id}"><img src="{row.image_src}" alt="{row.title}"></a></td>
-        <td><a href="./?a=fotos&amp;id={row.id}">{row.title}</a></td>
-        <td>{row.photograph}</td>
-        <td>{row.period}</td>
-        <td>{row.institution}</td>
-        <td>{row.stock}</td>
+        <td class="list_photo"><a href="{row.url}"><img src="{row.image_src}" alt="{row.title}"></a></td>
+        <td class="list_title"><a href="{row.url}">{row.title}</a></td>
+        <td class="list_photograph">{row.photograph}</td>
+        <td class="list_period">{row.period}</td>
+        <td class="list_institution">{row.institution}</td>
+        <td class="list_stock">{row.stock}</td>
     </tr>
     <!-- END:row_fotolist -->
     </tbody>

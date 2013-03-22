@@ -1,7 +1,6 @@
 <?php
 include(config.inc.php);
 //include("fotofunc.inc.php");
-$_SESSION['referral'] = 'institution';
 	
 $def=new XTemplate ("././templates/item_details.xtpl");
 $def->assign("ACTION",$_GET['a']);
@@ -157,12 +156,12 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 // prepare photograph details
 $institution->assign('panel_headline', $spr['photos_from_institution']);
 $institution->assign("SPR",$spr);
-$institution->assign("ALLPHOTOS",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton=suchen');
+$institution->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton=suchen');
 
 
 $objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
 while($result=mysql_fetch_assoc($objResult)){
-    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&institution='.$id.'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 }
 $institution->assign('PHOTOS',$randomPhotos);
 $institution->parse('contents.content_detail.photo_panel');

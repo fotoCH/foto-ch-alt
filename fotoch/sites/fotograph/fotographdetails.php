@@ -1,6 +1,5 @@
 <?php
 include(config.inc.php);
-$_SESSION['referral'] = 'fotograph';
 
 $def=new XTemplate ("././templates/item_details.xtpl");
 $def->assign("ACTION",$_GET['a']);
@@ -280,15 +279,17 @@ $results.=$def->text($det);
 // prepare photo details
 $objResult=mysql_query("SELECT vorname, nachname FROM namen WHERE fotografen_id=$id LIMIT 0,1");
 while($result=mysql_fetch_assoc($objResult)){
-    $fotograph->assign('panel_headline', $spr['photos_from'].' '.$result['vorname'].' '.$result['nachname']);
+    $firstname = $result['vorname'];
+    $name = $result['nachname'];
+    $fotograph->assign('panel_headline', $spr['photos_from'].' '.$firstname.' '.$name);
 }
 
 $fotograph->assign("SPR",$spr);
-$fotograph->assign("ALLPHOTOS",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&fotograph='.$result['vorname'].'+'.$result['nachname'].'&submitbutton=suchen');
+$fotograph->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&fotograph='.$firstname.(($firstname!='' && $name!='') ? '+' : '').$name.'&submitbutton=suchen');
 
 $objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description FROM fotos WHERE dc_creator=$id ORDER BY RAND() LIMIT 0,3");
 while($result=mysql_fetch_assoc($objResult)){
-    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&fotograph='.$id.'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 }
 $fotograph->assign('PHOTOS',$randomPhotos);
 $fotograph->parse('contents.content_detail.photo_panel');

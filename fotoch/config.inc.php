@@ -6,6 +6,6 @@ define('VIEW_TABLE', 'table');
 define('VIEW_TILE', 'tile');
 
 // PHOTO PORTAL
-define('PERIOD_START', 1840);
+define('PHOTO_PERIOD_START', 1840);
 define('PHOTO_PATH', 'images/fotos/');
 define('PHOTO_TILE_TITLE_LENGTH', 30);

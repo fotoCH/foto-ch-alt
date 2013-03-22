@@ -69,7 +69,7 @@
         <div class="photo_container clearfix">
             {PHOTOS}
         </div>
-        <a href="{ALLPHOTOS}">{SPR.all_photos}</a>
+        <a href="{view_all_photos}">{SPR.all_photos}</a>
     </div>
     <!-- END:photo_panel -->
     <!-- BEGIN:nav_panel -->

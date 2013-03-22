@@ -193,19 +193,33 @@ body {
     width: 100%;
     border-top: 1px solid #444444;
 }
+.fotos .list_view {
+    table-layout: fixed;
+}
+.fotos .list_view .list_title {
+    width: auto;
+}
+.fotos .list_view td.list_period {
+    width: 80px;
+}
 .fotos .list_view thead td {
+    height: 25px;
     font-size: 14px;
     font-weight: bold;
+    border-top: none;
 }
-.list_view tbody tr:hover {
+.fotos .list_view tbody tr:hover {
     background-color: #dddddd;
 }
 .fotos .list_view td {
-    vertical-align: top;
-    padding-bottom: 5px;
+    width: 110px;
+    height: 110px;
+    padding-right: 15px;
+    border-top: 1px solid #dddddd;
+    vertical-align: middle;
 }
-.fotos .list_view tbody td:first-child {
-    height: 105px;
+.fotos .list_view td a {
+    max-height: 100px;
 }
 .fotos .list_view tbody td:first-child a {
     display: block;
@@ -221,10 +235,6 @@ body {
 .fotos .switch_view {
     float: right;
 }
-
-
-
-/* temporary styles for the tile-view!! */
 .fotos .tile {
     width: 165px;
     float: left;
@@ -243,19 +253,19 @@ body {
     padding: 5px;
     display: block;
 }
+.fotos .tile a:hover {
+    background: #dddddd;
+}
 .fotos .tile figure {
     text-align: center;
 }
 .fotos .tile .title {
     display: block;
-    font-weight: bold;
+    color: blue;
 }
 figure {
     margin: 0;
 }
-
-
-
 
 /*  --------------------------     CONTENT CONTAINER FOR HANDBUCH, KONTAKT, IMPRESSUM, PARTNER, SITEMAP    --------------------------------- */
 #content_items {
@@ -448,6 +458,9 @@ textarea.text_edit {
 }
 /*for safari: textarea: resize:none*/
 /* ----------------------     TABLE-ELEMENTS    ------------------------------- */
+table {
+    font-size: 14px;
+}
 table.search {
 	width:90%;
 	margin:0px;

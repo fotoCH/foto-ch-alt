@@ -1,6 +1,4 @@
 <?php
-$_SESSION['referral'] = 'bestand';
-
 $def=new XTemplate ("././templates/item_details.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);
@@ -96,7 +94,6 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     if (auth_level(USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
     if (auth_level(USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
 
-
     normfeld($def,$spr['bearbeitungsdatum'],$fetch['bearbeitungsdatum']);
 
     $def->parse("autodetail");
@@ -105,11 +102,11 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 // prepare photograph details
 $bestand->assign('panel_headline', $spr['photos_from_stock']);
 $bestand->assign("SPR",$spr);
-$bestand->assign("ALLPHOTOS",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&bestand='.$id.'&submitbutton=suchen');
+$bestand->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&bestand='.$id.'&submitbutton=suchen');
 
 $objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
 while($result=mysql_fetch_assoc($objResult)){
-    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&bestand='.$id.'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 }
 $bestand->assign('PHOTOS',$randomPhotos);
 $bestand->parse('contents.content_detail.photo_panel');

@@ -19,7 +19,7 @@ $id=$_GET['id'];
 
 subgenformitem($xtpl_fotosearch,'textfield',$spr['fotograph'], ($_GET['fotograph'] ? $_GET['fotograph'] : ''),'fotograph');
 
-for($i=PERIOD_START; $i<=date('Y'); $i++){
+for($i=PHOTO_PERIOD_START; $i<=date('Y'); $i++){
     $arrYears[$i] = $i;
 }
 subgenselectitem($xtpl_fotosearch, $spr['period_start'], ($_GET['period_start'] ? $_GET['period_start'] : ''), "period_start", $arrYears, "", "", "");
@@ -91,7 +91,6 @@ $arrBestand = array($spr['all']) + $arrBestand;
 subgenselectitem($xtpl_fotosearch, $spr['bestand'], ($_GET['stock'] ? $_GET['stock'] : 0), "stock", $arrBestand, "", "", "");
 
 subgensubmit($xtpl_fotosearch,'submitfield',$spr['submit']);
-
 $script .= "
 <script>
 function getAssociatedStock(institution_id){
