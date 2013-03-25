@@ -57,7 +57,7 @@ if ($_GET['submitbutton']!=""){
                         $where .= ($where!='' ? ' AND ' : '')."i.id='$value'";
                     }
                     break;
-                case 'bestand':
+                case 'stock':
                     if ($value != 0) {
                         $where .= ($where!='' ? ' AND ' : '')."b.id='$value'";
                     }
@@ -79,6 +79,7 @@ if ($_GET['submitbutton']!=""){
     if (!empty($where)){
         $query.=" WHERE $where";
     }
+    var_dump($query);
 
 	$result=mysql_query($query);
     $rowCount = mysql_num_rows($result);
