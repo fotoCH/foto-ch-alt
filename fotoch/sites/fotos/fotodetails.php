@@ -8,7 +8,7 @@ $xtpl_fotodetails->assign("LANG", $_GET['lang']);
 $xtpl_fotodetails->assign("TITLE", $spr['photos']);
 $xtpl_fotodetails->assign("SPR",$spr);
 
-$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created AS zeitraum, f.dc_coverage AS coverage, b.name AS bestand, i.name AS institution, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url';
+$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created AS zeitraum, f.dc_coverage AS coverage, b.name AS bestand, i.name AS institution, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.image_path';
 
 $join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
 $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
@@ -22,6 +22,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
     $photographID = $arrResult['photograph_id'];
     $institutionID = $arrResult['institution_id'];
     $stockID = $arrResult['stock_id'];
+    $photoPath = $arrResult['image_path'];
     foreach ($arrResult as $key=>$value){
         if ($value==''){
             $value=$spr['not_available'];
@@ -30,6 +31,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
         switch ($key) {
             case 'titel':
                 $value = $value.(($value!='' && $arrResult['description']!='') ? ' / ' : '').$arrResult['description'];
+                $img_alt = $value;
                 break;
             case 'description':
             case 'institution_id':
@@ -73,8 +75,8 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 }
 
 // render the photo
-$xtpl_fotodetails->assign("photo_src", PHOTO_PATH.$id.'.jpg');
-$xtpl_fotodetails->assign("photo_alt", 'test');
+$xtpl_fotodetails->assign("photo_src", $photoPath);
+$xtpl_fotodetails->assign("photo_alt", $img_alt);
 $xtpl_fotodetails->parse('autodetail.photo');
 
 $xtpl_fotodetails->parse('autodetail');

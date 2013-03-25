@@ -1,5 +1,6 @@
 <?php
 require("mysql.inc.php");
+require("config.inc.php");
 
 // get the language strings
 $language = $_COOKIE['lang'];
@@ -17,12 +18,21 @@ switch ($action) {
         else {
             $query = "SELECT id, name FROM bestand ORDER BY name";
         }
-        $result = "<option value='0' selected='selected'>".$spr['all']."</option>";
+        $result = "<option value='0' selected='selected'>".$spr['all_stock']."</option>";
         $objResult=mysql_query($query);
         while($row = mysql_fetch_assoc($objResult)){
             $result .= "<option value='".$row['id']."'>".$row['name']."</option>";
         }
 
+        echo $result;
+        break;
+    case getNextPhotos :
+        $mode = $_GET['view'];
+        if ($mode==VIEW_TILE) {
+            $result = $_GET['nextItem'];
+        } else {
+            $result = $_GET['nextItem'];
+        }
         echo $result;
         break;
 }

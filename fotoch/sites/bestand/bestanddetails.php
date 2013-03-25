@@ -104,9 +104,9 @@ $bestand->assign('panel_headline', $spr['photos_from_stock']);
 $bestand->assign("SPR",$spr);
 $bestand->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&bestand='.$id.'&submitbutton=suchen');
 
-$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
+$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
 while($result=mysql_fetch_assoc($objResult)){
-    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&bestand='.$id.'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&bestand='.$id.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 }
 $bestand->assign('PHOTOS',$randomPhotos);
 $bestand->parse('contents.content_detail.photo_panel');

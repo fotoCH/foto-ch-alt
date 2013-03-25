@@ -68,7 +68,7 @@ switch ($language) {
 }
 // sort the array alphabetically and insert the default selection
 asort($arrInstitution);
-$arrInstitution = array($spr['all']) + $arrInstitution;
+$arrInstitution = array($spr['all_institution']) + $arrInstitution;
 subgenselectitem($xtpl_fotosearch, $spr['institutionen'], ($_GET['institution'] ? $_GET['institution'] : 0), "institution", $arrInstitution, "", "", "", 'getAssociatedStock(this.value)');
 
 
@@ -86,7 +86,7 @@ while ($row = mysql_fetch_assoc($objResult)){
 }
 // sort the array alphabetically and insert the default selection
 asort($arrBestand);
-$arrBestand = array($spr['all']) + $arrBestand;
+$arrBestand = array($spr['all_stock']) + $arrBestand;
 
 subgenselectitem($xtpl_fotosearch, $spr['bestand'], ($_GET['stock'] ? $_GET['stock'] : 0), "stock", $arrBestand, "", "", "");
 

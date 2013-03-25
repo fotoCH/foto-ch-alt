@@ -38,16 +38,16 @@ if ($_GET['submitbutton']!=""){
 		if (!empty($vars[$key])){
             switch ($key){
                 case 'fotograph':
-                    $arrName = explode(' ', $value);     // TODO what about names with more than three parts? e.g. Marco von Allmen
+                    $arrName = explode(' ', $value);
                     $where .= ($where!='' ? ' AND ' : '')."((n.nachname LIKE '%$arrName[0]%' AND n.vorname LIKE '%$arrName[1]%') OR (n.vorname LIKE '%$arrName[0]%' AND n.nachname LIKE '%$arrName[1]%'))";
                     break;
                 case 'period_start':
                     $period_start = "$value-01-01";
-                    $where .= ($where!='' ? ' AND ' : '')."f.dc_created >= '$period_start'";
+                    $where .= ($where!='' ? ' AND ' : '')."(f.dc_created >= '$period_start' OR f.dc_created = 0000-00-00)";
                     break;
                 case 'period_end':
-                    $period_end = "$value-01-01";
-                    $where .= ($where!='' ? ' AND ' : '')."f.dc_created <= '$period_end'";
+                    $period_end = "$value-12-31";
+                    $where .= ($where!='' ? ' AND ' : '')."(f.dc_created <= '$period_end' OR f.dc_created = 0000-00-00)";
                     break;
                 case 'title':
                     $where .= ($where!='' ? ' AND ' : '')."(f.dc_title LIKE '%$value%' OR f.dc_description LIKE '%$value%' OR f.dc_coverage LIKE '%$value%')";
@@ -66,7 +66,7 @@ if ($_GET['submitbutton']!=""){
 		}
 	}
 
-    $select = 'f.id AS id, f.dc_created AS created, f.dc_title AS title, f.dc_description AS description, ';
+    $select = 'f.id AS id, f.dc_created AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
     $select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
     $select.= 'i.name AS institution, ';
     $select.= 'b.name AS stock';
@@ -87,6 +87,7 @@ if ($_GET['submitbutton']!=""){
         $xtpl_fotolist->parse("list.table_view.head_fotolist");
 	}
 
+    $itrRow = 0;
     // prepare data depending on the current view
     if ($photoViewMode==VIEW_TABLE){
         while(($fetch=mysql_fetch_assoc($result))){
@@ -99,38 +100,42 @@ if ($_GET['submitbutton']!=""){
             $rowItem['url'] .= $_GET['title']!='' ? '&title='.$_GET['title'] : '';
             $rowItem['url'] .= $_GET['institution']!=0 ? '&institution='.$_GET['institution'] : '';
             $rowItem['url'] .= $_GET['stock']!=0 ? '&stock='.$_GET['stock'] : '';
-            $rowItem['image_src'] = PHOTO_PATH.$fetch['id'].'.jpg';
+            $rowItem['image_src'] = $fetch['image_path'];
             $rowItem['title'] = $fetch['title'];
             $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
             $rowItem['photograph'] = $fetch['name'];
-            $rowItem['period'] = date('Y', mktime(0,0,0,1,1,$fetch['created']));
+            $rowItem['period'] = ($fetch['created']!='0000-00-00' ? date('Y', mktime(0,0,0,1,1,$fetch['created'])) : '');
             $rowItem['institution'] = $fetch['institution'];
             $rowItem['stock'] = $fetch['stock'];
 
             $xtpl_fotolist->assign("row",$rowItem);
             $xtpl_fotolist->parse('list.table_view.row_fotolist');
+            $itrRow++;
         }
         $xtpl_fotolist->parse("list");
         $xtpl_fotolist->parse("list.table_view");
         $results.=$xtpl_fotolist->text("list");
         $results.=$xtpl_fotolist->text("list.table_view");
     } else {
-        while(($fetch=mysql_fetch_assoc($result))){
+        while(($fetch=mysql_fetch_assoc($result))) {
             $rowItem['id'] = $fetch['id'];
-            $rowItem['image_src'] = PHOTO_PATH.$fetch['id'].'.jpg';
+            $rowItem['image_src'] = $fetch['image_path'];
 
             // build the title
             $rowItem['title'] = $fetch['title'];
-            $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
+            $rowItem['title'] .= (($rowItem['title']!='' && $fetch['description']!='') ? ' / ' : '').$fetch['description'];
             $length = strlen($rowItem['title']);
             $pos=strpos($rowItem['title'], ' ', PHOTO_TILE_TITLE_LENGTH);
-            $rowItem['title'] = substr($rowItem['title'],0 , $pos );
+            if ($pos) {
+                $rowItem['title'] = substr($rowItem['title'],0 , $pos );
+            }
             $rowItem['title'] = preg_replace('/[-\,;\\/(:*\"<|&]?$/', '', $rowItem['title']);   // remove special char if exists at the end
             $rowItem['title'].= ($length>PHOTO_TILE_TITLE_LENGTH ? '...' : '');
 
             $rowItem['photograph'] = $fetch['name'];
             $xtpl_fotolist->assign("tile",$rowItem);
             $xtpl_fotolist->parse('list.tile_view.tile');
+            $itrRow++;
         }
         $xtpl_fotolist->parse("list");
         $xtpl_fotolist->parse("list.tile_view");
@@ -141,19 +146,35 @@ if ($_GET['submitbutton']!=""){
     // load required scripts for the infinite scroll
     $script .= '<script src="js/jquery-1.9.1.min.js"></script>';
     $script .= '<script src="js/jquery.endless-scroll.js"></script>';
-    $script .= '<script>
+    $script .= "<script>
             $(function() {
+                var loadedItemsCount = 6;
                 $(document).endlessScroll({
                     bottomPixels: 500,
                     fireDelay: 10,
                     callback: function(i) {
-                        var last_item = $("#list tbody tr:last");
+                        var last_item = $('#list tbody tr').last();
                         console.log(last_item);
-                        last_item.after(last_item.prev().prev().prev().prev().prev().prev().clone());
-                    }
+                        // get the next data portion from the server
+                        xmlhttp=new XMLHttpRequest();
+                        xmlhttp.onreadystatechange=function(){
+                            if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                                console.log(xmlhttp.responseText);
+                                last_item.after(xmlhttp.responseText);
+                            }
+                        }
+                        // collect the current search parameters from the url
+
+
+                        // find a way on how to store the search parameters in the session on the server
+
+
+                        xmlhttp.open('GET','ajax.php?action=getNextPhotos&nextItem='+loadedItemsCount,true);
+                        xmlhttp.send();
+                        }
                 });
             });
-        </script>';
+        </script>";
 
 //    $xtpl->assign('script', $script);
 }

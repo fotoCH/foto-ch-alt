@@ -159,9 +159,9 @@ $institution->assign("SPR",$spr);
 $institution->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton=suchen');
 
 
-$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
+$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
 while($result=mysql_fetch_assoc($objResult)){
-    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&institution='.$id.'"><img src="'.PHOTO_PATH.$result['id'].'.jpg" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&institution='.$id.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 }
 $institution->assign('PHOTOS',$randomPhotos);
 $institution->parse('contents.content_detail.photo_panel');
