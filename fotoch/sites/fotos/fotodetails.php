@@ -33,6 +33,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
                 $value = $value.(($value!='' && $arrResult['description']!='') ? ' / ' : '').$arrResult['description'];
                 $img_alt = $value;
                 break;
+            case 'image_path':
             case 'description':
             case 'institution_id':
             case 'stock_id':
@@ -61,8 +62,13 @@ while($arrResult=mysql_fetch_assoc($objResult)){
                 $value = '<a href="'.$value.'" target="_blank">'.$value.'</a>';
                 break;
             case 'zeitraum':
-                $value = date('Y', mktime(0,0,0,1,1,$value));
+                if ($value!='0000-00-00') {
+                    $value = date('Y', mktime(0,0,0,1,1,$value));
+                } else {
+                    $value = $spr['not_available'];
+                }
                 break;
+
         }
         if($isOutput && !empty($value)) {
             $xtpl_fotodetails->assign("key",$spr[$key]);
