@@ -1,5 +1,9 @@
 <?php
-header('Content-type: text/html; charset=utf-8');
+// gemäss Mail Jocelyne 21.3.2013
+$techniken=array('(Licht-?)','(Stereo-)','Ambrotypie','Bromsilberdruck','Daguerreotypie','Druck (Bromure)','Fotografie','Heliogravüre','Lichtdruck','Stereofotografie');
+
+
+header('Content-type: text/plain; charset=utf-8');
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL && ~E_NOTICE);
@@ -16,7 +20,7 @@ function getDetailScopeWeb($id){
 	$p1=strstr($p1,'</table>',true);
 	putData($p1);
 	//$p1=substr($p1,strlen($dtable)+1);
-	echo "<body><table>".$p1.'</table></body>';
+	//echo "<body><table>".$p1.'</table></body>';
 	//$ans=substr($ans,$p1+strlen($dtable)+1);
 	//echo $ans; exit
 	//return $ret;
@@ -26,12 +30,23 @@ function putData($t){
 	$regex='|<td class="veDetailAttributLabel"[^>]*>(.*)</td><td class="veDetailAttributValue"[^>]*>(.*)</td>|';
 	preg_match_all($regex,$t,$m);
 	$res=array();
+	$oldv='';
 	foreach ($m[1] as $k=>$v){
 		$key=$m[1][$k];
 		$value=$m[2][$k];
 
 		if (substr($key,-1)==':') $key=substr($key,0,-1);
-		$res[]=array($key,$value);
+		if (($key=='') && ($oldv=='Ort')){ 
+			
+			$c=count($res);
+			$res[$c-1][1]=$res[$c-1][1]."\r\n".$value;
+			
+		} else {
+			$res[]=array($key,$value);
+			$oldv=$key;
+		}
+		
+		
 		if (substr($key,0,12)=='Ansichtsbild'){
 			$reg2='/GetImage.aspx\?VEID=(.*)&amp;DE/';
 			preg_match($reg2,$value,$m2);
@@ -44,20 +59,33 @@ function putData($t){
 	putToDB($res);
 }
 
+function checktechnik($t){
+	$techniken=array('(Licht-?)','(Stereo-)','Ambrotypie','Bromsilberdruck','Daguerreotypie','Druck (Bromure)','Fotografie','Heliogravüre','Lichtdruck','Stereofotografie');
+	foreach ($techniken as $tt){
+		if (substr($t,0,strlen($tt))==$tt) return true;
+	}
+	return false;
+}
+
 function putToDB($r){
 	$s='Burgerbibliothek der Stadt Bern';
 	$q="REPLACE INTO bildarchivbu SET ";
 	$ok=false;
+	$tech='';
 	foreach ($r as $k => $v){
+		//echo("v0: ".$v[0]." v1: ".$v[1]."vold: ".$oldv."<br />\r\n");
 		if ($v[0]=='id') $ok=true;
+		
 		if ($v[0]!=''){
 			$q.="`$v[0]`='".mysql_escape_string($v[1])."', ";
 			$all.="$v[0]=".mysql_escape_string($v[1])."\r\n";
 		}
+		if ($v[0]=='Technik') $tech=$v[1];
+		
 	}
 	$q.="`source`='$s', `all`='".$all."'";
-	echo $q;
-	if ($ok){
+	//echo $q;
+	if ($ok && checktechnik($tech)){
 		$res=mysql_query($q);
 		if ($e=mysql_error()){
 			echo($e);
@@ -133,10 +161,23 @@ function getBilder(){
 }
 
 //getDetailScopeWeb(167165);
+//getDetailScopeWeb(106737);
+
+/*
+$r=mysql_query("SELECT id FROM bildarchivbu_o");
+while ($f=mysql_fetch_assoc($r)){
+	getDetailScopeWeb($f['id']);
+}
+*/
+$nb=array(102536,102108,102539,103424,105599,106105,106346,112128,106642,112127);
+foreach ($nb as $bid){
+	//getDetailScopeWeb($bid);
+	getBild($bid);
+}
 
 //getSRUsig("FN Fo");
 //for ($x=106716;$x<108716;$x++){
 // getDetailScopeWeb($x);
 //} 
-getBilder();
+//getBilder();
 ?>
