@@ -7,27 +7,27 @@ error_reporting(E_ALL && ~E_NOTICE);
 require("../mysql.inc.php");
 ob_start();
 mysql_select_db("foto-ch_test");
-$sql="SELECT * FROM bildarchiv"; 
+$sql="SELECT * FROM bildarchivbu"; 
 $result=mysql_query($sql); echo mysql_error();
 while ($fetch=mysql_fetch_assoc($result)){
 	$rec=array();
 	$res['dc_title']=$fetch['Titel'];
-	$res['dc_creator']=$fetch['fotograph'];
+	//$res['dc_creator']=$fetch['fotograph'];
 	$res['dcterms_ispart_of']=$fetch['bestand'];
-	$res['dc_right']=$fetch['Copyright'];
-	$created=parseZeitraum($fetch['Zeitraum']);
+	$res['dc_right']='<a href="http://www.burgerbib.ch/dokumente/benutzung/angebot_und_preise_reproduktionen.pdf">Reproduktionen / Bildrechte</a>';
+	$created=parseZeitraum($fetch['Entstehungszeitraum']);
 	$res['dc_created']=$created[0];
 	$res['dc_created_bis']=$created[1];
-	$res['dcterms_medium']=$fetch['Art des Negativs'];
-	$res['dcterms_subject']=$fetch['Thema (Fotos/Bilder)'];
-	$res['dc_identifier']='http://www.query.sta.be.ch/detail.aspx?ID='.$fetch['id'];
-	$res['dc_description']=$fetch['Inhalt'];
-	$res['dcterms_spatial']=$fetch['Ort (Fotos/Bilder)'];
-	$res['image_path']='bsaimage/'.$fetch['id'].'.jpg';
-	$res['edm_dataprovider']='2';
+	$res['dcterms_medium']=$fetch['Material / Beschreibstoffe'].' '.$fetch['Technik'];
+	$res['dcterms_subject']=$fetch['Dargestelltes Objekt'];
+	$res['dc_identifier']=$fetch['URL'];
+	$res['dc_description']=$fetch['Inhalt (Darin)'].' '.$fetch['Bildinhalt'];
+	$res['dcterms_spatial']=$fetch['Ort'];
+	$res['image_path']='buimage/'.$fetch['id'].'.jpg';
+	$res['edm_dataprovider']='13';
 	$res['all']=$fetch['all'];
 	$res['supplier_id']=$fetch['id'];
-	$res['zeitraum']=$fetch['Zeitraum'];
+	$res['zeitraum']=$fetch['Entstehungszeitraum'];
 	//print_r($res);
 	$u='';
 	foreach ($res as $k => $v){
@@ -35,7 +35,7 @@ while ($fetch=mysql_fetch_assoc($result)){
 		$u.="`".$k."`='".mysql_escape_string($v)."', ";
 	}
 	//echo "xxx".$u."vvv";
-	$sql="INSERT INTO fotos_bsa SET ".substr($u,0,-2);
+	$sql="INSERT INTO fotos SET ".substr($u,0,-2);
 	mysql_query($sql);
 	//echo $sql;
 }
