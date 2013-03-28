@@ -229,6 +229,14 @@ body {
     max-width: 100px;
     max-height: 100px;
 }
+.fotos .list_view tfoot tr:hover {
+    background-color: #ffffff;
+}
+.fotos .list_view tfoot tr {
+    color: blue;
+    text-align: center;
+    cursor: pointer;
+}
 .fotos .info {
     margin-bottom: 15px;
 }
@@ -266,6 +274,15 @@ body {
 }
 .fotos .tile .title {
     display: block;
+    color: blue;
+}
+.fotos .tile.load_more {
+    width: 100%;
+    padding: 50px 0 20px 0;
+    text-align: center;
+}
+.fotos .tile.load_more span {
+    cursor: pointer;
     color: blue;
 }
 figure {

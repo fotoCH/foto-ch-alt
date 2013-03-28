@@ -29,6 +29,11 @@
     </tr>
     <!-- END:row_fotolist -->
     </tbody>
+    <tfoot>
+        <tr>
+            <td id="load_list_content" colspan=6>Weitere Resultate laden</td>
+        </tr>
+    </tfoot>
 </table>
 <!-- END:table_view -->
 <!-- BEGIN:tile_view -->
@@ -48,6 +53,9 @@
         </a>
     </div>
 <!-- END:tile -->
+    <div class="tile load_more">
+        <span id="load_tile_content">Weitere Resultate anzeigen</span>
+        </div>
 </div>
 <!-- END:tile_view -->
 <!-- END:list -->

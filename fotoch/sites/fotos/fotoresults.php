@@ -12,14 +12,14 @@ if ($photoViewMode == VIEW_TABLE){
     } else {
         $viewUrl = $_SERVER['REQUEST_URI'].'&view='.VIEW_TILE;
     }
-    $xtpl_fotolist->assign('view_switch', '<a class="switch_view" href="'.$viewUrl.'">'.$spr['switchToTileView'].'</a>');
+    $xtpl_fotolist->assign('view_switch', '<a class="switch_view" href="'.$viewUrl.'">'.$spr['switch_to_tile_view'].'</a>');
 } else {
     if (strpos($_SERVER['REQUEST_URI'], 'view='.VIEW_TILE)){
         $viewUrl = str_replace('view='.VIEW_TILE, 'view='.VIEW_TABLE, $_SERVER['REQUEST_URI']);
     } else {
         $viewUrl = $_SERVER['REQUEST_URI'].'&view='.VIEW_TABLE;
     }
-    $xtpl_fotolist->assign('view_switch', '<a class="switch_view" href="'.$viewUrl.'">'.$spr['switchToTableView'].'</a>');
+    $xtpl_fotolist->assign('view_switch', '<a class="switch_view" href="'.$viewUrl.'">'.$spr['switch_to_table_view'].'</a>');
 }
 
 $xtpl_fotolist->assign("SPR",$spr);
@@ -88,11 +88,11 @@ if ($_GET['submitbutton']!=""){
     $itrRow = 0;
     // prepare data depending on the current view
     if ($photoViewMode==VIEW_TABLE){
-        while(($fetch=mysql_fetch_assoc($result))){
+        while(($fetch=mysql_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS){
             $rowItem['id'] = $fetch['id'];
             // build the url including all necessary filter parameter
             $rowItem['url'] = '?a=fotos&amp;id='.$fetch['id'];
-            $rowItem['url'] .= $_GET['fotograph']!='' ? '&fotograph='.urlencode($_GET['fotograph']) : '';
+            $rowItem['url'] .= $_GET['photograph']!='' ? ('&photograph='.urlencode($_GET['photograph'])) : '';
             $rowItem['url'] .= $_GET['period_start']!=PHOTO_PERIOD_START ? '&period_start='.$_GET['period_start'] : '';
             $rowItem['url'] .= $_GET['period_end']!=date('Y') ? '&period_end='.$_GET['period_end'] : '';
             $rowItem['url'] .= $_GET['title']!='' ? '&title='.$_GET['title'] : '';
@@ -115,7 +115,7 @@ if ($_GET['submitbutton']!=""){
         $results.=$xtpl_fotolist->text("list");
         $results.=$xtpl_fotolist->text("list.table_view");
     } else {
-        while(($fetch=mysql_fetch_assoc($result))) {
+        while(($fetch=mysql_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS) {
             $rowItem['id'] = $fetch['id'];
             $rowItem['image_src'] = $fetch['image_path'];
 
@@ -142,41 +142,49 @@ if ($_GET['submitbutton']!=""){
     }
 
     // load required scripts for the infinite scroll
+    $url = $_GET['photograph']!='' ? ('&photograph='.urlencode($_GET['photograph'])) : '';
+    $url .= $_GET['period_start']!=PHOTO_PERIOD_START ? '&period_start='.$_GET['period_start'] : '';
+    $url .= $_GET['period_end']!=date('Y') ? '&period_end='.$_GET['period_end'] : '';
+    $url .= $_GET['title']!='' ? '&title='.$_GET['title'] : '';
+    $url .= $_GET['institution']!=0 ? '&institution='.$_GET['institution'] : '';
+    $url .= $_GET['stock']!=0 ? '&stock='.$_GET['stock'] : '';
+    $url .= '&view='.$photoViewMode;
+
     $script .= '<script src="js/jquery-1.9.1.min.js"></script>';
-    $script .= '<script src="js/jquery.endless-scroll.js"></script>';
     $script .= "<script>
             $(function() {
-                var loadedItemsCount = 6;
-                $(document).endlessScroll({
-                    bottomPixels: 500,
-                    fireDelay: 10,
-                    callback: function(i) {
+                var nextItem = ".ENDLESS_SCROLL_ITEMS.";
+                $('#load_list_content').click(function() {
                         var last_item = $('#list tbody tr').last();
-                        console.log(last_item);
                         // get the next data portion from the server
                         xmlhttp=new XMLHttpRequest();
                         xmlhttp.onreadystatechange=function(){
                             if (xmlhttp.readyState==4 && xmlhttp.status==200){
-                                console.log(xmlhttp.responseText);
                                 last_item.after(xmlhttp.responseText);
-                                loadedItesmCount+=5;
-                                console.log(loadedItemsCount);
+                                nextItem+=".ENDLESS_SCROLL_ITEMS.";
                             }
                         }
-                        // collect the current search parameters from the url
 
-                        //photograph=&period_start=1840&period_end=2013&title=&institution=0&stock=1669
-
-                        // find a way on how to store the search parameters in the session on the server
-
-
-                        xmlhttp.open('GET','ajax.php?action=getNextPhotos&nextItem='+loadedItemsCount,true);
+                        xmlhttp.open('GET','ajax.php?action=getNextPhotos&nextItem='+nextItem+'".$url."',true);
                         xmlhttp.send();
+                });
+                $('#load_tile_content').click(function() {
+                        var last_item = $('#list .tile_view .tile.photo').last();
+                        // get the next data portion from the server
+                        xmlhttp=new XMLHttpRequest();
+                        xmlhttp.onreadystatechange=function(){
+                            if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                                last_item.after(xmlhttp.responseText);
+                                nextItem+=".ENDLESS_SCROLL_ITEMS.";
+                            }
                         }
+
+                        xmlhttp.open('GET','ajax.php?action=getNextPhotos&nextItem='+nextItem+'".$url."',true);
+                        xmlhttp.send();
                 });
             });
         </script>";
 
-//    $xtpl->assign('script', $script);
+    $xtpl->assign('script', $script);
 }
 ?>
