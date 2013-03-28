@@ -5,7 +5,7 @@ include("././search.inc.php");
 include("././fotofunc.inc.php");
 
 if($_GET['id']==''){
-    //search and
+    //search and search result list
     include("fsearch.php");
     $xtpl_fotos->assign("SEARCH",$search);
 

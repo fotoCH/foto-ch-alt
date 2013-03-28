@@ -8,7 +8,7 @@ $xtpl_fotodetails->assign("LANG", $_GET['lang']);
 $xtpl_fotodetails->assign("TITLE", $spr['photos']);
 $xtpl_fotodetails->assign("SPR",$spr);
 
-$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created AS zeitraum, f.dc_coverage AS coverage, b.name AS bestand, i.name AS institution, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.image_path';
+$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS photograph, f.dc_created AS zeitraum, f.dc_coverage AS coverage, b.name AS bestand, i.name AS institution, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.image_path';
 
 $join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
 $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
@@ -40,11 +40,11 @@ while($arrResult=mysql_fetch_assoc($objResult)){
             case 'photograph_id':
                 $isOutput = false;
                 break;
-            case 'fotograph':
+            case 'photograph':
                 if ($value == $spr['not_available']){
                     break;
                 }
-                $value = '<a href="?a=fotograph&id='.$photographID.'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
+                $value = '<a href="?a=photograph&id='.$photographID.'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
                 break;
             case 'institution':
                 if ($value == $spr['not_available']){
@@ -88,13 +88,13 @@ $xtpl_fotodetails->parse('autodetail.photo');
 $xtpl_fotodetails->parse('autodetail');
 $results.=$xtpl_fotodetails->text("autodetail");
 
-// generate the links to the previous and next photo according to the url
+// generate the links to the previous and next photo according to the GET parameters
 foreach($_GET as $key=>$value) {
     if ($value==''){
         break;
     }
     switch ($key) {
-        case 'fotograph':
+        case 'photograph':
             if (!is_numeric($value)){
                 // get the id of the photographer from the passed name
                 $arrName = explode(' ', $value);
@@ -115,7 +115,7 @@ foreach($_GET as $key=>$value) {
             $where .= ($where!='' ? ' AND ' : '')."dc_created >= '$period'";
             break;
         case 'period_end':
-            $period = "$value-01-01";
+            $period = "$value-12-31";
             $where .= ($where!='' ? ' AND ' : '')."dc_created >= '$period'";
             break;
         case 'title':

@@ -156,7 +156,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 // prepare photograph details
 $institution->assign('panel_headline', $spr['photos_from_institution']);
 $institution->assign("SPR",$spr);
-$institution->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton=suchen');
+$institution->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton='.$spr['submit']);
 
 
 $objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");

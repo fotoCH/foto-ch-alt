@@ -1,23 +1,15 @@
 <?php
-
-$searchmodes = array("ein","erw");
-$searchmode=$_GET['mod'];
-if(! in_array($searchmode,$searchmodes)) {
-    $searchmode="ein";
-}
-
 $xtpl_fotosearch=new XTemplate ("././templates/search.xtpl");
 
 $language = $_GET['lang'];
 $xtpl_fotosearch->assign("LANG",$language);
-$xtpl_fotosearch->assign("SEARCHMODE",$searchmode);
 $xtpl_fotosearch->assign("SPR",$spr);
 
 $xtpl_fotosearch->assign("ACTION",$_GET['a']);
 $xtpl_fotosearch->assign("ID",$_GET['id']);
 $id=$_GET['id'];
 
-subgenformitem($xtpl_fotosearch,'textfield',$spr['fotograph'], ($_GET['fotograph'] ? $_GET['fotograph'] : ''),'fotograph');
+subgenformitem($xtpl_fotosearch,'textfield',$spr['fotograph'], ($_GET['photograph'] ? $_GET['photograph'] : ''),'photograph');
 
 for($i=PHOTO_PERIOD_START; $i<=date('Y'); $i++){
     $arrYears[$i] = $i;

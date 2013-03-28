@@ -1,10 +1,10 @@
 <?php
-
 $xtpl_fotolist=new XTemplate ("././templates/fotos_list.xtpl");
 $xtpl_fotolist->assign("ACTION",$_GET['a']);
 $xtpl_fotolist->assign("LANG",$_GET['lang']);
 $xtpl_fotolist->assign("SPR",$spr);
 $id=$_GET['id'];
+
 $photoViewMode = $_GET['view']!='' ? $_GET['view'] : VIEW_TABLE;
 if ($photoViewMode == VIEW_TABLE){
     if (strpos($_SERVER['REQUEST_URI'], 'view='.VIEW_TABLE)){
@@ -25,8 +25,6 @@ if ($photoViewMode == VIEW_TABLE){
 $xtpl_fotolist->assign("SPR",$spr);
 
 if ($_GET['submitbutton']!=""){
-	$issearch=3;
-
 	$vars=array();
 	$vars=$_GET;
 	unset($vars['a']);
@@ -37,7 +35,7 @@ if ($_GET['submitbutton']!=""){
 	foreach ($vars as $key=>$value){
 		if (!empty($vars[$key])){
             switch ($key){
-                case 'fotograph':
+                case 'photograph':
                     $arrName = explode(' ', $value);
                     $where .= ($where!='' ? ' AND ' : '')."((n.nachname LIKE '%$arrName[0]%' AND n.vorname LIKE '%$arrName[1]%') OR (n.vorname LIKE '%$arrName[0]%' AND n.nachname LIKE '%$arrName[1]%'))";
                     break;
@@ -79,14 +77,13 @@ if ($_GET['submitbutton']!=""){
     if (!empty($where)){
         $query.=" WHERE $where";
     }
-    var_dump($query);
 
-	$result=mysql_query($query);
+    $result=mysql_query($query);
     $rowCount = mysql_num_rows($result);
-	$xtpl_fotolist->assign('result_count', $rowCount);
-	if($rowCount > 0){
+    $xtpl_fotolist->assign('result_count', $rowCount);
+    if($rowCount > 0){
         $xtpl_fotolist->parse("list.table_view.head_fotolist");
-	}
+    }
 
     $itrRow = 0;
     // prepare data depending on the current view
@@ -162,10 +159,13 @@ if ($_GET['submitbutton']!=""){
                             if (xmlhttp.readyState==4 && xmlhttp.status==200){
                                 console.log(xmlhttp.responseText);
                                 last_item.after(xmlhttp.responseText);
+                                loadedItesmCount+=5;
+                                console.log(loadedItemsCount);
                             }
                         }
                         // collect the current search parameters from the url
 
+                        //photograph=&period_start=1840&period_end=2013&title=&institution=0&stock=1669
 
                         // find a way on how to store the search parameters in the session on the server
 
