@@ -83,8 +83,10 @@ $arrBestand = array($spr['all_stock']) + $arrBestand;
 subgenselectitem($xtpl_fotosearch, $spr['bestand'], ($_GET['stock'] ? $_GET['stock'] : 0), "stock", $arrBestand, "", "", "");
 
 subgensubmit($xtpl_fotosearch,'submitfield',$spr['submit']);
+
 $script .= "
 <script>
+getAssociatedStock(".$_GET['institution'].");
 function getAssociatedStock(institution_id){
     xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function(){
