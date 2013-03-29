@@ -98,7 +98,7 @@ if ($_GET['submitbutton']!=""){
             $rowItem['url'] .= $_GET['title']!='' ? '&title='.$_GET['title'] : '';
             $rowItem['url'] .= $_GET['institution']!=0 ? '&institution='.$_GET['institution'] : '';
             $rowItem['url'] .= $_GET['stock']!=0 ? '&stock='.$_GET['stock'] : '';
-            $rowItem['image_src'] = $fetch['image_path'];
+            $rowItem['image_src'] = 'thumb/'.$fetch['image_path'];
             $rowItem['title'] = $fetch['title'];
             $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
             $rowItem['photograph'] = $fetch['name'];
@@ -117,7 +117,7 @@ if ($_GET['submitbutton']!=""){
     } else {
         while(($fetch=mysql_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS) {
             $rowItem['id'] = $fetch['id'];
-            $rowItem['image_src'] = $fetch['image_path'];
+            $rowItem['image_src'] = 'thumb/'.$fetch['image_path'];
 
             // build the title
             $rowItem['title'] = $fetch['title'];
