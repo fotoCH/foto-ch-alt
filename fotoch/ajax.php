@@ -147,6 +147,6 @@ switch ($action) {
                        </tr>";
             }
         }
-        echo $result;
+        echo utf8_decode($result);
         break;
 }
