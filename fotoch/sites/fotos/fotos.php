@@ -4,6 +4,8 @@ $xtpl_fotos = new XTemplate("././templates/contents.xtpl");
 include("././search.inc.php");
 include("././fotofunc.inc.php");
 
+testauth();
+
 if($_GET['id']==''){
     //search and search result list
     include("fsearch.php");
