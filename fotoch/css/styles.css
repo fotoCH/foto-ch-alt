@@ -71,8 +71,6 @@ body {
 #img_header p {
 	text-indent:5px;
     line-height:21px;
-    font-size: 20px;
-    font-weight: bold;
 }
 #img_header li{
 	height:85px;
@@ -287,7 +285,7 @@ figure {
     margin: 0;
 }
 .fotos .item_details img {
-    max-width: 573px;
+    max-width: 426px;
     max-height: 573px;
 }
 
