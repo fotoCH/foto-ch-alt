@@ -289,6 +289,15 @@ figure {
     max-height: 573px;
 }
 
+.fotos td.instbest {
+	font-size: 21px;
+	font-weight: bold;
+}
+
+.fotos td.instbest a{
+	color: black;
+}
+
 /*  --------------------------     CONTENT CONTAINER FOR HANDBUCH, KONTAKT, IMPRESSUM, PARTNER, SITEMAP    --------------------------------- */
 #content_items {
 	float:left;
