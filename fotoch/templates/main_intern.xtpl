@@ -8,7 +8,7 @@
 	<title>{SPR.fotoch} - Interner Bereich - Zone interne</title>
 </head>
 
-<body>
+<body class="{ACTION}">
 <div id="container">
 	<div id="header">
 		<div id="top_header"> 
