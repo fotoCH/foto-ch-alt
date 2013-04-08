@@ -1,7 +1,7 @@
 <?php
 // GENERAL
 define('LAYOUT_PATH', 'images/');
-define('ENDLESS_SCROLL_ITEMS', 18);
+define('ENDLESS_SCROLL_ITEMS', 500);
 define('VIEW_TABLE', 'table');
 define('VIEW_TILE', 'tile');
 
