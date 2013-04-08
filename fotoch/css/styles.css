@@ -298,6 +298,10 @@ figure {
 	color: black;
 }
 
+.fotos .ilogo{
+ float: right;
+ valign: top;
+}
 /*  --------------------------     CONTENT CONTAINER FOR HANDBUCH, KONTAKT, IMPRESSUM, PARTNER, SITEMAP    --------------------------------- */
 #content_items {
 	float:left;

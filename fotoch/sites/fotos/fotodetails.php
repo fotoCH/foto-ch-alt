@@ -87,6 +87,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 }
 
 // render the photo
+$instbest.='<a class="ilogo" href="?a=institution&id='.$institutionID.'&lang='.($lang? $lang : 'de').'"><img src="Logos/institutionen/'.$institutionID.'.png"></a>';
 $xtpl_fotodetails->assign("InstBest", $instbest);
 $xtpl_fotodetails->assign("photo_src", $photoPath);
 $xtpl_fotodetails->assign("photo_alt", $img_alt);
