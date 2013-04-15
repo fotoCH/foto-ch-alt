@@ -48,12 +48,7 @@
     </div>
 </div>
 <div id="footer">
-    <div class="publisher">
-        {SPR.foto_ch_publisher}
-    </div>
-    <div class="changelanguage">
-        {SPR.change_language}: {LANGSWITCH}
-    </div>
+
 </div>
 </body>
 
