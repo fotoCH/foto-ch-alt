@@ -9,6 +9,9 @@
     <td colspan="2" class="instbest">{InstBest}</td>
 </tr>
 <tr>
+    <td colspan="2" valign="top"><span class="date"><a target="_blank" href="{bildurl}">{bildurl}</a></span></td>
+</tr>
+<tr>
     <td colspan="2"><img src="{photo_src}" alt="{photo_alt}"></td>
 </tr>
 <!-- END: photo -->

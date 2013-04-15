@@ -62,6 +62,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
                 $instbest.=$value;
                 break;
             case 'img_url':
+            	$img_url=$value;
                 $value = '<a href="'.$value.'" target="_blank">'.$value.'</a>';
                 break;
             case 'zeitraum':
@@ -91,6 +92,7 @@ $instbest.='<a class="ilogo" href="?a=institution&id='.$institutionID.'&lang='.(
 $xtpl_fotodetails->assign("InstBest", $instbest);
 $xtpl_fotodetails->assign("photo_src", $photoPath);
 $xtpl_fotodetails->assign("photo_alt", $img_alt);
+$xtpl_fotodetails->assign("bildurl", $img_url);
 $xtpl_fotodetails->parse('autodetail.photo');
 
 $xtpl_fotodetails->parse('autodetail');
