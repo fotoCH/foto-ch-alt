@@ -32,7 +32,7 @@
                 <li{fotograph}><a href="./?a=fotograph&amp;lang={LANG}">{SPR.photographers}</a></li>
                 <li{institution}><a href="./?a=institution&amp;lang={LANG}">{SPR.institutionen}</a></li>
                 <li{ausstellung}><a href="./?a=ausstellung&amp;lang={LANG}">{SPR.ausstellungen}</a></li>
-                <li{fotos}></li>
+                <li{fotos}><!-- BEGIN:fotos --><a href="./?a=fotos&amp;lang={LANG}">{SPR.photos}</a><!-- END: fotos --></li>
                 <li{hilfe}><a href="./?a=hilfe&amp;lang={LANG}">{SPR.help}</a></li>
                 <li{ueberuns}><a href="./?a=ueberuns&amp;lang={LANG}">{SPR.about_us}</a></li>
             </ul>

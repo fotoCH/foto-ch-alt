@@ -2,6 +2,7 @@
 
 
 define("USER_GUEST_READER",2);
+define("USER_GUEST_FOTOS", 3);
 define("USER_GUEST_READER_PARTNER", 4);
 define("USER_WORKER", 8);
 define("USER_SUPER_USER", 9);

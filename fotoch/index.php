@@ -114,6 +114,9 @@ log_page($kategorie,$search,$action,$language,$_SESSION['usr_level'],$_SERVER['R
 //the def variable contains the specific template-entities defined
 //in the file included in $action.php
 $xtpl->assign("OUT", $out);
+if(auth_level(USER_GUEST_FOTOS)){
+	$xtpl->parse("main.fotos");
+}
 $xtpl->parse("main");
 $xtpl->out("main");
 ?>
