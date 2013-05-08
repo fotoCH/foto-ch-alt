@@ -38,14 +38,15 @@ switch ($action) {
                         // get the id of the photographer from the passed name
                         $arrName = explode(' ', $value);
                         if (count($arrName) > 1){
-                            $query = "SELECT id FROM namen WHERE ((nachname LIKE '%$arrName[0]%' AND vorname LIKE '%$arrName[1]%') OR (vorname LIKE '%$arrName[0]%' AND nachname LIKE '%$arrName[1]%')) LIMIT 0,1";
+                            $query = "SELECT fotografen_id FROM namen WHERE ((nachname LIKE '%$arrName[0]%' AND vorname LIKE '%$arrName[1]%') OR (vorname LIKE '%$arrName[0]%' AND nachname LIKE '%$arrName[1]%')) LIMIT 0,1";
                         } else {
-                            $query = "SELECT id FROM namen WHERE (nachname LIKE '%$arrName[0]%' OR vorname LIKE '%$arrName[0]%') LIMIT 0,1";
+                            $query = "SELECT fotografen_id FROM namen WHERE (nachname LIKE '%$arrName[0]%' OR vorname LIKE '%$arrName[0]%') LIMIT 0,1";
                         }
 
                         $objResult = mysql_query($query);
                         $value = mysql_fetch_assoc($objResult);
-                        $value = $value['id'];
+                        $value = $value['fotografen_id'];
+                        if ($value==1294) $value=1295; // quickfix for "Jost"
                     }
                     $where = ($where!='' ? ' AND ' : '')."dc_creator=$value";
                     break;
