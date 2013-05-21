@@ -152,17 +152,18 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     $def->parse("autodetail");
     $results.=$def->text("autodetail");
 }
+if(auth_level(USER_GUEST_FOTOS)){
+	// prepare photograph details
+	$institution->assign('panel_headline', $spr['photos_from_institution']);
+	$institution->assign("SPR",$spr);
+	$institution->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton='.$spr['submit']);
 
-// prepare photograph details
-$institution->assign('panel_headline', $spr['photos_from_institution']);
-$institution->assign("SPR",$spr);
-$institution->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton='.$spr['submit']);
 
-
-$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
-while($result=mysql_fetch_assoc($objResult)){
-    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&institution='.$id.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
+	while($result=mysql_fetch_assoc($objResult)){
+		$randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&institution='.$id.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+	}
+	$institution->assign('PHOTOS',$randomPhotos);
+	$institution->parse('contents.content_detail.photo_panel');
 }
-$institution->assign('PHOTOS',$randomPhotos);
-$institution->parse('contents.content_detail.photo_panel');
 ?>

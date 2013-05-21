@@ -50,7 +50,7 @@ while($fetch=mysql_fetch_array($result)){
 			$def->assign("pnd",'<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>');
 			$def->parse($det.".pnd2");
 		}
-		
+
 	}
 
 	$fetch['fbearbeitungsdatum']=formdatesimp($fetch['bearbeitungsdatum'],0);
@@ -65,7 +65,7 @@ while($fetch=mysql_fetch_array($result)){
 		$fetch['fotografengattungen_set']=str_replace('lehrer','lehrerin',$fetch['fotografengattungen_set']);
 		$fetch['fotografengattungen_set']=str_replace('reporter','reporterin',$fetch['fotografengattungen_set']);
 		$fetch['fotografengattungen_set']=str_replace('abrikant','abrikantin',$fetch['fotografengattungen_set']);
-		$fetch['fotografengattungen_set']=str_replace('issenschaftler','issenschaftlerin',$fetch['fotografengattungen_set']);	
+		$fetch['fotografengattungen_set']=str_replace('issenschaftler','issenschaftlerin',$fetch['fotografengattungen_set']);
 		$fetch['fotografengattungen_set']=str_replace('ammler','ammlerin',$fetch['fotografengattungen_set']);
 	}
 
@@ -276,21 +276,23 @@ while($fetch=mysql_fetch_array($result)){
 $def->parse($det);
 $results.=$def->text($det);
 
-// prepare photo details
-$objResult=mysql_query("SELECT vorname, nachname FROM namen WHERE fotografen_id=$id LIMIT 0,1");
-while($result=mysql_fetch_assoc($objResult)){
-    $firstname = $result['vorname'];
-    $name = $result['nachname'];
-    $fotograph->assign('panel_headline', $spr['photos_from'].' '.$firstname.' '.$name);
-}
+if(auth_level(USER_GUEST_FOTOS)){
+	// prepare photo details
+	$objResult=mysql_query("SELECT vorname, nachname FROM namen WHERE fotografen_id=$id LIMIT 0,1");
+	while($result=mysql_fetch_assoc($objResult)){
+		$firstname = $result['vorname'];
+		$name = $result['nachname'];
+		$fotograph->assign('panel_headline', $spr['photos_from'].' '.$firstname.' '.$name);
+	}
 
-$fotograph->assign("SPR",$spr);
-$fotograph->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&photograph='.$firstname.(($firstname!='' && $name!='') ? '+' : '').$name.'&submitbutton='.$spr['submit']);
+	$fotograph->assign("SPR",$spr);
+	$fotograph->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&photograph='.$firstname.(($firstname!='' && $name!='') ? '+' : '').$name.'&submitbutton='.$spr['submit']);
 
-$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dc_creator=$id ORDER BY RAND() LIMIT 0,3");
-while($result=mysql_fetch_assoc($objResult)){
-    $randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&photograph='.$firstname.(($firstname!='' && $name!='') ? '+' : '').$name.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dc_creator=$id ORDER BY RAND() LIMIT 0,3");
+	while($result=mysql_fetch_assoc($objResult)){
+		$randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&photograph='.$firstname.(($firstname!='' && $name!='') ? '+' : '').$name.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
+	}
+	$fotograph->assign('PHOTOS',$randomPhotos);
+	$fotograph->parse('contents.content_detail.photo_panel');
 }
-$fotograph->assign('PHOTOS',$randomPhotos);
-$fotograph->parse('contents.content_detail.photo_panel');
 ?>
