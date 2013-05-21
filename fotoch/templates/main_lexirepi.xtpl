@@ -20,7 +20,7 @@
                     <li>&nbsp;</li>
                     <li>{SPR.fotoch}</li>
                     <li>&nbsp;</li>
-					<li><a href="?{URLDE}">de</a>&nbsp; <a href="?{URLFR}">fr</a> &nbsp;<a href="?{URLIT}">it</a> &nbsp;</li>
+					<li>{LANGSWITCH} &nbsp;</li>
 					<li><a href="?a={LOG}&amp;lang={LANG}">{LOG}{USER}</a></li>
                     <li>&nbsp;</li>
                     <li>&nbsp;</li>
