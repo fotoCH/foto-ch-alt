@@ -11,6 +11,13 @@ function auth_level($level){
 	return ($_SESSION['usr_level'] >= $level);
 }
 
+function testauth_level($level){
+	if ($_SESSION['usr_level'] < $level){
+		header ("Location: ?a=login&error=1");
+		exit();
+	}
+}
+
 function testauth(){
 	if (empty($_SESSION['s_uid'])){
 		header ("Location: ?a=login&error=1");
