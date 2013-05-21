@@ -8,7 +8,7 @@ html, body {
 body {
 	text-align:center;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
 
 }
 .clearfix:after {
@@ -415,7 +415,7 @@ input.text, input.text {
 	background-color:#DDDDDD;
 	width:99%;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
 }
 input.submit,input.submit {
 	font-size:11px;
@@ -468,7 +468,7 @@ select.select{
 	width:99%;
 	background-color:#DDDDDD;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
 	border:0px;
 }
 select.edit{
@@ -479,7 +479,7 @@ textarea.inputtext {
 	width:99%;
 	background-color:#DDDDDD;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
 	border:0px;
 	resize:none;
 }
@@ -487,14 +487,14 @@ textarea.text_edit {
 	width:90%;	
 	height:170px;
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:12px;
 	border:0px;
 	resize:none;
 }
 /*for safari: textarea: resize:none*/
 /* ----------------------     TABLE-ELEMENTS    ------------------------------- */
 table {
-    font-size: 14px;
+    font-size: 12px;
 }
 table.search {
 	width:90%;
@@ -588,7 +588,7 @@ SPAN, P {
 	font-family : Arial, Helvetica, sans-serif;
 	font-style : normal;
 	text-decoration : none; 
-	font-size: 14px;
+	font-size: 12px;
 	color: black;
 }
 P.header {
@@ -596,31 +596,31 @@ P.header {
 }
 #container SPAN.subtitle2
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #000000;
 }
 #container SPAN.subtitle3
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #000000; 
 }
 #container SPAN.subtitle3x
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #cc2222;
 }
 #container SPAN.subtitle3biox
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #cc2222;
 }
 #container SPAN.subtitle3kbiox
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #cc2222;
 font-style: italic;
@@ -628,20 +628,20 @@ text-decoration:underline;
 }
 #container SPAN.subtitle3x a
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal;
 color: #cc2222;
 }
 #container SPAN.subtitle3biox a
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal;
 color: #cc2222;
 text-decoration:underline;
 }
 #container SPAN.subtitle3kbiox a
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal;
 color: #cc2222;
 font-style: italic;
@@ -649,25 +649,25 @@ font-style: italic;
 
 #container SPAN.subtitle3g
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #cc2222; 
 }
 #container SPAN.subtitle3g a
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #cc2222; 
 }
 #container SPAN.subtitle3bio
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #000000; 
 }
 #container SPAN.subtitle3kbio
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #000000;
 font-style: italic;
@@ -679,65 +679,65 @@ A.subtitle3kbio {text-decoration:underline;  font-style: italic; }
 A.subtitle3kbiox {text-decoration:underline;  font-style: italic; } 
 SPAN.subtitle4 
 {
-font-size: 14px;
+font-size: 12px;
 font-weight: normal; 
 color: #4C748B; 
 }
 SPAN.path
 {
-font-size: 14px;
+font-size: 12px;
 color: #333333;
 }
 SPAN.index
 {
-font-size: 14px;
+font-size: 12px;
 color: #333333;
 }
 SPAN.date
 {
-font-size: 14px; font-weight: normal;
+font-size: 12px; font-weight: normal;
 color: #000000;
 }
 SPAN.date2
 {
-font-size: 14px; font-weight: normal;
+font-size: 12px; font-weight: normal;
 color: #598F94;
 }
 SPAN.time
 {
-font-size: 14px; font-weight: normal;
+font-size: 12px; font-weight: normal;
 color: #000000;
 }
 SPAN.ipi1 
 { 
-font-size: 14px; font-weight: normal;
+font-size: 12px; font-weight: normal;
 color: #336666; 
 } 
 SPAN.ipi2
 {
 font-family: Arial, Helvetica, sans-serif; 
-font-size: 14px;
+font-size: 12px;
 color: #152056;
 }
 SPAN.text1
 { 
-font-size: 14px;
+font-size: 12px;
 color: #333333; 
 }
 SPAN.text2
 { 
-font-size: 14px;
+font-size: 12px;
 color: #000000;
 word-wrap:break-word;
 }
 SPAN.text2g
 { 
-font-size: 14px;
+font-size: 12px;
 color: #cc2222; 
 }
 SPAN.text2g a
 { 
-font-size: 14px;
+font-size: 12px;
 color: #cc2222; 
 }
 SPAN.edittitle
@@ -753,18 +753,18 @@ SPAN.news2
 font-family : Arial, Helvetica, sans-serif;
 font-style : normal;
 text-decoration : none; 
-font-size: 14px;
+font-size: 12px;
 color: #333333;
 width : 575px;
 }
 SPAN.bottom
 {  
-font-size: 14px;
+font-size: 12px;
 color: #FFFFFF; 
 }
 SPAN.contact
 {
-font-size: 14px;
+font-size: 12px;
 color: #333333;
 }
 span.hidden a  		{color:#ffffff;text-decoration: none; }
