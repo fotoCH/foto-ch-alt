@@ -337,11 +337,12 @@ figure {
 /*  --------------------------     ******************************      --------------------------------- */
 #footer {
     position: relative;
+    display: none;
     clear: both;
 	margin:-39px auto 0 auto;
     padding: 10px;
 	width:999px;
-	height:19px;
+	height:1px;
     background-color: #444444;
 	color:#DDDDDD;
 }
