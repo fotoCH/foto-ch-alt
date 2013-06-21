@@ -76,9 +76,9 @@ $xtpl->assign("USER",' '.$_SESSION['s_uid']);
 $xtpl->assign("SPR",$spr);  // load all languagecontent!
 
 $xtpl->assign("LANG",$language);
-$langSwitch.= $language != 'de' ? (' <a href="?'.changeurl("de").'">DE</a>') : '';
-$langSwitch.= $language != 'fr' ? (' <a href="?'.changeurl("fr").'">FR</a>') : '';
-$langSwitch.= $language != 'it' ? (' <a href="?'.changeurl("it").'">IT</a>') : '';
+$langSwitch.= $language != 'de' ? (' <a href="?'.changeurl("de").'">de</a>') : '';
+$langSwitch.= $language != 'fr' ? (' <a href="?'.changeurl("fr").'">fr</a>') : '';
+$langSwitch.= $language != 'it' ? (' <a href="?'.changeurl("it").'">it</a>') : '';
 $xtpl->assign("LANGSWITCH", $langSwitch);
 
 //assign action
