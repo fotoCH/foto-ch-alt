@@ -52,7 +52,7 @@ if($_POST['submitbutton']){
 	`typ` = '$_POST[typ]',
 	`notiz` = '$_POST[notiz]',
 	`bearbeitungsdatum` = '$bearbeitungsdatum' 
-	 WHERE `id` =$_POST[hidden_id] LIMIT 1"; echo $sql; exit;
+	 WHERE `id` =$_POST[hidden_id] LIMIT 1";
 	$result = mysql_query($sql);
 }
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
