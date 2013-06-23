@@ -49,11 +49,10 @@ if($_POST['submitbutton']){
 	`jahr` = '$_POST[jahr]',
 	`ort` = '$_POST[ort]',
 	`institution` = '$_POST[institution]',
-	`code` = '$_POST[code]',
 	`typ` = '$_POST[typ]',
 	`notiz` = '$_POST[notiz]',
-	`bearbeitungsdatum` = '$bearbeitungsdatum',
-	`text_alt` = '$_POST[text_alt]' WHERE `id` =$_POST[hidden_id] LIMIT 1";
+	`bearbeitungsdatum` = '$bearbeitungsdatum' 
+	 WHERE `id` =$_POST[hidden_id] LIMIT 1"; echo $sql; exit;
 	$result = mysql_query($sql);
 }
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
