@@ -17,7 +17,7 @@ $def->assign("EINTRAGNEU", "|&nbsp;&nbsp;&nbsp;[&nbsp;".$spr['neuereintrag']."&n
 
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
-	$sql = "INSERT INTO `ausstellung` ( `id` , `titel` , `jahr` , `ort` , `institution` , `typ` , `code` , `text_alt` ) VALUES (NULL , '', NULL , NULL , NULL , 'E', NULL , '')";
+	$sql = "INSERT INTO `ausstellung` ( `id` , `titel` , `jahr` , `ort` , `institution` , `typ` ) VALUES (NULL , '', NULL , NULL , NULL , 'E')";
 	$result = mysql_query($sql);
 	$last_insert_id = mysql_insert_id();
 }
