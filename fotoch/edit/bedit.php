@@ -57,7 +57,7 @@ $def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
 
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
-	$sql = "INSERT INTO `bestand` ( `id` , `inst_id` , `name` , `fotografen` , `zeitraum` , `umfang` , `erschliessungsgrad` , `weiteres` , `fotografen_ref` , `convert_result` , `bildgattungen` , `bearbeitungsdatum` , `notiz` , `gesperrt` ) VALUES (NULL , '0', '', NULL , NULL , NULL , '', NULL , NULL , NULL , '', '0000-01-01', '', '0')";
+	$sql = "INSERT INTO `bestand` ( `id` , `inst_id` , `name` , `zeitraum` , `umfang` , `erschliessungsgrad` , `weiteres` , `bildgattungen` , `bearbeitungsdatum` , `notiz` , `gesperrt` ) VALUES (NULL , '0', '', NULL , NULL, '', NULL , '', '0000-01-01', '', '0')";
 	$result = mysql_query($sql);
 	$last_insert_id = mysql_insert_id();
 }

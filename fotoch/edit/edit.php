@@ -20,8 +20,8 @@ $edit = new EditFotograf($def);
 
 //if ($_POST && !$_POST['submitbutton']) escposts();  // nur noch für nebentabellen
 if ($_GET['id']=="new"){
-	$sql = "INSERT INTO `fotografen` ( `id` , `nachname` , `vorname` , `namenszusatz` , `zweitname` , `art` , `geschlecht` , `heimatort` , 			`gen_geburtsdatum` , `geburtsdatum` , `geburtsort` , `gen_todesdatum` , `todesdatum` , `todesort` , `umfeld` , `notiz` , `primaerliteratur` , 	`sekundaerliteratur` , `beruf` , `einzelausstellungen` , `gruppenausstellungen` , `werdegang` , `kurzbio` , `schaffensbeschrieb` , `autorIn` , `bearbeitungsdatum` , `erstellungsdatum` , `fotografengattungen_set` , `bildgattungen_set` )
-	VALUES ('', '', '', '', '', 'P', '', '', '0', '0000-00-00', '', '0', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', NOW(), '', '')";
+	$sql = "INSERT INTO `fotografen` ( `id` )
+	VALUES ('')";
 	$result = mysql_query($sql);
 	$last_insert_id = mysql_insert_id();
 	$sql = "INSERT INTO `namen` ( `id` , `fotografen_id` , `nachname` , `vorname` , `namenszusatz` , `titel`  )
