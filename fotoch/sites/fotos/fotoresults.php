@@ -64,7 +64,7 @@ if ($_GET['submitbutton']!=""){
 		}
 	}
 
-    $select = 'f.id AS id, f.dc_created AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
+    $select = 'f.id AS id, f.dc_created, zeitraum AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
     $select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
     $select.= 'i.name AS institution, ';
     $select.= 'b.name AS stock';
