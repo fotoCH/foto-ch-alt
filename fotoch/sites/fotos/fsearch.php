@@ -17,13 +17,14 @@ for($i=PHOTO_PERIOD_START; $i<=date('Y'); $i++){
 subgenselectitem($xtpl_fotosearch, $spr['period_start'], ($_GET['period_start'] ? $_GET['period_start'] : ''), "period_start", $arrYears, "", "", "");
 subgenselectitem($xtpl_fotosearch, $spr['period_end'], ($_GET['period_end'] ? $_GET['period_end'] : date('Y')), "period_end", $arrYears, "", "", "");
 
-subgenformitem($xtpl_fotosearch,'textfield',$spr['volltextsuche'], ($_GET['title'] ? $_GET['title'] : ''),'title');
+subgenformitem($xtpl_fotosearch,'textfield',$spr['titelbeschreibung'], ($_GET['title'] ? $_GET['title'] : ''),'title');
 
 // retrieve institution data from the database
-$query = 'SELECT id, name, name_fr, name_it FROM institution WHERE gesperrt = 0 ORDER BY name';
+$query = 'SELECT DISTINCT institution.id, institution.name, institution.name_fr, institution.name_it  FROM `fotos` LEFT JOIN institution on fotos.`edm_dataprovider`=institution.id  WHERE gesperrt >= 0 ORDER BY name';
 $objResult=mysql_query($query);
 
 // prepare language specific institution array
+if (!$language) $language='de';
 switch ($language) {
     case 'de':
         while ($row = mysql_fetch_assoc($objResult)){
@@ -69,7 +70,8 @@ $institutionIDs = array_keys($arrInstitution);
 unset($institutionIDs[0]);
 $institutionList = implode(",", $institutionIDs);
 
-$query = "SELECT id, name FROM bestand where gesperrt = 0 AND inst_id IN($institutionList) ORDER BY name";
+$query = "SELECT DISTINCT bestand.id, bestand.name FROM  `fotos` LEFT JOIN bestand ON fotos.dcterms_ispart_of = bestand.id where gesperrt >= 0 AND inst_id IN($institutionList) ORDER BY bestand.name";
+//echo $query;
 $objResult=mysql_query($query);
 while ($row = mysql_fetch_assoc($objResult)){
     if ($row['name']!='') {
@@ -83,6 +85,7 @@ $arrBestand = array($spr['all_stock']) + $arrBestand;
 subgenselectitem($xtpl_fotosearch, $spr['bestand'], ($_GET['stock'] ? $_GET['stock'] : 0), "stock", $arrBestand, "", "", "");
 
 subgensubmit($xtpl_fotosearch,'submitfield',$spr['submit']);
+//subgenreset($xtpl_fotosearch,'resetfield',$spr['reset']);
 
 $script .= "
 <script>

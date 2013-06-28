@@ -13,10 +13,10 @@ switch ($action) {
         // return associated stock information for the selected institution
         $id = $_GET['id'];
         if ($id!=0) {
-            $query = "SELECT id, name FROM bestand WHERE inst_id=$id ORDER BY name";
+            $query = "SELECT DISTINCT bestand.id, bestand.name FROM  `fotos` LEFT JOIN bestand ON fotos.dcterms_ispart_of = bestand.id where gesperrt >= 0 AND inst_id=$id ORDER BY bestand.name";
         }
         else {
-            $query = "SELECT id, name FROM bestand ORDER BY name";
+            $query = "SELECT DISTINCT bestand.id, bestand.name FROM  `fotos` LEFT JOIN bestand ON fotos.dcterms_ispart_of = bestand.id where gesperrt >= 0 ORDER BY bestand.name";
         }
         $result = "<option value='0' selected='selected'>".$spr['all_stock']."</option>";
         $objResult=mysql_query($query);
