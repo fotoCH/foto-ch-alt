@@ -72,7 +72,7 @@ switch ($action) {
                     break;
                 case 'period_end':
                     $period = "$value-12-31";
-                    $where .= ($where!='' ? ' AND ' : '')."dc_created >= '$period'";
+                    $where .= ($where!='' ? ' AND ' : '')."dc_created <= '$period'";
                     break;
                 case 'title':
                     $where .= ($where!='' ? ' AND ' : '')."(dc_title LIKE '%$value%' OR dc_description LIKE '%$value%' OR dc_coverage LIKE '%$value%')";
