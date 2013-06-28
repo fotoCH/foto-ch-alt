@@ -1,4 +1,16 @@
 <?php
+
+function parse_rero($a){
+    $lines=explode("\n",$a);
+    foreach ($lines as $l){
+	if (substr($l,0,10)=='035    $a '){
+	  $rero=(substr($l,10));
+	  return($rero);
+	}
+    }
+    return('R1');
+}
+
 $xtpl_fotodetails=new XTemplate ("././templates/item_details.xtpl");
 $xtpl_fotodetails->assign("ACTION",$_GET['a']);
 $xtpl_fotodetails->assign("ID",$_GET['id']);
@@ -8,13 +20,13 @@ $xtpl_fotodetails->assign("LANG", $_GET['lang']);
 $xtpl_fotodetails->assign("TITLE", $spr['photos']);
 $xtpl_fotodetails->assign("SPR",$spr);
 
-$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created, f.zeitraum, f.dc_coverage AS coverage, i.name AS institution, b.name AS bestand, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.image_path, f.dcterms_spatial AS keywords, f.dcterms_subject AS subject';
+$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, f.all as alles, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created, f.zeitraum, f.dc_coverage AS coverage, i.name AS institution, b.name AS bestand, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.image_path, f.dcterms_spatial AS keywords, f.dcterms_subject AS subject';
 
 $join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
 $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
 $join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.id ";
 
-$query = "SELECT $select FROM fotos AS f $join WHERE f.id=$id";
+$query = "SELECT DISTINCT $select FROM fotos AS f $join WHERE f.id=$id";
 $objResult=mysql_query($query);
 
 // prepare the metadata
@@ -23,6 +35,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 	$institutionID = $arrResult['institution_id'];
 	$stockID = $arrResult['stock_id'];
 	$photoPath = $arrResult['image_path'];
+	$alles = $arrResult['alles'];
 	foreach ($arrResult as $key=>$value){
 		if ($value==''){
 			$value=$spr['not_available'];
@@ -40,6 +53,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 			case 'stock_id':
 			case 'photograph_id':
 			case 'dc_created':
+			case 'alles':
 				$isOutput = false;
 				break;
 			case 'fotograph':
@@ -87,6 +101,26 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 		}
 	}
 }
+
+if ($institutionID=118){
+    $xtpl_fotodetails->assign("key","Rero"); 
+    $rero=parse_rero($alles);
+    $xtpl_fotodetails->assign("value",'<a href="http://explore.rero.ch/primo_library/libweb/action/display.do?tabs=detailsTab&ct=display&doc=VTLS_RERO'.$rero.'" target="_new">link</a>');
+    $xtpl_fotodetails->parse("autodetail.z.autorow");
+    $xtpl_fotodetails->parse("autodetail.z");
+    abstand($xtpl_fotodetails);
+}
+
+
+if (auth_level(USER_WORKER)){
+    $xtpl_fotodetails->assign("key","Alle Informationen");
+    $xtpl_fotodetails->assign("value",'<a href="ajax.php?action=fotoAll&amp;form=1&amp;id='.$id.'" target="_new">hier</a>');
+    $xtpl_fotodetails->parse("autodetail.z.autorow");
+    $xtpl_fotodetails->parse("autodetail.z");
+    abstand($xtpl_fotodetails);
+}
+
+
 
 // render the photo
 $instbest.='<a class="ilogo" href="?a=institution&id='.$institutionID.'&lang='.($lang? $lang : 'de').'"><img src="Logos/institutionen/'.$institutionID.'.png"></a>';

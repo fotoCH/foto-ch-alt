@@ -73,11 +73,11 @@ if ($_GET['submitbutton']!=""){
     $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
     $join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.id ";
 
-    $query="SELECT $select FROM fotos AS f $join";
+    $query="SELECT DISTINCT $select FROM fotos AS f $join";
     if (!empty($where)){
         $query.=" WHERE $where";
     }
-
+//echo $query;
     $result=mysql_query($query);
     $rowCount = mysql_num_rows($result);
     $xtpl_fotolist->assign('result_count', $rowCount);
@@ -102,7 +102,7 @@ if ($_GET['submitbutton']!=""){
             $rowItem['title'] = $fetch['title'];
             $rowItem['title'] .= ($rowItem['title']!='' && $fetch['description']!='' ? ' / ' : '').$fetch['description'];
             $rowItem['photograph'] = $fetch['name'];
-            $rowItem['period'] = ($fetch['created']!='0000-00-00' ? date('Y', mktime(0,0,0,1,1,$fetch['created'])) : '');
+            $rowItem['period'] = $fetch['created'];
             $rowItem['institution'] = $fetch['institution'];
             $rowItem['stock'] = $fetch['stock'];
 

@@ -10,12 +10,14 @@ $xtpl_fotosearch->assign("ID",$_GET['id']);
 $id=$_GET['id'];
 
 subgenformitem($xtpl_fotosearch,'textfield',$spr['fotograph'], ($_GET['photograph'] ? $_GET['photograph'] : ''),'photograph');
-
+$arrYears[PHOTO_PERIOD_START-1]='';
 for($i=PHOTO_PERIOD_START; $i<=date('Y'); $i++){
     $arrYears[$i] = $i;
 }
 subgenselectitem($xtpl_fotosearch, $spr['period_start'], ($_GET['period_start'] ? $_GET['period_start'] : ''), "period_start", $arrYears, "", "", "");
-subgenselectitem($xtpl_fotosearch, $spr['period_end'], ($_GET['period_end'] ? $_GET['period_end'] : date('Y')), "period_end", $arrYears, "", "", "");
+unset($arrYears[PHOTO_PERIOD_START-1]);
+$arrYears[date('Y')+1]='';
+subgenselectitem($xtpl_fotosearch, $spr['period_end'], ($_GET['period_end'] ? $_GET['period_end'] : date('Y')+1), "period_end", $arrYears, "", "", "");
 
 subgenformitem($xtpl_fotosearch,'textfield',$spr['titelbeschreibung'], ($_GET['title'] ? $_GET['title'] : ''),'title');
 

@@ -27,6 +27,21 @@ switch ($action) {
 
         echo $result;
         break;
+    case fotoAll :
+        // return associated stock information for the selected institution
+        $id = $_GET['id'];
+        if ($id!=0) {
+            $query = "SELECT `all` FROM fotos WHERE id=$id";
+        }
+        $objResult=mysql_query($query);
+        $row = mysql_fetch_assoc($objResult);
+        $result = $row['all'];
+        if ($_GET['form']){
+    	    $result="<pre>".$result."</pre>";
+        }
+
+        echo( $result);
+        break;
     case getNextPhotos :
         // prepare the query based on the url
         foreach($_GET as $key=>$value) {
