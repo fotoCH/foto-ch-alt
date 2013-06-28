@@ -8,7 +8,7 @@ $xtpl_fotodetails->assign("LANG", $_GET['lang']);
 $xtpl_fotodetails->assign("TITLE", $spr['photos']);
 $xtpl_fotodetails->assign("SPR",$spr);
 
-$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created, f.zeitraum, f.dc_coverage AS coverage, i.name AS institution, b.name AS bestand, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.image_path, f.dcterms_spatial AS keywords, f.dcterms_subject AS subject, f.zeitraum as created_orig';
+$select = 'i.id AS institution_id, b.id AS stock_id, n.fotografen_id AS photograph_id, f.dc_title AS titel, f.dc_description AS description, CONCAT(n.vorname, " ", n.nachname) AS fotograph, f.dc_created, f.zeitraum, f.dc_coverage AS coverage, i.name AS institution, b.name AS bestand, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.image_path, f.dcterms_spatial AS keywords, f.dcterms_subject AS subject';
 
 $join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
 $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
@@ -73,14 +73,6 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 					$value = $spr['not_available'];
 				}
 				break;
-			case 'created_orig':
-				if ($value!='0000-00-00') {
-					$value = date('Y', mktime(0,0,0,1,1,$value));
-				} else {
-					$value = $spr['not_available'];
-				}
-				break;
-				
 			case 'keywords':
 				$value = $value.(($value!='' && $arrResult['subject']!='') ? ' , ' : '').$arrResult['subject'];
 				break;

@@ -1,4 +1,5 @@
 <?php
+header("Cache-Control: no-cache, must-revalidate");
 require("mysql.inc.php");
 require("config.inc.php");
 
