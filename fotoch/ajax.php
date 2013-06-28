@@ -164,6 +164,6 @@ switch ($action) {
                        </tr>";
             }
         }
-        echo utf8_decode($result);
+        echo($result);
         break;
 }
