@@ -68,11 +68,11 @@ switch ($action) {
                     break;
                 case 'period_start':
                     $period = "$value-01-01";
-                    $where .= ($where!='' ? ' AND ' : '')."dc_created >= '$period'";
+                    $where .= ($where!='' ? ' AND ' : '')."(dc_created >= '$period' OR dc_created ='0000-00-00')";
                     break;
                 case 'period_end':
                     $period = "$value-12-31";
-                    $where .= ($where!='' ? ' AND ' : '')."dc_created <= '$period'";
+                    $where .= ($where!='' ? ' AND ' : '')."(dc_created <= '$period' OR dc_created ='0000-00-00')";
                     break;
                 case 'title':
                     $where .= ($where!='' ? ' AND ' : '')."(dc_title LIKE '%$value%' OR dc_description LIKE '%$value%' OR dc_coverage LIKE '%$value%')";
@@ -86,7 +86,7 @@ switch ($action) {
             }
         }
 
-        $select = 'f.id AS id, f.dc_created AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
+        $select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
         $select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
         $select.= 'i.name AS institution, ';
         $select.= 'b.name AS stock';
@@ -150,7 +150,7 @@ switch ($action) {
                 $rowItem['title'] = $arrResult['title'];
                 $rowItem['title'] .= ($rowItem['title']!='' && $arrResult['description']!='' ? ' / ' : '').$arrResult['description'];
                 $rowItem['photograph'] = $arrResult['name'];
-                $rowItem['period'] = ($arrResult['created']!='0000-00-00' ? date('Y', mktime(0,0,0,1,1,$arrResult['created'])) : '');
+                $rowItem['period'] = ($arrResult['created']!='0000-00-00' ? $arrResult['created'] : '');
                 $rowItem['institution'] = $arrResult['institution'];
                 $rowItem['stock'] = $arrResult['stock'];
 
