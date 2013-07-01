@@ -60,7 +60,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 				if ($value == $spr['not_available']){
 					break;
 				}
-				$value = '<a href="?a=photograph&id='.$photographID.'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
+				$value = '<a href="?a=fotograph&id='.$photographID.'&lang='.($lang? $lang : 'de').'">'.$value.'</a>';
 				break;
 			case 'institution':
 				if ($value == $spr['not_available']){
@@ -102,7 +102,7 @@ while($arrResult=mysql_fetch_assoc($objResult)){
 	}
 }
 
-if ($institutionID=118){
+if ($institutionID==118){
     $xtpl_fotodetails->assign("key","Rero"); 
     $rero=parse_rero($alles);
     $xtpl_fotodetails->assign("value",'<a href="http://explore.rero.ch/primo_library/libweb/action/display.do?tabs=detailsTab&ct=display&doc=VTLS_RERO'.$rero.'" target="_new">link</a>');
