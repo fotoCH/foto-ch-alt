@@ -714,5 +714,43 @@ function datumtest(){ // testet $REQUEST vondatum und bisdatum auf falsch format
 	datest($_REQUEST['bisdatum']);
 }
 
+function formseg(&$f){
+	global $language;
+	
+	$sql="SELECT name_".$language." FROM provsubk WHERE id=".$f['subk_id'];
+
+	$result=mysql_query($sql); 
+	if ($fetch=mysql_fetch_array($result)){
+		$f['subkontinent']=$fetch[0];
+	}
+	$sql="SELECT name_".$language." FROM provsubk WHERE id=".$f['prov_id'];
+
+	$result=mysql_query($sql); 
+	if ($fetch=mysql_fetch_array($result)){
+		$f['herkunft']=$fetch[0];
+	}
+	$sql="SELECT ethnie.name_".$language.",kontinent.name_".$language." FROM ethnie INNER JOIN kontinent ON kontinent.id=ethnie.kontinent WHERE ethnie.id=".$f['ethnien_id'];
+	
+	$result=mysql_query($sql);
+	if ($fetch=mysql_fetch_array($result)){
+		$f['ethnie']=$fetch[0];
+		$f['subkontinent']=$fetch[1];
+	}
+	
+	
+	$sql="SELECT name_".$language.",typ FROM regiort WHERE id=".$f['regionort_id'];
+	//echo $sql; return;
+	$result=mysql_query($sql);
+	if ($fetch=mysql_fetch_array($result)){
+		if ($fetch[1]=='ort'){
+			$f['ort']=$fetch[0];
+		} else {
+			$f['region']=$fetch[0];
+		}
+	}
+	//$f['ort']='oort';
+	//return $f;
+}
+
 
 ?>

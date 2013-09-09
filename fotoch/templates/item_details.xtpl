@@ -106,6 +106,18 @@
     				<td valign="top"><span class="subtitle3{g}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a> &nbsp; &nbsp;  {FETCH6.zeitraum} </span></td>
  		</tr>
 <!-- END:bestn_3 -->
+<!-- BEGIN:bestn_7 -->    		
+    		<tr>
+    				<td class="detail_label" colspan="2" valign="top"><table cellpadding="2" cellspacing="0">
+    				<tr><td><b>{SPR.subkontinent}</b></td><td><b>{SPR.herkunft}</b></td><td><b>{SPR.region}</b> <i>{SPR.ort}</i></td><td><b>{SPR.ethnie}</b></td></tr>
+    				<!-- BEGIN:row -->
+    				<tr><td>{FETCH7.subkontinent}</td><td>{FETCH7.herkunft}</td><td>{FETCH7.region} <i>{FETCH7.ort}</i></td><td>{FETCH7.ethnie}</td></tr>
+    				<!-- <tr><td colspan="4"><span class="subtitle2" >{FETCH7.bemerkungen}</span></td></tr> --><!-- END:row -->
+    				</table>
+    				    				
+    				
+ 		</tr>
+<!-- END:bestn_7 -->
 
 <!-- BEGIN:best -->
 

@@ -91,6 +91,19 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     }
     if(mysql_num_rows($result6)!=0) abstand($def);
     //if(mysql_result($result6)!=0) abstand($def);
+    $result7=mysql_query("SELECT * FROM bestand_segref WHERE bestand_id=$id");
+    while($fetch7=mysql_fetch_array($result7)){
+    	formseg($fetch7); 
+    	$def->assign("FETCH7",$fetch7);
+    	$def->parse("autodetail.z.bestn_7.row");
+    	
+    	 
+    	
+    	}
+    	$def->parse("autodetail.z.bestn_7");
+    	$def->parse("autodetail.z");
+    
+    if(mysql_num_rows($result6)!=0) abstand($def);
     if (auth_level(USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
     if (auth_level(USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
 
