@@ -312,6 +312,107 @@ function submitita(v)
 		<br />	
 	</fieldset>
 <!-- END:fieldset_end -->
+<!-- BEGIN:segedit -->
+	<table class="edit" cellpadding="5" cellspacing="0">
+						<tr>
+    						
+    							<td class="edit"><label for="loc" class="edit">SEG</label></td>
+    							
+   								<td>
+   									{SPR.ethnie}: <input type="text" name="ethnie_auto" id="ethnie_auto" />
+   									<input type="hidden" name="ethnie_id" />
+   									<br />
+							        {SPR.ort}: <input type="text" name="ort_auto" id="ort_auto" /><br />
+							        {SPR.region}: <input type="text" name="region_auto" id="region_auto" /><br />
+							        {SPR.herkunft}: <input type="text" name="prov_auto" id="prov_auto" /><br />
+							        {SPR.subkontinent}: <input type="text" name="subk_auto" id="subk_auto" /><br />
+							        {SPR.kontinent}: <input type="text" name="kont_auto" id="kont_auto" /><br />
+							    </td>
+						</tr>
+        
+   	</table>
+   	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type="text/css">
+		.ui-autocomplete {
+            max-height: 100px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+            /* add padding to account for vertical scrollbar */
+            padding-right: 20px;
+    }
+    /* IE 6 doesn't support max-height
+     * we use height instead, but this forces the menu to always be this tall
+     */
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+	</script>
+   	<script type="text/javascript">
+   	
+    $("#ethnie_auto").autocomplete({
+    	source: "seg_autocomplete.php?a=ethnie",
+        width: 260,
+        matchContains: true,
+        selectFirst: false,
+        select: function(data) {
+      console.log(data);
+        	
+        	
+           	$.ajax({
+           		// kontinent zu ausgewählter ethnie nachladen und auswählen in der dropdown
+           		url: 'seg_autocomplete.php?a=kont&f=ethnie&term='+data.toElement.innerHTML,
+           				
+           		success: function(data) {
+           			$("#kont_auto").val(data);
+           		}
+           	});
+        }
+	})
+    
+    $("#kont_auto").autocomplete({
+    	source: "seg_autocomplete.php?a=kont",
+        width: 260,
+        matchContains: true,
+        selectFirst: false
+	});
+    
+    $
+        	
+   	$("#region_auto").autocomplete({
+        source:"seg_autocomplete.php?a=region",
+        width:260,
+        matchContains: true,
+        selectFirst: false,
+    });
+
+    /*
+       autocomplete für orte
+    */
+    $("#ort_auto").autocomplete({
+        source: "seg_autocomplete.php?a=ort",
+        width: 260,
+        matchContains: true,
+        selectFirst: false,
+    });
+    
+    $("#prov_auto").autocomplete({
+        source: "seg_autocomplete.php?a=prov",
+        width: 260,
+        matchContains: true,
+        selectFirst: false,
+    });
+    
+    $("#subk_auto").autocomplete({
+        source: "seg_autocomplete.php?a=subk",
+        width: 260,
+        matchContains: true,
+        selectFirst: false,
+    });
+   	</script>
+<!-- END:segedit -->
 <!-- BEGIN:namen-->
 {BR}
 	<table class="edit" cellpadding="0" cellspacing="5">
@@ -868,7 +969,8 @@ function submitita(v)
 							
     							<td valign="top"><span class="subtitle2">{SPR.bearbeitungsdatum}:</span></td>		
 							<td>{bearbeitungsdatum}</td>
-						</tr><!-- END:bearbeitungsdatum -->						
+						</tr>
+<!-- END:bearbeitungsdatum -->												
 					</table>
 					<!-- BEGIN:speichern --><br/>
 					<input type="hidden" name="hidden_id" value="{ID}">

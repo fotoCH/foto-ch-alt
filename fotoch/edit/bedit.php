@@ -188,6 +188,14 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.tr");
 	$def->parse("bearbeiten.form");
 	
+	$def->assign("LEGEND","<b>SEG</b>");
+	$def->parse("bearbeiten.form.fieldset_start");
+	$def->parse("bearbeiten.form.segedit");
+	$def->parse("bearbeiten.form");
+	$def->parse("bearbeiten.form.fieldset_end");
+	$def->parse("bearbeiten.form.tr");
+	$def->parse("bearbeiten.form");
+	
 	$def->assign("LEGEND","<b>".$spr['bestand_details']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
 	$def->parse("bearbeiten.form.start");

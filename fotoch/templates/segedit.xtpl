@@ -1,0 +1,187 @@
+<!-- BEGIN:segedit -->
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>fotochmap</title>       
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    </head>
+    <body>
+ <br>      {SPR.ethnie}: <input type="text" name="ethnie_auto" id="ethnie_auto" /><br />
+        {SPR.ort}: <input type="text" name="ort_auto" id="ort_auto" /><br />
+        {SPR.region}: <input type="text" name="region_auto" id="region_auto" /><br />
+        {SPR.herkunft}: <input type="text" name="prov_auto" id="prov_auto" /><br />
+        {SPR.subkontinent}: <input type="text" name="subk_auto" id="subk_auto" /><br />
+        {SPR.kontinent}: <input type="text" name="kont_auto" id="kont_auto" /><br />
+    <script type="text/javascript">
+        /*
+			autocomplete function für ethnien
+		*/    
+        $("#ethnie_auto").autocomplete({
+        	source: "ethnoajax.php",
+            width: 260,
+            matchContains: true,
+            selectFirst: false,
+            select: function(data) {
+            	$.ajax({
+            		// kontinent zu ausgewählter ethnie nachladen und auswählen in der dropdown
+            		url: 'getKont.php?ethnie='+data.toElement.innerHTML,
+            		success: function(data) {
+            			var konti = data.match(/\d/);
+            			$("#kont").val(data.split(","));
+            		}
+            	});
+           }
+	    });
+        
+        /*
+           autocomplete für regionen
+        */
+        $("#region_auto").autocomplete({
+            source:"ortajax.php?typ=region",
+            width:260,
+            matchContains: true,
+            selectFirst: false,
+            select: function(data) {
+                $.ajax({
+                    /* subk/prov nachladen und ev dazugehöriger kontinent */
+                    url: 'getProvSubk.php?ort='+data.toElement.innerHTML,
+                    success: function(data) {
+                        var provsubk = data.match(/\d/);
+                        /* überprüfen, ob ein subkontinent oder eine provenance nachgeladen wurde */
+                        if(data < 64) {
+                        // subkontinent: dropdownliste füllen und value setzen
+                            console.log("s"+data+"s");
+                            $("#subkbox").load("subk.php?kont=*", function() {
+                                $("#subk").val([data]);
+                                /* kontinent nachladen */
+                                $.ajax({
+                                    url: 'getKont.php?subk='+data,
+                                    success: function(data) {
+                                        var konti = data.match(/\d/);
+                                        $("#kont").val(data.split(","));
+                                    }
+                                });
+                            });
+                        }
+                        else {
+                        // provenance:
+                            $("#provbox").load("prov.php?subk=*", function () { $('#prov').val(data); } );
+                            $.ajax({
+                                url: 'getSubkFromProv.php?prov='+data,
+                                success: function(data) {
+                                    $("#subkbox").load('subk.php?kont=*', function() {
+                                        $("#subk").val(data.split(","));
+                                        $.ajax({
+                                            url: 'getKont.php?subk='+data,
+                                            success: function(data) {
+                                                $("#kont").val(data.split(",")).focus();
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+
+        });
+	
+	    /*
+           autocomplete für orte
+        */
+        $("#ort_auto").autocomplete({
+            source: "ortajax.php?typ=ort",
+            width: 260,
+            matchContains: true,
+            selectFirst: false,
+            select: function(data) {
+                $.ajax({
+                    /* subk/prov nachladen und ev dazugehöriger kontinent */
+                    url: 'getProvSubk.php?ort='+data.toElement.innerHTML,
+                    success: function(data) {
+                        var provsubk = data.match(/\d/);
+                        /* überprüfen, ob ein subkontinent oder eine provenance nachgeladen wurde */
+                        if(data < 64) {
+                        // subkontinent: dropdownliste füllen und value setzen
+                            console.log("s"+data+"s");
+                            $("#subkbox").load("subk.php?kont=*", function() {
+                                $("#subk").val(data.split(","));
+                                /* kontinent nachladen */
+                                $.ajax({
+                                    url: 'getKont.php?subk='+data,
+                                    success: function(data) {
+                                        var konti = data.match(/\d/);
+                                        $("#kont").val(konti.split(","));
+                                    }
+                                });
+                            });
+                        }
+                        else {
+                        // provenance:
+                            console.log("p"+data+"p");
+                            $("#provbox").load("prov.php?subk=*", function () { $('#prov').val(data); } );
+                            $.ajax({
+                                url: 'getSubkFromProv.php?prov='+data,
+                                success: function(data) {
+                                    $("#subkbox").load('subk.php?kont=*', function() {
+                                        $("#subk").val(data.split(",")).focus();
+                                            $.ajax({
+                                                url: 'getKont.php?subk='+data,
+                                                success: function(data) {
+                                                 $("#kont").val(data.split(","));
+                                                }
+                                            });
+
+                                        });
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+	</script>
+        <div id="main">
+        	<div id="kontbox" class="choosebox">
+            <!-- BEGIN:dropdown -->
+            <h4>{name}</h4>
+            <select multiple=multiple size=15 name={name} id={name}>
+           	<option value=""></option>
+            <!-- BEGIN:option -->
+            <option value={val}>{text}</option>
+            <!-- END:option -->
+            </select>
+            <script type="text/javascript">
+            // auto-dropdown für die einzelnen kategorien
+	            $("#kont").change(function(event) {
+	            	var kont = $("#kont").val();
+	                $("#subkbox").load("subk.php?kont="+kont);
+	                $("#ethniebox").load("ethnie.php?kont="+kont);
+                    $("#mapsubk").attr("src" , "maps/blank.png");
+                    $("#mapimg").attr("src" , "maps/"+kont+".png");
+	            });
+
+	            $("#subk").change(function(event) {
+	            	var subk = $("#subk").val();
+	            	$("#provbox").load("prov.php?subk="+subk);
+                    $("#mapsubk").attr("src" , "maps/"+subk+".png");
+	            });
+
+	            $("#prov").change(function(event) {
+	            	var prov = $("#prov").val();
+	            	$("#regionbox").load("region.php?prov="+prov); 
+	            	$("#ortbox").load("ort.php?prov="+prov);
+	            });
+	        </script>
+            <!-- END:dropdown -->
+            </div>
+
+        </div>
+
+    </body>
+</html>
+<!-- END:segedit -->
