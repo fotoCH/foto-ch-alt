@@ -16,7 +16,7 @@ if(isset($_GET['a'])) {
 		
 		//autocomplete the ethnie input
 		case "ethnie":
-			$sql = "SELECT id, name_".$lang." FROM ethnie WHERE name_".$lang." LIKE '".$q."%' LIMIT 1";
+			$sql = "SELECT id, name_".$lang." FROM ethnie WHERE name_".$lang." LIKE '".$q."%'";
 			$rsd = mysql_query($sql);
 			$array = array();
 			while($rs = mysql_fetch_array($rsd)) {
@@ -34,17 +34,17 @@ if(isset($_GET['a'])) {
 				$f = strtolower(mysql_real_escape_string($_GET["f"]));
 				switch($f) {
 					case "subk":
-						$sql="SELECT super_r FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id<64 LIMIT 1";
+						$sql="SELECT super_r FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id<64";
 						break;
 					default:
-						$sql = "SELECT kontinent FROM $f WHERE name_".$lang." LIKE '".$q."%' LIMIT 1";
+						$sql = "SELECT kontinent FROM $f WHERE name_".$lang." LIKE '".$q."%'";
 						break;
 				}
 				$req = mysql_query($sql);
 				while($row = mysql_fetch_array($req)) {
 					$kont = explode(",",$row[0]);
 				}
-				$sql = "SELECT id, name_".$lang." FROM kontinent WHERE id=".$kont[0]." LIMIT 1";
+				$sql = "SELECT id, name_".$lang." FROM kontinent WHERE id=".$kont[0]."";
 				$req = mysql_query($sql);
 				while($row = mysql_fetch_array($req)) {
 					$arr = array('id' => $row['id'], 'label' => $row['name_'.$lang]);
@@ -54,7 +54,7 @@ if(isset($_GET['a'])) {
 				echo $arr["label"];
 			}
 			else {
-				$sql = "SELECT id, name_".$lang." FROM kontinent WHERE name_".$lang." LIKE '".$q."%' LIMIT 1";
+				$sql = "SELECT id, name_".$lang." FROM kontinent WHERE name_".$lang." LIKE '".$q."%'";
 				$rsd = mysql_query($sql);
 				$array = array();
 				while($rs = mysql_fetch_array($rsd)) {
@@ -68,7 +68,7 @@ if(isset($_GET['a'])) {
 		
 		// autocomplete the ort input field
 		case "ort":
-			$sql = "SELECT id, name_".$lang." FROM regiort WHERE name_".$lang." LIKE '".$q."%' AND typ='ort' LIMIT 1";
+			$sql = "SELECT id, name_".$lang." FROM regiort WHERE name_".$lang." LIKE '".$q."%' AND typ='ort'";
 			$rsd = mysql_query($sql);
 			$array = array();
 			while($rs = mysql_fetch_array($rsd)) {
@@ -81,7 +81,7 @@ if(isset($_GET['a'])) {
 		
 		// autocomplete the region input field
 		case "region":
-			$sql = "SELECT id, name_".$lang." FROM regiort WHERE name_".$lang." LIKE '".$q."%' AND typ='region' LIMIT 1";
+			$sql = "SELECT id, name_".$lang." FROM regiort WHERE name_".$lang." LIKE '".$q."%' AND typ='region'";
 			$rsd = mysql_query($sql);
 			$array = array();
 			while($rs = mysql_fetch_array($rsd)) {
@@ -98,7 +98,7 @@ if(isset($_GET['a'])) {
 				$f = strtolower(mysql_real_escape_string($_GET["f"]));
 				switch($f) {
 					case "regiort":
-						$sql="SELECT upper_tbl FROM regiort WHERE name_".$lang." LIKE '%".$q."%' LIMIT 1";
+						$sql="SELECT upper_tbl FROM regiort WHERE name_".$lang." LIKE '%".$q."%'";
 						break;
 				}
 				$req = mysql_query($sql);
@@ -115,7 +115,7 @@ if(isset($_GET['a'])) {
 				echo $arr["label"];
 			}
 			else {
-				$sql = "SELECT id, name_".$lang." FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id>63 LIMIT 1";
+				$sql = "SELECT id, name_".$lang." FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id>63";
 				$rsd = mysql_query($sql);
 				$array = array();
 				while($rs = mysql_fetch_array($rsd)) {
@@ -133,7 +133,7 @@ if(isset($_GET['a'])) {
 				$f = strtolower(mysql_real_escape_string($_GET["f"]));
 				switch($f) {
 					case "prov":
-						$sql="SELECT super_r FROM provsubk WHERE name_".$lang." LIKE '%".$q."%' AND id>63 LIMIT 1;";
+						$sql="SELECT super_r FROM provsubk WHERE name_".$lang." LIKE '%".$q."%' AND id>63;";
 						break;
 				}
 				$req = mysql_query($sql);
@@ -150,7 +150,7 @@ if(isset($_GET['a'])) {
 				echo $arr["label"];
 			}
 			else {
-				$sql = "SELECT id, name_".$lang." FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id<64 LIMIT 1";
+				$sql = "SELECT id, name_".$lang." FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id<64";
 				$rsd = mysql_query($sql);
 				$array = array();
 				while($rs = mysql_fetch_array($rsd)) {

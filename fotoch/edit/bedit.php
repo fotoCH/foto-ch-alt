@@ -189,9 +189,6 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form");
 	
 	$def->assign("LEGEND","SEG");
-	$def->parse("bearbeiten.form");
-	$def->parse("bearbeiten.form.fieldset_start");
-	
 	// delete entries
 	if(isset($_GET['segdel'])) {
 		$sql="DELETE FROM `bestand_segref` WHERE `id` = ".mysql_real_escape_string($_GET['segdel']);
@@ -200,7 +197,8 @@ if ($fertig==1){
 	// show entries
 	$entries=Array();
 	$bid=mysql_real_escape_string($_GET['id']);
-	$sql="SELECT bestand_segref.id as id, bestand_segref.bestand_id as bid, a.name_".$lang." as prov, b.name_".$lang." as subk, c.name_".$lang." as kont, d.name_".$lang." as ethnie, e.name_".$lang." as regiort FROM bestand_segref LEFT JOIN provsubk a ON bestand_segref.prov_id=a.id LEFT JOIN provsubk b ON bestand_segref.subk_id=b.id LEFT JOIN kontinent c ON bestand_segref.kontinent_id=c.id LEFT JOIN ethnie d ON bestand_segref.ethnien_id=d.id LEFT JOIN regiort e ON bestand_segref.regionort_id=e.id WHERE bestand_segref.bestand_id=".$bid.";";
+	if($bid!='new')
+		$sql="SELECT bestand_segref.id as id, bestand_segref.bestand_id as bid, a.name_".$lang." as prov, b.name_".$lang." as subk, c.name_".$lang." as kont, d.name_".$lang." as ethnie, e.name_".$lang." as regiort FROM bestand_segref LEFT JOIN provsubk a ON bestand_segref.prov_id=a.id LEFT JOIN provsubk b ON bestand_segref.subk_id=b.id LEFT JOIN kontinent c ON bestand_segref.kontinent_id=c.id LEFT JOIN ethnie d ON bestand_segref.ethnien_id=d.id LEFT JOIN regiort e ON bestand_segref.regionort_id=e.id WHERE bestand_segref.bestand_id=".$bid.";";
 	$result=mysql_query($sql);
 	if (!$result) {
 		die('Invalid query: ' . mysql_error());
@@ -208,6 +206,18 @@ if ($fertig==1){
 	while($row=mysql_fetch_array($result)) {
 		array_push($entries, $row);
 	}
+	if(count($entries) == 0) {
+		$def->assign("showSEG", "none");
+		$def->assign("openclose", "+");
+	}
+	else {
+		$def->assign("showSEG", "block");
+		$def->assign("openclose", "-");
+	}
+	$def->parse("bearbeiten.form");
+	$def->parse("bearbeiten.form.fieldset_start");
+	
+	
 	$i=1;
 	foreach($entries as $entry) {
 		$def->assign('numb', $i);$i++;
@@ -220,6 +230,7 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.fieldset_end");
 	$def->parse("bearbeiten.form.tr");
 	$def->parse("bearbeiten.form");
+	$def->assign("openclose", "");
 	
 	$def->assign("LEGEND",$spr['bestand_details']);
 	$def->parse("bearbeiten.form.fieldset_start");	
