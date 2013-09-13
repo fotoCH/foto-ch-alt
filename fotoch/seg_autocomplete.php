@@ -1,5 +1,6 @@
 <?php
 include("mysql.inc.php");
+header('Content-type: text/html; charset=utf-8');
 session_start();
 include("auth.inc.php");
 testauthedit();
