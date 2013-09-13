@@ -514,7 +514,7 @@ function submitita(v)
          	$("#subk_id").val(ui.item.id);
          	console.log(ui.item);
          	$.ajax({
-           		url: 'seg_autocomplete.php?a=kont&f=subk&term='+label,
+           		url: 'seg_autocomplete.php?a=kont&f=subk&term='+ui.item.label,
            		success: function(data) {
            			data=data.split("|");
            			console.log(data);
