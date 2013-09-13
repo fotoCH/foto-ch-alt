@@ -179,7 +179,7 @@ if ($fertig==1){
 	$def->parse("bearbeiten.bearbeiten_head_bestand");
 	
 	
-	$def->assign("LEGEND","<b>".$spr['fotographen']."</b>");
+	$def->assign("LEGEND",$spr['fotographen']);
 	$def->parse("bearbeiten.form.fieldset_start");
 		
 	$def->parse("bearbeiten.form.new_fotograf");
@@ -188,15 +188,40 @@ if ($fertig==1){
 	$def->parse("bearbeiten.form.tr");
 	$def->parse("bearbeiten.form");
 	
-	$def->assign("LEGEND","<b>SEG</b>");
+	$def->assign("LEGEND","SEG");
+	$def->parse("bearbeiten.form");
 	$def->parse("bearbeiten.form.fieldset_start");
+	
+	// delete entries
+	if(isset($_GET['segdel'])) {
+		$sql="DELETE FROM `bestand_segref` WHERE `id` = ".mysql_real_escape_string($_GET['segdel']);
+		$result=mysql_query($sql);
+	}
+	// show entries
+	$entries=Array();
+	$bid=mysql_real_escape_string($_GET['id']);
+	$sql="SELECT bestand_segref.id as id, bestand_segref.bestand_id as bid, a.name_".$lang." as prov, b.name_".$lang." as subk, c.name_".$lang." as kont, d.name_".$lang." as ethnie, e.name_".$lang." as regiort FROM bestand_segref LEFT JOIN provsubk a ON bestand_segref.prov_id=a.id LEFT JOIN provsubk b ON bestand_segref.subk_id=b.id LEFT JOIN kontinent c ON bestand_segref.kontinent_id=c.id LEFT JOIN ethnie d ON bestand_segref.ethnien_id=d.id LEFT JOIN regiort e ON bestand_segref.regionort_id=e.id WHERE bestand_segref.bestand_id=".$bid.";";
+	$result=mysql_query($sql);
+	if (!$result) {
+		die('Invalid query: ' . mysql_error());
+	}
+	while($row=mysql_fetch_array($result)) {
+		array_push($entries, $row);
+	}
+	$i=1;
+	foreach($entries as $entry) {
+		$def->assign('numb', $i);$i++;
+		$def->assign("SEG", $entry);
+		$def->parse("bearbeiten.form.segedit.seglist");
+	}
+	
 	$def->parse("bearbeiten.form.segedit");
 	$def->parse("bearbeiten.form");
 	$def->parse("bearbeiten.form.fieldset_end");
 	$def->parse("bearbeiten.form.tr");
 	$def->parse("bearbeiten.form");
 	
-	$def->assign("LEGEND","<b>".$spr['bestand_details']."</b>");
+	$def->assign("LEGEND",$spr['bestand_details']);
 	$def->parse("bearbeiten.form.fieldset_start");	
 	$def->parse("bearbeiten.form.start");
 	
@@ -212,7 +237,7 @@ if ($fertig==1){
 	
 	//genselectitem($def, "Institution", $array_eintrag['inst_id'], "inst_id", $arr_inst, "", "", "");
 	genformitem($def, 'noedit', $spr['Institution'], $iname, "inst_name");
-	//$def->assign("LEGEND","<b>".$spr['intitution']."</b>");
+	//$def->assign("LEGEND",$spr['intitution']);
 	//$def->parse("bearbeiten.form.fieldset_start");
 		
 	$def->parse("bearbeiten.form.new_institution_bestand");

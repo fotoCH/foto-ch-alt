@@ -3,7 +3,8 @@
 
         <script type="text/javascript" src="js/vorschlag.js"></script>
         <script type="text/javascript" src="js/fotovor.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/autosuggest.css" />
+		<link rel="stylesheet" type="text/css" href="css/autosuggest.css" />
+	   	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         <script type="text/javascript">
         window.onload = function () { 
 		var lvoTextbox = new AutoSuggestControl(document.getElementById("litv"),document.getElementById("newlitid"), new FotoSuggestions("ilist/gentas.php?table=literatur&retfeld=verfasser_vorname&ergfeld=titel&suchfeld=verfasser_name&erg=,%20&erg2=:%20&"));
@@ -143,7 +144,6 @@
 	  }
 	
 	</script>
-
 <!-- BEGIN:bearbeiten_head_fotograf -->
 <h2>{SPR.fotographbearbeiten}</h2><a name="top"></a>
 <h3>{NEW_ENTRY_MSG} <span class="subtitle3{g}">{NAMEN.nachname}, {NAMEN.vorname} </span></h3>
@@ -305,68 +305,75 @@ function submitita(v)
 <!-- BEGIN:form-->
 
 <!-- BEGIN:fieldset_start -->
-	<fieldset class="edit" >
-		<legend class="edit">&nbsp;&nbsp;&nbsp;{LEGEND}</legend><br/>
+	<fieldset class="edit">
+		<legend class="edit" id="{LEGEND}_label">&nbsp;&nbsp;&nbsp;<b>{LEGEND}</b></legend><br/>
 <!-- END:fieldset_start -->
 <!-- BEGIN:fieldset_end -->
 		<br />	
 	</fieldset>
 <!-- END:fieldset_end -->
 <!-- BEGIN:segedit -->
-	<table class="edit" cellpadding="5" cellspacing="0">
+<div id="seghide" style="display:none;">
+	<table class="edit" style="cellpadding:5px; cellspacing:0px">
 						<tr>
     						
     							<td class="edit"><label for="loc" class="edit">SEG</label></td>
     							
    								<td>
-   									{SPR.ethnie}: <input type="text" name="ethnie_auto" id="ethnie_auto" />
-   									<input type="hidden" name="ethnie_id" />
-   									<br />
-							        {SPR.ort}: <input type="text" name="ort_auto" id="ort_auto" /><br />
-							        {SPR.region}: <input type="text" name="region_auto" id="region_auto" /><br />
-							        {SPR.herkunft}: <input type="text" name="prov_auto" id="prov_auto" /><br />
-							        {SPR.subkontinent}: <input type="text" name="subk_auto" id="subk_auto" /><br />
-							        {SPR.kontinent}: <input type="text" name="kont_auto" id="kont_auto" /><br />
+   									<table>
+   									<tr><td>{SPR.ethnie}:</td><td><input type="text" name="ethnie_auto" id="ethnie_auto" class="jsearch" />
+   									<input type="hidden" id="ethnie_id" name="ethnie_id" value="" /></td></tr>
+   									
+							        <tr><td>{SPR.ort}:</td><td><input type="text" name="ort_auto" id="ort_auto" class="jsearch" />
+							        <input type="hidden" id="ort_id" name="ort_id" /></td></tr>
+							        
+							        <tr><td>{SPR.region}:</td><td><input type="text" name="region_auto" id="region_auto" class="jsearch" />
+							        <input type="hidden" id="region_id" name="region_id" /></td></tr>
+							        
+							        <tr><td>{SPR.herkunft}:</td><td><input type="text" name="prov_auto" id="prov_auto" class="jsearch" />
+							        <input type="hidden" id="prov_id" name="prov_id" /></td></tr>
+							        
+							        <tr><td>{SPR.subkontinent}:</td><td><input type="text" name="subk_auto" id="subk_auto" class="jsearch" />
+							        <input type="hidden" id="subk_id" name="subk_id" /></td></tr>
+							        
+							        <tr><td>{SPR.kontinent}:</td><td><input type="text" name="kont_auto" id="kont_auto" class="jsearch" />
+							        <input type="hidden" id="kont_id" name="kont_id" /></td></tr>
+							        <tr><td /><td><input type="button" id="SEGsave" class="jsubmit" value="{SPR.verknuepfen}" /></td></tr></table>
 							    </td>
 						</tr>
         
    	</table>
-   	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script type="text/css">
-		.ui-autocomplete {
-            max-height: 100px;
-            overflow-y: auto;
-            /* prevent horizontal scrollbar */
-            overflow-x: hidden;
-            /* add padding to account for vertical scrollbar */
-            padding-right: 20px;
-    }
-    /* IE 6 doesn't support max-height
-     * we use height instead, but this forces the menu to always be this tall
-     */
-    * html .ui-autocomplete {
-        height: 100px;
-    }
-	</script>
    	<script type="text/javascript">
-   	
+   	$("#{LEGEND}_label").click(function() {$("#seghide").slideToggle(); $("#show").toggle(); } );
+   	$("#SEGsave").click(function() {
+   		var kont = $("#kont_id").val();
+   		var subk = $("#subk_id").val();
+   		var prov = $("#prov_id").val();
+   		var region = $("#region_id").val();
+   		var ort = $("#ort_id").val();
+   		var ethnie = $("#ethnie_id").val();
+   		$.ajax({
+   			url: 'seg_autocomplete.php?s=save&bid='+{ID}+'&kont='+kont+'&subk='+subk+'&prov='+prov+'&region='+region+'&ort='+ort+'&ethnie='+ethnie,
+   			success: function() { location.reload(); }
+   		});
+   	});
     $("#ethnie_auto").autocomplete({
     	source: "seg_autocomplete.php?a=ethnie",
         width: 260,
         matchContains: true,
         selectFirst: false,
-        select: function(data) {
-      console.log(data);
-        	
-        	
+        select: function(event, ui) {
+        	$("#ethnie_id").val(ui.item.id);
            	$.ajax({
-           		// kontinent zu ausgewählter ethnie nachladen und auswählen in der dropdown
-           		url: 'seg_autocomplete.php?a=kont&f=ethnie&term='+data.toElement.innerHTML,
-           				
+           		// kontinent zu ausgewählter ethnie nachladen
+           		url: 'seg_autocomplete.php?a=kont&f=ethnie&term='+ui.item.label,
            		success: function(data) {
-           			$("#kont_auto").val(data);
+           			data=data.split("|");
+           			console.log(data);
+           			$("#kont_auto").val(data[1]);
+           			$("#kont_id").val(data[0]);
            		}
            	});
         }
@@ -376,7 +383,10 @@ function submitita(v)
     	source: "seg_autocomplete.php?a=kont",
         width: 260,
         matchContains: true,
-        selectFirst: false
+        selectFirst: false,
+        select: function(event, ui) {
+        	$("#kont_id").val(ui.item.id);
+        }
 	});
     
     $
@@ -386,16 +396,73 @@ function submitita(v)
         width:260,
         matchContains: true,
         selectFirst: false,
+        select: function(event, ui) {
+        	$("#region_id").val(ui.item.id);
+        	$.ajax({
+        		url: 'seg_autocomplete.php?a=prov&f=regiort&term='+ui.item.label,
+        		success: function(data) {
+        			data=data.split("|");
+        			console.log(data);
+        			$("#prov_auto").val(data[1]);
+        			$("#prov_id").val(data[0]);
+        			$.ajax({
+                		url: 'seg_autocomplete.php?a=subk&f=prov&term='+data[1],
+                		success: function(data) {
+                			data=data.split("|");
+                			console.log(data);
+                			$("#subk_auto").val(data[1]);
+                			$("#subk_id").val(data[0]);
+                			$.ajax({
+                           		url: 'seg_autocomplete.php?a=kont&f=subk&term='+data[1],
+                           		success: function(data) {
+                           			data=data.split("|");
+                           			console.log(data);
+                           			$("#kont_auto").val(data[1]);
+                           			$("#kont_id").val(data[0]);
+                           		}
+                           	});
+                		}
+                	});
+        		}
+        	});
+        }
     });
 
-    /*
-       autocomplete für orte
-    */
     $("#ort_auto").autocomplete({
         source: "seg_autocomplete.php?a=ort",
         width: 260,
         matchContains: true,
         selectFirst: false,
+        select: function(event, ui) {
+        	$("#ort_id").val(ui.item.id);
+        	$.ajax({
+        		url: 'seg_autocomplete.php?a=prov&f=regiort&term='+ui.item.label,
+        		success: function(data) {
+        			data=data.split("|");
+        			console.log(data);
+        			$("#prov_auto").val(data[1]);
+        			$("#prov_id").val(data[0]);
+        			$.ajax({
+                		url: 'seg_autocomplete.php?a=subk&f=prov&term='+data[1],
+                		success: function(data) {
+                			data=data.split("|");
+                			console.log(data);
+                			$("#subk_auto").val(data[1]);
+                			$("#subk_id").val(data[0]);
+                			$.ajax({
+                           		url: 'seg_autocomplete.php?a=kont&f=subk&term='+data[1],
+                           		success: function(data) {
+                           			data=data.split("|");
+                           			console.log(data);
+                           			$("#kont_auto").val(data[1]);
+                           			$("#kont_id").val(data[0]);
+                           		}
+                           	});
+                		}
+                	});
+        		}
+        	});
+        }
     });
     
     $("#prov_auto").autocomplete({
@@ -403,6 +470,28 @@ function submitita(v)
         width: 260,
         matchContains: true,
         selectFirst: false,
+        select: function(event, ui) {
+        	$("#prov_id").val(ui.item.id);
+        	console.log(ui.item.id);
+        	$.ajax({
+        		url: 'seg_autocomplete.php?a=subk&f=prov&term='+ui.item.label,
+        		success: function(data) {
+        			data=data.split("|");
+        			console.log(data);
+        			$("#subk_auto").val(data[1]);
+        			$("#subk_id").val(data[0]);
+        			$.ajax({
+                   		url: 'seg_autocomplete.php?a=kont&f=subk&term='+data[1],
+                   		success: function(data) {
+                   			data=data.split("|");
+                   			console.log(data);
+                   			$("#kont_auto").val(data[1]);
+                   			$("#kont_id").val(data[0]);
+                   		}
+                   	});
+        		}
+        	});
+        }
     });
     
     $("#subk_auto").autocomplete({
@@ -410,8 +499,33 @@ function submitita(v)
         width: 260,
         matchContains: true,
         selectFirst: false,
+        select: function(event, ui) {
+         	$("#subk_id").val(ui.item.id);
+         	console.log(ui.item);
+         	$.ajax({
+           		url: 'seg_autocomplete.php?a=kont&f=subk&term='+label,
+           		success: function(data) {
+           			data=data.split("|");
+           			console.log(data);
+           			$("#kont_auto").val(data[1]);
+           			$("#kont_id").val(data[0]);
+           		}
+           	});
+        }
     });
    	</script>
+   	<!-- BEGIN:seglist -->
+<table class="edit" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="edit"><label for="" class="edit">{numb}.</label></td>
+		<td>
+			{SPR.kontinent}:{SEG.kont} {SPR.subkontinent}:{SEG.subk} {SPR.herkunft}:{SEG.prov} {SPR.region}/{SPR.ort}:{SEG.regiort} {SPR.ethnie}:{SEG.ethnie}
+			<a href="./?a={ACTION}&amp;id={ID}&amp;lang={LANG}&amp;segdel={SEG.id}">[&nbsp;{SPR.loeschen}&nbsp;]</a>
+		</td>
+	</tr>
+</table><br />
+<!-- END:seglist -->
+</div>
 <!-- END:segedit -->
 <!-- BEGIN:namen-->
 {BR}
