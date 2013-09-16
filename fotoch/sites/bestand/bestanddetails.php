@@ -91,6 +91,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     }
     if(mysql_num_rows($result6)!=0) abstand($def);
     //if(mysql_result($result6)!=0) abstand($def);
+    kontinente(); 
     $result7=mysql_query("SELECT * FROM bestand_segref WHERE bestand_id=$id");
     while($fetch7=mysql_fetch_array($result7)){
     	formseg($fetch7); 

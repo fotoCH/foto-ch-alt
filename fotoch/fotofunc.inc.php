@@ -714,8 +714,20 @@ function datumtest(){ // testet $REQUEST vondatum und bisdatum auf falsch format
 	datest($_REQUEST['bisdatum']);
 }
 
+function kontinente(){
+	global $kontinente;
+	global $language;
+	$sql="SELECT id, name_".$language." FROM kontinent";
+	$result=mysql_query($sql);
+	while ($fetch=mysql_fetch_array($result)){
+		$kontinente[$fetch[0]]=$fetch[1];
+	}
+	//print_r($kontinente);
+}
+
 function formseg(&$f){
 	global $language;
+	global $kontinente;
 	
 	$sql="SELECT name_".$language." FROM provsubk WHERE id=".$f['subk_id'];
 
@@ -729,12 +741,12 @@ function formseg(&$f){
 	if ($fetch=mysql_fetch_array($result)){
 		$f['herkunft']=$fetch[0];
 	}
-	$sql="SELECT ethnie.name_".$language.",kontinent.name_".$language." FROM ethnie INNER JOIN kontinent ON kontinent.id=ethnie.kontinent WHERE ethnie.id=".$f['ethnien_id'];
-	
+	$sql="SELECT ethnie.name_".$language.", kontinent FROM ethnie WHERE ethnie.id=".$f['ethnien_id'];
+	//echo $sql;
 	$result=mysql_query($sql);
 	if ($fetch=mysql_fetch_array($result)){
 		$f['ethnie']=$fetch[0];
-		$f['subkontinent']=$fetch[1];
+		$f['subkontinent']=$kontinente[$fetch[1]];
 	}
 	
 	
