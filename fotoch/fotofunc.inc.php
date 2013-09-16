@@ -748,8 +748,6 @@ function formseg(&$f){
 		$f['ethnie']=$fetch[0];
 		$f['subkontinent']=$kontinente[$fetch[1]];
 	}
-	
-	
 	$sql="SELECT name_".$language.",typ FROM regiort WHERE id=".$f['regionort_id'];
 	//echo $sql; return;
 	$result=mysql_query($sql);
@@ -759,10 +757,48 @@ function formseg(&$f){
 		} else {
 			$f['region']=$fetch[0];
 		}
-	}
+	} //print_r($f);
 	//$f['ort']='oort';
 	//return $f;
-}
+	}
+	
+	function formseg1(&$f){
+		global $language;
+	
+		$sql="SELECT name_".$language." FROM provsubk WHERE id=".$f['subk_id'];
+	
+		$result=mysql_query($sql);
+		if ($fetch=mysql_fetch_array($result)){
+			$f['subkontinent']=$fetch[0];
+		}
+		$sql="SELECT name_".$language." FROM provsubk WHERE id=".$f['prov_id'];
+	
+		$result=mysql_query($sql);
+		if ($fetch=mysql_fetch_array($result)){
+			$f['herkunft']=$fetch[0];
+		}
+		$sql="SELECT ethnie.name_".$language.", kontinent FROM ethnie WHERE ethnie.id=".$f['ethnien_id'];
+		//echo $sql;
+		$result=mysql_query($sql);
+		if ($fetch=mysql_fetch_array($result)){
+			$f['ethnie']=$fetch[0];
+			$f['subkontinent']=$kontinente[$fetch[1]];
+		}
+	}
+
+	function formseg2(&$f){
+		global $language;
+		global $kontinente;
+	
+		$sql="SELECT ethnie.name_".$language.", kontinent FROM ethnie WHERE ethnie.id=".$f['ethnien_id'];
+		//echo $sql;
+		$result=mysql_query($sql);
+		if ($fetch=mysql_fetch_array($result)){
+			$f['ethnie']=$fetch[0];
+			$f['kontinent']=$kontinente[$fetch[1]];
+		}
+	}
+	
 
 
 ?>
