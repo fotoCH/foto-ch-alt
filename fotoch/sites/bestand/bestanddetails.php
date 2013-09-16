@@ -94,12 +94,28 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	//if(mysql_result($result6)!=0) abstand($def);
 	kontinente();
 	$result7=mysql_query("SELECT * FROM bestand_segref WHERE bestand_id=$id AND ethnien_id=0");
+	$ofetch=array();
 	while($fetch7=mysql_fetch_array($result7)){
 		formseg($fetch7);
-		$def->assign("FETCH7",$fetch7);
-		$def->parse("autodetail.z.bestn_7.row");
+		if ($ofetch['subkontinent']==$fetch7['subkontinent'] && $ofetch['herkunft']==$fetch7['herkunft']){
+			if ($ofetch['regiort']) $ofetch['regiort'].=', ';
+			$ofetch['regiort'].=($fetch7['ort']?'<i>'.$fetch7['ort'].'</i>':$fetch7['region']);
+		} else {
+			if (count($ofetch)>0){
+				$def->assign("FETCH7",$ofetch);
+				$def->parse("autodetail.z.bestn_7.row");
+				
+			}  
+			$ofetch=$fetch7;
+			$ofetch['regiort'].=($fetch7['ort']?'<i>'.$fetch7['ort'].'</i>':$fetch7['region']);
+		}
 		$f7=true;
 	}
+	if (count($ofetch)>0){
+		$def->assign("FETCH7",$ofetch);
+		$def->parse("autodetail.z.bestn_7.row");
+	}
+	
 	if ($f7){
 		$def->parse("autodetail.z.bestn_7");
 		$def->parse("autodetail.z");

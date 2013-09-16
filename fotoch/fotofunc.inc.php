@@ -741,13 +741,6 @@ function formseg(&$f){
 	if ($fetch=mysql_fetch_array($result)){
 		$f['herkunft']=$fetch[0];
 	}
-	$sql="SELECT ethnie.name_".$language.", kontinent FROM ethnie WHERE ethnie.id=".$f['ethnien_id'];
-	//echo $sql;
-	$result=mysql_query($sql);
-	if ($fetch=mysql_fetch_array($result)){
-		$f['ethnie']=$fetch[0];
-		$f['subkontinent']=$kontinente[$fetch[1]];
-	}
 	$sql="SELECT name_".$language.",typ FROM regiort WHERE id=".$f['regionort_id'];
 	//echo $sql; return;
 	$result=mysql_query($sql);
