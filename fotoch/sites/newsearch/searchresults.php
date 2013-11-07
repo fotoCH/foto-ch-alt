@@ -37,7 +37,7 @@ if ($volltext !='') {
 	$def->parse("list.head_bestand");
 	
 	// Bestände auslesen
-	$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '%$volltext%' OR `zeitraum` LIKE '%$volltext%' OR `umfang` LIKE '%$volltext%' OR `erschliessungsgrad` LIKE '%$volltext%' OR `weiteres` LIKE '%$volltext%' OR `bildgattungen` LIKE '%$volltext%' OR `bestandsbeschreibung` LIKE '%$volltext%' OR `link_extern` LIKE '%$volltext%' OR `signatur` LIKE '%$volltext%' OR `copyright` LIKE '%$volltext%' OR `notiz` LIKE '%$volltext%' ORDER BY name Asc");
+	$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '%$volltext%' OR `bestandsbeschreibung` LIKE '%$volltext%' ORDER BY name Asc");
 	$issearch=3;
 
 	while($fetch=mysql_fetch_array($result)){
@@ -54,7 +54,7 @@ if ($volltext !='') {
 	$def->parse("list.listhead_normal_institution");
 	// Select: code
 	//$volltext = $_GET['volltext'];
-	$result=mysql_query("SELECT * FROM institution WHERE name LIKE '%$volltext%' OR `name_fr` LIKE '%$volltext%' OR `name_it` LIKE '%$volltext%' ORDER BY name Asc");
+	$result=mysql_query("SELECT * FROM institution WHERE name LIKE '%$volltext%' OR `name_fr` LIKE '%$volltext%' OR `name_it` LIKE '%$volltext%' OR `name_rm` LIKE '%$volltext%' OR `name_en` LIKE '%$volltext%' OR `abkuerzung` LIKE '%$volltext%' OR `abkuerzung_fr` LIKE '%$volltext%' OR `abkuerzung_it` LIKE '%$volltext%' OR `abkuerzung_rm` LIKE '%$volltext%' OR `abkuerzung_en` LIKE '%$volltext%' OR `ort` LIKE '%$volltext%' OR `sammlungsgeschichte` LIKE '%$volltext%' OR `sammlungsgeschichte_fr` LIKE '%$volltext%' OR `sammlungsgeschichte_it` LIKE '%$volltext%' OR `sammlungsgeschichte_rm` LIKE '%$volltext%' OR `sammlungsgeschichte_en` LIKE '%$volltext%' OR `sammlungsbeschreibung` LIKE '%$volltext%' OR `sammlungsbeschreibung_rm` LIKE '%$volltext%' OR `sammlungsbeschreibung_fr` LIKE '%$volltext%' OR `sammlungsbeschreibung_it` LIKE '%$volltext%' OR `sammlungsbeschreibung_en` LIKE '%$volltext%' ORDER BY name Asc");
 	$issearch=3;
 	//echo "SELECT * FROM fotografen WHERE nachname LIKE '$anf%' ORDER BY  nachname Asc, vorname Asc";
 	while($fetch=mysql_fetch_array($result)){
