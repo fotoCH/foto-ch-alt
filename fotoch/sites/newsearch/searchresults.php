@@ -21,7 +21,7 @@ $def->assign("SPR",$spr);
 $lang = $_GET['lang'];
 $id=$_GET['id'];
 $anf=$_GET['anf'];
-$volltext = $_GET['volltext'];
+$volltext = mysql_real_escape_string($_GET['volltext']);
 
 
 
@@ -67,6 +67,39 @@ if ($volltext !='') {
 	//$def->out("list");
 	$results.=$def->text("list");
 	
+	
+} elseif (isset($_GET["seg"])) {//Suche nach SEG
+	testauth();
+	$seg = $_GET['seg'];
+	$seg = array_map('mysql_real_escape_string', $seg);
+ 	
+	$query = "SELECT * FROM bestand WHERE id IN (SELECT DISTINCT bestand_id FROM bestand_segref WHERE 
+			kontinent_id='".$seg[kont]."' 
+					OR subk_id='".$seg[subk]."' 
+							OR regionort_id='".$seg[region]."' 
+									OR regionort_id='".$seg[ort]."' 
+											OR prov_id='".$seg[prov]."' 
+													OR ethnien_id='".$seg[ethnie]."');";
+	
+	$query = preg_replace("/''/", "NULL", $query);
+	echo $query;
+
+// 	tabllenkopf
+	$def->parse("list.head_bestand");
+
+	$result = mysql_query($query);
+ 	
+	// bestände in liste packen
+	while($fetch=mysql_fetch_array($result)){
+		
+		if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
+		$def->assign("FETCH",$fetch);
+		$def->parse("list.row".((auth_level(USER_WORKER))?'_admin_bestand':'_normal_bestand'));
+		
+	}
+	$def->parse("list");
+	
+	$results.=$def->text("list");
 	
 } else {
 

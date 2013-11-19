@@ -1,5 +1,6 @@
 <?php
 
+
 $def=new XTemplate ("././templates/search.xtpl");
 $def->assign("ACTION",$_GET['a']);
 $def->assign("ID",$_GET['id']);
@@ -31,9 +32,15 @@ subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch[test],'volltext');
 //such button
 subgensubmit($def,'submitfield',$spr['submit']);
 
+// seg suche parsen
+$def->parse("seg_search");
+
+
 //write to template
 $def->parse("suchen");
 
 //write to $out.
 $search.=$def->text("suchen");
+$search.=$def->text("seg_search");
+
 ?>

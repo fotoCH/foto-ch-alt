@@ -17,8 +17,7 @@ if($_GET['id']!="") {
 }
 else {
 	//include("./lang.inc.php");
-	//volltext und alf. suche
-
+	//volltext und alf. suche	
 	$bestand = new XTemplate("././templates/contents.xtpl");
 	include("nsearch.php");
 	$bestand->assign("SEARCH", $search);
