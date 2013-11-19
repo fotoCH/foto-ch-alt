@@ -73,15 +73,27 @@ if ($volltext !='') {
 	$seg = $_GET['seg'];
 	$seg = array_map('mysql_real_escape_string', $seg);
  	
-	$query = "SELECT * FROM bestand WHERE id IN (SELECT DISTINCT bestand_id FROM bestand_segref WHERE 
-			kontinent_id='".$seg[kont]."' 
-					OR subk_id='".$seg[subk]."' 
-							OR regionort_id='".$seg[region]."' 
-									OR regionort_id='".$seg[ort]."' 
-											OR prov_id='".$seg[prov]."' 
-													OR ethnien_id='".$seg[ethnie]."');";
+	// construct query
+	$query = "SELECT * FROM bestand WHERE id IN (SELECT DISTINCT bestand_id FROM bestand_segref WHERE ";
 	
-	$query = preg_replace("/''/", "NULL", $query);
+	// find out, which fields are filled and construct sql parts
+	$q = array();
+	(!empty($seg['kont'])? array_push($q, " kontinent_id='".$seg[kont]."'"):NULL);
+	(!empty($seg['subk'])? array_push($q, " subk_id='".$seg[subk]."'"):NULL);
+	(!empty($seg['region'])? array_push($q, " regionort_id='".$seg[region]."'"):NULL);
+	(!empty($seg['ort'])? array_push($q, " regionort_id='".$seg[ort]."'"):NULL);
+	(!empty($seg['prov'])? array_push($q, " prov_id='".$seg[prov]."'"):NULL);
+	(!empty($seg['ethnie'])? array_push($q, " ethnien_id='".$seg[ethnie]."'"):NULL);
+	
+	var_dump($q);
+	
+	// add where clauses to query
+	foreach($q as $p) {
+		$query .= $p;
+		// last element
+		($p===end($q)?$query .= ");":$query .= " AND");
+	}
+	
 	echo $query;
 
 // 	tabllenkopf

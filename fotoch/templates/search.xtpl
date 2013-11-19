@@ -263,6 +263,12 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 		var subk = $("#subk_auto").val();
 		var subk_id = $("#subk_id").val();
 		
+		(!ethnie)?ethnie_id='':'';
+		(!kont)?kont_id='':'';
+		(!ort)?ort_id='':'';
+		(!region)?region_id='':'';
+		(!prov)?prov_id='':'';
+		(!subk)?subk_id='':'';
 		
 		window.location.search += "&seg[ort]="+ort_id+"&seg[ethnie]="+ethnie_id+"&seg[kont]="+kont_id+"&seg[region]="+region_id+"&seg[prov]="+prov_id+"&seg[subk]="+subk_id
 	});
