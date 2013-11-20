@@ -85,7 +85,6 @@ if ($volltext !='') {
 	(!empty($seg['prov'])? array_push($q, " prov_id='".$seg[prov]."'"):NULL);
 	(!empty($seg['ethnie'])? array_push($q, " ethnien_id='".$seg[ethnie]."'"):NULL);
 	
-	var_dump($q);
 	
 	// add where clauses to query
 	foreach($q as $p) {
@@ -94,7 +93,6 @@ if ($volltext !='') {
 		($p===end($q)?$query .= ");":$query .= " AND");
 	}
 	
-	echo $query;
 
 // 	tabllenkopf
 	$def->parse("list.head_bestand");
