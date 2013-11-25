@@ -179,63 +179,59 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 <!-- BEGIN:seg_search -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <table class="search">
-	<tr>
-		<td class="search">
-			{SPR.ethnie}:
-		</td>
-		<td class="search">
-			<input type="text" name="ethnie_auto" id="ethnie_auto" class="inputtext" />
-			<input type="hidden" id="ethnie_id" name="ethnie_id" value="" />
-		</td>
-	</tr>
-	
-	<tr>
-		<td class="search">
-			{SPR.ort}:
-		</td>
-		<td class="search">
-			<input type="text" name="ort_auto" id="ort_auto" class="inputtext" />
-		<input type="hidden" id="ort_id" name="ort_id" />
-		</td>
-	</tr>
-	
-	<tr>
-		<td class="search">
-			{SPR.region}:
-		</td>
-		<td class="search">
-			<input type="text" name="region_auto" id="region_auto" class="inputtext" />
-			<input type="hidden" id="region_id" name="region_id" />
-		</td>
-	</tr>
-	
-	<tr>
-		<td class="search">
-			{SPR.herkunft}:
-		</td>
-		<td class="search">
-			<input type="text" name="prov_auto" id="prov_auto" class="inputtext" />
-			<input type="hidden" id="prov_id" name="prov_id" />
-		</td>
-	</tr>
-	
-	<tr>
-		<td class="search">
-			{SPR.subkontinent}:
-		</td>
-		<td class="search">
-			<input type="text" name="subk_auto" id="subk_auto" class="inputtext" />
-			<input type="hidden" id="subk_id" name="subk_id" />
-		</td>
-	</tr>
-	
+		
 	<tr>
 		<td class="search">
 			{SPR.kontinent}:
 		</td>
 		<td class="search">
-			<input type="text" name="kont_auto" id="kont_auto" class="inputtext" />
-			<input type="hidden" id="kont_id" name="kont_id" />
+			<select id="kont_list"></select>
+		</td>
+	</tr>
+	
+		
+	<tr>
+		<td class="search">
+			{SPR.subkontinent}:
+		</td>
+		<td class="search">
+			<select id="subk_list"></select>
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="search">
+			{SPR.herkunft}:
+		</td>
+		<td class="search">
+			<select id="prov_list"></select>
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="search">
+			{SPR.region}:
+		</td>
+		<td class="search">
+			<select id="region_list"></select>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="search">
+			{SPR.ort}:
+		</td>
+		<td class="search">
+			<select id="ort_list"></select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="search">
+			{SPR.ethnie}:
+		</td>
+		<td class="search">
+			<select id="ethnie_list"></select>
 		</td>
 	</tr>
 	
@@ -249,6 +245,58 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
    	<script type="text/javascript">
+   	
+   	// fill the list with specific entries by a type(f) that has an id (term)
+   	function fillList(a, f, term) {
+   		if(arguments.length==1) {
+   			var link = "seg_autocomplete.php?a="+a;
+   		}
+   		else {
+   			var link = "seg_autocomplete.php?a="+a+"&f="+f+"&term="+term
+   		}
+   		$.getJSON(link, function(data) {
+  			$("#"+a+"_list option").remove(); // Remove all <option> child tags.
+  			$("#"+a+"_list").append(
+  				$("<option></option>").text("-").val(0)
+  			);
+		    $.each(data, function(id, obj) { // Iterates through a collection
+		    	$("#"+a+"_list").append( // Append an object to the inside of the select box
+		            $("<option></option>") // Yes you can do this
+					.text(obj.label)
+					.val(obj.id)
+				);
+		    });
+		});
+   	}
+   	
+   	$(function() {
+  		fillList('ethnie');
+  		fillList('kont');
+  		fillList('ort');
+  		fillList('region');
+  		fillList('prov');
+  		fillList('subk');
+   	});
+   	
+   	$("#kont_list").change(function() {
+   		fillList('ethnie', 'kont', $("#kont_list").val());
+   		fillList('subk', 'kont', $("#kont_list").val());
+   		fillList('prov', 'kont', $("#kont_list").val());
+   		fillList('region', 'kont', $("#kont_list").val());
+   		fillList('ort', 'kont', $("#kont_list").val());
+   	});
+   	
+   	$("#subk_list").change(function() {
+   		fillList('prov', 'subk', $("#subk_list").val());
+   		fillList('region', 'subk', $("#subk_list").val());
+   		fillList('ort', 'subk', $("#subk_list").val());
+   	});
+   	
+   	$("#prov_list").change(function() {
+   		fillList('region', 'prov', $("#prov_list").val());
+   		fillList('ort', 'prov', $("#prov_list").val());
+   	});
+   	
 	$("#SEGsubmit").click(function() {
 		var ethnie = $("#ethnie_auto").val();
 		var ethnie_id = $("#ethnie_id").val();
@@ -263,17 +311,22 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 		var subk = $("#subk_auto").val();
 		var subk_id = $("#subk_id").val();
 		
-		(!ethnie)?ethnie_id='':'';
-		(!kont)?kont_id='':'';
-		(!ort)?ort_id='':'';
-		(!region)?region_id='':'';
-		(!prov)?prov_id='':'';
-		(!subk)?subk_id='':'';
+		var redirect = "";
 		
-		window.location.search += "&seg[ort]="+ort_id+"&seg[ethnie]="+ethnie_id+"&seg[kont]="+kont_id+"&seg[region]="+region_id+"&seg[prov]="+prov_id+"&seg[subk]="+subk_id
+		(ethnie)?redirect+="&seg[ethnie]="+ethnie_id:'';
+		(kont)?redirect+="&seg[kont]="+kont_id='':'';
+		(ort)?redirect+="&seg[ort]="+ort_id='':'';
+		(region)?redirect+="&seg[region]="+region_id='':'';
+		(prov)?redirect+="&seg[prov]="+prov_id='':'';
+		(subk)?redirect+="&seg[subk]="+subk_id='':'';
+		
+		console.log(redirect);
+		
+
 	});
    	
    	
+    /*
     $("#ethnie_auto").autocomplete({
     	source: "seg_autocomplete.php?a=ethnie",
         width: 260,
@@ -293,6 +346,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
            	});
         }
 	})
+		
     
     $("#kont_auto").autocomplete({
     	source: "seg_autocomplete.php?a=kont",
@@ -304,7 +358,6 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
         }
 	});
     
-    $
         	
    	$("#region_auto").autocomplete({
         source:"seg_autocomplete.php?a=region",
@@ -428,5 +481,6 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
            	});
         }
     });
+    */
    	</script>
 <!-- END:seg_search -->
