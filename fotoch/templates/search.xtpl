@@ -298,31 +298,27 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    	});
    	
 	$("#SEGsubmit").click(function() {
-		var ethnie = $("#ethnie_auto").val();
-		var ethnie_id = $("#ethnie_id").val();
-		var kont = $("#kont_auto").val();
-		var kont_id = $("#kont_id").val();
-		var ort = $("#ort_auto").val();
-		var ort_id = $("#ort_id").val();
-		var region = $("#region_auto").val();
-		var region_id = $("#region_id").val();
-		var prov = $("#prov_auto").val();
-		var prov_id = $("#prov_id").val();
-		var subk = $("#subk_auto").val();
-		var subk_id = $("#subk_id").val();
+		var ethnie = $("#ethnie_list").val();
+		var kont = $("#kont_list").val();
 		
-		var redirect = "";
+		var ort = $("#ort_list").val();
 		
-		(ethnie)?redirect+="&seg[ethnie]="+ethnie_id:'';
-		(kont)?redirect+="&seg[kont]="+kont_id='':'';
-		(ort)?redirect+="&seg[ort]="+ort_id='':'';
-		(region)?redirect+="&seg[region]="+region_id='':'';
-		(prov)?redirect+="&seg[prov]="+prov_id='':'';
-		(subk)?redirect+="&seg[subk]="+subk_id='':'';
+		var region = $("#region_list").val();
 		
-		console.log(redirect);
+		var prov = $("#prov_list").val();
+		
+		var subk = $("#subk_list").val();
+		
 		
 
+		(!ethnie)?ethnie_id='':'';
+		(!kont)?kont_id='':'';
+		(!ort)?ort_id='':'';
+		(!region)?region_id='':'';
+		(!prov)?prov_id='':'';
+		(!subk)?subk_id='':'';
+		
+		window.location.search += "&seg[ort]="+ort+"&seg[ethnie]="+ethnie+"&seg[kont]="+kont+"&seg[region]="+region+"&seg[prov]="+prov+"&seg[subk]="+subk
 	});
    	
    	
