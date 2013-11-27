@@ -178,7 +178,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 
 <!-- BEGIN:seg_search -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<<style>
+<style>
 <!--
 .seglist {
 	max-width:180px;
