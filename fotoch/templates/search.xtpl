@@ -490,6 +490,6 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 <!-- BEGIN:seg_map -->
 <img src="{subk.name}.png" border="0" usemap="#map" />
 <map name="map">
-<!-- BEGIN:poly --><area shape="poly" coords="{subk.poly_coords" onmouseover="subk_mouseover({subk.id})" onmouseout="subk_mouseout({subk.id})" href="javascript: subk_change({subk.id});" alt="{subk.name}" title="{subk.name}" /><!-- END:poly -->
+<!-- BEGIN:poly --><area shape="poly" coords="{subk.poly_coords}" onmouseover="subk_mouseover({subk.id})" onmouseout="subk_mouseout({subk.id})" href="javascript: subk_change({subk.id});" alt="{subk.name}" title="{subk.name}" /><!-- END:poly -->
 </map>
 <!-- END:seg_map -->
