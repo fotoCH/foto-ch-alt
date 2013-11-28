@@ -279,7 +279,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    	
    	// change the image and imagemap when a continent is chosen
    	function changeKontMap(kontId) {
-   		$("#mapsubk").attr("src" , "images/maps/blank.png");
+   		$("#mapsubk").attr("src" , "images/maps/byId/blank"+kontId+".png");
         $("#mapimg").attr("src" , "images/maps/byId/"+kontId+".png");
         changeMap(kontId);
    	}
