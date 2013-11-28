@@ -88,7 +88,7 @@
 			<div id="list">
 				<!-- BEGIN:map -->
 				<!-- BEGIN:seg_map -->
-				<!-- BEGIN:poly --><area shape="poly" coords="{subk.poly_coords}" onmouseover="subk_mouseover({subk.id})" onmouseout="subk_mouseout({subk.id})" href="javascript: subk_change({subk.id});" alt="{subk.name}" title="{subk.name}" /><!-- END:poly -->
+				<!-- BEGIN:poly --><area shape="poly" coords="{subk.poly_coords}" onmouseover="subk_mouseover({subk.id})" onmouseout="subk_mouseout()" href="javascript: subk_change({subk.id});" alt="{subk.name}" title="{subk.name}" /><!-- END:poly -->
 				<!-- END:seg_map -->
 				
 					<div id="map">

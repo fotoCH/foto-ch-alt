@@ -251,6 +251,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 </table>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="js/rwd.js"></script>
    	<script type="text/javascript">
    	
    	// fill the list with specific entries by a type(f) that has an id (term)
@@ -277,6 +278,8 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 		});
    	}
    	
+   	var currentSubk;
+   	
    	// change the image and imagemap when a continent is chosen
    	function changeKontMap(kontId) {
    		$("#mapsubk").attr("src" , "images/maps/byId/blank"+kontId+".png");
@@ -284,10 +287,18 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
         changeMap(kontId);
    	}
    	
- 
+   	
+ 	function subk_mouseover(subkId) {
+ 		$("#mapsubk").attr("src" , "images/maps/byId/"+subkId+".png");
+ 	}
+ 	
+ 	function subk_mouseout() {
+ 		$("#mapsubk").attr("src" , "images/maps/byId/"+currentSubk+".png");
+ 	}
    	
    	// change the overlay image of a subcontinent when chosen in dropdown
    	function changeSubkMap(subkId) {
+   		currentSubk=subkId;
         $("#mapsubk").attr("src" , "images/maps/byId/"+subkId+".png");
         var link = "seg_autocomplete.php?a=kont&f=subk&term="+$("#subk_list option:selected").text();
         $.get(link, function(data) {
@@ -322,6 +333,9 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    		$.get(link, function(data) {
         	$("#mapcoor").html(data);		
         });
+   		
+   		setTimeout(function(){$('#mapsubk').rwdImageMaps()},200);
+   		
    	}
    	
    	$(function() {
