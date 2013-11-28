@@ -25,6 +25,7 @@ else {
 	$issearch=1;
 	include("searchresults.php");
 	$bestand->assign("LIST", $results);
+	$bestand->parse("contents.search.map");
 	$bestand->parse("contents.search");
 
 	$out.=$bestand->text("contents.search");

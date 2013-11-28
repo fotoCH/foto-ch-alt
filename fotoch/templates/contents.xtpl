@@ -86,6 +86,12 @@
 			</div>
 
 			<div id="list">
+				<!-- BEGIN:map -->
+					<div id="map">
+			            <img src="images/maps/world.png" id="mapimg" style="position:absolute; right:15px; width:550px; float:right; border:none;" />
+			            <img src="images/maps/blank.png" id="mapsubk" style="position:absolute; right:15px; width:550px; float:right; border:none;" />
+	        		</div>
+				<!-- END:map -->
 				{LIST}
 			</div>
 

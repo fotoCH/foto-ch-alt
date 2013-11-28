@@ -276,6 +276,22 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 		});
    	}
    	
+   	function changeKontMap(kontId) {
+   		$("#mapsubk").attr("src" , "images/maps/blank.png");
+        $("#mapimg").attr("src" , "images/maps/byId/"+kontId+".png");
+   	}
+   	
+   	function changeSubkMap(subkId) {
+        $("#mapsubk").attr("src" , "images/maps/byId/"+subkId+".png");
+        var link = "seg_autocomplete.php?a=kont&f=subk&term="+$("#subk_list option:selected").text();
+        $.get(link, function(data) {
+        	/* returning: 1|Afrika */
+        	var array = data.split("|");
+        	var kontId = array[0];
+        	$("#mapimg").attr("src" , "images/maps/byId/"+kontId+".png");
+        });
+   	}
+   	
    	$(function() {
   		fillList('ethnie');
   		fillList('kont');
@@ -291,12 +307,14 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    		fillList('prov', 'kont', $("#kont_list").val());
    		fillList('region', 'kont', $("#kont_list").val());
    		fillList('ort', 'kont', $("#kont_list").val());
+   		changeKontMap($("#kont_list").val());
    	});
    	
    	$("#subk_list").change(function() {
    		fillList('prov', 'subk', $("#subk_list").val());
    		fillList('region', 'subk', $("#subk_list").val());
    		fillList('ort', 'subk', $("#subk_list").val());
+   		changeSubkMap($("#subk_list").val(), $("#kont_list").val());
    	});
    	
    	$("#prov_list").change(function() {
