@@ -87,10 +87,23 @@
 
 			<div id="list">
 				<!-- BEGIN:map -->
+				<!-- BEGIN:seg_map -->
+				<img src="{subk.name}.png" border="0" usemap="#map" />
+				<map name="map">
+				<!-- BEGIN:poly --><area shape="poly" coords="{subk.poly_coords}" onmouseover="subk_mouseover({subk.id})" onmouseout="subk_mouseout({subk.id})" href="javascript: subk_change({subk.id});" alt="{subk.name}" title="{subk.name}" /><!-- END:poly -->
+				</map>
+				<!-- END:seg_map -->
+				
 					<div id="map">
-			            <img src="images/maps/world.png" id="mapimg" style="position:absolute; right:15px; width:550px; float:right; border:none;" />
-			            <img src="images/maps/blank.png" id="mapsubk" style="position:absolute; right:15px; width:550px; float:right; border:none;" />
+			            <img src="images/maps/world.png" id="mapimg" style="position:absolute; right:15px; width:550px; float:right; border:none;" usemap="#map" />
+			            <img src="images/maps/byId/blank.png" id="mapsubk" style="position:absolute; right:15px; width:550px; float:right; border:none;" />
 	        		</div>
+	        		<map name="map">
+						<!-- BEGIN:poly -->
+						<area shape="poly" coords="{subk.poly_coords}" onmouseover="subk_mouseover({subk.id})" onmouseout="subk_mouseout({subk.id})" href="javascript: subk_change({subk.id});" alt="{subk.name}" title="{subk.name}" />
+						<!-- END:poly -->
+					</map>
+					
 				<!-- END:map -->
 				{LIST}
 			</div>
