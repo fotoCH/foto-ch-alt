@@ -279,6 +279,15 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    	function changeKontMap(kontId) {
    		$("#mapsubk").attr("src" , "images/maps/blank.png");
         $("#mapimg").attr("src" , "images/maps/byId/"+kontId+".png");
+        $.get("map.php?id="+kontId, function(data) {
+        	$("#mapcoor").html(data);		
+        });
+   	}
+   	
+   	function subk_change(subkId) {
+   		console.log("change to "+subkId);
+   		$("#subk_list").val(subkId);
+   		$("#subk_list").trigger("change")
    	}
    	
    	function changeSubkMap(subkId) {

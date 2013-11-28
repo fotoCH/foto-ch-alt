@@ -25,8 +25,9 @@ else {
 	$issearch=1;
 	include("searchresults.php");
 	$bestand->assign("LIST", $results);
-	if(!isset($_GET[seg]) && !isset($_GET['volltext']))
+	if(!isset($_GET[seg]) && !isset($_GET['volltext'])) {
 		$bestand->parse("contents.search.map");
+	}
 	$bestand->parse("contents.search");
 
 	$out.=$bestand->text("contents.search");
