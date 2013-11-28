@@ -261,6 +261,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    		else {
    			var link = "seg_autocomplete.php?a="+a+"&f="+f+"&term="+term
    		}
+   		
    		$.getJSON(link, function(data) {
   			$("#"+a+"_list option").remove(); // Remove all <option> child tags.
   			$("#"+a+"_list").append(
@@ -276,20 +277,16 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 		});
    	}
    	
+   	// change the image and imagemap when a continent is chosen
    	function changeKontMap(kontId) {
    		$("#mapsubk").attr("src" , "images/maps/blank.png");
         $("#mapimg").attr("src" , "images/maps/byId/"+kontId+".png");
-        $.get("map.php?id="+kontId, function(data) {
-        	$("#mapcoor").html(data);		
-        });
+        changeMap(kontId);
    	}
    	
-   	function subk_change(subkId) {
-   		console.log("change to "+subkId);
-   		$("#subk_list").val(subkId);
-   		$("#subk_list").trigger("change")
-   	}
+ 
    	
+   	// change the overlay image of a subcontinent when chosen in dropdown
    	function changeSubkMap(subkId) {
         $("#mapsubk").attr("src" , "images/maps/byId/"+subkId+".png");
         var link = "seg_autocomplete.php?a=kont&f=subk&term="+$("#subk_list option:selected").text();
@@ -301,6 +298,32 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
         });
    	}
    	
+  	// function to adapt dropdown lists to an imagemap selection
+   	function subk_change(subkId) {
+  		if(subkId < 10) {
+  			$("#kont_list").val(subkId);
+  	   		$("#kont_list").trigger("change")
+  		}
+  		else {
+  			$("#subk_list").val(subkId);
+   			$("#subk_list").trigger("change")
+  		}
+   	}
+   	
+  	// change the imagemap
+   	function changeMap(kontId) {
+  		if(arguments.length == 1) {
+  			var link = "map.php?id="+kontId;
+  		}
+  		else {
+  			var link = "map.php";
+  		}
+  		
+   		$.get(link, function(data) {
+        	$("#mapcoor").html(data);		
+        });
+   	}
+   	
    	$(function() {
   		fillList('ethnie');
   		fillList('kont');
@@ -308,6 +331,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
   		fillList('region');
   		fillList('prov');
   		fillList('subk');
+  		changeMap();
    	});
    	
    	$("#kont_list").change(function() {
