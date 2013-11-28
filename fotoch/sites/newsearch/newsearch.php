@@ -3,7 +3,7 @@
 include("././fotofunc.inc.php");
 include("././search.inc.php");
 //include("./fotofunc.inc.php");
-
+testauth();
 //echo "include";
 if($_GET['id']!="") {
 	$bestand = new XTemplate("././templates/contents.xtpl");
