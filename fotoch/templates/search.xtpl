@@ -284,6 +284,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    	function changeKontMap(kontId) {
    		$("#mapsubk").attr("src" , "images/maps/byId/blank"+kontId+".png");
         $("#mapimg").attr("src" , "images/maps/byId/"+kontId+".png");
+        currentSubk="blank"+kontId;
         changeMap(kontId);
    	}
    	
