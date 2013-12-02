@@ -295,8 +295,9 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
  	}
  	
  	function subk_mouseout() {
- 		console.log($("#kont_list").val());
+ 		if($("#kont_list").val() != 0) {
  			$("#mapsubk").attr("src" , "images/maps/byId/"+currentSubk+".png");
+ 		}
  	}
    	
    	// change the overlay image of a subcontinent when chosen in dropdown
