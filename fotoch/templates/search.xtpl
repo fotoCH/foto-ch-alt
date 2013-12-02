@@ -295,7 +295,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
  	}
  	
  	function subk_mouseout() {
- 		if(subkId > 10)
+ 		console.log($("#kont_list").val());
  			$("#mapsubk").attr("src" , "images/maps/byId/"+currentSubk+".png");
  	}
    	
