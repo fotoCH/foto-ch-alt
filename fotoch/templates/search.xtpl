@@ -290,13 +290,20 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    	
    	
  	function subk_mouseover(subkId) {
- 		if(subkId > 10)
+ 		if(subkId > 10) {
  			$("#mapsubk").attr("src" , "images/maps/byId/"+subkId+".png");
+ 		}
+ 		else {
+ 			$("#mapsubk").attr("src" , "images/maps/byId/world_"+subkId+".png");
+ 		}
  	}
  	
  	function subk_mouseout() {
  		if($("#kont_list").val() != 0) {
  			$("#mapsubk").attr("src" , "images/maps/byId/"+currentSubk+".png");
+ 		}
+ 		else {
+ 			$("#mapsubk").attr("src" , "images/maps/byId/blank.png");
  		}
  	}
    	
