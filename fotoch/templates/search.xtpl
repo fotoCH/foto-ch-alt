@@ -278,7 +278,7 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
 		});
    	}
    	
-   	var currentSubk;
+   	var currentSubk="blank";
    	
    	// change the image and imagemap when a continent is chosen
    	function changeKontMap(kontId) {
@@ -290,11 +290,13 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    	
    	
  	function subk_mouseover(subkId) {
- 		$("#mapsubk").attr("src" , "images/maps/byId/"+subkId+".png");
+ 		if(subkId > 10)
+ 			$("#mapsubk").attr("src" , "images/maps/byId/"+subkId+".png");
  	}
  	
  	function subk_mouseout() {
- 		$("#mapsubk").attr("src" , "images/maps/byId/"+currentSubk+".png");
+ 		if(subkId > 10)
+ 			$("#mapsubk").attr("src" , "images/maps/byId/"+currentSubk+".png");
  	}
    	
    	// change the overlay image of a subcontinent when chosen in dropdown
