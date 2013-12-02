@@ -353,19 +353,37 @@ var sTextbox = new AutoSuggestControl(document.getElementById("sbox"),document.g
    	});
    	
    	$("#kont_list").change(function() {
-   		fillList('ethnie', 'kont', $("#kont_list").val());
-   		fillList('subk', 'kont', $("#kont_list").val());
-   		fillList('prov', 'kont', $("#kont_list").val());
-   		fillList('region', 'kont', $("#kont_list").val());
-   		fillList('ort', 'kont', $("#kont_list").val());
-   		changeKontMap($("#kont_list").val());
+   		if($("#kont_list").val() == 0) {
+   			$("#mapsubk").attr("src" , "images/maps/byId/blank.png");
+   	        $("#mapimg").attr("src" , "images/maps/world.png");
+   			fillList('ethnie');
+   	  		fillList('kont');
+   	  		fillList('ort');
+   	  		fillList('region');
+   	  		fillList('prov');
+   	  		fillList('subk');
+   	  		changeMap();
+   		}
+   		else {
+	   		fillList('ethnie', 'kont', $("#kont_list").val());
+	   		fillList('subk', 'kont', $("#kont_list").val());
+	   		fillList('prov', 'kont', $("#kont_list").val());
+	   		fillList('region', 'kont', $("#kont_list").val());
+	   		fillList('ort', 'kont', $("#kont_list").val());
+	   		changeKontMap($("#kont_list").val());
+   		}
    	});
    	
    	$("#subk_list").change(function() {
-   		fillList('prov', 'subk', $("#subk_list").val());
-   		fillList('region', 'subk', $("#subk_list").val());
-   		fillList('ort', 'subk', $("#subk_list").val());
-   		changeSubkMap($("#subk_list").val(), $("#kont_list").val());
+   		if($("#subk_list").val() == 0) {
+   			$("#kont_list").trigger("change")
+   		}
+   		else {
+	   		fillList('prov', 'subk', $("#subk_list").val());
+	   		fillList('region', 'subk', $("#subk_list").val());
+	   		fillList('ort', 'subk', $("#subk_list").val());
+	   		changeSubkMap($("#subk_list").val(), $("#kont_list").val());
+   		}
    	});
    	
    	$("#prov_list").change(function() {
