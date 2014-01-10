@@ -10,6 +10,22 @@ require("lang.inc.php");
 $action=$_GET['action'];
 
 switch ($action) {
+    case getLang :
+        echo $language;
+        break;
+    case sendFeedback :
+        // send feedback from feedback button via mail
+        $to = "info@foto-ch.ch";
+        $subject = "FotoCH - Feedback Button";
+        $message = $_POST['feedback'];
+
+        if(mail($to,$subject,$message)) {
+            echo "Message Sent";
+        }
+        else {
+            echo "Message Not Sent";
+        }
+        break;
     case getStock :
         // return associated stock information for the selected institution
         $id = $_GET['id'];

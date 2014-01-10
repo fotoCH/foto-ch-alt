@@ -5,7 +5,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="css/feedback.css">
+    <link rel="stylesheet" href="css/animate-custom.css">
 	<link type="text/css" href="css/styles.css" rel="stylesheet" media="screen,print"/>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/feedback.js"></script>
 	<title>{SPR.fotoch}</title>
     {script}
     <!--[if lt IE 9]>
