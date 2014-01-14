@@ -13,18 +13,18 @@
             error: "Es ist ein Problem aufgetreten. Bitte versuchen Sie es erneut."
          },
          fr: {
-            email: "Votre Mail (fr)",
-            feedback: "Feedback (fr)",
-            send: "Send (fr)",
-            confirmation: "Merci pour votre message (fr)",
-            error: "Error (fr)"
+            email: "Votre adresse email (facultatif)",
+            feedback: "Propositions d'améliorations, problèmes...",
+            send: "Envoyer",
+            confirmation: "Merci pour votre commentaire",
+            error: "Erreur. Essayer de nouveau."
          },
          it: {
-            email: "Mail (it)",
-            feedback: "Feedback (it)",
-            send: "Send (it)",
-            confirmation: "Confirmation (it)",
-            error: "Error (it)"
+            email: "Il tuo indirizzo e-mail (facoltativo)",
+            feedback: "Miglioramento suggerimenti, problemi",
+            send: "Inviare",
+            confirmation: "Grazie per il feedback",
+            error: "C'è un problema. Riprova."
          },
          en: {
             email: "Your e-mail (optional)",
