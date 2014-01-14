@@ -54,7 +54,7 @@
             '<a id="feedback_button">Feedback</a>'+
             '<div class="form animated fadeOut">'+
                '<div class="status animated"></div>'+
-               '<input type="email" name="email" placeholder="'+this.arrTranslation[language]['email']+'">'+
+               '<input id="sender_mail" type="email" name="email" placeholder="'+this.arrTranslation[language]['email']+'">'+
                '<textarea id="feedback_text" placeholder="'+this.arrTranslation[language]['feedback']+'"></textarea>'+
                '<input type="submit" value="'+this.arrTranslation[language]['send']+'" id="submit_form">'+
             '</div>'+
@@ -95,7 +95,7 @@
                $j.ajax({
                   type: "POST",
                   url: "./ajax.php?action=sendFeedback",
-                  data: 'feedback=' + $j('#feedback_text').val(),
+                  data: 'feedback=' + $j('#feedback_text').val() + '&sender=' + $j('#sender_mail').val(),
                   success: function( result, status ) {
                      //email sent successfully displays a success message
                      if( result == 'Message Sent' ) {

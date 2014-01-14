@@ -16,10 +16,15 @@ switch ($action) {
     case sendFeedback :
         // send feedback from feedback button via mail
         $to = "info@foto-ch.ch";
+        $from = $_POST['sender'];
+        if( $from == '') {
+            $from = "info@foto-ch.ch";
+        }
         $subject = "FotoCH - Feedback Button";
         $message = $_POST['feedback'];
+        $headers .= 'From: ' . $from . "\r\n";
 
-        if(mail($to,$subject,$message)) {
+        if(mail($to,$subject,$message,$headers)) {
             echo "Message Sent";
         }
         else {
