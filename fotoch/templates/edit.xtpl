@@ -695,9 +695,9 @@ function submitita(v)
 		<input type="hidden" name="fotografen_id" value="{ID}">	
 		<tr>
 			<td class="edit"><label for="best" class="edit">{SPR.neuer_bestand}:</label><a name="vk"></a></td>
-    			<td>	<input type="text" id="best" class="jsearch"/>&nbsp;&nbsp;
-				<input type="text" id="newbestandid" class="jindex" /> &nbsp;&nbsp;
-				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=bestand&amp;lang={LANG}&amp;id='+(this.form.newbestandid.value)"/> &nbsp;&nbsp;
+    			<td>	<input type="text" id="best" class="jsearch"/>
+				<input type="text" id="newbestandid" class="jindex" />
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=bestand&amp;lang={LANG}&amp;id='+(this.form.newbestandid.value)"/>
 				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;new_bestand=1&amp;lang={LANG}&amp;id={ID}&amp;bestand_id='+(this.form.newbestandid.value)"/>
 			</td>
 		</tr>
@@ -719,7 +719,7 @@ function submitita(v)
 		<tr>
 			<td class="edit"><label for="inst" class="edit">{SPR.institution}:</label></td>
     			<td>
-				<input type="text" id="inst" class="jsearch"/>&nbsp;&nbsp;
+				<input type="text" id="inst" class="jsearch"/>
 				<input type="text" id="newinstid" class="jindex"/> 
 				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=institution&amp;lang={LANG}&amp;id='+(this.form.newinstid.value)"/> 
 				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=bedit&amp;lang={LANG}&amp;new_inst=1&amp;id={ID}&amp;institution_id='+(this.form.newinstid.value)"/>
@@ -787,9 +787,9 @@ function submitita(v)
 		<input type="hidden" name="fotografen_id" value="{ID}"/>	
 		<tr>
 			<td class="edit"><label for="au" class="edit">{SPR.neue_ausstellung}:</label></td>
-    			<td><input type="text" id="au" class="jsearch"/>&nbsp;&nbsp;
-				<input type="text" id="newauid" class="jindex"/> &nbsp;&nbsp;
-				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)"> &nbsp;&nbsp;
+    			<td><input type="text" id="au" class="jsearch"/>
+				<input type="text" id="newauid" class="jindex"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)">
 				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)">
 			</td>
 		</tr>
@@ -803,9 +803,9 @@ function submitita(v)
 		<tr>
 			<td class="edit"><label for="au" class="edit">{SPR.ausstellungen}:</label></td>
 			<td>
-				<input type="text" id="au" class="jsearch"/>&nbsp;&nbsp;
-				<input type="text" id="newauid" class="jindex"/> &nbsp;&nbsp;
-				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)"/> &nbsp;&nbsp;
+				<input type="text" id="au" class="jsearch"/>
+				<input type="text" id="newauid" class="jindex"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)"/>
 				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)"/>
 			</td>
 		</tr>
@@ -845,18 +845,18 @@ function submitita(v)
 		</tr>
 		<tr>
 			<td><label for="litv" class="edit">{SPR.nach_verfasser}</label></td>
-			<td><input type="text" id="litv" class="jsearch"/>&nbsp;&nbsp;
-				<input type="text" id="newlitid" class="jindex"/>&nbsp;&nbsp;
-				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/>&nbsp;&nbsp;
+			<td><input type="text" id="litv" class="jsearch"/>
+				<input type="text" id="newlitid" class="jindex"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/>
 				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlitid.value)"/>
 			</td>
 		</tr>
 		<tr>
 			<td><label for="litt" class="edit">{SPR.nach_titel}</label></td>
 			<td>
-				<input type="text" id="litt" class="jsearch"/>&nbsp;&nbsp;
-				<input type="text" id="newlittid" class="jindex"/> &nbsp;&nbsp;
-				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/>  &nbsp;&nbsp;
+				<input type="text" id="litt" class="jsearch"/>
+				<input type="text" id="newlittid" class="jindex"/>
+				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/>
 				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlittid.value)"/>
 			</td>
 		</tr>
@@ -870,18 +870,18 @@ function submitita(v)
 	<tr>
 		<td class="edit"><label for="litv" class="edit">{SPR.literatur_nach_verfasser}:</label></td>
 		<td>
-			<input type="text" id="litv" class="jsearch"/>&nbsp;&nbsp;
-			<input type="text" id="newlitid" class="jindex"/>&nbsp;&nbsp;
-			<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/> &nbsp;&nbsp;
+			<input type="text" id="litv" class="jsearch"/>
+			<input type="text" id="newlitid" class="jindex"/>
+			<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/>
 			<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;literatur_id='+(this.form.newlitid.value)"/>
 		</td>
 	</tr>
 	<tr>
 		<td class="edit"><label for="litt" class="edit" >{SPR.literatur_nach_titel}:</label></td>
 		<td>
-			<input type="text" id="litt" class="jsearch"/>&nbsp;&nbsp;
-			<input type="text" id="newlittid" class="jindex"/>&nbsp;&nbsp;
-			<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/> &nbsp;&nbsp;
+			<input type="text" id="litt" class="jsearch"/>
+			<input type="text" id="newlittid" class="jindex"/>
+			<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/>
 			<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=iedit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;literatur_id='+(this.form.newlittid.value)"/>
 		</td>
 	</tr>
