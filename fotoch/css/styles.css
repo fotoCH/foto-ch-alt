@@ -590,6 +590,15 @@ fieldset.checkbox_set{
 	width:90%;
 	display:block;
 }
+fieldset.bestaende{
+	background-color: #E8DDDD;
+}
+fieldset.literatur {
+	background-color: #DDE8DD;
+}
+fieldset.ausstellungen{
+	background-color: #DDDDE8;
+}
 /* ----------------------     LABELS FOR FIELDSET etc.    ------------------------------- */
 label.edit {
 }

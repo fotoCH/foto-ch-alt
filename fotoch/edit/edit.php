@@ -362,7 +362,9 @@ if ($fertig==1){
 
 
 	$def->assign("LEGEND","<b>".$spr['bestaende']."</b>");
+	$def->assign('class', 'bestaende');
 	$def->parse("bearbeiten.form.fieldset_start");
+	$def->assign('class', '');
 	$def->parse("bearbeiten.form");
 	$edit->bestand($id);
 	$def->parse("bearbeiten.form.fieldset_end");
@@ -371,7 +373,9 @@ if ($fertig==1){
 
 
 	$def->assign("LEGEND","<b>".$spr['literatur']."</b>");
+	$def->assign('class', 'literatur');
 	$def->parse("bearbeiten.form.fieldset_start");
+	$def->assign('class', '');
 	$def->parse("bearbeiten.form");
 	$edit->literatur($id);
 	$def->parse("bearbeiten.form.fieldset_end");
@@ -379,7 +383,9 @@ if ($fertig==1){
 	mabstand($def);
 
 	$def->assign("LEGEND","<b>".$spr['ausstellungen']."</b>");
+	$def->assign('class', 'ausstellungen');
 	$def->parse("bearbeiten.form.fieldset_start");
+	$def->assign('class', '');
 	$def->parse("bearbeiten.form");
 	$edit->ausstellungen($id);
 	$def->parse("bearbeiten.form.fieldset_end");

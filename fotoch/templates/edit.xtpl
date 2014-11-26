@@ -305,7 +305,7 @@ function submitita(v)
 <!-- BEGIN:form-->
 
 <!-- BEGIN:fieldset_start -->
-	<fieldset class="edit">
+	<fieldset class="edit {class}">
 		<legend class="edit" id="{LEGEND}_label">&nbsp;&nbsp;&nbsp;<b>{LEGEND}</b></legend><br/>
 <!-- END:fieldset_start -->
 <!-- BEGIN:fieldset_end -->
