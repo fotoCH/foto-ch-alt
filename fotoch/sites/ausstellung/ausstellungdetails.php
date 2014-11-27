@@ -39,7 +39,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 			
 		foreach ($fetch as $key=>$value){
 			//print "$key=>$value<br>";
-			if($key=="id" || $key=="typ" || $key=="text_alt" || $key=="bearbeitungsdatum" || $key=="notiz"){
+			if($key=="id" || $key=="typ" || $key=="bearbeitungsdatum" || $key=="notiz"){
 			}else{
 				//$key=ucfirst($key);
 				if($value!=''){

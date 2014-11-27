@@ -34,7 +34,7 @@ else {
 	else {
 		if($volltext!='') {
 			if (auth_level(USER_GUEST_READER)){
-				$w1="(titel LIKE '%$volltext%' OR institution LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR `jahr`  LIKE '%$volltext%' OR `institution`  LIKE '%$volltext%' OR `text_alt` LIKE '%$volltext%' OR `notiz` LIKE '%$volltext%')";
+				$w1="(titel LIKE '%$volltext%' OR institution LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR `jahr`  LIKE '%$volltext%' OR `institution`  LIKE '%$volltext%' OR `notiz` LIKE '%$volltext%')";
 				$sql = "SELECT * FROM ausstellung WHERE  ORDER BY jahr DESC";
 			}
 			else {
