@@ -75,6 +75,7 @@
 				<tr>
 					<td class="search">&nbsp; </td>
 					<td class="search_submit" ><input type="reset" class="reset" value="reset"> &nbsp; <input type="submit" class="submit" name="submitbutton" value="{value}"/></td>
+					<input type="hidden" name="submitbutton" value="{value}" />
 				</tr>
 <!-- END:submitfield -->			
 <!-- END:form -->	
