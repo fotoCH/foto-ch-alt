@@ -690,7 +690,7 @@ function submitita(v)
 	<br/>
 <!-- END:arbeitsort -->
 <!-- BEGIN:new_bestand -->
-
+	<a id="bestaende"></a>
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="fotografen_id" value="{ID}">	
 		<tr>
@@ -698,7 +698,7 @@ function submitita(v)
     			<td>	<input type="text" id="best" class="jsearch"/>
 				<input type="text" id="newbestandid" class="jindex" />
 				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=bestand&amp;lang={LANG}&amp;id='+(this.form.newbestandid.value)"/>
-				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;new_bestand=1&amp;lang={LANG}&amp;id={ID}&amp;bestand_id='+(this.form.newbestandid.value)+'#vk'"/>
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;new_bestand=1&amp;lang={LANG}&amp;id={ID}&amp;bestand_id='+(this.form.newbestandid.value)+'#bestaende'"/>
 			</td>
 		</tr>
 	</table>
@@ -782,7 +782,7 @@ function submitita(v)
 
 <!-- END:bestand_institution -->
 <!-- BEGIN:new_ausstellung -->
-	
+	<a id="ausstellung"></a>
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="fotografen_id" value="{ID}"/>	
 		<tr>
@@ -790,7 +790,7 @@ function submitita(v)
     			<td><input type="text" id="au" class="jsearch"/>
 				<input type="text" id="newauid" class="jindex"/>
 				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=ausstellung&amp;lang={LANG}&amp;id='+(this.form.newauid.value)">
-				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)+'#vk'">
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_ausstellung=1&amp;id={ID}&amp;ausstellung_id='+(this.form.newauid.value)+'#ausstellung'">
 			</td>
 		</tr>
 	</table>
@@ -836,7 +836,7 @@ function submitita(v)
 			<br/>
 <!-- END:ausstellung -->
 <!-- BEGIN:new_literatur -->
-	
+	<a id="literatur"></a>
 	<table class="edit" cellpadding="0" cellspacing="5">
 		<input type="hidden" name="fotografen_id" value="{ID}"/>
 		<tr>
@@ -848,7 +848,7 @@ function submitita(v)
 			<td><input type="text" id="litv" class="jsearch"/>
 				<input type="text" id="newlitid" class="jindex"/>
 				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlitid.value)"/>
-				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlitid.value)+'#vk'"/>
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlitid.value)+'#literatur'"/>
 			</td>
 		</tr>
 		<tr>
@@ -857,7 +857,7 @@ function submitita(v)
 				<input type="text" id="litt" class="jsearch"/>
 				<input type="text" id="newlittid" class="jindex"/>
 				<input type="button" value="{SPR.ansehen}" class="jsubmit" onclick="document.location='./?a=literatur&amp;lang={LANG}&amp;id='+(this.form.newlittid.value)"/>
-				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlittid.value)+'#vk'"/>
+				<input type="button" value="{SPR.verknuepfen}" class="jsubmit" onclick="document.location='./?a=edit&amp;lang={LANG}&amp;new_literatur=1&amp;id={ID}&amp;typ='+(this.form.typ.value)+'&amp;literatur_id='+(this.form.newlittid.value)+'#literatur'"/>
 			</td>
 		</tr>
 </table>
