@@ -90,7 +90,7 @@
 <!-- BEGIN:bestn -->    		
     		<tr>
     				<td valign="top"><span class="subtitle2">{FETCH6.Bestand}</span></td>
-    				<td valign="top"><span class="subtitle3{gb}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a></span>, &nbsp; 
+    				<td valign="top"><span class="subtitle3{gb}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a> (id={FETCH6.id})</span>, &nbsp; 
 				Institution: <span class="subtitle3{gi}"><a href="./?a=institution&amp;id={FETCH6.inst_id}&amp;lang={LANG}">{FETCH6.inst_name}</a></span></td>
  		</tr>    		
 <!-- END:bestn -->
@@ -103,7 +103,7 @@
 <!-- BEGIN:bestn_3 -->    		
     		<tr>
     				<td class="detail_label" valign="top"><span class="subtitle2" >{Bestand}</span></td>    				
-    				<td valign="top"><span class="subtitle3{g}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a> &nbsp; &nbsp;  {FETCH6.zeitraum} </span></td>
+    				<td valign="top"><span class="subtitle3{g}"><a href="./?a=bestand&amp;id={FETCH6.id}&amp;lang={LANG}">{FETCH6.name}</a>  (id={FETCH6.id}) &nbsp; &nbsp;  {FETCH6.zeitraum} </span></td>
  		</tr>
 <!-- END:bestn_3 -->
 <!-- BEGIN:bestn_7 -->    		
@@ -141,13 +141,13 @@
 <!-- BEGIN:lit -->
 		<tr>
     				<td class="detail_label" valign="top"><span class="subtitle2">{FETCH7.Literatur}</span></td>
-    				<td valign="top"><span class="subtitle3">{FETCH7.text}</span></td>
+    				<td valign="top"><span class="subtitle3">{FETCH7.text}  (id={FETCH7.id})</span></td>
  		</tr>    		
 <!-- END:lit -->
 <!-- BEGIN:aus -->
 		<tr>
     				<td class="detail_label" valign="top"><span class="subtitle2">{FETCH8.Ausstellung}</span></td>
-    				<td valign="top"><span class="subtitle3">{FETCH8.text}.</span></td>
+    				<td valign="top"><span class="subtitle3">{FETCH8.text}.  (id={FETCH8.id})</span></td>
  		</tr>    		
 <!-- END:aus -->
 <!-- BEGIN:bearbeiten_ausstellung -->
