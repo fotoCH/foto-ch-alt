@@ -172,6 +172,9 @@ while($fetch=mysql_fetch_array($result)){
 		}
 		$fetch6['Bestand']=$bes;
 		$def->assign("FETCH6",$fetch6);
+		if(auth_level(USER_GUEST_READER)) {
+			$def->parse($det.".z.bestn.adm");
+		}
 		$def->parse($det.".z.bestn");
 		$def->parse($det.".z");
 		$bes='';
@@ -217,6 +220,9 @@ while($fetch=mysql_fetch_array($result)){
 		if($litHasChanged) abstand($def);
 		$fetch7=formlit($fetch7);
 		$def->assign("FETCH7",$fetch7);
+		if(auth_level(USER_GUEST_READER)) {
+			$def->parse($det.".z.lit.adm");
+		}
 		$def->parse($det.".z.lit");
 		$def->parse($det.".z");
 	}
@@ -248,6 +254,9 @@ while($fetch=mysql_fetch_array($result)){
 		if($typeHasChanged) abstand($def);
 		$fetch8=formaus($fetch8);
 		$def->assign("FETCH8",$fetch8);
+		if(auth_level(USER_GUEST_READER)) {
+			$def->parse($det.".z.aus.adm");
+		}
 		$def->parse($det.".z.aus");
 		$def->parse($det.".z");
 	}
