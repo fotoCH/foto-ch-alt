@@ -6,7 +6,7 @@ if (stristr($_SERVER["SERVER_NAME"],'fotobe')){
 header('Content-type: text/html; charset=utf-8');
 
 ini_set('display_errors', 0);
-error_reporting(E_ALL);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require('config.inc.php');
 require("templates/xtemplate.class.php");
 require("mysql.inc.php");
