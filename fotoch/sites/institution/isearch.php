@@ -72,7 +72,7 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 	 */
 	
 	if(!auth_level(1)){
-	
+		$def->assign("ACTION", "bestand");
 		//alphabetische suche
 		for ($an=ord('A');$an<=ord('Z');$an++){
 			$def->assign("anf",chr($an));
@@ -80,7 +80,7 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 			//$def->out("list");
 		}
 		$def->assign("NEU", "<h4>" . $spr['bestand'] . " " . $spr['submit'] . "</h4>");
-		$def->assign("ACTION", "bestand");
+		
 			
 		// suche nach name
 		subgenformitem($def,'textfield',$spr['name'],$fetch[test],'name');
