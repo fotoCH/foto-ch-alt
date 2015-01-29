@@ -36,12 +36,32 @@ if ($_GET['submitbutton']!=""){
 			if (!empty($where)){
 				$where.=" AND ";
 			}
-			if($key == 'name'){
+			
+			if($key == 'sammlungsgeschichte'){
+				$where .= "sammlungsgeschichte LIKE '%$value%' OR sammlungsbeschreibung LIKE '%$value%' OR ";
+				$where .= "sammlungsgeschichte_fr LIKE '%$value%' OR sammlungsbeschreibung_fr LIKE '%$value%' OR ";
+				$where .= "sammlungsgeschichte_it LIKE '%$value%' OR sammlungsbeschreibung_it LIKE '%$value%' OR ";
+				$where .= "sammlungsgeschichte_rm LIKE '%$value%' OR sammlungsbeschreibung_rm LIKE '%$value%' OR ";
+				$where .= "sammlungsgeschichte_en LIKE '%$value%' OR sammlungsbeschreibung_en LIKE '%$value%'";
+			}
+			elseif($key == 'bildgattungen'){
+				$where .= "(";
+				foreach($value as $bildgattung) {
+					$where .= "find_in_set('$bildgattung',`bildgattungen_set`) AND ";
+				}
+				$where = substr($where, 0 , -4);
+				$where .= ")";
+// 				var_dump($where);
+			}
+			elseif($key == 'name'){
 				$where .= "name LIKE '%$value%' OR abkuerzung LIKE '%$value%' OR ";
 				$where .= "name_fr LIKE '%$value%' OR abkuerzung_fr LIKE '%$value%' OR ";
 				$where .= "name_it LIKE '%$value%' OR abkuerzung_it LIKE '%$value%' OR ";
 				$where .= "name_rm LIKE '%$value%' OR abkuerzung_rm LIKE '%$value%' OR ";
 				$where .= "name_en LIKE '%$value%' OR abkuerzung_en LIKE '%$value%'";
+			}
+			elseif($key == 'kanton') {
+				$where .= "kanton LIKE '%" . $value . "%'";
 			}
 			else{
 				$where.="$key LIKE '%$value%' ";
@@ -52,7 +72,7 @@ if ($_GET['submitbutton']!=""){
 	$full= (!empty($vars['volltext']));
 	//print_r($vars);
 	$query="SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $where ORDER BY ".$namecase;
-	
+// 	var_dump($query);
 	
 	if ($full){
 		$query="SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE MATCH (zugang_zur_sammlung,sammlungsbeschreibung,sammlungsgeschichte,abkuerzung) AGAINST ('".$vars['volltext']."') OR name LIKE '%".$vars['volltext']."%' OR name_fr LIKE '%".$vars['volltext']."%' OR name_it LIKE '%".$vars['volltext']."%' OR name_rm LIKE '%".$vars['volltext']."%' OR name_en LIKE '%".$vars['volltext']."%' OR abkuerzung LIKE '%".$vars['volltext']."%' OR abkuerzung_fr LIKE '%".$vars['volltext']."%' OR abkuerzung_it LIKE '%".$vars['volltext']."%' OR abkuerzung_rm LIKE '%".$vars['volltext']."%' OR abkuerzung_en LIKE '%".$vars['volltext']."%' OR ort LIKE '%".$vars['volltext']."%' ORDER BY ".$namecase;
