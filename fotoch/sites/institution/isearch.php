@@ -39,7 +39,7 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 	$def->assign('ts',($an==ord('Z')?'':''));
 	$def->parse("suchen.abuch");
 }
-$def->assign("NEU", "<h4>Institutionen durchsuchen</h4>");
+	(!auth_level(1))? $def->assign("NEU", "<h4>" . $spr['institution'] . " " . $spr['submit'] . "</h4>"):"";
 	$fetch[test]="";
 	
 	$kantone = getKantone();
@@ -79,7 +79,7 @@ $def->assign("NEU", "<h4>Institutionen durchsuchen</h4>");
 			$def->parse("suchen.abuch");
 			//$def->out("list");
 		}
-		$def->assign("NEU", "<h4>Bestände durchsuchen</h4>");
+		$def->assign("NEU", "<h4>" . $spr['bestand'] . " " . $spr['submit'] . "</h4>");
 		$def->assign("ACTION", "bestand");
 			
 		// suche nach name
