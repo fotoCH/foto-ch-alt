@@ -53,7 +53,9 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 	subgenformitem($def,'textfield',$spr['sammlungsgeschichte']."/ ".$spr['sammlungsbeschreibung'],$fetch[test],'sammlungsgeschichte');	
 
 	subgenselectitem($def, $spr['kanton'], "", "kanton", $kantone, "", "", "", "");
-	subgenselectitem($def, $spr['bildgattungen'], "3", "bildgattungen[]", $bildgattungen, true, "", "", "8");
+
+	$bildgattungen_lang = setuebersetzungen('bildgattungen_uebersetzungen',$bildgattungen);
+	subgenselectitemtr($def, $spr['bildgattungen'], "3", "bildgattungen[]", $bildgattungen, $bildgattungen_lang ,true, "", "", "8");
 	
 	subgenformitem($def,'edittext',$spr['volltextsuche'],$fetch[test],'volltext');
 
@@ -93,7 +95,8 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 	
 		// suche nach bildgattung
 		$bildgattungen = getBildgattungen();
-		subgenselectitem($def, $spr['bildgattungen'], "2", "bildgattungen[]", $bildgattungen, true, "", "", "8");
+		$bildgattungen_lang = setuebersetzungen('bildgattungen_uebersetzungen',$bildgattungen);
+		subgenselectitemtr($def, $spr['bildgattungen'], "2", "bildgattungen[]", $bildgattungen, $bildgattungen_lang, true, "", "", "8");
 	
 		//such button
 		subgensubmit($def,'submitfield',$spr['submit']);
