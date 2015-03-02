@@ -40,12 +40,12 @@ app.controller('FotografCtrl', ['$scope', '$http','$location', function ($scope,
         $scope.debug=anf;
         if (anf>='A'){
 			$http.get(urlBase+'/?anf='+anf).success (function(data){
-				$scope.test = data;
+				$scope.list = data;
 			});
 		} else {
 			$http.get(urlBase+'/?id='+id).success (function(data){
-				$scope.det = data;
-				$scope.test=null;
+				$scope.detail = data;
+				$scope.list=null;
 			});
 		}
         var abc=new Array();

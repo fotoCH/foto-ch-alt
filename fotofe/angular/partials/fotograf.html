@@ -17,34 +17,35 @@
 
     </div>
 {{debug}}
-    <div class="row" ng-if="det==null" ng-repeat="t in test.res">
+    <div class="row" ng-if="detail==null" ng-repeat="t in list.res">
 		<a class="{{t.bioclass}}" href="./#/fotograf/?id={{t.id}}">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</a> <span ng-bind-html="t.fldatum | rawHtml"></span>
     </div>
     
-    <div class="row" ng-if="det!=null">
-    	<div class="row" ng-repeat="n in det.namen">
+    <div class="row" ng-if="detail!=null">
+    	<div class="row" ng-repeat="n in detail.namen">
 		<h2>{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</h2>
 		</div>
-		<st-field-raw label="spr.lebensdaten" value="det.fldatum"></st-field-raw>
+		<st-field-raw label="spr.lebensdaten" value="detail.fldatum"></st-field-raw>
 		
-		<st-field label="spr.heimatort" value="det.heimatort"></st-field>
+		<st-field label="spr.heimatort" value="detail.heimatort"></st-field>
 
-		<st-field label="spr.beruf" value="det.beruf"></st-field>
-		<st-field label="spr.fotografengattungen" value="det.fotografengattungen"></st-field>
-		<st-field label="spr.bildgattungen" value="det.bildgattungen"></st-field>
+		<st-field label="spr.beruf" value="detail.beruf"></st-field>
+		<st-field label="spr.fotografengattungen" value="detail.fotografengattungen"></st-field>
+		<st-field label="spr.bildgattungen" value="detail.bildgattungen"></st-field>
 
-		<div class="row" ng-repeat="a in det.arbeitsperioden">
+		<div class="row" ng-repeat="a in detail.arbeitsperioden">
 			<st-field label="a.arbeitsort" value="a.um_vonf+a.von+ ' - '+a.um_bisf+a.bis"></st-field>
 		<!-- <h4>{{a.arbeitsort}}</h4>
 		{{a.um_vonf}}{{a.von}} - {{a.um_bisf}}{{a.bis}} -->
 		</div> 
-		<st-field-raw label="spr.biografie" value="det.biografie"></st-field-raw>		
-		<st-field-raw label="spr.werdegang" value="det.werdegang"></st-field-raw>
-		<st-field-raw label="spr.schaffensbeschrieb" value="det.schaffensbeschrieb"></st-field-raw>
-		<st-field-raw label="spr.auszeichnungen_und_stipendien" value="det.auszeichnungen_und_stipendien"></st-field-raw>
+		
+		<st-field-raw label="spr.biografie" value="detail.biografie"></st-field-raw>		
+		<st-field-raw label="spr.werdegang" value="detail.werdegang"></st-field-raw>
+		<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
+		<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
 
-		<st-field label="spr.autorIn" value="det.autorIn"></st-field>
-		<st-field label="spr.bearbeitungsdatum" value="det.fbearbeitungsdatum"></st-field>
+		<st-field label="spr.autorIn" value="detail.autorIn"></st-field>
+		<st-field label="spr.bearbeitungsdatum" value="detail.fbearbeitungsdatum"></st-field>
 
     </div>
    <div class="row">
