@@ -1,140 +1,138 @@
-/* 
-Custom CSS for...
-'Modern Business' HTML Theme by Start Bootstrap
-
-All Start Bootstrap themes are licensed under Apache 2.0. 
-For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
-*/
-
-/* Global Styles */
-
-html, body {
-    height: 100%;
+@font-face {
+  font-family: 'Raleway';
+  src: url('../type/Raleway-Light-webfont.eot');
+  src: url('../type/Raleway-Light-webfont.eot?#iefix') format('embedded-opentype'), url('../type/Raleway-Light-webfont.woff2') format('woff2'), url('../type/Raleway-Light-webfont.woff') format('woff'), url('../type/Raleway-Light-webfont.ttf') format('truetype'), url('../type/Raleway-Light-webfont.svg#ralewaylight') format('svg');
+  font-weight: 300;
+  font-style: normal;
 }
-
+@font-face {
+  font-family: 'OpenSans';
+  src: url('../type/OpenSans-Regular-webfont.eot');
+  src: url('../type/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../type/OpenSans-Regular-webfont.woff2') format('woff2'), url('../type/OpenSans-Regular-webfont.woff') format('woff'), url('../type/OpenSans-Regular-webfont.ttf') format('truetype'), url('../type/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenSans';
+  src: url('../type/OpenSans-Italic-webfont.eot');
+  src: url('../type/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('../type/OpenSans-Italic-webfont.woff2') format('woff2'), url('../type/OpenSans-Italic-webfont.woff') format('woff'), url('../type/OpenSans-Italic-webfont.ttf') format('truetype'), url('../type/OpenSans-Italic-webfont.svg#open_sansitalic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'OpenSans';
+  src: url('../type/OpenSans-Semibold-webfont.eot');
+  src: url('../type/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'), url('../type/OpenSans-Semibold-webfont.woff2') format('woff2'), url('../type/OpenSans-Semibold-webfont.woff') format('woff'), url('../type/OpenSans-Semibold-webfont.ttf') format('truetype'), url('../type/OpenSans-Semibold-webfont.svg#open_sanssemibold') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+  font-family: OpenSans, sans-serif;
+  font-weight: normal;
+  color: #444444;
+  line-height: 1;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  font-smooth: always;
 }
-
-.dropdown {
-    cursor:pointer;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Raleway, sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
 }
-
-
-.img-home-portfolio,
-.img-customer,
-.portfolio-item {
-    margin-bottom: 30px;
+.l-header {
+  background-color: #4b585c;
+  font-family: Raleway, sans-serif;
+  font-size: 1.5rem;
 }
-
-.tab-pane {
-    margin-top: 15px;
+.l-header a {
+  color: #ffffff;
+  text-decoration: none;
 }
-
-/* Page Sections */
-.section,
-.section-colored {
-    padding: 50px 0;
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
-.section-colored {
-    background-color: #e1e1e1;
-    /* change this to change the background color of a colored section */
+.grid-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
-
-.sidebar {
-    margin-top: 40px;
+.logo-header {
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
-
-.sidebar ul {
-    border-radius: 5px;
-    padding: 5px;
-    border: 1px solid #cccccc;
+@media screen and (min-width: 768px) {
+  .logo-header {
+    width: 15%;
+  }
 }
-
-/* Half Page Height Carousel Customization */
-.carousel {
-    height: 50%;
+.logo-header a {
+  display: inline-block;
+  background: url('../img/logo-foto-ch.svg') no-repeat;
+  width: 100%;
+  height: auto;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
-
-.item,
-.active,
-.carousel-inner {
-    height: 100%;
+.nav-main {
+  display: inline-block;
 }
-
-.fill {
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: cover;
+.nav-main ul {
+  display: none;
+  margin: 0;
 }
-
-/* Social Icons Styles */
-.list-social-icons {
-    margin-bottom: 45px;
+@media screen and (min-width: 768px) {
+  .nav-main ul {
+    display: inline-block;
+  }
 }
-
-.tooltip-social a {
-    text-decoration: none;
-    color: inherit;
+.nav-main li {
+  float: left;
+  list-style-type: none;
+  margin-right: 40px;
 }
-
-.facebook-link a:hover {
-    color: #3b5998;
+.nav-main a:hover {
+  text-decoration: underline;
 }
-
-.linkedin-link a:hover {
-    color: #007fb1;
+.nav-main--toggle {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 50px;
+  padding: 0 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
-
-.twitter-link a:hover {
-    color: #39a9e0;
+@media screen and (min-width: 768px) {
+  .nav-main--toggle {
+    display: none;
+  }
 }
-
-.google-plus-link a:hover {
-    color: #d14836;
+.nav-main--toggle .icon-bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #fff;
 }
-
-/* Service Page Styles */
-.service-icon {
-    font-size: 50px;
-}
-
-/* 404 Page Styles */
-.error-404 {
-    font-size: 8em;
-}
-
-/* Pricing Page Styles */
-.price {
-    font-size: 4em;
-}
-
-.price-cents {
-    vertical-align: super;
-    font-size: 50%;
-}
-
-.price-month {
-    font-size: 35%;
-    font-style: italic;
-}
-
-/* Footer Styles */
-footer {
-    margin: 50px 0;
-}
-
-/* Responsive Styles */
-@media (max-width: 767px) {
-
-    .carousel {
-        height: 70%;
-        /* increases the carousel height so it looks good on phones */
-    }
-}
-a.subtitle3bio {
-color: green;
+.nav-main--toggle .icon-bar + .icon-bar {
+  margin-top: 4px;
 }
