@@ -28,7 +28,11 @@ app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $loca
 	    } else {
 	      return ""
 	    }
-	}
+	};
+	$scope.toggleMobileMenu = function(){
+		$scope.isMenuOpen = !$scope.isMenuOpen;
+	};
+	$scope.isMenuOpen = false;
 }]);
 
 app.controller('FotografCtrl', ['$scope', '$http','$location', function ($scope, $http, $location ) {

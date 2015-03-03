@@ -17,11 +17,11 @@
 		<div class="logo-header">
 			<a href="#/">fotoCH</a>
 		</div>
-			<nav class="nav-main" ng-controller="NavigationCtrl">
+			<nav class="nav-main" ng-controller="NavigationCtrl" ng-class="{'is-open':isMenuOpen}">
 				<ul>
 					<li><a ng-class="getClass('/fotograf')" href="#/fotograf">Fotografen</a></li>
 				</ul>
-				<button type="button" class="nav-main--toggle">
+				<button type="button" class="nav-main--toggle" ng-click="toggleMobileMenu()">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
