@@ -42,6 +42,11 @@
 		<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
 		<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
 		
+		<div class="row" ng-repeat="b in detail.bestaende">
+		<h4>{{b.Bestand}}</h4>{{b.name}} {{b.inst_name}} {{n.zeitraum}}
+		</div>
+
+		
 		<div class="row" ng-repeat="l in detail.literatur">
 			<st-field label="l.Literatur" value="l.text"></st-field>
 		</div>
@@ -50,6 +55,11 @@
 			<st-field label="aus.Ausstellung" value="aus.text"></st-field>
 		</div>
 		
+		<st-field label="spr.kantone" value="detail.kantone"></st-field>
+		<st-field-raw label="PND" value="detail.GND"></st-field-raw>
+		<st-field label="spr.notiz" value="detail.notiz"></st-field>
+		<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
+
 		<st-field label="spr.autorIn" value="detail.autorIn"></st-field>
 		<st-field label="spr.bearbeitungsdatum" value="detail.fbearbeitungsdatum"></st-field>
 
