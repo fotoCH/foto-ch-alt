@@ -22,7 +22,7 @@ while($fetch=mysql_fetch_array($result)){
 	}
 
 	$fetch['fbearbeitungsdatum']=formdatesimp($fetch['bearbeitungsdatum'],0);
-	$fetch['fldatum']=formldatesimp2($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum'],$fetch['geburtsort'],$fetch['todesort']);
+	$fetch['fldatum']=trim(formldatesimp2($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum'],$fetch['geburtsort'],$fetch['todesort']));
 	$fetch['fumfeld']=formumfeld(clangcont($fetch,'umfeld'));
 	if ($_GET['lang']!='de'){
 		$fetch['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$fetch['fotografengattungen_set']);
@@ -94,7 +94,8 @@ while($fetch=mysql_fetch_array($result)){
 			//$def->parse($det.".z.arb.vonbis");
 			//$results.=$def->text($det.".z.arb.vonbis");
 		} else {
-
+			$fetch2['um_vonf']='';
+			$fetch2['um_bisf']='';
 			//$def->assign("FETCH2",$fetch2);
 		}
 		//$def->parse($det.".z.arb");
@@ -160,7 +161,7 @@ while($fetch=mysql_fetch_array($result)){
 	$out['bestaende']=$bestaende;
 	//if(mysql_num_rows($result6)!=0) abstand($def);
 
-	if (auth_level(USER_GUEST_READER_PARTNER)){ // alte bestaende
+	/*if (auth_level(USER_GUEST_READER_PARTNER)){ // alte bestaende
 		$result3=mysql_query("SELECT * FROM bestaende WHERE fotografen_id=$id ORDER BY  id");
 		//$def->assign("alt_best", "Alt. Best.");
 		while($fetch3=mysql_fetch_array($result3)){
@@ -174,7 +175,7 @@ while($fetch=mysql_fetch_array($result)){
 			//$def->assign("alt_best", "");
 		}
 		//
-	}
+	}*/
 	//if(mysql_num_rows($result3)>0) abstand($def);
 	$lit='';
 
