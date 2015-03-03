@@ -16,9 +16,9 @@
 		<div class="logo-header">
 			<a href="#/">fotoCH</a>
 		</div>
-			<nav class="nav-main">
+			<nav class="nav-main" ng-controller="NavigationCtrl">
 				<ul>
-					<li><a href="#/fotograf">Fotografen</a></li>
+					<li><a ng-class="getClass('/fotograf')" href="#/fotograf">Fotografen</a></li>
 				</ul>
 				<button type="button" class="nav-main--toggle">
 					<span class="icon-bar"></span>

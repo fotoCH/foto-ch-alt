@@ -14,19 +14,22 @@ app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
 /**
  * Controls all other Pages
  */
-app.controller('PageCtrl', function (/* $scope, $location, $http */) {
-  console.log("Page Controller reporting for duty.");
+app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
+	  console.log("Blog Controller reporting for duty.");
+	});
 
-  // Activates the Carousel
-  $('.carousel').carousel({
-    interval: 500
-  });
 
-  // Activates Tooltips for Social Links
-  $('.tooltip-social').tooltip({
-    selector: "a[data-toggle=tooltip]"
-  });
-});
+
+app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $location) {
+  console.log("Navigation Controller reporting for duty.");
+  $scope.getClass = function(path) {
+	    if ($location.path().substr(0, path.length) == path) {
+	      return "is-active"
+	    } else {
+	      return ""
+	    }
+	}
+}]);
 
 app.controller('FotografCtrl', ['$scope', '$http','$location', function ($scope, $http, $location ) {
   console.log("Fotograf Controller reporting for duty.");
@@ -37,7 +40,7 @@ app.controller('FotografCtrl', ['$scope', '$http','$location', function ($scope,
         $http.get(urlBase+'/?a=sprache').success (function(data){
 			$scope.spr = data;
 		});
-        $scope.debug=anf;
+        $scope.debug=$location.path()+'lp';
         if (anf>='A'){
 			$http.get(urlBase+'/?anf='+anf).success (function(data){
 				$scope.list = data;
