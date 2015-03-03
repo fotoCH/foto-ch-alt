@@ -34,16 +34,22 @@
 		<st-field label="spr.bildgattungen" value="detail.bildgattungen"></st-field>
 
 		<div class="row" ng-repeat="a in detail.arbeitsperioden">
-			<st-field label="a.arbeitsort" value="a.um_vonf+a.von+ ' - '+a.um_bisf+a.bis"></st-field>
-		<!-- <h4>{{a.arbeitsort}}</h4>
-		{{a.um_vonf}}{{a.von}} - {{a.um_bisf}}{{a.bis}} -->
+			<st-field label="a.arbeitsort" value="a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis"></st-field>
 		</div> 
 		
 		<st-field-raw label="spr.biografie" value="detail.biografie"></st-field-raw>		
 		<st-field-raw label="spr.werdegang" value="detail.werdegang"></st-field-raw>
 		<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
 		<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
+		
+		<div class="row" ng-repeat="l in detail.literatur">
+			<st-field label="l.Literatur" value="l.text"></st-field>
+		</div>
 
+		<div class="row" ng-repeat="aus in detail.ausstellungen">
+			<st-field label="aus.Ausstellung" value="aus.text"></st-field>
+		</div>
+		
 		<st-field label="spr.autorIn" value="detail.autorIn"></st-field>
 		<st-field label="spr.bearbeitungsdatum" value="detail.fbearbeitungsdatum"></st-field>
 
