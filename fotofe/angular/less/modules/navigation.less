@@ -1,0 +1,44 @@
+// Defining the main navigation placed in the header
+.nav-main {
+	display: inline-block;
+	ul {
+		display: none;
+		margin: 0;
+		@media @tabletUp {
+			display: inline-block;
+		}
+	}
+	li {
+		float: left;
+		list-style-type: none;
+		margin-right: 40px;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+}
+
+// Defining the mobile menu
+.nav-main--toggle {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	height: 50px;
+	padding: 0 10px;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	@media @tabletUp {
+		display: none;			// Hide the menu button on tablet and desktop devices
+	}
+	.icon-bar {
+		display: block;
+		width: 25px;
+		height: 3px;
+		border-radius: 3px;
+		background-color: #fff;
+	}
+	.icon-bar+.icon-bar {
+		margin-top: 4px;
+	}
+}
