@@ -49,6 +49,13 @@ h6 {
   font-weight: 300;
   line-height: 1.2;
 }
+.l-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #4b585c;
+  color: #ffffff;
+}
 .l-header {
   background-color: #4b585c;
   font-family: Raleway, sans-serif;
@@ -76,6 +83,7 @@ h6 {
   display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left: 10px;
 }
 @media screen and (min-width: 768px) {
   .logo-header {
@@ -108,8 +116,18 @@ h6 {
   list-style-type: none;
   margin-right: 40px;
 }
-.nav-main a:hover {
-  text-decoration: underline;
+.nav-main a:hover,
+.nav-main a.is-active {
+  position: relative;
+}
+.nav-main a:hover:after,
+.nav-main a.is-active:after {
+  position: absolute;
+  content: "";
+  bottom: -12px;
+  right: 0px;
+  left: 0px;
+  border-bottom: 3px solid #dddddd;
 }
 .nav-main--toggle {
   position: absolute;

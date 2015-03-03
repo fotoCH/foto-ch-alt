@@ -1,22 +1,19 @@
-<div class="container">
+<h1>Suche nach Fotografen</h1>
+<p class="text-intro">
+	Durchsuchen Sie das biografische Lexikon der Fotografinnen und Fotografen.
+</p>
 
-    <div class="row">
+<form action="" novalidate>
+	<label for="fotographer">Fotograf</label>
+	<input type="text" name="fotographer">
+	<button type="submit" class="btn-primary">Suchen</button>
+</form>
 
-        <div class="col-lg-12">
-            <h1 class="page-header">Fotograf
-                <small>Fotograf</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="../index.html">Home</a>
-                </li>
-                <li class="is-active">Fotograf</li>
-                
-            </ol>
-            
-        </div>
-
-    </div>
 {{debug}}
+
+<div class="grid-container">
+
+
     <div class="row" ng-if="detail==null" ng-repeat="t in list.res">
 		<a class="{{t.bioclass}}" href="./#/fotograf/?id={{t.id}}">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</a> <span ng-bind-html="t.fldatum | rawHtml"></span>
     </div>
@@ -66,7 +63,7 @@
     </div>
 
    <div class="row">
-        <a  ng-repeat="c in abc" href="./#/fotograf/?anf={{c}}">{{c}} &nbsp; </a> - 
+        <a  ng-repeat="c in abc" href="./#/fotograf/?anf={{c}}">{{c}} &nbsp; </a>
     </div>
 		
 </div>
