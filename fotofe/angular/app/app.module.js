@@ -45,7 +45,7 @@ app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $loca
 	$scope.isMenuOpen = false;
 }]);
 
-app.controller('FotografCtrl', ['$scope', '$http','$location', '$state','$stateParams', function ($scope, $http, $location, $state, $stateParams ) {
+app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', function ($scope, $http, $location, $state, $stateParams ) {
   console.log("Fotograf Controller reporting for duty.");
   var urlBase = 'http://www2.foto-ch.ch/api';
   
@@ -86,7 +86,7 @@ app.filter('rawHtml', ['$sce', function($sce){
 app.directive('stField', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'partials/stField.html',
+		    templateUrl: 'app/shared/fields/stField.html',
 		    	scope: {
 		    		  label: '=label',
 		    		  value: '=value'
@@ -97,7 +97,7 @@ app.directive('stField', function() {
 app.directive('stFieldRaw', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'partials/stFieldRaw.html',
+		    templateUrl: 'app/shared/fields/stFieldRaw.html',
 		    	scope: {
 		    		  label: '=label',
 		    		  value: '=value'

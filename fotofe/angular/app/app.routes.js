@@ -10,19 +10,19 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
  
     $stateProvider.state('home', {
         url: '/home',
-        templateUrl: 'partials/home.html'
+        templateUrl: 'app/components/home/home.html'
     });
     
     $stateProvider.state('fotograf', {
         url: '/fotograf?id&anf',
-        templateUrl: 'partials/fotograf.html',
-        controller: "FotografCtrl"
+        templateUrl: 'app/components/fotographer/fotographer.html',
+        controller: "FotographerCtrl"
     });
     
     $stateProvider.state('test', {
         url: '/test',
-        templateUrl: 'partials/test.html'
+        templateUrl: 'app/components/test/test.html'
     });
-
  
+
 }]);	
