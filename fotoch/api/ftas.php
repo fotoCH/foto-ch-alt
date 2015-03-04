@@ -10,16 +10,17 @@ $sql="SELECT * FROM namen WHERE LOWER(nachname) LIKE '$foto%' ORDER BY nachname 
 
 $result=mysql_query($sql);
 $c=0;
+$res=arry();
 //print_r($result);
 while(($c<12) && ($fetch=mysql_fetch_array($result))){
 //while($c<11){
 if (strtolower(substr($fetch['nachname'],0,$l))==$foto){
 	if ($fetch['zusatz']) $fetch['vorname'].=' '.$fetch['zusatz'];
 	$r=array($fetch['fotografen_id'],$fetch['nachname'],$fetch['vorname']);
-	echo ($r);
 	$c++;
+	$res[]=$r;
 	}
 }
-jsonout($r);
+jsonout($res);
 
 ?>
