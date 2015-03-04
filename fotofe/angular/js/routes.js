@@ -6,11 +6,11 @@
 	
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
  
-    $urlRouterProvider.otherwise('/fotograf');
+    $urlRouterProvider.otherwise('/home');
  
     $stateProvider.state('home', {
-        url: 'partials/home',
-        templateUrl: 'home.html'
+        url: '/home',
+        templateUrl: 'partials/home.html'
     });
     
     $stateProvider.state('fotograf', {
