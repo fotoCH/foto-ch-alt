@@ -18,6 +18,16 @@ app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
 	  console.log("Blog Controller reporting for duty.");
 	});
 
+app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', function ($scope, $http, $state, $stateParams ) {
+	  console.log("Main Controller reporting for duty.");
+	  var urlBase = 'http://www2.foto-ch.ch/api';
+	  
+	  var id=$stateParams.id
+	  var anf=$stateParams.anf;
+	  $http.get(urlBase+'/?a=sprache').success (function(data){
+			$scope.spr = data;
+		});
+	}]);
 
 
 app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $location) {
@@ -41,9 +51,7 @@ app.controller('FotografCtrl', ['$scope', '$http','$location', '$state','$stateP
   
   var id=$stateParams.id
   var anf=$stateParams.anf;
-  $http.get(urlBase+'/?a=sprache').success (function(data){
-		$scope.spr = data;
-	});
+
   //$scope.debug='anf:'+anf+' id:'+id+$state;
   if (anf>='A'){
 		$http.get(urlBase+'/?anf='+anf).success (function(data){

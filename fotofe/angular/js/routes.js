@@ -19,6 +19,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         controller: "FotografCtrl"
     });
     
+    $stateProvider.state('test', {
+        url: '/test',
+        templateUrl: 'partials/test.html'
+    });
 
  
 }]);	

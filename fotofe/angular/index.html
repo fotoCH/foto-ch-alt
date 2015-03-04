@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/vendor/normalize.min.css">
 	<link rel="stylesheet" href="css/main.css">
 </head>
-<body ng-app="fotochWebApp">
+<body ng-app="fotochWebApp" ng-controller="MainCtrl">
 	<header class="l-header">
 		<div class="l-container">
 		<div class="logo-header">
@@ -19,7 +19,8 @@
 		</div>
 			<nav class="nav-main" ng-controller="NavigationCtrl" ng-class="{'is-open':isMenuOpen}">
 				<ul>
-					<li><a ng-class="getClass('/fotograf')" href="#/fotograf">Fotografen</a></li>
+					<li><a ng-class="getClass('/fotograf')" ui-sref="fotograf">Fotografen</a></li>
+					<li><a ng-class="getClass('/test')" ui-sref="test">Test</a></li>
 				</ul>
 				<button type="button" class="nav-main--toggle" ng-click="toggleMobileMenu()">
 					<span class="icon-bar"></span>
