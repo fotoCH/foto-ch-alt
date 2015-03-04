@@ -1,6 +1,6 @@
 
 var app = angular.module('fotochWebApp', [
-  'ngRoute'
+	'ui.router'
 ]);
 
 
@@ -35,16 +35,16 @@ app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $loca
 	$scope.isMenuOpen = false;
 }]);
 
-app.controller('FotografCtrl', ['$scope', '$http','$location', function ($scope, $http, $location ) {
+app.controller('FotografCtrl', ['$scope', '$http','$location', '$state','$stateParams', function ($scope, $http, $location, $state, $stateParams ) {
   console.log("Fotograf Controller reporting for duty.");
         var urlBase = 'http://www2.foto-ch.ch/api';
         
-        var id=$location.search().id;
-        var anf=$location.search().anf;
+        var id=$stateParams.id
+        var anf=$stateParams.anf;
         $http.get(urlBase+'/?a=sprache').success (function(data){
 			$scope.spr = data;
 		});
-        $scope.debug=$location.path()+'lp';
+        $scope.debug='anf:'+anf+' id:'+id+$state;
         if (anf>='A'){
 			$http.get(urlBase+'/?anf='+anf).success (function(data){
 				$scope.list = data;

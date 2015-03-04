@@ -13,7 +13,7 @@
 
 
 <div class="row">
-        <a  ng-repeat="c in abc" href="./#/fotograf/?anf={{c}}">{{c}} &nbsp; </a>
+        <a  ng-repeat="c in abc" ui-sref="fotograf( {anf: '{{c}}'} )">{{c}} &nbsp; </a>
     </div>
 
 
@@ -21,7 +21,7 @@
 
 
     <div class="row" ng-if="detail==null" ng-repeat="t in list.res">
-		<a class="{{t.bioclass}}" href="./#/fotograf/?id={{t.id}}">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</a> <span ng-bind-html="t.fldatum | rawHtml"></span>
+		<a class="{{t.bioclass}}" ui-sref="fotograf( {id: '{{t.id}}', anf: ''} )">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</a> <span ng-bind-html="t.fldatum | rawHtml"></span>
     </div>
     
     <div class="row" ng-if="detail!=null">
@@ -67,8 +67,7 @@
 		<st-field label="spr.bearbeitungsdatum" value="detail.fbearbeitungsdatum"></st-field>
 
     </div>
-
-   
+  
 		
 </div>
 <!-- /.container -->
