@@ -13,8 +13,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         templateUrl: 'app/components/home/home.html'
     });
     
-    $stateProvider.state('fotograf', {
-        url: '/fotograf?id&anf',
+    $stateProvider.state('fotographer', {
+        url: '/fotographer?id&anf',
         templateUrl: 'app/components/fotographer/fotographer.html',
         controller: "FotographerCtrl"
     });
