@@ -37,30 +37,32 @@ app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $loca
 
 app.controller('FotografCtrl', ['$scope', '$http','$location', '$state','$stateParams', function ($scope, $http, $location, $state, $stateParams ) {
   console.log("Fotograf Controller reporting for duty.");
-        var urlBase = 'http://www2.foto-ch.ch/api';
-        
-        var id=$stateParams.id
-        var anf=$stateParams.anf;
-        $http.get(urlBase+'/?a=sprache').success (function(data){
-			$scope.spr = data;
+  var urlBase = 'http://www2.foto-ch.ch/api';
+  
+  var id=$stateParams.id
+  var anf=$stateParams.anf;
+  $http.get(urlBase+'/?a=sprache').success (function(data){
+		$scope.spr = data;
+	});
+  //$scope.debug='anf:'+anf+' id:'+id+$state;
+  if (anf>='A'){
+		$http.get(urlBase+'/?anf='+anf).success (function(data){
+			$scope.list = data;
 		});
-        $scope.debug='anf:'+anf+' id:'+id+$state;
-        if (anf>='A'){
-			$http.get(urlBase+'/?anf='+anf).success (function(data){
-				$scope.list = data;
-			});
-		} else {
+	} else {
+		if (id){
 			$http.get(urlBase+'/?id='+id).success (function(data){
 				$scope.detail = data;
 				$scope.list=null;
 			});
 		}
-        var abc=new Array();
-        
-        for ( var i=0; i<26; i++){
-            abc[i]=String.fromCharCode(65+i);
-        }
-        $scope.abc=abc;
+	}
+  var abc=new Array();
+  
+  for ( var i=0; i<26; i++){
+      abc[i]=String.fromCharCode(65+i);
+  }
+  $scope.abc=abc;
 
   
 
