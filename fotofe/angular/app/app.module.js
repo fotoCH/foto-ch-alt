@@ -1,6 +1,7 @@
 
 var app = angular.module('fotochWebApp', [
-	'ui.router'
+	'ui.router',
+	'angucomplete'
 ]);
 
 
