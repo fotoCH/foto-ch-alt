@@ -18,7 +18,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         templateUrl: 'app/components/fotographer/fotographer.html',
         controller: "FotographerCtrl"
     });
-    
+
     $stateProvider.state('test', {
         url: '/test',
         templateUrl: 'app/components/test/test.html'

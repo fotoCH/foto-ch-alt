@@ -1,8 +1,6 @@
 // Apply a natural box layout model to all elements
 *, *:before, *:after {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+	.box-sizing(border-box);
 }
 
 // Sticky Footer with Flexbox
@@ -12,25 +10,65 @@ body {
 	min-height: 100vh;
 }
 .l-main {
-	padding-top: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-right: 10px;
+	padding-left: 10px;
 	.flex(1);
 }
 
-// Define color for overal layout
+// Define overal layout
 body, .l-main {
 	background-color: @colorLayoutDefault;
 }
-.l-main .l-container {
-	padding: 10px;
-	background-color: #ffffff;
-	box-shadow: @boxShadow;
-}
 
-// Defining grid layout
 .l-container {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 1200px;
-	padding-left: 10px;
-	padding-right: 10px;
+	max-width: 1200px;		// Limit content to 1200px
+}
+
+.l-content--main,
+.l-content--aside {
+	padding: 10px;
+	background-color: #ffffff;
+	border: 1px solid @colorLayoutBorder;
+	box-shadow: @boxShadow;
+}
+
+.l-content--aside {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	@media @layoutMedium {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+@media @layoutMedium {
+	.l-content {
+		.display(flex);
+		.flex(1);
+	}
+	.l-content--main {
+		.flex(1);
+		padding: 20px;
+	}
+	.l-content--aside {
+		.flex(0 0 25%);
+	}
+	.l-content--left {
+		.order(-1);
+		margin-right: 10px;
+	}
+	.l-content--right {
+		margin-left: 10px;
+	}
+}
+@media @layoutLarge {
+	.l-content--main {
+		padding-left: 40px;
+		padding-right: 40px;
+		padding-bottom: 40px;
+	}
 }

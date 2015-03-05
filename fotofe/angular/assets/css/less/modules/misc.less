@@ -3,7 +3,7 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 10px;
-	@media @tabletUp {
+	@media @layoutMedium {
 		width: 15%;
 	}
 	a {
@@ -12,5 +12,23 @@
 		width: 100%;
 		height: auto;
 		.text-hide();
+	}
+}
+.result-list {
+	padding-top: 20px;
+	.result-list__item {
+		padding-bottom: 15px;
+		&:hover {
+			cursor: pointer;
+			color: @colorActionPrimary;
+		}
+	}
+	.result-list__headline {
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+	.result-list__column {
+		display: inline-block;
+		min-width: 25%;
 	}
 }

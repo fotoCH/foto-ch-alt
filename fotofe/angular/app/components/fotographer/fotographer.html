@@ -1,84 +1,95 @@
-<h1>Suche nach Fotografen</h1>
-<p class="text-intro">
-	Durchsuchen Sie das biografische Lexikon der Fotografinnen und Fotografen.
-</p>
+<div class="l-content" ng-if="detail==null">
+	<div class="l-content--main">
+		<h1>{{spr.photographers}}</h1>
+		<p class="text-intro">
+			Durchsuchen Sie das biografische Lexikon der Fotografinnen und Fotografen.
+		</p>
 
-<form action="" novalidate>
-	<label for="fotographer">{{spr.fotograph}}</label>
-<!--	<input type="text" name="fotographer"> -->
-<angucomplete id="fotographer"
-              placeholder="{{spr.suche}} {{spr.fotograph}}"
-              pause="100"
-              selectedobject="testObj"
-              url="http://www2.foto-ch.ch/api/ftas.php?s="
-              minlength="1"
-              titlefield="name,vorname"
-              descriptionfield="id"
-              
-              inputclass="form-control form-control-small"></angucomplete>
-	<!-- <button type="submit" class="btn-primary">{{spr.submit}}</button> -->
-</form>
+		<form class="form-container" action="" novalidate>
+			<!--	<input type="text" name="fotographer"> -->
+			<angucomplete id="fotographer"
+			placeholder="{{spr.suche}} {{spr.fotograph}}"
+			pause="100"
+			selectedobject="testObj"
+			url="http://www2.foto-ch.ch/api/ftas.php?s="
+			minlength="1"
+			titlefield="name,vorname"
+			descriptionfield="id"
+			autofocus
+			inputclass="form-control form-control-small"></angucomplete>
+			<!-- <button type="submit" class="btn-primary">{{spr.submit}}</button> -->
+		</form>
 
-{{debug}}
+		{{debug}}
 
-
-<div class="row">
-        <a  ng-repeat="c in abc" ui-sref="fotographer( {anf: '{{c}}'} )">{{c}} &nbsp; </a>
-    </div>
-
-
-<div class="">
-
-
-    <div class="row" ng-if="detail==null" ng-repeat="t in list.res">
-		<a class="{{t.bioclass}}" ui-sref="fotographer( {id: '{{t.id}}', anf: ''} )">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</a> <span ng-bind-html="t.fldatum | rawHtml"></span>
-    </div>
-    
-    <div class="row" ng-if="detail!=null">
-    	<div class="row" ng-repeat="n in detail.namen">
-		<h2>{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</h2>
-		</div>
-		<st-field-raw label="spr.lebensdaten" value="detail.fldatum"></st-field-raw>
 		
-		<st-field label="spr.heimatort" value="detail.heimatort"></st-field>
 
-		<st-field label="spr.beruf" value="detail.beruf"></st-field>
+		<div class="result-list">
+			<div class="result-list__headline">
+				<span class="result-list__column">{{spr.name}}</span>
+				<span class="result-list__column">{{spr.lebensdaten}}</span>
+			</div>
+			<div class="result-list__item" ng-repeat="t in list.res" ui-sref="fotographer( {id: '{{t.id}}', anf: ''} )">
+				<span class="result-list__column">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</span>
+				<span class="result-list__column" ng-bind-html="t.fldatum | rawHtml"></span>
+			</div>
+			
+		</div>
+	</div>
+	<aside class="l-content--aside l-content--right">
+		<h2>Kategorieren</h2>
+		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="fotographer( {anf: '{{initial}}'} )">{{initial}}</button>
+	</aside>
+</div>
+<nav class="nav-page">
+	<a class="btn btn-secondary">Zurück zur Ergebnisliste</a>
+</nav>
+<div class="l-content" ng-if="detail!=null">
+	<div class="l-content--main">
+	<div class="l-content--headline">
+		<h1 ng-repeat="n in detail.namen">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</h1>
+		<span ng-repeat"n in detail.namen" ng-if="!$first">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</span>
+		<div class="text-label">{{detail.fldatum}}</div>
+	</div>
+		<st-field label="spr.heimatort" value="detail.heimatort"></st-field>
 		<st-field label="spr.fotografengattungen" value="detail.fotografengattungen"></st-field>
 		<st-field label="spr.bildgattungen" value="detail.bildgattungen"></st-field>
+		<st-field label="spr.beruf" value="detail.beruf"></st-field>
 
 		<div class="row" ng-repeat="a in detail.arbeitsperioden">
+		<h2 ng-if="detail.arbeitsperioden.length > 1">{{spr.arbeitsorte}}</h2>
+		<h2 ng-if="detail.arbeitsperioden.length==1">{{spr.arbeitsort}}</h2>
 			<st-field label="a.arbeitsort" value="a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis"></st-field>
 		</div> 
-		
+
 		<st-field-raw label="spr.biografie" value="detail.biografie"></st-field-raw>		
 		<st-field-raw label="spr.werdegang" value="detail.werdegang"></st-field-raw>
 		<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
 		<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
-		
+
 		<div class="row" ng-repeat="b in detail.bestaende">
-		<h4>{{b.Bestand}}</h4>{{b.name}} {{b.inst_name}} {{n.zeitraum}}
+			<h2>{{b.Bestand}}</h2>{{b.name}} {{b.inst_name}} {{n.zeitraum}}
 		</div>
 
-		
+
 		<div class="row" ng-repeat="l in detail.literatur">
-			<st-field label="l.Literatur" value="l.text"></st-field>
+			<st-field-raw label="l.Literatur" value="l.text"></st-field>
 		</div>
 
 		<div class="row" ng-repeat="aus in detail.ausstellungen">
 			<st-field label="aus.Ausstellung" value="aus.text"></st-field>
 		</div>
-		
+
 		<st-field label="spr.kantone" value="detail.kantone"></st-field>
 		<st-field-raw label="PND" value="detail.GND"></st-field-raw>
 		<st-field label="spr.notiz" value="detail.notiz"></st-field>
 		<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
-
 		<st-field label="spr.autorIn" value="detail.autorIn"></st-field>
-		<st-field label="spr.bearbeitungsdatum" value="detail.fbearbeitungsdatum"></st-field>
-
-    </div>
-  
-		
+		<st-field label="spr.bearbeitungsdatum" value="detail.fbearbeitungsdatum"></st-field>		
+	</div>
+	<aside class="l-content--aside l-content--right">
+		<h1>Zusatzinfos</h1>
+		<div>Ein Korrektur melden</div>
+	</aside>
 </div>
-<!-- /.container -->
 

@@ -47,7 +47,7 @@ app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $loca
 }]);
 
 app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', function ($scope, $http, $location, $state, $stateParams ) {
-  console.log("Fotographer Controller reporting for duty.");
+  console.log("Fotograf Controller reporting for duty.");
   var urlBase = 'http://www2.foto-ch.ch/api';
   
   var id=$stateParams.id

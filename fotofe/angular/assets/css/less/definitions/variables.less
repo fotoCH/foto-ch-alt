@@ -2,10 +2,13 @@
 @colorText: #444444;
 @colorTextInverted: #ffffff;
 @colorTextDisabled: #dddddd;
+@colorTextHeadline: @colorText;
 
 @colorLayoutDefault: #f2f2f2;
 @colorLayoutHighlight: #4b585c;
-@colorLayoutPanel: #dddddd;
+@colorLayoutBorder: #dddddd;
+
+@colorFormBorder: @colorLayoutHighlight;
 
 @colorActionPrimary: #388099;
 @colorActionHover: #489ebc;
@@ -15,8 +18,8 @@
 @colorFeedbackInfo: #fbb03b;
 
 // Media queries
-@tabletUp: ~'screen and (min-width: 768px)';
-@desktopUp: ~'screen and (min-width: 1024px)';
+@layoutMedium: ~'screen and (min-width: 768px)';
+@layoutLarge: ~'screen and (min-width: 1024px)';
 
 @borderRadius: 3px;
-@boxShadow: 2px 2px 3px 1px @colorLayoutPanel;
+@boxShadow: 1px 1px 1px 0px @colorLayoutBorder;
