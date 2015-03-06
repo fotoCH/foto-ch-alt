@@ -7,16 +7,18 @@
 
 		<form class="form-container" action="" novalidate>
 			<!--	<input type="text" name="fotographer"> -->
-			<angucomplete id="fotographer"
-			placeholder="{{spr.suche}} {{spr.fotograph}}"
-			pause="100"
-			selectedobject="testObj"
-			url="http://www2.foto-ch.ch/api/ftas.php?s="
-			minlength="1"
-			titlefield="name,vorname"
-			descriptionfield="id"
-			autofocus
-			inputclass="form-control form-control-small"></angucomplete>
+
+			<div angucomplete-alt id="fotographer"
+	              placeholder="{{spr.suche}} {{spr.fotograph}}"
+	              pause="100"
+	              selected-object="fotographerSelected"
+	              remote-url="http://www2.foto-ch.ch/api/ftas.php?s="
+	              minlength="1"
+	              title-field="name,vorname"
+	              description-field="fldatum"
+	              
+	              input-class="form-control form-control-small">
+	        </div>
 			<!-- <button type="submit" class="btn-primary">{{spr.submit}}</button> -->
 		</form>
 

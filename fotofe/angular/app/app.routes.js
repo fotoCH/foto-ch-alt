@@ -17,21 +17,22 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         
         // Fotographer search view
         .state('fotographer', {
-            url: '/fotographer?id&anf',
+            url: '/fotographer?anf',
             templateUrl: 'app/components/fotographer/fotographer.html',
             controller: "FotographerCtrl"
         })
 
         // Fotographer detail view
         .state('fotographerDetail', {
-            url: '/fotographer/detail?id&anf',
+            url: '/fotographer/detail?id',
             templateUrl: 'app/components/fotographer/fotographerDetail.html',
             controller: "FotographerCtrl"
         })
         // Testpage for development
         .state('test', {
             url: '/test',
-            templateUrl: 'app/components/test/test.html'
+            templateUrl: 'app/components/test/test.html',
+            controller: "FotographerCtrl"
         });
  
 

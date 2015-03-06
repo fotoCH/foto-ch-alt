@@ -1,7 +1,7 @@
 
 var app = angular.module('fotochWebApp', [
 	'ui.router',
-	'angucomplete'
+	'angucomplete-alt'
 ]);
 
 
@@ -52,6 +52,10 @@ app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$sta
   
   var id=$stateParams.id
   var anf=$stateParams.anf;
+  $scope.fotographerSelected = function(selected) {
+      //window.alert('You have selected ' + selected.originalObject.id);
+	  $state.go('fotographerDetail', {id: selected.originalObject.id, anf: ''} );
+    };
 
   //$scope.debug='anf:'+anf+' id:'+id+$state;
   if (anf>='A'){
