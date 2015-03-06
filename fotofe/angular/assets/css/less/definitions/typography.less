@@ -1,5 +1,17 @@
 @font-face {
     font-family: 'Raleway';
+    src: url('../font/Raleway-Light-webfont.eot');
+    src: url('../font/Raleway-Light-webfont.eot?#iefix') format('embedded-openfont'),
+         url('../font/Raleway-Light-webfont.woff2') format('woff2'),
+         url('../font/Raleway-Light-webfont.woff') format('woff'),
+         url('../font/Raleway-Light-webfont.ttf') format('truefont'),
+         url('../font/Raleway-Light-webfont.svg#ralewaylight') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
     src: url('../font/Raleway-Regular-webfont.eot');
     src: url('../font/Raleway-Regular-webfont.eot?#iefix') format('embedded-openfont'),
          url('../font/Raleway-Regular-webfont.woff2') format('woff2'),
@@ -9,15 +21,16 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Raleway';
-    src: url('../font/Raleway-Light-webfont.eot');
-    src: url('../font/Raleway-Light-webfont.eot?#iefix') format('embedded-openfont'),
-         url('../font/Raleway-Light-webfont.woff2') format('woff2'),
-         url('../font/Raleway-Light-webfont.woff') format('woff'),
-         url('../font/Raleway-Light-webfont.ttf') format('truefont'),
-         url('../font/Raleway-Light-webfont.svg#ralewaylight') format('svg');
-    font-weight: 300;
+    src: url('../font/Raleway-SemiBold-webfont.eot');
+    src: url('../font/Raleway-SemiBold-webfont.eot?#iefix') format('embedded-openfont'),
+         url('../font/Raleway-SemiBold-webfont.woff2') format('woff2'),
+         url('../font/Raleway-SemiBold-webfont.woff') format('woff'),
+         url('../font/Raleway-SemiBold-webfont.ttf') format('truefont'),
+         url('../font/Raleway-SemiBold-webfont.svg#ralewaysemibold') format('svg');
+    font-weight: bold;
     font-style: normal;
 }
 
@@ -78,20 +91,33 @@ h4,
 h5,
 h6 {
     margin-top: 0.5em;
-    margin-bottom: 0.2em;
+    margin-bottom: 0.3em;
     font-family: Raleway, sans-serif;
-    font-weight: 300;
     line-height: 1.2;
     color: @colorTextHeadline;
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.125rem; }
+h1 {
+    margin-bottom: 0.5em;
+    font-size: 2.25rem;
+    font-weight: 300; 
+    text-align: center;
+    @media @layoutMedium {
+        text-align: left;
+    }
+}
+
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.125rem; }
+h4 { font-size: 1rem; }
 
 p {
+    margin-top: 0;
+    text-align: justify;
     line-height: 1.5;
+    @media @layoutMedium {
+        text-align: left;
+    }
 }
 
 a {

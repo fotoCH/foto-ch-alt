@@ -1,48 +1,62 @@
 <div class="l-content">
 	<div class="l-content--main">
-	<div class="l-content--headline">
-		<h1 ng-repeat="n in detail.namen">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</h1>
-		<span ng-repeat"n in detail.namen" ng-if="!$first">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</span>
-		<div class="text-label">{{detail.fldatum}}</div>
-	</div>
-		<st-field label="spr.heimatort" value="detail.heimatort"></st-field>
-		<st-field label="spr.fotografengattungen" value="detail.fotografengattungen"></st-field>
-		<st-field label="spr.bildgattungen" value="detail.bildgattungen"></st-field>
-		<st-field label="spr.beruf" value="detail.beruf"></st-field>
-
-		<div class="row" ng-repeat="a in detail.arbeitsperioden">
-		<h2 ng-if="detail.arbeitsperioden.length > 1">{{spr.arbeitsorte}}</h2>
-		<h2 ng-if="detail.arbeitsperioden.length==1">{{spr.arbeitsort}}</h2>
-			<st-field label="a.arbeitsort" value="a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis"></st-field>
-		</div> 
-
-		<st-field-raw label="spr.biografie" value="detail.biografie"></st-field-raw>		
-		<st-field-raw label="spr.werdegang" value="detail.werdegang"></st-field-raw>
-		<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
-		<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
-
-		<div class="row" ng-repeat="b in detail.bestaende">
-			<h2>{{b.Bestand}}</h2>{{b.name}} {{b.inst_name}} {{n.zeitraum}}
+		<div class="l-content--header">
+			<h1 ng-repeat="n in detail.namen">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</h1>
+			<span ng-repeat"n in detail.namen" ng-if="!$first">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</span>
+			<div class="text-label">{{detail.fldatum}}</div>
 		</div>
-
-
-		<div class="row" ng-repeat="l in detail.literatur">
-			<st-field-raw label="l.Literatur" value="l.text"></st-field>
+		<div class="l-content--section">
+			<dl>
+				<dt ng-if="detail.heimatort">{{spr.heimatort}}</dt>
+				<dd ng-if="detail.heimatort">{{detail.heimatort}}</dd>
+				<dt ng-if="detail.fotografengattungen">{{spr.fotografengattungen}}</dt>
+				<dd ng-if="detail.fotografengattungen">{{detail.fotografengattungen}}</dd>
+				<dt ng-if="detail.bildgattungen">{{spr.bildgattungen}}</dt>
+				<dd ng-if="detail.bildgattungen">{{detail.bildgattungen}}</dd>
+				<dt ng-if="detail.beruf">{{spr.beruf}}</dt>
+				<dd ng-if="detail.beruf">{{detail.beruf}}</dd>
+				<dt ng-if="detail.arbeitsperioden.length > 1">{{spr.arbeitsorte}}</dt>
+				<dt ng-if="detail.arbeitsperioden.length==1">{{spr.arbeitsort}}</dt>
+				<dd ng-repeat="a in detail.arbeitsperioden">{{a.arbeitsort}} {{a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis}}</dd>
+				<dt ng-if="detail.pnd">GND</dt>
+				<dd ng-if="detail.pnd"><a target="_blank" href="http://d-nb.info/gnd/{{detail.pnd}}">{{detail.pnd}}</a></dd>
+			</dl>
 		</div>
-
-		<div class="row" ng-repeat="aus in detail.ausstellungen">
-			<st-field label="aus.Ausstellung" value="aus.text"></st-field>
+		<div class="l-content--section" ng-if="detail.biografie">
+			<st-field-raw label="spr.biografie" value="detail.biografie"></st-field-raw>
 		</div>
-
-		<st-field label="spr.kantone" value="detail.kantone"></st-field>
-		<st-field-raw label="PND" value="detail.GND"></st-field-raw>
-		<st-field label="spr.notiz" value="detail.notiz"></st-field>
-		<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
-		<st-field label="spr.autorIn" value="detail.autorIn"></st-field>
-		<st-field label="spr.bearbeitungsdatum" value="detail.fbearbeitungsdatum"></st-field>		
+		<div class="l-content--section" ng-if="detail.werdegang">
+			<st-field-raw label="spr.werdegang" value="detail.werdegang"></st-field-raw>
+		</div>
+		<div class="l-content--section" ng-if="detail.schaffensbeschrieb">
+			<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
+		</div>
+		<div class="l-content--section" ng-if="detail.auszeichnungen_und_stipendien">
+			<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
+		</div>
+		<div class="l-content--section" ng-if="detail.bestaende.length>0">
+			<h2>{{spr.bestaende2}}</h2>
+			<ul>
+				<li ng-repeat="b in detail.bestaende">{{b.name}} {{b.inst_name}} {{n.zeitraum}}</li>
+			</ul>
+		</div>
+		<div class="l-content--section" ng-if="detail.ausstellungen">
+			<h2>{{spr.ausstellungen}}</h2>
+			<ul>
+				<li ng-repeat="aus in detail.ausstellungen">{{aus.text}}</li>
+			</ul>
+		</div>
+		<div class="l-content--section">
+			<st-field label="spr.kantone" value="detail.kantone"></st-field>
+			
+			<st-field label="spr.notiz" value="detail.notiz"></st-field>
+			<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
+		</div>
 	</div>
 	<aside class="l-content--aside l-content--right">
-		<h1>Zusatzinfos</h1>
-		<div>Ein Korrektur melden</div>
+		<st-field-raw label="spr.umfeld" value="detail.umfeld"></st-field-raw>
+		<h2>{{spr.bearbeitungsdatum}}</h2>
+		<p>{{detail.fbearbeitungsdatum}} von {{detail.autorIn}}</p>
+		<a class="" href="#">Eine Korrektur melden</a>
 	</aside>
 </div>

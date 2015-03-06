@@ -14,10 +14,12 @@
 		.text-hide();
 	}
 }
+
+// Defining the list of results (e.g. used for searching fotographers)
 .result-list {
-	padding-top: 20px;
+	padding-top: 1.25rem;
 	.result-list__item {
-		padding-bottom: 15px;
+		padding-bottom: 1rem;
 		&:hover {
 			cursor: pointer;
 			color: @colorActionPrimary;
@@ -31,4 +33,25 @@
 		display: inline-block;
 		min-width: 25%;
 	}
+}
+
+// Definition list
+dl {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+dt {
+	color: @colorTextHeadline;
+	font-family: Raleway, sans-serif;
+	font-weight: normal;
+	font-size: 1.125rem;
+	@media @layoutMedium {
+		clear: both;
+		float: left;
+		min-width: 30%;
+	}
+}
+dd {
+	margin: 0;
+	padding-bottom: 1rem;
 }
