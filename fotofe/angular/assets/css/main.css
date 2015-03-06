@@ -69,7 +69,6 @@ h1 {
   margin-bottom: 0.5em;
   font-size: 2.25rem;
   font-weight: 300;
-  text-align: center;
 }
 @media screen and (min-width: 768px) {
   h1 {
@@ -90,6 +89,11 @@ p {
   text-align: justify;
   line-height: 1.5;
 }
+p.text-intro {
+  text-align: left;
+  color: #444444;
+  font-family: Raleway, sans-serif;
+}
 @media screen and (min-width: 768px) {
   p {
     text-align: left;
@@ -107,10 +111,13 @@ a {
   margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: #4b585c;
-  color: #ffffff;
+}
+.l-footer .l-container {
+  border-top: 1px solid #dddddd;
+  padding-top: 20px;
 }
 .l-header {
+  height: 50px;
   background-color: #4b585c;
   font-family: Raleway, sans-serif;
   font-size: 1.5rem;
@@ -143,8 +150,6 @@ body {
   min-height: 100vh;
 }
 .l-main {
-  padding-right: 10px;
-  padding-left: 10px;
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -webkit-flex: 1;
@@ -154,6 +159,8 @@ body {
 .l-container {
   margin-left: auto;
   margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
   max-width: 1200px;
 }
 .l-content--main,
@@ -235,25 +242,76 @@ input[type="text"] {
     max-width: 50%;
   }
 }
-.logo-header {
-  display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+.l-main ul {
+  padding-left: 1.5em;
+}
+.l-main li {
+  position: relative;
+  margin-bottom: 1rem;
+  list-style: disc;
+  line-height: 1.5;
+}
+dl {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+dt {
+  color: #444444;
+  font-family: Raleway, sans-serif;
+  font-weight: normal;
+  font-size: 1.125rem;
 }
 @media screen and (min-width: 768px) {
-  .logo-header {
-    width: 15%;
+  dt {
+    clear: both;
+    float: left;
+    min-width: 40%;
   }
 }
-.logo-header a {
+@media screen and (min-width: 1024px) {
+  dt {
+    min-width: 35%;
+  }
+}
+dd {
+  margin-left: 0;
+  padding-bottom: 1rem;
+}
+@media screen and (min-width: 768px) {
+  dd {
+    max-width: 50%;
+    margin-left: 40%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  dd {
+    margin-left: 35%;
+  }
+}
+.logo-header {
   display: inline-block;
+  height: 50px;
+  width: 50%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+}
+.logo-header a {
+  display: block;
   background: url('../img/logo-foto-ch.svg') no-repeat;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
+}
+@media screen and (min-width: 768px) {
+  .logo-header {
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
 }
 .result-list {
   padding-top: 1.25rem;
@@ -273,59 +331,59 @@ input[type="text"] {
   display: inline-block;
   min-width: 25%;
 }
-dl {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-dt {
-  color: #444444;
-  font-family: Raleway, sans-serif;
-  font-weight: normal;
-  font-size: 1.125rem;
-}
-@media screen and (min-width: 768px) {
-  dt {
-    clear: both;
-    float: left;
-    min-width: 30%;
-  }
-}
-dd {
-  margin: 0;
-  padding-bottom: 1rem;
-}
 .nav-main {
-  display: inline-block;
+  display: block;
 }
 .nav-main ul {
   display: none;
-  margin: 0;
+  position: absolute;
+  margin: 0 -10px;
+  padding: 0;
+  width: 100%;
+  background-color: #4b585c;
 }
 @media screen and (min-width: 768px) {
   .nav-main ul {
     display: inline-block;
+    position: inherit;
+    margin: 0;
+    width: auto;
   }
 }
+.nav-main.is-open ul {
+  display: block;
+}
 .nav-main li {
-  float: left;
+  width: 100%;
   list-style-type: none;
-  margin-right: 40px;
+  border-top: 1px solid #dddddd;
+}
+@media screen and (min-width: 768px) {
+  .nav-main li {
+    float: left;
+    border-top: none;
+    width: auto;
+  }
+}
+.nav-main a {
+  display: block;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  line-height: 50px;
 }
 .nav-main a:hover,
 .nav-main a.is-active {
   position: relative;
   color: #ffffff;
+  background-color: #388099;
 }
-.nav-main a:hover:after,
-.nav-main a.is-active:after {
-  position: absolute;
-  content: "";
-  bottom: -12px;
-  right: 0px;
-  left: 0px;
-  border-bottom: 3px solid #dddddd;
+@media screen and (min-width: 768px) {
+  .nav-main {
+    float: right;
+    margin-right: 10%;
+  }
 }
-.nav-main--toggle {
+.nav-main__toggle {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -336,17 +394,17 @@ dd {
   outline: none;
 }
 @media screen and (min-width: 768px) {
-  .nav-main--toggle {
+  .nav-main__toggle {
     display: none;
   }
 }
-.nav-main--toggle .icon-bar {
+.nav-main__toggle .icon-bar {
   display: block;
   width: 25px;
   height: 3px;
   border-radius: 3px;
   background-color: #fff;
 }
-.nav-main--toggle .icon-bar + .icon-bar {
+.nav-main__toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }

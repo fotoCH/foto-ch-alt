@@ -1,17 +1,22 @@
 .logo-header {
 	display: inline-block;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	height: 50px;
+	width: 50%;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	padding-left: 10px;
-	@media @layoutMedium {
-		width: 15%;
-	}
 	a {
-		display: inline-block;
+		display: block;
 		background: url('../img/logo-foto-ch.svg') no-repeat;
-		width: 100%;
-		height: auto;
+		width: auto;
+		height:100%;
 		.text-hide();
+	}
+	@media @layoutMedium {
+		float: left;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 10px;
 	}
 }
 
@@ -33,25 +38,4 @@
 		display: inline-block;
 		min-width: 25%;
 	}
-}
-
-// Definition list
-dl {
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-dt {
-	color: @colorTextHeadline;
-	font-family: Raleway, sans-serif;
-	font-weight: normal;
-	font-size: 1.125rem;
-	@media @layoutMedium {
-		clear: both;
-		float: left;
-		min-width: 30%;
-	}
-}
-dd {
-	margin: 0;
-	padding-bottom: 1rem;
 }

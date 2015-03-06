@@ -1,34 +1,52 @@
 // Defining the main navigation placed in the header
 .nav-main {
-	display: inline-block;
+	display: block;
 	ul {
 		display: none;
-		margin: 0;
+		position: absolute;
+		margin: 0 -10px;
+		padding: 0;
+		width: 100%;
+		background-color: @colorLayoutHighlight;
 		@media @layoutMedium {
 			display: inline-block;
+			position: inherit;
+			margin: 0;
+			width: auto;
 		}
 	}
+	&.is-open ul {
+		display: block;
+	}
 	li {
-		float: left;
+		width: 100%;
 		list-style-type: none;
-		margin-right: 40px;
+		border-top: 1px solid @colorLayoutBorder;
+		@media @layoutMedium {
+			float: left;
+			border-top: none;
+			width: auto;
+		}
+	}
+	a {
+		display: block;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+		line-height: 50px;
 	}
 	a:hover, a.is-active {
 		position: relative;
 		color: @colorTextInverted;
-		&:after {
-			position: absolute;
-			content: "";
-			bottom: -12px;
-			right: 0px;
-			left: 0px;
-			border-bottom: 3px solid @colorLayoutBorder;
-		}
+		background-color: @colorActionPrimary;
+	}
+	@media @layoutMedium {
+		float: right;
+		margin-right: 10%;
 	}
 }
 
 // Defining the mobile menu
-.nav-main--toggle {
+.nav-main__toggle {
 	position: absolute;
 	right: 0px;
 	top: 0px;

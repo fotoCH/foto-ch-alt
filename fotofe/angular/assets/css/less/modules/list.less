@@ -1,0 +1,43 @@
+// Default lists used in the main area
+.l-main {
+	ul {
+		padding-left: 1.5em;
+	}
+	li {
+		position: relative;
+		margin-bottom: 1rem;
+		list-style: disc;
+		line-height: 1.5;
+	}
+}
+
+// Definition list
+dl {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+dt {
+	color: @colorTextHeadline;
+	font-family: Raleway, sans-serif;
+	font-weight: normal;
+	font-size: 1.125rem;
+	@media @layoutMedium {
+		clear: both;
+		float: left;
+		min-width: 40%;
+	}
+	@media @layoutLarge {
+		min-width: 35%;
+	}
+}
+dd {
+	margin-left: 0;
+	padding-bottom: 1rem;
+	@media @layoutMedium {
+			max-width: 50%;
+		margin-left: 40%;
+	}
+	@media @layoutLarge {
+		margin-left: 35%;
+	}
+}

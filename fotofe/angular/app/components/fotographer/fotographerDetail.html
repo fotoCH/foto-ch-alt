@@ -18,6 +18,8 @@
 				<dt ng-if="detail.arbeitsperioden.length > 1">{{spr.arbeitsorte}}</dt>
 				<dt ng-if="detail.arbeitsperioden.length==1">{{spr.arbeitsort}}</dt>
 				<dd ng-repeat="a in detail.arbeitsperioden">{{a.arbeitsort}} {{a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis}}</dd>
+				<dt ng-if="detail.kantone">{{spr.kantone}}</dt>
+				<dd ng-if="detail.kantone">{{detail.kantone}}</dd>
 				<dt ng-if="detail.pnd">GND</dt>
 				<dd ng-if="detail.pnd"><a target="_blank" href="http://d-nb.info/gnd/{{detail.pnd}}">{{detail.pnd}}</a></dd>
 			</dl>
@@ -40,6 +42,12 @@
 				<li ng-repeat="b in detail.bestaende">{{b.name}} {{b.inst_name}} {{n.zeitraum}}</li>
 			</ul>
 		</div>
+		<div class="l-content--section" ng-if="detail.literatur">
+			<h2>{{spr.literatur}}</h2>
+			<ul>
+				<li ng-repeat="l in detail.literatur">{{l.text}}</li>
+			</ul>
+		</div>
 		<div class="l-content--section" ng-if="detail.ausstellungen">
 			<h2>{{spr.ausstellungen}}</h2>
 			<ul>
@@ -47,9 +55,9 @@
 			</ul>
 		</div>
 		<div class="l-content--section">
-			<st-field label="spr.kantone" value="detail.kantone"></st-field>
-			
 			<st-field label="spr.notiz" value="detail.notiz"></st-field>
+		</div>
+		<div class="l-content--section">
 			<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
 		</div>
 	</div>

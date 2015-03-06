@@ -101,7 +101,6 @@ h1 {
     margin-bottom: 0.5em;
     font-size: 2.25rem;
     font-weight: 300; 
-    text-align: center;
     @media @layoutMedium {
         text-align: left;
     }
@@ -115,6 +114,11 @@ p {
     margin-top: 0;
     text-align: justify;
     line-height: 1.5;
+    &.text-intro {
+        text-align: left;
+        color: @colorTextHeadline;
+        font-family: Raleway, sans-serif;
+    }
     @media @layoutMedium {
         text-align: left;
     }
