@@ -8,21 +8,31 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
  
     $urlRouterProvider.otherwise('/home');
  
-    $stateProvider.state('home', {
-        url: '/home',
-        templateUrl: 'app/components/home/home.html'
-    });
-    
-    $stateProvider.state('fotographer', {
-        url: '/fotographer?id&anf',
-        templateUrl: 'app/components/fotographer/fotographer.html',
-        controller: "FotographerCtrl"
-    });
+    $stateProvider
+        // Homepage
+        .state('home', {
+            url: '/home',
+            templateUrl: 'app/components/home/home.html'
+        })
+        
+        // Fotographer search view
+        .state('fotographer', {
+            url: '/fotographer?id&anf',
+            templateUrl: 'app/components/fotographer/fotographer.html',
+            controller: "FotographerCtrl"
+        })
 
-    $stateProvider.state('test', {
-        url: '/test',
-        templateUrl: 'app/components/test/test.html'
-    });
+        // Fotographer detail view
+        .state('fotographerDetail', {
+            url: '/fotographer/detail?id&anf',
+            templateUrl: 'app/components/fotographer/fotographerDetail.html',
+            controller: "FotographerCtrl"
+        })
+        // Testpage for development
+        .state('test', {
+            url: '/test',
+            templateUrl: 'app/components/test/test.html'
+        });
  
 
 }]);	
