@@ -185,7 +185,7 @@ while($fetch=mysql_fetch_array($result)){
 
 	while($fetch7=mysql_fetch_array($result7)){
 		//$tmpfetch7 = $fetch7;
-		
+		$lit=$fetch7['if_typ'];
 		//if($litHasChanged) abstand($def);
 		$fetch7=formlit($fetch7);
 		//$def->assign("FETCH7",$fetch7);
@@ -216,18 +216,7 @@ while($fetch=mysql_fetch_array($result)){
 			WHERE ausstellung_fotograf.fotograf_id=$id ORDER BY ausstellung.typ, ausstellung.jahr, ausstellung.ort, af_id");
 	//if(mysql_num_rows($result8)!=0) abstand($def);
 	while($fetch8=mysql_fetch_array($result8)){
-		$typeHasChanged=false;
-		if ($fetch8['typ']!=$aus){
-			if($aus!=''){
-				$typeHasChanged=true;
-			}
-			$aus=$fetch8['typ'];
-			$fetch8['Ausstellung']=($aus=='E'?$spr['einzelaustellungen']:$spr['gruppenaustellungen']);
-			//if ($aus=='E') abstand($def);
-			//abstand($def);
-		} else {
-			$fetch8['Ausstellung']='';
-		}
+		$aus=$fetch8['typ'];
 		//if($typeHasChanged) abstand($def);
 		$fetch8=formaus($fetch8);
 		//$def->assign("FETCH8",$fetch8);
