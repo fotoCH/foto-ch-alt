@@ -44,6 +44,7 @@
 		</div>
 		<div class="l-content--section" ng-if="detail.primaerliteratur">
 			<h2>{{spr.primaerliteratur}}</h2>
+			test
 			<ul>
 				<li ng-repeat="l in detail.primaerliteratur" ng-bind-html="l.text | rawHtml"></li>
 			</ul>
@@ -54,16 +55,16 @@
 				<li ng-repeat="l in detail.sekundaerliteratur" ng-bind-html="l.text | rawHtml"></li>
 			</ul>
 		</div>		
-		<div class="l-content--section" ng-if="detail.gruppenausstellungen">
-			<h2>{{spr.gruppenausstellungen}}</h2>
-			<ul>
-				<li ng-repeat="aus in detail.gruppenausstellungen" ng-bind-html="aus.text | rawHtml"></li>
-			</ul>
-		</div>
 		<div class="l-content--section" ng-if="detail.einzelausstellungen">
 			<h2>{{spr.einzelausstellungen}}</h2>
 			<ul>
 				<li ng-repeat="aus in detail.einzelausstellungen" ng-bind-html="aus.text | rawHtml"></li>
+			</ul>
+		</div>
+		<div class="l-content--section" ng-if="detail.gruppenausstellungen">
+			<h2>{{spr.gruppenausstellungen}}</h2>
+			<ul>
+				<li ng-repeat="aus in detail.gruppenausstellungen" ng-bind-html="aus.text | rawHtml"></li>
 			</ul>
 		</div>
 		<div class="l-content--section">
@@ -76,7 +77,7 @@
 	<aside class="l-content--aside l-content--right">
 		<st-field-raw label="spr.umfeld" value="detail.umfeld"></st-field-raw>
 		<h2>{{spr.bearbeitungsdatum}}</h2>
-		<p>{{detail.fbearbeitungsdatum}} von {{detail.autorIn}}</p>
+		<p ng-if="detail.fbearbeitungsdatum">{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">von {{detail.autorIn}}</span></p>
 		<a class="" href="#">Eine Korrektur melden</a>
 	</aside>
 </div>
