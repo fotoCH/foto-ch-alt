@@ -2,7 +2,7 @@
 	<div class="l-content--main">
 		<h1>{{spr.photographers}}</h1>
 		<p class="text-intro">
-			Durchsuchen Sie das biografische Lexikon der Fotografinnen und Fotografen.
+			{{spr.durchsuchen_sie_das}}
 		</p>
 
 		<form class="form-container" action="" novalidate>
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<aside class="l-content--aside l-content--right">
-		<h2>Kategorieren</h2>
+		<h2>{{spr.kategorien}}</h2>
 		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="fotographer( {anf: '{{initial}}'} )">{{initial}}</button>
 	</aside>
 </div>
