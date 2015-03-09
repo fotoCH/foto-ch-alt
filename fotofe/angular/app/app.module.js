@@ -19,15 +19,32 @@ app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
 	  console.log("Blog Controller reporting for duty.");
 	});
 
-app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', function ($scope, $http, $state, $stateParams ) {
+app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootScope', function ($scope, $http, $state, $stateParams, $rootScope ) {
 	  console.log("Main Controller reporting for duty.");
-	  var urlBase = 'http://www2.foto-ch.ch/api';
 	  
-	  var id=$stateParams.id
-	  var anf=$stateParams.anf;
-	  $http.get(urlBase+'/?a=sprache').success (function(data){
-			$scope.spr = data;
-		});
+	  function loadTranslation(){
+		  $http.get($rootScope.ApiUrl+'/?a=sprache&lang='+$rootScope.lang).success (function(data){
+				$scope.spr = data;
+			});
+	  }
+	  
+	  loadTranslation();
+	  
+	  $scope.setLanguage = function(lang) {
+		    console.log('switch to language', lang);
+		    $rootScope.lang = lang;
+		    loadTranslation();
+
+	  };
+		
+	  $scope.getLclass = function(lang) {
+		    if ($rootScope.lang == lang) {
+		      return "is-active"
+		    } else {
+		      return ""
+		    }
+	  };
+	  
 	}]);
 
 
@@ -46,9 +63,8 @@ app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $loca
 	$scope.isMenuOpen = false;
 }]);
 
-app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', function ($scope, $http, $location, $state, $stateParams ) {
+app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
   console.log("Fotograf Controller reporting for duty.");
-  var urlBase = 'http://www2.foto-ch.ch/api';
   
   var id=$stateParams.id
   var anf=$stateParams.anf;
@@ -59,12 +75,12 @@ app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$sta
 
   //$scope.debug='anf:'+anf+' id:'+id+$state;
   if (anf>='A'){
-		$http.get(urlBase+'/?anf='+anf).success (function(data){
+		$http.get($rootScope.ApiUrl+'/?anf='+anf).success (function(data){
 			$scope.list = data;
 		});
 	} else {
 		if (id){
-			$http.get(urlBase+'/?id='+id).success (function(data){
+			$http.get($rootScope.ApiUrl+'/?id='+id).success (function(data){
 				$scope.detail = data;
 				$scope.list=null;
 			});
@@ -81,6 +97,13 @@ app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$sta
 
 
 }]);
+
+app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+	  console.log("Login Controller reporting for duty.");
+	  
+
+	}]);
+
 
 app.filter('rawHtml', ['$sce', function($sce){
 	  return function(val) {
@@ -109,6 +132,14 @@ app.directive('stFieldRaw', function() {
 		    		},
 		  };
 		});
+
+app.run(function($rootScope) {
+    $rootScope.user = '';
+    $rootScope.userLevel = '';
+    $rootScope.authToken = '';
+    $rootScope.lang = 'de';
+    $rootScope.ApiUrl = 'http://www2.foto-ch.ch/api';
+})
 
 app.service('fotochService', ['$http', function ($http) {
 

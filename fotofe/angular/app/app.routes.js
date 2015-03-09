@@ -29,10 +29,17 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             controller: "FotographerCtrl"
         })
         // Testpage for development
+        .state('login', {
+            url: '/login',
+            templateUrl: 'app/components/login/login.html',
+            controller: "LoginCtrl"
+        })
+
+        // Testpage for development
         .state('test', {
             url: '/test',
             templateUrl: 'app/components/test/test.html',
-            controller: "FotographerCtrl"
+            controller: "LoginCtrl"
         });
  
 
