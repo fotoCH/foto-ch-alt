@@ -45,25 +45,25 @@
 		<div class="l-content--section" ng-if="detail.primaerliteratur">
 			<h2>{{spr.primaerliteratur}}</h2>
 			<ul>
-				<li ng-repeat="l in detail.primaerliteratur">{{l.text}}</li>
+				<li ng-repeat="l in detail.primaerliteratur" ng-bind-html="l.text | rawHtml"></li>
 			</ul>
 		</div>
 		<div class="l-content--section" ng-if="detail.sekundaerliteratur">
 			<h2>{{spr.sekundaerliteratur}}</h2>
 			<ul>
-				<li ng-repeat="l in detail.sekundaerliteratur">{{l.text}}</li>
+				<li ng-repeat="l in detail.sekundaerliteratur" ng-bind-html="l.text | rawHtml"></li>
 			</ul>
 		</div>		
 		<div class="l-content--section" ng-if="detail.gruppenausstellungen">
 			<h2>{{spr.gruppenausstellungen}}</h2>
 			<ul>
-				<li ng-repeat="aus in detail.gruppenausstellungen">{{aus.text}}</li>
+				<li ng-repeat="aus in detail.gruppenausstellungen" ng-bind-html="aus.text | rawHtml"></li>
 			</ul>
 		</div>
 		<div class="l-content--section" ng-if="detail.einzelausstellungen">
 			<h2>{{spr.einzelausstellungen}}</h2>
 			<ul>
-				<li ng-repeat="aus in detail.einzelausstellungen">{{aus.text}}</li>
+				<li ng-repeat="aus in detail.einzelausstellungen" ng-bind-html="aus.text | rawHtml"></li>
 			</ul>
 		</div>
 		<div class="l-content--section">
