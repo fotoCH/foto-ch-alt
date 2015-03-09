@@ -185,28 +185,24 @@ while($fetch=mysql_fetch_array($result)){
 
 	while($fetch7=mysql_fetch_array($result7)){
 		//$tmpfetch7 = $fetch7;
-		$litHasChanged = false;
-		if ($fetch7['if_typ']!=$lit){
-			if($lit!=''){
-				$litHasChanged = true;
-			}
-			$lit=$fetch7['if_typ'];
-			$fetch7['Literatur']=($lit=='P'?$spr['primaerliteratur']:$spr['sekundaerliteratur']);
-			//if ($lit=='S') abstand($def);
-		} else {
-			$fetch7['Literatur']='';
-		}
+		
 		//if($litHasChanged) abstand($def);
 		$fetch7=formlit($fetch7);
 		//$def->assign("FETCH7",$fetch7);
 		if(auth_level(USER_GUEST_READER)) {
 			//$def->parse($det.".z.lit.adm");
 		}
-		$literatur[]=array('id'=>$fetch7['id'],'text'=>$fetch7['text'],'Literatur'=>$fetch7['Literatur']);
+		$l=array('id'=>$fetch7['id'],'text'=>$fetch7['text']);
+		if ($lit=='P'){
+			$plit[]=$l;
+		} else {
+			$slit[]=$l;
+		}
 		//$def->parse($det.".z.lit");
 		//$def->parse($det.".z");
 	}
-	$out['literatur']=$literatur;
+	$out['primaerliteratur']=$plit;
+	$out['sekundaerliteratur']=$slit;
 	//if(mysql_num_rows($result7)!=0) abstand($def);
 	if (auth_level(USER_GUEST_READER)){  //alte Literatur
 		$out['primaerliteratur_alt']=$fetch['primaerliteratur'];
@@ -240,9 +236,16 @@ while($fetch=mysql_fetch_array($result)){
 		}
 		//$def->parse($det.".z.aus");
 		//$def->parse($det.".z");
-		$ausstellungen[]=array('id'=>$fetch8['id'],'text'=>$fetch8['text'],'Ausstellung'=>$fetch8['Ausstellung']);
+		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text']);
+		if ($aus=='E'){
+			$eaus[]=$a;
+		} else {
+			$gaus[]=$a;
+		}
+		
 	}
-	$out['ausstellungen']=$ausstellungen;
+	$out['einzelausstellungen']=$eaus;
+	$out['gruppenausstellungen']=$gaus;
 	//if(mysql_num_rows($result8)!=0) abstand($def);
 	if (auth_level(USER_GUEST_READER)){  //alte Literatur
 		$out['einzelausstellung_alt']=$fetch['einzelausstellungen'];
