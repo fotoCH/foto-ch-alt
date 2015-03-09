@@ -48,4 +48,42 @@ function formlebensdaten($gdate,$gcode,$tdate,$tcode){  // formatiert lebenszeit
         return date("d.m.Y",strtotime($date));
 }
 
+function formumfeldn($t){  // expandiert Links im Umfeld
+	$suchmuster = "/<.link:(.\d+)>/";
+	$tref=preg_match_all($suchmuster,$t,$treffer);
+	//print_r($treffer);
+	//$suchmuster = "llink:";
+
+	for ($i=0; $i< count($treffer[0]); $i++) {
+		$id=$treffer[1][$i];
+		//$nid=$treffer[0][$i];
+
+		if (substr($id,0,1)=='n'){
+			$id=substr($id,1);
+			$n=1;
+
+			$result=mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
+			//echo("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
+
+		} else {
+			$result=mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen_id=$id ORDER BY namen.id Asc");
+		}
+		$fetch=mysql_fetch_array($result);
+		$name=$fetch['vorname'] .' '.$fetch['namenszusatz'].' '.$fetch['nachname'];
+		// echo $name;
+		if ($n==1) $id=$fetch['fotografen_id'];
+		if ($fetch['unpubliziert']==1){
+			if (auth_level(USER_GUEST_READER)){
+				$t=str_replace($treffer[0][$i],'<span class="text2g"><a href="#/fotographer/detail?id='.$id.'">'.$name.'</a></span>',$t);
+			} else {
+				$t=str_replace($treffer[0][$i],$name,$t);
+			}
+		} else {
+			/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fotograph  */
+			$t=str_replace($treffer[0][$i],'<a href="#/fotographer/detail?id='.$id.'">'.$name.'</a>',$t);
+		}
+	}
+	return(str_replace('<br>','<br />',$t));
+}
+
 ?>
