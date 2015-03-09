@@ -28,6 +28,19 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/fotographer/fotographerDetail.html',
             controller: "FotographerCtrl"
         })
+        // Institution search view
+        .state('institution', {
+            url: '/institution?anf',
+            templateUrl: 'app/components/institution/institution.html',
+            controller: "InstitutionCtrl"
+        })
+
+        // Institution detail view
+        .state('institutionDetail', {
+            url: '/institution/detail?id',
+            templateUrl: 'app/components/institution/institutionrDetail.html',
+            controller: "InstitutionCtrl"
+        })        
         // Testpage for development
         .state('login', {
             url: '/login',

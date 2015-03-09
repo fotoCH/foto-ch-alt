@@ -1,0 +1,42 @@
+<div class="l-content">
+	<div class="l-content--main">
+		<h1>{{spr.photographers}}</h1>
+		<p class="text-intro">
+			{{spr.durchsuchen_sie_das}}
+		</p>
+
+		<form class="form-container" action="" novalidate>
+			<!--	<input type="text" name="fotographer"> -->
+
+			<div angucomplete-alt id="fotographer"
+	              placeholder="{{spr.suche}} {{spr.fotograph}}"
+	              pause="100"
+	              selected-object="fotographerSelected"
+	              remote-url="http://www2.foto-ch.ch/api/ftas.php?s="
+	              minlength="1"
+	              title-field="name,vorname"
+	              description-field="fldatum"
+	              
+	              input-class="form-control form-control-small">
+	        </div>
+			<!-- <button type="submit" class="btn-primary">{{spr.submit}}</button> -->
+		</form>
+
+		{{debug}}
+		<ul class="result-list">
+			<li class="result-list__headline">
+				<span class="result-list__column">{{spr.name}}</span>
+				<span class="result-list__column">{{spr.lebensdaten}}</span>
+			</li>
+			<li class="result-list__item" ng-repeat="t in list.res" ui-sref="fotographerDetail( {id: '{{t.id}}', anf: ''} )">
+				<span class="result-list__column">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</span>
+				<span class="result-list__column" ng-bind-html="t.fldatum | rawHtml"></span>
+			</li>
+			
+		</ul>
+	</div>
+	<aside class="l-content--aside l-content--right">
+		<h2>{{spr.kategorien}}</h2>
+		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="fotographer( {anf: '{{initial}}'} )">{{initial}}</button>
+	</aside>
+</div>
