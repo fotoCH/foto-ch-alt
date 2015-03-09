@@ -347,6 +347,7 @@ dd {
 @media screen and (min-width: 768px) {
   .logo-header {
     float: left;
+    width: auto;
     height: 60px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -406,7 +407,11 @@ dd {
     margin: 0;
     width: auto;
     background-color: transparent;
-    transition: none;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -o-transform: none;
+    -ms-transform: none;
+    transform: none;
   }
 }
 .nav-main.is-open ul {

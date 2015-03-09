@@ -76,7 +76,7 @@
 	<aside class="l-content--aside l-content--right">
 		<st-field-raw label="spr.umfeld" value="detail.umfeld"></st-field-raw>
 		<h2>{{spr.bearbeitungsdatum}}</h2>
-		<p ng-if="detail.fbearbeitungsdatum">{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">von {{detail.autorIn}}</span></p>
-		<a class="" href="#">Eine Korrektur melden</a>
+		<p ng-if="detail.fbearbeitungsdatum">{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
+		<a class="" href="#" onclick="alert('TODO: Noch nicht implementiert');">Eine Korrektur melden</a>
 	</aside>
 </div>
