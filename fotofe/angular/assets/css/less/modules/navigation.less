@@ -1,54 +1,71 @@
 // Defining the main navigation placed in the header
 .nav-main {
 	display: block;
+	@media @layoutMedium {
+		float: right;
+		margin-right: 10%;
+	}
 	ul {
-		display: none;
 		position: absolute;
+		top: 0;
 		margin: 0 -10px;
 		padding: 0;
 		width: 100%;
-		background-color: @colorLayoutHighlight;
+		background-color: #ffffff;
+		.transition(transform @transitionDuration @transitionFunction);
+		.transform(translateY(-100%));
+		z-index: -1;
 		@media @layoutMedium {
 			display: inline-block;
 			position: inherit;
 			margin: 0;
 			width: auto;
+			background-color: transparent;
+			transition: none;
 		}
 	}
 	&.is-open ul {
 		display: block;
+		top: 100%;
+		border-top: 1px solid @colorLayoutBorder;
+		.transform(translateY(0%));
 	}
 	li {
 		width: 100%;
 		list-style-type: none;
-		border-top: 1px solid @colorLayoutBorder;
+		border-bottom: 1px solid @colorLayoutBorder;
 		@media @layoutMedium {
 			float: left;
-			border-top: none;
+			border-bottom: none;
 			width: auto;
 		}
 	}
 	a {
 		display: block;
-		padding-left: 1.5rem;
-		padding-right: 1.5rem;
+		padding-left: 20px;
+		padding-right: 20px;
 		line-height: 50px;
+		color: transparent;
+		@media @layoutMedium {
+			line-height: 60px;
+			padding-left: 1.5rem;
+			padding-right: 1.5rem;
+			color: inherit;
+		}
+		.is-open& {
+			color: inherit;
+		}
 	}
 	a:hover, a.is-active {
 		position: relative;
-		color: @colorTextInverted;
-		background-color: @colorActionPrimary;
-	}
-	@media @layoutMedium {
-		float: right;
-		margin-right: 10%;
+		color: @colorActionPrimary;
 	}
 }
 
-// Defining the mobile menu
+// Mobile menu toggle button
 .nav-main__toggle {
 	position: absolute;
-	right: 0px;
+	right: 5px;
 	top: 0px;
 	height: 50px;
 	padding: 0 10px;
@@ -58,14 +75,41 @@
 	@media @layoutMedium {
 		display: none;			// Hide the menu button on tablet and desktop devices
 	}
-	.icon-bar {
+	.icon-bar, 
+	.icon-bar:before,
+	.icon-bar:after {
 		display: block;
 		width: 25px;
 		height: 3px;
 		border-radius: 3px;
-		background-color: #fff;
+		background-color: @colorActionPrimary;
 	}
-	.icon-bar+.icon-bar {
-		margin-top: 4px;
+	.icon-bar {
+		.transition(transform @transitionDuration @transitionFunction);
+		&:before,
+		&:after {
+			content: '';
+			position: relative;
+			.transition(transform @transitionDuration @transitionFunction);
+		}
+		&:before {
+			top: -6px;
+		}
+		&:after {
+			bottom: -3px;
+		}
+	}
+	.is-open & {
+		.icon-bar {
+			background-color: transparent;
+		}
+		.icon-bar:before {
+			top: 0;
+			.transform(rotate(45deg));
+		}
+		.icon-bar:after {
+			bottom: 2px;
+			.transform(rotate(-45deg));
+		}
 	}
 }

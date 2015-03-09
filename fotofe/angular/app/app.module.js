@@ -1,7 +1,8 @@
 
 var app = angular.module('fotochWebApp', [
 	'ui.router',
-	'angucomplete-alt'
+	'angucomplete-alt',
+	'headroom'
 ]);
 
 

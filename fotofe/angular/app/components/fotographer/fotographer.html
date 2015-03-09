@@ -23,17 +23,17 @@
 		</form>
 
 		{{debug}}
-		<div class="result-list">
-			<div class="result-list__headline">
+		<ul class="result-list">
+			<li class="result-list__headline">
 				<span class="result-list__column">{{spr.name}}</span>
 				<span class="result-list__column">{{spr.lebensdaten}}</span>
-			</div>
-			<div class="result-list__item" ng-repeat="t in list.res" ui-sref="fotographerDetail( {id: '{{t.id}}', anf: ''} )">
+			</li>
+			<li class="result-list__item" ng-repeat="t in list.res" ui-sref="fotographerDetail( {id: '{{t.id}}', anf: ''} )">
 				<span class="result-list__column">{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}</span>
 				<span class="result-list__column" ng-bind-html="t.fldatum | rawHtml"></span>
-			</div>
+			</li>
 			
-		</div>
+		</ul>
 	</div>
 	<aside class="l-content--aside l-content--right">
 		<h2>{{spr.kategorien}}</h2>

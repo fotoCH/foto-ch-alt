@@ -1,11 +1,37 @@
 .l-header {
-	height: 50px;
-	background-color: @colorLayoutHighlight;
+	height: auto;
+	background-color: #ffffff;
+	border-bottom: 1px solid @colorLayoutBorder;
 	font-family: Raleway, sans-serif;
 	font-size: 1.5rem;
+	@media @layoutMedium {
+		height: 60px;
+	}
+	
 	a {
-		color: @colorTextDisabled;
+		color: @colorText;
 		text-decoration: none;
 		font-weight: normal;
 	}
+}
+// We're using headroom.js to show the header once the user scrolls up
+.headroom {
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+	.transition(transform @transitionDuration @transitionFunction);
+}
+
+.headroom--pinned {
+	.transform(translateY(0%));
+	.box-shadow(@boxShadow);
+}
+
+.headroom--unpinned {
+	.transform(translateY(-100%));
+}
+
+.headroom--top {
+	position: relative;
+	.box-shadow(none);
 }
