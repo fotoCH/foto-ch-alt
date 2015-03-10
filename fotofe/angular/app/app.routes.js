@@ -38,7 +38,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         // Institution detail view
         .state('institutionDetail', {
             url: '/institution/detail?id',
-            templateUrl: 'app/components/institution/institutionrDetail.html',
+            templateUrl: 'app/components/institution/institutionDetail.html',
             controller: "InstitutionCtrl"
         })        
         // Testpage for development

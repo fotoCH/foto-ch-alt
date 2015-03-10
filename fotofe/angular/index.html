@@ -20,8 +20,8 @@
 			</div>
 			<nav class="nav-main" ng-controller="NavigationCtrl" ng-class="{'is-open':isMenuOpen}">
 				<ul>
-					<li><a ng-class="getClass('/fotographer')" ui-sref="fotographer">{{spr.fotograph}}</a></li>
-					<li><a ng-class="getClass('/institution')" ui-sref="institution">{{spr.institution}}</a></li>
+					<li><a ng-class="getClass('/fotographer')" ui-sref="fotographer">{{spr.photographers}}</a></li>
+					<li><a ng-class="getClass('/institution')" ui-sref="institution">{{spr.institutionen}}</a></li>
 					<li><a ng-class="getClass('/login')" ui-sref="login">Login</a></li>
 					<li><a ng-class="getClass('/test')" ui-sref="test">Test</a></li>
 				</ul>
@@ -69,6 +69,8 @@
 	<script src="assets/libs/angular.headroom.min.js"></script>
 
 	<script src="app/app.module.js"></script>
+	<script src="app/app.controllers.js"></script>
+	<script src="app/app.directives.js"></script>
 	<script src="app/app.routes.js"></script>
 </body>
 </html>
