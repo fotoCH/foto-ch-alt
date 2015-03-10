@@ -93,7 +93,6 @@ p.text-intro {
   font-family: Raleway, sans-serif;
 }
 a {
-  font-weight: bold;
   color: #388099;
   text-decoration: none;
 }
@@ -362,7 +361,6 @@ input[type="text"] {
   cursor: pointer;
 }
 .link-list .link-list__title {
-  font-weight: bold;
   color: #388099;
 }
 .link-list .link-list__description {
