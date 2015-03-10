@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="de">
+<html>
 <head>
 	<title>foto-ch mit AngularJS</title>
 	<meta charset="utf-8">
@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="assets/css/main.css">
 	<link rel="stylesheet" href="assets/css/angucomplete-alt.css">
 </head>
-<body ng-app="fotochWebApp" ng-controller="MainCtrl">
+<body ng-app="fotochWebApp" ng-controller="MainCtrl" class="lang-{{lang}}">
 	<header class="l-header" headroom tolerance="20" offset="0">
 		<div class="l-container">
 			<div class="logo-header">
@@ -22,13 +22,19 @@
 				<ul>
 					<li><a ng-class="getClass('/fotographer')" ui-sref="fotographer">{{spr.photographers}}</a></li>
 					<li><a ng-class="getClass('/institution')" ui-sref="institution">{{spr.institutionen}}</a></li>
-					<li><a ng-class="getClass('/login')" ui-sref="login">Login</a></li>
 					<li><a ng-class="getClass('/test')" ui-sref="test">Test</a></li>
 				</ul>
 				<button type="button" class="nav-main__toggle" ng-click="toggleMobileMenu()">
 					<span class="icon-bar"></span>
 				</button>
 			</nav>
+			<div class="language-switch">
+				<li><a ng-class="getLclass('de')" ng-click="setLanguage('de')">de</a></li>
+				<li><a ng-class="getLclass('fr')" ng-click="setLanguage('fr')">fr</a></li>
+				<li><a ng-class="getLclass('it')" ng-click="setLanguage('it')">it</a></li>
+				<!-- <li><a ng-class="getLclass('rm')" ng-click="setLanguage('rm')">rm</a></li>
+				<li><a ng-class="getLclass('en')" ng-click="setLanguage('en')">en</a></li> -->
+			</div>
 		</div>
 	</header>
 	<div class="l-main" role="main">
@@ -37,29 +43,18 @@
 	<footer class="l-footer">
 		<div class="l-container">
 			<div class="contact">
-				<p>
-					©Büro für Fotografiegeschichte Bern
-					Optingenstrasse 54
-					3013 Bern
-				</p>				
+				© 2015 Büro für Fotografiegeschichte Bern
 			</div>
 			<nav class="nav-meta">
 				<ul>
 					<li><a href="" onclick="alert('TODO: Noch nicht implementiert');">{{spr.kontakt}}</a></li>
 					<li><a href="" onclick="alert('TODO: Noch nicht implementiert');">{{spr.impressum}}</a></li>
-					<li><a href="" onclick="alert('TODO: Noch nicht implementiert');">{{spr.help}}</a></li>
+					<li><a class="hide-on-mobile" ui-sref="login">Login</a></li>
+
 				</ul>
 			</nav>
-			<div class="language-switch">
-					<li><a ng-class="getLclass('de')" ng-click="setLanguage('de')">de</a></li>
-					<li><a ng-class="getLclass('fr')" ng-click="setLanguage('fr')">fr</a></li>
-					<li><a ng-class="getLclass('it')" ng-click="setLanguage('it')">it</a></li>
-					<!-- <li><a ng-class="getLclass('rm')" ng-click="setLanguage('rm')">rm</a></li>
-					<li><a ng-class="getLclass('en')" ng-click="setLanguage('en')">en</a></li> -->
-			</div>
 		</div>
 	</footer>
-
 	<script scr="assets/libs/jquery-2.1.3.min.js"></script>
 
 	<script src="assets/libs/angular.js"></script>

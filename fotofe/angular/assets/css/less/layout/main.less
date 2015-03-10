@@ -24,6 +24,7 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	max-width: 1200px;		// Limit content to 1200px
+	overflow: hidden;		// Long URLs will be cut with this definition
 }
 
 .l-content--main,
@@ -73,7 +74,14 @@ body {
 }
 
 .l-content__section {
-	margin-top: 30px;
+	margin-top: 1em;
+	overflow: hidden;
+	@media @layoutMedium {
+		margin-top: 1.5em;
+	}
+	@media @layoutLarge {
+		margin-top: 2em;
+	}
 }
 
 // Reader view (e.g. used for fotographer details)

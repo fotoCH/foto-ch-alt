@@ -1,9 +1,17 @@
 .l-footer {
-	margin-top: 20px;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	margin-top: 1em;
+	padding-top: 1em;
+	padding-bottom: 2em;
 	.l-container {
+		padding-top: 0.5em;
 		border-top: 1px solid @colorLayoutBorder;
-		padding-top: 20px;
+		@media @layoutMedium {
+			padding-right: 2em;
+			padding-left: 2em;
+		}
+		@media @layoutMedium {
+			padding-right: 4em;
+			padding-left: 4em;
+		}
 	}
 }

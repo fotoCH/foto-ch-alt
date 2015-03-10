@@ -31,6 +31,7 @@
 		.transform(translateY(0%));
 	}
 	li {
+		position: relative;
 		width: 100%;
 		list-style-type: none;
 		border-bottom: 1px solid @colorLayoutBorder;
@@ -55,6 +56,15 @@
 		@media @layoutLarge {
 			padding-left: 1.5rem;
 			padding-right: 1.5rem;
+		}
+		&:after {
+			content: '>';
+			position: absolute;
+			right: 20px;
+			color: @colorActionPrimary;
+			@media @layoutMedium {
+				content: '';
+			}
 		}
 		.is-open& {
 			color: inherit;
@@ -114,6 +124,38 @@
 		.icon-bar:after {
 			bottom: 2px;
 			.transform(rotate(-45deg));
+		}
+	}
+}
+
+// Meta navigation in the footer
+.nav-meta {
+	font-family: Raleway, sans-serif;
+	font-size: 1.25rem;
+	@media @layoutMedium {
+		float: right;
+	}
+	ul {
+		margin-top: 20px;
+		margin-bottom: 0;
+		padding: 0;
+		@media @layoutMedium {
+			margin-top: 0;
+		}
+	}
+	li {
+		padding-left: 10px;
+		line-height: 2.5rem;
+		list-style: none;
+		@media @layoutMedium {
+			float: left;
+			padding-left: 0.5em;
+			padding-right: 0.5em;
+			line-height: @textLineHeightDefault;
+		}
+		@media @layoutLarge {
+			padding-left: 1em;
+			padding-right: 1em;
 		}
 	}
 }

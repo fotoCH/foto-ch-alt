@@ -17,7 +17,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 		    console.log('switch to language', lang);
 		    $rootScope.lang = lang;
 		    loadTranslation();
-
 	  };
 		
 	  $scope.getLclass = function(lang) {

@@ -6,8 +6,17 @@
 	li {
 		position: relative;
 		margin-bottom: 0.5rem;
-		list-style: disc;
+		list-style: none;
 		line-height: @textLineHeightDefault;
+		&:before {
+			content: '';
+			position: absolute;
+			width: 7px;
+			height: 2px;
+			top: 10px;
+			left: -20px;
+			background-color: @colorTextLight;
+		}
 	}
 }
 
@@ -25,6 +34,9 @@
 			background-color: @colorLayoutLight;
 			cursor: pointer;
 		}
+		&:before {
+			content: '';
+		}
 	}
 	.link-list__title {
 		color: @colorActionPrimary;
@@ -36,14 +48,21 @@
 
 // Definition list
 dl {
-	margin-top: 30px;
-	margin-bottom: 30px;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	@media @layoutMedium {
+		margin-top: 1.5em;
+		margin-bottom: 1.5em;		
+	}
+	@media @layoutLarge {
+		margin-top: 2em;
+		margin-bottom: 2em;
+	}
+
 }
 dt {
 	color: @colorTextHeadline;
-	font-family: Raleway, sans-serif;
-	font-weight: normal;
-	font-size: 1.125rem;
+	font-weight: bold;
 	line-height: @textLineHeightDefault;
 	@media @layoutMedium {
 		clear: both;

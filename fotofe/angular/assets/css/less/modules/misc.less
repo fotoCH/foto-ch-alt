@@ -8,10 +8,13 @@
 	background-color: #ffffff;		// The background color is used to hide the navigation menu
 	a {
 		display: block;
-		background: url('../img/logo-foto-ch.svg') no-repeat;
+		background: url('../img/logo-fotoch-de.svg') no-repeat;
 		width: auto;
 		height:100%;
 		.text-hide();
+		.lang-fr & {
+			background: url('../img/logo-fotoch-fr.svg') no-repeat;
+		}
 	}
 	@media @layoutMedium {
 		float: left;
@@ -21,5 +24,16 @@
 		padding-bottom: 15px;
 		padding-left: 10px;
 		background-color: transparent;
+	}
+}
+
+// Footer elements
+.contact {
+	padding-right: 10px;
+	padding-left: 10px;
+	@media @layoutMedium {
+		float: left;
+		padding-right: 0;
+		padding-left: 0;
 	}
 }
