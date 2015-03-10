@@ -1,11 +1,11 @@
-<div class="l-content">
-	<div class="l-content--main">
-		<div class="l-content--header">
+<div class="l-content l-readerview">
+	<div class="l-content--main l-view--reader">
+		<div class="l-content__header">
 			<h1 ng-repeat="n in detail.namen">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</h1>
 			<span ng-repeat"n in detail.namen" ng-if="!$first">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</span>
 			<div class="text-label">{{detail.fldatum}}</div>
 		</div>
-		<div class="l-content--section">
+		<div class="l-content__section">
 			<dl>
 				<dt ng-if="detail.heimatort">{{spr.heimatort}}</dt>
 				<dd ng-if="detail.heimatort">{{detail.heimatort}}</dd>
@@ -24,52 +24,59 @@
 				<dd ng-if="detail.pnd"><a target="_blank" href="http://d-nb.info/gnd/{{detail.pnd}}">{{detail.pnd}}</a></dd>
 			</dl>
 		</div>
-		<div class="l-content--section" ng-if="detail.biografie">
+		<div class="l-content__section" ng-if="detail.biografie">
 			<st-field-raw label="spr.biografie" value="detail.biografie"></st-field-raw>
 		</div>
-		<div class="l-content--section" ng-if="detail.werdegang">
+		<div class="l-content__section" ng-if="detail.werdegang">
 			<st-field-raw label="spr.werdegang" value="detail.werdegang"></st-field-raw>
 		</div>
-		<div class="l-content--section" ng-if="detail.schaffensbeschrieb">
+		<div class="l-content__section" ng-if="detail.schaffensbeschrieb">
 			<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
 		</div>
-		<div class="l-content--section" ng-if="detail.auszeichnungen_und_stipendien">
+		<div class="l-content__section" ng-if="detail.auszeichnungen_und_stipendien">
 			<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
 		</div>
-		<div class="l-content--section" ng-if="detail.bestaende.length>0">
+		<div class="l-content__section link-list" ng-if="detail.bestaende.length>0">
 			<h2>{{spr.bestaende2}}</h2>
 			<ul>
-				<li ng-repeat="b in detail.bestaende">{{b.name}} {{b.inst_name}} {{n.zeitraum}}</li>
+				<li ng-repeat="b in detail.bestaende">
+					<div class="link-list__title">
+						{{b.name}}
+					</div>
+					<div class="link-list__description">
+						<span ng-if="b.inst_name">{{spr.institution}}: {{b.inst_name}}</span> {{n.zeitraum}}
+					</div>
+				 </li>
 			</ul>
 		</div>
-		<div class="l-content--section" ng-if="detail.primaerliteratur">
+		<div class="l-content__section" ng-if="detail.primaerliteratur">
 			<h2>{{spr.primaerliteratur}}</h2>
 			<ul>
 				<li ng-repeat="l in detail.primaerliteratur" ng-bind-html="l.text | rawHtml"></li>
 			</ul>
 		</div>
-		<div class="l-content--section" ng-if="detail.sekundaerliteratur">
+		<div class="l-content__section" ng-if="detail.sekundaerliteratur">
 			<h2>{{spr.sekundaerliteratur}}</h2>
 			<ul>
 				<li ng-repeat="l in detail.sekundaerliteratur" ng-bind-html="l.text | rawHtml"></li>
 			</ul>
 		</div>		
-		<div class="l-content--section" ng-if="detail.einzelausstellungen">
+		<div class="l-content__section" ng-if="detail.einzelausstellungen">
 			<h2>{{spr.einzelausstellungen}}</h2>
 			<ul>
 				<li ng-repeat="aus in detail.einzelausstellungen" ng-bind-html="aus.text | rawHtml"></li>
 			</ul>
 		</div>
-		<div class="l-content--section" ng-if="detail.gruppenausstellungen">
+		<div class="l-content__section" ng-if="detail.gruppenausstellungen">
 			<h2>{{spr.gruppenausstellungen}}</h2>
 			<ul>
 				<li ng-repeat="aus in detail.gruppenausstellungen" ng-bind-html="aus.text | rawHtml"></li>
 			</ul>
 		</div>
-		<div class="l-content--section">
+		<div class="l-content__section">
 			<st-field label="spr.notiz" value="detail.notiz"></st-field>
 		</div>
-		<div class="l-content--section">
+		<div class="l-content__section">
 			<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
 		</div>
 	</div>

@@ -7,7 +7,31 @@
 		position: relative;
 		margin-bottom: 0.5rem;
 		list-style: disc;
-		line-height: @textLineHeightParagraph;
+		line-height: @textLineHeightDefault;
+	}
+}
+
+// Defining lists where each item is clickable
+.link-list {
+	ul {
+		margin: 0;
+		padding-left: 0;
+	}
+	li {
+		padding: 5px 10px;
+		list-style: none;
+		.border-radius(@borderRadius);
+		&:hover {
+			background-color: @colorLayoutLight;
+			cursor: pointer;
+		}
+	}
+	.link-list__title {
+		font-weight: bold;
+		color: @colorActionPrimary;
+	}
+	.link-list__description {
+		color: @colorTextLight;
 	}
 }
 
@@ -21,6 +45,7 @@ dt {
 	font-family: Raleway, sans-serif;
 	font-weight: normal;
 	font-size: 1.125rem;
+	line-height: @textLineHeightDefault;
 	@media @layoutMedium {
 		clear: both;
 		float: left;
@@ -33,6 +58,7 @@ dt {
 dd {
 	margin-left: 0;
 	padding-bottom: 1rem;
+	line-height: @textLineHeightDefault;
 	@media @layoutMedium {
 			max-width: 50%;
 		margin-left: 40%;

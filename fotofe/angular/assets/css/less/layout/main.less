@@ -10,7 +10,11 @@ body {
 	min-height: 100vh;
 }
 .l-main {
+	margin-top: 50px;		// Required for the fixed header which is 50px height
 	.flex(1);
+	@media @layoutMedium {
+		margin-top: 60px;
+	}
 }
 
 // Define overal layout
@@ -30,12 +34,27 @@ body {
 	}
 }
 
+.l-content--main {
+	@media @layoutMedium {
+		.flex(1);
+	}
+	@media @layoutLarge {
+		padding-left: 40px;
+		padding-right: 40px;
+		padding-bottom: 40px;
+	}
+}
+
 .l-content--aside {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	@media @layoutMedium {
 		margin-top: 0;
 		margin-bottom: 0;
+		.flex(0 0 40%);
+	}
+	@media @layoutLarge {
+		.flex(0 0 30%);
 	}
 }
 
@@ -43,12 +62,6 @@ body {
 	.l-content {
 		.display(flex);
 		.flex(1);
-	}
-	.l-content--main {
-		.flex(1);
-	}
-	.l-content--aside {
-		.flex(0 0 30%);
 	}
 	.l-content--left {
 		.order(-1);
@@ -58,14 +71,22 @@ body {
 		margin-left: 10px;
 	}
 }
-@media @layoutLarge {
-	.l-content--main {
-		padding-left: 100px;
-		padding-right: 40px;
-		padding-bottom: 40px;
-	}
+
+.l-content__section {
+	margin-top: 30px;
 }
 
-.l-content--section {
-	margin-top: 30px;
+// Reader view (e.g. used for fotographer details)
+.l-readerview {
+	.l-content--right {
+		margin-top: 65px;
+	}
+}
+.l-readerview, .l-listview {
+	.l-content__header, 
+	.l-content__section {
+		@media @layoutLarge {
+			max-width: 80%;
+		}
+	}
 }

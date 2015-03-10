@@ -61,12 +61,12 @@ h5,
 h6 {
   margin-top: 0.5em;
   margin-bottom: 0.3em;
-  font-family: Raleway, sans-serif;
   line-height: 1.2;
   color: #444444;
 }
 h1 {
   margin-bottom: 0.5em;
+  font-family: Raleway, sans-serif;
   font-size: 2.25rem;
   font-weight: 300;
 }
@@ -86,22 +86,19 @@ h4 {
 }
 p {
   margin-top: 0;
-  text-align: justify;
   line-height: 1.7;
 }
 p.text-intro {
-  text-align: left;
   color: #444444;
   font-family: Raleway, sans-serif;
-}
-@media screen and (min-width: 768px) {
-  p {
-    text-align: left;
-  }
 }
 a {
   font-weight: bold;
   color: #388099;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 .text-intro {
   font-size: 1.125rem;
@@ -160,7 +157,6 @@ a {
   transform: translateY(-100%);
 }
 .headroom--top {
-  position: relative;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -188,11 +184,17 @@ body {
   min-height: 100vh;
 }
 .l-main {
+  margin-top: 50px;
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+}
+@media screen and (min-width: 768px) {
+  .l-main {
+    margin-top: 60px;
+  }
 }
 .l-container {
   margin-left: auto;
@@ -211,6 +213,22 @@ body {
     padding: 20px;
   }
 }
+@media screen and (min-width: 768px) {
+  .l-content--main {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .l-content--main {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+  }
+}
 .l-content--aside {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -219,6 +237,20 @@ body {
   .l-content--aside {
     margin-top: 0;
     margin-bottom: 0;
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
+    -webkit-flex: 0 0 40%;
+    -ms-flex: 0 0 40%;
+    flex: 0 0 40%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .l-content--aside {
+    -webkit-box-flex: 0;
+    -moz-box-flex: 0;
+    -webkit-flex: 0 0 30%;
+    -ms-flex: 0 0 30%;
+    flex: 0 0 30%;
   }
 }
 @media screen and (min-width: 768px) {
@@ -234,20 +266,6 @@ body {
     -ms-flex: 1;
     flex: 1;
   }
-  .l-content--main {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-  }
-  .l-content--aside {
-    -webkit-box-flex: 0;
-    -moz-box-flex: 0;
-    -webkit-flex: 0 0 30%;
-    -ms-flex: 0 0 30%;
-    flex: 0 0 30%;
-  }
   .l-content--left {
     -webkit-box-ordinal-group: -1;
     -moz-box-ordinal-group: -1;
@@ -260,25 +278,61 @@ body {
     margin-left: 10px;
   }
 }
-@media screen and (min-width: 1024px) {
-  .l-content--main {
-    padding-left: 100px;
-    padding-right: 40px;
-    padding-bottom: 40px;
-  }
-}
-.l-content--section {
+.l-content__section {
   margin-top: 30px;
 }
+.l-readerview .l-content--right {
+  margin-top: 65px;
+}
+@media screen and (min-width: 1024px) {
+  .l-readerview .l-content__header,
+  .l-listview .l-content__header,
+  .l-readerview .l-content__section,
+  .l-listview .l-content__section {
+    max-width: 80%;
+  }
+}
+input.form-control,
 input[type="text"] {
   margin-bottom: 10px;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #4b585c;
   font-size: 1rem;
-  border-color: #4b585c;
 }
-@media screen and (min-width: 768px) {
-  input[type="text"] {
-    max-width: 50%;
-  }
+.field-autocomplete input {
+  outline: none;
+}
+.field-autocomplete .angucomplete-dropdown {
+  margin-top: -10px;
+  padding: 0;
+  font-size: 1rem;
+  color: #333333;
+  width: 100%;
+}
+.field-autocomplete .angucomplete-searching {
+  padding: 5px;
+  font-size: 1rem;
+}
+.field-autocomplete .angucomplete-title {
+  padding: 2px 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333333;
+  color: #388099;
+}
+.field-autocomplete .angucomplete-description {
+  padding-left: 5px;
+  color: #666666;
+}
+.field-autocomplete .angucomplete-selected-row,
+.field-autocomplete .angucomplete-row:hover {
+  background-color: #f2f2f2;
+  color: #388099;
+}
+.field-autocomplete .angucomplete-selected-row .angucomplete-title,
+.field-autocomplete .angucomplete-row:hover .angucomplete-title {
+  color: #388099;
 }
 .l-main ul {
   padding-left: 1.5em;
@@ -287,7 +341,32 @@ input[type="text"] {
   position: relative;
   margin-bottom: 0.5rem;
   list-style: disc;
-  line-height: 1.7;
+  line-height: 1.3;
+}
+.link-list ul {
+  margin: 0;
+  padding-left: 0;
+}
+.link-list li {
+  padding: 5px 10px;
+  list-style: none;
+  -webkit-border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 3px;
+  -moz-background-clip: padding;
+  border-radius: 3px;
+  background-clip: padding-box;
+}
+.link-list li:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+.link-list .link-list__title {
+  font-weight: bold;
+  color: #388099;
+}
+.link-list .link-list__description {
+  color: #666666;
 }
 dl {
   margin-top: 30px;
@@ -298,6 +377,7 @@ dt {
   font-family: Raleway, sans-serif;
   font-weight: normal;
   font-size: 1.125rem;
+  line-height: 1.3;
 }
 @media screen and (min-width: 768px) {
   dt {
@@ -314,6 +394,7 @@ dt {
 dd {
   margin-left: 0;
   padding-bottom: 1rem;
+  line-height: 1.3;
 }
 @media screen and (min-width: 768px) {
   dd {
@@ -328,8 +409,8 @@ dd {
 }
 .logo-header {
   display: inline-block;
-  height: 50px;
   width: 100%;
+  height: 50px;
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 10px;
@@ -347,31 +428,13 @@ dd {
 @media screen and (min-width: 768px) {
   .logo-header {
     float: left;
-    width: auto;
+    width: 25%;
     height: 60px;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 10px;
     background-color: transparent;
   }
-}
-.result-list {
-  padding-top: 1.25rem;
-}
-.result-list .result-list__item {
-  padding-bottom: 1rem;
-}
-.result-list .result-list__item:hover {
-  cursor: pointer;
-  color: #388099;
-}
-.result-list .result-list__headline {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.result-list .result-list__column {
-  display: inline-block;
-  min-width: 25%;
 }
 .nav-main {
   display: block;
@@ -446,9 +509,15 @@ dd {
 @media screen and (min-width: 768px) {
   .nav-main a {
     line-height: 60px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: inherit;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .nav-main a {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    color: inherit;
   }
 }
 .is-open.nav-main a {
