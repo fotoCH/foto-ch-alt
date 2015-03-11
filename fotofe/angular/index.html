@@ -19,7 +19,7 @@
 			<div class="logo-header">
 				<a href="#/">fotoCH</a>
 			</div>
-			<nav ngCloak class="nav-main" ng-controller="NavigationCtrl" ng-class="{'is-open':isMenuOpen}">
+			<nav ngCloak class="nav-main ng-cloak" ng-controller="NavigationCtrl" ng-class="{'is-open':isMenuOpen}">
 				<ul>
 					<li><a ng-class="getClass('/fotographer')" ui-sref="fotographer">{{spr.photographers}}</a></li>
 					<li><a ng-class="getClass('/institution')" ui-sref="institution">{{spr.institutionen}}</a></li>
@@ -29,7 +29,7 @@
 					<span class="icon-bar"></span>
 				</button>
 			</nav>
-			<div class="language-switch" ngCloak>
+			<div class="language-switch" ngCloak class="ng-cloak">
 				<li><a ng-class="getLclass('de')" ng-click="setLanguage('de')">de</a></li>
 				<li><a ng-class="getLclass('fr')" ng-click="setLanguage('fr')">fr</a></li>
 				<li><a ng-class="getLclass('it')" ng-click="setLanguage('it')">it</a></li>
@@ -41,7 +41,7 @@
 	<div class="l-main" role="main">
 		<div class="l-container" ui-view></div>
 	</div>
-	<footer class="l-footer" ngCloak>
+	<footer class="l-footer" ngCloak class="ng-cloak">
 		<div class="l-container">
 			<div class="contact">
 				© 2015 Büro für Fotografiegeschichte Bern
