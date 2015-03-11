@@ -91,7 +91,7 @@ h4,
 h5,
 h6 {
     margin-top: 0.5em;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.5em;
     line-height: @textLineHeightHeadline;
     color: @colorTextHeadline;
 }
@@ -123,6 +123,7 @@ a {
     color: @colorActionPrimary;
     text-decoration: none;
     &:hover {
+        color: darken(@colorActionPrimary, 10%);
         text-decoration: underline;
     }
 }

@@ -3,9 +3,18 @@
   white-space: nowrap;
   overflow: hidden;
 }
-.hide-on-mobile {
+
+// Hide elemnts on small layout only
+.hide-on-small {
 	display: none;
 	@media @layoutMedium {
-		display: block;
+		display: inline-block;
+	}
+}
+
+// Hide elements on medium and large layout
+.hide-on-medium {
+	@media @layoutMedium {
+		display: none;
 	}
 }

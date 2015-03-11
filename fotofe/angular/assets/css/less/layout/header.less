@@ -4,8 +4,9 @@
 	border-bottom: 1px solid @colorLayoutBorder;
 	font-family: Raleway, sans-serif;
 	font-size: 1.5rem;
+	height: @headerHeightSmall;
 	@media @layoutMedium {
-		height: 60px;
+		height: @headerHeightMedium;
 	}
 	
 	a {
@@ -13,7 +14,19 @@
 		text-decoration: none;
 		font-weight: normal;
 	}
+	.l-container {
+		padding-right: 0;
+		padding-left: 0;
+	}
 }
+
+.nav-container {
+	height: 0;
+	@media @layoutMedium {
+		float: right;
+	}
+}
+
 // We're using headroom.js to show the header once the user scrolls up
 .headroom {
 	position: fixed;

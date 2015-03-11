@@ -1,0 +1,40 @@
+// General button styles
+.btn {
+	display: inline-block;
+	padding: 0;
+	width: 100%;
+	outline: none;
+	font-size: 1rem;
+	font-family: Raleway, sans-serif;
+	font-weight: bold;
+	text-align: center;
+	.l-header & {
+		font-size: inherit;
+		font-weight: normal;
+	}
+	@media @layoutMedium {
+		width: auto;
+		display: inline-block;
+		text-align: left;
+	}
+}
+
+// Buttons that look like links
+.btn--link {
+	background-color: transparent;
+	border: none;
+	color: @colorActionPrimary;
+	&:hover {
+		color: darken(@colorActionPrimary, 10%);
+	}
+}
+
+.btn--action {
+	padding: 0.5em 1em;
+	border: 1px solid @colorActionPrimary;
+	.border-radius(@borderRadius);
+	&:hover {
+		background-color: @colorActionPrimary;
+		color: @colorTextInverted;
+	}
+}

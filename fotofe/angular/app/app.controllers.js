@@ -16,6 +16,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 	  $scope.setLanguage = function(lang) {
 		    console.log('switch to language', lang);
 		    $rootScope.lang = lang;
+		    $rootScope.isLangSwitchOpen = false;	// Close the language switch after selection of new language
+		    $rootScope.isMenuOpen = false;			// Close the mobile menu after selection of new language
 		    loadTranslation();
 	  };
 		
@@ -27,10 +29,24 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 		    }
 	  };
 	  
+	  $scope.toggleMobileMenu = function() {
+			$rootScope.isMenuOpen = !$rootScope.isMenuOpen;
+	  };
+	  $rootScope.isMenuOpen = false;
+
+	  $scope.toggleLangSwitch = function() {
+			$rootScope.isLangSwitchOpen = !$rootScope.isLangSwitchOpen;
+	  };
+	  $rootScope.isLangSwitchOpen = false;
+
+	  // Close mobile menu on state change
+	  $rootScope.$on('$stateChangeSuccess', 
+	  		function(){
+	  			$rootScope.isMenuOpen = false;
+	  });
 	}]);
 
-
-app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $location) {
+app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
   console.log("Navigation Controller reporting for duty.");
   $scope.getClass = function(path) {
 	    if ($location.path().substr(0, path.length) == path) {
@@ -39,10 +55,7 @@ app.controller('NavigationCtrl', ['$scope', '$location', function ($scope, $loca
 	      return ""
 	    }
 	};
-	$scope.toggleMobileMenu = function(){
-		$scope.isMenuOpen = !$scope.isMenuOpen;
-	};
-	$scope.isMenuOpen = false;
+	
 }]);
 
 app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {

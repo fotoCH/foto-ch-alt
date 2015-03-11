@@ -1,6 +1,8 @@
 // Default lists used in the main area
 .l-main {
 	ul {
+		margin-top: 0;
+		margin-bottom: 0;
 		padding-left: 1.5em;
 	}
 	li {
@@ -23,7 +25,6 @@
 // Defining lists where each item is clickable
 .link-list {
 	ul {
-		margin: 0;
 		padding-left: 0;
 	}
 	li {
@@ -49,17 +50,9 @@
 // Definition list
 dl {
 	margin-top: 1em;
-	margin-bottom: 1em;
-	@media @layoutMedium {
-		margin-top: 1.5em;
-		margin-bottom: 1.5em;		
-	}
-	@media @layoutLarge {
-		margin-top: 2em;
-		margin-bottom: 2em;
-	}
-
+	margin-bottom: 0;
 }
+
 dt {
 	color: @colorTextHeadline;
 	font-weight: bold;
@@ -73,6 +66,7 @@ dt {
 		min-width: 35%;
 	}
 }
+
 dd {
 	margin-left: 0;
 	padding-bottom: 1rem;

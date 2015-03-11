@@ -5,26 +5,30 @@
 
 // Sticky Footer with Flexbox
 body {
+	position: relative;
 	.display(flex);
 	.flex-direction(column);
 	min-height: 100vh;
 }
 .l-main {
-	margin-top: 50px;		// Required for the fixed header which is 50px height
+	margin-top: @headerHeightSmall;		// Required for the fixed header
 	.flex(1);
 	@media @layoutMedium {
-		margin-top: 60px;
+		margin-top: @headerHeightMedium;
 	}
 }
 
-// Define overal layout
+// Define overall layout
 .l-container {
 	margin-left: auto;
 	margin-right: auto;
 	padding-left: 10px;
 	padding-right: 10px;
 	max-width: 1200px;		// Limit content to 1200px
-	overflow: hidden;		// Long URLs will be cut with this definition
+	overflow: hidden;		// Long URLs shall be cut on mobile
+	@media @layoutMedium {
+		overflow: inherit;
+	}
 }
 
 .l-content--main,
@@ -47,8 +51,6 @@ body {
 }
 
 .l-content--aside {
-	margin-top: 10px;
-	margin-bottom: 10px;
 	@media @layoutMedium {
 		margin-top: 0;
 		margin-bottom: 0;
@@ -85,11 +87,12 @@ body {
 }
 
 // Reader view (e.g. used for fotographer details)
-.l-readerview {
-	.l-content--right {
+@media @layoutMedium {
+	.l-readerview .l-content--right {
 		margin-top: 65px;
-	}
+	}	
 }
+
 .l-readerview, .l-listview {
 	.l-content__header, 
 	.l-content__section {
@@ -97,4 +100,15 @@ body {
 			max-width: 80%;
 		}
 	}
+}
+
+// Show overlay if mobile menu is open
+body.showOverlay:before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: @colorLayoutLight;
+	background-color: rgba(51, 51, 51, 0.8);
+	z-index: 1;
 }
