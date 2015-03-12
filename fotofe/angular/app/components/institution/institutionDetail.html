@@ -11,7 +11,7 @@
 				<dt ng-if="detail.homepage">{{spr.homepage}}</dt>
 				<dd ng-if="detail.homepage" ng-bind-html="detail.homepage | rawHtml"></dd>
 				<dt ng-if="detail.zugang_zur_sammlung">{{spr.zugang_zur_sammlung}}</dt>
-				<dd ng-if="detail.zugang_zur_sammlung">{{detail.zugang_zur_sammlung}}}</dd>
+				<dd ng-if="detail.zugang_zur_sammlung">{{detail.zugang_zur_sammlung}}</dd>
 				<dt ng-if="detail.sammlungszeit">{{spr.sammlungszeit}}</dt>
 				<dd ng-if="detail.sammlungszeit">{{detail.sammlungszeit}}</dd>
 				<dt ng-if="detail.bildgattungen_set">{{spr.bildgattungen}}</dt>
@@ -36,9 +36,9 @@
 		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
 	</div>
 	<aside class="l-content__aside l-content__right">
-		<div class="l-content__section" ng-if="detail.fbearbeitungsdatum">
+		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">
 			<h2>{{spr.bearbeitungsdatum}}</h2>
-			<p>{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
+			<p>{{detail.bearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
 		</div>
 		<div class="l-content__section">
 			<a class="btn btn--action" href="#" onclick="alert('TODO: Noch nicht implementiert');">Eine Korrektur melden</a>
