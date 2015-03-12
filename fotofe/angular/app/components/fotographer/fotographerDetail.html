@@ -33,7 +33,7 @@
 		<div class="l-content__section link-list" ng-if="detail.bestaende.length>0">
 			<h2>{{spr.bestaende2}}</h2>
 			<ul>
-				<li ng-repeat="b in detail.bestaende">
+				<li ng-repeat="b in detail.bestaende" ui-sref="inventoryDetail( {id: '{{b.id}}', anf: ''} )">
 					<div class="link-list__title">
 						{{b.name}}
 					</div>
