@@ -24,22 +24,22 @@ body {
 	margin-right: auto;
 	padding-left: 10px;
 	padding-right: 10px;
-	max-width: 1200px;		// Limit content to 1200px
-	overflow: hidden;		// Long URLs shall be cut on mobile
+	max-width: @layoutMaxWidth;
+	overflow: hidden;		// Long URLs will  be cut on mobile
 	@media @layoutMedium {
 		overflow: inherit;
 	}
 }
 
-.l-content--main,
-.l-content--aside {
+.l-content__main,
+.l-content__aside {
 	padding: 10px;
 	@media @layoutMedium {
 		padding: 20px;
 	}
 }
 
-.l-content--main {
+.l-content__main {
 	@media @layoutMedium {
 		.flex(1);
 	}
@@ -50,7 +50,7 @@ body {
 	}
 }
 
-.l-content--aside {
+.l-content__aside {
 	@media @layoutMedium {
 		margin-top: 0;
 		margin-bottom: 0;
@@ -66,11 +66,11 @@ body {
 		.display(flex);
 		.flex(1);
 	}
-	.l-content--left {
+	.l-content__left {
 		.order(-1);
 		margin-right: 10px;
 	}
-	.l-content--right {
+	.l-content__right {
 		margin-left: 10px;
 	}
 }
@@ -85,15 +85,23 @@ body {
 		margin-top: 2em;
 	}
 }
+.l-content__right .l-content__section {
+	@media @layoutMedium {
+		margin-top: 0;
+	}
+	@media @layoutLarge {
+		margin-top: 0;
+	}
+}
 
 // Reader view (e.g. used for fotographer details)
 @media @layoutMedium {
-	.l-readerview .l-content--right {
-		margin-top: 65px;
+	.l-readerview .l-content__right {
+		margin-top: 5em;
 	}	
 }
 
-.l-readerview, .l-listview {
+.l-content__main {
 	.l-content__header, 
 	.l-content__section {
 		@media @layoutLarge {

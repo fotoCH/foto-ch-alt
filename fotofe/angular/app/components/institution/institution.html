@@ -1,41 +1,40 @@
-<div class="l-content">
-	<div class="l-content--main">
-		<h1>{{spr.institutionen}}</h1>
-		<!-- <p class="text-intro">
-			{{spr.durchsuchen_sie_das}}
-		</p> -->
+<div class="l-content l-listview">
+	<div class="l-content__main">
+		<div class="l-content__header">
+			<h1>{{spr.institutionen}}</h1>
+			<!-- <p class="text-intro">
+				{{spr.durchsuchen_sie_das}}
+			</p> -->
 
-		<form class="form-container" action="" novalidate>
-			<!--	<input type="text" name="fotographer"> -->
-
-			<div angucomplete-alt id="institution"
-	              placeholder="{{spr.suche}} {{spr.institution}}"
-	              pause="100"
-	              selected-object="institutionSelected"
-	              remote-url="http://www2.foto-ch.ch/api/itas.php?s="
-	              minlength="1"
-	              title-field="name"
-	              description-field="id"
-	              
-	              input-class="form-control form-control-small">
-	        </div>
-			<!-- <button type="submit" class="btn-primary">{{spr.submit}}</button> -->
-		</form>
-
-		{{debug}}
-		<ul class="result-list">
-			<li class="result-list__headline">
-				<span class="result-list__column">{{spr.name}}</span>
-				<span class="result-list__column">{{spr.ort}}</span>
-			</li>
-			<li class="result-list__item" ng-repeat="t in list.res" ui-sref="institutionDetail( {id: '{{t.id}}', anf: ''} )">
-				<span class="result-list__column">{{t.name}} {{t.abkuerzung}}</span>
-				<span class="result-list__column">{{t.ort}}</span>
-			</li>
-			
-		</ul>
+			<form class="form-container" action="" novalidate>
+				<div angucomplete-alt 
+				id="institution-autocomplete"
+				class="field-autocomplete"
+				placeholder="{{spr.suche}} {{spr.institution}}"
+				pause="100"
+				selected-object="institutionSelected"
+				remote-url="http://www2.foto-ch.ch/api/itas.php?s="
+				minlength="1"
+				title-field="name"
+				description-field="ort"
+				input-class="form-control">
+				</div>
+			</form>
+		</div>
+		<div class="l-content__section">
+			<div class="link-list">
+				<ul>
+					<li ng-repeat="t in list.res" ui-sref="institutionDetail( {id: '{{t.id}}', anf: ''} )">
+						<div class="link-list__title">
+							{{t.name}} {{t.abkuerzung}}
+						</div>
+						<div class="link-list__description" ng-bind-html="t.ort | rawHtml"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<aside class="l-content--aside l-content--right">
+	<aside class="l-content__aside l-content__right">
 		<h2>{{spr.kategorien}}</h2>
 		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
 	</aside>

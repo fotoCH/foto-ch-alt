@@ -1,0 +1,6 @@
+<div class="l-content__section" ng-if="values">
+	<h2>{{title}}</h2>
+	<ul>
+		<li ng-repeat="v in values" ng-bind-html="v.text | rawHtml"></li>
+	</ul>
+</div>

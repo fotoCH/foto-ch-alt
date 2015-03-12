@@ -1,8 +1,8 @@
 <div class="l-content l-readerview">
-	<div class="l-content--main l-view--reader">
+	<div class="l-content__main l-view--reader">
 		<div class="l-content__header">
 			<h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}} {{n.vorname}} {{n.namenszusatz}}</h1>
-			<div class="text-label">{{detail.fldatum}}</div>
+			<div>{{detail.fldatum}}</div>
 		</div>
 		<div class="l-content__section">
 			<dl>
@@ -25,22 +25,12 @@
 				<dd ng-if="detail.pnd"><a target="_blank" href="http://d-nb.info/gnd/{{detail.pnd}}">{{detail.pnd}}</a></dd>
 			</dl>
 		</div>
-		<div class="l-content__section" ng-if="detail.biografie">
-			<st-field-raw label="spr.biografie" value="detail.biografie"></st-field-raw>
-		</div>
-		<div class="l-content__section hide-on-medium" ng-if="detail.umfeld">
-			<st-field-raw label="spr.umfeld" value="detail.umfeld"></st-field-raw>
-		</div>
+		<section-raw title="spr.biografie" value="detail.biografie"></section-raw>
+		<section-raw class="hide-on-medium" title="spr.umfeld" value="detail.umfeld"></section-raw>
+		<section-raw title="spr.werdegang" value="detail.werdegang"></section-raw>
+		<section-raw title="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></section-raw>
+		<section-raw title="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></section-raw>
 
-		<div class="l-content__section" ng-if="detail.werdegang">
-			<st-field-raw label="spr.werdegang" value="detail.werdegang"></st-field-raw>
-		</div>
-		<div class="l-content__section" ng-if="detail.schaffensbeschrieb">
-			<st-field-raw label="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></st-field-raw>
-		</div>
-		<div class="l-content__section" ng-if="detail.auszeichnungen_und_stipendien">
-			<st-field-raw label="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></st-field-raw>
-		</div>
 		<div class="l-content__section link-list" ng-if="detail.bestaende.length>0">
 			<h2>{{spr.bestaende2}}</h2>
 			<ul>
@@ -54,41 +44,22 @@
 				 </li>
 			</ul>
 		</div>
-		<div class="l-content__section" ng-if="detail.primaerliteratur">
-			<h2>{{spr.primaerliteratur}}</h2>
-			<ul>
-				<li ng-repeat="l in detail.primaerliteratur" ng-bind-html="l.text | rawHtml"></li>
-			</ul>
-		</div>
-		<div class="l-content__section" ng-if="detail.sekundaerliteratur">
-			<h2>{{spr.sekundaerliteratur}}</h2>
-			<ul>
-				<li ng-repeat="l in detail.sekundaerliteratur" ng-bind-html="l.text | rawHtml"></li>
-			</ul>
-		</div>		
-		<div class="l-content__section" ng-if="detail.einzelausstellungen">
-			<h2>{{spr.einzelausstellungen}}</h2>
-			<ul>
-				<li ng-repeat="aus in detail.einzelausstellungen" ng-bind-html="aus.text | rawHtml"></li>
-			</ul>
-		</div>
-		<div class="l-content__section" ng-if="detail.gruppenausstellungen">
-			<h2>{{spr.gruppenausstellungen}}</h2>
-			<ul>
-				<li ng-repeat="aus in detail.gruppenausstellungen" ng-bind-html="aus.text | rawHtml"></li>
-			</ul>
-		</div>
-		<div class="l-content__section" ng-if="detail.notiz">
-			<st-field label="spr.notiz" value="detail.notiz"></st-field>
-		</div>
-		<div class="l-content__section" ng-if="detail.npublizieren">
-			<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
-		</div>
+
+		<section-list title="spr.primaerliteratur" values="detail.primaerliteratur"></section-list>
+		<section-list title="spr.sekundaerliteratur" values="detail.sekundaerliteratur"></section-list>
+		<section-list title="spr.einzelausstellungen" values="detail.einzelausstellungen"></section-list>
+		<section-list title="spr.gruppenausstellungen" values="detail.gruppenausstellungen"></section-list>
+		<section-default title="spr.notiz" value="detail.notiz"></section-default>
+		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
 	</div>
-	<aside class="l-content--aside l-content--right">
-		<st-field-raw label="spr.umfeld" value="detail.umfeld" class="hide-on-small"></st-field-raw>
-		<h2>{{spr.bearbeitungsdatum}}</h2>
-		<p ng-if="detail.fbearbeitungsdatum">{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
-		<a class="btn btn--action" href="#" onclick="alert('TODO: Noch nicht implementiert');">Eine Korrektur melden</a>
+	<aside class="l-content__aside l-content__right">
+		<section-raw title="spr.umfeld" value="detail.umfeld" class="hide-on-small"></section-raw>
+		<div class="l-content__section" ng-if="detail.fbearbeitungsdatum">
+			<h2>{{spr.bearbeitungsdatum}}</h2>
+			<p>{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
+		</div>
+		<div class="l-content__section">
+			<a class="btn btn--action" href="#" onclick="alert('TODO: Noch nicht implementiert');">Eine Korrektur melden</a>
+		</div>
 	</aside>
 </div>

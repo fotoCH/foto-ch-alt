@@ -1,37 +1,43 @@
-<div class="l-content">
-	<div class="l-content--main">
-		<div class="l-content--section" ng-if="detail.name">
-			<st-field-raw label="spr.name" value="detail.name"></st-field-raw>
+<div class="l-content l-readerview">
+	<div class="l-content__main l-view--reader">
+		<div class="l-content__header">
+			<h1>{{detail.name}}</h1>
+			<div ng-if="detail.art">{{detail.art}}</div>
 		</div>
-		<div class="l-content--section" ng-if="detail.adresse">
-			<st-field-raw label="spr.adresse" value="detail.adresse"></st-field-raw>
+		<div class="l-content__section">
+			<dl>
+				<dt ng-if="detail.adresse">{{spr.adresse}}</dt>
+				<dd ng-if="detail.adresse">{{detail.adresse}}<span ng-if="detail.ort"><br>{{detail.ort}}</span></dd>
+				<dt ng-if="detail.homepage">{{spr.homepage}}</dt>
+				<dd ng-if="detail.homepage" ng-bind-html="detail.homepage | rawHtml"></dd>
+				<dt>{{zugang_zur_sammlung}}</dt>
+				<dd>TODO</dd>
+				<dt ng-if="detail.sammlungszeit">{{spr.sammlungszeit}}</dt>
+				<dd ng-if="detail.sammlungszeit">{{detail.sammlungszeit}}</dd>
+				<dt>Bildgattungen</dt>
+				<dd></dd>
+			</dl>
 		</div>
-		<div class="l-content--section" ng-if="detail.ort">
-			<st-field-raw label="spr.ort" value="detail.ort"></st-field-raw>
+		<div class="l-content__section" ng-if="bildgattungen_set">
+			<section-raw title="spr.bildgattungen" value="bildgattungen_set"></section-raw>
 		</div>
-		<div class="l-content--section" ng-if="detail.email">
-			<st-field-raw label="spr.email" value="detail.email"></st-field-raw>
-		</div>
-		<div class="l-content--section" ng-if="bildgattungen_set">
-			<st-field-raw label="spr.bildgattungen" value="bildgattungen_set"></st-field-raw>
-		</div>
-		<div class="l-content--section" ng-if="detail.sammlungszeit">
-			<st-field-raw label="spr.sammlungszeit" value="detail.sammlungszeit"></st-field-raw>
-		</div>
-		<div class="l-content--section" ng-if="detail.sammlungsgeschichte">
-			<st-field-raw label="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></st-field-raw>
+		<div class="l-content__section" ng-if="detail.sammlungsgeschichte">
+			<section-raw title="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></section-raw>
 		</div>				
-		<div class="l-content--section">
-			<st-field label="spr.notiz" value="detail.notiz"></st-field>
+		<div class="l-content__section" ng-if="detail.notiz">
+			<section-default title="spr.notiz" value="detail.notiz"></section-default>
 		</div>
-		<div class="l-content--section">
-			<st-field label="spr.npublizieren" value="detail.npublizieren"></st-field>
+		<div class="l-content__section" ng-if="detail.npublizieren">
+			<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
 		</div>
 	</div>
-	<aside class="l-content--aside l-content--right">
-		<st-field-raw label="spr.umfeld" value="detail.umfeld"></st-field-raw>
-		<h2>{{spr.bearbeitungsdatum}}</h2>
-		<p ng-if="detail.fbearbeitungsdatum">{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
-		<a class="" href="#" onclick="alert('TODO: Noch nicht implementiert');">Eine Korrektur melden</a>
+	<aside class="l-content__aside l-content__right">
+		<div class="l-content__section" ng-if="detail.fbearbeitungsdatum">
+			<h2>{{spr.bearbeitungsdatum}}</h2>
+			<p>{{detail.fbearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
+		</div>
+		<div class="l-content__section">
+			<a class="btn btn--action" href="#" onclick="alert('TODO: Noch nicht implementiert');">Eine Korrektur melden</a>
+		</div>
 	</aside>
 </div>

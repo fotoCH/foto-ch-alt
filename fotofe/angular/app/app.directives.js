@@ -4,24 +4,35 @@ app.filter('rawHtml', ['$sce', function($sce){
 	  };
 	}]);
 
-app.directive('stField', function() {
+app.directive('sectionDefault', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/fields/stField.html',
+		    templateUrl: 'app/shared/section/default.html',
 		    	scope: {
-		    		  label: '=label',
+		    		  title: '=title',
 		    		  value: '=value'
 		    		},
 		  };
 		});
 
-app.directive('stFieldRaw', function() {
+app.directive('sectionRaw', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/fields/stFieldRaw.html',
+		    templateUrl: 'app/shared/section/raw.html',
 		    	scope: {
-		    		  label: '=label',
+		    		  title: '=title',
 		    		  value: '=value'
+		    		},
+		  };
+		});
+
+app.directive('sectionList', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/section/list.html',
+		    	scope: {
+		    		  title: '=title',
+		    		  values: '=values'
 		    		},
 		  };
 		});

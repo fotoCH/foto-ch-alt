@@ -1,5 +1,5 @@
 <div class="l-content l-listview">
-	<div class="l-content--main">
+	<div class="l-content__main">
 		<div class="l-content__header">
 			<h1>{{spr.photographers}}</h1>
 			<!-- <p class="text-intro">
@@ -17,27 +17,25 @@
 				minlength="1"
 				title-field="name,vorname"
 				description-field="fldatum"
-				input-class="form-control form-control-small">
+				input-class="form-control">
+				</div>
+			</form>
+		</div>
+		<div class="l-content__section">
+			<div class="link-list">
+				<ul>
+					<li ng-repeat="t in list.res" ui-sref="fotographerDetail( {id: '{{t.id}}', anf: ''} )">
+						<div class="link-list__title">
+							{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}
+						</div>
+						<div class="link-list__description" ng-bind-html="t.fldatum | rawHtml"></div>
+					</li>
+				</ul>
 			</div>
-		</form>
-	</div>
-	<div class="l-content__section">
-		<div class="link-list">
-			<ul>
-				<li ng-repeat="t in list.res" ui-sref="fotographerDetail( {id: '{{t.id}}', anf: ''} )">
-					<div class="link-list__title">
-						{{t.nachname}} {{t.vorname}} {{t.namenszusatz}}
-					</div>
-					<div class="link-list__description" ng-bind-html="t.fldatum | rawHtml"></div>
-				</li>
-			</ul>
 		</div>
 	</div>
-</div>
-<aside class="l-content--aside l-content--right">
-	<h2>{{spr.kategorien}}</h2>
-	<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="fotographer( {anf: '{{initial}}'} )">{{initial}}</button>
-</aside>
-</div>
-
+	<aside class="l-content__aside l-content__right">
+		<h2>{{spr.kategorien}}</h2>
+		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="fotographer( {anf: '{{initial}}'} )">{{initial}}</button>
+	</aside>
 </div>
