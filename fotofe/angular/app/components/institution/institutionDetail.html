@@ -10,26 +10,18 @@
 				<dd ng-if="detail.adresse">{{detail.adresse}}<span ng-if="detail.ort"><br>{{detail.ort}}</span></dd>
 				<dt ng-if="detail.homepage">{{spr.homepage}}</dt>
 				<dd ng-if="detail.homepage" ng-bind-html="detail.homepage | rawHtml"></dd>
-				<dt>{{zugang_zur_sammlung}}</dt>
-				<dd>TODO</dd>
+				<dt ng-if="detail.zugang_zur_sammlung">{{spr.zugang_zur_sammlung}}</dt>
+				<dd ng-if="detail.zugang_zur_sammlung">{{detail.zugang_zur_sammlung}}}</dd>
 				<dt ng-if="detail.sammlungszeit">{{spr.sammlungszeit}}</dt>
 				<dd ng-if="detail.sammlungszeit">{{detail.sammlungszeit}}</dd>
-				<dt>Bildgattungen</dt>
-				<dd></dd>
+				<dt ng-if="detail.bildgattungen_set">{{spr.bildgattungen}}</dt>
+				<dd ng-if="detail.bildgattungen_set">{{detail.bildgattungen_set}}</dd>
 			</dl>
 		</div>
-		<div class="l-content__section" ng-if="bildgattungen_set">
-			<section-raw title="spr.bildgattungen" value="bildgattungen_set"></section-raw>
-		</div>
-		<div class="l-content__section" ng-if="detail.sammlungsgeschichte">
-			<section-raw title="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></section-raw>
-		</div>				
-		<div class="l-content__section" ng-if="detail.notiz">
-			<section-default title="spr.notiz" value="detail.notiz"></section-default>
-		</div>
-		<div class="l-content__section" ng-if="detail.npublizieren">
-			<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
-		</div>
+		<section-raw title="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></section-raw>
+
+		<section-default title="spr.notiz" value="detail.notiz"></section-default>
+		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<div class="l-content__section" ng-if="detail.fbearbeitungsdatum">
