@@ -1,0 +1,34 @@
+<div class="l-content l-readerview">
+	<div class="l-content__main l-view--reader">
+		<div class="l-content__header">
+			<h1>{{detail.name}}</h1>
+			<div ng-if="detail.art">{{detail.signatur}}</div>
+		</div>
+		<div class="l-content__section">
+			<dl>
+				<dt ng-if="detail.institution">{{spr.institution}}</dt>
+				<dd ng-if="detail.institution" ng-bind-html="detail.institution"></dd>
+				<dt ng-if="detail.zeitraum">{{spr.zeitraum}}</dt>
+				<dd ng-if="detail.zeitraum">{{detail.zeitraum}}</dd>
+				<dt ng-if="detail.bildgattungen_set">{{spr.bildgattungen}}</dt>
+				<dd ng-if="detail.bildgattungen_set">{{detail.bildgattungen_set}}</dd>
+				<dt ng-if="detail.umfang">{{spr.umfang}}</dt>
+				<dd ng-if="detail.umfang">{{detail.umfang}}</dd>
+				<dt ng-if="detail.erschliessungsgrad">{{spr.erschliessungsgrad}}</dt>
+				<dd ng-if="detail.erschliessungsgrad">{{detail.erschliessungsgrad}}</dd>
+			</dl>
+		</div>
+		<section-list title="spr.fotographInnen" values="detail.fotografinnen"></section-list>
+		<section-default title="spr.notiz" value="detail.notiz"></section-default>
+		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
+	</div>
+	<aside class="l-content__aside l-content__right">
+		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">
+			<h2>{{spr.bearbeitungsdatum}}</h2>
+			<p>{{detail.bearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
+		</div>
+		<div class="l-content__section">
+			<a class="btn btn--action" href="#" onclick="alert('TODO: Noch nicht implementiert');">Eine Korrektur melden</a>
+		</div>
+	</aside>
+</div>

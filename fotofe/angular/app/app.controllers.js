@@ -87,10 +87,6 @@ app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$sta
       abc[i]=String.fromCharCode(65+i);
   }
   $scope.abc=abc;
-
-  
-
-
 }]);
 
 
@@ -123,10 +119,37 @@ app.controller('InstitutionCtrl', ['$scope', '$http','$location', '$state','$sta
 	      abc[i]=String.fromCharCode(65+i);
 	  }
 	  $scope.abc=abc;
+	}]);
 
+app.controller('InventoryCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+	  console.log("Inventory Controller reporting for duty.");
 	  
+	  var id=$stateParams.id
+	  var anf=$stateParams.anf;
+	  $scope.institutionSelected = function(selected) {
+	      //window.alert('You have selected ' + selected.originalObject.id);
+		  $state.go('inventoryDetail', {id: selected.originalObject.id, anf: ''} );
+	    };
 
-
+	  //$scope.debug='anf:'+anf+' id:'+id+$state;
+	  if (anf>='A'){
+			$http.get($rootScope.ApiUrl+'/?a=inventory&anf='+anf).success (function(data){
+				$scope.list = data;
+			});
+		} else {
+			if (id){
+				$http.get($rootScope.ApiUrl+'/?a=inventory&id='+id).success (function(data){
+					$scope.detail = data;
+					$scope.list=null;
+				});
+			}
+		}
+	  var abc=new Array();
+	  
+	  for ( var i=0; i<26; i++){
+	      abc[i]=String.fromCharCode(65+i);
+	  }
+	  $scope.abc=abc;
 	}]);
 
 app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {

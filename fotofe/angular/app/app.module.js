@@ -6,10 +6,6 @@ var app = angular.module('fotochWebApp', [
 	'angular-loading-bar'
 ]);
 
-
-
-
-
 app.run(function($rootScope) {
     $rootScope.user = '';
     $rootScope.userLevel = '';

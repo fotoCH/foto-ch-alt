@@ -34,13 +34,17 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/institution/institution.html',
             controller: "InstitutionCtrl"
         })
-
         // Institution detail view
         .state('institutionDetail', {
             url: '/institution/detail?id',
             templateUrl: 'app/components/institution/institutionDetail.html',
             controller: "InstitutionCtrl"
-        })        
+        })
+        // Inventory detail view
+        .state('inventoryDetail', {
+            url: '/inventory/detail?id',
+            templateUrl: 'app/components/inventory/inventoryDetail.html'
+        })
         // Testpage for development
         .state('login', {
             url: '/login',
