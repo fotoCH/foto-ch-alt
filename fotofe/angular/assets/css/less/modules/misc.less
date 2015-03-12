@@ -29,12 +29,24 @@
 }
 
 // Elements placed in the footer
-.contact {
+.copyright {
 	padding-right: 10px;
 	padding-left: 10px;
+	color: @colorTextLight;
 	@media @layoutMedium {
 		float: left;
 		padding-right: 0;
 		padding-left: 0;
 	}
+}
+
+// Loading bar
+#loading-bar-spinner {
+	display: none;
+}
+#loading-bar .bar {
+	background-color: @colorActionPrimary;
+}
+#loading-bar .peg {
+	.box-shadow(none);
 }

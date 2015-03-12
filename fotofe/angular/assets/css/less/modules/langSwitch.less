@@ -20,7 +20,7 @@
 		margin-left: 0.5em;
 		.btn {
 			position: relative;
-			width: 59px;
+			width: 60px;
 			height: 59px;
 			text-transform: uppercase;
 			text-align: center;
@@ -30,29 +30,30 @@
 		}
 		ul {
 			position: absolute;
-			top: 35px;
+			top: 5px;
+			margin: 0;
 			padding: 0;
 			background-color: #ffffff;
 			border: 1px solid @colorLayoutBorder;
-			.border-radius(0 0 @borderRadius @borderRadius);
-			.transition(transform @transitionDuration @transitionFunction);
-			.transform(translateY(-100%));
-			z-index: -1;
+			.border-radius(@borderRadius);
+			.transition(opacity @transitionDuration @transitionFunction);
+			opacity: 0;
 			.is-open& {
-				.transform(translateY(0%));
-				z-index: 0;
+				z-index: 1;
+				opacity: 1;
 			}
 		}
 		a {
 			display: block;
-			padding: 5px 10px 0 10px;
+			width: 58px;
+			line-height: 49px;
 			text-align: center;
 			&:hover {
 				background-color: @colorLayoutLight;
 				color: @colorActionPrimary;
 			}
 			&.is-active {
-				display: none;
+				color: @colorActionPrimary;
 			}
 		}
 	}
