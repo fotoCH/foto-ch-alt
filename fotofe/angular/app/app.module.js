@@ -15,7 +15,7 @@ app.run(function($rootScope) {
     $rootScope.userLevel = '';
     $rootScope.authToken = '';
     $rootScope.lang = 'de';
-    $rootScope.ApiUrl = 'http://www2.foto-ch.ch/api';
+    $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
 })
 
 app.service('fotochService', ['$http', function ($http) {
