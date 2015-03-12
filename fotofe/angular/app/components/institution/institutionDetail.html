@@ -19,7 +19,19 @@
 			</dl>
 		</div>
 		<section-raw title="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></section-raw>
-
+		<div class="l-content__section link-list" ng-if="detail.bestaende.length>0">
+			<h2>{{spr.bestaende2}}</h2>
+			<ul>
+				<li ng-repeat="b in detail.bestaende">
+					<div class="link-list__title">
+						{{b.name}}
+					</div>
+					<div class="link-list__description">
+						<span ng-if="b.zeitraum"><strong>{{spr.zeitraum}}:</strong> {{b.zeitraum}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
 		<section-default title="spr.notiz" value="detail.notiz"></section-default>
 		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
 	</div>
