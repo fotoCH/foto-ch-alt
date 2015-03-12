@@ -37,7 +37,7 @@
 					</button>
 				</nav>
 				<div class="lang-switch" class="ng-cloak" ng-class="{'is-open':isLangSwitchOpen}">
-					<button type="button" class="btn btn--link" ng-click="toggleLangSwitch()">{{lang}}</button>
+					<button type="button" class="btn btn--link ng-cloak" ng-click="toggleLangSwitch()">{{lang}}</button>
 					<ul>
 						<li><a ng-class="getLclass('de')" ng-click="setLanguage('de')">de</a></li>
 						<li><a ng-class="getLclass('fr')" ng-click="setLanguage('fr')">fr</a></li>
