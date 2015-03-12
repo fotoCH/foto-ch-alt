@@ -138,6 +138,9 @@ a:hover {
     padding-left: 4em;
   }
 }
+.l-footer a:hover {
+  text-decoration: none;
+}
 .l-header {
   height: auto;
   background-color: #ffffff;
@@ -349,10 +352,20 @@ body {
   }
 }
 @media screen and (min-width: 1024px) {
-  .l-content__main .l-content__header,
-  .l-content__main .l-content__section {
+  .l-readerview .l-content__main .l-content__header,
+  .l-listview .l-content__main .l-content__header,
+  .l-readerview .l-content__main .l-content__section,
+  .l-listview .l-content__main .l-content__section {
     max-width: 80%;
   }
+}
+.l-content--center {
+  text-align: center;
+}
+.l-content--center h1,
+.l-content--center h2,
+.l-content--center h3 {
+  text-align: center;
 }
 body.showOverlay:before {
   content: '';
@@ -387,6 +400,19 @@ body.showOverlay:before {
 a.btn {
   text-decoration: none;
 }
+.btn-primary {
+  margin: 10px 0;
+  padding: 5px 20px;
+  width: 100%;
+  background-color: #388099;
+  border: none;
+  color: #ffffff;
+}
+@media screen and (min-width: 768px) {
+  .btn-primary {
+    width: auto;
+  }
+}
 .btn--link {
   background-color: transparent;
   border: none;
@@ -410,12 +436,20 @@ a.btn {
   color: #ffffff;
 }
 input.form-control,
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   margin-bottom: 10px;
   padding: 5px;
   width: 100%;
   border: 1px solid #4b585c;
   font-size: 1rem;
+}
+@media screen and (min-width: 768px) {
+  input.form-control,
+  input[type="text"],
+  input[type="password"] {
+    width: auto;
+  }
 }
 .field-autocomplete input {
   outline: none;

@@ -101,12 +101,25 @@ body {
 	}	
 }
 
-.l-content__main {
-	.l-content__header, 
-	.l-content__section {
-		@media @layoutLarge {
-			max-width: 80%;
+.l-readerview,
+.l-listview {
+	.l-content__main {
+		.l-content__header, 
+		.l-content__section {
+			@media @layoutLarge {
+				max-width: 80%;
+			}
 		}
+	}	
+}
+
+// Centered layouts (e.g. login page)
+.l-content--center {
+	text-align: center;
+	h1,
+	h2,
+	h3 {
+		text-align: center;
 	}
 }
 
