@@ -43,7 +43,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         // Inventory detail view
         .state('inventoryDetail', {
             url: '/inventory/detail?id',
-            templateUrl: 'app/components/inventory/inventoryDetail.html'
+            templateUrl: 'app/components/inventory/inventoryDetail.html',
+            controller: "InventoryCtrl"
         })
         // Imprint page
         .state('imprint', {
