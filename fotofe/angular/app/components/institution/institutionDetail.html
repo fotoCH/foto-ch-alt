@@ -11,7 +11,7 @@
 				<dt ng-if="detail.homepage">{{spr.homepage}}</dt>
 				<dd ng-if="detail.homepage" ng-bind-html="detail.homepage | rawHtml"></dd>
 				<dt ng-if="detail.zugang_zur_sammlung">{{spr.zugang_zur_sammlung}}</dt>
-				<dd ng-if="detail.zugang_zur_sammlung">{{detail.zugang_zur_sammlung}}</dd>
+				<dd ng-if="detail.zugang_zur_sammlung" ng-bind-html="detail.zugang_zur_sammlung | rawHtml"></dd>
 				<dt ng-if="detail.sammlungszeit">{{spr.sammlungszeit}}</dt>
 				<dd ng-if="detail.sammlungszeit">{{detail.sammlungszeit}}</dd>
 				<dt ng-if="detail.bildgattungen_set">{{spr.bildgattungen}}</dt>
