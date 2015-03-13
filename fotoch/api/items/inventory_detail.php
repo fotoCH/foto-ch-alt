@@ -23,7 +23,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     }
     $fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
     
-    pushfields($out,$fetch,array('id','zeitraum','bestandsbeschreibung','link_extern','signatur','copyright','bildgattungen','umfang','weiteres','erschliessungsgrad','inst_id','inst_name'));
+    pushfields($out,$fetch,array('id','name','bearbeitungsdatum','zeitraum','bestandsbeschreibung','link_extern','signatur','copyright','bildgattungen','umfang','weiteres','erschliessungsgrad','inst_id','inst_name'));
 }
     
 jsonout($out);
