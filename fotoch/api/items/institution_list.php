@@ -36,7 +36,7 @@ if ($id==''){
 			if ($fetch['abkuerzung']) $fetch['abkuerzung']='('.$fetch['abkuerzung'].')';
 			
 			//print_r($fetch);
-			pushfields($outl,$fetch,array('name','abkuerzung','nameclass','id'));
+			pushfields($outl,$fetch,array('name','ort','abkuerzung','nameclass','id'));
 			$out['res'][]=$outl;
 			//$def->parse("list.row_normal");
 		}
