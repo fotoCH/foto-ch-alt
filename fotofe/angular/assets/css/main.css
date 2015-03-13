@@ -108,6 +108,7 @@ p.text-intro {
 a {
   color: #388099;
   text-decoration: none;
+  cursor: pointer;
 }
 a:hover {
   color: #2a6174;

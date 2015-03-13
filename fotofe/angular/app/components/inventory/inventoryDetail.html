@@ -27,9 +27,9 @@
 		</div>
 		<section-default title="spr.bestandsbeschreibung" value="detail.bestandsbeschreibung"></section-default>
 		<div class="l-content__section" ng-if="detail.fotographer">
-			<h2>{{spr.fotografen_alt}}</h2>
+			<h2>{{spr.fotographInnen}}</h2>
 			<ul>
-				<li ng-repeat="f in fotographer"><a ng-if="f.fotografen_id" ui-sref="fotographer( {id="f.fotografen_id", anf=""})">{{f.name}}</a></li>
+				<li ng-repeat="f in detail.fotographer"><a ng-if="f.gesperrt==0" ui-sref="fotographerDetail( {id: '{{f.fotografen_id}}', anf:''} )">{{f.name}}</a><span ng-if="f.gesperrt==1">{{f.name}}</span></li>
 			</ul>
 		</div>
 	</div>
