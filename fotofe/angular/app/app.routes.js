@@ -46,20 +46,20 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/inventory/inventoryDetail.html',
             controller: "InventoryCtrl"
         })
-        // Imprint page
-        .state('imprint', {
-            url: '/imprint',
-            templateUrl: 'app/components/imprint/imprint.html'
-        })
         // Contact page
         .state('contact', {
             url: '/contact',
-            templateUrl: 'app/components/contact/contact.html'
+            templateUrl: 'app/components/meta/contact.html'
+        })
+        // About us page
+        .state('aboutus', {
+            url: '/aboutus',
+            templateUrl: 'app/components/meta/aboutus.html'
         })
         // Testpage for development
         .state('login', {
             url: '/login',
-            templateUrl: 'app/components/login/login.html',
+            templateUrl: 'app/components/meta/login.html',
             controller: "LoginCtrl"
         })
 
