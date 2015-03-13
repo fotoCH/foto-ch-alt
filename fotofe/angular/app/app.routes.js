@@ -45,6 +45,16 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             url: '/inventory/detail?id',
             templateUrl: 'app/components/inventory/inventoryDetail.html'
         })
+        // Imprint page
+        .state('imprint', {
+            url: '/imprint',
+            templateUrl: 'app/components/imprint/imprint.html'
+        })
+        // Contact page
+        .state('contact', {
+            url: '/contact',
+            templateUrl: 'app/components/contact/contact.html'
+        })
         // Testpage for development
         .state('login', {
             url: '/login',

@@ -400,7 +400,7 @@ body.showOverlay:before {
 a.btn {
   text-decoration: none;
 }
-.btn-primary {
+.btn--primary {
   margin: 10px 0;
   padding: 5px 20px;
   width: 100%;
@@ -409,7 +409,7 @@ a.btn {
   color: #ffffff;
 }
 @media screen and (min-width: 768px) {
-  .btn-primary {
+  .btn--primary {
     width: auto;
   }
 }
