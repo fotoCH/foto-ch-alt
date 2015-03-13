@@ -2,16 +2,17 @@
 	<div class="l-content__main l-view--reader">
 		<div class="l-content__header">
 			<h1>{{detail.name}}</h1>
-			<div ng-if="detail.art">{{detail.signatur}}</div>
 		</div>
 		<div class="l-content__section">
 			<dl>
-				<dt ng-if="detail.institution">{{spr.institution}}</dt>
-				<dd ng-if="detail.institution" ng-bind-html="detail.institution"></dd>
+				<dt ng-if="detail.signatur">{{spr.signatur}}</dt>
+				<dd ng-if="detail.signatur">{{detail.signatur}}</dd>
+				<dt ng-if="detail.inst_name">{{spr.institution}}</dt>
+				<dd ng-if="detail.inst_name"><a ui-sref="institutionDetail( {id: '{{detail.inst_id}}', anf: ''})">{{detail.inst_name}}</a></dd>
 				<dt ng-if="detail.zeitraum">{{spr.zeitraum}}</dt>
 				<dd ng-if="detail.zeitraum">{{detail.zeitraum}}</dd>
-				<dt ng-if="detail.bildgattungen_set">{{spr.bildgattungen}}</dt>
-				<dd ng-if="detail.bildgattungen_set">{{detail.bildgattungen_set}}</dd>
+				<dt ng-if="detail.bildgattungen">{{spr.bildgattungen}}</dt>
+				<dd ng-if="detail.bildgattungen">{{detail.bildgattungen}}</dd>
 				<dt ng-if="detail.umfang">{{spr.umfang}}</dt>
 				<dd ng-if="detail.umfang">{{detail.umfang}}</dd>
 				<dt ng-if="detail.erschliessungsgrad">{{spr.erschliessungsgrad}}</dt>

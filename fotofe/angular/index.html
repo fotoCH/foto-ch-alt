@@ -57,11 +57,11 @@
 			<div class="copyright">
 				© 2015 Büro für Fotografiegeschichte Bern
 			</div>
-			<nav class="nav-meta ng-cloak">
+			<nav class="nav-meta ng-cloak" ng-controller="NavigationCtrl">
 				<ul>
-					<li><a ui-sref="contact">{{spr.kontakt}}</a></li>
-					<li><a ui-sref="aboutus">{{spr.about_us}}</a></li> 
-					<li><a class="hide-on-small" ui-sref="login">Login</a></li>
+					<li><a ng-class="getClass('/contact')" ui-sref="contact">{{spr.kontakt}}</a></li>
+					<li><a ng-class="getClass('/aboutus')" ui-sref="aboutus">{{spr.about_us}}</a></li> 
+					<li><a ng-class="getClass('/login')" class="hide-on-small" ui-sref="login">Login</a></li>
 
 				</ul>
 			</nav>

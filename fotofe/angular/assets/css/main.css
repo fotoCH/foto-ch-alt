@@ -1,7 +1,3 @@
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
-    display: none !important;
-}
-
 .hide-on-small {
   display: none;
 }
@@ -912,4 +908,11 @@ dd {
     padding-left: 1em;
     padding-right: 1em;
   }
+}
+.nav-meta a {
+  color: #333333;
+}
+.nav-meta a:hover,
+.nav-meta a.is-active {
+  color: #388099;
 }

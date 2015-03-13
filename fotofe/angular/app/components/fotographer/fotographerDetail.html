@@ -30,19 +30,7 @@
 		<section-raw title="spr.werdegang" value="detail.werdegang"></section-raw>
 		<section-raw title="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></section-raw>
 		<section-raw title="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></section-raw>
-		<div class="l-content__section link-list" ng-if="detail.bestaende.length>0">
-			<h2>{{spr.bestaende2}}</h2>
-			<ul>
-				<li ng-repeat="b in detail.bestaende" ui-sref="inventoryDetail( {id: '{{b.id}}', anf: ''} )">
-					<div class="link-list__title">
-						{{b.name}}
-					</div>
-					<div class="link-list__description">
-						<span ng-if="b.inst_name"><strong>{{spr.institution}}:</strong> {{b.inst_name}}</span> <span ng-if="b.zeitraum">| <strong>{{spr.zeitraum}}: </strong> {{b.zeitraum}}</span>
-					</div>
-				 </li>
-			</ul>
-		</div>
+		<section-list-inventory labels="spr" inventories="detail.bestaende"></section-list-inventory>
 		<section-list title="spr.primaerliteratur" values="detail.primaerliteratur"></section-list>
 		<section-list title="spr.sekundaerliteratur" values="detail.sekundaerliteratur"></section-list>
 		<section-list title="spr.einzelausstellungen" values="detail.einzelausstellungen"></section-list>
