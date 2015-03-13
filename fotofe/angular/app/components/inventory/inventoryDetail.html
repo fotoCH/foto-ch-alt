@@ -5,23 +5,33 @@
 		</div>
 		<div class="l-content__section">
 			<dl>
-				<dt ng-if="detail.signatur">{{spr.signatur}}</dt>
-				<dd ng-if="detail.signatur">{{detail.signatur}}</dd>
 				<dt ng-if="detail.inst_name">{{spr.institution}}</dt>
 				<dd ng-if="detail.inst_name"><a ui-sref="institutionDetail( {id: '{{detail.inst_id}}', anf: ''})">{{detail.inst_name}}</a></dd>
 				<dt ng-if="detail.zeitraum">{{spr.zeitraum}}</dt>
 				<dd ng-if="detail.zeitraum">{{detail.zeitraum}}</dd>
+				<dt ng-if="detail.link_extern">{{spr.link_extern}}</dt>
+				<dd ng-if="detail.link_extern">{{detail.link_extern}}</dd>
+				<dt ng-if="detail.signatur">{{spr.signatur}}</dt>
+				<dd ng-if="detail.signatur">{{detail.signatur}}</dd>
+				<dt ng-if="detail.copyright">{{spr.copy}}</dt>
+				<dd ng-if="detail.copyright">{{detail.copyright}}</dd>
 				<dt ng-if="detail.bildgattungen">{{spr.bildgattungen}}</dt>
 				<dd ng-if="detail.bildgattungen">{{detail.bildgattungen}}</dd>
 				<dt ng-if="detail.umfang">{{spr.umfang}}</dt>
 				<dd ng-if="detail.umfang">{{detail.umfang}}</dd>
+				<dt ng-if="detail.weiteres">{{spr.weitere_materialien}}</dt>
+				<dd ng-if="detail.weiteres">{{detail.weiteres}}</dd>
 				<dt ng-if="detail.erschliessungsgrad">{{spr.erschliessungsgrad}}</dt>
 				<dd ng-if="detail.erschliessungsgrad">{{detail.erschliessungsgrad}}</dd>
 			</dl>
 		</div>
-		<section-list title="spr.fotographInnen" values="detail.fotografinnen"></section-list>
-		<section-default title="spr.notiz" value="detail.notiz"></section-default>
-		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
+		<section-default title="spr.bestandsbeschreibung" value="detail.bestandsbeschreibung"></section-default>
+		<div class="l-content__section" ng-if="detail.fotographer">
+			<h2>{{spr.fotografen_alt}}</h2>
+			<ul>
+				<li ng-repeat="f in fotographer"><a ng-if="f.fotografen_id" ui-sref="fotographer( {id="f.fotografen_id", anf=""})">{{f.name}}</a></li>
+			</ul>
+		</div>
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">

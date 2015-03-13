@@ -721,6 +721,15 @@ dd {
   -moz-box-shadow: none;
   box-shadow: none;
 }
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide {
+  display: none !important;
+}
 .nav-main {
   display: inline-block;
 }

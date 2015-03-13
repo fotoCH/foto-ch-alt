@@ -50,3 +50,14 @@
 #loading-bar .peg {
 	.box-shadow(none);
 }
+
+// ngCloak is used to avoid undesirable flicker effect caused by the html template display
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide {
+	display: none !important;
+}
