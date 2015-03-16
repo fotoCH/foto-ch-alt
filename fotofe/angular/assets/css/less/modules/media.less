@@ -1,0 +1,28 @@
+// Partner logos on the about us page
+.logo-partner {
+	ul {
+		padding-left: 0;
+	}
+	li {
+		margin-bottom: 2em;
+		text-align: center;
+		&:before {
+			width: 0;
+			height: 0;
+		}
+	}
+	a {
+		display: block;
+		margin-bottom: 0.25em;
+	}
+	img {
+		max-width: 50%;
+		height: auto;
+		@media @layoutMedium {
+			max-width: 100%;
+		}
+		@media @layoutLarge {
+			max-width: 60%;
+		}
+	}
+}

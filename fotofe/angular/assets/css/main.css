@@ -316,6 +316,7 @@ body {
 }
 .l-content__section {
   margin-top: 1em;
+  display: block;
   overflow: hidden;
 }
 @media screen and (min-width: 768px) {
@@ -392,7 +393,6 @@ body.showOverlay:before {
   .btn {
     width: auto;
     display: inline-block;
-    text-align: left;
   }
 }
 a.btn {
@@ -433,21 +433,26 @@ a.btn {
   background-color: #388099;
   color: #ffffff;
 }
+.form-container {
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .form-container {
+    width: 50%;
+  }
+}
+.l-content--center .form-container {
+  margin: 0 auto;
+}
 input.form-control,
 input[type="text"],
-input[type="password"] {
+input[type="email"],
+input[type="password"] textarea {
   margin-bottom: 10px;
   padding: 5px;
   width: 100%;
   border: 1px solid #4b585c;
   font-size: 1rem;
-}
-@media screen and (min-width: 768px) {
-  input.form-control,
-  input[type="text"],
-  input[type="password"] {
-    width: auto;
-  }
 }
 .field-autocomplete input {
   outline: none;
@@ -662,6 +667,35 @@ dd {
 @media screen and (min-width: 1024px) {
   dd {
     margin-left: 35%;
+  }
+}
+.logo-partner ul {
+  padding-left: 0;
+}
+.logo-partner li {
+  margin-bottom: 2em;
+  text-align: center;
+}
+.logo-partner li:before {
+  width: 0;
+  height: 0;
+}
+.logo-partner a {
+  display: block;
+  margin-bottom: 0.25em;
+}
+.logo-partner img {
+  max-width: 50%;
+  height: auto;
+}
+@media screen and (min-width: 768px) {
+  .logo-partner img {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .logo-partner img {
+    max-width: 60%;
   }
 }
 .logo-header {

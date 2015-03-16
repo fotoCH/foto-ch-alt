@@ -3,7 +3,8 @@ var app = angular.module('fotochWebApp', [
 	'ui.router',
 	'angucomplete-alt',
 	'headroom',
-	'angular-loading-bar'
+	'angular-loading-bar',
+    'yaru22.md'
 ]);
 
 app.run(function($rootScope) {

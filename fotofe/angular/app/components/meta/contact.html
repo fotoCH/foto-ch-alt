@@ -1,11 +1,25 @@
 <div class="l-content l-readerview">
 	<div class="l-content__main">
 		<div class="l-content__header">
-			<h1>{{spr.kontakt}}</h1>
+			<h1>Kontaktformular</h1>
 		</div>
-		<div class="l-content__section" ng-bind-html="spr.kontakt_content | rawHtml"></div>
 		<div class="l-content__section">
+			<form class="form-container">
+			<input name="name" type="text" placeholder="{{spr.name}} (optional)"><br>
+				<input name="name" type="email" placeholder="{{spr.email}} (optional)"><br>
+				<textarea name="kommentar" id="" cols="30" rows="10" placeholder="Kommentar"></textarea>
+				<input class="btn btn--primary" type="submit" value="{{spr.senden}}"></input>
+				<p id="error-msg"></p>
+			</form>
 			
 		</div>
 	</div>
-</div>
+	<div class="l-content__aside">
+		<h2>{{spr.adresse}}</h2>
+		<p>Büro für Fotografiegeschichte Bern<br>Optingenstrasse 54<br>3013 Bern</p>
+		<a class="btn btn-secondary" href="tel:0041313402337">031 340 23 37</a>
+		<div class="l-content__section">
+			<a class="btn btn-secondary" href="https://www.google.ch/maps/place/Optingenstrasse+54,+3013+Bern/@46.9567671,7.4510473,17z/data=!4m7!1m4!3m3!1s0x478e39e94fe12519:0xde2e8459f6318b58!2sOptingenstrasse+54,+3013+Bern!3b1!3m1!1s0x478e39e94fe12519:0xde2e8459f6318b58" target="_blank">Wegbeschreibung</a>
+		</div>
+	</div>
+</div>	
