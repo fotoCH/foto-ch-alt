@@ -5,7 +5,15 @@ Dieses Dokument beschreibt die API, welche für fotoCH entwickelt wurde.
 Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: https://www2.foto-ch.ch/api/**. Die Daten werden im JSON Format zurückgegeben.
 
 ## Dokumentation-History
+- 16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt
 - 13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister
+
+## Sprach-API
+Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen werden.
+
+- **https://www2.foto-ch.ch/api/?a=sprache&lang=de** (Deutsch)
+- **https://www2.foto-ch.ch/api/?a=sprache&lang=fr** (Französisch)
+- **https://www2.foto-ch.ch/api/?a=sprache&lang=it** (Italienisch)
 
 ## Fotografen
 ### Liste aller Fotografen
@@ -45,7 +53,7 @@ Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: https://www2.foto
 - **Beschreibung:** Gibt ein Liste mit Detailinfos eines Fotografen zurück
 - **Call:** /?a=fotographer&id=1542
 
-**Beispiel-Resultat für Institutions-ID 1542**
+**Beispiel-Resultat für Fotografen-ID 1542**
 ```
 {
 	"namen": [
@@ -226,7 +234,7 @@ Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: https://www2.foto
 - **Beschreibung:** Gibt ein Liste mit Detailinfos eines Bestandes zurück
 - **Call:** /?a=inventory&id=128
 
-**Beispiel-Resultat für Institutions-ID 128**
+**Beispiel-Resultat für Bestand mit ID 128**
 ```
 {
 	"id": "128",
@@ -246,7 +254,8 @@ Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: https://www2.foto
 	"fotographer": [
 	{
 		"name": "Carl  Durheim",
-		"fotografen_id": "1133"
+		"fotografen_id": "1133",
+		"gesperrt": 0
 	}
 	]
 }
