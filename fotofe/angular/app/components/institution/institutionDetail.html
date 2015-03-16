@@ -4,8 +4,10 @@
 			<h1>{{detail.name}}</h1>
 			<div ng-if="detail.art">{{detail.art}}</div>
 		</div>
-		<div class="l-content__section">
+		<div class="l-content__section l-content__section--meta">
 			<dl>
+				<dt ng-if="detail.isil">{{spr.isil}}</dt>
+				<dd ng-if="detail.isil">{{detail.isil}}</dd>
 				<dt ng-if="detail.adresse">{{spr.adresse}}</dt>
 				<dd ng-if="detail.adresse">{{detail.adresse}}<span ng-if="detail.ort"><br>{{detail.ort}}</span></dd>
 				<dt ng-if="detail.homepage">{{spr.homepage}}</dt>
@@ -23,6 +25,10 @@
 		<section-list-inventory labels="spr" inventories="detail.bestaende"></section-list-inventory>
 		<section-default title="spr.notiz" value="detail.notiz"></section-default>
 		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
+
+
+		{{detail.isil}}
+		
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">

@@ -54,9 +54,6 @@ body {
 	@media @layoutMedium {
 		margin-top: 0;
 		margin-bottom: 0;
-		.flex(0 0 40%);
-	}
-	@media @layoutLarge {
 		.flex(0 0 30%);
 	}
 }
@@ -108,6 +105,11 @@ body {
 		.l-content__section {
 			@media @layoutLarge {
 				max-width: 80%;
+			}
+		}
+		.l-content__section.l-content__section--meta {
+			@media @layoutLarge {
+				max-width: 100%;
 			}
 		}
 	}	
