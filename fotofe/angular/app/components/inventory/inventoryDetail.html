@@ -10,7 +10,7 @@
 				<dt ng-if="detail.zeitraum">{{spr.zeitraum}}</dt>
 				<dd ng-if="detail.zeitraum">{{detail.zeitraum}}</dd>
 				<dt ng-if="detail.link_extern">{{spr.link_extern}}</dt>
-				<dd ng-if="detail.link_extern">{{detail.link_extern}}</dd>
+				<dd ng-if="detail.link_extern"><a href="{{detail.link_extern}}" target="_blank">{{detail.link_extern}}</a></dd>
 				<dt ng-if="detail.signatur">{{spr.signatur}}</dt>
 				<dd ng-if="detail.signatur">{{detail.signatur}}</dd>
 				<dt ng-if="detail.copyright">{{spr.copy}}</dt>
@@ -25,7 +25,7 @@
 				<dd ng-if="detail.erschliessungsgrad">{{detail.erschliessungsgrad}}</dd>
 			</dl>
 		</div>
-		<section-default title="spr.bestandsbeschreibung" value="detail.bestandsbeschreibung"></section-default>
+		<section-raw title="spr.bestandsbeschreibung" value="detail.bestandsbeschreibung"></section-raw>
 		<div class="l-content__section" ng-if="detail.fotographer">
 			<h2>{{spr.fotographInnen}}</h2>
 			<ul>
