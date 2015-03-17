@@ -24,7 +24,7 @@ Universitätsbibliothek Bern, [DigiBern](http://www.digibern.ch)
 [Catatec](http://www.catatec.ch), Bern
 
 ## Webdesign
-Jürg Nietlispach, Stefan Pfister
+Stefan Pfister
 
 ## Konservatorische Begleitung
 [Staatsarchiv des Kantons Bern](http://www.sta.be.ch/sta/de/index/staatsarchiv)
