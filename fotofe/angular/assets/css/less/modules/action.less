@@ -1,13 +1,14 @@
 // General button styles
 .btn {
 	display: inline-block;
-	padding: 0;
+	padding: 0.5em 1em;
 	width: 100%;
 	outline: none;
 	font-size: 1rem;
 	font-family: Raleway, sans-serif;
 	font-weight: bold;
 	text-align: center;
+	.border-radius(@borderRadius);
 	.l-header & {
 		font-size: inherit;
 		font-weight: normal;
@@ -23,13 +24,25 @@
 
 .btn--primary {
 	margin: 10px 0;
-	padding: 5px 20px;
 	width: 100%;
 	background-color: @colorActionPrimary;
 	border: none;
 	color: @colorTextInverted;
 	@media @layoutMedium {
 		width: auto;
+	}
+	&:hover,
+	&:focus {
+		background-color: darken(@colorActionPrimary, 10%);
+	}
+}
+.btn--secondary {
+	border: 1px solid @colorActionSecondary;
+	color: @colorActionSecondary;
+	&:hover,
+	&:focus {
+		background-color: @colorActionSecondary;
+		color: @colorTextInverted;
 	}
 }
 
@@ -43,10 +56,25 @@
 	}
 }
 
+// Style telephone numbers differently for desktop layouts
+@media @layoutLarge {
+	a[href^="tel:"] {
+		padding: 0;
+		color: @colorText;
+		font-family: OpenSans, sans-serif;
+		font-weight: normal;
+		border: none;
+		cursor: default;
+		&:hover {
+			background-color: transparent;
+			color: @colorText;
+		}
+	}	
+}
+
+// Action buttons are used for in page actions (e.g. open/close a element)
 .btn--action {
-	padding: 0.5em 1em;
 	border: 1px solid @colorActionPrimary;
-	.border-radius(@borderRadius);
 	&:hover {
 		background-color: @colorActionPrimary;
 		color: @colorTextInverted;

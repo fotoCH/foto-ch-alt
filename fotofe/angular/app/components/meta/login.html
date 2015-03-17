@@ -5,9 +5,9 @@
 		</div>
 		<div class="l-content__section">
 			<form class="form-container">
-				<input name="benutzername" type="text" placeholder="{{spr.benutzername}}"><br>
-				<input name="password" type="text" placeholder="{{spr.passwort}}"><br>
-				<input class="btn btn--primary" type="submit" value="{{spr.senden}}"></input>
+				<input type="text" name="benutzername" tabindex="1" autofocus="autofocus" autocorrect="off" autocapitalize="off" placeholder="{{spr.benutzername}}">
+				<input type="password" name="password" tabindex="2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="{{spr.passwort}}">
+				<input class="btn btn--primary" type="submit" tabindex="3" value="{{spr.senden}}"></input>
 				<p id="error-msg"></p>
 			</form>
 			

@@ -108,7 +108,6 @@ p.text-intro {
 a {
   color: #388099;
   text-decoration: none;
-  cursor: pointer;
 }
 a:hover {
   color: #2a6174;
@@ -139,8 +138,11 @@ a:hover {
     padding-left: 4em;
   }
 }
-.l-footer a:hover {
+.l-footer a:hover,
+.l-footer a:focus {
+  outline: none;
   text-decoration: none;
+  color: #388099;
 }
 .l-header {
   height: auto;
@@ -159,6 +161,11 @@ a:hover {
   color: #333333;
   text-decoration: none;
   font-weight: normal;
+  outline: none;
+}
+.l-header a:hover,
+.l-header a:focus {
+  color: #388099;
 }
 .l-header .l-container {
   padding-right: 0;
@@ -377,13 +384,19 @@ body.showOverlay:before {
 }
 .btn {
   display: inline-block;
-  padding: 0;
+  padding: 0.5em 1em;
   width: 100%;
   outline: none;
   font-size: 1rem;
   font-family: Raleway, sans-serif;
   font-weight: bold;
   text-align: center;
+  -webkit-border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 3px;
+  -moz-background-clip: padding;
+  border-radius: 3px;
+  background-clip: padding-box;
 }
 .l-header .btn {
   font-size: inherit;
@@ -400,7 +413,6 @@ a.btn {
 }
 .btn--primary {
   margin: 10px 0;
-  padding: 5px 20px;
   width: 100%;
   background-color: #388099;
   border: none;
@@ -411,6 +423,19 @@ a.btn {
     width: auto;
   }
 }
+.btn--primary:hover,
+.btn--primary:focus {
+  background-color: #2a6174;
+}
+.btn--secondary {
+  border: 1px solid #666666;
+  color: #666666;
+}
+.btn--secondary:hover,
+.btn--secondary:focus {
+  background-color: #666666;
+  color: #ffffff;
+}
 .btn--link {
   background-color: transparent;
   border: none;
@@ -419,15 +444,22 @@ a.btn {
 .btn--link:hover {
   color: #2a6174;
 }
+@media screen and (min-width: 1024px) {
+  a[href^="tel:"] {
+    padding: 0;
+    color: #333333;
+    font-family: OpenSans, sans-serif;
+    font-weight: normal;
+    border: none;
+    cursor: default;
+  }
+  a[href^="tel:"]:hover {
+    background-color: transparent;
+    color: #333333;
+  }
+}
 .btn--action {
-  padding: 0.5em 1em;
   border: 1px solid #388099;
-  -webkit-border-radius: 3px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 3px;
-  -moz-background-clip: padding;
-  border-radius: 3px;
-  background-clip: padding-box;
 }
 .btn--action:hover {
   background-color: #388099;
@@ -447,7 +479,8 @@ a.btn {
 input.form-control,
 input[type="text"],
 input[type="email"],
-input[type="password"] textarea {
+input[type="password"],
+textarea {
   margin-bottom: 10px;
   padding: 5px;
   width: 100%;
@@ -509,20 +542,23 @@ input[type="password"] textarea {
     display: inline-block;
     position: relative;
     margin-left: 0.5em;
+    font-size: 1.25rem;
   }
   .lang-switch .btn {
     position: relative;
-    width: 60px;
-    height: 59px;
+    top: 11px;
+    width: 50px;
+    height: 36px;
+    padding: 0;
     text-transform: uppercase;
     text-align: center;
-    line-height: 60px;
+    line-height: 36px;
     background-color: #ffffff;
     z-index: 1;
   }
   .lang-switch ul {
     position: absolute;
-    top: 5px;
+    top: 10px;
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -545,8 +581,8 @@ input[type="password"] textarea {
   }
   .lang-switch a {
     display: block;
-    width: 58px;
-    line-height: 49px;
+    width: 48px;
+    line-height: 38px;
     text-align: center;
   }
   .lang-switch a:hover {
@@ -621,7 +657,6 @@ input[type="password"] textarea {
 }
 .link-list li:hover {
   background-color: #f2f2f2;
-  cursor: pointer;
 }
 .link-list li:before {
   content: '';
@@ -741,6 +776,9 @@ dd {
     padding-right: 0;
     padding-left: 0;
   }
+}
+*[ui-sref] {
+  cursor: pointer;
 }
 #loading-bar-spinner {
   display: none;
@@ -956,4 +994,8 @@ dd {
 .nav-meta a:hover,
 .nav-meta a.is-active {
   color: #388099;
+}
+.panel {
+  display: inline-block;
+  background-color: #f2f2f2;
 }

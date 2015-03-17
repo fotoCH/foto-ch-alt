@@ -1,9 +1,30 @@
-<div class="container">
-
-    <div class="row">
-	<h1> Neues Frontend foto-ch.ch</h1>
-	<a href="./#/fotographer">Fotografenliste</a>
-    </div>
+<div class="l-content l-content--center">
+	<div class="l-content__main l-view--reader">
+		<div class="l-content__header l-content--hero">
+			<h1>Schweizer Fotogeschichte</h1>
+			<div>seit 1840</div>
+		</div>
+		<div class="l-content__section">
+			<h2>Das Neuste auf fotoCH</h2>
+			<div class="l-panel-container">
+			<div class="panel" ui-sref="fotographerDetail( {id: '1541', anf:''} )">
+				<div class="panel__title">
+					Paul Senn
+				</div>
+				<div class="panel__body">
+					14.08.1901 - 25.04.1953
+				</div>
+			</div>
+			<div class="panel" ui-sref="fotographerDetail( {id: '1295', anf:''} )">
+				<div class="panel__title">
+					Carl Jost
+				</div>
+				<div class="panel__body">
+					1899 - 1967
+				</div>
+			</div>
+			</div>
+			<button class="btn btn--primary" type="button" ui-sref="fotographer">Weitere Fotografen anzeigen</button>
+		</div>
+	</div>
 </div>
-<!-- /.container -->
-
