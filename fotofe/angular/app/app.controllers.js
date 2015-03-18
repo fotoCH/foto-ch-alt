@@ -63,11 +63,18 @@ app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$sta
   
   var id=$stateParams.id
   var anf=$stateParams.anf;
+  $scope.input='';
   $scope.fotographerSelected = function(selected) {
       //window.alert('You have selected ' + selected.originalObject.id);
 	  $state.go('fotographerDetail', {id: selected.originalObject.id, anf: ''} );
     };
 
+    $scope.enterFunc = function(selected) {
+      var val=document.getElementById('fotographer-autocomplete_value').value;
+  	  $state.go('fotographer', {anf: val} );
+      };
+    
+    
   //$scope.debug='anf:'+anf+' id:'+id+$state;
   if (anf>='A'){
 		$http.get($rootScope.ApiUrl+'/?anf='+anf).success (function(data){
@@ -100,6 +107,12 @@ app.controller('InstitutionCtrl', ['$scope', '$http','$location', '$state','$sta
 		  $state.go('institutionDetail', {id: selected.originalObject.id, anf: ''} );
 	    };
 
+	    $scope.enterFunc = function(selected) {
+	      var val=document.getElementById('institution-autocomplete_value').value;
+	  	  $state.go('institution', {anf: val} );
+	      };
+	    
+	    
 	  //$scope.debug='anf:'+anf+' id:'+id+$state;
 	  if (anf>='A'){
 			$http.get($rootScope.ApiUrl+'/?a=institution&anf='+anf).success (function(data){
