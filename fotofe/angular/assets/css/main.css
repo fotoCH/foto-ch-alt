@@ -784,17 +784,6 @@ dd {
 *[ui-sref] {
   cursor: pointer;
 }
-#loading-bar-spinner {
-  display: none;
-}
-#loading-bar .bar {
-  background-color: #388099;
-}
-#loading-bar .peg {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
