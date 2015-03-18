@@ -16,12 +16,12 @@ $res=array();
 //print_r($result);
 while(($c<12) && ($fetch=mysql_fetch_array($result))){
 //while($c<11){
-if (strtolower(substr($fetch['name'],0,$l))==$foto){
+//if (strtolower(substr($fetch['name'],0,$l))==$foto){
 	$r=array('id'=>$fetch['id'],'name'=>$fetch['name'], 'ort'=>$fetch['ort']);
 	$c++;
 	$res[]=$r;
 	}
-}
+//}
 jsonout($res);
 
 

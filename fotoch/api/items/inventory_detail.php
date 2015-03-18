@@ -47,12 +47,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     		//print_r($fo);
     		$outf['name']=$fotogr[$k]['namen'];
     		$outf['fotografen_id']=$fotogr[$k]['fid'];
-    		
-    		if ($fotogr[$k]['gesperrt']==1){
-    			if (auth_level(USER_WORKER)){
-    				$outf['gesperrt']=1;
-    			}  //$fetch6['name']='X '.$fetch6['name'];
-    		}
+    		$outf['gesperrt']=$fotogr[$k]['gesperrt'];
     
     		$fotographer[]=$outf;
  

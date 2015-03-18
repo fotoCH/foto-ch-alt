@@ -30,7 +30,7 @@ require("lang.inc.php");
 require("auth.inc.php");
 
 $action=$_GET['a'];
-$actions=array("fotograf","institution","inventory","sprache","login");
+$actions=array("fotograf","institution","inventory","sprache","login","pages","partner");
 if (!in_array($action,$actions)) $action='fotograf';  // default Startseite
 
 $glob['LANG']=$language;
