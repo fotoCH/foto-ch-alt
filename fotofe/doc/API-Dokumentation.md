@@ -2,23 +2,24 @@
 Dieses Dokument beschreibt die API, welche für fotoCH entwickelt wurde.
 
 ## Allgemeine Infos
-Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: https://www2.foto-ch.ch/api/**. Die Daten werden im JSON Format zurückgegeben.
+Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: [https://www2.foto-ch.ch/api/](https://www2.foto-ch.ch/api/)**. Die Daten werden im JSON Format zurückgegeben.
 
 ## Dokumentation-History
+- 18.03.2015 - 0.0.3: API-Aufrufe verlinken
 - 16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt
 - 13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister
 
 ## Sprach-API
 Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen werden.
 
-- **https://www2.foto-ch.ch/api/?a=sprache&lang=de** (Deutsch)
-- **https://www2.foto-ch.ch/api/?a=sprache&lang=fr** (Französisch)
-- **https://www2.foto-ch.ch/api/?a=sprache&lang=it** (Italienisch)
+- **[https://www2.foto-ch.ch/api/?a=sprache&lang=de](https://www2.foto-ch.ch/api/?a=sprache&lang=de)** (Deutsch)
+- **[https://www2.foto-ch.ch/api/?a=sprache&lang=fr](https://www2.foto-ch.ch/api/?a=sprache&lang=fr)** (Französisch)
+- **[https://www2.foto-ch.ch/api/?a=sprache&lang=it](https://www2.foto-ch.ch/api/?a=sprache&lang=it)** (Italienisch)
 
 ## Fotografen
 ### Liste aller Fotografen
 - **Beschreibung:** Gibt eine Liste aller Fotografen zurück.
-- **Call:** /?a=fotographer
+- **Call:** [/?a=fotographer](https://www2.foto-ch.ch/api/?a=fotographer)
 
 **Beispiel-Resultat (erste 2 Einträge)**
 ```
@@ -47,11 +48,11 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 ```
 
 ####Parameter
-- **Nach Anfangsbuchstaben E filtern:** /?a=fotographer&anf=E
+- **Nach Anfangsbuchstaben E filtern:** [/?a=fotographer&anf=E](https://www2.foto-ch.ch/api/?a=fotographer&anf=E)
 
 ### Detaildaten eines Fotografen
 - **Beschreibung:** Gibt ein Liste mit Detailinfos eines Fotografen zurück
-- **Call:** /?a=fotographer&id=1542
+- **Call:** [/?a=fotographer&id=1542](https://www2.foto-ch.ch/api/?a=fotographer&id=1542)
 
 **Beispiel-Resultat für Fotografen-ID 1542**
 ```
@@ -110,7 +111,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 ## Institutionen
 ### Liste aller Institutionen
 - **Beschreibung:** Gibt eine Liste aller Institutionen zurück.
-- **Call:** /?a=institution
+- **Call:** [/?a=institution](https://www2.foto-ch.ch/api/?a=institution)
 
 **Beispiel-Resultat (erste 2 Einträge)**
 ```
@@ -135,11 +136,11 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 ```
 
 ####Parameter
-- **Nach Anfangsbuchstaben E filtern:** /?a=institution&anf=E
+- **Nach Anfangsbuchstaben E filtern:** [/?a=institution&anf=E](https://www2.foto-ch.ch/api/?a=institution&anf=E)
 
 ### Detaildaten einer Institution
 - **Beschreibung:** Gibt ein Liste mit Detailinfos einer Institution zurück
-- **Call:** /?a=institution&id=300
+- **Call:** [/?a=institution&id=300](https://www2.foto-ch.ch/api/?a=institution&id=300)
 
 **Beispiel-Resultat für Institutions-ID 300**
 ```
@@ -201,7 +202,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 ## Bestände
 ### Liste aller Bestände
 - **Beschreibung:** Gibt eine Liste aller Bestände zurück.
-- **Call:** /?a=inventory
+- **Call:** [/?a=inventory](https://www2.foto-ch.ch/api/?a=inventory)
 
 **Beispiel-Resultat (erste 2 Einträge)**
 ```
@@ -228,11 +229,11 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 ```
 
 ####Parameter
-- **Nach Anfangsbuchstaben E filtern:** /?a=inventory&anf=E
+- **Nach Anfangsbuchstaben E filtern:** [/?a=inventory&anf=E](https://www2.foto-ch.ch/api/?a=inventory&anf=E)
 
 ### Detaildaten eines Bestandes
 - **Beschreibung:** Gibt ein Liste mit Detailinfos eines Bestandes zurück
-- **Call:** /?a=inventory&id=128
+- **Call:** [/?a=inventory&id=128](https://www2.foto-ch.ch/api/?a=inventory&id=128)
 
 **Beispiel-Resultat für Bestand mit ID 128**
 ```

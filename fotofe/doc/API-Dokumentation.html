@@ -1,264 +1,315 @@
 <h1 id="api-dokumentation">API Dokumentation</h1>
+
 <p>Dieses Dokument beschreibt die API, welche für fotoCH entwickelt wurde.</p>
+
+
+
 <h2 id="allgemeine-infos">Allgemeine Infos</h2>
-<p>Alle API Aufrufe in diesem Dokument sind relativ zu <strong>API-URL: https://www2.foto-ch.ch/api/</strong>. Die Daten werden im JSON Format zurückgegeben.</p>
+
+<p>Alle API Aufrufe in diesem Dokument sind relativ zu <strong>API-URL: <a href="https://www2.foto-ch.ch/api/">https://www2.foto-ch.ch/api/</a></strong>. Die Daten werden im JSON Format zurückgegeben.</p>
+
 <h2 id="dokumentation-history">Dokumentation-History</h2>
+
 <ul>
+<li>18.03.2015 - 0.0.3: API-Aufrufe verlinken</li>
 <li>16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt</li>
 <li>13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister</li>
 </ul>
+
+
+
 <h2 id="sprach-api">Sprach-API</h2>
+
 <p>Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen werden.</p>
+
 <ul>
-<li><strong>https://www2.foto-ch.ch/api/?a=sprache&amp;lang=de</strong> (Deutsch)</li>
-<li><strong>https://www2.foto-ch.ch/api/?a=sprache&amp;lang=fr</strong> (Französisch)</li>
-<li><strong>https://www2.foto-ch.ch/api/?a=sprache&amp;lang=it</strong> (Italienisch)</li>
+<li><strong><a href="https://www2.foto-ch.ch/api/?a=sprache&amp;lang=de">https://www2.foto-ch.ch/api/?a=sprache&amp;lang=de</a></strong> (Deutsch)</li>
+<li><strong><a href="https://www2.foto-ch.ch/api/?a=sprache&amp;lang=fr">https://www2.foto-ch.ch/api/?a=sprache&amp;lang=fr</a></strong> (Französisch)</li>
+<li><strong><a href="https://www2.foto-ch.ch/api/?a=sprache&amp;lang=it">https://www2.foto-ch.ch/api/?a=sprache&amp;lang=it</a></strong> (Italienisch)</li>
 </ul>
+
 <h2 id="fotografen">Fotografen</h2>
+
+
+
 <h3 id="liste-aller-fotografen">Liste aller Fotografen</h3>
+
 <ul>
 <li><strong>Beschreibung:</strong> Gibt eine Liste aller Fotografen zurück.</li>
-<li><strong>Call:</strong> /?a=fotographer</li>
+<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer">/?a=fotographer</a></li>
 </ul>
+
 <p><strong>Beispiel-Resultat (erste 2 Einträge)</strong></p>
-<pre><code>{
-    &quot;res&quot;: [
+
+<pre class="prettyprint"><code class=" hljs json">{
+    "<span class="hljs-attribute">res</span>": <span class="hljs-value">[
     {
-        &quot;bioclass&quot;: &quot;subtitle3&quot;,
-        &quot;fgeburtsdatum&quot;: &quot;&quot;,
-        &quot;fldatum&quot;: &quot;*&quot;,
-        &quot;nachname&quot;: &quot;A. Barras Photo-Ciné-Projection&quot;,
-        &quot;vorname&quot;: &quot;&quot;,
-        &quot;namenszusatz&quot;: &quot;&quot;,
-        &quot;id&quot;: &quot;24019&quot;
-        },
+        "<span class="hljs-attribute">bioclass</span>": <span class="hljs-value"><span class="hljs-string">"subtitle3"</span></span>,
+        "<span class="hljs-attribute">fgeburtsdatum</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+        "<span class="hljs-attribute">fldatum</span>": <span class="hljs-value"><span class="hljs-string">"*"</span></span>,
+        "<span class="hljs-attribute">nachname</span>": <span class="hljs-value"><span class="hljs-string">"A. Barras Photo-Ciné-Projection"</span></span>,
+        "<span class="hljs-attribute">vorname</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+        "<span class="hljs-attribute">namenszusatz</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"24019"</span>
+        </span>},
         {
-            &quot;bioclass&quot;: &quot;subtitle3bio&quot;,
-            &quot;fgeburtsdatum&quot;: &quot;26.03.1910&quot;,
-            &quot;fldatum&quot;: &quot;26.03.1910 - 07.04.1971&quot;,
-            &quot;nachname&quot;: &quot;A. T. P. Bilderdienst&quot;,
-            &quot;vorname&quot;: &quot;&quot;,
-            &quot;namenszusatz&quot;: &quot;&quot;,
-            &quot;id&quot;: &quot;21310&quot;
-        }
+            "<span class="hljs-attribute">bioclass</span>": <span class="hljs-value"><span class="hljs-string">"subtitle3bio"</span></span>,
+            "<span class="hljs-attribute">fgeburtsdatum</span>": <span class="hljs-value"><span class="hljs-string">"26.03.1910"</span></span>,
+            "<span class="hljs-attribute">fldatum</span>": <span class="hljs-value"><span class="hljs-string">"26.03.1910 - 07.04.1971"</span></span>,
+            "<span class="hljs-attribute">nachname</span>": <span class="hljs-value"><span class="hljs-string">"A. T. P. Bilderdienst"</span></span>,
+            "<span class="hljs-attribute">vorname</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+            "<span class="hljs-attribute">namenszusatz</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"21310"</span>
+        </span>}
     ]
-}
-</code></pre>
+</span>}</code></pre>
+
+
 
 <h4 id="parameter">Parameter</h4>
+
 <ul>
-<li><strong>Nach Anfangsbuchstaben E filtern:</strong> /?a=fotographer&amp;anf=E</li>
+<li><strong>Nach Anfangsbuchstaben E filtern:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer&amp;anf=E">/?a=fotographer&amp;anf=E</a></li>
 </ul>
+
 <h3 id="detaildaten-eines-fotografen">Detaildaten eines Fotografen</h3>
+
 <ul>
 <li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos eines Fotografen zurück</li>
-<li><strong>Call:</strong> /?a=fotographer&amp;id=1542</li>
+<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer&amp;id=1542">/?a=fotographer&amp;id=1542</a></li>
 </ul>
+
 <p><strong>Beispiel-Resultat für Fotografen-ID 1542</strong></p>
-<pre><code>{
-    &quot;namen&quot;: [
+
+<pre class="prettyprint"><code class=" hljs json">{
+    "<span class="hljs-attribute">namen</span>": <span class="hljs-value">[
     {
-        &quot;titel&quot;: &quot;&quot;,
-        &quot;nachname&quot;: &quot;Siegold&quot;,
-        &quot;vorname&quot;: &quot;E.&quot;,
-        &quot;namenszusatz&quot;: &quot;&quot;,
-        &quot;idf&quot;: null
-    }
-    ],
-    &quot;originalsprache&quot;: &quot;de&quot;,
-    &quot;sprachanzeige&quot;: &quot;&quot;,
-    &quot;id&quot;: &quot;&quot;,
-    &quot;pnd&quot;: null,
-    &quot;pnd_status&quot;: &quot;99&quot;,
-    &quot;fbearbeitungsdatum&quot;: &quot;12.02.2007&quot;,
-    &quot;fldatum&quot;: &quot;&quot;,
-    &quot;fumfeld&quot;: &quot;&quot;,
-    &quot;fotografengattungen_set&quot;: &quot;Wanderfotograf&quot;,
-    &quot;bildgattungen_set&quot;: &quot;Personen&quot;,
-    &quot;heimatort&quot;: &quot;&quot;,
-    &quot;beruf&quot;: &quot;&quot;,
-    &quot;fotografengattungen&quot;: &quot;Wanderfotograf&quot;,
-    &quot;bildgattungen&quot;: &quot;Personen&quot;,
-    &quot;arbeitsperioden&quot;: [
+        "<span class="hljs-attribute">titel</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+        "<span class="hljs-attribute">nachname</span>": <span class="hljs-value"><span class="hljs-string">"Siegold"</span></span>,
+        "<span class="hljs-attribute">vorname</span>": <span class="hljs-value"><span class="hljs-string">"E."</span></span>,
+        "<span class="hljs-attribute">namenszusatz</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+        "<span class="hljs-attribute">idf</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
+    </span>}
+    ]</span>,
+    "<span class="hljs-attribute">originalsprache</span>": <span class="hljs-value"><span class="hljs-string">"de"</span></span>,
+    "<span class="hljs-attribute">sprachanzeige</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">pnd</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+    "<span class="hljs-attribute">pnd_status</span>": <span class="hljs-value"><span class="hljs-string">"99"</span></span>,
+    "<span class="hljs-attribute">fbearbeitungsdatum</span>": <span class="hljs-value"><span class="hljs-string">"12.02.2007"</span></span>,
+    "<span class="hljs-attribute">fldatum</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">fumfeld</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">fotografengattungen_set</span>": <span class="hljs-value"><span class="hljs-string">"Wanderfotograf"</span></span>,
+    "<span class="hljs-attribute">bildgattungen_set</span>": <span class="hljs-value"><span class="hljs-string">"Personen"</span></span>,
+    "<span class="hljs-attribute">heimatort</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">beruf</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">fotografengattungen</span>": <span class="hljs-value"><span class="hljs-string">"Wanderfotograf"</span></span>,
+    "<span class="hljs-attribute">bildgattungen</span>": <span class="hljs-value"><span class="hljs-string">"Personen"</span></span>,
+    "<span class="hljs-attribute">arbeitsperioden</span>": <span class="hljs-value">[
     {
-        &quot;arbeitsort&quot;: &quot;Langenthal BE&quot;,
-        &quot;um_vonf&quot;: &quot;um &quot;,
-        &quot;von&quot;: &quot;1867&quot;,
-        &quot;um_bisf&quot;: &quot;&quot;,
-        &quot;bis&quot;: &quot;&quot;
-    }
-    ],
-    &quot;umfeld&quot;: &quot;&quot;,
-    &quot;werdegang&quot;: &quot;&quot;,
-    &quot;schaffensbeschrieb&quot;: &quot;&quot;,
-    &quot;auszeichnungen_und_stipendien&quot;: &quot;&quot;,
-    &quot;bestaende&quot;: null,
-    &quot;primaerliteratur&quot;: null,
-    &quot;sekundaerliteratur&quot;: [
+        "<span class="hljs-attribute">arbeitsort</span>": <span class="hljs-value"><span class="hljs-string">"Langenthal BE"</span></span>,
+        "<span class="hljs-attribute">um_vonf</span>": <span class="hljs-value"><span class="hljs-string">"um "</span></span>,
+        "<span class="hljs-attribute">von</span>": <span class="hljs-value"><span class="hljs-string">"1867"</span></span>,
+        "<span class="hljs-attribute">um_bisf</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+        "<span class="hljs-attribute">bis</span>": <span class="hljs-value"><span class="hljs-string">""</span>
+    </span>}
+    ]</span>,
+    "<span class="hljs-attribute">umfeld</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">werdegang</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">schaffensbeschrieb</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">auszeichnungen_und_stipendien</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">bestaende</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+    "<span class="hljs-attribute">primaerliteratur</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+    "<span class="hljs-attribute">sekundaerliteratur</span>": <span class="hljs-value">[
     {
-        &quot;id&quot;: &quot;200&quot;,
-        &quot;text&quot;: &quot;Schürpf, Markus: Fotografie in Langenthal. 1857-1998, Langenthal, Merkur 1998.&quot;
-    }
-    ],
-    &quot;einzelausstellungen&quot;: null,
-    &quot;gruppenausstellungen&quot;: null,
-    &quot;autorIn&quot;: &quot;&quot;,
-    &quot;bearbeitungsdatum&quot;: &quot;12.02.2007&quot;
-}
-</code></pre>
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"200"</span></span>,
+        "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Schürpf, Markus: Fotografie in Langenthal. 1857-1998, Langenthal, Merkur 1998."</span>
+    </span>}
+    ]</span>,
+    "<span class="hljs-attribute">einzelausstellungen</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+    "<span class="hljs-attribute">gruppenausstellungen</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+    "<span class="hljs-attribute">autorIn</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">bearbeitungsdatum</span>": <span class="hljs-value"><span class="hljs-string">"12.02.2007"</span>
+</span>}</code></pre>
+
+
 
 <h2 id="institutionen">Institutionen</h2>
+
+
+
 <h3 id="liste-aller-institutionen">Liste aller Institutionen</h3>
+
 <ul>
 <li><strong>Beschreibung:</strong> Gibt eine Liste aller Institutionen zurück.</li>
-<li><strong>Call:</strong> /?a=institution</li>
+<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=institution">/?a=institution</a></li>
 </ul>
-<p><strong>Beispiel-Resultat (erste 2 Einträge)</strong></p>
-<pre><code>{
-    &quot;res&quot;: [
-    {
-        &quot;nameclass&quot;: null,
-        &quot;name&quot;: &quot;Abbaye de Saint-Maurice, Monastère&quot;,
-        &quot;ort&quot;: &quot;Saint-Maurice&quot;,
-        &quot;abkuerzung&quot;: &quot;&quot;,
-        &quot;id&quot;: &quot;129&quot;
-        },
-        {
-            &quot;nameclass&quot;: null,
-            &quot;name&quot;: &quot;Abegg-Stiftung&quot;,
-            &quot;ort&quot;: &quot;Riggisberg&quot;,
-            &quot;abkuerzung&quot;: &quot;&quot;,
-            &quot;id&quot;: &quot;87&quot;
-        }
-    ]
-}
-</code></pre>
 
-<h4 id="parameter_1">Parameter</h4>
+<p><strong>Beispiel-Resultat (erste 2 Einträge)</strong></p>
+
+<pre class="prettyprint"><code class=" hljs json">{
+    "<span class="hljs-attribute">res</span>": <span class="hljs-value">[
+    {
+        "<span class="hljs-attribute">nameclass</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Abbaye de Saint-Maurice, Monastère"</span></span>,
+        "<span class="hljs-attribute">ort</span>": <span class="hljs-value"><span class="hljs-string">"Saint-Maurice"</span></span>,
+        "<span class="hljs-attribute">abkuerzung</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"129"</span>
+        </span>},
+        {
+            "<span class="hljs-attribute">nameclass</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Abegg-Stiftung"</span></span>,
+            "<span class="hljs-attribute">ort</span>": <span class="hljs-value"><span class="hljs-string">"Riggisberg"</span></span>,
+            "<span class="hljs-attribute">abkuerzung</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"87"</span>
+        </span>}
+    ]
+</span>}</code></pre>
+
+
+
+<h4 id="parameter-1">Parameter</h4>
+
 <ul>
-<li><strong>Nach Anfangsbuchstaben E filtern:</strong> /?a=institution&amp;anf=E</li>
+<li><strong>Nach Anfangsbuchstaben E filtern:</strong> <a href="https://www2.foto-ch.ch/api/?a=institution&amp;anf=E">/?a=institution&amp;anf=E</a></li>
 </ul>
+
 <h3 id="detaildaten-einer-institution">Detaildaten einer Institution</h3>
+
 <ul>
 <li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos einer Institution zurück</li>
-<li><strong>Call:</strong> /?a=institution&amp;id=300</li>
+<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=institution&amp;id=300">/?a=institution&amp;id=300</a></li>
 </ul>
-<p><strong>Beispiel-Resultat für Institutions-ID 300</strong></p>
-<pre><code>{
-    &quot;name&quot;: &quot;Archäologie und Museum Baselland&quot;,
-    &quot;adresse&quot;: &quot;Amtshausgasse 7&quot;,
-    &quot;ort&quot;: &quot;4410 Liestal&quot;,
-    &quot;isil&quot;: &quot;&quot;,
-    &quot;art&quot;: &quot;Dokumentationszentrum / Museum&quot;,
-    &quot;homepage&quot;: &quot; &lt;a href=\&quot;http://www.archaeologie.bl.ch\&quot; target=\&quot;_new\&quot;&gt;www.archaeologie.bl.ch&lt;/a&gt;&quot;,
-    &quot;bildgattungen_set&quot;: &quot;Personen, Porträt, Ortsbild, Architektur, Landschaft, Natur, Flugaufnahme, Industrie, Landwirtschaft, Sachaufnahme, Mode, Unfall/Katastrophe, Militär, Ethnologie, Archäologie, Kunst, Alltag, Dokumentation, private Fotografie, wissenschaftliche Fotografie&quot;,
-    &quot;zugang_zur_sammlung&quot;: &quot;nach Voranmeldung&quot;,
-    &quot;sammlungszeit&quot;: &quot;Ende 19. Jahrhundert - &quot;,
-    &quot;sammlungsbeschreibung&quot;: &quot;&quot;,
-    &quot;sammlungsgeschichte&quot;: &quot;Ab den 1930er Jahren wurde auf archäologischen Fundstellen systematisch fotografiert und das Archiv wird laufend erweitert.&lt;br&gt;\r\nAb den späten 1960er Jahren wurden erste Ausstellungen des Kantonsmuseums (heute Museum.BL) mit Fotos illustriert und dokumentiert.&lt;br&gt;\r\nAb den 1980er Jahren wurden erste historische Fotos und Ansichtskarten eher zufallsmässig gesammelt.\r\n&quot;,
-    &quot;bearbeitungsdatum&quot;: &quot;2013-01-29&quot;,
-    &quot;gesperrt&quot;: &quot;0&quot;,
-    &quot;bestaende&quot;: [
-        {
-            &quot;id&quot;: &quot;3231&quot;,
-            &quot;inst_id&quot;: &quot;300&quot;,
-            &quot;gi&quot;: null,
-            &quot;name&quot;: &quot;Fotoatelier Seiler, Liestal&quot;,
-            &quot;inst_name&quot;: null,
-            &quot;zeitraum&quot;: &quot;1880-1960&quot;,
-            &quot;Bestand&quot;: null
-        },
-        {
-            &quot;id&quot;: &quot;1625&quot;,
-            &quot;inst_id&quot;: &quot;300&quot;,
-            &quot;gi&quot;: null,
-            &quot;name&quot;: &quot;Nachlass Strübin, Theodor&quot;,
-            &quot;inst_name&quot;: null,
-            &quot;zeitraum&quot;: &quot;1935-1970&quot;,
-            &quot;Bestand&quot;: &quot;&quot;
-        },
-        {
-            &quot;id&quot;: &quot;1624&quot;,
-            &quot;inst_id&quot;: &quot;300&quot;,
-            &quot;gi&quot;: null,
-            &quot;name&quot;: &quot;Fotodokumentation der Archäologie Baselland&quot;,
-            &quot;inst_name&quot;: null,
-            &quot;zeitraum&quot;: &quot;seit 1910&quot;,
-            &quot;Bestand&quot;: &quot;&quot;
-        },
-        {
-            &quot;id&quot;: &quot;3232&quot;,
-            &quot;inst_id&quot;: &quot;300&quot;,
-            &quot;gi&quot;: null,
-            &quot;name&quot;: &quot;Modefotos Seidenbandfabrik Seiler &amp; Co., Gelterkinden&quot;,
-            &quot;inst_name&quot;: null,
-            &quot;zeitraum&quot;: &quot;&quot;,
-            &quot;Bestand&quot;: &quot;&quot;
-        }
-    ]
-}
-</code></pre>
 
-<h2 id="bestande">Bestände</h2>
-<h3 id="liste-aller-bestande">Liste aller Bestände</h3>
+<p><strong>Beispiel-Resultat für Institutions-ID 300</strong></p>
+
+<pre class="prettyprint"><code class=" hljs json">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Archäologie und Museum Baselland"</span></span>,
+    "<span class="hljs-attribute">adresse</span>": <span class="hljs-value"><span class="hljs-string">"Amtshausgasse 7"</span></span>,
+    "<span class="hljs-attribute">ort</span>": <span class="hljs-value"><span class="hljs-string">"4410 Liestal"</span></span>,
+    "<span class="hljs-attribute">isil</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">art</span>": <span class="hljs-value"><span class="hljs-string">"Dokumentationszentrum / Museum"</span></span>,
+    "<span class="hljs-attribute">homepage</span>": <span class="hljs-value"><span class="hljs-string">" &lt;a href=\"http://www.archaeologie.bl.ch\" target=\"_new\"&gt;www.archaeologie.bl.ch&lt;/a&gt;"</span></span>,
+    "<span class="hljs-attribute">bildgattungen_set</span>": <span class="hljs-value"><span class="hljs-string">"Personen, Porträt, Ortsbild, Architektur, Landschaft, Natur, Flugaufnahme, Industrie, Landwirtschaft, Sachaufnahme, Mode, Unfall/Katastrophe, Militär, Ethnologie, Archäologie, Kunst, Alltag, Dokumentation, private Fotografie, wissenschaftliche Fotografie"</span></span>,
+    "<span class="hljs-attribute">zugang_zur_sammlung</span>": <span class="hljs-value"><span class="hljs-string">"nach Voranmeldung"</span></span>,
+    "<span class="hljs-attribute">sammlungszeit</span>": <span class="hljs-value"><span class="hljs-string">"Ende 19. Jahrhundert - "</span></span>,
+    "<span class="hljs-attribute">sammlungsbeschreibung</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">sammlungsgeschichte</span>": <span class="hljs-value"><span class="hljs-string">"Ab den 1930er Jahren wurde auf archäologischen Fundstellen systematisch fotografiert und das Archiv wird laufend erweitert.&lt;br&gt;\r\nAb den späten 1960er Jahren wurden erste Ausstellungen des Kantonsmuseums (heute Museum.BL) mit Fotos illustriert und dokumentiert.&lt;br&gt;\r\nAb den 1980er Jahren wurden erste historische Fotos und Ansichtskarten eher zufallsmässig gesammelt.\r\n"</span></span>,
+    "<span class="hljs-attribute">bearbeitungsdatum</span>": <span class="hljs-value"><span class="hljs-string">"2013-01-29"</span></span>,
+    "<span class="hljs-attribute">gesperrt</span>": <span class="hljs-value"><span class="hljs-string">"0"</span></span>,
+    "<span class="hljs-attribute">bestaende</span>": <span class="hljs-value">[
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"3231"</span></span>,
+            "<span class="hljs-attribute">inst_id</span>": <span class="hljs-value"><span class="hljs-string">"300"</span></span>,
+            "<span class="hljs-attribute">gi</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Fotoatelier Seiler, Liestal"</span></span>,
+            "<span class="hljs-attribute">inst_name</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">zeitraum</span>": <span class="hljs-value"><span class="hljs-string">"1880-1960"</span></span>,
+            "<span class="hljs-attribute">Bestand</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
+        </span>},
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"1625"</span></span>,
+            "<span class="hljs-attribute">inst_id</span>": <span class="hljs-value"><span class="hljs-string">"300"</span></span>,
+            "<span class="hljs-attribute">gi</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Nachlass Strübin, Theodor"</span></span>,
+            "<span class="hljs-attribute">inst_name</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">zeitraum</span>": <span class="hljs-value"><span class="hljs-string">"1935-1970"</span></span>,
+            "<span class="hljs-attribute">Bestand</span>": <span class="hljs-value"><span class="hljs-string">""</span>
+        </span>},
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"1624"</span></span>,
+            "<span class="hljs-attribute">inst_id</span>": <span class="hljs-value"><span class="hljs-string">"300"</span></span>,
+            "<span class="hljs-attribute">gi</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Fotodokumentation der Archäologie Baselland"</span></span>,
+            "<span class="hljs-attribute">inst_name</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">zeitraum</span>": <span class="hljs-value"><span class="hljs-string">"seit 1910"</span></span>,
+            "<span class="hljs-attribute">Bestand</span>": <span class="hljs-value"><span class="hljs-string">""</span>
+        </span>},
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"3232"</span></span>,
+            "<span class="hljs-attribute">inst_id</span>": <span class="hljs-value"><span class="hljs-string">"300"</span></span>,
+            "<span class="hljs-attribute">gi</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Modefotos Seidenbandfabrik Seiler &amp; Co., Gelterkinden"</span></span>,
+            "<span class="hljs-attribute">inst_name</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">zeitraum</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+            "<span class="hljs-attribute">Bestand</span>": <span class="hljs-value"><span class="hljs-string">""</span>
+        </span>}
+    ]
+</span>}</code></pre>
+
+
+
+<h2 id="bestände">Bestände</h2>
+
+
+
+<h3 id="liste-aller-bestände">Liste aller Bestände</h3>
+
 <ul>
 <li><strong>Beschreibung:</strong> Gibt eine Liste aller Bestände zurück.</li>
-<li><strong>Call:</strong> /?a=inventory</li>
+<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory">/?a=inventory</a></li>
 </ul>
-<p><strong>Beispiel-Resultat (erste 2 Einträge)</strong></p>
-<pre><code>{
-    &quot;res&quot;: [
-        {
-            &quot;name&quot;: &quot; Archivio fotografico Luigi Gisep&quot;,
-            &quot;institution&quot;: null,
-            &quot;inst_id&quot;: &quot;694&quot;,
-            &quot;nameclass&quot;: &quot;subtitle3x&quot;,
-            &quot;id&quot;: &quot;4050&quot;,
-            &quot;gesperrt&quot;: &quot;1&quot;
-        },
-        {
-            &quot;name&quot;: &quot; Henze, Hans Werner&quot;,
-            &quot;institution&quot;: null,
-            &quot;inst_id&quot;: &quot;522&quot;,
-            &quot;nameclass&quot;: &quot;subtitle3&quot;,
-            &quot;id&quot;: &quot;2820&quot;,
-            &quot;gesperrt&quot;: &quot;0&quot;
-        }
-    ]
-}
-</code></pre>
 
-<h4 id="parameter_2">Parameter</h4>
+<p><strong>Beispiel-Resultat (erste 2 Einträge)</strong></p>
+
+<pre class="prettyprint"><code class=" hljs json">{
+    "<span class="hljs-attribute">res</span>": <span class="hljs-value">[
+        {
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">" Archivio fotografico Luigi Gisep"</span></span>,
+            "<span class="hljs-attribute">institution</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">inst_id</span>": <span class="hljs-value"><span class="hljs-string">"694"</span></span>,
+            "<span class="hljs-attribute">nameclass</span>": <span class="hljs-value"><span class="hljs-string">"subtitle3x"</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"4050"</span></span>,
+            "<span class="hljs-attribute">gesperrt</span>": <span class="hljs-value"><span class="hljs-string">"1"</span>
+        </span>},
+        {
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">" Henze, Hans Werner"</span></span>,
+            "<span class="hljs-attribute">institution</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">inst_id</span>": <span class="hljs-value"><span class="hljs-string">"522"</span></span>,
+            "<span class="hljs-attribute">nameclass</span>": <span class="hljs-value"><span class="hljs-string">"subtitle3"</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"2820"</span></span>,
+            "<span class="hljs-attribute">gesperrt</span>": <span class="hljs-value"><span class="hljs-string">"0"</span>
+        </span>}
+    ]
+</span>}</code></pre>
+
+
+
+<h4 id="parameter-2">Parameter</h4>
+
 <ul>
-<li><strong>Nach Anfangsbuchstaben E filtern:</strong> /?a=inventory&amp;anf=E</li>
+<li><strong>Nach Anfangsbuchstaben E filtern:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory&amp;anf=E">/?a=inventory&amp;anf=E</a></li>
 </ul>
+
 <h3 id="detaildaten-eines-bestandes">Detaildaten eines Bestandes</h3>
+
 <ul>
 <li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos eines Bestandes zurück</li>
-<li><strong>Call:</strong> /?a=inventory&amp;id=128</li>
+<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory&amp;id=128">/?a=inventory&amp;id=128</a></li>
 </ul>
+
 <p><strong>Beispiel-Resultat für Bestand mit ID 128</strong></p>
-<pre><code>{
-    &quot;id&quot;: &quot;128&quot;,
-    &quot;name&quot;: &quot;Heimatlosenporträts (CH-BAR#E21*, Polizeiwesen)&quot;,
-    &quot;bearbeitungsdatum&quot;: &quot;2013-09-26&quot;,
-    &quot;zeitraum&quot;: &quot;1852–1853&quot;,
-    &quot;bestandsbeschreibung&quot;: &quot;&quot;,
-    &quot;link_extern&quot;: &quot;&quot;,
-    &quot;signatur&quot;: &quot;CH-BAR#E21#1000/131*&quot;,
-    &quot;copyright&quot;: &quot;&quot;,
-    &quot;bildgattungen&quot;: &quot;Personen, Porträt, Kriminologie&quot;,
-    &quot;umfang&quot;: &quot;220 Einheiten&quot;,
-    &quot;weiteres&quot;: &quot;&quot;,
-    &quot;erschliessungsgrad&quot;: &quot;Auf Dossier-Ebene erschlossen&quot;,
-    &quot;inst_id&quot;: &quot;8&quot;,
-    &quot;inst_name&quot;: &quot;Schweizerisches Bundesarchiv&quot;,
-    &quot;fotographer&quot;: [
+
+<pre class="prettyprint"><code class=" hljs json">{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"128"</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Heimatlosenporträts (CH-BAR#E21*, Polizeiwesen)"</span></span>,
+    "<span class="hljs-attribute">bearbeitungsdatum</span>": <span class="hljs-value"><span class="hljs-string">"2013-09-26"</span></span>,
+    "<span class="hljs-attribute">zeitraum</span>": <span class="hljs-value"><span class="hljs-string">"1852–1853"</span></span>,
+    "<span class="hljs-attribute">bestandsbeschreibung</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">link_extern</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">signatur</span>": <span class="hljs-value"><span class="hljs-string">"CH-BAR#E21#1000/131*"</span></span>,
+    "<span class="hljs-attribute">copyright</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">bildgattungen</span>": <span class="hljs-value"><span class="hljs-string">"Personen, Porträt, Kriminologie"</span></span>,
+    "<span class="hljs-attribute">umfang</span>": <span class="hljs-value"><span class="hljs-string">"220 Einheiten"</span></span>,
+    "<span class="hljs-attribute">weiteres</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+    "<span class="hljs-attribute">erschliessungsgrad</span>": <span class="hljs-value"><span class="hljs-string">"Auf Dossier-Ebene erschlossen"</span></span>,
+    "<span class="hljs-attribute">inst_id</span>": <span class="hljs-value"><span class="hljs-string">"8"</span></span>,
+    "<span class="hljs-attribute">inst_name</span>": <span class="hljs-value"><span class="hljs-string">"Schweizerisches Bundesarchiv"</span></span>,
+    "<span class="hljs-attribute">fotographer</span>": <span class="hljs-value">[
     {
-        &quot;name&quot;: &quot;Carl  Durheim&quot;,
-        &quot;fotografen_id&quot;: &quot;1133&quot;,
-        &quot;gesperrt&quot;: 0
-    }
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Carl  Durheim"</span></span>,
+        "<span class="hljs-attribute">fotografen_id</span>": <span class="hljs-value"><span class="hljs-string">"1133"</span></span>,
+        "<span class="hljs-attribute">gesperrt</span>": <span class="hljs-value"><span class="hljs-number">0</span>
+    </span>}
     ]
-}
-</code></pre>
+</span>}</code></pre>
