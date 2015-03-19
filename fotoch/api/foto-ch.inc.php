@@ -88,4 +88,21 @@ function formumfeldn($t){  // expandiert Links im Umfeld
 	return(str_replace('<br>','<br />',$t));
 }
 
+function formdatesimp2($date,$code){
+        // formatiert Datum
+        // Code
+        // 0: TT.MM.YYYY
+        // 1: YYYY
+        // sonst: leer
+
+        switch ($code){
+                case 0: return (substr($date,8,2)+0).'.'.(substr($date,5,2)+0).'.'.substr($date,0,4);
+                case 1: return substr($date,0,4);
+                case 2: return "";
+                case 8: return "";
+                case 9: return "";
+        }
+        return date("d.m.Y",strtotime($date));
+}
+
 ?>

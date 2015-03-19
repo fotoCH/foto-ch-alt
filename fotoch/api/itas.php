@@ -3,7 +3,7 @@ require("./mysql.inc.php");
 require("./foto-ch.inc.php");
 error_reporting(!(E_ALL));
 setlocale (LC_ALL, 'de_CH');
-$foto=strtolower($_REQUEST['s']);
+$foto=($_REQUEST['s']);
 $l=strlen($foto);
 
 $sql="SELECT * FROM institution WHERE name LIKE '$foto%' ORDER BY name LIMIT 18";

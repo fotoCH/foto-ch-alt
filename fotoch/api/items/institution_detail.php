@@ -24,7 +24,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
         $fetch['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen_set']);
     }
     $fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
-
+    $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
     if ($fetch['sammlungszeit_von'].$fetch['sammlungszeit_bis']!=''){
         $fetch['sammlungszeit']=$fetch['sammlungszeit_von'].' - '.$fetch['sammlungszeit_bis'];
     } else { $fetch['sammlungszeit']=''; }
@@ -53,6 +53,54 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 		$bestaende[]=$best;
 	}
 	$out['bestaende']=$bestaende;
+
+
+	$result7=mysql_query("SELECT literatur_institution.institution_id, literatur_institution.id AS if_id, literatur.*
+    FROM literatur_institution INNER JOIN literatur ON literatur_institution.literatur_id = literatur.id
+    WHERE literatur_institution.institution_id=$id ORDER BY literatur.verfasser_name");
+
+	while($fetch7=mysql_fetch_array($result7)){
+		//$tmpfetch7 = $fetch7;
+		//if($litHasChanged) abstand($def);
+		$fetch7=formlit($fetch7);
+		//$def->assign("FETCH7",$fetch7);
+		if(auth_level(USER_GUEST_READER)) {
+			//$def->parse($det.".z.lit.adm");
+		}
+		$l=array('id'=>$fetch7['id'],'text'=>$fetch7['text']);
+		$slit[]=$l;
+		//$def->parse($det.".z.lit");
+		//$def->parse($det.".z");
+	}
+	$out['literatur']=$slit;
+	//if(mysql_num_rows($result7)!=0) abstand($def);
+
+	$aus='';
+
+	$result8=mysql_query("SELECT ausstellung_institution.institution_id, ausstellung_institution.id AS af_id, ausstellung.*
+    FROM ausstellung_institution INNER JOIN ausstellung ON ausstellung_institution.ausstellung_id = ausstellung.id
+    WHERE ausstellung_institution.institution_id=$id ORDER BY ausstellung.typ, af_id");
+	//if(mysql_num_rows($result8)!=0) abstand($def);
+	while($fetch8=mysql_fetch_array($result8)){
+		$aus=$fetch8['typ'];
+		//if($typeHasChanged) abstand($def);
+		$fetch8=formaus($fetch8);
+		//$def->assign("FETCH8",$fetch8);
+		if(auth_level(USER_GUEST_READER)) {
+			//$def->parse($det.".z.aus.adm");
+		}
+		//$def->parse($det.".z.aus");
+		//$def->parse($det.".z");
+		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text']);
+		if ($aus=='E'){
+			$eaus[]=$a;
+		} else {
+			$gaus[]=$a;
+		}
+		
+	}
+	$out['einzelausstellungen']=$eaus;
+	$out['gruppenausstellungen']=$gaus;
 
 /*    if (auth_level(USER_WORKER)) {
         //$fetch['name'].=" <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>";

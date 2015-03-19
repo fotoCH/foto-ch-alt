@@ -3,13 +3,13 @@ require("./mysql.inc.php");
 require("./foto-ch.inc.php");
 error_reporting(!(E_ALL));
 setlocale (LC_ALL, 'de_CH');
-$foto=strtolower($_REQUEST['s']);
+$foto=(($_REQUEST['s']));
 $l=strlen($foto);
 
 $sql="SELECT * FROM namen WHERE CANCAT(LOWER(nachname),LOWER(vorname)) LIKE '$foto%' ORDER BY nachname, vorname LIMIT 18";
 
 $sql="SELECT  fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND CONCAT(LOWER(nachname),' ',LOWER(vorname)) LIKE '$foto%' ORDER BY nachname, vorname LIMIT 18";
-
+//echo $sql;
 $result=mysql_query($sql);
 $c=0;
 $res=array();

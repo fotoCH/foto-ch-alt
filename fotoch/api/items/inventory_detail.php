@@ -22,7 +22,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     	$fetch['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen_set']);
     }
     $fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
-    
+    $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
     pushfields($out,$fetch,array('id','name','bearbeitungsdatum','zeitraum','bestandsbeschreibung','link_extern','signatur','copyright','bildgattungen','umfang','weiteres','erschliessungsgrad','inst_id','inst_name'));
     $result6=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=$id");
     
