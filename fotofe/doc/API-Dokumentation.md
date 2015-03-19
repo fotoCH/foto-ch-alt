@@ -6,21 +6,18 @@ Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: [https://www2.fot
 
 ## Sprach-API
 Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen werden.
-
 - **[/?a=sprache&lang=de](https://www2.foto-ch.ch/api/?a=sprache&lang=de)** (Deutsch)
 - **[/?a=sprache&lang=fr](https://www2.foto-ch.ch/api/?a=sprache&lang=fr)** (Französisch)
 - **[/?a=sprache&lang=it](https://www2.foto-ch.ch/api/?a=sprache&lang=it)** (Italienisch)
 
 ## Statische Inhalte
 Lieferte Inhalte für statischen Seiten, z.B. Über uns.
-
 - **[/?a=pages&lang=de](https://www2.foto-ch.ch/api/?a=pages&lang=de)** (Deutsch)
 - **[/?a=pages&lang=fr](https://www2.foto-ch.ch/api/?a=pages&lang=fr)** (Französisch)
 - **[/?a=pages&lang=it](https://www2.foto-ch.ch/api/?a=pages&lang=it)** (Italienisch)
 
 ## Partner
 Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die Logos sind lokal auf dem Server gespeichert.
-
 - **[/?a=partner&lang=de](https://www2.foto-ch.ch/api/?a=partner&lang=de)** (Deutsch)
 - **[/?a=partner&lang=fr](https://www2.foto-ch.ch/api/?a=partner&lang=fr)** (Französisch)
 - **[/?a=partner&lang=it](https://www2.foto-ch.ch/api/?a=partner&lang=it)** (Italienisch)
