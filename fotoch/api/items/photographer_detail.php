@@ -2,128 +2,46 @@
 
 $id=$_GET['id'];
 
-if (auth_level(USER_GUEST_READER_PARTNER))
-$result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
-else  $result=mysql_query("SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
-echo $sql;
-while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+if(auth_level(USER_GUEST_READER)) {
+	$result = mysql_query("SELECT * FROM fotografen WHERE (id=$id)");
+}
+else {
+	$result=mysql_query("SELECT * FROM fotografen WHERE (id=$id) AND (unpubliziert=0)");
+}
 
-    if(auth_level(USER_GUEST_READER)){
-        $outl['idd']=$id;
-        
-    }
-    $fetch['name']=clean_entry(clangcont($fetch,'name'));
-    $fetch['abkuerzung']=clean_entry(clangcont($fetch,'abkuerzung'));
-    if ($fetch['abkuerzung']) $fetch['name'].=' ('.$fetch['abkuerzung'].')';
-    unset($fetch['abkuerzung']);
-    $fetch['ort']=$fetch['plz'].' '.$fetch['ort'];
-    unset($fetch['plz']);
-    $fetch['homepage']=preg_replace("/http:\/\/(.*)/","<a href=\"http://\$1\" target=\"_new\">\$1</a>",$fetch['homepage']);
-    $fetch['email']=preg_replace("/(.*@.*)/","<a href=\"mailto:\$1\">\$1</a>",$fetch['email']);
-    if ($_GET['lang']!='de'){
-        $fetch['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen_set']);
-    }
-    $fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
-    $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
-    if ($fetch['sammlungszeit_von'].$fetch['sammlungszeit_bis']!=''){
-        $fetch['sammlungszeit']=$fetch['sammlungszeit_von'].' - '.$fetch['sammlungszeit_bis'];
-    } else { $fetch['sammlungszeit']=''; }
-    pushfields($out,$fetch,array('name','adresse','ort','isil','art','homepage','bildgattungen_set','zugang_zur_sammlung','sammlungszeit','sammlungsbeschreibung','sammlungsgeschichte','bearbeitungsdatum','gesperrt'));
-    $result6=mysql_query("SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
-    	while($fetch6=mysql_fetch_array($result6)){
-		if (auth_level(USER_GUEST_READER_PARTNER) || $fetch6['instgesp']==0){
-			$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
-		} else {
-			$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
-		}
-		if (auth_level(USER_GUEST_READER_PARTNER)){
-			//$def->assign("gb",($fetch6['gesperrt']==0?'':'g'));
-			//$def->assign("gi",($fetch6['instgesp']==0?'':'g'));
-		}
-		$fetch6['Bestand']=$bes;
-		//$def->assign("FETCH6",$fetch6);
-		if(auth_level(USER_GUEST_READER)) {
-			//$def->parse($det.".z.bestn.adm");
-		}
-		//$def->parse($det.".z.bestn");
-		//$def->parse($det.".z");
-		$bes='';
-		//$results.=$def->text($det.".z");
-		if(auth_level(USER_GUEST_READER) || $fetch6['gesperrt']==0) {
-			pushfields($best,$fetch6,array('id','inst_id','gi','name','inst_name','zeitraum','Bestand'));
-			$bestaende[]=$best;
-			//$def->parse($det.".z.bestn.adm");
-		}
+while($fetch=mysql_fetch_array($result)){
+	if ($fetch['originalsprache']=='fr' && $_GET['clang']=='') $clanguage='fr';
+	$fetch['sprachanzeige']=checklangsf($fetch,array('beruf','umfeld','werdegang','schaffensbeschrieb'),"<a href=\"./?a=fotograph&amp;id=$id&amp;lang=$lang");
+	if (auth_level(USER_WORKER)){
 
+	} else {
+		$fetch['id']='';
 	}
-	$out['bestaende']=$bestaende;
-
-
-	$result7=mysql_query("SELECT literatur_institution.institution_id, literatur_institution.id AS if_id, literatur.*
-    FROM literatur_institution INNER JOIN literatur ON literatur_institution.literatur_id = literatur.id
-    WHERE literatur_institution.institution_id=$id ORDER BY literatur.verfasser_name");
-
-	while($fetch7=mysql_fetch_array($result7)){
-		//$tmpfetch7 = $fetch7;
-		//if($litHasChanged) abstand($def);
-		$fetch7=formlit($fetch7);
-		//$def->assign("FETCH7",$fetch7);
-		if(auth_level(USER_GUEST_READER)) {
-			//$def->parse($det.".z.lit.adm");
-		}
-		$l=array('id'=>$fetch7['id'],'text'=>$fetch7['text']);
-		$slit[]=$l;
-		//$def->parse($det.".z.lit");
-		//$def->parse($det.".z");
+	if ($fetch['pnd'] && ($fetch['pnd_status']==1 || auth_level(USER_GUEST_READER_PARTNER))){
+		$fetch['pnd_f']='<a target="_new" href="http://d-nb.info/gnd/'.$fetch['pnd'].'">'.$fetch['pnd'].'</a>';
 	}
-	$out['literatur']=$slit;
-	//if(mysql_num_rows($result7)!=0) abstand($def);
 
-	$aus='';
-
-	$result8=mysql_query("SELECT ausstellung_institution.institution_id, ausstellung_institution.id AS af_id, ausstellung.*
-    FROM ausstellung_institution INNER JOIN ausstellung ON ausstellung_institution.ausstellung_id = ausstellung.id
-    WHERE ausstellung_institution.institution_id=$id ORDER BY ausstellung.typ, af_id");
-	//if(mysql_num_rows($result8)!=0) abstand($def);
-	while($fetch8=mysql_fetch_array($result8)){
-		$aus=$fetch8['typ'];
-		//if($typeHasChanged) abstand($def);
-		$fetch8=formaus($fetch8);
-		//$def->assign("FETCH8",$fetch8);
-		if(auth_level(USER_GUEST_READER)) {
-			//$def->parse($det.".z.aus.adm");
-		}
-		//$def->parse($det.".z.aus");
-		//$def->parse($det.".z");
-		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text']);
-		if ($aus=='E'){
-			$eaus[]=$a;
-		} else {
-			$gaus[]=$a;
-		}
-		
+	$fetch['fbearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
+	$fetch['fldatum']=trim(formldatesimp2($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum'],$fetch['geburtsort'],$fetch['todesort']));
+	$fetch['fumfeld']=formumfeldn(clangcont($fetch,'umfeld'));
+	if ($_GET['lang']!='de'){
+		$fetch['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$fetch['fotografengattungen_set']);
 	}
-	$out['einzelausstellungen']=$eaus;
-	$out['gruppenausstellungen']=$gaus;
+	$fetch['fotografengattungen_set']=str_replace(',',', ',$fetch['fotografengattungen_set']);
+	if ($fetch['geschlecht']=='f'){  // nur in deutscher Sprache
+		$fetch['fotografengattungen_set']=str_replace('otograf','otografin',$fetch['fotografengattungen_set']);
+		$fetch['fotografengattungen_set']=str_replace('lehrer','lehrerin',$fetch['fotografengattungen_set']);
+		$fetch['fotografengattungen_set']=str_replace('reporter','reporterin',$fetch['fotografengattungen_set']);
+		$fetch['fotografengattungen_set']=str_replace('abrikant','abrikantin',$fetch['fotografengattungen_set']);
+		$fetch['fotografengattungen_set']=str_replace('issenschaftler','issenschaftlerin',$fetch['fotografengattungen_set']);
+		$fetch['fotografengattungen_set']=str_replace('ammler','ammlerin',$fetch['fotografengattungen_set']);
+	}
 
-/*    if (auth_level(USER_WORKER)) {
-        //$fetch['name'].=" <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>";
-        $def->assign("bearbeiten"," <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>");
-        normfeldg($def,$spr['name'],$fetch['name'],$fetch['gesperrt']);
-        $def->assign("bearbeiten","");
-    } else {
-        if (auth_level(USER_GUEST_READER_PARTNER)){
-            normfeldg($def,$spr['name'],$fetch['name'],$fetch['gesperrt']);
-        } else {
-            normfeld($def,$spr['name'],$fetch['name']);
-        }
-    }
-    
-    normfeld($def,$spr['art'],$fetch['art']);
-    normfeld($def,$spr['isil'],$fetch['isil']);
-    normfeld($def,$spr['adresse'],$fetch['adresse']);
-    normfeld($def,$spr['ort'],$fetch['ort']);
-	
+	if ($_GET['lang']!='de'){
+		$fetch['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen_set']);
+	}
+	$fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
+
 	$result4=mysql_query("SELECT * FROM namen WHERE fotografen_id=$id ORDER BY  id");
 	//echo "SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id";
 	//$def->assign("SPR1",$spr);
@@ -150,7 +68,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	//just before leaving the namensvarianten, attach the lebensdaten:
 	//$def->assign("FETCH4",$fetch4);
 	//$def->parse($det.".fldatum");
-	//abstand($def); 
+	//abstand($def);
 	$out['namen']=$namen;
 	pushfields($out,$fetch,array('originalsprache','sprachanzeige','id','pnd','pnd_status','fbearbeitungsdatum','fldatum','fumfeld','fotografengattungen_set','bildgattungen_set'));
 
@@ -257,7 +175,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 			//$def->assign("alt_best", "");
 		}
 		//
-	}
+	}*/
 	//if(mysql_num_rows($result3)>0) abstand($def);
 	$lit='';
 
@@ -336,7 +254,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	$out['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
 	if (auth_level(USER_GUEST_READER)){
 		//$def->assign('g',$fetch['unpubliziert']==1?'g':'');
-	} */
+	}
 }//while
 
 	jsonout($out);
