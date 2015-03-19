@@ -19,6 +19,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 		    $rootScope.isLangSwitchOpen = false;	// Close the language switch after selection of new language
 		    $rootScope.isMenuOpen = false;			// Close the mobile menu after selection of new language
 		    loadTranslation();
+		    if ($state.includes('aboutFotoch')) {		// Reload content for about us page after switching language
+		    	$rootScope.loadAboutUs();
+		    }
 	  };
 		
 	  $scope.getLclass = function(lang) {
@@ -164,6 +167,22 @@ app.controller('InventoryCtrl', ['$scope', '$http','$location', '$state','$state
 	  }
 	  $scope.abc=abc;
 	}]);
+
+app.controller('staticPageCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+  	console.log("Static Page Controller reporting for duty.");
+  
+	function loadContent(){
+	  $http.get($rootScope.ApiUrl+'/?a=pages&lang='+$rootScope.lang).success (function(data){
+			$scope.pages = data;
+		});
+  	}
+  	
+  	loadContent();
+
+  	$rootScope.loadAboutUs = function(){
+  		loadContent();
+  	};
+}]);
 
 app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
 	  console.log("Login Controller reporting for duty.");

@@ -19,55 +19,56 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         .state('fotographer', {
             url: '/fotographer?anf',
             templateUrl: 'app/components/fotographer/fotographer.html',
-            controller: "FotographerCtrl"
+            controller: 'FotographerCtrl'
         })
 
         // Fotographer detail view
         .state('fotographerDetail', {
             url: '/fotographer/detail?id',
             templateUrl: 'app/components/fotographer/fotographerDetail.html',
-            controller: "FotographerCtrl"
+            controller: 'FotographerCtrl'
         })
         // Institution search view
         .state('institution', {
             url: '/institution?anf',
             templateUrl: 'app/components/institution/institution.html',
-            controller: "InstitutionCtrl"
+            controller: 'InstitutionCtrl'
         })
         // Institution detail view
         .state('institutionDetail', {
             url: '/institution/detail?id',
             templateUrl: 'app/components/institution/institutionDetail.html',
-            controller: "InstitutionCtrl"
+            controller: 'InstitutionCtrl'
         })
         // Inventory detail view
         .state('inventoryDetail', {
             url: '/inventory/detail?id',
             templateUrl: 'app/components/inventory/inventoryDetail.html',
-            controller: "InventoryCtrl"
+            controller: 'InventoryCtrl'
         })
         // Contact page
         .state('contact', {
             url: '/contact',
-            templateUrl: 'app/components/meta/contact.html'
+            templateUrl: 'app/components/meta/contact.html',
+            controller: 'staticPageCtrl'
         })
-        // About us page
-        .state('aboutus', {
-            url: '/aboutus',
-            templateUrl: 'app/components/meta/aboutus.html'
+        // About fotoCH
+        .state('aboutFotoch', {
+            url: '/aboutfotoch',
+            templateUrl: 'app/components/meta/aboutFotoch.html',
+            controller: 'staticPageCtrl'
         })
         // Testpage for development
         .state('login', {
             url: '/login',
             templateUrl: 'app/components/meta/login.html',
-            controller: "LoginCtrl"
+            controller: 'LoginCtrl'
         })
-
         // Testpage for development
         .state('test', {
             url: '/test',
             templateUrl: 'app/components/test/test.html',
-            controller: "LoginCtrl"
+            controller: 'LoginCtrl'
         });
  
 
