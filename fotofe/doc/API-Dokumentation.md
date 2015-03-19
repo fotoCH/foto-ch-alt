@@ -4,17 +4,26 @@ Dieses Dokument beschreibt die API, welche für fotoCH entwickelt wurde.
 ## Allgemeine Infos
 Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: [https://www2.foto-ch.ch/api/](https://www2.foto-ch.ch/api/)**. Die Daten werden im JSON Format zurückgegeben.
 
-## Dokumentation-History
-- 18.03.2015 - 0.0.3: API-Aufrufe verlinken
-- 16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt
-- 13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister
-
 ## Sprach-API
 Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen werden.
 
-- **[https://www2.foto-ch.ch/api/?a=sprache&lang=de](https://www2.foto-ch.ch/api/?a=sprache&lang=de)** (Deutsch)
-- **[https://www2.foto-ch.ch/api/?a=sprache&lang=fr](https://www2.foto-ch.ch/api/?a=sprache&lang=fr)** (Französisch)
-- **[https://www2.foto-ch.ch/api/?a=sprache&lang=it](https://www2.foto-ch.ch/api/?a=sprache&lang=it)** (Italienisch)
+- **[/?a=sprache&lang=de](https://www2.foto-ch.ch/api/?a=sprache&lang=de)** (Deutsch)
+- **[/?a=sprache&lang=fr](https://www2.foto-ch.ch/api/?a=sprache&lang=fr)** (Französisch)
+- **[/?a=sprache&lang=it](https://www2.foto-ch.ch/api/?a=sprache&lang=it)** (Italienisch)
+
+## Statische Inhalte
+Lieferte Inhalte für statischen Seiten, z.B. Über uns.
+
+- **[/?a=pages&lang=de](https://www2.foto-ch.ch/api/?a=pages&lang=de)** (Deutsch)
+- **[/?a=pages&lang=fr](https://www2.foto-ch.ch/api/?a=pages&lang=fr)** (Französisch)
+- **[/?a=pages&lang=it](https://www2.foto-ch.ch/api/?a=pages&lang=it)** (Italienisch)
+
+## Partner
+Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die Logos sind lokal auf dem Server gespeichert.
+
+- **[/?a=partner&lang=de](https://www2.foto-ch.ch/api/?a=partner&lang=de)** (Deutsch)
+- **[/?a=partner&lang=fr](https://www2.foto-ch.ch/api/?a=partner&lang=fr)** (Französisch)
+- **[/?a=partner&lang=it](https://www2.foto-ch.ch/api/?a=partner&lang=it)** (Italienisch)
 
 ## Fotografen
 ### Liste aller Fotografen
@@ -22,7 +31,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 - **Call:** [/?a=fotographer](https://www2.foto-ch.ch/api/?a=fotographer)
 
 **Beispiel-Resultat (erste 2 Einträge)**
-```
+```json
 {
 	"res": [
 	{
@@ -47,7 +56,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 }
 ```
 
-####Parameter
+#### Parameter
 - **Nach Anfangsbuchstaben E filtern:** [/?a=fotographer&anf=E](https://www2.foto-ch.ch/api/?a=fotographer&anf=E)
 
 ### Detaildaten eines Fotografen
@@ -55,7 +64,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 - **Call:** [/?a=fotographer&id=1542](https://www2.foto-ch.ch/api/?a=fotographer&id=1542)
 
 **Beispiel-Resultat für Fotografen-ID 1542**
-```
+```json
 {
 	"namen": [
 	{
@@ -114,7 +123,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 - **Call:** [/?a=institution](https://www2.foto-ch.ch/api/?a=institution)
 
 **Beispiel-Resultat (erste 2 Einträge)**
-```
+```json
 {
 	"res": [
 	{
@@ -135,7 +144,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 }
 ```
 
-####Parameter
+#### Parameter
 - **Nach Anfangsbuchstaben E filtern:** [/?a=institution&anf=E](https://www2.foto-ch.ch/api/?a=institution&anf=E)
 
 ### Detaildaten einer Institution
@@ -143,7 +152,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 - **Call:** [/?a=institution&id=300](https://www2.foto-ch.ch/api/?a=institution&id=300)
 
 **Beispiel-Resultat für Institutions-ID 300**
-```
+```json
 {
 	"name": "Archäologie und Museum Baselland",
 	"adresse": "Amtshausgasse 7",
@@ -205,7 +214,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 - **Call:** [/?a=inventory](https://www2.foto-ch.ch/api/?a=inventory)
 
 **Beispiel-Resultat (erste 2 Einträge)**
-```
+```json
 {
 	"res": [
 		{
@@ -228,7 +237,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 }
 ```
 
-####Parameter
+#### Parameter
 - **Nach Anfangsbuchstaben E filtern:** [/?a=inventory&anf=E](https://www2.foto-ch.ch/api/?a=inventory&anf=E)
 
 ### Detaildaten eines Bestandes
@@ -236,7 +245,7 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 - **Call:** [/?a=inventory&id=128](https://www2.foto-ch.ch/api/?a=inventory&id=128)
 
 **Beispiel-Resultat für Bestand mit ID 128**
-```
+```json
 {
 	"id": "128",
 	"name": "Heimatlosenporträts (CH-BAR#E21*, Polizeiwesen)",
@@ -261,3 +270,8 @@ Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen wer
 	]
 }
 ```
+
+## Versionsübersicht
+- 18.03.2015 - 0.0.3: API-Aufrufe verlinken. API für statische Inhalte und Partner hinzufügen.
+- 16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt
+- 13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister

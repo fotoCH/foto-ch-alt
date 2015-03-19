@@ -3,18 +3,7 @@
 		<div class="l-content__header">
 			<h1>{{spr.about_us}}</h1>
 		</div>
-		<md class="l-content__section" ng-if="lang == 'de'" ng-include="'data/ueberuns-de.md'"></md>
-		<md class="l-content__section" ng-if="lang == 'fr'" ng-include="'data/ueberuns-fr.md'"></md>
-		<md class="l-content__section" ng-if="lang == 'it'" ng-include="'data/ueberuns-it.md'"></md>
-		
-		<md class="l-content__section" ng-if="lang == 'de'" ng-include="'data/impressum-de.md'"></md>
-		<md class="l-content__section" ng-if="lang == 'fr'" ng-include="'data/impressum-fr.md'"></md>
-		<md class="l-content__section" ng-if="lang == 'it'" ng-include="'data/impressum-it.md'"></md>
-	</div>
-	<div class="l-content__aside">
-		<h2>{{spr.partner}}</h2>
-		<md class="l-content__section logo-partner" ng-if="lang == 'de'" ng-include="'data/partner-de.md'"></md>
-		<md class="l-content__section logo-partner" ng-if="lang == 'fr'" ng-include="'data/partner-fr.md'"></md>
-		<md class="l-content__section logo-partner" ng-if="lang == 'it'" ng-include="'data/partner-it.md'"></md>
+		<div ng-bind-html="spr.home_content | rawHtml"></div>
+		<div ng-bind-html="spr.impressum_content | rawHtml"></div>
 	</div>
 </div>
