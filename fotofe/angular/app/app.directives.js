@@ -58,3 +58,13 @@ app.directive('mediaPartner', function() {
 	    	}
 		  };
 		});
+
+app.directive('panel', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/panel/panel.html',
+	    	scope: {
+	    		  title: '=title',
+	    	}
+		  };
+		});

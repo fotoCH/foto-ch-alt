@@ -2,7 +2,7 @@
 Dieses Dokument beschreibt die eingesetzten Technologien, sowie die Struktur der Applikation.
 
 ## Verwendete Technologien
-Die Applikation besteht im Wesentlichen aus einem Backend, welches die Daten aus der Datenbank via [API](API-Dokumentation.html) dem Frontend zur Verfügung stellt. Die Daten werden anschliessend mit Javascript in HTML umgewandelt und im Browser dargestellt.
+Die Applikation besteht im Wesentlichen aus einem Backend, welches die Daten aus der Datenbank via [API](https://www2.foto-ch.ch/fotofe/doc/API-Dokumentation.html) dem Frontend zur Verfügung stellt. Die Daten werden anschliessend mit Javascript in HTML umgewandelt und im Browser dargestellt.
 
 **Frontend**
 - [AngularJS](https://angularjs.org/)

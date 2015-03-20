@@ -16,18 +16,18 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             controller: "HomeCtrl"
         })
         
-        // Fotographer search view
-        .state('fotographer', {
-            url: '/fotographer?anf',
-            templateUrl: 'app/components/fotographer/fotographer.html',
-            controller: 'FotographerCtrl'
+        // Photographer search view
+        .state('photographer', {
+            url: '/photographer?anf',
+            templateUrl: 'app/components/photographer/photographer.html',
+            controller: 'PhotographerCtrl'
         })
 
-        // Fotographer detail view
-        .state('fotographerDetail', {
-            url: '/fotographer/detail?id',
-            templateUrl: 'app/components/fotographer/fotographerDetail.html',
-            controller: 'FotographerCtrl'
+        // Photographer detail view
+        .state('photographerDetail', {
+            url: '/photographer/detail?id',
+            templateUrl: 'app/components/photographer/photographerDetail.html',
+            controller: 'PhotographerCtrl'
         })
         // Institution search view
         .state('institution', {

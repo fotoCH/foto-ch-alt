@@ -1037,7 +1037,7 @@ body .markdown-body
 <h3 id="liste-aller-fotografen"><a name="user-content-liste-aller-fotografen" href="#liste-aller-fotografen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Liste aller Fotografen</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt eine Liste aller Fotografen zurück.</li>
-<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer">/?a=fotographer</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer">/?a=fotographer</a></li>
 </ul>
 <p><strong>Beispiel-Resultat (erste 2 Einträge)</strong><br />
 <pre><code class="json">{
@@ -1070,7 +1070,7 @@ body .markdown-body
 <h3 id="detaildaten-eines-fotografen"><a name="user-content-detaildaten-eines-fotografen" href="#detaildaten-eines-fotografen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Detaildaten eines Fotografen</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos eines Fotografen zurück</li>
-<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer&amp;id=1542">/?a=fotographer&amp;id=1542</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer&amp;id=1542">/?a=fotographer&amp;id=1542</a></li>
 </ul>
 <p><strong>Beispiel-Resultat für Fotografen-ID 1542</strong><br />
 <pre><code class="json">{
@@ -1124,11 +1124,40 @@ body .markdown-body
     &quot;bearbeitungsdatum&quot;: &quot;12.02.2007&quot;
 }
 </code></pre></p>
+<h3 id="aktualisierte-fotografen"><a name="user-content-aktualisierte-fotografen" href="#aktualisierte-fotografen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Aktualisierte Fotografen</h3>
+<ul>
+<li><strong>Beschreibung:</strong> Gibt eine Liste von Fotografen zurück, welche zuletzt bearbeitet wurde.</li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?recent=10">/?recent=10</a></li>
+</ul>
+<p><strong>Beispiel-Resultat</strong><br />
+<pre><code class="json">{
+    &quot;res&quot;: [
+        {
+            &quot;bioclass&quot;: &quot;subtitle3&quot;,
+            &quot;fgeburtsdatum&quot;: &quot;1926&quot;,
+            &quot;fldatum&quot;: &quot;1926&quot;,
+            &quot;nachname&quot;: &quot;Wolf&quot;,
+            &quot;vorname&quot;: &quot;Kurt&quot;,
+            &quot;namenszusatz&quot;: &quot;&quot;,
+            &quot;id&quot;: &quot;21429&quot;
+        },
+        {
+            &quot;bioclass&quot;: &quot;subtitle3bio&quot;,
+            &quot;fgeburtsdatum&quot;: &quot;14.05.1892&quot;,
+            &quot;fldatum&quot;: &quot;14.05.1892 - &quot;,
+            &quot;nachname&quot;: &quot;Photographische Gesellschaft Bern&quot;,
+            &quot;vorname&quot;: &quot;&quot;,
+            &quot;namenszusatz&quot;: &quot;&quot;,
+            &quot;id&quot;: &quot;1724&quot;
+        }
+    ]
+}
+</code></pre></p>
 <h2 id="institutionen"><a name="user-content-institutionen" href="#institutionen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Institutionen</h2>
 <h3 id="liste-aller-institutionen"><a name="user-content-liste-aller-institutionen" href="#liste-aller-institutionen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Liste aller Institutionen</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt eine Liste aller Institutionen zurück.</li>
-<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=institution">/?a=institution</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=institution">/?a=institution</a></li>
 </ul>
 <p><strong>Beispiel-Resultat (erste 2 Einträge)</strong><br />
 <pre><code class="json">{
@@ -1157,7 +1186,7 @@ body .markdown-body
 <h3 id="detaildaten-einer-institution"><a name="user-content-detaildaten-einer-institution" href="#detaildaten-einer-institution" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Detaildaten einer Institution</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos einer Institution zurück</li>
-<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=institution&amp;id=300">/?a=institution&amp;id=300</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=institution&amp;id=300">/?a=institution&amp;id=300</a></li>
 </ul>
 <p><strong>Beispiel-Resultat für Institutions-ID 300</strong><br />
 <pre><code class="json">{
@@ -1218,7 +1247,7 @@ body .markdown-body
 <h3 id="liste-aller-bestande"><a name="user-content-liste-aller-bestande" href="#liste-aller-bestande" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Liste aller Bestände</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt eine Liste aller Bestände zurück.</li>
-<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory">/?a=inventory</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory">/?a=inventory</a></li>
 </ul>
 <p><strong>Beispiel-Resultat (erste 2 Einträge)</strong><br />
 <pre><code class="json">{
@@ -1249,7 +1278,7 @@ body .markdown-body
 <h3 id="detaildaten-eines-bestandes"><a name="user-content-detaildaten-eines-bestandes" href="#detaildaten-eines-bestandes" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Detaildaten eines Bestandes</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos eines Bestandes zurück</li>
-<li><strong>Call:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory&amp;id=128">/?a=inventory&amp;id=128</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory&amp;id=128">/?a=inventory&amp;id=128</a></li>
 </ul>
 <p><strong>Beispiel-Resultat für Bestand mit ID 128</strong><br />
 <pre><code class="json">{

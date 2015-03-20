@@ -26,10 +26,10 @@
 			</dl>
 		</div>
 		<section-raw title="spr.bestandsbeschreibung" value="detail.bestandsbeschreibung"></section-raw>
-		<div class="l-content__section" ng-if="detail.fotographer">
+		<div class="l-content__section" ng-if="detail.photographer">
 			<h2>{{spr.fotographInnen}}</h2>
 			<ul>
-				<li ng-repeat="f in detail.fotographer"><a ng-if="f.gesperrt==0" ui-sref="fotographerDetail( {id: '{{f.fotografen_id}}', anf:''} )">{{f.name}}</a><span ng-if="f.gesperrt==1">{{f.name}}</span></li>
+				<li ng-repeat="f in detail.photographer"><a ng-if="f.gesperrt==0" ui-sref="photographerDetail( {id: '{{f.fotografen_id}}', anf:''} )">{{f.name}}</a><span ng-if="f.gesperrt==1">{{f.name}}</span></li>
 			</ul>
 		</div>
 	</div>

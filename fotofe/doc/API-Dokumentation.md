@@ -25,7 +25,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 ## Fotografen
 ### Liste aller Fotografen
 - **Beschreibung:** Gibt eine Liste aller Fotografen zurück.
-- **Call:** [/?a=fotographer](https://www2.foto-ch.ch/api/?a=fotographer)
+- **Aufruf:** [/?a=fotographer](https://www2.foto-ch.ch/api/?a=fotographer)
 
 **Beispiel-Resultat (erste 2 Einträge)**
 ```json
@@ -58,7 +58,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 
 ### Detaildaten eines Fotografen
 - **Beschreibung:** Gibt ein Liste mit Detailinfos eines Fotografen zurück
-- **Call:** [/?a=fotographer&id=1542](https://www2.foto-ch.ch/api/?a=fotographer&id=1542)
+- **Aufruf:** [/?a=fotographer&id=1542](https://www2.foto-ch.ch/api/?a=fotographer&id=1542)
 
 **Beispiel-Resultat für Fotografen-ID 1542**
 ```json
@@ -114,10 +114,42 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 }
 ```
 
+
+
+### Aktualisierte Fotografen
+- **Beschreibung:** Gibt eine Liste von Fotografen zurück, welche zuletzt bearbeitet wurde.
+- **Aufruf:** [/?recent=10](https://www2.foto-ch.ch/api/?recent=10)
+
+**Beispiel-Resultat**
+```json
+{
+	"res": [
+		{
+			"bioclass": "subtitle3",
+			"fgeburtsdatum": "1926",
+			"fldatum": "1926",
+			"nachname": "Wolf",
+			"vorname": "Kurt",
+			"namenszusatz": "",
+			"id": "21429"
+		},
+		{
+			"bioclass": "subtitle3bio",
+			"fgeburtsdatum": "14.05.1892",
+			"fldatum": "14.05.1892 - ",
+			"nachname": "Photographische Gesellschaft Bern",
+			"vorname": "",
+			"namenszusatz": "",
+			"id": "1724"
+		}
+	]
+}
+```
+
 ## Institutionen
 ### Liste aller Institutionen
 - **Beschreibung:** Gibt eine Liste aller Institutionen zurück.
-- **Call:** [/?a=institution](https://www2.foto-ch.ch/api/?a=institution)
+- **Aufruf:** [/?a=institution](https://www2.foto-ch.ch/api/?a=institution)
 
 **Beispiel-Resultat (erste 2 Einträge)**
 ```json
@@ -146,7 +178,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 
 ### Detaildaten einer Institution
 - **Beschreibung:** Gibt ein Liste mit Detailinfos einer Institution zurück
-- **Call:** [/?a=institution&id=300](https://www2.foto-ch.ch/api/?a=institution&id=300)
+- **Aufruf:** [/?a=institution&id=300](https://www2.foto-ch.ch/api/?a=institution&id=300)
 
 **Beispiel-Resultat für Institutions-ID 300**
 ```json
@@ -208,7 +240,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 ## Bestände
 ### Liste aller Bestände
 - **Beschreibung:** Gibt eine Liste aller Bestände zurück.
-- **Call:** [/?a=inventory](https://www2.foto-ch.ch/api/?a=inventory)
+- **Aufruf:** [/?a=inventory](https://www2.foto-ch.ch/api/?a=inventory)
 
 **Beispiel-Resultat (erste 2 Einträge)**
 ```json
@@ -239,7 +271,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 
 ### Detaildaten eines Bestandes
 - **Beschreibung:** Gibt ein Liste mit Detailinfos eines Bestandes zurück
-- **Call:** [/?a=inventory&id=128](https://www2.foto-ch.ch/api/?a=inventory&id=128)
+- **Aufruf:** [/?a=inventory&id=128](https://www2.foto-ch.ch/api/?a=inventory&id=128)
 
 **Beispiel-Resultat für Bestand mit ID 128**
 ```json

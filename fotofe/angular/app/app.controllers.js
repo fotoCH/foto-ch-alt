@@ -65,20 +65,20 @@ app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function 
 	
 }]);
 
-app.controller('FotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+app.controller('PhotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
   console.log("Fotograf Controller reporting for duty.");
   
   var id=$stateParams.id
   var anf=$stateParams.anf;
   $scope.input='';
-  $scope.fotographerSelected = function(selected) {
+  $scope.photographerSelected = function(selected) {
       //window.alert('You have selected ' + selected.originalObject.id);
-	  $state.go('fotographerDetail', {id: selected.originalObject.id, anf: ''} );
+	  $state.go('photographerDetail', {id: selected.originalObject.id, anf: ''} );
     };
 
     $scope.enterFunc = function(selected) {
-      var val=document.getElementById('fotographer-autocomplete_value').value;
-  	  $state.go('fotographer', {anf: val} );
+      var val=document.getElementById('photographer-autocomplete_value').value;
+  	  $state.go('photographer', {anf: val} );
       };
     
     
@@ -194,6 +194,9 @@ app.controller('HomeCtrl', ['$scope', '$http','$location', '$state','$stateParam
 	function loadContent(){
 	  $http.get($rootScope.ApiUrl+'/?a=partner&lang='+$rootScope.lang).success (function(data){
 			$scope.partner = data;
+		});
+	  $http.get($rootScope.ApiUrl+'/?recent=10').success (function(data){
+			$scope.recent = data;
 		});
   	}
   	

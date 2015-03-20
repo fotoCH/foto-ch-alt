@@ -6,11 +6,11 @@
 			<form class="form-container" action="" novalidate ng-submit="enterFunc()">
 			
 				<div angucomplete-alt 
-				id="fotographer-autocomplete"
+				id="photographer-autocomplete"
 				class="field-autocomplete"
 				placeholder="{{spr.suche}} {{spr.fotograph}}"
 				pause="100"
-				selected-object="fotographerSelected"
+				selected-object="photographerSelected"
 				remote-url="https://www2.foto-ch.ch/api/ftas.php?s="
 				minlength="1"
 				title-field="name,vorname"
@@ -23,7 +23,7 @@
 		<div class="l-content__section">
 			<div class="link-list">
 				<ul>
-					<li ng-repeat="t in list.res" ui-sref="fotographerDetail( {id: '{{t.id}}', anf: ''} )">
+					<li ng-repeat="t in list.res" ui-sref="photographerDetail( {id: '{{t.id}}', anf: ''} )">
 						<div class="link-list__title">
 							{{t.nachname}}<span ng-if="t.vorname || t.namenszusatz">, {{t.vorname}} {{t.namenszusatz}}</span>
 						</div>
@@ -35,6 +35,6 @@
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<h2>{{spr.kategorien}}</h2>
-		<button type="button" class="btn btn--action" ng-repeat="initial in abc" ui-sref="fotographer( {anf: '{{initial}}'} )">{{initial}}</button>
+		<button type="button" class="btn btn--action" ng-repeat="initial in abc" ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}</button>
 	</aside>
 </div>

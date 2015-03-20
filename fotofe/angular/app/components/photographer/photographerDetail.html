@@ -1,7 +1,7 @@
 <div class="l-content l-readerview">
 	<div class="l-content__main l-view--reader">
 		<div class="l-content__header">
-			<h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}}, {{n.vorname}} {{n.namenszusatz}}</h1>
+			<h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}}<span ng-if="n.vorname || n.namenszusatz">, {{n.vorname}} {{n.namenszusatz}}</span></h1>
 			<div>{{detail.fldatum}}</div>
 		</div>
 		<div class="l-content__section">
