@@ -1,5 +1,5 @@
 // Partner logos on the about us page
-.media--partner {
+ul.media--partner {
 	padding-left: 0;
 	.display(flex);
 	.align-items(center);
@@ -8,8 +8,14 @@
 		display: inline-block;
 		margin-bottom: 2em;
 		padding: 0 1em;
-		width: 20%;
+		width: 50%;
 		text-align: center;
+		@media @layoutMedium {
+			width: 20%;
+		}
+		@media @layoutLarge {
+			width: 16.66%;
+		}
 		&:before {
 			width: 0;
 			height: 0;

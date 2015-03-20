@@ -108,7 +108,7 @@
 			.transform(rotate(45deg));
 		}
 		.icon-bar:after {
-			bottom: 2px;
+			bottom: 3px;
 			.transform(rotate(-45deg));
 		}
 	}
@@ -145,10 +145,16 @@
 		}
 	}
 	a {
-		color: @colorText;
 		&:hover,
 		&.is-active {
-			color: @colorActionPrimary;
+			color: darken(@colorActionPrimary, 10%);
+		}
+		@media @layoutMedium {
+			color: @colorText;
+			&:hover,
+			&.is-active {
+				color: @colorActionPrimary;
+			}
 		}
 	}
 }

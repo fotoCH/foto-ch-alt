@@ -1,0 +1,47 @@
+// Defining layout for content sections
+.l-content__section {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	display: block;
+	overflow: hidden;
+	@media @layoutMedium {
+		margin-top: 1.5	em;
+	}
+	@media @layoutLarge {
+		margin-top: 2em;
+	}
+}
+.l-content__right .l-content__section {
+	padding: 0.5em 1em;
+	background-color: @colorLayoutLight;
+	.border-radius(@borderRadius);
+	@media @layoutMedium {
+		margin-top: 0;
+	}
+	@media @layoutLarge {
+		margin-top: 0;
+	}
+}
+
+.l-readerview,
+.l-listview {
+	.l-content__main {
+		.l-content__header, 
+		.l-content__section {
+			@media @layoutLarge {
+				max-width: 80%;
+			}
+		}
+		.l-content__section.l-content__section--meta {
+			@media @layoutLarge {
+				max-width: 100%;
+			}
+		}
+	}	
+}
+
+.l-content__actions {
+	@media @layoutMedium {
+		padding: 0.5em 1em;
+	}
+}

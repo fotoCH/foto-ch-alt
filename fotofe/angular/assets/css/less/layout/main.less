@@ -34,9 +34,6 @@ body {
 .l-content__main,
 .l-content__aside {
 	padding: 10px;
-	@media @layoutMedium {
-		padding: 20px;
-	}
 }
 
 .l-content__main {
@@ -67,52 +64,12 @@ body {
 		.order(-1);
 		margin-right: 10px;
 	}
-	.l-content__right {
-		margin-left: 10px;
-	}
-}
-
-.l-content__section {
-	margin-top: 1em;
-	display: block;
-	overflow: hidden;
-	@media @layoutMedium {
-		margin-top: 1.5em;
-	}
-	@media @layoutLarge {
-		margin-top: 2em;
-	}
-}
-.l-content__right .l-content__section {
-	@media @layoutMedium {
-		margin-top: 0;
-	}
-	@media @layoutLarge {
-		margin-top: 0;
-	}
 }
 
 // Reader view (e.g. used for fotographer details)
 @media @layoutMedium {
 	.l-readerview .l-content__right {
 		margin-top: 5em;
-	}	
-}
-
-.l-readerview,
-.l-listview {
-	.l-content__main {
-		.l-content__header, 
-		.l-content__section {
-			@media @layoutLarge {
-				max-width: 80%;
-			}
-		}
-		.l-content__section.l-content__section--meta {
-			@media @layoutLarge {
-				max-width: 100%;
-			}
-		}
 	}	
 }
 
