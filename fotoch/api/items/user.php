@@ -15,14 +15,15 @@ if ($b=='login'){
 	while($fetch = mysql_fetch_array($result)){
 		if($fetch['password'] == md5($password)){
 			$level = $fetch['level'];
-			
+			$success = true;
+			$res=$fetch;
 		}
 		
 	}
 	if ($success){
-		$out['status']='ok';
+		$out['status']='ok'; print_r($fetch);
 		$token=getToken($user,$level);
-		pushfields($out,$fetch,array('vorname','nachname','email','level'));
+		pushfields($out,$res,array('vorname','nachname','email','level'));
 	} else {
 		$out['status']='nok';
 	}
