@@ -5,6 +5,10 @@ function pushfields(&$o,$i,$list){
 	}
 }
 
+function getClean($s){
+	return mysql_real_escape_string($_REQUEST[$s]);
+}
+
 function jsonout($out){
 	$json = json_encode ( $out );
 	if (array_key_exists ( 'callback', $_GET )) {
@@ -24,6 +28,40 @@ function jsonout($out){
 		echo $json;
 	}
 
+}
+
+function getToken($u, $l){
+	$sql="SELECT * FROM auth WHERE user='$u'";
+	$res=get1fromselect($sql);
+	if (!$res){
+		$sql="INSERT INTO auth SET user='$u', token=UUID(), expires=DATE_ADD(NOW(), INTERVAL 2 HOUR), level=$l";
+		mysql_query($sql);
+		$sql="SELECT * FROM auth WHERE user='$u'";
+		$res=get1fromselect($sql);
+	}
+	return $res['token'];
+}
+
+function testToken($t){
+	$sql="SELECT * FROM auth WHERE token='$t'";
+	$res=get1fromselect($sql);
+	if ($res){
+		
+		return $res['level'];
+	}
+	return 0;
+	}	
+
+
+function logOff($t){
+	$sql="SELECT * FROM auth WHERE token='$t'";
+	$res=get1fromselect($sql);
+	if ($res){
+		$sql="DELETE FROM auth WHERE token='$t'";
+		mysql_query($sql);
+		return true;
+	} 
+	return false;
 }
 
 function formlebensdaten($gdate,$gcode,$tdate,$tcode){  // formatiert lebenszeit in Liste
@@ -103,6 +141,102 @@ function formdatesimp2($date,$code){
                 case 9: return "";
         }
         return date("d.m.Y",strtotime($date));
+}
+
+function get1fromtable($t,$w){
+	$sql="SELECT * FROM $t WHERE $w LIMIT 1";
+	$result=mysql_query($sql);
+	if (mysql_num_rows($result)!=0){
+		$res= mysql_fetch_assoc($result);
+
+		return($res);
+	} else {
+		return false;
+	}
+}
+
+function getfromtable($t,$w){
+	$res=array();
+	$sql="SELECT * FROM $t WHERE $w";
+	$result=mysql_query($sql);
+	//echo $sql;
+	if (mysql_num_rows($result)!=0){
+		while ($r= mysql_fetch_assoc($result)){
+			$res[]=$r;
+		}
+
+		return($res);
+	} else {
+		return false;
+	}
+}
+
+function getfromtableUser($t,$w){  // liefert alle Stundeneinträge des Monats minestens aber die neuesten 20
+	$res=array();
+	$sql="SELECT * FROM $t WHERE $w";
+	$result=mysql_query($sql);
+	//echo $sql;
+	if (mysql_num_rows($result)!=0){
+		$count=0;
+		$fertig=0;
+		$h=getErster();
+
+		while (($r= mysql_fetch_assoc($result)) && ($fertig==0)){
+			//print_r($r);
+			//echo $r['datum'];
+			$count++;
+			if ($count<=20 || $r['datum']>=$h){
+				$res[]=$r;
+			} else $fertig=1;
+		}
+
+		return($res);
+	} else {
+		return false;
+	}
+}
+
+function getfromselect($s){
+	$res=array();
+	$sql=$s;
+	$result=mysql_query($sql);
+	//echo $sql;
+	if (mysql_num_rows($result)!=0){
+		while ($r= mysql_fetch_assoc($result)){
+			$res[]=$r;
+		}
+
+		return($res);
+	} else {
+		return false;
+	}
+}
+
+function get1fromselect($s){
+	$sql=$s;
+	$result=mysql_query($sql);
+	//echo $sql;
+	if (mysql_num_rows($result)!=0){
+		$res= mysql_fetch_assoc($result);
+		return($res);
+	} else {
+		return false;
+	}
+}
+
+function getfromtablebyid($t,$w){
+	$res=array();
+	$sql="SELECT * FROM $t WHERE $w";
+	$result=mysql_query($sql);
+	if (mysql_num_rows($result)!=0){
+		while ($r= mysql_fetch_assoc($result)){
+			$res[$r['id']]=$r;
+		}
+
+		return($res);
+	} else {
+		return false;
+	}
 }
 
 ?>
