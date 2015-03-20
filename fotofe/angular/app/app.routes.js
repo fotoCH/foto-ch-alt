@@ -12,7 +12,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         // Homepage
         .state('home', {
             url: '/home',
-            templateUrl: 'app/components/home/home.html'
+            templateUrl: 'app/components/home/home.html',
+            controller: "HomeCtrl"
         })
         
         // Fotographer search view
@@ -50,13 +51,13 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         .state('contact', {
             url: '/contact',
             templateUrl: 'app/components/meta/contact.html',
-            controller: 'staticPageCtrl'
+            controller: 'StaticPageCtrl'
         })
         // About fotoCH
         .state('aboutFotoch', {
             url: '/aboutfotoch',
             templateUrl: 'app/components/meta/aboutFotoch.html',
-            controller: 'staticPageCtrl'
+            controller: 'StaticPageCtrl'
         })
         // Testpage for development
         .state('login', {

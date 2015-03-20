@@ -48,3 +48,13 @@ app.directive('sectionListInventory', function() {
 	    	}
 		  };
 		});
+
+app.directive('mediaPartner', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/media/mediaPartner.html',
+	    	scope: {
+	    		  partner: '='
+	    	}
+		  };
+		});

@@ -705,34 +705,35 @@ dd {
     margin-left: 35%;
   }
 }
-.logo-partner ul {
+.media--partner {
   padding-left: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
-.logo-partner li {
+.media--partner li {
+  display: inline-block;
   margin-bottom: 2em;
+  padding: 0 1em;
+  width: 20%;
   text-align: center;
 }
-.logo-partner li:before {
+.media--partner li:before {
   width: 0;
   height: 0;
 }
-.logo-partner a {
-  display: block;
-  margin-bottom: 0.25em;
-}
-.logo-partner img {
-  max-width: 50%;
-  height: auto;
-}
-@media screen and (min-width: 768px) {
-  .logo-partner img {
-    max-width: 100%;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .logo-partner img {
-    max-width: 60%;
-  }
+.media--partner img {
+  max-width: 100%;
 }
 .logo-header {
   display: inline-block;

@@ -12,15 +12,19 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 	  }
 	  
 	  loadTranslation();
-	  
+
 	  $scope.setLanguage = function(lang) {
 		    console.log('switch to language', lang);
 		    $rootScope.lang = lang;
 		    $rootScope.isLangSwitchOpen = false;	// Close the language switch after selection of new language
 		    $rootScope.isMenuOpen = false;			// Close the mobile menu after selection of new language
 		    loadTranslation();
-		    if ($state.includes('aboutFotoch')) {		// Reload content for about us page after switching language
-		    	$rootScope.loadAboutUs();
+
+		    if ($state.includes('aboutFotoch') || $state.includes('contact')) {		// Reload content after switching language
+		    	$rootScope.reloadPages();
+		    }
+		    else if ($state.includes('home')) {
+		    	$rootScope.reloadHome();
 		    }
 	  };
 		
@@ -168,7 +172,7 @@ app.controller('InventoryCtrl', ['$scope', '$http','$location', '$state','$state
 	  $scope.abc=abc;
 	}]);
 
-app.controller('staticPageCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+app.controller('StaticPageCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
   	console.log("Static Page Controller reporting for duty.");
   
 	function loadContent(){
@@ -179,7 +183,23 @@ app.controller('staticPageCtrl', ['$scope', '$http','$location', '$state','$stat
   	
   	loadContent();
 
-  	$rootScope.loadAboutUs = function(){
+  	$rootScope.reloadPages = function(){
+  		loadContent();
+  	};
+}]);
+
+app.controller('HomeCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+  	console.log("Home Controller reporting for duty.");
+
+	function loadContent(){
+	  $http.get($rootScope.ApiUrl+'/?a=partner&lang='+$rootScope.lang).success (function(data){
+			$scope.partner = data;
+		});
+  	}
+  	
+  	loadContent();
+
+  	$rootScope.reloadHome = function(){
   		loadContent();
   	};
 }]);

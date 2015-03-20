@@ -1,0 +1,8 @@
+<ul class="media--partner">
+	<li ng-repeat="p in partner">
+		<img src="assets/img/partner/{{p.bild}}" alt="{{p.text}}" ng-if="p.bild">
+		<div class="media--title" ng-if="!p.bild">
+			{{p.text}}
+		</div>
+	</li>
+</ul>
