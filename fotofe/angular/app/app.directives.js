@@ -9,7 +9,7 @@ app.directive('sectionDefault', function() {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/section/default.html',
 		    scope: {
-		    	  title: '=title',
+		    	  headline: '=headline',
 		    	  value: '=value'
 		    }
 		  };
@@ -20,7 +20,7 @@ app.directive('sectionRaw', function() {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/section/raw.html',
 	    	scope: {
-	    		  title: '=title',
+	    		  headline: '=headline',
 	    		  value: '=value'
 	    	}
 		  };
@@ -31,7 +31,7 @@ app.directive('sectionList', function() {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/section/list.html',
 	    	scope: {
-	    		  title: '=title',
+	    		  headline: '=headline',
 	    		  values: '=values'
 	    	}
 		  };
@@ -42,7 +42,7 @@ app.directive('sectionListInventory', function() {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/section/inventoryList.html',
 	    	scope: {
-	    		  title: '=title',
+	    		  headline: '=headline',
 	    		  inventories: '=inventories',
 	    		  labels: '='
 	    	}
@@ -64,7 +64,7 @@ app.directive('panel', function() {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/panel/panel.html',
 	    	scope: {
-	    		  title: '=title',
+	    		  headline: '=headline',
 	    	}
 		  };
 		});

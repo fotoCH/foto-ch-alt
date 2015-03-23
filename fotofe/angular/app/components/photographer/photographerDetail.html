@@ -25,21 +25,21 @@
 				<dd ng-if="detail.pnd"><a target="_blank" href="http://d-nb.info/gnd/{{detail.pnd}}">{{detail.pnd}}</a></dd>
 			</dl>
 		</div>
-		<section-raw title="spr.biografie" value="detail.biografie"></section-raw>
-		<section-raw class="hide-on-medium" title="spr.umfeld" value="detail.umfeld"></section-raw>
-		<section-raw title="spr.werdegang" value="detail.werdegang"></section-raw>
-		<section-raw title="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></section-raw>
-		<section-raw title="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></section-raw>
+		<section-raw headline="spr.biografie" value="detail.biografie"></section-raw>
+		<section-raw class="hide-on-medium" headline="spr.umfeld" value="detail.umfeld"></section-raw>
+		<section-raw headline="spr.werdegang" value="detail.werdegang"></section-raw>
+		<section-raw headline="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></section-raw>
+		<section-raw headline="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></section-raw>
 		<section-list-inventory labels="spr" inventories="detail.bestaende"></section-list-inventory>
-		<section-list title="spr.primaerliteratur" values="detail.primaerliteratur"></section-list>
-		<section-list title="spr.sekundaerliteratur" values="detail.sekundaerliteratur"></section-list>
-		<section-list title="spr.einzelausstellungen" values="detail.einzelausstellungen"></section-list>
-		<section-list title="spr.gruppenausstellungen" values="detail.gruppenausstellungen"></section-list>
-		<section-default title="spr.notiz" value="detail.notiz"></section-default>
-		<section-default title="spr.npublizieren" value="detail.npublizieren"></section-default>
+		<section-list headline="spr.primaerliteratur" values="detail.primaerliteratur"></section-list>
+		<section-list headline="spr.sekundaerliteratur" values="detail.sekundaerliteratur"></section-list>
+		<section-list headline="spr.einzelausstellungen" values="detail.einzelausstellungen"></section-list>
+		<section-list headline="spr.gruppenausstellungen" values="detail.gruppenausstellungen"></section-list>
+		<section-default headline="spr.notiz" value="detail.notiz"></section-default>
+		<section-default headline="spr.npublizieren" value="detail.npublizieren"></section-default>
 	</div>
 	<aside class="l-content__aside l-content__right">
-		<section-raw title="spr.umfeld" value="detail.umfeld" class="hide-on-small"></section-raw>
+		<section-raw headline="spr.umfeld" value="detail.umfeld" class="hide-on-small"></section-raw>
 		<div class="l-content__section" ng-if="detail.fbearbeitungsdatum">
 			<h2>{{spr.bearbeitungsdatum}}</h2>
 			<p>{{detail.bearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
