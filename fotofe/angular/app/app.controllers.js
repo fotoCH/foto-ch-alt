@@ -207,9 +207,40 @@ app.controller('HomeCtrl', ['$scope', '$http','$location', '$state','$stateParam
   	};
 }]);
 
-app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', '$window', function ($scope, $http, $state, $stateParams, $rootScope, $window ) {
 	  console.log("Login Controller reporting for duty.");
-	  
+	  console.log($scope);
+		$scope.doLogin = function (user){
+			console.log("$scope.doLogin");
+			  $http.get($rootScope.ApiUrl+'/?a=user&b=login&user='+user.username+'&password='+user.password).success (function(data){
 
-	}]);
+					var status=data.status;
+					
+					if (status=='ok'){
+						$scope.errorMsg='Login ok '+$scope.spr.welcome+' '+data.vorname+' '+data.nachname;
+					    $rootScope.user = user.username;
+					    $rootScope.userLevel = parseInt(data.level);
+					    $rootScope.authToken = data.token;
+					    $window.sessionStorage.authToken=data.token;
+					    $http.defaults.headers.common['X-AuthToken']=$rootScope.authToken ;
+					} else {
+						$scope.errorMsg='Bad login';
+					}
+					
+				});
+		}
+				$scope.doLogout = function (){
+					console.log("$scope.doLogout");
+					  $http.get($rootScope.ApiUrl+'/?a=user&b=logout').success (function(data){
+						var resp = data;
+
+						$rootScope.user = '';
+						$rootScope.userLevel = '';
+						$rootScope.authToken = '';
+						$http.defaults.headers.common['X-AuthToken']=undefined;
+						$window.sessionStorage.authToken=undefined;
+							
+				});
+		}
+}]);
 
