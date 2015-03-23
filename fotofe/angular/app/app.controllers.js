@@ -244,3 +244,40 @@ app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootSc
 		}
 }]);
 
+app.controller('ExhibitionCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
+	  console.log("Exhibition Controller reporting for duty.");
+	  
+	  var id=$stateParams.id
+	  var anf=$stateParams.anf;
+	  $scope.exhibitionSelected = function(selected) {
+	      //window.alert('You have selected ' + selected.originalObject.id);
+		  $state.go('exhibitionDetail', {id: selected.originalObject.id, anf: ''} );
+	    };
+
+	    $scope.enterFunc = function(selected) {
+	      var val=document.getElementById('exhibition-autocomplete_value').value;
+	  	  $state.go('exhibition', {anf: val} );
+	      };
+	    
+	    
+	  //$scope.debug='anf:'+anf+' id:'+id+$state;
+	  if (anf>='A'){
+			$http.get($rootScope.ApiUrl+'/?a=exhibition&anf='+anf).success (function(data){
+				$scope.list = data;
+			});
+		} else {
+			if (id){
+				$http.get($rootScope.ApiUrl+'/?a=exhibition&id='+id).success (function(data){
+					$scope.detail = data;
+					$scope.list=null;
+				});
+			}
+		}
+	  var abc=new Array();
+	  
+	  for ( var i=0; i<26; i++){
+	      abc[i]=String.fromCharCode(65+i);
+	  }
+	  $scope.abc=abc;
+	}]);
+

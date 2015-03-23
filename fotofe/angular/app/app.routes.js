@@ -41,6 +41,18 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/institution/institutionDetail.html',
             controller: 'InstitutionCtrl'
         })
+        // Exhibition search view
+        .state('exhibition', {
+            url: '/exhibition?anf',
+            templateUrl: 'app/components/exhibition/exhibition.html',
+            controller: 'ExhibitionCtrl'
+        })
+        // Institution detail view
+        .state('exhibitionDetail', {
+            url: '/exhibition/detail?id',
+            templateUrl: 'app/components/exhibition/exhibitionDetail.html',
+            controller: 'ExhibitionCtrl'
+        })
         // Inventory detail view
         .state('inventoryDetail', {
             url: '/inventory/detail?id',

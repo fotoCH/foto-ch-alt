@@ -1,15 +1,15 @@
 <div class="l-content l-listview">
 	<div class="l-content__main">
 		<div class="l-content__header">
-			<h1>{{spr.institutionen}}</h1>
+			<h1>{{spr.ausstellungen}}</h1>
 
 			<form class="form-container" action="" novalidate ng-submit="enterFunc()">
 				<div angucomplete-alt 
-				id="institution-autocomplete"
+				id="exhibition-autocomplete"
 				class="field-autocomplete"
-				placeholder="{{spr.suche}} {{spr.institution}}"
+				placeholder="{{spr.suche}} {{spr.ausstellungen}}"
 				pause="100"
-				selected-object="institutionSelected"
+				selected-object="exhibitionSelected"
 				remote-url="https://www2.foto-ch.ch/api/itas.php?s="
 				minlength="1"
 				title-field="name"
@@ -21,11 +21,10 @@
 		<div class="l-content__section">
 			<div class="link-list">
 				<ul>
-					<li ng-repeat="t in list.res" ui-sref="institutionDetail( {id: '{{t.id}}', anf: ''} )">
+					<li ng-repeat="t in list.res" ui-sref="exhibitionDetail( {id: '{{t.id}}', anf: ''} )">
 						<div class="link-list__title">
-							{{t.name}} {{t.abkuerzung}}
+							{{t.name}}
 						</div>
-						<div class="link-list__description" ng-bind-html="t.ort | rawHtml"></div>
 					</li>
 				</ul>
 			</div>
@@ -33,6 +32,6 @@
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<h2>{{spr.kategorien}}</h2>
-		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
+		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="exhibition( {anf: '{{initial}}'} )">{{initial}}</button>
 	</aside>
 </div>

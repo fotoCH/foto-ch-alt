@@ -1,0 +1,22 @@
+<div class="l-content l-readerview">
+	<div class="l-content__main l-view--reader">
+		<div class="l-content__header">
+			<h1>{{detail.text}}</h1>
+		</div>
+		<div class="l-content__section" ng-if="detail.photographer">
+			<h2>{{spr.fotographInnen}}</h2>
+			<ul>
+				<li ng-repeat="f in detail.photographer"><a ng-if="f.gesperrt==0" ui-sref="photographerDetail( {id: '{{f.fotografen_id}}', anf:''} )">{{f.name}}</a><span ng-if="f.gesperrt==1">{{f.name}}</span></li>
+			</ul>
+		</div>
+	</div>
+	<aside class="l-content__aside l-content__right">
+		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">
+			<h2>{{spr.bearbeitungsdatum}}</h2>
+			<p>{{detail.bearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
+		</div>
+		<div class="l-content__actions">
+			<a class="btn btn--action" ui-sref="contact">{{spr.proposal_for_improvements}}</a>
+		</div>
+	</aside>
+</div>

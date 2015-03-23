@@ -1243,6 +1243,56 @@ body .markdown-body
     ]
 }
 </code></pre></p>
+<h2 id="ausstellungen"><a name="user-content-ausstellungen" href="#ausstellungen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Ausstellungen</h2>
+<h3 id="liste-mit-allen-ausstellungen"><a name="user-content-liste-mit-allen-ausstellungen" href="#liste-mit-allen-ausstellungen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Liste mit allen Ausstellungen</h3>
+<ul>
+<li><strong>Beschreibung:</strong> Gibt eine Liste mit allen Beständen zurück.</li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=exhibition">/?a=exhibition</a></li>
+</ul>
+<p><strong>Beispiel-Resultat (erste 2 Einträge)</strong><br />
+<pre><code class="json">{
+    &quot;res&quot;: [
+        {
+            &quot;name&quot;: &quot; Archivio fotografico Luigi Gisep&quot;,
+            &quot;institution&quot;: null,
+            &quot;inst_id&quot;: &quot;694&quot;,
+            &quot;nameclass&quot;: &quot;subtitle3x&quot;,
+            &quot;id&quot;: &quot;4050&quot;,
+            &quot;gesperrt&quot;: &quot;1&quot;
+        },
+        {
+            &quot;name&quot;: &quot; Henze, Hans Werner&quot;,
+            &quot;institution&quot;: null,
+            &quot;inst_id&quot;: &quot;522&quot;,
+            &quot;nameclass&quot;: &quot;subtitle3&quot;,
+            &quot;id&quot;: &quot;2820&quot;,
+            &quot;gesperrt&quot;: &quot;0&quot;
+        }
+    ]
+}
+</code></pre></p>
+<h4 id="parameter_2"><a name="user-content-parameter_2" href="#parameter_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Parameter</h4>
+<ul>
+<li><strong>Nach Anfangsbuchstaben E filtern:</strong> <a href="https://www2.foto-ch.ch/api/?a=exhibition&amp;anf=E">/?a=exhibition&amp;anf=E</a></li>
+</ul>
+<h3 id="detaildaten-einer-ausstellung"><a name="user-content-detaildaten-einer-ausstellung" href="#detaildaten-einer-ausstellung" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Detaildaten einer Ausstellung</h3>
+<ul>
+<li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos einer Ausstellung zurück</li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=exhibition&amp;id=6711">/?a=exhibition&amp;id=6711</a></li>
+</ul>
+<p><strong>Beispiel-Resultat für Bestand mit ID 6711</strong><br />
+<pre><code class="json">{
+    &quot;text&quot;: &quot;1951, Lausanne, L'Université de Fribourg&quot;,
+    &quot;bearbeitungsdatum&quot;: &quot;4.3.2010&quot;,
+    &quot;fotographer&quot;: [
+        {
+            &quot;name&quot;: &quot;Alban  Kakulya&quot;,
+            &quot;fotografen_id&quot;: &quot;29790&quot;,
+            &quot;gesperrt&quot;: &quot;0&quot;
+        }
+    ]
+}
+</code></pre></p>
 <h2 id="bestande"><a name="user-content-bestande" href="#bestande" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Bestände</h2>
 <h3 id="liste-aller-bestande"><a name="user-content-liste-aller-bestande" href="#liste-aller-bestande" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Liste aller Bestände</h3>
 <ul>
@@ -1271,7 +1321,7 @@ body .markdown-body
     ]
 }
 </code></pre></p>
-<h4 id="parameter_2"><a name="user-content-parameter_2" href="#parameter_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Parameter</h4>
+<h4 id="parameter_3"><a name="user-content-parameter_3" href="#parameter_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Parameter</h4>
 <ul>
 <li><strong>Nach Anfangsbuchstaben E filtern:</strong> <a href="https://www2.foto-ch.ch/api/?a=inventory&amp;anf=E">/?a=inventory&amp;anf=E</a></li>
 </ul>
@@ -1307,6 +1357,7 @@ body .markdown-body
 </code></pre></p>
 <h2 id="versionsubersicht"><a name="user-content-versionsubersicht" href="#versionsubersicht" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Versionsübersicht</h2>
 <ul>
+<li>23.03.2015 - 0.0.4: Ausstellung </li>
 <li>18.03.2015 - 0.0.3: API-Aufrufe verlinken. API für statische Inhalte und Partner hinzufügen.</li>
 <li>16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt</li>
 <li>13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister</li>

@@ -237,6 +237,57 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 }
 ```
 
+## Ausstellungen
+### Liste mit allen Ausstellungen
+- **Beschreibung:** Gibt eine Liste mit allen Beständen zurück.
+- **Aufruf:** [/?a=exhibition](https://www2.foto-ch.ch/api/?a=exhibition)
+
+**Beispiel-Resultat (erste 2 Einträge)**
+```json
+{
+	"res": [
+		{
+			"name": " Archivio fotografico Luigi Gisep",
+			"institution": null,
+			"inst_id": "694",
+			"nameclass": "subtitle3x",
+			"id": "4050",
+			"gesperrt": "1"
+		},
+		{
+			"name": " Henze, Hans Werner",
+			"institution": null,
+			"inst_id": "522",
+			"nameclass": "subtitle3",
+			"id": "2820",
+			"gesperrt": "0"
+		}
+	]
+}
+```
+
+#### Parameter
+- **Nach Anfangsbuchstaben E filtern:** [/?a=exhibition&anf=E](https://www2.foto-ch.ch/api/?a=exhibition&anf=E)
+
+### Detaildaten einer Ausstellung
+- **Beschreibung:** Gibt ein Liste mit Detailinfos einer Ausstellung zurück
+- **Aufruf:** [/?a=exhibition&id=6711](https://www2.foto-ch.ch/api/?a=exhibition&id=6711)
+
+**Beispiel-Resultat für Bestand mit ID 6711**
+```json
+{
+	"text": "1951, Lausanne, L'Université de Fribourg",
+	"bearbeitungsdatum": "4.3.2010",
+	"fotographer": [
+		{
+			"name": "Alban  Kakulya",
+			"fotografen_id": "29790",
+			"gesperrt": "0"
+		}
+	]
+}
+```
+
 ## Bestände
 ### Liste aller Bestände
 - **Beschreibung:** Gibt eine Liste aller Bestände zurück.
@@ -301,6 +352,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 ```
 
 ## Versionsübersicht
+- 23.03.2015 - 0.0.4: Ausstellung 
 - 18.03.2015 - 0.0.3: API-Aufrufe verlinken. API für statische Inhalte und Partner hinzufügen.
 - 16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt
 - 13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister
