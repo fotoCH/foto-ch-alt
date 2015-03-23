@@ -5,7 +5,7 @@ $id=$_GET['id'];
 if (auth_level(USER_GUEST_READER_PARTNER))
 $result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
 else  $result=mysql_query("SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
-echo $sql;
+
 while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 
     if(auth_level(USER_GUEST_READER)){
@@ -338,7 +338,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 		//$def->assign('g',$fetch['unpubliziert']==1?'g':'');
 	} */
 }//while
-
+	$out['userlevel']=$userlevel;
 	jsonout($out);
 /*
 if(auth_level(USER_GUEST_FOTOS)){

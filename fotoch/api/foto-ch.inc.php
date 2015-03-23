@@ -17,6 +17,7 @@ function jsonout($out){
 		header ( 'Access-Control-Allow-Origin: http://www.example.com/' );
 		header ( 'Access-Control-Max-Age: 3628800' );
 		header ( 'Access-Control-Allow-Methods: GET, POST, PUT, DELETE' );
+		header ( 'Access-Control-Allow-Headers: AuthToken, Origin, X-Requested-With, Content-Type, Accept' );
 		
 		$callback = $_GET ['callback'];
 		echo $callback . '(' . $json . ');';
@@ -24,6 +25,8 @@ function jsonout($out){
 		// normal JSON string
 		header('Access-Control-Allow-Origin: *');
 		header ( 'Content-Type: application/json; charset=utf8' );
+		header ( 'Access-Control-Allow-Headers: X-AuthToken, AuthToken, Origin, X-Requested-With, Content-Type, Accept' );
+
 		
 		echo $json;
 	}
@@ -118,7 +121,7 @@ function formumfeldn($t){  // expandiert Links im Umfeld
 			}
 		} else {
 			/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fotograph  */
-			$t=str_replace($treffer[0][$i],'<a href="#/fotographer/detail?id='.$id.'">'.$name.'</a>',$t);
+			$t=str_replace($treffer[0][$i],'<a href="#/photographer/detail?id='.$id.'">'.$name.'</a>',$t);
 			//$t=str_replace($treffer[0][$i],'<a ui-sref="fotographerDetail( {id: \''.$id.'\'} ">'.$name.'</a>',$t);
 			//$t=str_replace($treffer[0][$i],'<section-fotographer-link name="'.$name.'" id="\''.$id.'\'"></section-fotographer-link>',$t);
 		}

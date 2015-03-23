@@ -1,7 +1,6 @@
 <?php
 
 $id=$_GET['id'];
-
 if (auth_level(USER_WORKER)){
 	$result=mysql_query("SELECT * FROM bestand WHERE id=$id");
 } else {
@@ -9,7 +8,6 @@ if (auth_level(USER_WORKER)){
 }
 
 while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
-
     if(auth_level(USER_GUEST_READER)){
         $outl['idd']=$id;
         
@@ -27,6 +25,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     $result6=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=$id");
     
     $fotogr=array();
+
     while($fetch6=mysql_fetch_array($result6)){
     	//print_r($fetch6);
     	//if ($fetch6['institution_id']>0){

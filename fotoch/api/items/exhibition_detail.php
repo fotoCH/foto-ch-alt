@@ -3,11 +3,11 @@
 $id=$_GET['id'];
 
 if (auth_level(USER_WORKER)){
-	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
+	$result=mysql_query("SELECT * FROM ausstellung WHERE id=$id");
 	$afields=array("id","typ","notiz");
 	
 } else {
-	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
+	$result=mysql_query("SELECT * FROM ausstellung WHERE id=$id");
 	$afields=array();
 }
 

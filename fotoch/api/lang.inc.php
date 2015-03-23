@@ -4,13 +4,13 @@
 //set language
 if($_GET['lang']!=""){
     $language = $_GET['lang'];
-} else {
+} /*else {
     if($_COOKIE['lang'] == ""){
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     } else {
 	$language = $_COOKIE['lang'];
     }
-}
+}*/
 $supported_langs = array("de","fr","it","en","rm");//missing: "en","it",,"rm"
 if(!in_array($language ,$supported_langs)) $language = "de";
 if($_GET['clang']!=""){   // content_language
@@ -19,7 +19,7 @@ if($_GET['clang']!=""){   // content_language
 if(!in_array($clanguage ,$supported_langs)) $clanguage = "de";
 
 //für (aktuelle) sprache ein cookie setzen für ca ein halbes jahr:
-setcookie("lang", $language, (time() + (60*60*24*183)));
+//setcookie("lang", $language, (time() + (60*60*24*183)));
 //put this not before the initial language setting
 //define action
 

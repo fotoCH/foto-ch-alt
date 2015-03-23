@@ -1,7 +1,5 @@
 <?php
 
-include("././fotofunc.inc.php");
-include("././foto-ch.inc.php");
 
 $b=getClean('b');
 $user=getClean('user');
@@ -22,7 +20,7 @@ if ($b=='login'){
 	}
 	if ($success){
 		$out['status']='ok'; print_r($fetch);
-		$token=getToken($user,$level);
+		$out['token']=getToken($user,$level);
 		pushfields($out,$res,array('vorname','nachname','email','level'));
 	} else {
 		$out['status']='nok';
