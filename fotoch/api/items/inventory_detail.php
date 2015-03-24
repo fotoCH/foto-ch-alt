@@ -52,6 +52,12 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
  
     	}
     	$out['photographer']=$fotographer;
+    	
+    	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
+    	while($result=mysql_fetch_assoc($objResult)){
+    		$photo[]=$result;
+    	}
+    	$out['photos']=$photo;    	
 }
     
 jsonout($out);

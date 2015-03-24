@@ -105,6 +105,12 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	}
 	$out['einzelausstellungen']=$eaus;
 	$out['gruppenausstellungen']=$gaus;
+	
+	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
+	while($result=mysql_fetch_assoc($objResult)){
+		$photo[]=$result;
+	}
+	$out['photos']=$photo;
 
 /*    if (auth_level(USER_WORKER)) {
         //$fetch['name'].=" <a href=\"./?a=iedit&amp;id=$id&amp;lang=$lang\">$bearbeiten</a>";
