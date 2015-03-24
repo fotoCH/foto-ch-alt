@@ -256,9 +256,12 @@ while($fetch=mysql_fetch_array($result)){
 	}
 	$out['autorIn']=$fetch['autorIn'];
 	$out['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
-	if (auth_level(USER_GUEST_READER)){
-		//$def->assign('g',$fetch['unpubliziert']==1?'g':'');
+
+	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dc_creator=$id ORDER BY RAND() LIMIT 0,3");
+	while($result=mysql_fetch_assoc($objResult)){
+		$photo[]=$result;
 	}
+	$out['photos']=$photo;
 }//while
 
 	jsonout($out);
