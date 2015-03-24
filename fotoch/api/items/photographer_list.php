@@ -1,20 +1,9 @@
 <?php
 
-$glob ['ID'] = $_GET ['id'];
-$id = $_GET ['id'];
-$anf = $_GET ['anf'];
-$lang = $_GET ['lang'];
-$mod = $_GET ['mod'];
-
-$glob ['SPR'] = $spr;
-
-$glob ['title'] = $spr ['fotographInnen'];
-
-$glob['LANG']=$_GET['lang'];
-
+$anf = getClean('anf');
 // alph. suche
 // if submit is empty -> listenansicht
-if ($_GET ['id'] == '') {
+if ($id == '') {
 	
 	// do query
 	$issearch = 2;

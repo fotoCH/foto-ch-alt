@@ -1,9 +1,10 @@
 <?php
 
-
+$lang = getClean('lang');
+$clang = getClean('clang');
 //set language
-if($_GET['lang']!=""){
-    $language = $_GET['lang'];
+if($lang!=""){
+    $language = $lang;
 } /*else {
     if($_COOKIE['lang'] == ""){
 	$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
@@ -13,8 +14,8 @@ if($_GET['lang']!=""){
 }*/
 $supported_langs = array("de","fr","it","en","rm");//missing: "en","it",,"rm"
 if(!in_array($language ,$supported_langs)) $language = "de";
-if($_GET['clang']!=""){   // content_language
-    $clanguage = $_GET['clang'];
+if($clang!=""){   // content_language
+    $clanguage = $clang;
 }
 if(!in_array($clanguage ,$supported_langs)) $clanguage = "de";
 
