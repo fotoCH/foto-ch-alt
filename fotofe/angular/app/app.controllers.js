@@ -3,7 +3,7 @@
  */
 
 app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootScope', function ($scope, $http, $state, $stateParams, $rootScope ) {
-	  console.log("Main Controller reporting for duty.");
+	  // console.log("Main Controller reporting for duty.");
 	  
 	  function loadTranslation(){
 		  $http.get($rootScope.ApiUrl+'/?a=sprache&lang='+$rootScope.lang).success (function(data){
@@ -14,7 +14,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 	  loadTranslation();
 
 	  $scope.setLanguage = function(lang) {
-		    console.log('switch to language', lang);
+		    // console.log('switch to language', lang);
 		    $rootScope.lang = lang;
 		    $rootScope.isLangSwitchOpen = false;	// Close the language switch after selection of new language
 		    $rootScope.isMenuOpen = false;			// Close the mobile menu after selection of new language
@@ -54,7 +54,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 	}]);
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
-  console.log("Navigation Controller reporting for duty.");
+  // console.log("Navigation Controller reporting for duty.");
   $scope.getClass = function(path) {
 	    if ($location.path().substr(0, path.length) == path) {
 	      return "is-active"
@@ -66,7 +66,7 @@ app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function 
 }]);
 
 app.controller('PhotographerCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
-  console.log("Fotograf Controller reporting for duty.");
+  // console.log("Fotograf Controller reporting for duty.");
   
   var id=$stateParams.id
   var anf=$stateParams.anf;
@@ -101,11 +101,12 @@ app.controller('PhotographerCtrl', ['$scope', '$http','$location', '$state','$st
       abc[i]=String.fromCharCode(65+i);
   }
   $scope.abc=abc;
+
 }]);
 
 
 app.controller('InstitutionCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
-	  console.log("Institution Controller reporting for duty.");
+	  // console.log("Institution Controller reporting for duty.");
 	  
 	  var id=$stateParams.id
 	  var anf=$stateParams.anf;
@@ -142,7 +143,7 @@ app.controller('InstitutionCtrl', ['$scope', '$http','$location', '$state','$sta
 	}]);
 
 app.controller('InventoryCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
-	  console.log("Inventory Controller reporting for duty.");
+	  // console.log("Inventory Controller reporting for duty.");
 	  
 	  var id=$stateParams.id
 	  var anf=$stateParams.anf;
@@ -173,7 +174,7 @@ app.controller('InventoryCtrl', ['$scope', '$http','$location', '$state','$state
 	}]);
 
 app.controller('StaticPageCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
-  	console.log("Static Page Controller reporting for duty.");
+  	// console.log("Static Page Controller reporting for duty.");
   
 	function loadContent(){
 	  $http.get($rootScope.ApiUrl+'/?a=pages&lang='+$rootScope.lang).success (function(data){
@@ -189,7 +190,7 @@ app.controller('StaticPageCtrl', ['$scope', '$http','$location', '$state','$stat
 }]);
 
 app.controller('HomeCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
-  	console.log("Home Controller reporting for duty.");
+  	// console.log("Home Controller reporting for duty.");
 
 	function loadContent(){
 	  $http.get($rootScope.ApiUrl+'/?a=partner&lang='+$rootScope.lang).success (function(data){
@@ -208,10 +209,10 @@ app.controller('HomeCtrl', ['$scope', '$http','$location', '$state','$stateParam
 }]);
 
 app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', '$window', function ($scope, $http, $state, $stateParams, $rootScope, $window ) {
-	  console.log("Login Controller reporting for duty.");
-	  console.log($scope);
+	  // console.log("Login Controller reporting for duty.");
+	  // console.log($scope);
 		$scope.doLogin = function (user){
-			console.log("$scope.doLogin");
+			// console.log("$scope.doLogin");
 			  $http.get($rootScope.ApiUrl+'/?a=user&b=login&user='+user.username+'&password='+user.password).success (function(data){
 
 					var status=data.status;
@@ -230,7 +231,7 @@ app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootSc
 				});
 		}
 				$scope.doLogout = function (){
-					console.log("$scope.doLogout");
+					// console.log("$scope.doLogout");
 					  $http.get($rootScope.ApiUrl+'/?a=user&b=logout').success (function(data){
 						var resp = data;
 
@@ -245,7 +246,7 @@ app.controller('LoginCtrl', ['$scope', '$http','$state','$stateParams', '$rootSc
 }]);
 
 app.controller('ExhibitionCtrl', ['$scope', '$http','$location', '$state','$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope ) {
-	  console.log("Exhibition Controller reporting for duty.");
+	  // console.log("Exhibition Controller reporting for duty.");
 	  
 	  var id=$stateParams.id
 	  var anf=$stateParams.anf;
@@ -258,7 +259,6 @@ app.controller('ExhibitionCtrl', ['$scope', '$http','$location', '$state','$stat
 	      var val=document.getElementById('exhibition-autocomplete_value').value;
 	  	  $state.go('exhibition', {anf: val} );
 	      };
-	    
 	    
 	  //$scope.debug='anf:'+anf+' id:'+id+$state;
 	  if (anf>='A'){

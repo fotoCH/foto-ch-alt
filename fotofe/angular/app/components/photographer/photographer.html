@@ -4,7 +4,6 @@
 			<h1>{{spr.photographers}}</h1>
 
 			<form class="form-container" action="" novalidate ng-submit="enterFunc()">
-			
 				<div angucomplete-alt 
 				id="photographer-autocomplete"
 				class="field-autocomplete"
@@ -15,11 +14,12 @@
 				minlength="1"
 				title-field="name,vorname"
 				description-field="fldatum"
+				match-class="text-match"
 				input-class="form-control">
 				</div>
-			
 			</form>
 		</div>
+		<!-- <photographer-list photographer="list.res"></photographer-list> -->
 		<div class="l-content__section">
 			<div class="link-list">
 				<ul>

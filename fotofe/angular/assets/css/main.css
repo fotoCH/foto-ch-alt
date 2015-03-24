@@ -504,14 +504,15 @@ textarea {
 }
 .field-autocomplete .angucomplete-title {
   padding: 2px 5px;
-  font-weight: bold;
   font-size: 1rem;
   color: #333333;
-  color: #388099;
 }
 .field-autocomplete .angucomplete-description {
   padding-left: 5px;
   color: #666666;
+}
+.field-autocomplete .text-match {
+  color: #388099;
 }
 .field-autocomplete .angucomplete-selected-row,
 .field-autocomplete .angucomplete-row:hover {
@@ -791,6 +792,10 @@ ul.media--partner img {
     padding-right: 0;
     padding-left: 0;
   }
+}
+section-default,
+section-raw {
+  width: 100%;
 }
 *[ui-sref] {
   cursor: pointer;
