@@ -51,7 +51,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     		$fotographer[]=$outf;
  
     	}
-    	$out['fotographer']=$fotographer;
+    	$out['photographer']=$fotographer;
 }
     
 jsonout($out);

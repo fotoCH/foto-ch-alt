@@ -55,6 +55,16 @@ function testToken($t){
 	return 0;
 	}	
 
+function getTokenInfo($t){
+	$sql="SELECT * FROM auth WHERE token='$t'";
+	$res=get1fromselect($sql);
+	if ($res){
+		
+		return $res;
+	}
+	return 0;
+}	
+
 
 function logOff($t){
 	$sql="SELECT * FROM auth WHERE token='$t'";

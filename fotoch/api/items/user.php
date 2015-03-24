@@ -29,6 +29,8 @@ if ($b=='login'){
 	
 } elseif ($b=='logout'){
 	$out['status']=(logOff($token)?'ok':'nok');
+} elseif ($b=='info'){
+	$out=getTokenInfo($tok);
 }
 
 jsonout($out);
