@@ -101,7 +101,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http','$location', '$state','$st
       abc[i]=String.fromCharCode(65+i);
   }
   $scope.abc=abc;
-
 }]);
 
 

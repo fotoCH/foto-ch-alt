@@ -469,11 +469,6 @@ a.btn {
 .form-container {
   width: 100%;
 }
-@media screen and (min-width: 768px) {
-  .form-container {
-    width: 50%;
-  }
-}
 .l-content--center .form-container {
   margin: 0 auto;
 }
@@ -652,6 +647,7 @@ textarea {
   padding-left: 0;
 }
 .link-list li {
+  margin-bottom: 0;
   padding: 5px 10px;
   list-style: none;
   -webkit-border-radius: 3px;
@@ -666,6 +662,12 @@ textarea {
 }
 .link-list li:before {
   content: '';
+}
+.link-list a {
+  outline: none;
+}
+.link-list a:hover {
+  text-decoration: none;
 }
 .link-list .link-list__title {
   color: #388099;

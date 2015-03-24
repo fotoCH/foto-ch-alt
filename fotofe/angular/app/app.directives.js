@@ -52,7 +52,7 @@ app.directive('sectionListInventory', function() {
 app.directive('photographerList', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/list/photographerList.html',
+		    templateUrl: 'app/shared/photographerList.html',
 	    	scope: {
 	    		  headline: '=headline',
 	    		  photographer: '=photographer'

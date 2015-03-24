@@ -14,7 +14,7 @@
 				minlength="1"
 				title-field="name"
 				description-field="ort"
-				match-class="text-matched"
+				match-class="text-match"
 				input-class="form-control">
 				</div>
 			</form>
@@ -34,6 +34,6 @@
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<h2>{{spr.kategorien}}</h2>
-		<button type="button" class="btn btn-primary" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
+		<button type="button" class="btn btn--action" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
 	</aside>
 </div>

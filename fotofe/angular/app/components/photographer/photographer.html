@@ -19,19 +19,7 @@
 				</div>
 			</form>
 		</div>
-		<!-- <photographer-list photographer="list.res"></photographer-list> -->
-		<div class="l-content__section">
-			<div class="link-list">
-				<ul>
-					<li ng-repeat="t in list.res" ui-sref="photographerDetail( {id: '{{t.id}}', anf: ''} )">
-						<div class="link-list__title">
-							{{t.nachname}}<span ng-if="t.vorname || t.namenszusatz">, {{t.vorname}} {{t.namenszusatz}}</span>
-						</div>
-						<div class="link-list__description" ng-bind-html="t.fldatum | rawHtml"></div>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<photographer-list photographer="list.res"></photographer-list>
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<h2>{{spr.kategorien}}</h2>

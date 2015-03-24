@@ -28,6 +28,7 @@
 		padding-left: 0;
 	}
 	li {
+		margin-bottom: 0;
 		padding: 5px 10px;
 		list-style: none;
 		.border-radius(@borderRadius);
@@ -36,6 +37,12 @@
 		}
 		&:before {
 			content: '';
+		}
+	}
+	a {
+		outline: none;
+		&:hover {
+			text-decoration: none;
 		}
 	}
 	.link-list__title {

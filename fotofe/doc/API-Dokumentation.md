@@ -4,8 +4,8 @@ Dieses Dokument beschreibt die API, welche für fotoCH entwickelt wurde.
 ## Allgemeine Infos
 Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: [https://www2.foto-ch.ch/api/](https://www2.foto-ch.ch/api/)**. Die Daten werden im JSON Format zurückgegeben.
 
-## Sprach-API
-Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen werden.
+## UI-Strings / Label / Sprache
+Mit diesem Teil der API können sämtliche UI-Strings aus der Datenbank abgerufen werden.
 - **[/?a=sprache&lang=de](https://www2.foto-ch.ch/api/?a=sprache&lang=de)** (Deutsch)
 - **[/?a=sprache&lang=fr](https://www2.foto-ch.ch/api/?a=sprache&lang=fr)** (Französisch)
 - **[/?a=sprache&lang=it](https://www2.foto-ch.ch/api/?a=sprache&lang=it)** (Italienisch)
