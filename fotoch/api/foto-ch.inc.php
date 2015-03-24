@@ -242,4 +242,22 @@ function getfromtablebyid($t,$w){
 	}
 }
 
+
+function clangues(&$fetch, $key){
+        global $language;
+        global $clanguage;
+        $l=$language;
+        $langs=array('de','en','fr','it','rm');
+        foreach ($langs as $l) {
+            $e=$fetch[$key.clangexl($l)];
+            if ($key=='umfeld'){
+        	$e=formumfeldn($e);
+            }
+            if ($e){
+        	$out[$l]=$e;
+            }
+        }
+        return($out);
+}
+
 ?>

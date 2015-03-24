@@ -24,6 +24,10 @@ while($fetch=mysql_fetch_array($result)){
 	$fetch['fbearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
 	$fetch['fldatum']=trim(formldatesimp2($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum'],$fetch['geburtsort'],$fetch['todesort']));
 	$fetch['fumfeld']=formumfeldn(clangcont($fetch,'umfeld'));
+	$out['umfeld_s']=clangues($fetch,'umfeld');
+	$out['werdegang_s']=clangues($fetch,'werdegang');
+	$out['schaffensbeschrieb_s']=clangues($fetch,'schaffensbeschrieb');
+	$out['beruf_s']=clangues($fetch,'beruf');
 	if ($_GET['lang']!='de'){
 		$fetch['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$fetch['fotografengattungen_set']);
 	}

@@ -20,9 +20,9 @@ if ($id==''){
 		$issearch=2;
 		// Select: code
 		if(auth_level(USER_GUEST_READER_PARTNER)){  
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '$anf%' ORDER BY titel Asc");
 		} else {
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '$anf%' ORDER BY titel Asc");
 		}
 
 		while($fetch=mysql_fetch_array($result)){
@@ -32,7 +32,7 @@ if ($id==''){
 			if(auth_level(USER_GUEST_READER_PARTNER)) if ($fetch['gesperrt']==1) $outl ['nameclass']='subtitle3x';
 			
 			//print_r($fetch);
-			pushfields($outl,$fetch,array('name','institution','inst_id','nameclass','id','gesperrt'));
+			pushfields($outl,$fetch,array('titel','jahr','ort','typ','institution','inst_id','nameclass','id','gesperrt'));
 			$out['res'][]=$outl;
 			//$def->parse("list.row_normal");
 		}
