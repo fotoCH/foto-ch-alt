@@ -25,7 +25,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 ## Fotografen
 ### Liste aller Fotografen
 - **Beschreibung:** Gibt eine Liste aller Fotografen zurück.
-- **Aufruf:** [/?a=fotographer](https://www2.foto-ch.ch/api/?a=fotographer)
+- **Aufruf:** [/?a=photographer](https://www2.foto-ch.ch/api/?a=photographer)
 
 **Beispiel-Resultat (erste 2 Einträge)**
 ```json
@@ -54,11 +54,11 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 ```
 
 #### Parameter
-- **Nach Anfangsbuchstaben E filtern:** [/?a=fotographer&anf=E](https://www2.foto-ch.ch/api/?a=fotographer&anf=E)
+- **Nach Anfangsbuchstaben E filtern:** [/?a=photographer&anf=E](https://www2.foto-ch.ch/api/?a=photographer&anf=E)
 
 ### Detaildaten eines Fotografen
 - **Beschreibung:** Gibt ein Liste mit Detailinfos eines Fotografen zurück
-- **Aufruf:** [/?a=fotographer&id=1542](https://www2.foto-ch.ch/api/?a=fotographer&id=1542)
+- **Aufruf:** [/?a=photographer&id=1542](https://www2.foto-ch.ch/api/?a=photographer&id=1542)
 
 **Beispiel-Resultat für Fotografen-ID 1542**
 ```json
@@ -247,20 +247,26 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 {
 	"res": [
 		{
-			"name": " Archivio fotografico Luigi Gisep",
-			"institution": null,
-			"inst_id": "694",
-			"nameclass": "subtitle3x",
-			"id": "4050",
-			"gesperrt": "1"
+			"titel": "A & P Schudel",
+			"jahr": "1985",
+			"ort": "Zürich",
+			"typ": "G",
+			"institution": "Nikon Foto Galerie",
+			"inst_id": null,
+			"nameclass": "subtitle3",
+			"id": "6283",
+			"gesperrt": null
 		},
 		{
-			"name": " Henze, Hans Werner",
-			"institution": null,
-			"inst_id": "522",
+			"titel": "A Broken Arm",
+			"jahr": "2006",
+			"ort": "New York",
+			"typ": "G",
+			"institution": "303 Gallery",
+			"inst_id": null,
 			"nameclass": "subtitle3",
-			"id": "2820",
-			"gesperrt": "0"
+			"id": "8709",
+			"gesperrt": null
 		}
 	]
 }
@@ -276,9 +282,9 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 **Beispiel-Resultat für Bestand mit ID 6711**
 ```json
 {
-	"text": "1951, Lausanne, L'Université de Fribourg",
-	"bearbeitungsdatum": "4.3.2010",
-	"fotographer": [
+	"text": "2003, Paris, Fnac Montparnasse, East of a New Eden",
+	"bearbeitungsdatum": "2.2.2012",
+	"photographer": [
 		{
 			"name": "Alban  Kakulya",
 			"fotografen_id": "29790",
@@ -352,7 +358,8 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 ```
 
 ## Versionsübersicht
-- 23.03.2015 - 0.0.4: Ausstellung 
-- 18.03.2015 - 0.0.3: API-Aufrufe verlinken. API für statische Inhalte und Partner hinzufügen.
-- 16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt
-- 13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister
+- 24.04.2015 - 0.0.5: Ausstellung und Fotografen aktualisiert, Stefan Pfister.
+- 23.03.2015 - 0.0.4: Ausstellung hinzugefügt, Stefan Pfister.
+- 18.03.2015 - 0.0.3: API-Aufrufe verlinken; API für statische Inhalte und Partner hinzugefügt, Stefan Pfister.
+- 16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt, Stefan Pfister.
+- 13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister.

@@ -1018,8 +1018,8 @@ body .markdown-body
 <p>Dieses Dokument beschreibt die API, welche für fotoCH entwickelt wurde.</p>
 <h2 id="allgemeine-infos"><a name="user-content-allgemeine-infos" href="#allgemeine-infos" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Allgemeine Infos</h2>
 <p>Alle API Aufrufe in diesem Dokument sind relativ zu <strong>API-URL: <a href="https://www2.foto-ch.ch/api/"><a href="https://www2.foto-ch.ch/api/"><a href="https://www2.foto-ch.ch/api/">https://www2.foto-ch.ch/api/</a></a></a></strong>. Die Daten werden im JSON Format zurückgegeben.</p>
-<h2 id="sprach-api"><a name="user-content-sprach-api" href="#sprach-api" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Sprach-API</h2>
-<p>Mit der Sprach-API können sämtliche UI-Strings aus der Datenbank abgerufen werden.<br />
+<h2 id="ui-strings-label-sprache"><a name="user-content-ui-strings-label-sprache" href="#ui-strings-label-sprache" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>UI-Strings / Label / Sprache</h2>
+<p>Mit diesem Teil der API können sämtliche UI-Strings aus der Datenbank abgerufen werden.<br />
 - <strong><a href="https://www2.foto-ch.ch/api/?a=sprache&amp;lang=de">/?a=sprache&amp;lang=de</a></strong> (Deutsch)<br />
 - <strong><a href="https://www2.foto-ch.ch/api/?a=sprache&amp;lang=fr">/?a=sprache&amp;lang=fr</a></strong> (Französisch)<br />
 - <strong><a href="https://www2.foto-ch.ch/api/?a=sprache&amp;lang=it">/?a=sprache&amp;lang=it</a></strong> (Italienisch)</p>
@@ -1037,7 +1037,7 @@ body .markdown-body
 <h3 id="liste-aller-fotografen"><a name="user-content-liste-aller-fotografen" href="#liste-aller-fotografen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Liste aller Fotografen</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt eine Liste aller Fotografen zurück.</li>
-<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer">/?a=fotographer</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=photographer">/?a=photographer</a></li>
 </ul>
 <p><strong>Beispiel-Resultat (erste 2 Einträge)</strong><br />
 <pre><code class="json">{
@@ -1065,12 +1065,12 @@ body .markdown-body
 </code></pre></p>
 <h4 id="parameter"><a name="user-content-parameter" href="#parameter" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Parameter</h4>
 <ul>
-<li><strong>Nach Anfangsbuchstaben E filtern:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer&amp;anf=E">/?a=fotographer&amp;anf=E</a></li>
+<li><strong>Nach Anfangsbuchstaben E filtern:</strong> <a href="https://www2.foto-ch.ch/api/?a=photographer&amp;anf=E">/?a=photographer&amp;anf=E</a></li>
 </ul>
 <h3 id="detaildaten-eines-fotografen"><a name="user-content-detaildaten-eines-fotografen" href="#detaildaten-eines-fotografen" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Detaildaten eines Fotografen</h3>
 <ul>
 <li><strong>Beschreibung:</strong> Gibt ein Liste mit Detailinfos eines Fotografen zurück</li>
-<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=fotographer&amp;id=1542">/?a=fotographer&amp;id=1542</a></li>
+<li><strong>Aufruf:</strong> <a href="https://www2.foto-ch.ch/api/?a=photographer&amp;id=1542">/?a=photographer&amp;id=1542</a></li>
 </ul>
 <p><strong>Beispiel-Resultat für Fotografen-ID 1542</strong><br />
 <pre><code class="json">{
@@ -1253,20 +1253,26 @@ body .markdown-body
 <pre><code class="json">{
     &quot;res&quot;: [
         {
-            &quot;name&quot;: &quot; Archivio fotografico Luigi Gisep&quot;,
-            &quot;institution&quot;: null,
-            &quot;inst_id&quot;: &quot;694&quot;,
-            &quot;nameclass&quot;: &quot;subtitle3x&quot;,
-            &quot;id&quot;: &quot;4050&quot;,
-            &quot;gesperrt&quot;: &quot;1&quot;
+            &quot;titel&quot;: &quot;A &amp; P Schudel&quot;,
+            &quot;jahr&quot;: &quot;1985&quot;,
+            &quot;ort&quot;: &quot;Zürich&quot;,
+            &quot;typ&quot;: &quot;G&quot;,
+            &quot;institution&quot;: &quot;Nikon Foto Galerie&quot;,
+            &quot;inst_id&quot;: null,
+            &quot;nameclass&quot;: &quot;subtitle3&quot;,
+            &quot;id&quot;: &quot;6283&quot;,
+            &quot;gesperrt&quot;: null
         },
         {
-            &quot;name&quot;: &quot; Henze, Hans Werner&quot;,
-            &quot;institution&quot;: null,
-            &quot;inst_id&quot;: &quot;522&quot;,
+            &quot;titel&quot;: &quot;A Broken Arm&quot;,
+            &quot;jahr&quot;: &quot;2006&quot;,
+            &quot;ort&quot;: &quot;New York&quot;,
+            &quot;typ&quot;: &quot;G&quot;,
+            &quot;institution&quot;: &quot;303 Gallery&quot;,
+            &quot;inst_id&quot;: null,
             &quot;nameclass&quot;: &quot;subtitle3&quot;,
-            &quot;id&quot;: &quot;2820&quot;,
-            &quot;gesperrt&quot;: &quot;0&quot;
+            &quot;id&quot;: &quot;8709&quot;,
+            &quot;gesperrt&quot;: null
         }
     ]
 }
@@ -1282,9 +1288,9 @@ body .markdown-body
 </ul>
 <p><strong>Beispiel-Resultat für Bestand mit ID 6711</strong><br />
 <pre><code class="json">{
-    &quot;text&quot;: &quot;1951, Lausanne, L'Université de Fribourg&quot;,
-    &quot;bearbeitungsdatum&quot;: &quot;4.3.2010&quot;,
-    &quot;fotographer&quot;: [
+    &quot;text&quot;: &quot;2003, Paris, Fnac Montparnasse, East of a New Eden&quot;,
+    &quot;bearbeitungsdatum&quot;: &quot;2.2.2012&quot;,
+    &quot;photographer&quot;: [
         {
             &quot;name&quot;: &quot;Alban  Kakulya&quot;,
             &quot;fotografen_id&quot;: &quot;29790&quot;,
@@ -1357,8 +1363,9 @@ body .markdown-body
 </code></pre></p>
 <h2 id="versionsubersicht"><a name="user-content-versionsubersicht" href="#versionsubersicht" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Versionsübersicht</h2>
 <ul>
-<li>23.03.2015 - 0.0.4: Ausstellung </li>
-<li>18.03.2015 - 0.0.3: API-Aufrufe verlinken. API für statische Inhalte und Partner hinzufügen.</li>
-<li>16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt</li>
-<li>13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister</li>
+<li>24.04.2015 - 0.0.5: Ausstellung und Fotografen aktualisiert, Stefan Pfister.</li>
+<li>23.03.2015 - 0.0.4: Ausstellung hinzugefügt, Stefan Pfister.</li>
+<li>18.03.2015 - 0.0.3: API-Aufrufe verlinken; API für statische Inhalte und Partner hinzugefügt, Stefan Pfister.</li>
+<li>16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt, Stefan Pfister.</li>
+<li>13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister.</li>
 </ul></article></body></html>

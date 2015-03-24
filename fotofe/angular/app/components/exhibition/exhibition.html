@@ -22,9 +22,16 @@
 		<div class="l-content__section">
 			<div class="link-list">
 				<ul>
-					<li ng-repeat="t in list.res" ui-sref="exhibitionDetail( {id: '{{t.id}}', anf: ''} )">
+					<li ng-repeat="e in list.res" ui-sref="exhibitionDetail( {id: '{{e.id}}', anf: ''} )">
 						<div class="link-list__title">
-							{{t.name}}
+							{{e.titel}}
+						</div>
+						<div class="link-list__description">
+							<span ng-if="e.institution"><strong>{{spr.institution}}:</strong> {{e.institution}}</span> 
+							<span ng-if="(e.institution && e.ort) || (e.institution && e.jahr)"> | </span>
+							<span ng-if="e.ort"><strong>{{spr.ort}}:</strong> {{e.ort}}</span>
+							<span ng-if="e.ort && e.jahr"> | </span>
+							<span ng-if="e.ort"><strong>{{spr.jahr}}: </strong> {{e.jahr}}</span>
 						</div>
 					</li>
 				</ul>
