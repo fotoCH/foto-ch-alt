@@ -18,11 +18,8 @@
 				input-class="form-control">
 				</div>
 			</form>
+			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}</button>
 		</div>
 		<photographer-list photographer="list.res"></photographer-list>
 	</div>
-	<aside class="l-content__aside l-content__right">
-		<h2>{{spr.kategorien}}</h2>
-		<button type="button" class="btn btn--action" ng-repeat="initial in abc" ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}</button>
-	</aside>
 </div>

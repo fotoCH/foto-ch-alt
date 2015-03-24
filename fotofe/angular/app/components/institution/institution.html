@@ -18,6 +18,7 @@
 				input-class="form-control">
 				</div>
 			</form>
+			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
 		</div>
 		<div class="l-content__section">
 			<div class="link-list">
@@ -32,8 +33,4 @@
 			</div>
 		</div>
 	</div>
-	<aside class="l-content__aside l-content__right">
-		<h2>{{spr.kategorien}}</h2>
-		<button type="button" class="btn btn--action" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
-	</aside>
 </div>

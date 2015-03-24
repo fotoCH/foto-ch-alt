@@ -4,7 +4,7 @@
 			<h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}}<span ng-if="n.vorname || n.namenszusatz">, {{n.vorname}} {{n.namenszusatz}}</span></h1>
 			<div ng-if="detail.fldatum">{{detail.fldatum}}</div>
 		</div>
-		<div class="l-content__section">
+		<div class="l-content__section" ng-if="detail.namen.length > 1 || detail.heimatort || detail.fotografengattungen || detail.bildgattungen || detail.beruf || detail.arbeitsperioden.length > 1 || detail.kantone || detail.pnd">
 			<dl>
 				<dt ng-if="detail.namen.length > 1">{{spr.namensvariante}}</dt>
 				<dd ng-if="!$first" ng-repeat="n in detail.namen">{{n.nachname}}, {{n.vorname}} {{n.namenszusatz}}</dd>
@@ -34,7 +34,9 @@
 		<section-list headline="spr.primaerliteratur" values="detail.primaerliteratur"></section-list>
 		<section-list headline="spr.sekundaerliteratur" values="detail.sekundaerliteratur"></section-list>
 		<section-list headline="spr.einzelausstellungen" values="detail.einzelausstellungen"></section-list>
+
 		<section-list headline="spr.gruppenausstellungen" values="detail.gruppenausstellungen"></section-list>
+
 		<section-default headline="spr.notiz" value="detail.notiz"></section-default>
 		<section-default headline="spr.npublizieren" value="detail.npublizieren"></section-default>
 	</div>
