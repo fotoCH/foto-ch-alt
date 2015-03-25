@@ -279,7 +279,7 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 - **Beschreibung:** Gibt ein Liste mit Detailinfos einer Ausstellung zurück
 - **Aufruf:** [/?a=exhibition&id=6711](https://www2.foto-ch.ch/api/?a=exhibition&id=6711)
 
-**Beispiel-Resultat für Bestand mit ID 6711**
+**Beispiel-Resultat für Ausstellung mit ID 6711**
 ```json
 {
 	"text": "2003, Paris, Fnac Montparnasse, East of a New Eden",

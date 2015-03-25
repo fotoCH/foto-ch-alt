@@ -60,6 +60,16 @@ app.directive('photographerList', function() {
 		  };
 		});
 
+app.directive('exhibitionList', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/exhibitionList.html',
+	    	scope: {
+	    		  headline: '=headline',
+	    		  exhibition: '=exhibition'
+	    	}
+		  };
+		});
 
 app.directive('mediaPartner', function() {
 	  return {

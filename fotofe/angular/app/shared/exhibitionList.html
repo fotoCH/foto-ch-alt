@@ -1,0 +1,12 @@
+<div class="l-content__section link-list" ng-if="exhibition">
+	<h2 ng-if="headline">{{headline}}</h2>
+	<ul>
+		<li ng-repeat="e in exhibition">
+			<a ui-sref="exhibitionDetail( {id: '{{e.id}}', anf: ''} )">
+				<div class="link-list__title">
+					{{e.text}}
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
