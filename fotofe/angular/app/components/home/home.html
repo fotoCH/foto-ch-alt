@@ -7,24 +7,17 @@
 		<div class="l-content__section">
 			<h2>{{spr.current}}</h2>
 			<div class="l-panel-container">
-				<div class="panel" ui-sref="photographerDetail( {id: '1541', anf:''} )">
-					<div class="panel__title">
-						Paul Senn
+				<div class="panel" ng-repeat="f in recent.res" ui-sref="photographerDetail( {id: f.id, anf:''} )">
+					<div class="panel__headline">
+							{{f.nachname}}, {{f.vorname}} {{f.namenszusatz}}
 					</div>
 					<div class="panel__body">
-						14.08.1901 - 25.04.1953
-					</div>
-				</div>
-				<div class="panel" ui-sref="photographerDetail( {id: '1295', anf:''} )">
-					<div class="panel__title">
-						Carl Jost
-					</div>
-					<div class="panel__body">
-						1899 - 1967
+						<div ng-bind-html="f.fldatum | rawHtml"></div>
+						Aktualisiert am: {{f.bearbeitungsdatum}}
 					</div>
 				</div>
 			</div>
-			<button class="btn btn--primary" type="button" ui-sref="photographer">Weitere Fotografen anzeigen</button>
+			<button class="btn btn--secondary" type="button" ui-sref="photographer">Alle Fotografen anzeigen</button>
 		</div>
 		<div class="l-content__section">
 			<h2>{{spr.wird_unterstuetzt}}</h2>

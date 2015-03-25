@@ -319,6 +319,11 @@ body {
     margin-top: 5em;
   }
 }
+@media screen and (min-width: 768px) {
+  .l-listview {
+    max-width: 90%;
+  }
+}
 .l-content--center {
   text-align: center;
 }
@@ -439,6 +444,7 @@ a.btn {
 }
 .btn--secondary {
   border: 1px solid #666666;
+  background-color: transparent;
   color: #666666;
 }
 .btn--secondary:hover,
@@ -1028,7 +1034,22 @@ section-raw {
     color: #388099;
   }
 }
+.panel-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
 .panel {
   display: inline-block;
+  margin: 5px;
+  padding: 10px;
   background-color: #f2f2f2;
+}
+.panel .panel__headline {
+  color: #388099;
 }
