@@ -49,9 +49,14 @@
 
 // Buttons that look like links
 .btn--link {
+	width: 16.66%;	
 	background-color: transparent;
 	border: none;
 	color: @colorActionPrimary;
+	@media @layoutMedium {
+		width: auto;
+		padding: 0.5em;
+	}
 	&:hover {
 		color: darken(@colorActionPrimary, 10%);
 	}
