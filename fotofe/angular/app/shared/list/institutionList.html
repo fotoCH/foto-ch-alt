@@ -1,0 +1,12 @@
+<div class="l-content__section list" ng-if="institutions">
+	<ul>
+		<li class="list__item--link" ng-repeat="i in institutions">
+			<a ui-sref="institutionDetail( {id: '{{i.id}}', anf: ''} )">
+				<div class="list__item__title">
+					{{i.name}} {{i.abkuerzung}}
+				</div>
+				<div class="list__item__description" ng-bind-html="i.ort | rawHtml"></div>
+			</a>
+		</li>
+	</ul>
+</div>

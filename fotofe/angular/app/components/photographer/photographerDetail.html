@@ -2,7 +2,7 @@
 	<div class="l-content__main l-view--reader">
 		<div class="l-content__header">
 			<h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}}<span ng-if="n.vorname || n.namenszusatz">, {{n.vorname}} {{n.namenszusatz}}</span></h1>
-			<div ng-if="detail.fldatum">{{detail.fldatum}}</div>
+			<div ng-if="detail.fldatum" ng-bind-html="detail.fldatum | rawHtml"></div>
 		</div>
 		<div class="l-content__section" ng-if="detail.namen.length > 1 || detail.heimatort || detail.fotografengattungen || detail.bildgattungen || detail.beruf || detail.arbeitsperioden.length > 1 || detail.kantone || detail.pnd">
 			<dl>
@@ -30,12 +30,14 @@
 		<section-raw headline="spr.werdegang" value="detail.werdegang"></section-raw>
 		<section-raw headline="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></section-raw>
 		<section-raw headline="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></section-raw>
-		<section-list-inventory labels="spr" inventories="detail.bestaende"></section-list-inventory>
+		<inventory-reference labels="spr" inventories="detail.bestaende"></inventory-reference>
 		<section-list headline="spr.primaerliteratur" values="detail.primaerliteratur"></section-list>
 		<section-list headline="spr.sekundaerliteratur" values="detail.sekundaerliteratur"></section-list>
-		<section-list headline="spr.einzelausstellungen" values="detail.einzelausstellungen"></section-list>
 
-		<exhibition-list headline="spr.gruppenausstellungen" linkToExhibition="true" exhibition="detail.gruppenausstellungen"></exhibition-list>
+		<exhibition-reference headline="spr.einzelausstellungen" labels="spr" exhibitions="detail.einzelausstellungen"></exhibition-reference>
+
+
+		<exhibition-reference headline="spr.gruppenausstellungen" labels="spr" exhibitions="detail.gruppenausstellungen"></exhibition-reference>
 		<section-default headline="spr.notiz" value="detail.notiz"></section-default>
 		<section-default headline="spr.npublizieren" value="detail.npublizieren"></section-default>
 	</div>

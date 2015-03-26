@@ -22,34 +22,37 @@
 	}
 }
 
-// Defining lists where each item is clickable
-.link-list {
+// List items with meta data like institution, date, etc.
+.list {
 	ul {
 		padding-left: 0;
 	}
-	li {
+	.list__item,
+	.list__item--link {
 		margin-bottom: 0;
 		padding: 5px 10px;
 		list-style: none;
+		&:before {
+			content: '';
+		}
+		.list__item__description {
+			color: @colorTextLight;
+		}
+	}
+	.list__item--link {
 		.border-radius(@borderRadius);
 		&:hover {
 			background-color: @colorLayoutLight;
 		}
-		&:before {
-			content: '';
+		a {
+			outline: none;
+			&:hover {
+				text-decoration: none;
+			}
 		}
-	}
-	a {
-		outline: none;
-		&:hover {
-			text-decoration: none;
+		.list__item__title {
+			color: @colorActionPrimary;
 		}
-	}
-	.link-list__title {
-		color: @colorActionPrimary;
-	}
-	.link-list__description {
-		color: @colorTextLight;
 	}
 }
 

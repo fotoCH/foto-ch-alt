@@ -3,13 +3,9 @@
 		<div class="l-content__header">
 			<h1>{{detail.text}}</h1>
 		</div>
-		<div class="l-content__section" ng-if="detail.photographer">
-			<h2>{{spr.fotographInnen}}</h2>
-			<ul>
-				<li ng-repeat="f in detail.photographer"><a ng-if="f.gesperrt==0" ui-sref="photographerDetail( {id: '{{f.fotografen_id}}', anf:''} )">{{f.name}}</a><span ng-if="f.gesperrt==1">{{f.name}}</span></li>
-			</ul>
-		</div>
+		<photographer-reference headline="spr.fotographInnen" photographer="detail.photographer"></photographer-reference>
 	</div>
+
 	<aside class="l-content__aside l-content__right">
 		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">
 			<h2>{{spr.bearbeitungsdatum}}</h2>

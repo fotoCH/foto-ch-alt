@@ -665,13 +665,24 @@ textarea {
   left: -20px;
   background-color: #666666;
 }
-.link-list ul {
+.list ul {
   padding-left: 0;
 }
-.link-list li {
+.list .list__item,
+.list .list__item--link {
   margin-bottom: 0;
   padding: 5px 10px;
   list-style: none;
+}
+.list .list__item:before,
+.list .list__item--link:before {
+  content: '';
+}
+.list .list__item .list__item__description,
+.list .list__item--link .list__item__description {
+  color: #666666;
+}
+.list .list__item--link {
   -webkit-border-radius: 3px;
   -webkit-background-clip: padding-box;
   -moz-border-radius: 3px;
@@ -679,23 +690,17 @@ textarea {
   border-radius: 3px;
   background-clip: padding-box;
 }
-.link-list li:hover {
+.list .list__item--link:hover {
   background-color: #f2f2f2;
 }
-.link-list li:before {
-  content: '';
-}
-.link-list a {
+.list .list__item--link a {
   outline: none;
 }
-.link-list a:hover {
+.list .list__item--link a:hover {
   text-decoration: none;
 }
-.link-list .link-list__title {
+.list .list__item--link .list__item__title {
   color: #388099;
-}
-.link-list .link-list__description {
-  color: #666666;
 }
 dl {
   margin-top: 1em;

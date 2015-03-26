@@ -1,0 +1,17 @@
+<div class="l-content__section list" ng-if="inventories">
+	<h2>{{labels.bestaende2}}</h2>
+	<ul>
+		<li class="list__item--link" ng-repeat="i in inventories">
+			<a ui-sref="inventoryDetail( {id: '{{i.id}}', anf: ''} )">
+				<div class="list__item__title">
+					{{i.name}}
+				</div>
+				<div class="list__item__description">
+					<span ng-if="i.inst_name"><strong>{{labels.institution}}:</strong> {{i.inst_name}}</span> 
+					<span ng-if="i.inst_name && i.zeitraum"> | </span>
+					<span ng-if="i.zeitraum"><strong>{{labels.zeitraum}}:</strong> {{i.zeitraum}}</span>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>

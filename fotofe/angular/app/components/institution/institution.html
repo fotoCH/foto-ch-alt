@@ -7,7 +7,7 @@
 				<div angucomplete-alt 
 				id="institution-autocomplete"
 				class="field-autocomplete"
-				placeholder="{{spr.suchen}}"
+				placeholder="{{spr.name}} {{spr.institution}}"
 				pause="100"
 				selected-object="institutionSelected"
 				remote-url="https://www2.foto-ch.ch/api/itas.php?s="
@@ -20,17 +20,6 @@
 			</form>
 			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
 		</div>
-		<div class="l-content__section">
-			<div class="link-list">
-				<ul>
-					<li ng-repeat="t in list.res" ui-sref="institutionDetail( {id: '{{t.id}}', anf: ''} )">
-						<div class="link-list__title">
-							{{t.name}} {{t.abkuerzung}}
-						</div>
-						<div class="link-list__description" ng-bind-html="t.ort | rawHtml"></div>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<institution-list institutions="list.res"></institution-list>
 	</div>
 </div>

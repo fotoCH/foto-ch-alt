@@ -29,7 +29,7 @@ app.directive('sectionRaw', function() {
 app.directive('sectionList', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/section/list.html',
+		    templateUrl: 'app/shared/list/defaultList.html',
 	    	scope: {
 	    		  headline: '=headline',
 	    		  values: '=values'
@@ -37,10 +37,10 @@ app.directive('sectionList', function() {
 		  };
 		});
 
-app.directive('sectionListInventory', function() {
+app.directive('inventoryReference', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/section/inventoryList.html',
+		    templateUrl: 'app/shared/list/inventoryReference.html',
 	    	scope: {
 	    		  headline: '=headline',
 	    		  inventories: '=inventories',
@@ -52,10 +52,30 @@ app.directive('sectionListInventory', function() {
 app.directive('photographerList', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/photographerList.html',
+		    templateUrl: 'app/shared/list/photographerList.html',
 	    	scope: {
-	    		  headline: '=headline',
-	    		  photographer: '=photographer'
+	    		  photographer: '='
+	    	}
+		  };
+		});
+
+app.directive('photographerReference', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/list/photographerReference.html',
+	    	scope: {
+	    		  headline: '=',
+	    		  photographer: '='
+	    	}
+		  };
+		});
+
+app.directive('institutionList', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/list/institutionList.html',
+	    	scope: {
+	    		  institutions: '='
 	    	}
 		  };
 		});
@@ -63,10 +83,23 @@ app.directive('photographerList', function() {
 app.directive('exhibitionList', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/exhibitionList.html',
+		    templateUrl: 'app/shared/list/exhibitionList.html',
 	    	scope: {
-	    		  headline: '=headline',
-	    		  exhibition: '=exhibition'
+	    		  exhibitions: '=',
+	    		  labels: '='
+	    	}
+		  };
+		});
+
+app.directive('exhibitionReference', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/list/exhibitionReference.html',
+	    	scope: {
+	    		  headline: '=',
+	    		  exhibitions: '=',
+	    		  labels: '='
+
 	    	}
 		  };
 		});

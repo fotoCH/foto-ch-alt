@@ -1,0 +1,18 @@
+<div class="l-content__section list" ng-if="exhibitions">
+	<ul>
+		<li class="list__item--link" ng-repeat="e in exhibitions">
+			<a ui-sref="exhibitionDetail( {id: '{{e.id}}', anf: ''} )">
+				<div class="list__item__title">
+					{{e.titel}}
+				</div>
+				<div class="list__item__description" ng-if="e.jahr || e.ort || e.institution">
+					<span ng-if="e.jahr"><strong>{{labels.jahr}}:</strong> {{e.jahr}}</span> 
+					<span ng-if="e.jahr && (e.ort || e.institution)"> | </span>
+					<span ng-if="e.ort"><strong>{{labels.ort}}:</strong> {{e.ort}}</span>
+					<span ng-if="e.ort && e.institution"> | </span>
+					<span ng-if="e.institution"><strong>{{labels.institution}}:</strong> {{e.institution}}</span>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
