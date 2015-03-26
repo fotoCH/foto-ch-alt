@@ -29,10 +29,7 @@
 		<photographer-reference headline="spr.fotographInnen" photographer="detail.photographer"></photographer-reference>
 	</div>
 	<aside class="l-content__aside l-content__right">
-		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">
-			<h2>{{spr.bearbeitungsdatum}}</h2>
-			<p>{{detail.bearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
-		</div>
+		<editing-info labels="spr" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
 		<div class="l-content__actions">
 			<a class="btn btn--action" ui-sref="contact">{{spr.proposal_for_improvements}}</a>
 		</div>

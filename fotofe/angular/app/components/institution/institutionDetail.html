@@ -24,16 +24,13 @@
 		<content-raw headline="spr.sammlungsbeschreibung" value="detail.sammlungsbeschreibung"></content-raw>
 		<inventory-reference labels="spr" inventories="detail.bestaende"></inventory-reference>
 		<default-list headline="spr.literatur" values="detail.literatur"></default-list>
-		<default-list headline="spr.einzelausstellungen" values="detail.einzelausstellungen"></default-list>
-		<default-list headline="spr.gruppenausstellungen" values="detail.gruppenausstellungen"></default-list>
+		<exhibition-reference headline="spr.einzelausstellungen" labels="spr" exhibitions="detail.einzelausstellungen"></exhibition-reference>
+		<exhibition-reference headline="spr.gruppenausstellungen" labels="spr" exhibitions="detail.gruppenausstellungen"></exhibition-reference>
 		<content-default headline="spr.notiz" value="detail.notiz"></content-default>
 		<content-default headline="spr.npublizieren" value="detail.npublizieren"></content-default>
 	</div>
 	<aside class="l-content__aside l-content__right">
-		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">
-			<h2>{{spr.bearbeitungsdatum}}</h2>
-			<p>{{detail.bearbeitungsdatum}} <span ng-if="detail.autorIn">{{spr.von}} {{detail.autorIn}}</span></p>
-		</div>
+		<editing-info labels="spr" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
 		<div class="l-content__actions">
 			<a class="btn btn--action" ui-sref="contact">{{spr.proposal_for_improvements}}</a>
 		</div>
