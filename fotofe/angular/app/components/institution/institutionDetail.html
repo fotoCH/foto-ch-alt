@@ -20,14 +20,14 @@
 				<dd ng-if="detail.bildgattungen_set">{{detail.bildgattungen_set}}</dd>
 			</dl>
 		</div>
-		<section-raw headline="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></section-raw>
-		<section-raw headline="spr.sammlungsbeschreibung" value="detail.sammlungsbeschreibung"></section-raw>
+		<content-raw headline="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></content-raw>
+		<content-raw headline="spr.sammlungsbeschreibung" value="detail.sammlungsbeschreibung"></content-raw>
 		<inventory-reference labels="spr" inventories="detail.bestaende"></inventory-reference>
-		<section-list headline="spr.literatur" values="detail.literatur"></section-list>
-		<section-list headline="spr.einzelausstellungen" values="detail.einzelausstellungen"></section-list>
-		<section-list headline="spr.gruppenausstellungen" values="detail.gruppenausstellungen"></section-list>
-		<section-default headline="spr.notiz" value="detail.notiz"></section-default>
-		<section-default headline="spr.npublizieren" value="detail.npublizieren"></section-default>
+		<default-list headline="spr.literatur" values="detail.literatur"></default-list>
+		<default-list headline="spr.einzelausstellungen" values="detail.einzelausstellungen"></default-list>
+		<default-list headline="spr.gruppenausstellungen" values="detail.gruppenausstellungen"></default-list>
+		<content-default headline="spr.notiz" value="detail.notiz"></content-default>
+		<content-default headline="spr.npublizieren" value="detail.npublizieren"></content-default>
 	</div>
 	<aside class="l-content__aside l-content__right">
 		<div class="l-content__section" ng-if="detail.bearbeitungsdatum">

@@ -4,35 +4,35 @@ app.filter('rawHtml', ['$sce', function($sce){
 	  };
 	}]);
 
-app.directive('sectionDefault', function() {
+app.directive('contentDefault', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/section/default.html',
+		    templateUrl: 'app/shared/content/default.html',
 		    scope: {
-		    	  headline: '=headline',
-		    	  value: '=value'
+		    	  headline: '=',
+		    	  value: '='
 		    }
 		  };
 		});
 
-app.directive('sectionRaw', function() {
+app.directive('contentRaw', function() {
 	  return {
 		    restrict: 'E',
-		    templateUrl: 'app/shared/section/raw.html',
+		    templateUrl: 'app/shared/content/raw.html',
 	    	scope: {
-	    		  headline: '=headline',
-	    		  value: '=value'
+	    		  headline: '=',
+	    		  value: '='
 	    	}
 		  };
 		});
 
-app.directive('sectionList', function() {
+app.directive('defaultList', function() {
 	  return {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/list/defaultList.html',
 	    	scope: {
-	    		  headline: '=headline',
-	    		  values: '=values'
+	    		  headline: '=',
+	    		  values: '='
 	    	}
 		  };
 		});
@@ -42,8 +42,8 @@ app.directive('inventoryReference', function() {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/list/inventoryReference.html',
 	    	scope: {
-	    		  headline: '=headline',
-	    		  inventories: '=inventories',
+	    		  headline: '=',
+	    		  inventories: '=',
 	    		  labels: '='
 	    	}
 		  };
@@ -119,7 +119,7 @@ app.directive('panel', function() {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/panel/panel.html',
 	    	scope: {
-	    		  headline: '=headline',
+	    		  headline: '=',
 	    	}
 		  };
 		});
