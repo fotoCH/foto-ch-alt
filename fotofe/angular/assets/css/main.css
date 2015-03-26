@@ -779,6 +779,44 @@ ul.media--partner li:before {
 ul.media--partner img {
   max-width: 100%;
 }
+.media--photo-teaser ul {
+  padding-left: 0;
+}
+.media--photo-teaser li {
+  float: left;
+  position: relative;
+  margin-bottom: 0;
+  width: 50%;
+  line-height: 0;
+}
+.media--photo-teaser li:before {
+  background-color: transparent;
+}
+.media--photo-teaser li:last-child {
+  width: 100%;
+}
+.media--photo-teaser li:hover .photo-teaser__description {
+  display: inline-block;
+}
+.media--photo-teaser img {
+  width: 100%;
+  height: auto;
+}
+.media--photo-teaser .photo-teaser__description {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0.5em;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.media--photo-teaser .photo-teaser__description .photo-teaser__caption {
+  position: absolute;
+  bottom: 1em;
+  color: #ffffff;
+  line-height: 1.3;
+}
 .logo-header {
   display: inline-block;
   width: 100%;

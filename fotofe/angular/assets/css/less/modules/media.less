@@ -1,4 +1,4 @@
-// Partner logos on the about us page
+// Supporter logos on the homepage
 ul.media--partner {
 	padding-left: 0;
 	.display(flex);
@@ -23,5 +23,48 @@ ul.media--partner {
 	}
 	img {
 		max-width: 100%;
+	}
+}
+
+// Photo teaser
+.media--photo-teaser {
+	ul {
+		padding-left: 0;
+	}
+	li {
+		float: left;
+		position: relative;
+		margin-bottom: 0;
+		width: 50%;
+		line-height: 0;	
+		&:before {
+			background-color: transparent;
+		}
+		&:last-child {
+			width: 100%;
+		}
+	}
+	li:hover .photo-teaser__description {
+		display: inline-block;
+		
+	}
+	img {
+		width: 100%;
+		height: auto;
+	}
+	.photo-teaser__description {
+		display: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		padding: 0.5em;
+		background-color: rgba(0, 0, 0, 0.5);
+		.photo-teaser__caption {
+			position: absolute;
+			bottom: 1em;
+			color: @colorTextInverted;
+			line-height: @textLineHeightDefault;
+		}
 	}
 }

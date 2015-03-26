@@ -114,12 +114,35 @@ app.directive('mediaPartner', function() {
 		  };
 		});
 
+app.directive('photoTeaser', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/media/photoTeaser.html',
+	    	scope: {
+	    		  photos: '=',
+	    		  labels: '='
+	    	}
+		  };
+		});
+
 app.directive('panel', function() {
 	  return {
 		    restrict: 'E',
 		    templateUrl: 'app/shared/panel/panel.html',
 	    	scope: {
 	    		  headline: '=',
+	    	}
+		  };
+		});
+
+app.directive('editingInfo', function() {
+	  return {
+		    restrict: 'E',
+		    templateUrl: 'app/shared/misc/editingInfo.html',
+	    	scope: {
+	    		  date: '=',
+	    		  author: '=',
+	    		  labels: '='
 	    	}
 		  };
 		});
