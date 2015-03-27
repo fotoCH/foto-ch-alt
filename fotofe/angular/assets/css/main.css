@@ -261,11 +261,9 @@ body {
     overflow: inherit;
   }
 }
-@media screen and (min-width: 768px) {
-  .l-content__main,
-  .l-content__aside {
-    padding: 10px;
-  }
+.l-content__main,
+.l-content__aside {
+  padding: 10px;
 }
 @media screen and (min-width: 768px) {
   .l-content__main {
@@ -495,6 +493,14 @@ a.btn {
 }
 .l-content--center .form-container {
   margin: 0 auto;
+}
+.form-container .ng-invalid.ng-touched {
+  border-color: #d37961;
+  outline-color: #d37961;
+}
+.form-container .has-error .form__message {
+  color: #d37961;
+  font-weight: bold;
 }
 input.form-control,
 input[type="text"],

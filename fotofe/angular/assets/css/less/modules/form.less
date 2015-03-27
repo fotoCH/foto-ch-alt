@@ -3,6 +3,15 @@
 	.l-content--center & {
 		margin: 0 auto;
 	}
+	// Form validation with Angular
+	.ng-invalid.ng-touched {
+		border-color: @colorFeedbackError;
+		outline-color: @colorFeedbackError;
+	}
+	.has-error .form__message {
+		color: @colorFeedbackError;
+		font-weight: bold;
+	}
 }
 
 input.form-control,
@@ -16,6 +25,7 @@ textarea {
 	border: 1px solid @colorFormBorder;
 	font-size: 1rem;
 }
+
 
 // Definitions for the autocomplete field
 .field-autocomplete {

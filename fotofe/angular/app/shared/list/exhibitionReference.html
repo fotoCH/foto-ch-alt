@@ -3,9 +3,9 @@
 	<ul>
 		<li ng-repeat="e in exhibitions">
 			<a ui-sref="exhibitionDetail( {id: '{{e.id}}', anf: ''} )">
-					<span ng-if="e.jahr">{{e.jahr}}</span><span ng-if="e.jahr && (e.ort || e.institution)">, </span><span ng-if="e.ort">{{e.ort}}</span><span ng-if="e.ort && e.institution">, </span><span ng-if="e.institution">{{e.institution}}</span>
+					<span ng-if="e.jahr">{{e.jahr}}</span><span ng-if="e.jahr && (e.ort || e.institution)">, </span><span ng-if="e.ort">{{e.ort}}</span><span ng-if="e.ort && e.institution">, </span><span ng-if="e.institution">{{e.institution}}, </span>
 			</a>
-			{{e.titel}}
+			{{e.titel}}.
 		</li>
 	</ul>
 </div>

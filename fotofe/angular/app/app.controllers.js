@@ -280,3 +280,31 @@ app.controller('ExhibitionCtrl', ['$scope', '$http','$location', '$state','$stat
 	  $scope.abc=abc;
 	}]);
 
+// Controller for the contact form on the contact form
+app.controller('contactFormCtrl', function ($scope, $http) {
+	// console.log("Contact Form Controller reporting for duty.")
+    $scope.formData = {};
+
+    $scope.processForm = function () {
+        $http({
+            method: 'POST',
+            url: 'sendContactMail.php',
+            data: $.param($scope.formData), 		// Pass in data as strings
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            } 		// Set headers so angular passing info as form data (not request payload)
+        })
+            .success(function (data) {
+                if (!data.success) {
+                    // Something went wrong, bind errors to error variables
+                    $scope.errorName = data.errors.name;
+                    $scope.errorEmail = data.errors.email;
+                    $scope.errorMessage = data.errors.message;
+                } else {
+                    // Everything alright, bind success message to message
+                    $scope.message = data.message;
+                }
+            });
+    };
+});
+
