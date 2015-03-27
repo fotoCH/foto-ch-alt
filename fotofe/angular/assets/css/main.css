@@ -261,9 +261,11 @@ body {
     overflow: inherit;
   }
 }
-.l-content__main,
-.l-content__aside {
-  padding: 10px;
+@media screen and (min-width: 768px) {
+  .l-content__main,
+  .l-content__aside {
+    padding: 10px;
+  }
 }
 @media screen and (min-width: 768px) {
   .l-content__main {
@@ -786,14 +788,23 @@ ul.media--partner img {
   float: left;
   position: relative;
   margin-bottom: 0;
+  padding-right: 1px;
   width: 50%;
   line-height: 0;
 }
 .media--photo-teaser li:before {
   background-color: transparent;
 }
-.media--photo-teaser li:last-child {
+.media--photo-teaser li:first-child {
   width: 100%;
+  margin-bottom: 2px;
+}
+.media--photo-teaser li:first-child,
+.media--photo-teaser li:last-child {
+  padding-right: 0;
+}
+.media--photo-teaser li:last-child {
+  padding-left: 1px;
 }
 .media--photo-teaser li:hover .photo-teaser__description {
   display: inline-block;
@@ -808,14 +819,17 @@ ul.media--partner img {
   top: 0;
   width: 100%;
   height: 100%;
-  padding: 0.5em;
   background-color: rgba(0, 0, 0, 0.5);
 }
 .media--photo-teaser .photo-teaser__description .photo-teaser__caption {
   position: absolute;
-  bottom: 1em;
+  bottom: 0.5em;
+  width: 100%;
+  padding: 0.5em;
   color: #ffffff;
   line-height: 1.3;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .logo-header {
   display: inline-block;

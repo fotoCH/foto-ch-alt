@@ -25,15 +25,17 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	max-width: @layoutMaxWidth;
-	overflow: hidden;		// Long URLs will  be cut on mobile
+	overflow: hidden;		// Long URLs shall be cut on mobile
 	@media @layoutMedium {
 		overflow: inherit;
 	}
 }
 
-.l-content__main,
-.l-content__aside {
-	padding: 10px;
+@media @layoutMedium {
+	.l-content__main,
+	.l-content__aside {
+		padding: 10px;
+	}
 }
 
 .l-content__main {

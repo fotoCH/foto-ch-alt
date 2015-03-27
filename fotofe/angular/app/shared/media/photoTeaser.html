@@ -1,10 +1,10 @@
 <div class="l-content__section media--photo-teaser" ng-if="photos">
-	<h2>{{labels.photos}}</h2>
+	<h2 ng-if="headline">{{headline}}</h2>
 	<ul>
 		<li  class="photo-teaser__item" ng-repeat="p in photos">
 			<img src="http://www.foto-ch.ch/{{p.image_path}}" alt="{{p.title}}">
 			<div class="photo-teaser__description">
-				<span class="photo-teaser__caption">{{p.title}}</span>
+				<span class="photo-teaser__caption" ng-bind-html="p.title | rawHtml"></span>
 			</div>
 		</li>
 	</ul>

@@ -120,7 +120,8 @@ app.directive('photoTeaser', function() {
 		    templateUrl: 'app/shared/media/photoTeaser.html',
 	    	scope: {
 	    		  photos: '=',
-	    		  labels: '='
+	    		  labels: '=',
+	    		  headline: '='
 	    	}
 		  };
 		});
