@@ -1,5 +1,6 @@
 <?php
-    $mailRecipient  = 'pfischtr@gmail.com'; //'info@foto-ch.ch';     // form data will be sent to this address
+//    $mailRecipient  = 'pfischtr@gmail.com'; //'info@foto-ch.ch';     // form data will be sent to this address
+    $mailRecipient  = 'info@foto-ch.ch';     // form data will be sent to this address
     $mailSubject    = "FotoCH - Kontaktformular";
 
     $dataIsValid    = true;

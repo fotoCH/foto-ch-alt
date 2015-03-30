@@ -17,7 +17,7 @@
 					<span class="form__message" ng-show="errorEmail">{{ errorEmail }}</span>
 				</div>
 				<div class="form-group" ng-class="{ 'has-error' : errorMessage }">
-					<textarea name="message" cols="30" rows="10" tabindex="3" autocomplete="off" autocorrect="off" autocapitalize="off" required="required" placeholder="{{spr.message}}" ng-model="formdata.message"></textarea>
+					<textarea name="message" cols="30" rows="10" tabindex="3" autocomplete="off" autocorrect="off" autocapitalize="off" required="required" placeholder="{{spr.message}}" ng-model="formData.message"></textarea>
 					<span class="form__message" ng-show="errorMessage">{{ errorMessage }}</span>
 				</div>
 				<input class="btn btn--primary" type="submit" tabindex="4" value="{{spr.senden}}"></input>
