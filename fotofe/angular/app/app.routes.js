@@ -81,7 +81,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         .state('test', {
             url: '/test',
             templateUrl: 'app/components/test/test.html',
-            controller: 'LoginCtrl'
+            controller: 'TestCtrl'
         });
  
 

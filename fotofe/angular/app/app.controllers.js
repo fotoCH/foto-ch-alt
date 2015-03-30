@@ -2,7 +2,7 @@
  * Controllers
  */
 
-app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootScope', function ($scope, $http, $state, $stateParams, $rootScope ) {
+app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootScope', '$location','languages', function ($scope, $http, $state, $stateParams, $rootScope, $location, languages ) {
 	  // console.log("Main Controller reporting for duty.");
 	  
 	  function loadTranslation(){
@@ -14,10 +14,20 @@ app.controller('MainCtrl', ['$scope', '$http', '$state','$stateParams', '$rootSc
 	  loadTranslation();
 
 	  $scope.setLanguage = function(lang) {
-		    // console.log('switch to language', lang);
+		    console.log('switch to language', lang);
 		    $rootScope.lang = lang;
 		    $rootScope.isLangSwitchOpen = false;	// Close the language switch after selection of new language
 		    $rootScope.isMenuOpen = false;			// Close the mobile menu after selection of new language
+		    var hosta = $location.$$host.split('.');
+		    console.log($location);
+		    for (i = 0, len = hosta.length; i < len; ++i) {
+		    	if (languages.indexOf(hosta[i])>=0){
+		    		hosta[i]=lang;
+		    		var port=($location.$$port==80?':':':'+$location.$$port);
+		    		window.location.href=$location.$$protocol+"://"+(hosta.join('.'))+port+window.location.pathname+window.location.hash;
+		    	}
+		    }
+		    
 		    loadTranslation();
 
 		    if ($state.includes('aboutFotoch') || $state.includes('contact')) {		// Reload content after switching language
@@ -307,4 +317,16 @@ app.controller('contactFormCtrl', function ($scope, $http) {
             });
     };
 });
+
+app.controller('TestCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', '$location','languages', function ($scope, $http, $state, $stateParams, $rootScope, $location, languages ) {
+	  console.log("Test Controller reporting for duty.");
+	  hosta=$location.$$host.split('.');
+	  if (hosta[0]=='www') hosta.shift();
+	  if (hosta.length>0 && ((l=languages.indexOf(hosta[0]))>=0)){
+		  console.log("GUI-Language from URL-host: "+hosta[0]);
+	  }
+	  //console.log($location.$$host);
+	  //console.log(languages);
+	  // console.log($scope);
+}]);
 
