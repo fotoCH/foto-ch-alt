@@ -1,4 +1,6 @@
-<div class="l-content__section" ng-if="date">
+<div class="l-content__section">
+	<h2 ng-if="author">{{labels.autorIn}}</h2>
+	<p ng-if="author">{{author}}</p>
 	<h2>{{labels.bearbeitungsdatum}}</h2>
-	<p>{{date}} <span ng-if="author">{{labels.von}} {{author}}</span></p>
+	<p>{{date}}</p>
 </div>
