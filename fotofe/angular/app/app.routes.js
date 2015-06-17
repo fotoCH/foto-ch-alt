@@ -82,6 +82,12 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             url: '/test',
             templateUrl: 'app/components/test/test.html',
             controller: 'TestCtrl'
+        })
+        // Testpage for photo
+        .state('photoDetail', {
+            url: '/photo/detail?id',
+            templateUrl: 'app/components/photo/photoDetail.html',
+            controller: 'PhotoCtrl'
         });
  
 

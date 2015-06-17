@@ -202,12 +202,18 @@ app.controller('HomeCtrl', ['$scope', '$http','$location', '$state','$stateParam
   	// console.log("Home Controller reporting for duty.");
 
 	function loadContent(){
+        /*
 	  $http.get($rootScope.ApiUrl+'/?a=partner&lang='+$rootScope.lang).success (function(data){
 			$scope.partner = data;
 		});
 	  $http.get($rootScope.ApiUrl+'/?recent=10').success (function(data){
 			$scope.recent = data;
 		});
+		*/
+        $http.get($rootScope.ApiUrl+'/?a=inventory&id=234').success (function(data){
+            $scope.photos = data.photos;
+            console.log($scope.photos);
+        });
   	}
   	
   	loadContent();
@@ -318,6 +324,13 @@ app.controller('contactFormCtrl', function ($scope, $http) {
     };
 });
 
+app.controller('PhotoCtrl', ['$scope', '$http','$state','$stateParams', '$location', '$rootScope', function ($scope, $http, $state, $stateParams, $location, $rootScope) {
+    var id = $stateParams.id
+    $http.get($rootScope.ApiUrl+'/?a=photo&inventory='+id).success (function(data){
+        $scope.list = data.res[0];
+    });
+}]);
+
 app.controller('TestCtrl', ['$scope', '$http','$state','$stateParams', '$rootScope', '$location','languages', function ($scope, $http, $state, $stateParams, $rootScope, $location, languages ) {
 	  console.log("Test Controller reporting for duty.");
 	  hosta=$location.$$host.split('.');
@@ -329,4 +342,5 @@ app.controller('TestCtrl', ['$scope', '$http','$state','$stateParams', '$rootSco
 	  //console.log(languages);
 	  // console.log($scope);
 }]);
+
 
