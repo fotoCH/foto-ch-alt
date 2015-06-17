@@ -63,3 +63,37 @@ textarea {
 		}
 	}
 }
+
+// power-search auf Startseite
+@input-height: 60px;
+.power-search{
+  margin-bottom: 100px;
+  form{
+    display: flex;
+    height: @input-height;
+    margin-bottom: 15px;
+    .power-search__input{
+      height: 100%;
+      padding: 5px 15px;
+    }
+    .power-search__button{
+      height: 100%;
+      width: @input-height;
+      font-size: 42px;
+      padding: 0;
+      background-color: @colorActionPrimary;
+      border: 0;
+      color: white;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      vertical-align: middle;
+      span:before{
+        vertical-align: middle;
+      }
+    }
+  }
+
+  a{
+    margin-right: 15px;
+  }
+}

@@ -99,3 +99,18 @@ body.showOverlay:before {
 	background-color: rgba(51, 51, 51, 0.8);
 	z-index: 1;
 }
+
+// home-teaser
+.l-home-teaser{
+  >div{
+    .display(flex);
+    margin: 0 -40px;
+    >div{
+      .flex(1);
+      padding: 0 40px;
+      .l-home-teaser__image{
+        max-width: 100%;
+      }
+    }
+  }
+}
