@@ -1,27 +1,21 @@
-<div class="l-content l-content--center">
+<div class="l-content">
 	<div class="l-content__main l-view--reader">
 		<div class="l-content__header hero">
 			<h1 class="hero--headline">{{spr.home_headline}}</h1>
 			<div class="hero--subheadline">{{spr.home_subheadline}}</div>
 		</div>
-		<div class="l-content__section">
-			<h2>{{spr.current}}</h2>
-			<div class="l-panel-container">
-				<div class="panel" ng-repeat="f in recent.res" ui-sref="photographerDetail( {id: f.id, anf:''} )">
-					<div class="panel__headline">
-							{{f.nachname}}, {{f.vorname}} {{f.namenszusatz}}
-					</div>
-					<div class="panel__body">
-						<div ng-bind-html="f.fldatum | rawHtml"></div>
-						Aktualisiert am: {{f.bearbeitungsdatum}}
-					</div>
-				</div>
-			</div>
-			<button class="btn btn--secondary" type="button" ui-sref="photographer">Alle Fotografen anzeigen</button>
-		</div>
-		<div class="l-content__section">
-			<h2>{{spr.wird_unterstuetzt}}</h2>
-			<media-partner partner="partner"></media-partner>
-		</div>
+        <div class="l-content__section power-search">
+            <power-search></power-search>
+        </div>
+        <div class="l-content__section l-home-teaser">
+            <div>
+                <div ng-repeat="photo in photos">
+                    <a ui-sref="photoDetail({ id: '{{ photo.id }}' })" title="{{ photo.title }}">
+                        <img class="l-home-teaser__image" src="http://www.foto-ch.ch/{{ photo.image_path }}" alt="{{ photo.title }}">
+                    </a>
+                    <span class="l-home-teaser__title" ng-bind-html=" photo.title | rawHtml"></span>
+                </div>
+            </div>
+        </div>
 	</div>
 </div>
