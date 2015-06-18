@@ -101,16 +101,47 @@ body.showOverlay:before {
 }
 
 // home-teaser
+@space: 20px;
 .l-home-teaser{
   >div{
-    .display(flex);
-    margin: 0 -40px;
+    margin: 0 -@space;
     >div{
-      .flex(1);
-      padding: 0 40px;
-      .l-home-teaser__image{
-        max-width: 100%;
+      margin: 0 @space;
+      .l-home-teaser__image-container{
+        position: relative;
+        margin: 15px 0 5px 0;
+        .l-home-teaser__image{
+          max-width: 100%;
+          max-height: 100%;
+          vertical-align: middle;
+          display: inline-block;
+        }
+        a{
+          display: block;
+          background-color: @colorLayoutLight;
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          text-align: center;
+          font: 0/0 a;
+        }
       }
     }
   }
 }
+
+@media @layoutMedium{
+  .l-home-teaser{
+    >div{
+      .display(flex);
+      margin: 0 -40px;
+      >div{
+        .flex(1);
+        margin: 0 40px;
+      }
+    }
+  }
+}
+
