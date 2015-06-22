@@ -79,3 +79,68 @@ ul.media--partner {
 		}
 	}
 }
+
+// true photo teaser
+
+@space: 0.5em;
+@spaceDesktop: 0.5em;
+.l-home-teaser, .l-photo-teaser{
+  >div{
+    margin: 0 -@space;
+    >div{
+      padding: 0 @space;
+      .l-photo-teaser__image-container{
+        position: relative;
+        margin: 15px 0 5px 0;
+        .l-photo-teaser__image{
+          max-width: 100%;
+          max-height: 100%;
+          vertical-align: middle;
+          display: inline-block;
+        }
+        a{
+          display: block;
+          background-color: @colorLayoutLight;
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          text-align: center;
+          font: 0/0 a;
+        }
+      }
+
+      .l-photo-teaser__title{
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .l-photo-teaser__title--photographer{
+        font-family: 'Lato', sans-serif;
+        font-weight: 300;
+        display: block;
+      }
+    }
+  }
+}
+
+@media @layoutMedium{
+  .l-home-teaser,  .l-photo-teaser{
+    >div{
+      .display(flex);
+      .flex-wrap(wrap);
+      margin: 0 -@spaceDesktop;
+      >div{
+        .flex(0 0 33%);
+        padding: 0 @spaceDesktop;
+        width: 33.3%;
+
+
+
+      }
+    }
+  }
+}

@@ -154,3 +154,10 @@ app.directive('powerSearch', function () {
         templateUrl: 'app/shared/form/powerSearch.html'
     }
 });
+
+app.directive('photoTeaserBox', function () {
+    return{
+        restrict: 'E',
+        templateUrl: 'app/shared/media/photoTeaserBox.html'
+    }
+});

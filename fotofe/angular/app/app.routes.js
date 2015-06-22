@@ -83,7 +83,13 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/test/test.html',
             controller: 'TestCtrl'
         })
-        // Testpage for photo
+        // Fotoportal
+        .state('photo', {
+            url: '/photo?anf',
+            templateUrl: 'app/components/photo/photo.html',
+            controller: 'PhotoCtrl'
+        })
+        // Fotoportal Detailseite
         .state('photoDetail', {
             url: '/photo/detail?id',
             templateUrl: 'app/components/photo/photoDetail.html',
