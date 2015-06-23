@@ -1,0 +1,14 @@
+<div>
+    <div ng-repeat="photo in photos | limitTo: limit">
+        <div class="l-photo-teaser__image-container">
+            <div class="one-by-one aspect-ratio"></div>
+            <a ui-sref="photoDetail({ id: '{{ photo.id }}' })" title="{{ photo.title }}">
+                <div class="centerer"></div>
+                <img class="l-photo-teaser__image" src="http://www.foto-ch.ch/{{ photo.image_path }}" alt="{{ photo.title }}">
+                <div class="centerer"></div>
+            </a>
+        </div>
+        <span class="l-photo-teaser__title--photographer" ng-bind-html=" photo.name | rawHtml"></span>
+        <span class="l-photo-teaser__title" ng-bind-html=" photo.title | rawHtml"></span>
+    </div>
+</div>
