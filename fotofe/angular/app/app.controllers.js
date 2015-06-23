@@ -213,6 +213,7 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
          */
         $http.get($rootScope.ApiUrl + '/?a=inventory&id=234').success(function (data) {
             $scope.photos = data.photos;
+            console.log($scope.photos);
         });
     }
 
