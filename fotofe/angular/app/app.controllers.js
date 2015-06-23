@@ -213,7 +213,7 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
          */
         $http.get($rootScope.ApiUrl + '/?a=inventory&id=234').success(function (data) {
             $scope.photos = data.photos;
-            console.log($scope.photos);
+            $scope.limit = 3;
         });
     }
 
@@ -338,7 +338,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $http.get($rootScope.ApiUrl + '/?a=photo&photographer=1541').success(function (data) {
             $scope.list = data;
             $scope.photos = data.res;
-            $scope.limit = 21;
+            $scope.limit = 12;
         });
     } else {
         if (id) {
