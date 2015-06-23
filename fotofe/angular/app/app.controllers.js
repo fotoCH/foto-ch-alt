@@ -337,7 +337,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $http.get($rootScope.ApiUrl + '/?a=photo&photographer=1541').success(function (data) {
             $scope.list = data;
             $scope.photos = data.res;
-            console.log(data);
+            $scope.limit = 21;
         });
     } else {
         if (id) {
