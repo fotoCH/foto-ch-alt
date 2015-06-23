@@ -84,6 +84,7 @@ ul.media--partner {
 
 @space: 0.5em;
 @spaceDesktop: 0.5em;
+@spaceHomeDesktop: 1em;
 .l-home-teaser, .l-photo-teaser{
   >div{
     margin: 0 -@space;
@@ -116,6 +117,7 @@ ul.media--partner {
         max-width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-size: 0.9rem;
       }
 
       .l-photo-teaser__title--photographer{
@@ -124,6 +126,11 @@ ul.media--partner {
         display: block;
       }
     }
+  }
+}
+.l-photo-teaser--home>div>div{
+  .l-photo-teaser__title{
+    font-size: 100%;
   }
 }
 
@@ -137,10 +144,12 @@ ul.media--partner {
         .flex(0 0 33%);
         padding: 0 @spaceDesktop;
         width: 33.3%;
-
-
-
       }
+    }
+  }
+  .l-photo-teaser--home{
+    >div>div{
+      padding: 0 @spaceHomeDesktop;
     }
   }
 }
