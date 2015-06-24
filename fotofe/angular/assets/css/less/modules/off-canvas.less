@@ -1,0 +1,41 @@
+.l-off-canvas__toggle {
+  display: none;
+}
+
+@media @layoutSmallMax{
+  .l-off-canvas__toggle {
+    display: block;
+    position: fixed;
+    top: 20%;
+    right: 0;
+    .transition(right 300ms ease);
+    background-color: @colorLayoutBorder;
+    cursor: pointer;
+    &.active {
+      right: 80%;
+    }
+    a{
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      text-decoration: none;
+      padding: 20px;
+      font-size: 3rem;
+    }
+  }
+
+  .l-off-canvas__box {
+    right: -80%;
+    width: 80%;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    padding: 0;
+    z-index: 20;
+    .transition(right 300ms ease);
+    &.active {
+      right: 0;
+      background-color: @colorLayoutBorder;
+    }
+  }
+}

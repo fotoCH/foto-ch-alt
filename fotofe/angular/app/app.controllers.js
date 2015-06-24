@@ -329,6 +329,16 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
     var anf = $stateParams.anf;
     var id = $stateParams.id;
+    $scope.filterClass = 'inactive';
+
+    $scope.toggleFilter = function(){
+        console.log('geit vou ab');
+        if($scope.filterClass === 'active'){
+            $scope.filterClass = 'inactive';
+        }else{
+            $scope.filterClass = 'active';
+        }
+    };
 
     if (!id) {
         /*
@@ -345,6 +355,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
          */
         $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
             $scope.photo = data;
+            console.log($scope.photo);
         });
 
     }
