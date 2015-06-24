@@ -1,8 +1,17 @@
-<div class="l-content l-readerview">
-    <div class="l-content__main l-view--reader">
-        <div class="l-content__header">
-            <h1>{{list.title}}</h1>
-            <img src="http://www.foto-ch.ch/{{list.image_path}}">
+<div class="l-content l-listview">
+    <div class="l-content__main">
+        <div class="l-content__section">
+            <div class="l-photo-detail">
+                <img src="http://www.foto-ch.ch/{{photo.image_path}}">
+            </div>
+        </div>
+        <div class="l-content__section">
+            <div class="l-photo-description">
+                <dl>
+                    <dt ng-if="photo.title">{{spr.titel}}</dt>
+                    <dd ng-if="photo.title" ng-bind-html="photo.title | rawHtml"></dd>
+                </dl>
+            </div>
         </div>
     </div>
 </div>

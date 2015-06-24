@@ -87,6 +87,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     };
 
     $scope.enterFunc = function (selected) {
+
         var val = document.getElementById('photographer-autocomplete_value').value;
         $state.go('photographer', {anf: val});
     };
@@ -99,7 +100,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         });
     } else {
         if (id) {
-            console.log('Detail page');
             $http.get($rootScope.ApiUrl + '/?id=' + id).success(function (data) {
                 $scope.detail = data;
                 $scope.list = null;
@@ -332,23 +332,21 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
     if (!id) {
         /*
-            Overview
+         Overview
          */
-        //$http.get($rootScope.ApiUrl + '/photo&anf=' + anf).success(function (data) {
-        $http.get($rootScope.ApiUrl + '/?a=photo&photographer=1541').success(function (data) {
+        $http.get($rootScope.ApiUrl + '/?a=photo').success(function (data) {
             $scope.list = data;
             $scope.photos = data.res;
             $scope.limit = 12;
         });
     } else {
-        if (id) {
-            /*
-                Detailpage
-             */
-            $http.get($rootScope.ApiUrl + '/?a=photo&inventory=' + id).success(function (data) {
-                $scope.list = data.res[0];
-            });
-        }
+        /*
+         Detailpage
+         */
+        $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
+            $scope.photo = data;
+        });
+
     }
 
 
