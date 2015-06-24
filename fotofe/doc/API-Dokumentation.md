@@ -357,6 +357,65 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 }
 ```
 
+## Fotoportal
+### Liste aller Fotos
+- **Beschreibung:** Gibt eine Liste aller Fotos zurück.
+- **Aufruf:** [/?a=photo](https://www2.foto-ch.ch/api/?a=photo)
+
+**Beispiel-Resultat (erster Eintrag)**
+```json
+{
+    "result_count": 5964,
+    "res": [
+        {
+            "id": "9946",
+            "dc_created": "1890-01-01",
+            "created": "[Entre 1890 et 1900]",
+            "title": "Albeuve, village et église",
+            "description": "",
+            "dcterms_ispart_of": "1074",
+            "image_path": "bcu/lwgg/lwgg00001.jpg",
+            "name": " Léon de Weck - Georges de Gottrau",
+            "institution": "Kantons- und Universitätsbibliothek Freiburg",
+            "stock": "Weck, Léon de - Gottrau, Georges de "
+        }
+    ]
+}
+```
+
+#### Parameter
+- **Fotos eines bestimmten Fotografen:** [/?a=photo&photographer=1541](https://www2.foto-ch.ch/api/?a=photo&photographer=1541)
+- **Fotos eines bestimmten Bestandes:** [/?a=photo&inventory=234](https://www2.foto-ch.ch/api/?a=photo&inventory=234)
+- **Fotos eines bestimmten Bestandes:** [/?a=photo&institution=35](https://www2.foto-ch.ch/api/?a=photo&institution=35)
+
+### Detaildaten eines Bildes
+- **Beschreibung:** Gibt die Detaildaten eines Bildes zurück.
+- **Aufruf:** [/?a=photo&id=9969](https://www2.foto-ch.ch/api/?a=photo&id=9969)
+
+**Beispiel-Resultat für Bild mit der ID 9969**
+```json
+{
+    "0": "9969",
+    "1": "1886-01-01",
+    "2": "[Entre 1886 et 1896]",
+    "3": "[Jaun], Bellegarde, village",
+    "4": "Porte le titre original: Bellegarde, rochers, ruines + village",
+    "5": "bcu/lwgg/lwgg00025.jpg",
+    "6": " Léon de Weck - Georges de Gottrau",
+    "7": "Kantons- und Universitätsbibliothek Freiburg",
+    "8": "Weck, Léon de - Gottrau, Georges de ",
+    "id": "9969",
+    "dc_created": "1886-01-01",
+    "created": "[Entre 1886 et 1896]",
+    "title": "[Jaun], Bellegarde, village",
+    "description": "Porte le titre original: Bellegarde, rochers, ruines + village",
+    "image_path": "bcu/lwgg/lwgg00025.jpg",
+    "name": " Léon de Weck - Georges de Gottrau",
+    "institution": "Kantons- und Universitätsbibliothek Freiburg",
+    "stock": "Weck, Léon de - Gottrau, Georges de "
+}
+```
+
 ## Versionsübersicht
 - 24.04.2015 - 0.0.5: Ausstellung und Fotografen aktualisiert, Stefan Pfister.
 - 23.03.2015 - 0.0.4: Ausstellung hinzugefügt, Stefan Pfister.
