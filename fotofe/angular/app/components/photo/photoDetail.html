@@ -10,6 +10,16 @@
                 <dl>
                     <dt ng-if="photo.title">{{spr.titel}}</dt>
                     <dd ng-if="photo.title" ng-bind-html="photo.title | rawHtml"></dd>
+                    <dt ng-if="photo.name">{{spr.name}}</dt>
+                    <dd ng-if="photo.name" ng-bind-html="photo.name | rawHtml"></dd>
+                    <dt ng-if="photo.created">{{spr.erstellungsdatum}}</dt>
+                    <dd ng-if="photo.created" ng-bind-html="photo.created | rawHtml"></dd>
+                    <dt ng-if="photo.institution">{{spr.institution}}</dt>
+                    <dd ng-if="photo.institution" ng-bind-html="photo.institution | rawHtml"></dd>
+                    <dt ng-if="photo.stock">{{spr.bestand}}</dt>
+                    <dd ng-if="photo.stock" ng-bind-html="photo.stock | rawHtml"></dd>
+                    <dt ng-if="photo.description">{{spr.description}}</dt>
+                    <dd ng-if="photo.description" ng-bind-html="photo.description | rawHtml"></dd>
                 </dl>
             </div>
         </div>
