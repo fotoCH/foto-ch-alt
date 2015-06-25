@@ -33,7 +33,7 @@ require("lang.inc.php");
 require("auth.inc.php");
 
 $action=$_GET['a'];
-$actions=array("fotograf","institution","inventory","sprache","login","pages","partner","photographer","exhibition","literature","user");
+$actions=array("fotograf","institution","inventory","sprache","login","pages","partner","photographer","exhibition","literature","user","photo");
 if ($action=='fotograph') $action='photographer';
 if (!in_array($action,$actions)) $action='photographer';  // default Startseite
 
