@@ -12,7 +12,7 @@
     background-color: @colorLayoutBorder;
     cursor: pointer;
     &.active {
-      right: 80%;
+      right: @offCanvasWidth;
     }
     a{
       display: inline-block;
@@ -25,8 +25,8 @@
   }
 
   .l-off-canvas__box {
-    right: -80%;
-    width: 80%;
+    right: -@offCanvasWidth;
+    width: @offCanvasWidth;
     position: fixed;
     top: 0;
     height: 100%;
