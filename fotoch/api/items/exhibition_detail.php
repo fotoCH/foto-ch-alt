@@ -16,7 +16,7 @@ if (auth_level(USER_WORKER)){
 while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
     $fetch=formaus($fetch);
-    pushfields($out,$fetch,array_merge(array('text','bearbeitungsdatum'),$afields));
+    pushfields($out,$fetch,array_merge(array('text','titel','jahr','ort','institution','bearbeitungsdatum'),$afields));
     $result6=mysql_query("SELECT * FROM ausstellung_fotograf WHERE ausstellung_id=$id");
     
     $fotogr=array();
@@ -39,7 +39,10 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     foreach ($foton as $k){
     		//print_r($fo);
     		$outf['name']=$fotogr[$k]['namen'];
-    		$outf['fotografen_id']=$fotogr[$k]['fid'];
+    		$outf['nachname']=$fotogr[$k]['nachname'];
+    		$outf['vorname']=$fotogr[$k]['vorname'];
+    		$outf['namenszusatz']=$fotogr[$k]['namenszusatz'];
+    		$outf['id']=$fotogr[$k]['fid'];
     		$outf['gesperrt']=$fotogr[$k]['gesperrt'];
     
     		$fotographer[]=$outf;

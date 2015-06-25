@@ -38,7 +38,10 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     foreach ($foton as $k){
     		//print_r($fo);
     		$outf['name']=$fotogr[$k]['namen'];
-    		$outf['fotografen_id']=$fotogr[$k]['fid'];
+    		$outf['nachname']=$fotogr[$k]['nachname'];
+		$outf['vorname']=$fotogr[$k]['vorname'];
+		$outf['namenszusatz']=$fotogr[$k]['namenszusatz'];
+    		$outf['id']=$fotogr[$k]['fid'];
     		$outf['gesperrt']=$fotogr[$k]['gesperrt'];
     
     		$fotographer[]=$outf;

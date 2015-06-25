@@ -1,17 +1,21 @@
 <?php
 
 $anf = getClean('anf');
+
 // alph. suche
 // if submit is empty -> listenansicht
 if ($id == '') {
-	$vars=array('photograph','period_start','period_end','title','institution','stock');
+	$vars=array('photograph','period_start','period_end','title','photographer','institution','inventory');
 	foreach ($vars as $key){
 		$value=getClean($key);
-		if (!empty($vars[$key])){
+		if (!empty($value)){
 			switch ($key){
 				case 'photograph':
 					$arrName = explode(' ', $value);
 					$where .= ($where!='' ? ' AND ' : '')."((n.nachname LIKE '%$arrName[0]%' AND n.vorname LIKE '%$arrName[1]%') OR (n.vorname LIKE '%$arrName[0]%' AND n.nachname LIKE '%$arrName[1]%'))";
+					break;
+				case 'photographer':
+					$where .= ($where!='' ? ' AND ' : '')."(n.fotografen_id=$value)";
 					break;
 				case 'period_start':
 					$period_start = "$value-01-01";
@@ -29,7 +33,7 @@ if ($id == '') {
 						$where .= ($where!='' ? ' AND ' : '')."i.id='$value'";
 					}
 					break;
-				case 'stock':
+				case 'inventory':
 					if ($value != 0) {
 						$where .= ($where!='' ? ' AND ' : '')."b.id='$value'";
 					}
@@ -39,7 +43,7 @@ if ($id == '') {
 	}
 	
 	
-	$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
+	$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, f.dcterms_ispart_of, image_path, ';
 	$select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
 	$select.= 'i.name AS institution, ';
 	$select.= 'b.name AS stock';
@@ -52,14 +56,12 @@ if ($id == '') {
 	if (!empty($where)){
 		$query.=" WHERE $where";
 	}
-	//echo $query;
-	$result=mysql_query($query);
+	$result=mysql_query($query. ' LIMIT 10000');
 	$rowCount = mysql_num_rows($result);
 	$out['result_count']= $rowCount;
-	
 	// do query
 	while ( $fetch = mysql_fetch_assoc ( $result ) ) {
-		pushfields($outl,$fetch,array('nachname','vorname','namenszusatz','id'));
+		//pushfields($outl,$fetch,array('nachname','vorname','namenszusatz','id'));
 		$outl['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
 		$out['res'][]=$fetch;
 	}

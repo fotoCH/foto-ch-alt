@@ -6,7 +6,7 @@ if (auth_level(USER_GUEST_READER_PARTNER))
 $result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
 else  $result=mysql_query("SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
 
-while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
 
     if(auth_level(USER_GUEST_READER)){
         $outl['idd']=$id;
@@ -95,7 +95,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 		}
 		//$def->parse($det.".z.aus");
 		//$def->parse($det.".z");
-		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text']);
+		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text'], 'titel'=>$fetch8['titel'], 'ort'=>$fetch8['ort'],'jahr'=>$fetch8['jahr'],'institution'=>$fetch8['institution']);
 		if ($aus=='E'){
 			$eaus[]=$a;
 		} else {

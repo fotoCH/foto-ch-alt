@@ -1,6 +1,5 @@
 <?php
-
-$id=$_GET['id'];
+//$id=$_GET['id'];
 
 if(auth_level(USER_GUEST_READER)) {
 	$result = mysql_query("SELECT * FROM fotografen WHERE (id=$id)");
@@ -8,8 +7,8 @@ if(auth_level(USER_GUEST_READER)) {
 else {
 	$result=mysql_query("SELECT * FROM fotografen WHERE (id=$id) AND (unpubliziert=0)");
 }
-
-while($fetch=mysql_fetch_array($result)){
+//echo(mysql_error());
+while($fetch=@mysql_fetch_assoc($result)){ 
 	if ($fetch['originalsprache']=='fr' && $_GET['clang']=='') $clanguage='fr';
 	$fetch['sprachanzeige']=checklangsf($fetch,array('beruf','umfeld','werdegang','schaffensbeschrieb'),"<a href=\"./?a=fotograph&amp;id=$id&amp;lang=$lang");
 	if (auth_level(USER_WORKER)){
@@ -229,7 +228,7 @@ while($fetch=mysql_fetch_array($result)){
 		}
 		//$def->parse($det.".z.aus");
 		//$def->parse($det.".z");
-		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text']);
+		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text'], 'titel'=>$fetch8['titel'], 'ort'=>$fetch8['ort'],'jahr'=>$fetch8['jahr'],'institution'=>$fetch8['institution']);
 		if ($aus=='E'){
 			$eaus[]=$a;
 		} else {

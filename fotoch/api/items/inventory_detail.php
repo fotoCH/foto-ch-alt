@@ -7,7 +7,7 @@ if (auth_level(USER_WORKER)){
 	$result=mysql_query("SELECT * FROM bestand WHERE (id=$id) AND gesperrt=0");
 }
 
-while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
     if(auth_level(USER_GUEST_READER)){
         $outl['idd']=$id;
         
@@ -45,7 +45,10 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     foreach ($foton as $k){
     		//print_r($fo);
     		$outf['name']=$fotogr[$k]['namen'];
-    		$outf['fotografen_id']=$fotogr[$k]['fid'];
+    		$outf['id']=$fotogr[$k]['fid'];
+		$outf['nachname']=$fotogr[$k]['nachname'];
+		$outf['vorname']=$fotogr[$k]['vorname'];
+		$outf['namenszusatz']=$fotogr[$k]['namenszusatz'];    		
     		$outf['gesperrt']=$fotogr[$k]['gesperrt'];
     
     		$fotographer[]=$outf;
