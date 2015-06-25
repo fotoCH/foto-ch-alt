@@ -114,15 +114,33 @@ function search_exhibition($q){
 		pushfields($outl,$fetch,array('titel','jahr','ort','typ','institution','inst_id','nameclass','id','gesperrt'));
 		//$def->parse("list.row_normal");
 
-		$out[]=$outl;
+		if (($fetch['gesperrt']!=1) || auth_level(USER_GUEST_READER_PARTNER)) $out[]=$outl;
 	}
 	return $out;
 }
 
 function search_photo($q){
-	$count=0;
-	return array();
-}
+	$where .= ($where!='' ? ' AND ' : '')."(n.nachname LIKE '%$q%' OR n.vorname LIKE '%$q%')";
+	$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, f.dcterms_ispart_of, image_path, ';
+	$select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
+	$select.= 'i.name AS institution, ';
+	$select.= 'b.name AS stock';
+	
+	$join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
+	$join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
+	$join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.id ";
+	
+	$query="SELECT DISTINCT $select FROM fotos AS f $join";
+	if (!empty($where)){
+		$query.=" WHERE $where";
+	}
+	$result=mysql_query($query. ' LIMIT 100');
+	
+	while($fetch=mysql_fetch_assoc($result)){
+		$out[]=$fetch;			
+	}
+	return $out;
+	}
 
 
 
