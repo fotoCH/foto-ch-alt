@@ -99,6 +99,7 @@ function getfon($id){   // Gibt Namen zu einer Namen id als Array zur√ºck
 	$r['namen_id']=$id;
 	$r['nachname']=$fetch['nachname'];
 	$r['vorname']=$fetch['vorname'];
+	$r['namenszusatz']=$fetch['namenszusatz'];
 	$r['sortn']=$fetch['nachname'].', '. $fetch['vorname'] .' '.$fetch['namenszusatz'];
 	$r['lebensdaten']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);
 	return($r);
@@ -114,6 +115,7 @@ function getfo($id){  // Gibt ersten Namen zu einer Forografen id als Array zur√
 	$r['fid']=$id;
 	$r['nachname']=$fetch['nachname'];
 	$r['vorname']=$fetch['vorname'];
+	$r['namenszusatz']=$fetch['namenszusatz'];
 	$r['sortn']=$fetch['nachname'].', '. $fetch['vorname'] .' '.$fetch['namenszusatz'];
 	$r['lebensdaten']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);
 	return($r);
