@@ -1,6 +1,6 @@
 <?php 
 
-function search_photographer($q, &$count){
+function search_photographer($q){
 	$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$q%' ORDER BY namen.nachname Asc, namen.vorname Asc";
 	$result = mysql_query ($sql);
 	$c=0;
@@ -21,28 +21,26 @@ function search_photographer($q, &$count){
 		pushfields($outl,$fetch,array('nachname','vorname','namenszusatz','id'));
 		$outl['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
 		$out[]=$outl;
-		$c++;
 	}
-	$count=$c;
 	return $out;
 }
 
-function search_literature($q, &$count){
+function search_literature($q){
 	$count=0;
 	return array();
 }
 
-function search_institution($q, &$count){
+function search_institution($q){
 	$count=0;
 	return array();
 }
 
-function search_inventory($q, &$count){
+function search_inventory($q){
 	$count=0;
 	return array();
 }
 
-function search_exhibition($q, &$count){
+function search_exhibition($q){
 	if(auth_level(USER_GUEST_READER_PARTNER)){
 		$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '$q%' ORDER BY titel Asc");
 	} else {
@@ -67,7 +65,7 @@ function search_exhibition($q, &$count){
 	return $out;
 }
 
-function search_photo($q, &$count){
+function search_photo($q){
 	$count=0;
 	return array();
 }
