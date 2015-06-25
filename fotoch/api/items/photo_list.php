@@ -58,7 +58,7 @@ if ($id == '') {
 	$out['result_count']= $rowCount;
 	
 	// do query
-	while ( $fetch = mysql_fetch_array ( $result ) ) {
+	while ( $fetch = mysql_fetch_assoc ( $result ) ) {
 		pushfields($outl,$fetch,array('nachname','vorname','namenszusatz','id'));
 		$outl['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
 		$out['res'][]=$fetch;

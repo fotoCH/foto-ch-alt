@@ -30,7 +30,7 @@ $rowCount = mysql_num_rows($result);
 $out['result_count']= $rowCount;
 
 // do query
-$fetch = mysql_fetch_array ( $result );
+$fetch = mysql_fetch_assoc ( $result );
 $out=$fetch;
     
 jsonout($out);
