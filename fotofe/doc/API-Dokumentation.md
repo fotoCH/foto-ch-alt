@@ -395,15 +395,6 @@ Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die 
 **Beispiel-Resultat für Bild mit der ID 9969**
 ```json
 {
-    "0": "9969",
-    "1": "1886-01-01",
-    "2": "[Entre 1886 et 1896]",
-    "3": "[Jaun], Bellegarde, village",
-    "4": "Porte le titre original: Bellegarde, rochers, ruines + village",
-    "5": "bcu/lwgg/lwgg00025.jpg",
-    "6": " Léon de Weck - Georges de Gottrau",
-    "7": "Kantons- und Universitätsbibliothek Freiburg",
-    "8": "Weck, Léon de - Gottrau, Georges de ",
     "id": "9969",
     "dc_created": "1886-01-01",
     "created": "[Entre 1886 et 1896]",
