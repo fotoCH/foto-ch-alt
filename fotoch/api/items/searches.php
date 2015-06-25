@@ -57,7 +57,7 @@ function search_institution($q){
 		} 
 
 		while($fetch=mysql_fetch_assoc($result)){
-			print_r($fetch);
+
 			if ($fetch['autorin']!=''){
 				$outl ['nameclass']='subtitle3bio';
 			} else {
