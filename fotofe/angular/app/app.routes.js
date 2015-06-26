@@ -94,6 +94,12 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             url: '/photo/detail?id',
             templateUrl: 'app/components/photo/photoDetail.html',
             controller: 'PhotoCtrl'
+        })
+        // Powersearch
+        .state('search', {
+            url: '/search?query',
+            templateUrl: 'app/components/powersearch/powersearch.html',
+            controller: 'PowersearchCtrl'
         });
  
 

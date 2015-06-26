@@ -1,5 +1,5 @@
 <div>
-    <div ng-repeat="photo in photos | limitTo: limit">
+    <div ng-repeat="photo in photos | filter:filterPhotos | limitTo: limit">
         <div class="l-photo-teaser__image-container">
             <div class="one-by-one aspect-ratio"></div>
             <a ui-sref="photoDetail({ id: '{{ photo.id }}' })" title="{{ photo.title }}">

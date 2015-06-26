@@ -4,18 +4,19 @@
             <h1 class="hero--headline">{{spr.photos}}</h1>
         </div>
         <div class="l-content__section l-photo-teaser">
+            <label for="filter-title">{{spr.titel }}</label>
+            <input type="text" id="filter-title" ng-model="filterPhotos.title">
             <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo"></photo-teaser-box>
         </div>
     </div>
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span class="icon-magnifying-glass"></span></a></div>
     <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
-        <div class="l-content__section">Filter
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-            consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-            sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-            sea takimata sanctus est Lorem ipsum dolor sit amet.
+        <div class="l-content__section" ng-click="loadMore()">Filter
+            <label></label>
+            <select id="filterInstitution" ng-model="filterPhotos.institution">
+                <option value="">...</option>
+                <option value="Kantons- und Universitätsbibliothek Freiburg">Kantons- und Universitätsbibliothek Freiburg</option>
+            </select>
         </div>
     </aside>
 </div>

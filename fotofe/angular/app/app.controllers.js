@@ -222,6 +222,26 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
     $rootScope.reloadHome = function () {
         loadContent();
     };
+
+    $scope.submitForm = function(){
+        $state.go('search', {query: $scope.powersearch});
+
+    };
+}]);
+
+app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
+
+    function search(query) {
+        $http.get($rootScope.ApiUrl + '/?a=search&query=' + query).success(function (data) {
+            $scope.result = data;
+            console.log($scope.result);
+        });
+    }
+
+    if($stateParams.query){
+        search($stateParams.query);
+    }
+
 }]);
 
 app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', function ($scope, $http, $state, $stateParams, $rootScope, $window) {
@@ -330,15 +350,19 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
     var anf = $stateParams.anf;
     var id = $stateParams.id;
     $scope.filterClass = 'inactive';
+    $scope.limit = 12;
 
     $scope.toggleFilter = function(){
-        console.log('geit vou ab');
         if($scope.filterClass === 'active'){
             $scope.filterClass = 'inactive';
         }else{
             $scope.filterClass = 'active';
         }
     };
+
+    $scope.loadMore = function(){
+        $scope.limit = $scope.limit + 12;
+    }
 
     if (!id) {
         /*
@@ -347,7 +371,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $http.get($rootScope.ApiUrl + '/?a=photo').success(function (data) {
             $scope.list = data;
             $scope.photos = data.res;
-            $scope.limit = 12;
+            console.log($scope.photos)
         });
     } else {
         /*

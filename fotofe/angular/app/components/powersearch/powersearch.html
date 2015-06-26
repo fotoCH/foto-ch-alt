@@ -1,0 +1,17 @@
+<div class="l-content l-readerview">
+    <div class="l-content__main">
+        <div class="l-content__section">
+            <div ng-repeat="photographer in result.photographer_results">
+                {{ photographer.vorname }} {{ photographer.nachname }}
+            </div>
+            &nbsp;
+            <div ng-repeat="exhibition in result.exhibition_results">
+                {{ exhibition.titel }} {{ exhibition.jahr }}
+            </div>
+            &nbsp;
+            <div ng-repeat="photo in result.photo_results">
+                {{ photo.title }} {{ photo.name }}
+            </div>
+        </div>
+    </div>
+</div>
