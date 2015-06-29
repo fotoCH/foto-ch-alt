@@ -12,6 +12,18 @@
             <div ng-repeat="photo in result.photo_results">
                 {{ photo.title }} {{ photo.name }}
             </div>
+            &nbsp;
+            <div ng-repeat="inventory in result.inventory_results">
+                {{ inventory.name }}
+            </div>
+            &nbsp;
+            <div ng-repeat="literature in result.literature_results">
+                {{ literature.name }}
+            </div>
+            &nbsp;
+            <div ng-repeat="institution in result.institution_results">
+                {{ literature.name }}
+            </div>
         </div>
     </div>
 </div>
