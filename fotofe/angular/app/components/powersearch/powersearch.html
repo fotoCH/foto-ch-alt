@@ -1,28 +1,41 @@
 <div class="l-content l-readerview">
     <div class="l-content__main">
         <div class="l-content__section">
-            <div ng-repeat="photographer in result.photographer_results">
-                {{ photographer.vorname }} {{ photographer.nachname }}
+            <div class="l-content__box">
+                <h1>{{ spr.photographers }}</h1>
+                <div ng-repeat="photographer in result.photographer_results">
+                    {{ photographer.vorname }} {{ photographer.nachname }}
+                </div>
             </div>
-            &nbsp;
-            <div ng-repeat="exhibition in result.exhibition_results">
-                {{ exhibition.titel }} {{ exhibition.jahr }}
+            <div class="l-content__box">
+                <h1>{{ spr.ausstellungen }}</h1>
+                <div ng-repeat="exhibition in result.exhibition_results">
+                    {{ exhibition.titel }} {{ exhibition.jahr }}
+                </div>
             </div>
-            &nbsp;
-            <div ng-repeat="photo in result.photo_results">
-                {{ photo.title }} {{ photo.name }}
+            <div class="l-content__box">
+                <h1>{{ spr.photos }}</h1>
+                <div ng-repeat="photo in result.photo_results">
+                    {{ photo.title }} {{ photo.name }}
+                </div>
             </div>
-            &nbsp;
-            <div ng-repeat="inventory in result.inventory_results">
-                {{ inventory.name }}
+            <div class="l-content__box">
+                <h1>{{ spr.bestaende2 }}</h1>
+                <div ng-repeat="inventory in result.inventory_results">
+                    {{ inventory.name }}
+                </div>
             </div>
-            &nbsp;
-            <div ng-repeat="literature in result.literature_results">
-                {{ literature.name }}
+            <div class="l-content__box">
+                <h1>{{ spr.literatur }}</h1>
+                <div ng-repeat="literature in result.literature_results">
+                    {{ literature.name }}
+                </div>
             </div>
-            &nbsp;
-            <div ng-repeat="institution in result.institution_results">
-                {{ literature.name }}
+            <div class="l-content__box">
+                <h1>{{ spr.institution }}</h1>
+                <div ng-repeat="institution in result.institution_results">
+                    {{ institution.name }}
+                </div>
             </div>
         </div>
     </div>
