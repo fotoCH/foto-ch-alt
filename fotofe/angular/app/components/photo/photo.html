@@ -11,11 +11,21 @@
     </div>
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span class="icon-magnifying-glass"></span></a></div>
     <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
-        <div class="l-content__section" ng-click="loadMore()">Filter
-            <label></label>
+        <div class="l-content__section" ng-click="loadMore()">
+            <h1>Filter</h1>
+
+            <label for="filterPhotographer">{{ spr.fotograph }}</label>
+            <input type="text" id="filterPhotographer" ng-model="filterPhotos.name">
+
+            <label for="filterInstitution">{{ spr.institution }}</label>
             <select id="filterInstitution" ng-model="filterPhotos.institution">
                 <option value="">...</option>
                 <option value="Kantons- und Universitätsbibliothek Freiburg">Kantons- und Universitätsbibliothek Freiburg</option>
+            </select>
+
+            <label for="filterStock">{{ spr.bestand }}</label>
+            <select id="filterStock" ng-model="filterPhotos.stock">
+                <option value="">...</option>
             </select>
         </div>
     </aside>
