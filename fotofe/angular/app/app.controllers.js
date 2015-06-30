@@ -200,20 +200,11 @@ app.controller('StaticPageCtrl', ['$scope', '$http', '$location', '$state', '$st
 }]);
 
 app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
-    // console.log("Home Controller reporting for duty.");
 
     function loadContent() {
-        /*
-         $http.get($rootScope.ApiUrl+'/?a=partner&lang='+$rootScope.lang).success (function(data){
-         $scope.partner = data;
-         });
-         $http.get($rootScope.ApiUrl+'/?recent=10').success (function(data){
-         $scope.recent = data;
-         });
-         */
         $http.get($rootScope.ApiUrl + '/?a=inventory&id=234').success(function (data) {
             $scope.photos = data.photos;
-            $scope.limit = 3;
+            $scope.limit = 4;
         });
     }
 
@@ -234,7 +225,7 @@ app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$s
     function search(query) {
         $http.get($rootScope.ApiUrl + '/?a=search&query=' + query).success(function (data) {
             $scope.result = data;
-            console.log($scope.result);
+            //console.log($scope.result);
         });
     }
 
@@ -371,7 +362,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $http.get($rootScope.ApiUrl + '/?a=photo').success(function (data) {
             $scope.list = data;
             $scope.photos = data.res;
-            console.log($scope.photos)
+            //console.log($scope.photos)
         });
     } else {
         /*
@@ -379,7 +370,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
          */
         $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
             $scope.photo = data;
-            console.log($scope.photo);
+            //console.log($scope.photo);
         });
 
     }

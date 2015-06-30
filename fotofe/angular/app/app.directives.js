@@ -150,14 +150,14 @@ app.directive('editingInfo', function () {
 
 app.directive('powerSearch', function () {
     return{
-        restrict: 'E',
+        restrict: 'AE',
         templateUrl: 'app/shared/form/powerSearch.html'
     }
 });
 
 app.directive('photoTeaserBox', function () {
     return{
-        restrict: 'E',
+        restrict: 'AE',
         templateUrl: 'app/shared/media/photoTeaserBox.html'
     }
 });
