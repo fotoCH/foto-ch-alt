@@ -46,6 +46,20 @@ body {
 	}
 }
 
+// IE9-fix
+.no-flexbox .l-content__main{
+  @media @layoutMedium {
+    float: left;
+    width: 70%;
+  }
+}
+.no-flexbox .l-content__aside{
+  @media @layoutMedium {
+    float: left;
+    width: 30%;
+  }
+}
+
 .l-content__aside {
 	@media @layoutMedium {
 		margin-top: 0;
@@ -63,6 +77,11 @@ body {
 		.order(-1);
 		margin-right: 10px;
 	}
+
+    // IE9-fix
+    .no-flexbox .l-content{
+        .clearfix();
+    }
 }
 
 // Reader view (e.g. used for fotographer details)
