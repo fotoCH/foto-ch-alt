@@ -47,13 +47,14 @@ body {
 }
 
 // IE9-fix
-.no-flexbox .l-content__main{
+.no-flexbox .l-content__main.l-searchview,
+.no-flexbox .l-readerview .l-content__main{
   @media @layoutMedium {
     float: left;
     width: 70%;
   }
 }
-.no-flexbox .l-content__aside{
+.no-flexbox .l-content__aside.l-content__right{
   @media @layoutMedium {
     float: left;
     width: 30%;
