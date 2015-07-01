@@ -1,10 +1,10 @@
-<form class="form-container" action="" ng-submit="submitForm()" novalidate>
+<form class="form-container" ng-submit="submitForm()" novalidate>
     <input type="text"
            class="power-search__input"
            placeholder="Suche"
            autofocus="true"
            ng-model="powersearch">
-    <button type="submit" class="btn power-search__button">
+    <button class="btn power-search__button" ng-click="submitForm()">
         <span class="icon-magnifying-glass"></span>
     </button>
 </form>
