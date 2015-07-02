@@ -61,6 +61,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
         function () {
             $rootScope.isMenuOpen = false;
         });
+
+    $rootScope.goBack = function(){
+        window.history.back();
+    }
 }]);
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {

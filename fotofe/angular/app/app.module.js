@@ -3,7 +3,8 @@ var app = angular.module('fotochWebApp', [
 	'ui.router',
 	'angucomplete-alt',
 	'headroom',
-    'yaru22.md'
+    'yaru22.md',
+    'infinite-scroll'
 ]);
 
 app.run(function($rootScope, $http, $location, languages) {

@@ -3,7 +3,7 @@
         <div class="l-content__header">
             <h1 class="hero--headline">{{spr.photos}}</h1>
         </div>
-        <div class="l-content__section l-photo-teaser">
+        <div class="l-content__section l-photo-teaser" infinite-scroll="loadMore()">
             <label for="filter-title">{{spr.titel }}</label>
             <input type="text" id="filter-title" ng-model="filterPhotos.title">
             <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo"></photo-teaser-box>
