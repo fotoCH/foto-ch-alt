@@ -13,7 +13,7 @@ function jsonout($out){
 	$json = json_encode ( $out );
 	if (array_key_exists ( 'callback', $_GET )) {
 		
-		header ( 'Content-Type: text/javascript; charset=utf8' );
+		header ( 'Content-Type: text/javascript; charset=utf-8' );
 		header ( 'Access-Control-Allow-Origin: http://www.example.com/' );
 		header ( 'Access-Control-Max-Age: 3628800' );
 		header ( 'Access-Control-Allow-Methods: GET, POST, PUT, DELETE' );
@@ -24,7 +24,7 @@ function jsonout($out){
 	} else {
 		// normal JSON string
 		header('Access-Control-Allow-Origin: *');
-		header ( 'Content-Type: application/json; charset=utf8' );
+		header ( 'Content-Type: application/json; charset=utf-8' );
 		header ( 'Access-Control-Allow-Headers: X-AuthToken, AuthToken, Origin, X-Requested-With, Content-Type, Accept' );
 
 		
