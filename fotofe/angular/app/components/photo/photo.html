@@ -7,7 +7,7 @@
             <label for="filter-title">{{spr.titel }}</label>
             <input type="text" id="filter-title" ng-model="filterPhotos.title">
             <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo"></photo-teaser-box>
-            <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit" class="l-photo-teaser__load-more">{{ spr.load_additional_content }}</button>
+            <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit" class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}</button>
         </div>
     </div>
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span class="icon-magnifying-glass"></span></a></div>
