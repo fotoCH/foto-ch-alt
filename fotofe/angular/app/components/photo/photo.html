@@ -6,6 +6,9 @@
         <div class="l-content__section l-photo-teaser" infinite-scroll="loadMore()">
             <label for="filter-title">{{spr.titel }}</label>
             <input type="text" id="filter-title" ng-model="filterPhotos.title">
+            <div class="l-photo-teaser__info-bar">
+                {{ filteredPhotos.length }}
+            </div>
             <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo"></photo-teaser-box>
             <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit" class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}</button>
         </div>
@@ -30,7 +33,6 @@
                     ng-change="updateSelect(filterPhotos.stock_id)">
                 <option value="">...</option>
             </select>
-            {{ filterPhotos }}
         </div>
     </aside>
 </div>
