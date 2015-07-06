@@ -3,37 +3,38 @@
         <div class="l-content__section">
             <div class="l-content__box">
                 <h1>{{ spr.photographers }}</h1>
-                <div ng-repeat="photographer in result.photographer_results">
+                <div>{{ result.photographer_result_count }} {{ spr.results }}</div>
+                <div ng-repeat="photographer in result.photographer_results | limitTo: limit">
                     {{ photographer.vorname }} {{ photographer.nachname }}
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.ausstellungen }}</h1>
-                <div ng-repeat="exhibition in result.exhibition_results">
+                <div ng-repeat="exhibition in result.exhibition_results | limitTo: limit">
                     {{ exhibition.titel }} {{ exhibition.jahr }}
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.photos }}</h1>
-                <div ng-repeat="photo in result.photo_results">
-                    {{ photo.title }} {{ photo.name }}
+                <div ng-repeat="photo in result.photo_results | limitTo: limit">
+                    <a ui-ref="" >{{ photo.title }}</a> {{ photo.name }}
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.bestaende2 }}</h1>
-                <div ng-repeat="inventory in result.inventory_results">
+                <div ng-repeat="inventory in result.inventory_results | limitTo: limit">
                     {{ inventory.name }}
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.literatur }}</h1>
-                <div ng-repeat="literature in result.literature_results">
+                <div ng-repeat="literature in result.literature_results | limitTo: limit">
                     {{ literature.name }}
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.institution }}</h1>
-                <div ng-repeat="institution in result.institution_results">
+                <div ng-repeat="institution in result.institution_results | limitTo: limit">
                     {{ institution.name }}
                 </div>
             </div>

@@ -1,6 +1,7 @@
 
 var app = angular.module('fotochWebApp', [
 	'ui.router',
+    'angular.filter',
 	'angucomplete-alt',
 	'headroom',
     'yaru22.md',
@@ -36,7 +37,6 @@ app.run(function($rootScope, $http, $location, languages) {
 
 		  });
     }
-
 })
 
 app.service('fotochService', ['$http', function ($http) {

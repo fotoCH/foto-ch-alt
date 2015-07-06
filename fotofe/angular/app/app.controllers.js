@@ -226,6 +226,8 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
 
 app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
 
+    $scope.limit = 10;
+
     function search(query) {
         $http.get($rootScope.ApiUrl + '/?a=search&query=' + query).success(function (data) {
             $scope.result = data;
@@ -359,6 +361,28 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.limit = $scope.limit + 12;
     }
 
+    $scope.filterExcludeNullStockId = function(){
+        return function( photo ) {
+            return photo.stock_id !== null;
+        };
+    }
+
+    $scope.filterExcludeNullInstitutionId = function(){
+        return function( photo ) {
+            return photo.institution !== null;
+        };
+    }
+
+    $scope.updateSelect = function(val){
+        if(val === null){
+            angular.forEach($scope.filterPhotos,function(value,index, array){
+                if(value === null){
+                    $scope.filterPhotos[index] = '';
+                }
+            });
+        }
+    }
+
     if (!id) {
         /*
          Overview
@@ -366,7 +390,6 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $http.get($rootScope.ApiUrl + '/?a=photo').success(function (data) {
             $scope.list = data;
             $scope.photos = data.res;
-            //console.log($scope.photos)
         });
     } else {
         /*
@@ -374,7 +397,6 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
          */
         $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
             $scope.photo = data;
-            //console.log($scope.photo);
         });
 
     }

@@ -19,15 +19,18 @@
             <input type="text" id="filterPhotographer" ng-model="filterPhotos.name">
 
             <label for="filterInstitution">{{ spr.institution }}</label>
-            <select id="filterInstitution" ng-model="filterPhotos.institution">
+            <select id="filterInstitution" ng-model="filterPhotos.institution_id"
+                    ng-options="photo.institution_id as photo.institution for photo in photos | unique: 'institution_id' | filter:filterExcludeNullInstitutionId()"
+                    ng-change="updateSelect(filterPhotos.institution_id)">
                 <option value="">...</option>
-                <option value="Kantons- und Universitätsbibliothek Freiburg">Kantons- und Universitätsbibliothek Freiburg</option>
             </select>
-
             <label for="filterStock">{{ spr.bestand }}</label>
-            <select id="filterStock" ng-model="filterPhotos.stock">
+            <select id="filterStock" ng-model="filterPhotos.stock_id"
+                    ng-options="photo.stock_id as photo.stock for photo in photos | unique: 'stock_id' | filter:filterExcludeNullStockId()"
+                    ng-change="updateSelect(filterPhotos.stock_id)">
                 <option value="">...</option>
             </select>
+            {{ filterPhotos }}
         </div>
     </aside>
 </div>
