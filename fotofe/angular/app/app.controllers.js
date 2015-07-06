@@ -348,8 +348,23 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
     var id = $stateParams.id;
     $scope.filterClass = 'inactive';
     $scope.limit = 12;
+    $scope.viewClass = '';
 
     $scope.toggleFilter = function(){
+        if($scope.filterClass === 'active'){
+            $scope.filterClass = 'inactive';
+        }else{
+            $scope.filterClass = 'active';
+        }
+    };
+
+    $scope.changeView = function(cssClass){
+        if(cssClass){
+            $scope.viewClass = cssClass;
+        }else{
+            $scope.viewClass = '';
+        }
+
         if($scope.filterClass === 'active'){
             $scope.filterClass = 'inactive';
         }else{

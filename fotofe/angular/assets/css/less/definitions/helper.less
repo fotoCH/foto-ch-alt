@@ -30,3 +30,17 @@
   vertical-align: middle;
   display: inline-block;
 }
+
+.clearfix() {
+  &:before, &:after, {
+    content: "";
+    display: table;
+  }
+  &:after{
+    clear: both;
+  }
+}
+
+.clearfix{
+  .clearfix();
+}

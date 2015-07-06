@@ -3,13 +3,17 @@
         <div class="l-content__header">
             <h1 class="hero--headline">{{spr.photos}}</h1>
         </div>
-        <div class="l-content__section l-photo-teaser" infinite-scroll="loadMore()">
+        <div class="l-content__section" infinite-scroll="loadMore()">
             <label for="filter-title">{{spr.titel }}</label>
             <input type="text" id="filter-title" ng-model="filterPhotos.title">
             <div class="l-photo-teaser__info-bar">
-                {{ filteredPhotos.length }}
+                <span ng-if="filteredPhotos.length">
+                    {{ spr.results }}: {{ filteredPhotos.length }} {{ spr.photos }}
+                </span>
+                <a ng-click="changeView('l-photo-teaser--list')">Liste</a>
+                <a ng-click="changeView()">Kacheln</a>
             </div>
-            <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo"></photo-teaser-box>
+            <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo {{ viewClass }}"></photo-teaser-box>
             <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit" class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}</button>
         </div>
     </div>
