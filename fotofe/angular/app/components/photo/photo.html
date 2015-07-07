@@ -4,8 +4,8 @@
             <h1 class="hero--headline">{{spr.photos}}</h1>
         </div>
         <div class="l-content__section" infinite-scroll="loadMore()">
-            <label for="filter-title">{{spr.titel }}</label>
-            <input type="text" id="filter-title" ng-model="filterPhotos.title">
+            <label for="filter-title"></label>
+            <input type="text" id="filter-title" ng-model="filterPhotos.$">
             <div class="l-photo-teaser__info-bar">
                 <span ng-if="filteredPhotos.length">
                     {{ spr.results }}: {{ filteredPhotos.length }} {{ spr.photos }}
