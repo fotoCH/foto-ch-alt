@@ -1,0 +1,12 @@
+<div class="l-content__section list" ng-if="inventories">
+    <ul>
+        <li  class="list__item--link" ng-repeat="i in inventories">
+            <a ui-sref="inventoryDetail( {id: '{{i.id}}', anf: ''} )">
+                <div class="list__item__title">
+                    {{i.name}}<span ng-if="i.vorname || i.namenszusatz">, {{i.vorname}} {{i.namenszusatz}}</span>
+                </div>
+                <div class="list__item__description" ng-if="i.fldatum" ng-bind-html="i.fldatum | rawHtml"></div>
+            </a>
+        </li>
+    </ul>
+</div>
