@@ -53,6 +53,12 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/exhibition/exhibitionDetail.html',
             controller: 'ExhibitionCtrl'
         })
+        // Inventory search view
+        .state('inventory', {
+            url: '/inventory?anf',
+            templateUrl: 'app/components/inventory/inventory.html',
+            controller: 'InventoryCtrl'
+        })
         // Inventory detail view
         .state('inventoryDetail', {
             url: '/inventory/detail?id',
