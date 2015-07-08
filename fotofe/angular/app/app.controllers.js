@@ -105,6 +105,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     } else {
         if (id) {
             $http.get($rootScope.ApiUrl + '/?id=' + id).success(function (data) {
+                $scope.readMoreLimit = 50;
                 $scope.detail = data;
                 $scope.list = null;
             });
