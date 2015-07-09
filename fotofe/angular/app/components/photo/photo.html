@@ -13,6 +13,7 @@
                 <a ng-click="changeView('l-photo-teaser--list')">Liste</a>
                 <a ng-click="changeView()">Kacheln</a>
             </div>
+            <loading-indicator></loading-indicator>
             <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo {{ viewClass }}"></photo-teaser-box>
             <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit" class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}</button>
         </div>

@@ -237,6 +237,15 @@ app.directive('photoTeaserBox', function () {
         templateUrl: 'app/shared/media/photoTeaserBox.html'
     }
 });
+
+app.directive('loadingIndicator', function () {
+    return{
+        restrict: 'AE',
+        replace: true,
+        templateUrl: 'app/shared/misc/loadingIndicator.html'
+    }
+});
+
 var readMore = angular.module('readMore', []);
 app.directive('readMore', function() {
     return {
