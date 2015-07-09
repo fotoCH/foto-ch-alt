@@ -403,7 +403,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         /*
          Overview
          */
-        $http.get($rootScope.ApiUrl + '/?a=photo').success(function (data) {
+        $http.get($rootScope.ApiUrl + '/?a=photo', { cache: true }).success(function (data) {
             $scope.list = data;
             $scope.photos = data.res;
         });
