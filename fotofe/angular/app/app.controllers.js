@@ -227,8 +227,8 @@ app.controller('StaticPageCtrl', ['$scope', '$http', '$location', '$state', '$st
 app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
 
     function loadContent() {
-        $http.get($rootScope.ApiUrl + '/?a=inventory&id=234').success(function (data) {
-            $scope.photos = data.photos;
+        $http.get($rootScope.ApiUrl + '/?a=photo&random=4').success(function (data) {
+            $scope.photos = data.res;
             $scope.limit = 4;
         });
     }
