@@ -85,7 +85,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     var id = $stateParams.id
     var anf = $stateParams.anf;
     $scope.input = '';
-    $scope.limit = 20;
+    $scope.limit = 0;
 
 
 
@@ -105,7 +105,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     if (anf >= 'A') {
         $http.get($rootScope.ApiUrl + '/?anf=' + anf).success(function (data) {
             $scope.list = data;
-            console.log($scope.list.res);
 
             // add filters to array
             $scope.filter = {};
@@ -122,7 +121,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 //$scope.list.res[index].bildgattungenstring = value.bildgattungen.toString();
 
             });
-            console.log($scope.filter);
         });
     } else {
         if (id) {
