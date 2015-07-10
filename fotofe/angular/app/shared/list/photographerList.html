@@ -1,6 +1,6 @@
 <div class="l-content__section list" ng-if="photographer">
 	<ul>
-		<li  class="list__item--link" ng-repeat="p in photographer">
+		<li  class="list__item--link" ng-repeat="p in filteredPhotographer = ( photographer | filter:filterPhotographer)  | limitTo: limit">
 			<a ui-sref="photographerDetail( {id: '{{p.id}}', anf: ''} )">
 				<div class="list__item__title">
 					{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span>

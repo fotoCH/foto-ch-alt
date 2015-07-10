@@ -1,25 +1,49 @@
-<div class="l-content l-listview">
-	<div class="l-content__main">
-		<div class="l-content__header">
-			<h1>{{spr.photographers}}</h1>
+<div class="l-content l-searchview">
+    <div class="l-content__main">
+        <div class="l-content__header">
+            <h1>{{spr.photographers}}</h1>
 
-			<form class="form-container" action="" novalidate ng-submit="enterFunc()">
-				<div angucomplete-alt 
-				id="photographer-autocomplete"
-				class="field-autocomplete"
-				placeholder="{{spr.nachname}} {{spr.vorname}} {{spr.fotograph}}"
-				pause="100"
-				selected-object="photographerSelected"
-				remote-url="https://www2.foto-ch.ch/api/ftas.php?s="
-				minlength="2"
-				title-field="name,vorname"
-				description-field="fldatum"
-				match-class="text-match"
-				input-class="form-control">
-				</div>
-			</form>
-			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}</button>
-		</div>
-		<photographer-list photographer="list.res"></photographer-list>
-	</div>
+            <form class="form-container" action="" novalidate ng-submit="enterFunc()">
+                <div angucomplete-alt
+                     id="photographer-autocomplete"
+                     class="field-autocomplete"
+                     placeholder="{{spr.nachname}} {{spr.vorname}} {{spr.fotograph}}"
+                     pause="100"
+                     selected-object="photographerSelected"
+                     remote-url="https://www2.foto-ch.ch/api/ftas.php?s="
+                     minlength="2"
+                     title-field="name,vorname"
+                     description-field="fldatum"
+                     match-class="text-match"
+                     input-class="form-control">
+                </div>
+            </form>
+            <button type="button" class="btn btn--link" ng-repeat="initial in abc"
+                    ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
+            </button>
+        </div>
+        <photographer-list photographer="list.res" filter-photographer="filterPhotographer" limit="limit"></photographer-list>
+    </div>
+    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
+                class="icon-magnifying-glass"></span></a></div>
+    <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
+        <div class="l-content__section">
+            <h2>Filter</h2>
+
+            <label for="filterPhotographer">{{ spr.name }}</label>
+            <input type="text" id="filterPhotographer" ng-model="filterPhotographer.nachname">
+
+            <label for="filterPhotographerGenre">{{ spr.fotografengattungen }}</label>
+            <select id="filterPhotographerGenre" ng-model="filterPhotographer.fotografengattungen"
+                ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | unique">
+                <option value="">...</option>
+            </select>
+
+            <label for="filterPhotoGenre">{{ spr.bildgattungen }}</label>
+            <select id="filterPhotoGenre" ng-model="filterPhotographer.bildgattungen"
+                ng-options="bildgattungen for bildgattungen in filter.bildgattungen | unique">
+                <option value="">...</option>
+            </select>
+        </div>
+    </aside>
 </div>

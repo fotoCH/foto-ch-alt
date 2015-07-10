@@ -85,6 +85,10 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     var id = $stateParams.id
     var anf = $stateParams.anf;
     $scope.input = '';
+    $scope.limit = 20;
+
+
+
     $scope.photographerSelected = function (selected) {
         //window.alert('You have selected ' + selected.originalObject.id);
         $state.go('photographerDetail', {id: selected.originalObject.id, anf: ''});
@@ -101,6 +105,24 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     if (anf >= 'A') {
         $http.get($rootScope.ApiUrl + '/?anf=' + anf).success(function (data) {
             $scope.list = data;
+            console.log($scope.list.res);
+
+            // add filters to array
+            $scope.filter = {};
+            $scope.filter.fotografengattungen = [];
+            $scope.filter.bildgattungen = [];
+            angular.forEach($scope.list.res,function(value,index, array){
+                if(value.fotografengattungen[0] != ''){
+                    $scope.filter.fotografengattungen = $scope.filter.fotografengattungen.concat(value.fotografengattungen);
+                }
+                if(value.bildgattungen[0] != ''){
+                    $scope.filter.bildgattungen = $scope.filter.bildgattungen.concat(value.bildgattungen);
+                }
+                //$scope.list.res[index].fotografengattungenstring = value.fotografengattungen.toString();
+                //$scope.list.res[index].bildgattungenstring = value.bildgattungen.toString();
+
+            });
+            console.log($scope.filter);
         });
     } else {
         if (id) {

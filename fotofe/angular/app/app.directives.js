@@ -129,8 +129,11 @@ app.directive('photographerList', function () {
     return {
         restrict: 'E',
         templateUrl: 'app/shared/list/photographerList.html',
+        transclude: true,
         scope: {
-            photographer: '='
+            photographer: '=',
+            filterPhotographer: '=',
+            limit: '='
         }
     };
 });
