@@ -245,14 +245,12 @@ app.directive('photoTeaserBox', function () {
     return{
         restrict: 'AE',
         templateUrl: 'app/shared/media/photoTeaserBox.html',
-        transclude: true,
         scope: {
             photos: '=',
             filterPhotos: '=',
             limit: '=',
-            imageRootUrl: '=',
-            showDetail: '=',
-            filteredPhotos: '='
+            imageRootUrl: '@',
+            showDetail: '@'
         }
     }
 });

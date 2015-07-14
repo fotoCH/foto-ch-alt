@@ -374,7 +374,7 @@ app.controller('contactFormCtrl', function ($scope, $http) {
     };
 });
 
-app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', function ($scope, $http, $state, $stateParams, $location, $rootScope) {
+app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter) {
 
     var anf = $stateParams.anf;
     var query = $stateParams.query;
@@ -409,6 +409,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.limit = $scope.limit + 12;
     }
 
+
     $scope.filterExcludeNullStockId = function(){
         return function( photo ) {
             return photo.stock_id !== null;
@@ -431,6 +432,16 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         }
     }
 
+
+    $scope.$watchCollection('filterPhotos', function(n,o){
+        filterPhotos();
+    });
+
+    // filtering photos before passing to directive (a little ugly, but results in better performance)
+    var filterPhotos = function(){
+        $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.filterPhotos);
+    }
+
     if (!id) {
         /*
          Overview
@@ -440,6 +451,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
             $scope.loading = false;
             $scope.list = data;
             $scope.photos = data.res;
+            filterPhotos();
         });
     } else {
         /*
@@ -447,8 +459,8 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
          */
         $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
             $scope.photo = data;
-        });
 
+        });
     }
 
 

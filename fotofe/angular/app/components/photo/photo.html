@@ -17,11 +17,9 @@
             <loading-indicator></loading-indicator>
             <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo {{ viewClass }}"
                               limit="limit"
-                              photos="photos"
-                              image-root-url="imageRootUrl"
-                              filter-photos="filterPhotos"
-                              show-detail="true"
-                              filtered-photos="filteredPhotos"></photo-teaser-box>
+                              photos="filteredPhotos"
+                              image-root-url="{{ imageRootUrl }}"
+                              show-detail="true"></photo-teaser-box>
             <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit"
                     class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}
             </button>
