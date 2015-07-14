@@ -28,7 +28,7 @@ while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
     if ($fetch['sammlungszeit_von'].$fetch['sammlungszeit_bis']!=''){
         $fetch['sammlungszeit']=$fetch['sammlungszeit_von'].' - '.$fetch['sammlungszeit_bis'];
     } else { $fetch['sammlungszeit']=''; }
-    pushfields($out,$fetch,array('name','adresse','ort','isil','art','homepage','bildgattungen_set','zugang_zur_sammlung','sammlungszeit','sammlungsbeschreibung','sammlungsgeschichte','bearbeitungsdatum','gesperrt'));
+    pushfields($out,$fetch,array('name','adresse','ort','isil','art','art_id', 'kanton', 'homepage','bildgattungen_set','zugang_zur_sammlung','sammlungszeit','sammlungsbeschreibung','sammlungsgeschichte','bearbeitungsdatum','gesperrt'));
     $result6=mysql_query("SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
     	while($fetch6=mysql_fetch_array($result6)){
 		if (auth_level(USER_GUEST_READER_PARTNER) || $fetch6['instgesp']==0){

@@ -8,9 +8,9 @@ if ($id == '') {
 	// do query
 	$issearch = 2;
 	if (auth_level ( USER_GUEST_READER )) {
-		$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc";
+		$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc";
 	} else {
-		$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc";
+		$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc";
 	}
 	if ($_GET['recent']){
 	$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY bearbeitungsdatum DESC LIMIT ".mysql_real_escape_string($_GET['recent']);
@@ -35,8 +35,35 @@ if ($id == '') {
 				$outl ['bioclass'] .= 'x';
 			}
 		//print_r($fetch);
+		$outl['fotografengattungen']=explode( ',', $fetch['fotografengattungen_set']);
+		$outl['bildgattungen']=explode( ',', $fetch['bildgattungen_set']);
+		$outl['kanton']=explode( ',', $fetch['kanton']);
 		pushfields($outl,$fetch,array('nachname','vorname','namenszusatz','id'));
 		$outl['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
+		$result2=mysql_query("SELECT * FROM arbeitsperioden WHERE fotografen_id=".$fetch['id']." ORDER BY  id");
+        //$def->assign("SPR2",$spr);
+        
+	        while($fetch2=mysql_fetch_array($result2)){
+                if ($fetch2['von'].$fetch2['bis']!=''){
+                        $fetch2['um_vonf']=$fetch2['um_von']==0?'':$spr['um'].' ';
+                        $fetch2['um_bisf']=$fetch2['um_bis']==0?'':$spr['um'].' ';
+                        //$def->assign("FETCH2",$fetch2);
+                        
+                        //$def->parse($det.".z.arb.vonbis");
+                        //$results.=$def->text($det.".z.arb.vonbis");
+                } else {
+                        $fetch2['um_vonf']='';
+                        $fetch2['um_bisf']='';
+                        //$def->assign("FETCH2",$fetch2);
+                }
+                //$def->parse($det.".z.arb");
+                //$def->parse($det.".z");
+                //$def->assign("SPR2", ""); //delete table-header
+                //$results.=$def->text($det.".z");
+                pushfields($arb,$fetch2,array('arbeitsort','um_vonf','von','um_bisf','bis'));
+                $arbeitsperioden[]=$arb;
+	        }
+    		$outl['arbeitsperioden']=$arbeitsperioden;
 		$out['res'][]=$outl;
 	}
 	//$out ['glob'] = $glob;

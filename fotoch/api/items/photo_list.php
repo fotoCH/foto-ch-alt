@@ -1,6 +1,7 @@
 <?php
 
 $anf = getClean('anf');
+$rand= getClean('random');
 
 // alph. suche
 // if submit is empty -> listenansicht
@@ -41,12 +42,14 @@ if ($id == '') {
 			}
 		}
 	}
-	
+	if ($rand){
+	    $where='1 ORDER BY RAND() LIMIT '.$rand;
+	}
 	
 	$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, f.dcterms_ispart_of, image_path, ';
-	$select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
-	$select.= 'i.name AS institution, ';
-	$select.= 'b.name AS stock';
+	$select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, f.dc_creator as photographer_id, ';
+	$select.= 'i.name AS institution, i.id as institution_id, ';
+	$select.= 'b.name AS stock, b.id as stock_id';
 	
 	$join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
 	$join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
@@ -56,7 +59,7 @@ if ($id == '') {
 	if (!empty($where)){
 		$query.=" WHERE $where";
 	}
-	$result=mysql_query($query. ' LIMIT 10000');
+	$result=mysql_query($query);
 	$rowCount = mysql_num_rows($result);
 	$out['result_count']= $rowCount;
 	// do query
