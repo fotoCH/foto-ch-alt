@@ -105,7 +105,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     if (anf >= 'A') {
         $http.get($rootScope.ApiUrl + '/?anf=' + anf).success(function (data) {
             $scope.list = data;
-            console.log(data);
 
             // add filters to array
             $scope.filter = {};
@@ -119,7 +118,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 if(value.bildgattungen[0] != ''){
                     $scope.filter.bildgattungen = $scope.filter.bildgattungen.concat(value.bildgattungen);
                 }
-                console.log(value.kanton);
                 if(value.kanton[0] != ''){
                     $scope.filter.kanton = $scope.filter.kanton.concat(value.kanton);
                 }
@@ -377,11 +375,11 @@ app.controller('contactFormCtrl', function ($scope, $http) {
 app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter) {
 
     var anf = $stateParams.anf;
-    var query = $stateParams.query;
     var id = $stateParams.id;
     $scope.filterClass = 'inactive';
     $scope.limit = 12;
     $scope.viewClass = '';
+    $scope.filterPhotos = {"$": $stateParams.query};
 
     $scope.toggleFilter = function(){
         if($scope.filterClass === 'active'){
