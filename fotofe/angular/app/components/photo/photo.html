@@ -5,7 +5,8 @@
         </div>
         <div class="l-content__section" infinite-scroll="loadMore()">
             <label for="filter-title"></label>
-            <input type="text" id="filter-title" ng-model="filterPhotos.$">
+            <input type="text" id="filter-title" ng-model="filterPhotos.$" value="query">
+
             <div class="l-photo-teaser__info-bar">
                 <span ng-if="filteredPhotos.length">
                     {{ spr.results }}: {{ filteredPhotos.length }} {{ spr.photos }}
@@ -14,11 +15,20 @@
                 <a ng-click="changeView()">Kacheln</a>
             </div>
             <loading-indicator></loading-indicator>
-            <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo {{ viewClass }}"></photo-teaser-box>
-            <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit" class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}</button>
+            <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo {{ viewClass }}"
+                              limit="limit"
+                              photos="photos"
+                              image-root-url="imageRootUrl"
+                              filter-photos="filterPhotos"
+                              show-detail="true"
+                              filtered-photos="filteredPhotos"></photo-teaser-box>
+            <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit"
+                    class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}
+            </button>
         </div>
     </div>
-    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span class="icon-magnifying-glass"></span></a></div>
+    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
+                class="icon-magnifying-glass"></span></a></div>
     <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
         <div class="l-content__section">
             <h2>Filter</h2>

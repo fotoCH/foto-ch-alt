@@ -1,43 +1,57 @@
-<div class="l-content l-readerview">
+<div class="l-content l-searchview">
     <div class="l-content__main">
-        <div class="l-content__section">
+        <div class="l-content__section power-search">
+            <power-search></power-search>
+        </div>
+        <div class="l-content__section l-boxview">
             <div class="l-content__box">
                 <h1>{{ spr.photographers }}</h1>
-                <div>{{ result.photographer_result_count }} {{ spr.results }}</div>
-                <div ng-repeat="photographer in result.photographer_results | limitTo: limit">
-                    {{ photographer.vorname }} {{ photographer.nachname }}
-                </div>
-            </div>
-            <div class="l-content__box">
-                <h1>{{ spr.ausstellungen }}</h1>
-                <div ng-repeat="exhibition in result.exhibition_results | limitTo: limit">
-                    {{ exhibition.titel }} {{ exhibition.jahr }}
+                <div>{{ result.photographer_result_count }} {{ spr.results }} <a ui-sref="photographer({ query: powersearch })">link</a></div>
+                <div ng-repeat="p in result.photographer_results | limitTo: limit">
+                    <a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{ p.nachname }}, {{ p.vorname }} {{
+                        p.namenszusatz }}</a> {{ p.fldatum }}
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.photos }}</h1>
-                <div ng-repeat="photo in result.photo_results | limitTo: limit">
-                    <a ui-ref="" >{{ photo.title }}</a> {{ photo.name }}
+                <div>{{ result.photos_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">link</a></div>
+                <photo-teaser-box class="l-photo-teaser l-photo-teaser--powersearch"
+                                  limit="limit"
+                                  photos="result.photo_results"
+                                  image-root-url="imageRootUrl"
+                                  filter-photos="filter"
+                                  show-detail="false"
+                                  filtered-photos="filteredPhotos"></photo-teaser-box>
+            </div>
+            <div class="l-content__box">
+                <h1>{{ spr.institution }}</h1>
+
+                <div ng-repeat="i in result.institution_results | limitTo: limit">
+                    <a ui-sref="institutionDetail( {id: '{{i.id}}'} )">{{ i.name }}</a>
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.bestaende2 }}</h1>
-                <div ng-repeat="inventory in result.inventory_results | limitTo: limit">
-                    {{ inventory.name }}
+
+                <div ng-repeat="i in result.inventory_results | limitTo: limit">
+                    <a ui-sref="inventoryDetail( {id: '{{i.id}}'} )">{{ i.name }}</a>
                 </div>
             </div>
             <div class="l-content__box">
-                <h1>{{ spr.literatur }}</h1>
-                <div ng-repeat="literature in result.literature_results | limitTo: limit">
-                    {{ literature.name }}
-                </div>
-            </div>
-            <div class="l-content__box">
-                <h1>{{ spr.institution }}</h1>
-                <div ng-repeat="institution in result.institution_results | limitTo: limit">
-                    {{ institution.name }}
+                <h1>{{ spr.ausstellungen }}</h1>
+
+                <div ng-repeat="e in result.exhibition_results | limitTo: limit">
+                    <a ui-sref="exhibitionDetail( {id: '{{e.id}}'} )">{{ e.titel }}</a> {{ e.jahr }} {{ e.ort }} {{
+                    e.institution }}
                 </div>
             </div>
         </div>
     </div>
+    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
+                class="icon-magnifying-glass"></span></a></div>
+    <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
+        <div class="l-content__section">
+            <h2>{ spr.filter }}</h2>
+        </div>
+    </aside>
 </div>

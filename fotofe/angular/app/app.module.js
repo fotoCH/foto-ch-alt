@@ -13,6 +13,7 @@ app.run(function($rootScope, $http, $location, languages) {
     $rootScope.userLevel = '';
     $rootScope.authToken = '';
     $rootScope.lang = 'de';
+    $rootScope.imageRootUrl = 'http://www.foto-ch.ch/';
 	  var hosta=$location.$$host.split('.');
 	  if (hosta[0]=='www') hosta.shift();
 	  if (hosta.length>0 && ((l=languages.indexOf(hosta[0]))>=0)){
@@ -34,7 +35,6 @@ app.run(function($rootScope, $http, $location, languages) {
 				$http.defaults.headers.common['X-AuthToken']=token;
 				//$window.sessionStorage.authToken=undefined;
 				}
-
 		  });
     }
 })

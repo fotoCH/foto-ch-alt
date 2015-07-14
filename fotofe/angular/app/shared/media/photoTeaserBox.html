@@ -4,11 +4,12 @@
             <div class="one-by-one aspect-ratio"></div>
             <a ui-sref="photoDetail({ id: '{{ photo.id }}' })" title="{{ photo.title }}">
                 <div class="centerer"></div>
-                <img class="l-photo-teaser__image" src="http://www.foto-ch.ch/{{ photo.image_path }}" alt="{{ photo.title }}">
+                <img class="l-photo-teaser__image" src="{{ imageRootUrl }}{{ photo.image_path }}"
+                     alt="{{ photo.title }}">
                 <div class="centerer"></div>
             </a>
         </div>
-        <div class="l-photo-teaser__description">
+        <div class="l-photo-teaser__description" ng-show="showDetail">
             <span class="l-photo-teaser__title--photographer" ng-bind-html=" photo.name | rawHtml"></span>
             <span class="l-photo-teaser__title" ng-bind-html=" photo.title | rawHtml"></span>
         </div>

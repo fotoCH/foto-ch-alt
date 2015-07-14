@@ -18,7 +18,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         
         // Photographer search view
         .state('photographer', {
-            url: '/photographer?anf',
+            url: '/photographer?anf&query',
             templateUrl: 'app/components/photographer/photographer.html',
             controller: 'PhotographerCtrl'
         })
@@ -91,7 +91,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         })
         // Fotoportal
         .state('photo', {
-            url: '/photo?anf',
+            url: '/photo?anf&query',
             templateUrl: 'app/components/photo/photo.html',
             controller: 'PhotoCtrl'
         })

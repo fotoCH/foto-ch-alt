@@ -105,11 +105,13 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     if (anf >= 'A') {
         $http.get($rootScope.ApiUrl + '/?anf=' + anf).success(function (data) {
             $scope.list = data;
+            console.log(data);
 
             // add filters to array
             $scope.filter = {};
             $scope.filter.fotografengattungen = [];
             $scope.filter.bildgattungen = [];
+            $scope.filter.kanton = [];
             angular.forEach($scope.list.res,function(value,index, array){
                 if(value.fotografengattungen[0] != ''){
                     $scope.filter.fotografengattungen = $scope.filter.fotografengattungen.concat(value.fotografengattungen);
@@ -117,6 +119,11 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 if(value.bildgattungen[0] != ''){
                     $scope.filter.bildgattungen = $scope.filter.bildgattungen.concat(value.bildgattungen);
                 }
+                console.log(value.kanton);
+                if(value.kanton[0] != ''){
+                    $scope.filter.kanton = $scope.filter.kanton.concat(value.kanton);
+                }
+                //console.log($scope.filter.kanton);
                 //$scope.list.res[index].fotografengattungenstring = value.fotografengattungen.toString();
                 //$scope.list.res[index].bildgattungenstring = value.bildgattungen.toString();
 
@@ -247,19 +254,23 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
 
 app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
 
-    $scope.limit = 10;
+    $scope.limit = 9;
 
     function search(query) {
         $http.get($rootScope.ApiUrl + '/?a=search&query=' + query).success(function (data) {
             $scope.result = data;
+            $scope.powersearch = query;
             //console.log($scope.result);
         });
+    }
+
+    $scope.submitForm = function(){
+        $state.go('search', {query: $scope.powersearch});
     }
 
     if($stateParams.query){
         search($stateParams.query);
     }
-
 }]);
 
 app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', function ($scope, $http, $state, $stateParams, $rootScope, $window) {
@@ -366,6 +377,7 @@ app.controller('contactFormCtrl', function ($scope, $http) {
 app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', function ($scope, $http, $state, $stateParams, $location, $rootScope) {
 
     var anf = $stateParams.anf;
+    var query = $stateParams.query;
     var id = $stateParams.id;
     $scope.filterClass = 'inactive';
     $scope.limit = 12;

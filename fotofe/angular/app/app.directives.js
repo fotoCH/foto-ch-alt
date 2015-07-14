@@ -234,10 +234,26 @@ app.directive('powerSearch', function () {
     }
 });
 
+app.directive('inContentMenu', function () {
+    return{
+        restrict: 'AE',
+        templateUrl: 'app/shared/navigation/inContentMenu.html'
+    }
+});
+
 app.directive('photoTeaserBox', function () {
     return{
         restrict: 'AE',
-        templateUrl: 'app/shared/media/photoTeaserBox.html'
+        templateUrl: 'app/shared/media/photoTeaserBox.html',
+        transclude: true,
+        scope: {
+            photos: '=',
+            filterPhotos: '=',
+            limit: '=',
+            imageRootUrl: '=',
+            showDetail: '=',
+            filteredPhotos: '='
+        }
     }
 });
 
@@ -260,7 +276,6 @@ app.directive('readMore', function() {
         templateUrl: 'app/shared/content/readmore.html',
         controller: ['$scope', '$attrs', '$element',
             function($scope, $attrs, $element) {
-                //console.log($element.find('span.l-readmore__text'));
                 $scope.textLength = $attrs.length;
                 $scope.isExpanded = false; // initialise extended status
                 $scope.countingWords = $attrs.words !== undefined ? ($attrs.words === 'true') : true; //if this attr is not defined the we are counting words not characters
