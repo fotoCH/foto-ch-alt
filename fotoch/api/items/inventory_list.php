@@ -33,6 +33,37 @@ if ($id==''){
 			
 			//print_r($fetch);
 			pushfields($outl,$fetch,array('name','institution','inst_id','nameclass','id','gesperrt'));
+			
+			
+			$result6=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=".$fetch['id']);
+    
+		        $fotogr=array();
+		        $fotographer=array();
+
+		        while($fetch6=mysql_fetch_array($result6)){
+		        if ($fetch6['namen_id']){
+            		    $fo=getfon($fetch6['namen_id']);
+		        } else {
+            		    $fo=getfo($fetch6['fotografen_id']);
+		        }
+		        $fotogr[$fo['sortn']]=$fo;
+		        }
+		        $foton=array_keys($fotogr);
+		        sort($foton);
+		        foreach ($foton as $k){
+	                    $outf['name']=$fotogr[$k]['namen'];
+        		    $outf['id']=$fotogr[$k]['fid'];
+	                    $outf['nachname']=$fotogr[$k]['nachname'];
+	                    $outf['vorname']=$fotogr[$k]['vorname'];
+	                    $outf['namenszusatz']=$fotogr[$k]['namenszusatz'];    
+	                    $outf['gesperrt']=$fotogr[$k]['gesperrt'];
+	                    $outf['bildgattungen']=explode( ',', $fotogr[$k]['bildgattungen_set']);
+	                    $fotographer[]=$outf;
+ 
+    			}
+		        $outl['photographer']=$fotographer;
+
+			
 			$out['res'][]=$outl;
 			//$def->parse("list.row_normal");
 		}

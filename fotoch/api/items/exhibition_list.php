@@ -33,6 +33,33 @@ if ($id==''){
 			
 			//print_r($fetch);
 			pushfields($outl,$fetch,array('titel','jahr','ort','typ','institution','inst_id','nameclass','id','gesperrt'));
+			
+			
+			$result6=mysql_query("SELECT * FROM ausstellung_fotograf WHERE ausstellung_id=".$fetch['id']);
+    
+		        $fotogr=array();
+
+		        while($fetch6=mysql_fetch_array($result6)){
+		                $fo=getfo($fetch6['fotograf_id']);
+    			        $fotogr[$fo['sortn']]=$fo;
+    			}
+		    	$foton=array_keys($fotogr);
+			sort($foton);
+			foreach ($foton as $k){
+	                    $outf['name']=$fotogr[$k]['namen'];
+        		    $outf['id']=$fotogr[$k]['fid'];
+	                    $outf['nachname']=$fotogr[$k]['nachname'];
+        		    $outf['vorname']=$fotogr[$k]['vorname'];
+	                    $outf['namenszusatz']=$fotogr[$k]['namenszusatz'];
+	                    $outf['gesperrt']=$fotogr[$k]['gesperrt'];
+	                    $outf['bildgattungen']=explode( ',', $fotogr[$k]['bildgattungen_set']);
+	                    $fotographer[]=$outf;
+ 
+		        }
+		        $outl['photographer']=$fotographer;
+
+			
+			
 			$out['res'][]=$outl;
 			//$def->parse("list.row_normal");
 		}
