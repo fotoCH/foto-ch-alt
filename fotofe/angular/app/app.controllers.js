@@ -372,79 +372,105 @@ app.controller('contactFormCtrl', function ($scope, $http) {
     };
 });
 
-app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter) {
+app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', '$cacheFactory', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory) {
 
     var anf = $stateParams.anf;
     var id = $stateParams.id;
-    $scope.filterClass = 'inactive';
-    $scope.limit = 12;
-    $scope.viewClass = '';
-    $scope.filterPhotos = {"$": $stateParams.query};
-
-    $scope.toggleFilter = function(){
-        if($scope.filterClass === 'active'){
-            $scope.filterClass = 'inactive';
-        }else{
-            $scope.filterClass = 'active';
-        }
-    };
-
-    $scope.changeView = function(cssClass){
-        if(cssClass){
-            $scope.viewClass = cssClass;
-        }else{
-            $scope.viewClass = '';
-        }
-
-        if($scope.filterClass === 'active'){
-            $scope.filterClass = 'inactive';
-        }else{
-            $scope.filterClass = 'active';
-        }
-    };
-
-    $scope.loadMore = function(){
-        $scope.limit = $scope.limit + 12;
-    }
-
-
-    $scope.filterExcludeNullStockId = function(){
-        return function( photo ) {
-            return photo.stock_id !== null;
-        };
-    }
-
-    $scope.filterExcludeNullInstitutionId = function(){
-        return function( photo ) {
-            return photo.institution !== null;
-        };
-    }
-
-    $scope.updateSelect = function(val){
-        if(val === null){
-            angular.forEach($scope.filterPhotos,function(value,index, array){
-                if(value === null){
-                    $scope.filterPhotos[index] = '';
-                }
-            });
-        }
-    }
-
-
-    $scope.$watchCollection('filterPhotos', function(n,o){
-        filterPhotos();
-    });
-
-    // filtering photos before passing to directive (a little ugly, but results in better performance)
-    var filterPhotos = function(){
-        $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.filterPhotos);
-    }
 
     if (!id) {
         /*
-         Overview
+            Overview
          */
         $scope.loading = true;
+        $scope.filterClass = 'inactive';
+        $scope.viewClass = '';
+        var cachedFilters = $rootScope.filterCache.get('filterPhotos');
+        var cachedLimit = $rootScope.filterCache.get('limitPhotos');
+        var limitExpander = 12;
+
+        // set filters
+        if(cachedFilters !== undefined){
+            $scope.filterPhotos = $rootScope.filterCache.get('filterPhotos');
+        }else{
+            $scope.filterPhotos = {"$": $stateParams.query};
+        }
+        // set limit
+        if(cachedLimit !== undefined){
+            $scope.limit = $rootScope.filterCache.get('limitPhotos');
+        }else{
+            $scope.limit = limitExpander;
+        }
+
+        // cache filterObject & limit on page change (only to detail)
+        $scope.$on('$stateChangeStart', function( event, toState ) {
+            if(toState.name == 'photoDetail'){
+                $rootScope.filterCache.put('filterPhotos', $scope.filterPhotos);
+                $rootScope.filterCache.put('limitPhotos', $scope.limit);
+            }else{
+                $rootScope.filterCache.remove('filterPhotos');
+                $rootScope.filterCache.remove('limitPhotos');
+            }
+        });
+
+        $scope.toggleFilter = function(){
+            if($scope.filterClass === 'active'){
+                $scope.filterClass = 'inactive';
+            }else{
+                $scope.filterClass = 'active';
+            }
+        };
+
+        $scope.changeView = function(cssClass){
+            if(cssClass){
+                $scope.viewClass = cssClass;
+            }else{
+                $scope.viewClass = '';
+            }
+
+            if($scope.filterClass === 'active'){
+                $scope.filterClass = 'inactive';
+            }else{
+                $scope.filterClass = 'active';
+            }
+        };
+
+        $scope.loadMore = function(){
+            $scope.limit = $scope.limit + limitExpander;
+        }
+
+
+        $scope.filterExcludeNullStockId = function(){
+            return function( photo ) {
+                return photo.stock_id !== null;
+            };
+        }
+
+        $scope.filterExcludeNullInstitutionId = function(){
+            return function( photo ) {
+                return photo.institution !== null;
+            };
+        }
+
+        $scope.updateSelect = function(val){
+            if(val === null){
+                angular.forEach($scope.filterPhotos,function(value,index, array){
+                    if(value === null){
+                        $scope.filterPhotos[index] = '';
+                    }
+                });
+            }
+        }
+
+
+        $scope.$watchCollection('filterPhotos', function(n,o){
+            filterPhotos();
+        });
+
+        // filtering photos before passing to directive (a little ugly, but results in better performance)
+        var filterPhotos = function(){
+            $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.filterPhotos);
+        }
+
         $http.get($rootScope.ApiUrl + '/?a=photo', { cache: true }).success(function (data) {
             $scope.loading = false;
             $scope.list = data;
@@ -453,11 +479,10 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         });
     } else {
         /*
-         Detailpage
+            Detailpage
          */
         $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
             $scope.photo = data;
-
         });
     }
 

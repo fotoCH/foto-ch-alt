@@ -8,12 +8,14 @@ var app = angular.module('fotochWebApp', [
     'infinite-scroll'
 ]);
 
-app.run(function($rootScope, $http, $location, languages) {
+app.run(function($rootScope, $http, $location, languages, $cacheFactory) {
     $rootScope.user = '';
     $rootScope.userLevel = '';
     $rootScope.authToken = '';
     $rootScope.lang = 'de';
     $rootScope.imageRootUrl = 'http://www.foto-ch.ch/';
+    $rootScope.filterCache = $cacheFactory('filterCache');
+
 	  var hosta=$location.$$host.split('.');
 	  if (hosta[0]=='www') hosta.shift();
 	  if (hosta.length>0 && ((l=languages.indexOf(hosta[0]))>=0)){
