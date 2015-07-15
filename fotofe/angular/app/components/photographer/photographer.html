@@ -22,26 +22,29 @@
                     ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
             </button>
         </div>
-        <photographer-list photographer="list.res" filter-photographer="filterPhotographer" limit="limit"></photographer-list>
+        <loading-indicator></loading-indicator>
+        <photographer-list photographer="filteredPhotographers" filter-photographer="filterPhotographer" limit="limit"></photographer-list>
     </div>
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
                 class="icon-magnifying-glass"></span></a></div>
     <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
         <div class="l-content__section">
             <h2>Filter</h2>
-            <div>{{ filterPhotographer }}</div>
+
             <label for="filterPhotographer">{{ spr.name }}</label>
             <input type="text" id="filterPhotographer" ng-model="filterPhotographer.nachname">
 
             <label for="filterPhotographerGenre">{{ spr.fotografengattungen }}</label>
             <select id="filterPhotographerGenre" ng-model="filterPhotographer.fotografengattungen"
-                ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | unique">
+                ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | unique"
+                ng-change="updateSelect(filterPhotographer.fotografengattungen)">
                 <option value="">...</option>
             </select>
 
             <label for="filterPhotoGenre">{{ spr.bildgattungen }}</label>
             <select id="filterPhotoGenre" ng-model="filterPhotographer.bildgattungen"
-                ng-options="bildgattungen for bildgattungen in filter.bildgattungen | unique">
+                ng-options="bildgattungen for bildgattungen in filter.bildgattungen | unique"
+                ng-change="updateSelect(filterPhotographer.bildgattungen)">
                 <option value="">...</option>
             </select>
         </div>
