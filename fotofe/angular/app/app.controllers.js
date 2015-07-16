@@ -389,15 +389,18 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         // ajax calls
         $scope.loading = true;
         if (anf >= 'A') {
-            $http.get($rootScope.ApiUrl + '/?anf=' + anf).success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?anf=' + anf, { cache: true }).success(function (data) {
                 $scope.list = data;
                 configureFilters();
             });
         }else{
-            $http.get($rootScope.ApiUrl + '/?a=photographer').success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
                 $scope.list = data;
                 configureFilters();
-            });
+            }).error(function(data, status) {
+                    $scope.loading = false;
+                    $scope.loadingError = true;
+                });
         }
     } else {
         /**

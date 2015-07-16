@@ -262,6 +262,17 @@ app.directive('loadingIndicator', function () {
     }
 });
 
+app.directive('loadingError', function () {
+    return{
+        restrict: 'AE',
+        replace: true,
+        scope: {
+            text: '@'
+        },
+        templateUrl: 'app/shared/misc/loadingError.html'
+    }
+});
+
 var readMore = angular.module('readMore', []);
 app.directive('readMore', function() {
     return {
