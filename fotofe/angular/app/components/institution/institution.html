@@ -2,9 +2,9 @@
 	<div class="l-content__main">
 		<div class="l-content__header">
 			<h1>{{spr.institutionen}}</h1>
-
 			<form class="form-container" action="" novalidate ng-submit="enterFunc()">
-				<div angucomplete-alt 
+                <!--
+				<div angucomplete-alt
 				id="institution-autocomplete"
 				class="field-autocomplete"
 				placeholder="{{spr.name}} {{spr.institution}}"
@@ -17,9 +17,14 @@
 				match-class="text-match"
 				input-class="form-control">
 				</div>
+				-->
+                <input type="text" ng-model="filterInstitutions.$" placeholder="{{spr.institution}}" ng-model-options="{ debounce: 300 }">
 			</form>
-			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="institution( {anf: '{{initial}}'} )">{{initial}}</button>
+			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ng-click="setFirstChar(initial)">{{initial}}</button>
 		</div>
-		<institution-list institutions="list.res"></institution-list>
+        <div class="l-content__section list ng-scope">
+            <loading-indicator></loading-indicator>
+            <institution-list institutions="filteredInstitutions"></institution-list>
+        </div>
 	</div>
 </div>

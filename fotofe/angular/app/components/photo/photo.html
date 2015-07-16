@@ -3,7 +3,7 @@
         <div class="l-content__header">
             <h1 class="hero--headline">{{spr.photos}}</h1>
         </div>
-        <div class="l-content__section" infinite-scroll="loadMore()">
+        <div class="l-content__section" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
             <label for="filter-title"></label>
             <input type="text" id="filter-title" ng-model="filterPhotos.$" ng-model-options="{ debounce: 300 }">
 

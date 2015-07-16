@@ -79,11 +79,82 @@ app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function 
 
 }]);
 
-app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
+app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter) {
     // console.log("Institution Controller reporting for duty.");
 
     var id = $stateParams.id
     var anf = $stateParams.anf;
+
+    if(!id){
+        /**
+         *  Overview
+         */
+
+        // load all institutions
+        $scope.loading = true;
+        $http.get($rootScope.ApiUrl + '/?a=institution', { cache: true }).success(function (data) {
+            $scope.list = data;
+            $scope.filteredInstitutions = $scope.list.res;
+            onLoaded();
+        });
+
+        // things to do after ajax-content has loaded successfully
+        var onLoaded = function(){
+            $scope.loading = false;
+            // filter photographer on every change of the filter model
+            $scope.$watchCollection('filterInstitutions', function (n, o) {
+                filterInstitutions();
+            });
+        };
+
+
+        // filtering institutions before passing to directive (a little ugly, but results in better performance - cause no exchange between scopes needed)
+        var filterInstitutions = function () {
+            $scope.filteredInstitutions = $filter('filter')($scope.list.res, $scope.filterInstitutions);
+
+            // filter on first char (speacial chars not included)
+            if($scope.firstChar){
+                var filteredInstitutions = [];
+                $scope.filteredInstitutions.forEach(function (item) {
+                    if (item.name.charAt(0).toUpperCase() == $scope.firstChar) {
+                        filteredInstitutions.push(item);
+                    }
+                });
+                $scope.filteredInstitutions = filteredInstitutions;
+            }
+        }
+
+        $scope.setFirstChar = function(char){
+            $scope.firstChar = char;
+            filterInstitutions();
+        }
+
+    }else{
+        /**
+         *  Detailpage
+         */
+
+        $http.get($rootScope.ApiUrl + '/?a=institution&id=' + id).success(function (data) {
+            $scope.detail = data;
+            $scope.list = null;
+        });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $scope.institutionSelected = function (selected) {
         //window.alert('You have selected ' + selected.originalObject.id);
         $state.go('institutionDetail', {id: selected.originalObject.id, anf: ''});
@@ -96,18 +167,6 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
 
 
     //$scope.debug='anf:'+anf+' id:'+id+$state;
-    if (anf >= 'A') {
-        $http.get($rootScope.ApiUrl + '/?a=institution&anf=' + anf).success(function (data) {
-            $scope.list = data;
-        });
-    } else {
-        if (id) {
-            $http.get($rootScope.ApiUrl + '/?a=institution&id=' + id).success(function (data) {
-                $scope.detail = data;
-                $scope.list = null;
-            });
-        }
-    }
     var abc = new Array();
 
     for (var i = 0; i < 26; i++) {
@@ -311,7 +370,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
     var id = $stateParams.id
     var anf = $stateParams.anf;
-    var limitExpander = 20;
     $scope.input = '';
 
 
@@ -327,17 +385,51 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
     if (!id) {
         /*
-            Overview/search-page
+         Overview/search-page
          */
-        $scope.limit = limitExpander;
+        var limitExpander = 20;
+        var cachedFilters = $rootScope.filterCache.get('filterPhotographer');
+        var cachedLimit = $rootScope.filterCache.get('limitPhotographer');
 
-        // filtering photographers before passing to directive (a little ugly, but results in better performance)
+        // set filters
+        if (cachedFilters !== undefined) {
+            $scope.filterPhotographer = $rootScope.filterCache.get('filterPhotographer');
+        }
+
+        // set limit
+        if (cachedLimit !== undefined) {
+            $scope.limit = $rootScope.filterCache.get('limitPhotographer');
+        } else {
+            $scope.limit = limitExpander;
+        }
+
+        // cache filterObject & limit on page change (only to detail)
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            if (toState.name == 'photographerDetail') {
+                $rootScope.filterCache.put('filterPhotographer', $scope.filterPhotographer);
+                $rootScope.filterCache.put('limitPhotographer', $scope.limit);
+            } else {
+                $rootScope.filterCache.remove('filterPhotographer');
+                $rootScope.filterCache.remove('limitPhotographer');
+            }
+        });
+
+        // filtering photographers before passing to directive (a little ugly, but results in better performance - cause no exchange between scopes needed)
         var filterPhotographers = function () {
             $scope.filteredPhotographer = $filter('filter')($scope.list.res, $scope.filterPhotographer);
         }
 
+        // toggle filter (only mobile version)
+        $scope.toggleFilter = function () {
+            if ($scope.filterClass === 'active') {
+                $scope.filterClass = 'inactive';
+            } else {
+                $scope.filterClass = 'active';
+            }
+        };
+
         // get filters from result array
-        var configureFilters = function(){
+        var configureFilters = function () {
             $scope.loading = false;
             // add filters to array
             $scope.filter = {};
@@ -361,21 +453,26 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             });
             filterPhotographers();
 
-            // reset limit after new request
-            $scope.limit = limitExpander;
-
             // filter photographer on every change of the filter model
             $scope.$watchCollection('filterPhotographer', function (n, o) {
                 filterPhotographers();
             });
+
+            $scope.resetFilter = function(){
+                $scope.filterPhotographer = {};
+            }
+
+            // display filters
+            $scope.filtersReady = true;
         }
 
         // show more results
         $scope.loadMore = function () {
             $scope.limit = $scope.limit + limitExpander;
+            alert($scope.limit);
         }
 
-        // remove undefined from filter model (angular error)
+        // remove undefined from filter model (angular error). Needed when select-option value=""
         $scope.updateSelect = function (val) {
             if (val === null) {
                 angular.forEach($scope.filterPhotographer, function (value, index) {
@@ -393,11 +490,11 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 $scope.list = data;
                 configureFilters();
             });
-        }else{
+        } else {
             $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
                 $scope.list = data;
                 configureFilters();
-            }).error(function(data, status) {
+            }).error(function (data, status) {
                     $scope.loading = false;
                     $scope.loadingError = true;
                 });
@@ -406,11 +503,11 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         /**
          *  detailpage
          */
-            $http.get($rootScope.ApiUrl + '/?id=' + id).success(function (data) {
-                $scope.readMoreLimit = 50;
-                $scope.detail = data;
-                $scope.list = null;
-            });
+        $http.get($rootScope.ApiUrl + '/?id=' + id).success(function (data) {
+            $scope.readMoreLimit = 50;
+            $scope.detail = data;
+            $scope.list = null;
+        });
 
     }
     var abc = new Array();
@@ -461,6 +558,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
             }
         });
 
+        // toggle filter (only mobile version)
         $scope.toggleFilter = function () {
             if ($scope.filterClass === 'active') {
                 $scope.filterClass = 'inactive';

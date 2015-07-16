@@ -22,7 +22,7 @@
                     ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
             </button>
         </div>
-        <div class="l-content__section" infinite-scroll="loadMore()">
+        <div class="l-content__section" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
             <loading-indicator></loading-indicator>
             <loading-error ng-show="loadingError" text="{ spr.loadingError }}"></loading-error>
             <photographer-list photographer="filteredPhotographer" limit="limit"></photographer-list>
@@ -30,7 +30,6 @@
                     class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}
             </button>
         </div>
-
     </div>
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
                 class="icon-magnifying-glass"></span></a></div>
@@ -38,22 +37,27 @@
         <div class="l-content__section">
             <h2>Filter</h2>
 
-            <label for="filterPhotographer">{{ spr.name }}</label>
-            <input type="text" id="filterPhotographer" ng-model="filterPhotographer.nachname">
+            <form>
+                <label for="filterPhotographer">{{ spr.name }}</label>
+                <input type="text" id="filterPhotographer" ng-model="filterPhotographer.nachname" ng-disabled="!filtersReady">
 
-            <label for="filterPhotographerGenre">{{ spr.fotografengattungen }}</label>
-            <select id="filterPhotographerGenre" ng-model="filterPhotographer.fotografengattungen"
-                ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | unique"
-                ng-change="updateSelect(filterPhotographer.fotografengattungen)">
-                <option value="">...</option>
-            </select>
+                <label for="filterPhotographerGenre">{{ spr.fotografengattungen }}</label>
+                <select id="filterPhotographerGenre" ng-model="filterPhotographer.fotografengattungen"
+                        ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | unique"
+                        ng-change="updateSelect(filterPhotographer.fotografengattungen)"
+                        ng-disabled="!filtersReady">
+                    <option value="">...</option>
+                </select>
 
-            <label for="filterPhotoGenre">{{ spr.bildgattungen }}</label>
-            <select id="filterPhotoGenre" ng-model="filterPhotographer.bildgattungen"
-                ng-options="bildgattungen for bildgattungen in filter.bildgattungen | unique"
-                ng-change="updateSelect(filterPhotographer.bildgattungen)">
-                <option value="">...</option>
-            </select>
+                <label for="filterPhotoGenre">{{ spr.bildgattungen }}</label>
+                <select id="filterPhotoGenre" ng-model="filterPhotographer.bildgattungen"
+                        ng-options="bildgattungen for bildgattungen in filter.bildgattungen | unique"
+                        ng-change="updateSelect(filterPhotographer.bildgattungen)"
+                        ng-disabled="!filtersReady">
+                    <option value="">...</option>
+                </select>
+                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{spr.reset}}</button>
+            </form>
         </div>
     </aside>
 </div>
