@@ -333,9 +333,10 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
         // filtering photographers before passing to directive (a little ugly, but results in better performance)
         var filterPhotographers = function () {
-            $scope.filteredPhotographers = $filter('filter')($scope.list.res, $scope.filterPhotos);
+            $scope.filteredPhotographer = $filter('filter')($scope.list.res, $scope.filterPhotographer);
         }
 
+        // get filters from result array
         var configureFilters = function(){
             $scope.loading = false;
             // add filters to array
@@ -359,12 +360,22 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 //$scope.list.res[index].bildgattungenstring = value.bildgattungen.toString();
             });
             filterPhotographers();
+
+            // reset limit after new request
+            $scope.limit = limitExpander;
+
+            // filter photographer on every change of the filter model
+            $scope.$watchCollection('filterPhotographer', function (n, o) {
+                filterPhotographers();
+            });
         }
 
+        // show more results
         $scope.loadMore = function () {
             $scope.limit = $scope.limit + limitExpander;
         }
 
+        // remove undefined from filter model (angular error)
         $scope.updateSelect = function (val) {
             if (val === null) {
                 angular.forEach($scope.filterPhotographer, function (value, index) {
@@ -375,8 +386,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             }
         }
 
-
-
+        // ajax calls
         $scope.loading = true;
         if (anf >= 'A') {
             $http.get($rootScope.ApiUrl + '/?anf=' + anf).success(function (data) {
@@ -389,7 +399,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 configureFilters();
             });
         }
-
     } else {
         /**
          *  detailpage

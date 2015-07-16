@@ -132,7 +132,6 @@ app.directive('photographerList', function () {
         transclude: true,
         scope: {
             photographer: '=',
-            filterPhotographer: '=',
             limit: '='
         }
     };

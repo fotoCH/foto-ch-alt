@@ -22,8 +22,14 @@
                     ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
             </button>
         </div>
-        <loading-indicator></loading-indicator>
-        <photographer-list photographer="filteredPhotographers" filter-photographer="filterPhotographer" limit="limit"></photographer-list>
+        <div class="l-content__section" infinite-scroll="loadMore()">
+            <loading-indicator></loading-indicator>
+            <photographer-list photographer="filteredPhotographer" limit="limit"></photographer-list>
+            <button ng-click="loadMore()" ng-show="filteredPhotographer.length > limit"
+                    class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}
+            </button>
+        </div>
+
     </div>
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
                 class="icon-magnifying-glass"></span></a></div>
