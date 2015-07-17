@@ -505,7 +505,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     $scope.abc = abc;
 }]);
 
-app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', '$cacheFactory', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory) {
+app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', '$cacheFactory', '$timeout', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout) {
 
     var anf = $stateParams.anf;
     var id = $stateParams.id;
@@ -604,9 +604,22 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.$watchCollection('filterPhotos', function (n, o) {
             filterPhotos();
         });
+        /*
         $scope.$watchCollection('filterDate', function (n, o) {
+            var debouncing = function(n,o){
+                if($(document).mous){
+                    filterPhotos();
+                }else{
+                    console.log('not same');
+                }
+            }
+            $timeout(debouncing, 300, true, n, o);
+
+        });*/
+
+        $scope.filterYear = function(){
             filterPhotos();
-        });
+        }
 
         // filtering photos before passing to directive (a little ugly, but results in better performance)
         var filterPhotos = function () {
