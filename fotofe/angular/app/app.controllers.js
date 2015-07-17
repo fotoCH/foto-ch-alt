@@ -85,12 +85,12 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
     var id = $stateParams.id
     var anf = $stateParams.anf;
 
-    if(!id){
+    if (!id) {
         /**
          *  Overview
          */
 
-        // load all institutions
+            // load all institutions
         $scope.loading = true;
         $http.get($rootScope.ApiUrl + '/?a=institution', { cache: true }).success(function (data) {
             $scope.list = data;
@@ -99,7 +99,7 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         });
 
         // things to do after ajax-content has loaded successfully
-        var onLoaded = function(){
+        var onLoaded = function () {
             $scope.loading = false;
             // filter photographer on every change of the filter model
             $scope.$watchCollection('filterInstitutions', function (n, o) {
@@ -113,7 +113,7 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
             $scope.filteredInstitutions = $filter('filter')($scope.list.res, $scope.filterInstitutions);
 
             // filter on first char (speacial chars not included)
-            if($scope.firstChar){
+            if ($scope.firstChar) {
                 var filteredInstitutions = [];
                 $scope.filteredInstitutions.forEach(function (item) {
                     if (item.name.charAt(0).toUpperCase() == $scope.firstChar) {
@@ -124,12 +124,12 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
             }
         }
 
-        $scope.setFirstChar = function(char){
+        $scope.setFirstChar = function (char) {
             $scope.firstChar = char;
             filterInstitutions();
         }
 
-    }else{
+    } else {
         /**
          *  Detailpage
          */
@@ -140,19 +140,6 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         });
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     $scope.institutionSelected = function (selected) {
@@ -459,7 +446,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 filterPhotographers();
             });
 
-            $scope.resetFilter = function(){
+            $scope.resetFilter = function () {
                 $scope.filterPhotographer = {};
             }
 
@@ -530,9 +517,14 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.loading = true;
         $scope.filterClass = 'inactive';
         $scope.viewClass = '';
+        $scope.filterDate = {}
+        $scope.filterDate.from = 1839;
+        $scope.filterDate.to = new Date().getFullYear();
         var cachedFilters = $rootScope.filterCache.get('filterPhotos');
         var cachedLimit = $rootScope.filterCache.get('limitPhotos');
         var limitExpander = 12;
+
+
 
         // set filters
         if (cachedFilters !== undefined) {
@@ -612,10 +604,27 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.$watchCollection('filterPhotos', function (n, o) {
             filterPhotos();
         });
+        $scope.$watchCollection('filterDate', function (n, o) {
+            filterPhotos();
+        });
 
         // filtering photos before passing to directive (a little ugly, but results in better performance)
         var filterPhotos = function () {
             $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.filterPhotos);
+            if ($scope.filteredPhotos && $scope.filterDate) {
+                var ms = new Date().getMilliseconds();
+                var filteredPhotos = [];
+                $scope.filteredPhotos.forEach(function (item) {
+                    var from  = new Date($scope.filterDate.from.toString());
+                    var to = new Date($scope.filterDate.to.toString());
+                    var date = new Date(item.dc_created);
+                    if(from <= date && date <= to){
+                        filteredPhotos.push(item);
+                    }
+                });
+                $scope.filteredPhotos = filteredPhotos;
+                //--> 30-40ms
+            }
         }
 
         $http.get($rootScope.ApiUrl + '/?a=photo', { cache: true }).success(function (data) {

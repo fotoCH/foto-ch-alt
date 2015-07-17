@@ -5,7 +5,8 @@ var app = angular.module('fotochWebApp', [
 	'angucomplete-alt',
 	'headroom',
     'yaru22.md',
-    'infinite-scroll'
+    'infinite-scroll',
+    'ui-rangeSlider'
 ]);
 
 app.run(function($rootScope, $http, $location, languages, $cacheFactory) {

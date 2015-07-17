@@ -4,7 +4,7 @@
             <h1>{{spr.photographers}}</h1>
 
             <form class="form-container" action="" novalidate ng-submit="enterFunc()">
-                <div angucomplete-alt
+                <!--<div angucomplete-alt
                      id="photographer-autocomplete"
                      class="field-autocomplete"
                      placeholder="{{spr.nachname}} {{spr.vorname}} {{spr.fotograph}}"
@@ -16,7 +16,8 @@
                      description-field="fldatum"
                      match-class="text-match"
                      input-class="form-control">
-                </div>
+                </div> -->
+                <input type="text" ng-model="filterPhotographer.$" placeholder="{{spr.fotograph}}" ng-model-options="{ debounce: 300 }">
             </form>
             <button type="button" class="btn btn--link" ng-repeat="initial in abc" ng-class="{active: initial == '{{activeChar}}'}"
                     ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
@@ -56,6 +57,7 @@
                         ng-disabled="!filtersReady">
                     <option value="">...</option>
                 </select>
+
                 <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{spr.reset}}</button>
             </form>
         </div>
