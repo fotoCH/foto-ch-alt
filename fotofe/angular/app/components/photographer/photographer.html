@@ -22,7 +22,7 @@
                     ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
             </button>
         </div>
-        <div class="l-content__section" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
+        <div class="l-content__section list" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
             <loading-indicator></loading-indicator>
             <loading-error ng-show="loadingError" text="{ spr.loadingError }}"></loading-error>
             <photographer-list photographer="filteredPhotographer" limit="limit"></photographer-list>
