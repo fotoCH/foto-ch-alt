@@ -8,7 +8,7 @@
             <input type="text" id="filter-title" ng-model="filterPhotos.$" ng-model-options="{ debounce: 300 }">
 
             <div class="l-photo-teaser__info-bar">
-                <span ng-if="filteredPhotos.length">
+                <span ng-if="filteredPhotos">
                     {{ spr.results }}: {{ filteredPhotos.length }} {{ spr.photos }}
                 </span>
                 <a ng-click="changeView('l-photo-teaser--list')">Liste</a>

@@ -370,6 +370,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
     var id = $stateParams.id
     var anf = $stateParams.anf;
+    $scope.activeChar = anf;
     $scope.input = '';
 
 
@@ -469,7 +470,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         // show more results
         $scope.loadMore = function () {
             $scope.limit = $scope.limit + limitExpander;
-            alert($scope.limit);
         }
 
         // remove undefined from filter model (angular error). Needed when select-option value=""

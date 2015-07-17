@@ -14,7 +14,8 @@
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.photos }}</h1>
-                <div>{{ result.photos_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">link</a></div>
+
+                <div>{{ result.photo_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">link</a></div>
                 <photo-teaser-box class="l-photo-teaser l-photo-teaser--powersearch"
                                   limit="limit"
                                   photos="result.photo_results"

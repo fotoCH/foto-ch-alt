@@ -18,7 +18,7 @@
                      input-class="form-control">
                 </div>
             </form>
-            <button type="button" class="btn btn--link" ng-repeat="initial in abc"
+            <button type="button" class="btn btn--link" ng-repeat="initial in abc" ng-class="{active: initial == '{{activeChar}}'}"
                     ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
             </button>
         </div>
