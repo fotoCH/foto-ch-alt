@@ -478,7 +478,8 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 configureFilters();
             });
         } else {
-            $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
+            //$http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
+            $http.get($rootScope.ApiUrl + '/cache/photographer', { cache: true }).success(function (data) {
                 $scope.list = data;
                 configureFilters();
             }).error(function (data, status) {
@@ -517,7 +518,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.loading = true;
         $scope.filterClass = 'inactive';
         $scope.viewClass = '';
-        $scope.filterDate = {}
+        $scope.filterDate = {};
         $scope.filterDate.from = 1839;
         $scope.filterDate.to = new Date().getFullYear();
         var cachedFilters = $rootScope.filterCache.get('filterPhotos');
