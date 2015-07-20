@@ -478,8 +478,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 configureFilters();
             });
         } else {
-            //$http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
-            $http.get($rootScope.ApiUrl + '/cache/photographer', { cache: true }).success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
                 $scope.list = data;
                 configureFilters();
             }).error(function (data, status) {
