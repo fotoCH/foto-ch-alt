@@ -424,6 +424,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             $scope.filter.fotografengattungen = [];
             $scope.filter.bildgattungen = [];
             $scope.filter.kanton = [];
+            $scope.filter.venues = [];
 
             angular.forEach($scope.list.res, function (value, index, array) {
                 if (value.fotografengattungen[0] != '') {
@@ -434,6 +435,17 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 }
                 if (value.kanton[0] != '') {
                     $scope.filter.kanton = $scope.filter.kanton.concat(value.kanton);
+                }
+                if(value.arbeitsperioden[0]){
+                    var venues = [];
+                    angular.forEach(value.arbeitsperioden, function(value){
+                        if(value.arbeitsort != ''){
+                            venues = venues.concat(value.arbeitsort);
+                        }
+                    });
+                    //console.log(venues);
+                    $scope.filter.venues = $scope.filter.venues.concat(venues);
+                    $scope.list.res[index].venuesstring = venues.toString();
                 }
                 //console.log($scope.filter.kanton);
                 //$scope.list.res[index].fotografengattungenstring = value.fotografengattungen.toString();

@@ -39,9 +39,6 @@
             <h2>Filter</h2>
 
             <form>
-                <label for="filterPhotographer">{{ spr.name }}</label>
-                <input type="text" id="filterPhotographer" ng-model="filterPhotographer.nachname" ng-disabled="!filtersReady">
-
                 <label for="filterPhotographerGenre">{{ spr.fotografengattungen }}</label>
                 <select id="filterPhotographerGenre" ng-model="filterPhotographer.fotografengattungen"
                         ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | unique"
@@ -54,6 +51,22 @@
                 <select id="filterPhotoGenre" ng-model="filterPhotographer.bildgattungen"
                         ng-options="bildgattungen for bildgattungen in filter.bildgattungen | unique"
                         ng-change="updateSelect(filterPhotographer.bildgattungen)"
+                        ng-disabled="!filtersReady">
+                    <option value="">...</option>
+                </select>
+
+                <label for="filterPhotoVenue">{{ spr.arbeitsort }}</label>
+                <select id="filterPhotoVenue" ng-model="filterPhotographer.venuesstring"
+                        ng-options="venues for venues in filter.venues | unique"
+                        ng-change="updateSelect(filterPhotographer.venuesstring)"
+                        ng-disabled="!filtersReady">
+                    <option value="">...</option>
+                </select>
+
+                <label for="filterPhotoCanton">{{ spr.kantone }}</label>
+                <select id="filterPhotoCanton" ng-model="filterPhotographer.kanton"
+                        ng-options="kantonli for kanton in filter.kanton | unique"
+                        ng-change="updateSelect(filterPhotographer.kanton)"
                         ng-disabled="!filtersReady">
                     <option value="">...</option>
                 </select>
