@@ -565,12 +565,6 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
             } else {
                 $scope.viewClass = '';
             }
-
-            if ($scope.filterClass === 'active') {
-                $scope.filterClass = 'inactive';
-            } else {
-                $scope.filterClass = 'active';
-            }
         };
 
         $scope.loadMore = function () {
@@ -598,10 +592,6 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
                     }
                 });
             }
-        }
-
-        $scope.foo = function(){
-            alert('test');
         }
 
         $scope.$watchCollection('filterPhotos', function (n, o) {
