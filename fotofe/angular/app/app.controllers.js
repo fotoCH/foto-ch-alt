@@ -404,7 +404,34 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
         // filtering photographers before passing to directive (a little ugly, but results in better performance - cause no exchange between scopes needed)
         var filterPhotographers = function () {
-            $scope.filteredPhotographer = $filter('filter')($scope.list.res, $scope.filterPhotographer);
+            // clone object, since we don't want to change the current filter object
+            var filterObj = jQuery.extend({} ,$scope.filterPhotographer);
+
+
+            //filter on array values with custom comparator
+            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, comparator);
+
+            //remove array from filterObject clone (already filtered)
+            angular.forEach(filterObj, function(value, index, array){
+                if(angular.isArray(value)){
+                    filterObj[index] = undefined;
+                }
+            });
+
+            // filter rest
+            $scope.filteredPhotographer = $filter('filter')($scope.filteredPhotographer, filterObj);
+        }
+
+        var comparator = function(actual, expected){
+            if(angular.isArray(expected) && actual){
+                for (i in expected) {
+                    if (actual.indexOf(expected[i]) > -1){
+                        //console.log(expected[i] + ' gefunden in ' + actual)
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         // toggle filter (only mobile version)

@@ -59,13 +59,13 @@
                 <select id="filterPhotoVenue" ng-model="filterPhotographer.venuesstring"
                         ng-options="venues for venues in filter.venues | unique"
                         ng-change="updateSelect(filterPhotographer.venuesstring)"
-                        ng-disabled="!filtersReady">
+                        ng-disabled="!filtersReady" multiple>
                     <option value="">...</option>
                 </select>
 
                 <label for="filterPhotoCanton">{{ spr.kantone }}</label>
                 <select id="filterPhotoCanton" ng-model="filterPhotographer.kanton"
-                        ng-options="kantonli for kanton in filter.kanton | unique"
+                        ng-options="kanton for kanton in filter.kanton | unique"
                         ng-change="updateSelect(filterPhotographer.kanton)"
                         ng-disabled="!filtersReady">
                     <option value="">...</option>
