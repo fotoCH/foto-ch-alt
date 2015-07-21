@@ -129,6 +129,10 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
             filterInstitutions();
         }
 
+        $scope.resetFilter = function(){
+            $scope.filterInstitutions = {};
+        }
+
         // remove undefined from filter model (angular error). Needed when select-option value=""
         $scope.updateSelect = function (val) {
             if (val === null) {
