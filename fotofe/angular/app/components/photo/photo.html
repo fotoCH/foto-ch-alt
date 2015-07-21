@@ -5,7 +5,7 @@
         </div>
         <div class="l-content__section" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
             <label for="filter-title"></label>
-            <input type="text" id="filter-title" ng-model="filterPhotos.$" ng-model-options="{ debounce: 300 }">
+            <input type="text" id="filter-title" ng-model="filterPhotos.$" ng-model-options="{ debounce: 300 }" placeholder="{{ spr.search_photos }}">
 
             <div class="l-photo-teaser__info-bar">
                 <span ng-if="filteredPhotos">

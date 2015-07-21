@@ -1,4 +1,4 @@
-<div class="l-content l-listview">
+<div class="l-content l-searchview">
 	<div class="l-content__main">
 		<div class="l-content__header">
 			<h1>{{spr.institutionen}}</h1>
@@ -18,7 +18,7 @@
 				input-class="form-control">
 				</div>
 				-->
-                <input type="text" ng-model="filterInstitutions.$" placeholder="{{spr.institution}}" ng-model-options="{ debounce: 300 }">
+                <input type="text" ng-model="filterInstitutions.$" placeholder="{{spr.search_institutions}}" ng-model-options="{ debounce: 300 }">
 			</form>
 			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ng-click="setFirstChar(initial)" ng-class="{active: initial == firstChar}">{{initial}}</button>
 		</div>
@@ -27,4 +27,31 @@
             <institution-list institutions="filteredInstitutions"></institution-list>
         </div>
 	</div>
+    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
+                class="icon-magnifying-glass"></span></a></div>
+    <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
+        <div class="l-content__section">
+            <h2>{{ spr.filter }}</h2>
+
+            <form>
+                <label for="filterInstitutionsCanton">{{ spr.kantone }}</label>
+                <select id="filterInstitutionsCanton" ng-model="filterInstitutions.kanton"
+                        ng-options="kanton.kanton as kanton.kanton for kanton in list.res | unique: 'kanton'"
+                        ng-change="updateSelect(filterInstitutions.kanton)"
+                        ng-disabled="!filtersReady">
+                    <option value="">...</option>
+                </select>
+
+                <label for="filterInstitutionsType">{{ spr.art_der_institution }}</label>
+                <select id="filterInstitutionsType" ng-model="filterInstitutions.art_id"
+                        ng-options="art.art_id as art.art for art in list.res | unique: 'art_id'"
+                        ng-change="updateSelect(filterInstitutions.art_id)"
+                        ng-disabled="!filtersReady">
+                    <option value="">...</option>
+                </select>
+
+                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{spr.reset}}</button>
+            </form>
+        </div>
+    </aside>
 </div>

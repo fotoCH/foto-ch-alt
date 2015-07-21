@@ -17,7 +17,7 @@
                      match-class="text-match"
                      input-class="form-control">
                 </div> -->
-                <input type="text" ng-model="filterPhotographer.$" placeholder="{{spr.fotograph}}" ng-model-options="{ debounce: 300 }">
+                <input type="text" ng-model="filterPhotographer.$" placeholder="{{spr.search_photographers}}" ng-model-options="{ debounce: 300 }">
             </form>
             <button type="button" class="btn btn--link" ng-repeat="initial in abc" ng-class="{active: initial == '{{activeChar}}'}"
                     ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
@@ -36,7 +36,7 @@
                 class="icon-magnifying-glass"></span></a></div>
     <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
         <div class="l-content__section">
-            <h2>Filter</h2>
+            <h2>{{ spr.filter }}</h2>
 
             <form>
                 <label for="filterPhotographerGenre">{{ spr.fotografengattungen }}</label>
@@ -71,7 +71,7 @@
                     <option value="">...</option>
                 </select>
 
-                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{spr.reset}}</button>
+                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{spr.reset}}</button>
             </form>
         </div>
     </aside>

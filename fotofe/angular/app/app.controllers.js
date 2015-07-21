@@ -94,13 +94,13 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         $scope.loading = true;
         $http.get($rootScope.ApiUrl + '/?a=institution', { cache: true }).success(function (data) {
             $scope.list = data;
-            $scope.filteredInstitutions = $scope.list.res;
             onLoaded();
         });
 
         // things to do after ajax-content has loaded successfully
         var onLoaded = function () {
             $scope.loading = false;
+            $scope.filtersReady = true;
             // filter photographer on every change of the filter model
             $scope.$watchCollection('filterInstitutions', function (n, o) {
                 filterInstitutions();
@@ -127,6 +127,17 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         $scope.setFirstChar = function (char) {
             $scope.firstChar = char;
             filterInstitutions();
+        }
+
+        // remove undefined from filter model (angular error). Needed when select-option value=""
+        $scope.updateSelect = function (val) {
+            if (val === null) {
+                angular.forEach($scope.filterInstitutions, function (value, index) {
+                    if (value === null) {
+                        $scope.filterInstitutions[index] = '';
+                    }
+                });
+            }
         }
 
     } else {
@@ -406,7 +417,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         var filterPhotographers = function () {
             // clone object, since we don't want to change the current filter object
             var filterObj = jQuery.extend({} ,$scope.filterPhotographer);
-
 
             //filter on array values with custom comparator
             $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, comparator);

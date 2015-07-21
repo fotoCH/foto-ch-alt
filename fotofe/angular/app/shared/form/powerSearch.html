@@ -1,7 +1,7 @@
 <form class="form-container" ng-submit="submitForm()" novalidate>
     <input type="text"
            class="power-search__input"
-           placeholder="Suche"
+           placeholder="{{ spr.search_all }}"
            autofocus="true"
            ng-model="powersearch">
     <button class="btn power-search__button" ng-click="submitForm()">
