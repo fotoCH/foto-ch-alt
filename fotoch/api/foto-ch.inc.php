@@ -33,6 +33,19 @@ function jsonout($out){
 
 }
 
+function jsonfile($f){
+		// normal JSON string
+		header('Access-Control-Allow-Origin: *');
+		header ( 'Content-Type: application/json; charset=utf-8' );
+		header ( 'Access-Control-Allow-Headers: X-AuthToken, AuthToken, Origin, X-Requested-With, Content-Type, Accept' );
+
+		
+		readfile($f);
+	
+
+}
+
+
 function getToken($u, $l){
 	$sql="SELECT * FROM auth WHERE user='$u'";
 	$res=get1fromselect($sql);

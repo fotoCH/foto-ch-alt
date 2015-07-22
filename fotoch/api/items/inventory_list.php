@@ -20,11 +20,19 @@ if ($id==''){
 		$issearch=2;
 		// Select: code
 		if(auth_level(USER_GUEST_READER_PARTNER)){  
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$sql="SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc";
 		} else {
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$sql="SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc";
 		}
-
+		if (!$anf){
+                    if (!$_GET['nocache']){
+                            jsonfile('cache/inventory.json');
+                            exit;
+                        } else {
+                            $sql="SELECT * FROM bestand ORDER BY  name Asc";
+                        }
+                }
+		$result=mysql_query($sql);
 		while($fetch=mysql_fetch_array($result)){
 			
 			if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';

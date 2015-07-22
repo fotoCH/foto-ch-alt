@@ -12,6 +12,21 @@ if ($id == '') {
 	} else {
 		$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc";
 	}
+	if (!$anf){
+	    if (!$_GET['nocache']){
+	    //$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname < 'Z') ORDER BY namen.nachname Asc, namen.vorname Asc";
+		jsonfile('cache/photographer.json');
+		exit;
+	    } else {
+		$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname < 'Z') ORDER BY namen.nachname Asc, namen.vorname Asc";
+	    }
+	    
+	}
+	if ($_GET['cache']){
+	//echo("abc");
+	    jsonfile('cache/photographer.json');
+	    exit;
+	}
 	if ($_GET['recent']){
 	$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY bearbeitungsdatum DESC LIMIT ".mysql_real_escape_string($_GET['recent']);
 	}
@@ -42,7 +57,7 @@ if ($id == '') {
 		$outl['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
 		$result2=mysql_query("SELECT * FROM arbeitsperioden WHERE fotografen_id=".$fetch['id']." ORDER BY  id");
         //$def->assign("SPR2",$spr);
-        
+		$arbeitsperioden=array();
 	        while($fetch2=mysql_fetch_array($result2)){
                 if ($fetch2['von'].$fetch2['bis']!=''){
                         $fetch2['um_vonf']=$fetch2['um_von']==0?'':$spr['um'].' ';
@@ -63,6 +78,7 @@ if ($id == '') {
                 pushfields($arb,$fetch2,array('arbeitsort','um_vonf','von','um_bisf','bis'));
                 $arbeitsperioden[]=$arb;
 	        }
+	        mysql_free_result($result2);
     		$outl['arbeitsperioden']=$arbeitsperioden;
 		$out['res'][]=$outl;
 	}
