@@ -6,7 +6,7 @@
         <div class="l-content__section l-boxview">
             <div class="l-content__box">
                 <h1>{{ spr.photographers }}</h1>
-                <div>{{ result.photographer_result_count }} {{ spr.results }} <a ui-sref="photographer({ query: powersearch })">link</a></div>
+                <div>{{ result.photographer_result_count }} {{ spr.results }} <a ui-sref="photographer({ query: powersearch })">{{ ::spr.show_all }}</a></div>
                 <div ng-repeat="p in result.photographer_results | limitTo: limit">
                     <a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{ p.nachname }}, {{ p.vorname }} {{
                         p.namenszusatz }}</a> {{ p.fldatum }}
@@ -15,7 +15,7 @@
             <div class="l-content__box">
                 <h1>{{ spr.photos }}</h1>
 
-                <div>{{ result.photo_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">link</a></div>
+                <div>{{ result.photo_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">{{ ::spr.show_all }}</a></div>
                 <photo-teaser-box class="l-photo-teaser l-photo-teaser--powersearch"
                                   limit="limit"
                                   photos="result.photo_results"
@@ -24,28 +24,28 @@
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.institution }}</h1>
-                <div>{{ result.institution_result_count }} {{ spr.results }} <a ui-sref="institution({ query: powersearch })">link</a></div>
+                <div>{{ result.institution_result_count }} {{ spr.results }} <a ui-sref="institution({ query: powersearch })">{{ ::spr.show_all }}</a></div>
                 <div ng-repeat="i in result.institution_results | limitTo: limit">
                     <a ui-sref="institutionDetail( {id: '{{i.id}}'} )">{{ i.name }}</a>
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.bestaende2 }}</h1>
-                <div>{{ result.inventory_result_count }} {{ spr.results }} <a ui-sref="inventory({ query: powersearch })">link</a></div>
+                <div>{{ result.inventory_result_count }} {{ spr.results }} <a ui-sref="inventory({ query: powersearch })">{{ ::spr.show_all }}</a></div>
                 <div ng-repeat="i in result.inventory_results | limitTo: limit">
                     <a ui-sref="inventoryDetail( {id: '{{i.id}}'} )">{{ i.name }}</a>
                 </div>
             </div>
             <div class="l-content__box">
                 <h1>{{ spr.ausstellungen }}</h1>
-                <div>{{ result.exhibition_result_count }} {{ spr.results }} <a ui-sref="exhibition({ query: powersearch })">link</a></div>
+                <div>{{ result.exhibition_result_count }} {{ spr.results }} <a ui-sref="exhibition({ query: powersearch })">{{ ::spr.show_all }}</a></div>
                 <div ng-repeat="e in result.exhibition_results | limitTo: limit">
-                    <a ui-sref="exhibitionDetail( {id: '{{e.id}}'} )">{{ e.titel }}</a> {{ e.jahr }} {{ e.ort }} {{
-                    e.institution }}
+                    <a ui-sref="exhibitionDetail( {id: '{{e.id}}'} )">{{ e.titel }}</a> {{ e.jahr }} {{ e.ort }} {{ e.institution }}
                 </div>
             </div>
         </div>
     </div>
+    <!--
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
                 class="icon-magnifying-glass"></span></a></div>
     <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
@@ -53,4 +53,5 @@
             <h2>{ spr.filter }}</h2>
         </div>
     </aside>
+    ¨-->
 </div>
