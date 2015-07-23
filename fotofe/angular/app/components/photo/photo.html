@@ -31,6 +31,7 @@
         <div class="l-content__section">
             <h2>Filter</h2>
 
+            <form>
             <label for="filterPhotographer">{{ spr.fotograph }}</label>
             <input type="text" id="filterPhotographer" ng-model="filterPhotos.name">
 
@@ -50,6 +51,8 @@
             <div range-slider min="1839" max="2015" model-min="filterDate.from" model-max="filterDate.to"
                  show-values="true" ng-mouseup="filterYear()" ng-touchend="filterYear()"></div>
 
+            <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{spr.reset}}</button>
+            </form>
         </div>
     </aside>
 </div>

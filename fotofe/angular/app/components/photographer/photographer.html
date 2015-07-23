@@ -24,6 +24,7 @@
             </button>
         </div>
         <div class="l-content__section list" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
+
             <loading-indicator></loading-indicator>
             <loading-error ng-show="loadingError" text="{ spr.loadingError }}"></loading-error>
             <photographer-list photographer="filteredPhotographer" limit="limit"></photographer-list>
@@ -36,38 +37,42 @@
                 class="icon-magnifying-glass"></span></a></div>
     <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
         <div class="l-content__section">
-            <h2>{{ spr.filter }}</h2>
+            <h2>{{ ::spr.filter }}</h2>
 
             <form>
-                <label for="filterPhotographerGenre">{{ spr.fotografengattungen }}</label>
+                <label for="filterPhotographerGenre">{{ ::spr.fotografengattungen }} ({{ filter.fotografengattungen.length }})</label>
                 <select id="filterPhotographerGenre" ng-model="filterPhotographer.fotografengattungen"
-                        ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | unique"
+                        ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | orderBy:fotografengattungen"
                         ng-change="updateSelect(filterPhotographer.fotografengattungen)"
-                        ng-disabled="!filtersReady">
+                        ng-disabled="!filtersReady"
+                        ng-model-options="{ debounce: 100 }">
                     <option value="">...</option>
                 </select>
 
-                <label for="filterPhotoGenre">{{ spr.bildgattungen }}</label>
+                <label for="filterPhotoGenre">{{ ::spr.bildgattungen }} ({{ filter.bildgattungen.length }})</label>
                 <select id="filterPhotoGenre" ng-model="filterPhotographer.bildgattungen"
-                        ng-options="bildgattungen for bildgattungen in filter.bildgattungen | unique"
+                        ng-options="bildgattungen for bildgattungen in filter.bildgattungen | orderBy:bildgattungen"
                         ng-change="updateSelect(filterPhotographer.bildgattungen)"
-                        ng-disabled="!filtersReady">
+                        ng-disabled="!filtersReady"
+                        ng-model-options="{ debounce: 100 }">
                     <option value="">...</option>
                 </select>
 
-                <label for="filterPhotoVenue">{{ spr.arbeitsort }}</label>
-                <select id="filterPhotoVenue" ng-model="filterPhotographer.venuesstring"
-                        ng-options="venues for venues in filter.venues | unique"
-                        ng-change="updateSelect(filterPhotographer.venuesstring)"
-                        ng-disabled="!filtersReady" multiple>
+                <label for="filterPhotoVenue">{{ ::spr.arbeitsort }} ({{ filter.venues.length }})</label>
+                <select id="filterPhotoVenue" ng-model="filterPhotographer.arbeitsperioden"
+                        ng-options="venues for venues in filter.venues | orderBy:venues"
+                        ng-change="updateSelect(filterPhotographer.arbeitsperioden)"
+                        ng-disabled="!filtersReady"
+                        ng-model-options="{ debounce: 100 }">
                     <option value="">...</option>
                 </select>
 
-                <label for="filterPhotoCanton">{{ spr.kantone }}</label>
+                <label for="filterPhotoCanton">{{ ::spr.kantone }} ({{ filter.kanton.length }})</label>
                 <select id="filterPhotoCanton" ng-model="filterPhotographer.kanton"
-                        ng-options="kanton for kanton in filter.kanton | unique"
+                        ng-options="kanton for kanton in filter.kanton | orderBy:kanton"
                         ng-change="updateSelect(filterPhotographer.kanton)"
-                        ng-disabled="!filtersReady">
+                        ng-disabled="!filtersReady"
+                        ng-model-options="{ debounce: 100 }">
                     <option value="">...</option>
                 </select>
 

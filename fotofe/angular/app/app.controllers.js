@@ -138,9 +138,10 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
             if (val === null) {
                 angular.forEach($scope.filterInstitutions, function (value, index) {
                     if (value === null) {
-                        $scope.filterInstitutions[index] = '';
+                        this[index] = '';
                     }
-                });
+                }, $scope.filterInstitutions);
+
             }
         }
 
@@ -419,21 +420,22 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
         // filtering photographers before passing to directive (a little ugly, but results in better performance - cause no exchange between scopes needed)
         var filterPhotographers = function () {
+            var time = new Date();
             // clone object, since we don't want to change the current filter object
             var filterObj = jQuery.extend({} ,$scope.filterPhotographer);
 
             //filter on array values with custom comparator
-            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, comparator);
+            /*$scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, comparator);
 
             //remove array from filterObject clone (already filtered)
             angular.forEach(filterObj, function(value, index, array){
                 if(angular.isArray(value)){
-                    filterObj[index] = undefined;
+                    this[index] = undefined;
                 }
-            });
-
+            }, filterObj);
+*/
             // filter rest
-            $scope.filteredPhotographer = $filter('filter')($scope.filteredPhotographer, filterObj);
+            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj);
         }
 
         var comparator = function(actual, expected){
@@ -462,36 +464,37 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             $scope.loading = false;
             // add filters to array
             $scope.filter = {};
-            $scope.filter.fotografengattungen = [];
-            $scope.filter.bildgattungen = [];
-            $scope.filter.kanton = [];
-            $scope.filter.venues = [];
+            var fotografengattungen = '';
+            var bildgattungen = '';
+            var kanton = '';
+            var venues = '';
 
             angular.forEach($scope.list.res, function (value, index, array) {
-                if (value.fotografengattungen[0] != '') {
-                    $scope.filter.fotografengattungen = $scope.filter.fotografengattungen.concat(value.fotografengattungen);
+                if (value.fotografengattungen != '') {
+                    //console.log(fotografengattungen);
+                    fotografengattungen = fotografengattungen + value.fotografengattungen + ',';
                 }
-                if (value.bildgattungen[0] != '') {
-                    $scope.filter.bildgattungen = $scope.filter.bildgattungen.concat(value.bildgattungen);
+                if (value.bildgattungen != '') {
+                    bildgattungen = bildgattungen + value.bildgattungen + ',';
                 }
-                if (value.kanton[0] != '') {
-                    $scope.filter.kanton = $scope.filter.kanton.concat(value.kanton);
+                if (value.kanton != '') {
+                    kanton = kanton + value.kanton + ',';
                 }
-                if(value.arbeitsperioden[0]){
-                    var venues = [];
-                    angular.forEach(value.arbeitsperioden, function(value){
-                        if(value.arbeitsort != ''){
-                            venues = venues.concat(value.arbeitsort);
-                        }
-                    });
-                    //console.log(venues);
-                    $scope.filter.venues = $scope.filter.venues.concat(venues);
-                    $scope.list.res[index].venuesstring = venues.toString();
+                if(value.arbeitsperioden != ''){
+                    //console.log(value.arbeitsperioden);
+                    venues = venues + value.arbeitsperioden + ',';
                 }
-                //console.log($scope.filter.kanton);
+
                 //$scope.list.res[index].fotografengattungenstring = value.fotografengattungen.toString();
                 //$scope.list.res[index].bildgattungenstring = value.bildgattungen.toString();
-            });
+            }, $scope.list.res);
+
+            // set filters
+            $scope.filter.fotografengattungen = $filter('unique')(fotografengattungen.split(',').filter(Boolean));
+            $scope.filter.bildgattungen = $filter('unique')(bildgattungen.split(',').filter(Boolean));
+            $scope.filter.kanton = $filter('unique')(kanton.split(',').filter(Boolean));
+            $scope.filter.venues = $filter('unique')(venues.split(',').filter(Boolean));
+
             filterPhotographers();
 
             // filter photographer on every change of the filter model
@@ -667,7 +670,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
             filterPhotos();
         }
 
-        // filtering photos before passing to directive (a little ugly, but results in better performance)
+        // filtering photos before passing to directive (a little ugly, but results in better performance) (?)
         var filterPhotos = function () {
             $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.filterPhotos);
             if ($scope.filteredPhotos && $scope.filterDate) {
@@ -686,9 +689,12 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
             }
         }
 
+        $scope.resetFilter = function(){
+            $scope.filterPhotos = {};
+        }
+
         $http.get($rootScope.ApiUrl + '/?a=photo', { cache: true }).success(function (data) {
             $scope.loading = false;
-            $scope.list = data;
             $scope.photos = data.res;
             filterPhotos();
         });
