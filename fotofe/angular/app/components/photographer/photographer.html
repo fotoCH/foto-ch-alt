@@ -45,7 +45,7 @@
                         ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | orderBy:fotografengattungen"
                         ng-change="updateSelect(filterPhotographer.fotografengattungen)"
                         ng-disabled="!filtersReady"
-                        ng-model-options="{ debounce: 100 }">
+                        ng-model-options="{ debounce: 100 }" multiple>
                     <option value="">...</option>
                 </select>
 

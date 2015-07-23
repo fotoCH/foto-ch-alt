@@ -1,7 +1,7 @@
 <p>
     <span ng-bind-html="text | readMoreFilter:[text, countingWords, textLength]" style="height: {{ height }}" class="l-readmore__text"></span>
     <a ng-show="showLinks" ng-click="changeLength()" class="l-readmore__link">
-        <span ng-show='isExpanded'> { spr.showless }}</span>
-        <span ng-show='!isExpanded'> { spr.showmore }}</span>
+        <span ng-show='isExpanded'> {{ showless }}</span>
+        <span ng-show='!isExpanded'> {{ showmore }} {{ ::spr.show_more }}</span>
     </a>
 </p>

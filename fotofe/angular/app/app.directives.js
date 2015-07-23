@@ -85,7 +85,9 @@ app.directive('readMoreWrapper', function () {
         templateUrl: 'app/shared/content/readmore-wrapper.html',
         scope: {
             headline: '=',
-            value: '='
+            value: '=',
+            showmore: '@',
+            showless: '@'
         }
     };
 });
@@ -293,7 +295,9 @@ app.directive('readMore', function() {
     return {
         restrict: 'AE',
         scope: {
-            text: '=ngModel'
+            text: '=ngModel',
+            showless: '@',
+            showmore: '@'
         },
         replace: true,
         templateUrl: 'app/shared/content/readmore.html',

@@ -435,16 +435,23 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             }, filterObj);
 */
             // filter rest
-            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj);
+            console.log( $scope.list.res.length);
+            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, $scope.comparator);
+            console.log( $scope.filteredPhotographer.length);
         }
 
-        var comparator = function(actual, expected){
+        $scope.comparator = function(actual, expected){
+
             if(angular.isArray(expected) && actual){
                 for (i in expected) {
                     if (actual.indexOf(expected[i]) > -1){
                         //console.log(expected[i] + ' gefunden in ' + actual)
                         return true;
                     }
+                }
+            }else if(angular.isString(expected) && actual){
+                if (actual.indexOf(expected) > -1){
+                    return true;
                 }
             }
             return false;
