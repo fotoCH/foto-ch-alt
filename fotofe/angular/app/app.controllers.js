@@ -100,12 +100,17 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         // things to do after ajax-content has loaded successfully
         var onLoaded = function () {
             $scope.loading = false;
+
             $scope.filtersReady = true;
             // filter photographer on every change of the filter model
             $scope.$watchCollection('filterInstitutions', function (n, o) {
                 filterInstitutions();
             });
         };
+
+        var configureFilters = function(){
+
+        }
 
 
         // filtering institutions before passing to directive (a little ugly, but results in better performance - cause no exchange between scopes needed)
@@ -435,9 +440,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             }, filterObj);
 */
             // filter rest
-            console.log( $scope.list.res.length);
             $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, $scope.comparator);
-            console.log( $scope.filteredPhotographer.length);
         }
 
         $scope.comparator = function(actual, expected){

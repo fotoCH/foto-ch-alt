@@ -36,7 +36,7 @@
             <form>
                 <label for="filterInstitutionsCanton">{{ spr.kantone }}</label>
                 <select id="filterInstitutionsCanton" ng-model="filterInstitutions.kanton"
-                        ng-options="kanton.kanton as kanton.kanton for kanton in list.res | unique: 'kanton'"
+                        ng-options="kanton.kanton as kanton.kanton for kanton in list.res | unique: 'kanton' | orderBy: 'kanton'"
                         ng-change="updateSelect(filterInstitutions.kanton)"
                         ng-disabled="!filtersReady">
                     <option value="">...</option>
@@ -44,7 +44,7 @@
 
                 <label for="filterInstitutionsType">{{ spr.art_der_institution }}</label>
                 <select id="filterInstitutionsType" ng-model="filterInstitutions.art_id"
-                        ng-options="art.art_id as art.art for art in list.res | unique: 'art_id'"
+                        ng-options="art.art_id as art.art for art in list.res | unique: 'art_id' | orderBy: 'art'"
                         ng-change="updateSelect(filterInstitutions.art_id)"
                         ng-disabled="!filtersReady">
                     <option value="">...</option>
