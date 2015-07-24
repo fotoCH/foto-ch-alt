@@ -373,7 +373,7 @@ app.controller('contactFormCtrl', function ($scope, $http) {
     };
 });
 
-app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter) {
+app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', '$timeout', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout) {
     // console.log("Fotograf Controller reporting for duty.");
 
     var id = $stateParams.id
@@ -544,13 +544,19 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 configureFilters();
             });
         } else {
-            $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
-                $scope.list = data;
-                configureFilters();
-            }).error(function (data, status) {
-                    $scope.loading = false;
-                    $scope.loadingError = true;
-                });
+            $scope.$on('$viewContentLoaded', function(event) {
+                $timeout(loadPhotographers,300);
+            });
+
+            var loadPhotographers = function(){
+                $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
+                    $scope.list = data;
+                    configureFilters();
+                }).error(function (data, status) {
+                        $scope.loading = false;
+                        $scope.loadingError = true;
+                    });
+            }
         }
     } else {
         /**
