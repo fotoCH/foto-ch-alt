@@ -1,20 +1,20 @@
 .form-container {
-	width: 100%;
-	.l-content--center & {
-		margin: 0 auto;
-	}
-	// Form validation with Angular
-	.ng-invalid.ng-touched {
-		border-color: @colorFeedbackError;
-		outline-color: @colorFeedbackError;
-	}
-	.has-error .form__message {
-		color: @colorFeedbackError;
-		font-weight: bold;
-	}
+  width: 100%;
+  .l-content--center & {
+    margin: 0 auto;
+  }
+  // Form validation with Angular
+  .ng-invalid.ng-touched {
+    border-color: @colorFeedbackError;
+    outline-color: @colorFeedbackError;
+  }
+  .has-error .form__message {
+    color: @colorFeedbackError;
+    font-weight: bold;
+  }
 }
 
-label{
+label {
   padding-bottom: 0.5em;
   display: block;
   width: 100%;
@@ -26,62 +26,61 @@ input[type="email"],
 input[type="password"],
 select,
 textarea {
-	margin-bottom: 10px;
-	padding: 5px;
-	width: 100%;
-	border: 1px solid @colorFormBorder;
-	font-size: 1rem;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid @colorFormBorder;
+  font-size: 1rem;
 }
-
 
 // Definitions for the autocomplete field
 .field-autocomplete {
-	input {
-		outline: none;
-	}
-	.angucomplete-dropdown {
-		margin-top: -10px;
-		padding: 0;
-		font-size: 1rem;
-		color: @colorText;
-		width: 100%;
-	}
-	.angucomplete-searching {
-		padding: 5px;
-		font-size: 1rem;
-	}
-	.angucomplete-title {
-		padding: 2px 5px;
-		font-size: 1rem;
-		color: @colorText;
-	}
-	.angucomplete-description {
-		padding-left: 5px;
-		color: @colorTextLight;
-	}
-	.text-match {
-		color: @colorActionPrimary;
-	}
-	.angucomplete-selected-row, .angucomplete-row:hover {
-		background-color: @colorLayoutLight;
-		color: @colorActionPrimary;
-		.angucomplete-title {
-			color: @colorActionPrimary;
-		}
-	}
+  input {
+    outline: none;
+  }
+  .angucomplete-dropdown {
+    margin-top: -10px;
+    padding: 0;
+    font-size: 1rem;
+    color: @colorText;
+    width: 100%;
+  }
+  .angucomplete-searching {
+    padding: 5px;
+    font-size: 1rem;
+  }
+  .angucomplete-title {
+    padding: 2px 5px;
+    font-size: 1rem;
+    color: @colorText;
+  }
+  .angucomplete-description {
+    padding-left: 5px;
+    color: @colorTextLight;
+  }
+  .text-match {
+    color: @colorActionPrimary;
+  }
+  .angucomplete-selected-row, .angucomplete-row:hover {
+    background-color: @colorLayoutLight;
+    color: @colorActionPrimary;
+    .angucomplete-title {
+      color: @colorActionPrimary;
+    }
+  }
 }
 
 // power-search auf Startseite
 @input-height: 60px;
-.power-search{
-  form{
+.power-search {
+  form {
     display: flex;
     margin-bottom: 15px;
-    .power-search__input{
+    .power-search__input {
       padding: 10px;
       margin-bottom: 0;
     }
-    .power-search__button{
+    .power-search__button {
       width: @input-height;
       font-size: 22px;
       padding: 0;
@@ -91,33 +90,40 @@ textarea {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
       vertical-align: middle;
-      span:before{
+      span:before {
         vertical-align: middle;
       }
     }
   }
 }
 
-.no-flexbox{
-  .power-search{
-    form{
+.power-search--half{
+  @media @layoutMedium {
+    width: 48%;
+  }
+}
+
+.no-flexbox {
+  .power-search {
+    form {
       position: relative;
       display: block;
-      button.power-search__button{
+      button.power-search__button {
         position: absolute;
         right: 0;
       }
     }
-    }
+  }
 }
 
 // photos
 
-.l-photo-teaser__load-more{
+.l-photo-teaser__load-more {
   display: block;
   margin: 2em auto;
   background-color: transparent;
 }
-.no-flexbox .l-photo-teaser__load-more{
+
+.no-flexbox .l-photo-teaser__load-more {
   clear: both;
 }

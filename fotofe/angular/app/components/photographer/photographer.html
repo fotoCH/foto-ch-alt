@@ -27,7 +27,7 @@
 
             <loading-indicator></loading-indicator>
             <loading-error ng-show="loadingError" text="{ spr.loadingError }}"></loading-error>
-            <photographer-list photographer="filteredPhotographer" limit="limit" ng-show="list.res"></photographer-list>
+            <photographer-list photographer="filteredPhotographer" limit="limit" ng-show="filteredPhotographer"></photographer-list>
             <button ng-click="loadMore()" ng-show="filteredPhotographer.length > limit"
                     class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}
             </button>
@@ -45,7 +45,7 @@
                         ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | orderBy:fotografengattungen"
                         ng-change="updateSelect(filterPhotographer.fotografengattungen)"
                         ng-disabled="!filtersReady"
-                        ng-model-options="{ debounce: 100 }" multiple>
+                        ng-model-options="{ debounce: 100 }">
                     <option value="">...</option>
                 </select>
 
