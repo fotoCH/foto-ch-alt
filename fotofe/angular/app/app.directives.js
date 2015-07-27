@@ -201,7 +201,8 @@ app.directive('photoTeaser', function () {
         scope: {
             photos: '=',
             labels: '=',
-            headline: '='
+            headline: '=',
+            query: '@'
         }
     };
 });
