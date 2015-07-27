@@ -24,7 +24,7 @@
 		</div>
         <div class="l-content__section list ng-scope">
             <loading-indicator></loading-indicator>
-            <institution-list institutions="filteredInstitutions"></institution-list>
+            <institution-list institutions="filteredInstitutions" venue="{{ ::spr.ort }}"></institution-list>
         </div>
 	</div>
     <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span

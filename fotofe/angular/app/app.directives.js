@@ -110,7 +110,8 @@ app.directive('inventoryList', function () {
         templateUrl: 'app/shared/list/inventoryList.html',
         scope: {
             inventories: '=',
-            labels: '='
+            labels: '=',
+            institution: '@'
         }
     };
 });
@@ -155,7 +156,8 @@ app.directive('institutionList', function () {
         restrict: 'E',
         templateUrl: 'app/shared/list/institutionList.html',
         scope: {
-            institutions: '='
+            institutions: '=',
+            venue: '@'
         }
     };
 });

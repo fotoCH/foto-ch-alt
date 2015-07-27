@@ -20,6 +20,6 @@
             </form>
             <button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="inventory( {anf: '{{initial}}'} )">{{initial}}</button>
         </div>
-        <inventory-list inventories="list.res"></inventory-list>
+        <inventory-list inventories="list.res" institution="{{ ::spr.institution }}"></inventory-list>
     </div>
 </div>
