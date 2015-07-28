@@ -694,7 +694,6 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
         $scope.$watchCollection('filterPhotos', function (n, o) {
             filterPhotos();
-            console.log('called');
         });
         /*
         $scope.$watchCollection('filterDate', function (n, o) {
