@@ -581,7 +581,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 }).error(function (data, status) {
                         $scope.loading = false;
                         $scope.loadingError = true;
-                    });
+                });
             }
         }
     } else {
@@ -694,6 +694,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
         $scope.$watchCollection('filterPhotos', function (n, o) {
             filterPhotos();
+            console.log('called');
         });
         /*
         $scope.$watchCollection('filterDate', function (n, o) {
@@ -715,7 +716,8 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         // filtering photos before passing to directive (a little ugly, but results in better performance) (?)
         var filterPhotos = function () {
             $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.filterPhotos);
-            if ($scope.filteredPhotos && $scope.filterDate) {
+            if ($scope.filteredPhotos && $scope.allowDateFilter && $scope.filterDate) {
+
                 var ms = new Date().getMilliseconds();
                 var filteredPhotos = [];
                 $scope.filteredPhotos.forEach(function (item) {

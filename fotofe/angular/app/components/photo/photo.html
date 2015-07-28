@@ -48,10 +48,14 @@
                 <option value="">...</option>
             </select>
 
-            <div range-slider min="1839" max="2015" model-min="filterDate.from" model-max="filterDate.to"
-                 show-values="true" ng-mouseup="filterYear()" ng-touchend="filterYear()"></div>
+                <input type="checkbox" ng-model="allowDateFilter" ng-change="filterYear()" id="allowDateFilter">
+                <label for="allowDateFilter">{{ ::spr.filter_date }}</label>
 
-            <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{spr.reset}}</button>
+            <div range-slider min="1839" max="2015" model-min="filterDate.from" model-max="filterDate.to"
+                 show-values="true" disabled="!allowDateFilter"></div>
+                <!--on-handle-up="filterYear()"-->
+
+            <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{::spr.reset}}</button>
             </form>
         </div>
     </aside>
