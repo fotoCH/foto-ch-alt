@@ -373,7 +373,7 @@ app.controller('contactFormCtrl', function ($scope, $http) {
     };
 });
 
-app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', '$timeout', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout) {
+app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', '$timeout', '$q', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q) {
     // console.log("Fotograf Controller reporting for duty.");
 
     var id = $stateParams.id
@@ -545,17 +545,39 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             });
         } else {
             $scope.$on('$viewContentLoaded', function(event) {
-                $timeout(loadPhotographers,300);
+                //prevent browser from freezing before state change
+                $timeout(loadPhotographers,0);
             });
 
             var loadPhotographers = function(){
                 $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
-                    $scope.list = data;
-                    configureFilters();
+                    $scope.callWebWorker = function () {
+
+                        var worker = new Worker('app/assignJSON.js');
+                        var defer = $q.defer();
+                        worker.onmessage = function(e) {
+                            defer.resolve(e.data);
+                            worker.terminate();
+                        };
+                        worker.postMessage([$scope, data]);
+                        return defer.promise;
+                    }
+
+                    $scope.callWebWorker().then(function (workerReply) {
+                        $scope.list = workerReply;
+                        configureFilters();
+                    });
                 }).error(function (data, status) {
                         $scope.loading = false;
                         $scope.loadingError = true;
                     });
+            }
+
+            var assignJSONData = function(data){
+                console.log('before freezing');
+                //$scope.list = data;
+                //sconsole.log($scope.list);
+                console.log('after freezing');
             }
         }
     } else {
