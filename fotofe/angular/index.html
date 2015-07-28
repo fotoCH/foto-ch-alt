@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="assets/css/angucomplete-alt.css">
     <link rel="stylesheet" href="assets/css/rangeSlider.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/less/vendor/jquery.fancybox.css" type="text/css" media="screen">
 
     <!--[if lt IE 10]>
 
@@ -126,6 +127,17 @@
 <script src="assets/libs/ng-infinite-scroll.min.js"></script>
 <script src="assets/libs/angular-filter.min.js"></script>
 <script src="assets/libs/rangeSlider.min.js"></script>
+<script src="assets/libs/jquery.fancybox.pack.js"></script>
+<script>
+    // lightbox-links
+    jQuery(document).ready(function() {
+        $('a.fancybox').fancybox({
+            padding : 0,
+            openEffect  : 'fade'
+        });
+    });
+</script>
+<!--<script src="assets/libs/webworkerpool-angular.min.js"></script>-->
 
 <script src="app/app.module.js"></script>
 <script src="app/app.controllers.js"></script>
