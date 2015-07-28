@@ -11,7 +11,7 @@
         </div>
         <div class="l-photo-teaser__description" ng-show="showDetail">
             <span class="l-photo-teaser__title--photographer" ng-bind-html=" photo.name | rawHtml"></span>
-            <span class="l-photo-teaser__title" ng-bind-html=" photo.title | rawHtml"></span>
+            <span class="l-photo-teaser__title" ng-bind-html=" photo.title + ', ' + photo.created | rawHtml"></span>
         </div>
     </div>
 </div>

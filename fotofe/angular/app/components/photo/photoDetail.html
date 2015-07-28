@@ -5,7 +5,9 @@
                 <div class="one-by-one aspect-ratio"></div>
                 <div class="l-photo__inner-container">
                     <div class="centerer"></div>
-                    <img src="{{ imageRootUrl }}{{photo.image_path}}">
+                    <a href="{{ imageRootUrl }}{{photo.image_path}}" class="lightbox">
+                        <img src="{{ imageRootUrl }}{{photo.image_path}}">
+                    </a>
                 </div>
             </div>
         </div>
@@ -14,10 +16,10 @@
         <div class="l-content__section">
             <div class="l-photo__description">
                 <dl>
-                    <dt ng-if="photo.title">{{spr.titel}}</dt>
-                    <dd ng-if="photo.title" ng-bind-html="photo.title | rawHtml"></dd>
                     <dt ng-if="photo.name">{{spr.name}}</dt>
                     <dd ng-if="photo.name" ng-bind-html="photo.name | rawHtml"></dd>
+                    <dt ng-if="photo.title">{{spr.titel}}</dt>
+                    <dd ng-if="photo.title" ng-bind-html="photo.title | rawHtml"></dd>
                     <dt ng-if="photo.created">{{spr.erstellungsdatum}}</dt>
                     <dd ng-if="photo.created" ng-bind-html="photo.created | rawHtml"></dd>
                     <dt ng-if="photo.institution">{{spr.institution}}</dt>
