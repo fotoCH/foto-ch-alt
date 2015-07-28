@@ -620,6 +620,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.filterDate.to = new Date().getFullYear();
         var cachedFilters = $rootScope.filterCache.get('filterPhotos');
         var cachedLimit = $rootScope.filterCache.get('limitPhotos');
+        var cachedViewClass = $rootScope.filterCache.get('viewClass');
         var limitExpander = 12;
 
 
@@ -636,15 +637,23 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         } else {
             $scope.limit = limitExpander;
         }
+        // set limit
+        if (cachedLimit !== undefined) {
+            $scope.viewClass = $rootScope.filterCache.get('viewClass');
+        } else {
+            $scope.viewClass = '';
+        }
 
         // cache filterObject & limit on page change (only to detail)
         $scope.$on('$stateChangeStart', function (event, toState) {
             if (toState.name == 'photoDetail') {
                 $rootScope.filterCache.put('filterPhotos', $scope.filterPhotos);
                 $rootScope.filterCache.put('limitPhotos', $scope.limit);
+                $rootScope.filterCache.put('viewClass', $scope.viewClass);
             } else {
                 $rootScope.filterCache.remove('filterPhotos');
                 $rootScope.filterCache.remove('limitPhotos');
+                $rootScope.filterCache.remove('viewClass');
             }
         });
 
