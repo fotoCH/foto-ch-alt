@@ -378,6 +378,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
     var id = $stateParams.id
     var anf = $stateParams.anf;
+    var query = $stateParams.query
     $scope.activeChar = anf;
     $scope.input = '';
 
@@ -403,6 +404,8 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         // set filters
         if (cachedFilters !== undefined) {
             $scope.filterPhotographer = $rootScope.filterCache.get('filterPhotographer');
+        }else{
+            $scope.filterPhotographer = {"$": query};
         }
 
         // set limit
@@ -440,7 +443,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             }, filterObj);
 */
             // filter rest
-            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, $scope.comparator);
+            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj);
         }
 
         $scope.comparator = function(actual, expected){
@@ -504,6 +507,9 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             $scope.filter.bildgattungen = $filter('unique')(bildgattungen.split(',').filter(Boolean));
             $scope.filter.kanton = $filter('unique')(kanton.split(',').filter(Boolean));
             $scope.filter.venues = $filter('unique')(venues.split(',').filter(Boolean));
+            if(query){
+                $scope.filter.searchfield = query;
+            }
 
             filterPhotographers();
 
@@ -551,6 +557,8 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
             var loadPhotographers = function(){
                 $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
+
+                    /**
                     $scope.callWebWorker = function () {
 
                         var worker = new Worker('app/assignJSON.js');
@@ -559,7 +567,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                             defer.resolve(e.data);
                             worker.terminate();
                         };
-                        worker.postMessage([$scope, data]);
+                        worker.postMessage(data);
                         return defer.promise;
                     }
 
@@ -567,17 +575,13 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                         $scope.list = workerReply;
                         configureFilters();
                     });
+                     */
+                    $scope.list = data;
+                    configureFilters();
                 }).error(function (data, status) {
                         $scope.loading = false;
                         $scope.loadingError = true;
                     });
-            }
-
-            var assignJSONData = function(data){
-                console.log('before freezing');
-                //$scope.list = data;
-                //sconsole.log($scope.list);
-                console.log('after freezing');
             }
         }
     } else {
