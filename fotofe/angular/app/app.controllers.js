@@ -734,6 +734,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
         $scope.resetFilter = function(){
             $scope.filterPhotos = {};
+            $scope.allowDateFilter = false;
         }
 
         $http.get($rootScope.ApiUrl + '/?a=photo', { cache: true }).success(function (data) {

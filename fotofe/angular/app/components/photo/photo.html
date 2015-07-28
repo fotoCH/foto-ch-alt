@@ -5,7 +5,8 @@
         </div>
         <div class="l-content__section" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
             <label for="filter-title"></label>
-            <input type="text" id="filter-title" ng-model="filterPhotos.$" ng-model-options="{ debounce: 300 }" placeholder="{{ spr.search_photos }}">
+            <input type="text" id="filter-title" ng-model="filterPhotos.$" ng-model-options="{ debounce: 300 }"
+                   placeholder="{{ spr.search_photos }}">
 
             <div class="l-photo-teaser__info-bar">
                 <span ng-if="filteredPhotos">
@@ -32,30 +33,30 @@
             <h2>Filter</h2>
 
             <form>
-            <label for="filterPhotographer">{{ spr.fotograph }}</label>
-            <input type="text" id="filterPhotographer" ng-model="filterPhotos.name">
+                <label for="filterPhotographer">{{ spr.fotograph }}</label>
+                <input type="text" id="filterPhotographer" ng-model="filterPhotos.name">
 
-            <label for="filterInstitution">{{ spr.institution }}</label>
-            <select id="filterInstitution" ng-model="filterPhotos.institution_id"
-                    ng-options="photo.institution_id as photo.institution for photo in photos | unique: 'institution_id' | filter:filterExcludeNullInstitutionId()"
-                    ng-change="updateSelect(filterPhotos.institution_id)">
-                <option value="">...</option>
-            </select>
-            <label for="filterStock">{{ spr.bestand }}</label>
-            <select id="filterStock" ng-model="filterPhotos.stock_id"
-                    ng-options="photo.stock_id as photo.stock for photo in photos | unique: 'stock_id' | filter:filterExcludeNullStockId()"
-                    ng-change="updateSelect(filterPhotos.stock_id)">
-                <option value="">...</option>
-            </select>
+                <label for="filterInstitution">{{ spr.institution }}</label>
+                <select id="filterInstitution" ng-model="filterPhotos.institution_id"
+                        ng-options="photo.institution_id as photo.institution for photo in photos | unique: 'institution_id' | filter:filterExcludeNullInstitutionId()"
+                        ng-change="updateSelect(filterPhotos.institution_id)">
+                    <option value="">...</option>
+                </select>
+                <label for="filterStock">{{ spr.bestand }}</label>
+                <select id="filterStock" ng-model="filterPhotos.stock_id"
+                        ng-options="photo.stock_id as photo.stock for photo in photos | unique: 'stock_id' | filter:filterExcludeNullStockId()"
+                        ng-change="updateSelect(filterPhotos.stock_id)">
+                    <option value="">...</option>
+                </select>
 
                 <input type="checkbox" ng-model="allowDateFilter" ng-change="filterYear()" id="allowDateFilter">
                 <label for="allowDateFilter">{{ ::spr.filter_date }}</label>
 
-            <div range-slider min="1839" max="2015" model-min="filterDate.from" model-max="filterDate.to"
-                 show-values="true" disabled="!allowDateFilter"></div>
-                <!--on-handle-up="filterYear()"-->
+                <div range-slider min="1839" max="2015" model-min="filterDate.from" model-max="filterDate.to"
+                     show-values="true" on-handle-up="filterYear()" disabled="!allowDateFilter"></div>
 
-            <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{::spr.reset}}</button>
+
+                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{::spr.reset}}</button>
             </form>
         </div>
     </aside>
