@@ -267,6 +267,20 @@ app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$s
         $state.go('search', {query: $scope.powersearch});
     }
 
+    $scope.animateBox = function(e){
+        var element = jQuery(e.currentTarget);
+
+        var parentHeight = element.parent().prop('scrollHeight');
+
+        if(element.hasClass('closed')){
+            element.parent().animate({height: parentHeight}, 200);
+        }else{
+            element.parent().animate({height: element.outerHeight(true)}, 200);
+        }
+        element.toggleClass('closed');
+
+    }
+
     if ($stateParams.query) {
         search($stateParams.query);
     }

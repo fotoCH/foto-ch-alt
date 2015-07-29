@@ -6,7 +6,7 @@
         <div class="l-content__section l-boxview">
             <div class="l-content__box">
                 <div>
-                <h1>{{ spr.photographers }}</h1>
+                <h1 ng-click="animateBox($event)">{{ spr.photographers }}</h1>
 
                 <div class="box-info">{{ result.photographer_result_count }} {{ spr.results }} <a
                         ui-sref="photographer({ query: powersearch })">{{ ::spr.show_all }}</a></div>
@@ -18,7 +18,7 @@
             </div>
             <div class="l-content__box">
                 <div>
-                    <h1>{{ spr.photos }}</h1>
+                    <h1 ng-click="animateBox($event)">{{ spr.photos }}</h1>
 
                     <div class="box-info">{{ result.photo_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">{{
                             ::spr.show_all }}</a></div>
@@ -31,7 +31,7 @@
             </div>
             <div class="l-content__box">
                 <div>
-                    <h1>{{ spr.institution }}</h1>
+                    <h1 ng-click="animateBox($event)">{{ spr.institution }}</h1>
 
                     <div class="box-info">{{ result.institution_result_count }} {{ spr.results }} <a
                             ui-sref="institution({ query: powersearch })">{{ ::spr.show_all }}</a></div>
@@ -42,7 +42,7 @@
             </div>
             <div class="l-content__box">
                 <div>
-                    <h1>{{ spr.bestaende2 }}</h1>
+                    <h1 ng-click="animateBox($event)">{{ spr.bestaende2 }}</h1>
 
                     <div class="box-info">{{ result.inventory_result_count }} {{ spr.results }} <a
                             ui-sref="inventory({ query: powersearch })">{{ ::spr.show_all }}</a></div>
@@ -53,7 +53,7 @@
             </div>
             <div class="l-content__box">
                 <div>
-                    <h1>{{ spr.ausstellungen }}</h1>
+                    <h1 ng-click="animateBox($event)">{{ spr.ausstellungen }}</h1>
 
                     <div class="box-info">{{ result.exhibition_result_count }} {{ spr.results }} <a
                             ui-sref="exhibition({ query: powersearch })">{{ ::spr.show_all }}</a></div>
