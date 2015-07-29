@@ -404,6 +404,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         // set filters
         if (cachedFilters !== undefined) {
             $scope.filterPhotographer = $rootScope.filterCache.get('filterPhotographer');
+            console.log($scope.filterPhotographer );
         }else{
             $scope.filterPhotographer = {"$": query};
         }
@@ -474,7 +475,9 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
         // get filters from result array
         var configureFilters = function () {
-            $scope.loading = false;
+
+            var begin = new Date();
+
             // add filters to array
             $scope.filter = {};
             var fotografengattungen = '';
@@ -511,6 +514,8 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 $scope.filter.searchfield = query;
             }
 
+            var middle = new Date();
+
             filterPhotographers();
 
             // filter photographer on every change of the filter model
@@ -522,8 +527,14 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 $scope.filterPhotographer = {};
             }
 
+            $scope.loading = false;
+
             // display filters
             $scope.filtersReady = true;
+
+            console.log(begin);
+            console.log(middle);
+            console.log(new Date());
         }
 
         // show more results
@@ -577,7 +588,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                     });
                      */
                     $scope.list = data;
-                    configureFilters();
+                    $timeout(configureFilters,0);
                 }).error(function (data, status) {
                         $scope.loading = false;
                         $scope.loadingError = true;
@@ -592,6 +603,14 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             $scope.readMoreLimit = 50;
             $scope.detail = data;
             $scope.list = null;
+        });
+
+        // remove filter if not returning to overview
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            if (toState.name != 'photographer') {
+                $rootScope.filterCache.remove('filterPhotographer');
+                $rootScope.filterCache.remove('limitPhotographer');
+            }
         });
 
     }
@@ -757,6 +776,15 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
          */
         $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
             $scope.photo = data;
+        });
+
+        // remove filter if not returning to overview
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            if (toState.name != 'photo') {
+                $rootScope.filterCache.remove('filterPhotos');
+                $rootScope.filterCache.remove('limitPhotos');
+                $rootScope.filterCache.remove('viewClass');
+            }
         });
     }
 
