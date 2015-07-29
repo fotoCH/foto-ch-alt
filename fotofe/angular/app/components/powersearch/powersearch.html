@@ -1,9 +1,9 @@
 <div class="l-content l-searchview">
-    <div class="l-content__main">
+    <div class="l-content__main clearfix">
         <div class="l-content__section power-search power-search--half">
             <power-search></power-search>
         </div>
-        <div class="l-content__section l-boxview">
+        <div class="l-content__section l-boxview l-boxview--left">
             <div class="l-content__box">
                 <div>
                 <h1 ng-click="animateBox($event)">{{ spr.photographers }}</h1>
@@ -15,19 +15,6 @@
                         p.namenszusatz }}</a> {{ p.fldatum }}
                 </div>
                     </div>
-            </div>
-            <div class="l-content__box">
-                <div>
-                    <h1 ng-click="animateBox($event)">{{ spr.photos }}</h1>
-
-                    <div class="box-info">{{ result.photo_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">{{
-                            ::spr.show_all }}</a></div>
-                    <photo-teaser-box class="l-photo-teaser l-photo-teaser--powersearch"
-                                      limit="limit"
-                                      photos="result.photo_results"
-                                      image-root-url="{{ imageRootUrl }}"
-                                      show-detail=""></photo-teaser-box>
-                </div>
             </div>
             <div class="l-content__box">
                 <div>
@@ -51,6 +38,22 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="l-content__section l-boxview l-boxview--right">
+            <div class="l-content__box">
+                <div>
+                    <h1 ng-click="animateBox($event)">{{ spr.photos }}</h1>
+
+                    <div class="box-info">{{ result.photo_result_count }} {{ spr.results }} <a ui-sref="photo({ query: powersearch })">{{
+                            ::spr.show_all }}</a></div>
+                    <photo-teaser-box class="l-photo-teaser l-photo-teaser--powersearch"
+                                      limit="limit"
+                                      photos="result.photo_results"
+                                      image-root-url="{{ imageRootUrl }}"
+                                      show-detail=""></photo-teaser-box>
+                </div>
+            </div>
+
             <div class="l-content__box">
                 <div>
                     <h1 ng-click="animateBox($event)">{{ spr.ausstellungen }}</h1>

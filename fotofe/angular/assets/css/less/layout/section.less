@@ -52,33 +52,30 @@
 	}
 }
 .l-content__section.l-boxview{
-  .l-content__box>div{
-    overflow: hidden;
-  }
-  @media @layoutLarge {
-    .display(flex);
-    .flex-wrap(wrap);
-    .l-content__box{
-      .flex(0 0 50%);
-      padding: 0 15px;
-      margin: 15px 0;
-      >div{
-        padding: 0 0 20px;
-        overflow: hidden;
-        h1{
-          padding-bottom: 15px;
-          border-bottom: 1px solid @colorLayoutBorder;
-          cursor: pointer;
-        }
-        div.box-info{
-          margin-bottom: 15px;
-        }
-        div.box-item{
-          margin: 0 0 5px 10px;
-        }
-
+  .l-content__box{
+    margin: 15px 0;
+    >div{
+      padding: 0 0 20px;
+      overflow: hidden;
+      h1{
+        padding-bottom: 15px;
+        border-bottom: 1px solid @colorLayoutBorder;
+        cursor: pointer;
+      }
+      div.box-info{
+        margin-bottom: 15px;
+      }
+      div.box-item{
+        margin: 0 0 5px 10px;
       }
     }
-    margin: 0 -15px;
+  }
+
+  @media @layoutLarge {
+    width: 50%;
+    float: left;
+    .l-content__box{
+      padding: 0 15px;
+    }
   }
 }
