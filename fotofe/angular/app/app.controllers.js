@@ -84,6 +84,7 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
 
     var id = $stateParams.id
     var anf = $stateParams.anf;
+    var query = $stateParams.query;
 
     if (!id) {
         /**
@@ -101,6 +102,8 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         var onLoaded = function () {
             $scope.loading = false;
 
+            configureFilters();
+
             $scope.filtersReady = true;
             // filter photographer on every change of the filter model
             $scope.$watchCollection('filterInstitutions', function (n, o) {
@@ -109,7 +112,9 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         };
 
         var configureFilters = function(){
-
+            if(query){
+                $scope.filterInstitutions = {"$": query};
+            }
         }
 
 
@@ -267,6 +272,7 @@ app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$s
         $state.go('search', {query: $scope.powersearch});
     }
 
+    // open and close result boxes
     $scope.animateBox = function(e){
         var element = jQuery(e.currentTarget);
 
@@ -281,6 +287,7 @@ app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$s
 
     }
 
+    // if query is given, then search
     if ($stateParams.query) {
         search($stateParams.query);
     }
@@ -392,7 +399,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
     var id = $stateParams.id
     var anf = $stateParams.anf;
-    var query = $stateParams.query
+    var query = $stateParams.query;
     $scope.activeChar = anf;
     $scope.input = '';
 

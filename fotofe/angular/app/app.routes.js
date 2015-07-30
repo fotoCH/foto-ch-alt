@@ -31,7 +31,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         })
         // Institution search view
         .state('institution', {
-            url: '/institution?anf',
+            url: '/institution?anf&query',
             templateUrl: 'app/components/institution/institution.html',
             controller: 'InstitutionCtrl'
         })
