@@ -14,7 +14,7 @@ app.run(function($rootScope, $http, $location, languages, $cacheFactory) {
     $rootScope.userLevel = '';
     $rootScope.authToken = '';
     $rootScope.lang = 'de';
-    $rootScope.imageRootUrl = 'http://www.foto-ch.ch/';
+    $rootScope.imageRootUrl = '';
     $rootScope.filterCache = $cacheFactory('filterCache');
 
 	  var hosta=$location.$$host.split('.');
