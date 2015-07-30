@@ -4,7 +4,7 @@
 			<h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}}<span ng-if="n.vorname || n.namenszusatz">, {{n.vorname}} {{n.namenszusatz}}</span></h1>
 			<div ng-if="detail.fldatum" ng-bind-html="detail.fldatum | rawHtml"></div>
 		</div>
-		<div class="l-content__section" ng-if="detail.namen.length > 1 || detail.heimatort || detail.fotografengattungen || detail.bildgattungen || detail.beruf || detail.arbeitsperioden.length > 1 || detail.kantone || detail.pnd">
+		<div class="l-content__section" ng-if="detail.namen.length > 1 || detail.heimatort || detail.fotografengattungen || detail.bildgattungen || detail.beruf || detail.arbeitsperioden.length > 0 || detail.kantone || detail.pnd">
 			<dl>
 				<dt ng-if="detail.namen.length > 1">{{spr.namensvariante}}</dt>
 				<dd ng-if="!$first" ng-repeat="n in detail.namen">{{n.nachname}}, {{n.vorname}} {{n.namenszusatz}}</dd>
@@ -18,7 +18,7 @@
 				<dd ng-if="detail.beruf">{{detail.beruf}}</dd>
 				<dt ng-if="detail.arbeitsperioden.length > 1">{{spr.arbeitsorte}}</dt>
 				<dt ng-if="detail.arbeitsperioden.length==1">{{spr.arbeitsort}}</dt>
-				<dd ng-repeat="a in detail.arbeitsperioden">{{a.arbeitsort}} {{a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis}}</dd>
+				<dd ng-if="detail.arbeitsperioden.length > 0"><p><span ng-repeat="a in detail.arbeitsperioden">{{a.arbeitsort}} {{a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis}}<br></span></p></dd>
 				<dt ng-if="detail.kantone">{{spr.kantone}}</dt>
 				<dd ng-if="detail.kantone">{{detail.kantone}}</dd>
 				<dt ng-if="detail.pnd">GND</dt>

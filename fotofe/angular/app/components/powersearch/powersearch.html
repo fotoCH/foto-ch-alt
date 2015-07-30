@@ -32,7 +32,7 @@
                     <h1 ng-click="animateBox($event)">{{ spr.bestaende2 }}</h1>
 
                     <div class="box-info">{{ result.inventory_result_count }} {{ spr.results }} <a
-                            ui-sref="inventory({ query: powersearch })">{{ ::spr.show_all }}</a></div>
+                            ui-sref="inventory({ anf: powersearch })">{{ ::spr.show_all }}</a></div>
                     <div ng-repeat="i in result.inventory_results | limitTo: limit"  class="box-item">
                         <a ui-sref="inventoryDetail( {id: '{{i.id}}'} )">{{ i.name }}</a>
                     </div>
@@ -59,10 +59,9 @@
                     <h1 ng-click="animateBox($event)">{{ spr.ausstellungen }}</h1>
 
                     <div class="box-info">{{ result.exhibition_result_count }} {{ spr.results }} <a
-                            ui-sref="exhibition({ query: powersearch })">{{ ::spr.show_all }}</a></div>
+                            ui-sref="exhibition({ anf: powersearch })">{{ ::spr.show_all }}</a></div>
                     <div ng-repeat="e in result.exhibition_results | limitTo: limit"  class="box-item">
-                        <a ui-sref="exhibitionDetail( {id: '{{e.id}}'} )">{{ e.titel }}</a> {{ e.jahr }} {{ e.ort }} {{
-                        e.institution }}
+                        <a ui-sref="exhibitionDetail( {id: '{{e.id}}'} )">{{ e.titel }}</a> {{ e.jahr }} {{ e.ort }} {{ e.institution }}
                     </div>
                 </div>
             </div>
