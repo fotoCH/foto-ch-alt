@@ -566,7 +566,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 if (query) {
                     $scope.filter.searchfield = query;
                 }
-                
+
                 // display filters
                 $scope.filtersReady = true;
             }

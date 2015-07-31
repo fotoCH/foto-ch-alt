@@ -9,10 +9,10 @@ onmessage = function (e) {
     result.forEach(addFilters);
 
     // return filters in array
-    postMessage([this.fotografengattungen.split(',').filter(Boolean).filter(onlyUnique),
-        this.bildgattungen.split(',').filter(Boolean).filter(onlyUnique),
-        this.kanton.split(',').filter(Boolean).filter(onlyUnique),
-        this.venues.split(',').filter(Boolean).filter(onlyUnique)]);
+    postMessage([this.fotografengattungen.split(',').filter(onlyUnique),
+        this.bildgattungen.split(',').filter(onlyUnique),
+        this.kanton.split(',').filter(onlyUnique),
+        this.venues.split(',').filter(onlyUnique)]);
 }
 
 // extract filter values from answer array & add to string
@@ -33,5 +33,5 @@ addFilters = function (element, index, array) {
 
 // unique filter on arrays, needs most of time, according to http://stackoverflow.com/questions/1960473/unique-values-in-an-array/14438954#14438954
 function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
+    return self.indexOf(value) === index && value;
 }
