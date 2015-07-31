@@ -528,6 +528,8 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                     $scope.filter.bildgattungen = workerReply[1];
                     $scope.filter.kanton = workerReply[2];
                     $scope.filter.venues = workerReply[3];
+                    // display filters
+                    $scope.filtersReady = true;
                 });
 
             } else {
@@ -564,6 +566,9 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                 if (query) {
                     $scope.filter.searchfield = query;
                 }
+                
+                // display filters
+                $scope.filtersReady = true;
             }
 
             var middle = new Date();
@@ -580,9 +585,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             }
 
             $scope.loading = false;
-
-            // display filters
-            $scope.filtersReady = true;
             /*
              console.log(begin);
              console.log(middle);
