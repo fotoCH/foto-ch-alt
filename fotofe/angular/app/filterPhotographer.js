@@ -12,7 +12,7 @@ onmessage = function (e) {
     postMessage([this.fotografengattungen.split(',').filter(Boolean).filter(onlyUnique),
         this.bildgattungen.split(',').filter(Boolean).filter(onlyUnique),
         this.kanton.split(',').filter(Boolean).filter(onlyUnique),
-        this.venues.split(',').filter(Boolean)]);
+        this.venues.split(',').filter(Boolean)].filter(onlyUnique));
 }
 
 // extract filter values from answer array & add to string
