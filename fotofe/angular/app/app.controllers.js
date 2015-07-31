@@ -258,7 +258,7 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
 
 app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
 
-    $scope.limit = 9;
+    $scope.limit = 6;
 
     function search(query) {
         $http.get($rootScope.ApiUrl + '/?a=search&query=' + query).success(function (data) {
