@@ -65,6 +65,15 @@ body {
 }
 
 // IE9-fix
+.no-flexbox .l-photodetailview .l-content__main,
+.no-flexbox .l-photodetailview .l-content__aside{
+  @media @layoutMedium {
+    width: 50%;
+    float: left;
+  }
+}
+
+// IE9-fix
 .no-flexbox .l-searchview .l-content__main,
 .no-flexbox .l-readerview .l-content__main{
   @media @layoutMedium {
