@@ -56,6 +56,7 @@
                         ng-disabled="!filtersReady"
                         ng-model-options="{ debounce: 100 }">
                     <option value="">...</option>
+                    <!--<option ng-repeat="(key, value) in filter.bildgattungen" value="{{ key }}">{{ value }}</option>-->
                 </select>
 
                 <label for="filterPhotoVenue">{{ ::spr.arbeitsort }} ({{ filter.venues.length }})</label>

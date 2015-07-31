@@ -20,6 +20,7 @@
 			</form>
 			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="exhibition( {anf: '{{initial}}'} )">{{initial}}</button>
 		</div>
+        <loading-indicator></loading-indicator>
 		<exhibition-list labels="spr" exhibitions="list.res"></exhibition-list>
 	</div>
 </div>

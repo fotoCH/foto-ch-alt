@@ -347,8 +347,11 @@ app.controller('ExhibitionCtrl', ['$scope', '$http', '$location', '$state', '$st
 
     //$scope.debug='anf:'+anf+' id:'+id+$state;
     if (anf >= 'A') {
+        $scope.loading = true;
         $http.get($rootScope.ApiUrl + '/?a=exhibition&anf=' + anf).success(function (data) {
+
             $scope.list = data;
+            $scope.loading = false;
         });
     } else {
         if (id) {
@@ -508,7 +511,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
             angular.forEach($scope.list.res, function (value, index, array) {
                 if (value.fotografengattungen != '') {
-                    //console.log(fotografengattungen);
                     fotografengattungen = fotografengattungen + value.fotografengattungen + ',';
                 }
                 if (value.bildgattungen != '') {
@@ -518,7 +520,6 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                     kanton = kanton + value.kanton + ',';
                 }
                 if(value.arbeitsperioden != ''){
-                    //console.log(value.arbeitsperioden);
                     venues = venues + value.arbeitsperioden + ',';
                 }
 
@@ -527,6 +528,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
             }, $scope.list.res);
 
             // set filters
+
             $scope.filter.fotografengattungen = $filter('unique')(fotografengattungen.split(',').filter(Boolean));
             $scope.filter.bildgattungen = $filter('unique')(bildgattungen.split(',').filter(Boolean));
             $scope.filter.kanton = $filter('unique')(kanton.split(',').filter(Boolean));
@@ -552,10 +554,10 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
 
             // display filters
             $scope.filtersReady = true;
-
+            /*
             console.log(begin);
             console.log(middle);
-            console.log(new Date());
+            console.log(new Date());*/
         }
 
         // show more results
@@ -784,6 +786,8 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         $scope.resetFilter = function(){
             $scope.filterPhotos = {};
             $scope.allowDateFilter = false;
+            $scope.filterDate.from = 1839;
+            $scope.filterDate.to = new Date().getFullYear();
         }
 
         $http.get($rootScope.ApiUrl + '/?a=photo', { cache: true }).success(function (data) {
