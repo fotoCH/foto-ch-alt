@@ -65,6 +65,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     $rootScope.goBack = function () {
         window.history.back();
     }
+
+    $rootScope.showInfo = function(text){
+        alert(text.replace(/\\n/g,"\n"));
+    }
 }]);
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {

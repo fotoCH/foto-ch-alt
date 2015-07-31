@@ -73,12 +73,13 @@
 						<li><a ng-class="getClass('/exhibition')" ui-sref="exhibition">{{spr.ausstellungen}}</a></li>
 						<li><a ng-class="getClass('/test')" ui-sref="test">Test</a></li>
 						-->
+                    <li class="lang-switch"><a ng-click="showInfo(spr.info_text)" class="btn btn--secondary">i</a></li>
                     <li class="lang-switch--small">
                         <a ng-class="getLclass('de')" ng-click="setLanguage('de')">de</a>
                         <a ng-class="getLclass('fr')" ng-click="setLanguage('fr')">fr</a>
                         <a ng-class="getLclass('it')" ng-click="setLanguage('it')">it</a>
                         <!-- <a ng-class="getLclass('rm')" ng-click="setLanguage('rm')">rm</a>
-                        <a ng-class="getLclass('en')" ng-click="setLanguage('en')">en</a> -->
+                        <a ng-class="getLclass('en')" ng-click="setLanguage('en')">en</a> --></li>
                 </ul>
                 <button type="button" class="btn btn--link nav-main__toggle" ng-click="toggleMobileMenu()">
                     <span class="icon-bar"></span>
