@@ -751,6 +751,13 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         }
 
 
+        $scope.filterExcludeNullName = function () {
+            return function (photo) {
+                return photo.name !== null;
+            };
+        }
+
+
         $scope.filterExcludeNullStockId = function () {
             return function (photo) {
                 return photo.stock_id !== null;

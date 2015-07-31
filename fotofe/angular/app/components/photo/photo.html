@@ -34,7 +34,11 @@
 
             <form>
                 <label for="filterPhotographer">{{ spr.fotograph }}</label>
-                <input type="text" id="filterPhotographer" ng-model="filterPhotos.name">
+                <select id="filterInstitution" ng-model="filterPhotos.name"
+                        ng-options="photo.name as photo.name for photo in photos | unique: 'name' | filter:filterExcludeNullName()"
+                        ng-change="updateSelect(filterPhotos.name)">
+                    <option value="">...</option>
+                </select>
 
                 <label for="filterInstitution">{{ spr.institution }}</label>
                 <select id="filterInstitution" ng-model="filterPhotos.institution_id"
