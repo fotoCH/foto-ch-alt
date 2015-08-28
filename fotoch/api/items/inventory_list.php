@@ -40,6 +40,8 @@ if ($id==''){
 			if(auth_level(USER_GUEST_READER_PARTNER)) if ($fetch['gesperrt']==1) $outl ['nameclass']='subtitle3x';
 			
 			//print_r($fetch);
+			$inst=getinsta($fetch['inst_id']);
+		        $fetch['institution']=$inst['name'];
 			pushfields($outl,$fetch,array('name','institution','inst_id','nameclass','id','gesperrt'));
 			
 			

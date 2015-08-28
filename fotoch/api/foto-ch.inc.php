@@ -46,11 +46,11 @@ function jsonfile($f){
 }
 
 
-function getToken($u, $l){
+function getToken($u, $l, $i){
 	$sql="SELECT * FROM auth WHERE user='$u'";
 	$res=get1fromselect($sql);
 	if (!$res){
-		$sql="INSERT INTO `auth` SET `user`='$u', `token`=UUID(), `expires`=DATE_ADD(NOW(), INTERVAL 2 HOUR), `level`=$l;";
+		$sql="INSERT INTO `auth` SET `user`='$u', `token`=UUID(), `expires`=DATE_ADD(NOW(), INTERVAL 2 HOUR), `level`=$l, `inst_comment`=$i;";
 		mysql_query($sql);
 		$sql="SELECT * FROM auth WHERE user='$u'";
 		$res=get1fromselect($sql);

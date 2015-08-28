@@ -6,9 +6,9 @@ setlocale (LC_ALL, 'de_CH');
 $foto=($_REQUEST['s']);
 $l=strlen($foto);
 
-$sql="SELECT * FROM institution WHERE name LIKE '$foto%' ORDER BY name LIMIT 18";
+$sql="SELECT * FROM institution WHERE name LIKE '$foto%' ORDER BY name LIMIT 5";
 
-$sql="SELECT * FROM institution WHERE name LIKE '$foto%' AND gesperrt=0 ORDER BY name LIMIT 18";
+$sql="SELECT * FROM institution WHERE name LIKE '$foto%' AND gesperrt=0 ORDER BY name LIMIT 5";
 
 $result=mysql_query($sql);
 $c=0;

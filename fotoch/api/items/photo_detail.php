@@ -13,7 +13,7 @@ if (auth_level(USER_WORKER)){
 
 $select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
 $select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
-$select.= 'i.name AS institution, ';
+$select.= 'i.name AS institution, i.id as inst_id,';
 $select.= 'b.name AS stock';
 
 $join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
