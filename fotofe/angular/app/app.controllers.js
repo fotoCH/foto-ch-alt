@@ -310,6 +310,7 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
                 $scope.errorMsg = 'Login ok ' + $scope.spr.welcome + ' ' + data.vorname + ' ' + data.nachname;
                 $rootScope.user = user.username;
                 $rootScope.userLevel = parseInt(data.level);
+                $rootScope.instComment = parseInt(data.inst_comment);
                 $rootScope.authToken = data.token;
                 $window.sessionStorage.authToken = data.token;
                 $http.defaults.headers.common['X-AuthToken'] = $rootScope.authToken;
@@ -325,8 +326,9 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
             var resp = data;
 
             $rootScope.user = '';
-            $rootScope.userLevel = '';
+            $rootScope.userLevel = 0;
             $rootScope.authToken = '';
+            $rootScope.instComment = 0;
             $http.defaults.headers.common['X-AuthToken'] = undefined;
             $window.sessionStorage.authToken = undefined;
 
@@ -836,8 +838,15 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         /*
          Detailpage
          */
+        $scope.doComments = false;
+    	
         $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
             $scope.photo = data;
+
+            if (parseInt(data.inst_id)==$rootScope.instComment){
+                $scope.doComments = true;
+                $scope.comment={};
+            }
         });
 
         // remove filter if not returning to overview

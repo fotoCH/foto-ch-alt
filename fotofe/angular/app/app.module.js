@@ -34,6 +34,7 @@ app.run(function($rootScope, $http, $location, languages, $cacheFactory) {
 				if (data!==0){
 				$rootScope.user = data.user;
 				$rootScope.userLevel = parseInt(data.level);
+				$rootScope.instComment = parseInt(data.inst_comment);
 				$rootScope.authToken = token;
 				$http.defaults.headers.common['X-AuthToken']=token;
 				//$window.sessionStorage.authToken=undefined;
