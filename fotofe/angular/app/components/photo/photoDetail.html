@@ -29,24 +29,31 @@
                     <dt ng-if="photo.description">{{spr.description}}</dt>
                     <dd ng-if="photo.description" ng-bind-html="photo.description | rawHtml"></dd>
                 </dl>
-                <dl ng-if="doComments"><form>
-                    <dt ng-if="photo.name">{{spr.name}}</dt>
-                    <dd ng-if="photo.name" ng-bind-html="photo.name | rawHtml"></dd>
+                <dl ng-if="doComments"><form ng-submit="submit()">
+                    <dt>{{spr.name}}</dt>
+                    <dd ng-bind-html="photo.name | rawHtml"></dd>
+                    <dt>{{spr.aenderungsvorschlag}}</dt>
                     <dd><input ng-model="comment.name" style="width: 100%;"></input></dd>                   
                     <dt>{{spr.titel}}</dt>
-                    <dd ng-if="photo.title" ng-bind-html="photo.title | rawHtml"></dd>
+                    <dd ng-bind-html="photo.title | rawHtml"></dd>
+                    <dt>{{spr.aenderungsvorschlag}}</dt>
                     <dd><input ng-model="comment.title" style="width: 100%;"></input></dd>                     
+                    <dt>{{spr.description}}</dt>
+                    <dd ng-bind-html="photo.description | rawHtml"></dd>
+                    <dt>{{spr.aenderungsvorschlag}}</dt>
+                    <dd><textarea ng-model="comment.description"></textarea></dd>
+                    <dt>{{spr.allgemeine_bemerkungen}}</dt>
+                    <dd><textarea ng-model="comment.comments"></textarea></dd>
                     <dt>{{spr.erstellungsdatum}}</dt>
-                    <dd ng-if="photo.created" ng-bind-html="photo.created | rawHtml"></dd>
+                    <dd ng-bind-html="photo.created | rawHtml"></dd>
+                    <dt>{{spr.aenderungsvorschlag}}</dt>
                     <dd><input ng-model="comment.created" style="width: 100%;"></input></dd>
                     <dt ng-if="photo.institution">{{spr.institution}}</dt>
                     <dd ng-if="photo.institution" ng-bind-html="photo.institution | rawHtml"></dd>
                     <dt>{{spr.bestand}}</dt>
                     <dd ng-if="photo.stock" ng-bind-html="photo.stock | rawHtml"></dd>
-                    <dd><input ng-model="comment.stock" style="width: 100%;"></input></dd>
-                    <dt>{{spr.description}}</dt>
-                    <dd ng-if="photo.description" ng-bind-html="photo.description | rawHtml"></dd>
-                    <dd><textarea ng-model="comment.description"></textarea></dd>
+                    <dt></dt>
+                    <dd><input type="submit" id="submit" value="{{spr.aenderungsvorschlag_speichern}}" /></dd>
                     </form>
                     
                 </dl>
