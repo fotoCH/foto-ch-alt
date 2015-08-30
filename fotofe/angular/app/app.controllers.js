@@ -845,6 +845,11 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
             if (parseInt(data.inst_id)==$rootScope.instComment){
                 $scope.doComments = true;
+                $scope.submit = function () {
+                	console.log($scope.comment);
+                    return;
+                }
+
                 $scope.comment={};
             }
         });
