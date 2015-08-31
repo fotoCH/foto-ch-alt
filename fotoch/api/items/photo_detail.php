@@ -32,6 +32,16 @@ $out['result_count']= $rowCount;
 // do query
 $fetch = mysql_fetch_assoc ( $result );
 $out=$fetch;
-    
+
+if ($inst_comment==$fetch['inst_id']){
+    $result=mysql_query("SELECT * FROM fotos_comments WHERE id=$id");
+    $rowCount = mysql_num_rows($result);
+    if ($rowCount==0){
+	$out['comment']=array('id'=>$id);
+    } else {
+        $out['comment']=mysql_fetch_assoc ( $result );
+    }
+//$out['comment']=array('name'=>'testname', 'title'=>'testt');
+}
 jsonout($out);
 ?>
