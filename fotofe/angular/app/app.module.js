@@ -9,7 +9,7 @@ var app = angular.module('fotochWebApp', [
     'ui-rangeSlider'
 ]);
 
-app.run(function($rootScope, $http, $location, languages, $cacheFactory) {
+app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory) {
     $rootScope.user = '';
     $rootScope.userLevel = '';
     $rootScope.authToken = '';
@@ -27,7 +27,8 @@ app.run(function($rootScope, $http, $location, languages, $cacheFactory) {
     
     $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
     var token=window.sessionStorage.authToken;
-    if (token!==undefined){
+    $rootScope.userInfoCall = $q.defer();
+    if ((token!==undefined) && ($rootScope.authToken != token)){
 		  $http.get($rootScope.ApiUrl+'/?a=user&b=info&token='+token).success (function(data){
 				var resp = data;
 				//console.log(data);
@@ -37,9 +38,13 @@ app.run(function($rootScope, $http, $location, languages, $cacheFactory) {
 				$rootScope.instComment = parseInt(data.inst_comment);
 				$rootScope.authToken = token;
 				$http.defaults.headers.common['X-AuthToken']=token;
+				console.log("autorelogin");
+				$rootScope.userInfoCall.resolve();
 				//$window.sessionStorage.authToken=undefined;
 				}
 		  });
+    } else {
+    	$rootScope.userInfoCall.resolve();
     }
 })
 

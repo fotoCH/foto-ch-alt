@@ -69,6 +69,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     $rootScope.showInfo = function (text) {
         alert(text.replace(/\\n/g, "\n"));
     }
+
+//    $rootScope.userInfoCall.promise.then(function() {
+//    	$scope.authinfo=$rootScope.authToken;
+//    });
+    
 }]);
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
@@ -839,20 +844,36 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
          Detailpage
          */
         $scope.doComments = false;
-    	
-        $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
-            $scope.photo = data;
+        
+        $rootScope.userInfoCall.promise.then(function() {
+            $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
+            	$scope.photo = data;
+            		
+            	if (parseInt(data.inst_id)==$rootScope.instComment){
+            		if (data.comment){
+            			$scope.comment=data.comment;
+            		} else {
+            			$scope.comment={name: 'Fehler, beim Laden der Kommentare, das sollte nicht passieren...'};
+            		}
+            		
+            		
+            		$scope.doComments = true;
+            		
+            		$scope.submit = function () {
+            			console.log($scope.comment);
+            			$http.post($rootScope.ApiUrl + '/?a=photo&id=' + id, $scope.comment).success(function (data) {
+            	           //console.log(data);
+            	        });
+            			return;
+            		}
 
-            if (parseInt(data.inst_id)==$rootScope.instComment){
-                $scope.doComments = true;
-                $scope.submit = function () {
-                	console.log($scope.comment);
-                    return;
-                }
-
-                $scope.comment={};
-            }
+            		
+            	}
+            });
         });
+        
+    	
+
 
         // remove filter if not returning to overview
         $scope.$on('$stateChangeStart', function (event, toState) {
