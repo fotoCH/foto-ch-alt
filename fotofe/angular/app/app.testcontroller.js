@@ -2,6 +2,7 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     console.log("Test Controller reporting for duty.");
     $scope.name="";
     $scope.tn="abc";
+    $scope.aps=[];
     hosta = $location.$$host.split('.');
     if (hosta[0] == 'www') hosta.shift();
     if (hosta.length > 0 && ((l = languages.indexOf(hosta[0])) >= 0)) {
@@ -25,8 +26,10 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
       })
     });
     
-    $scope.setname=function(n){
+    $scope.setname=function(n,i,s){
     	this.name=n;
+    	this.id=i;
+    	this.swissname=s;
     	console.log(n);
     }
     
@@ -50,9 +53,16 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
 
     	  //var info = document.getElementById('info');
     	  if (feature) {
-    		var g=feature.get('name');
+    		$scope.name=feature.get('name');
     		var id=feature.get('id');
-    		$scope.setname(g);
+    		$scope.id=id;
+    		$scope.swissname=feature.get('swissname');
+    		//$scope.setname(g,id,sn);
+    	    $http.get($rootScope.ApiUrl + '/?a=perioden&id='+id, { cache: true }).success(function (data) {
+    	        //console.log(data);
+    	        $scope.aps=data;
+
+    	    });    		
     	    
     	  } else {
     	    //info.innerHTML = '&nbsp;';
@@ -69,13 +79,14 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     		  geometry: new ol.geom.Point(ol.proj.transform([0+ort.lon, 0+ort.lat], 'EPSG:4326', 'EPSG:21781')),
     		  name: ort.name,
     		  id: ort.id,
+    		  swissname: ort.swissname
     		});
     	iconFeature.setStyle(iconStyle);
     	vectorSource.addFeature(iconFeature);
     	
     };
     
-    $http.get($rootScope.ApiUrl + '/?a=orte', { cache: false }).success(function (data) {
+    $http.get($rootScope.ApiUrl + '/?a=orte', { cache: true }).success(function (data) {
         //console.log(data);
     	angular.forEach(data, function(value, key) {
     		  //console.log(value.id+" "+value.swissname);

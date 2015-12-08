@@ -9,12 +9,13 @@
 <div id="map" class="map" ng-click="displayFeatureInfo($event)"></div>
 
 
-<p class="text-intro" ng-bind="name">
- 
-</p>
+<p class="text-intro" ng-bind="name"></p>
+<p class="text-intro" ng-bind-html="swissname | rawHtml"></p>
+<div ng-repeat="ap in aps">
+<a ui-sref="photographerDetail( {id: '{{ap.id}}'} )">{{ap.name}}</a> {{ap.periode}}
+</div>
 
-
-{{debug}}
+<!--   {{debug}}
 
 <p>Sprache: {{spr.language}}</p>
 
@@ -22,5 +23,5 @@
 <p>Userlevel: {{userLevel}}</p>
 <p>AuthToken: {{authToken}}</p>
   
-        
+       --> 
               
