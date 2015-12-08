@@ -888,16 +888,6 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
 }]);
 
-app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', function ($scope, $http, $state, $stateParams, $rootScope, $location, languages) {
-    console.log("Test Controller reporting for duty.");
-    hosta = $location.$$host.split('.');
-    if (hosta[0] == 'www') hosta.shift();
-    if (hosta.length > 0 && ((l = languages.indexOf(hosta[0])) >= 0)) {
-        console.log("GUI-Language from URL-host: " + hosta[0]);
-    }
-    //console.log($location.$$host);
-    //console.log(languages);
-    // console.log($scope);
-}]);
+
 
 

@@ -1,6 +1,16 @@
 <h1>Testseite</h1>
-<p class="text-intro">
-	Test 123
+<style>
+.map {
+    height: 400px;
+    width: 600px;
+ }
+</style>
+
+<div id="map" class="map" ng-click="displayFeatureInfo($event)"></div>
+
+
+<p class="text-intro" ng-bind="name">
+ 
 </p>
 
 
