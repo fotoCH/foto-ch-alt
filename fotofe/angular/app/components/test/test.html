@@ -1,4 +1,6 @@
-<h1>Testseite</h1>
+<h1>Testseite</h1>    <button type="button" class="btn btn-primary" ng-click="changemap(1)">geo.admin</button>
+        <button class="btn btn-primary" ng-click="changemap(0)">OSM</button>
+    </div>
 <style>
 .map {
     height: 400px;
@@ -8,7 +10,7 @@
 
 <div id="map" class="map" ng-click="displayFeatureInfo($event)"></div>
 
-
+{{ch}}
 <p class="text-intro" ng-bind="name"></p>
 <p class="text-intro" ng-bind-html="swissname | rawHtml"></p>
 <div ng-repeat="ap in aps">
