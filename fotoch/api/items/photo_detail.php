@@ -11,10 +11,10 @@ if (auth_level(USER_WORKER)){
 	$afields=array();
 }
 
-$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, image_path, ';
+$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, f.dc_creator, image_path, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.dcterms_spatial AS dct_spatial, f.dcterms_subject AS subject, f.dc_coverage, ';
 $select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
 $select.= 'i.name AS institution, i.id as inst_id,';
-$select.= 'b.name AS stock';
+$select.= 'b.name AS stock, b.id AS stock_id, f.supplier_id as supp_id ';
 
 $join .= "LEFT JOIN namen AS n ON f.dc_creator=n.fotografen_id ";
 $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
