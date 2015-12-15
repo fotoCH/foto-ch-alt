@@ -12,7 +12,7 @@
                         ui-sref="photographer({ query: powersearch })">{{ ::spr.show_all }}</a></div>
                 <div ng-repeat="p in result.photographer_results | limitTo: limit" class="box-item">
                     <a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{ p.nachname }}, {{ p.vorname }} {{
-                        p.namenszusatz }}</a> {{ p.fldatum }}
+                        p.namenszusatz }}</a><span ng-bind-html="p.fldatum | rawHtml"></span>
                 </div>
                     </div>
             </div>
