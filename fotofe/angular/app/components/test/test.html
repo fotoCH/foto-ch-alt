@@ -3,27 +3,24 @@
     </div>
 <style>
 .map {
-    height: 400px;
-    width: 600px;
+    height: 600px;
+    width: 800px;
  }
 </style>
 
 <div id="map" class="map" ng-click="displayFeatureInfo($event)"></div>
-
-{{ch}}
+<br />
+<div ng-if="swissname=='fotoquery'">
+<a ui-sref="photoDetail( {id: '{{id}}'} )">{{name}}<br />
+<img src="{{ image_path }}" width="300" /></a><br />
+{{copyr}}
+</div>
+<div ng-if="swissname!='fotoquery'">
 <p class="text-intro" ng-bind="name"></p>
 <p class="text-intro" ng-bind-html="swissname | rawHtml"></p>
 <div ng-repeat="ap in aps">
 <a ui-sref="photographerDetail( {id: '{{ap.id}}'} )">{{ap.name}}</a> {{ap.periode}}
 </div>
-
-<!--   {{debug}}
-
-<p>Sprache: {{spr.language}}</p>
-
-<p>User: {{user}}</p>
-<p>Userlevel: {{userLevel}}</p>
-<p>AuthToken: {{authToken}}</p>
-  
-       --> 
-              
+</div>
+   <button type="button" class="btn btn-primary" ng-click="changephoto(1)">Fotos</button>
+        <button class="btn btn-primary" ng-click="changephoto(0)">Arbeitsorte</button>

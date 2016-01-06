@@ -2,12 +2,9 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     console.log("Test Controller reporting for duty.");
     $scope.name="";
     $scope.ch=$stateParams.ch;
+    $scope.photo=$stateParams.photo;
     $scope.aps=[];
     hosta = $location.$$host.split('.');
-    if (hosta[0] == 'www') hosta.shift();
-    if (hosta.length > 0 && ((l = languages.indexOf(hosta[0])) >= 0)) {
-        console.log("GUI-Language from URL-host: " + hosta[0]);
-    }
     var layer = ga.layer.create('ch.swisstopo.pixelkarte-farbe');
     var layer2 =new ol.layer.Tile({
       source: new ol.source.OSM()
@@ -25,7 +22,7 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
   	      target: 'map',
   	      layers: [layer, vectorLayer],
   	      view: new ol.View({
-  	        resolution: 700,
+  	        resolution: 500,
   	        center: [670000, 160000]
   	      })
   	    });
@@ -47,6 +44,9 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
 
     $scope.changemap=function(n){
     	$state.go('test', {ch: n});
+    }
+    $scope.changephoto=function(n){
+    	$state.go('test', {photo: n});
     }
 
     
@@ -74,13 +74,18 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     		var id=feature.get('id');
     		$scope.id=id;
     		$scope.swissname=feature.get('swissname');
+    		if ($scope.swissname=='fotoquery'){
+    		    $scope.image_path=feature.get('image_path');
+    		    $scope.copyr=feature.get('dc_right');
+    		} else {
     		//$scope.setname(g,id,sn);
     	    $http.get($rootScope.ApiUrl + '/?a=perioden&id='+id, { cache: true }).success(function (data) {
     	        //console.log(data);
     	        $scope.aps=data;
-
+    	        
+	    
     	    });    		
-    	    
+    	    }
     	  } else {
     	    //info.innerHTML = '&nbsp;';
     	  }
@@ -99,15 +104,22 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     		
     		  name: ort.name,
     		  id: ort.id,
-    		  swissname: ort.swissname
+    		  swissname: ort.swissname,
+    		  image_path: ort.image_path,
+    		  dc_right: ort.dc_right
+    		  
     		});
     	//console.log(ort.lon,+ort.lon);
     	iconFeature.setStyle(iconStyle);
     	vectorSource.addFeature(iconFeature);
     	
     };
+    var phot="";
+    if ($scope.photo==1){
+	phot="&photos=1";
+    }
     
-    $http.get($rootScope.ApiUrl + '/?a=orte', { cache: true }).success(function (data) {
+    $http.get($rootScope.ApiUrl + '/?a=orte'+phot, { cache: true }).success(function (data) {
         //console.log(data);
     	angular.forEach(data, function(value, key) {
     		  //console.log(value.id+" "+value.swissname);

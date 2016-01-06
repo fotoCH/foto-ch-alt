@@ -85,7 +85,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         })
         // Testpage for development
         .state('test', {
-            url: '/test?ch',
+            url: '/test?ch&photo',
             templateUrl: 'app/components/test/test.html',
             controller: 'TestCtrl'
         })
