@@ -1014,10 +1014,170 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>API-Dokumentation</title></head><body><article class="markdown-body"><h1 id="ffentlichedokumentationvonfotoch">Öffentliche Dokumentation von fotoCH</h1>
+</style><title>API-Dokumentation</title></head><body><article class="markdown-body"><h1 id="codedokumentation">Code Dokumentation</h1>
 
-<p>Die Dokumentation von fotoCH besteht aus den folgenden Dokumenten:</p>
+<p>Dieses Dokument beschreibt die eingesetzten Technologien, sowie die Struktur der Applikation.</p>
+
+<h2 id="verwendetetechnologien">Verwendete Technologien</h2>
+
+<p>Die Applikation besteht im Wesentlichen aus einem Backend, welches die Daten aus der Datenbank via <a href="https://www2.foto-ch.ch/fotofe/doc/API-Dokumentation.html">API</a> dem Frontend zur Verfügung stellt. Die Daten werden anschliessend mit Javascript in HTML umgewandelt und im Browser dargestellt.</p>
+
+<p><strong>Frontend</strong></p>
 
 <ul>
-<li><a href="https://www2.foto-ch.ch/fotofe/doc/API-Dokumentation.html">API Dokumentation</a></li>
+<li><a href="https://angularjs.org/">AngularJS</a></li>
+
+<li><a href="http://jquery.com/">jQuery</a></li>
+
+<li><a href="http://lesscss.org/">Less pre-processor</a></li>
+</ul>
+
+<p><strong>Backend</strong></p>
+
+<ul>
+<li>PHP (Symfony? Silex?)</li>
+
+<li>Die API liefert die Daten im JSON Format aus</li>
+</ul>
+
+<p><strong>Datenbank</strong></p>
+
+<ul>
+<li>MySQL</li>
+
+<li>Verwaltung via <a href="https://filos.catatec.ch/phpMyAdmin/index.php">phpMyAdmin</a></li>
+</ul>
+
+<h2 id="codeverwaltung">Code-Verwaltung</h2>
+
+<p>Der Code wird in einem <a href="svn://svn.catatec.ch/foto-ch">SVN-Repository</a> verwaltet.</p>
+
+<h2 id="frontend">Frontend</h2>
+
+<p>Der Frontend-Code (HTML/CSS) stützt sich auf dem Styleguide von <a href="http://codeguide.co/">Code Guide</a>.</p>
+
+<h3 id="browseruntersttzung">Browser-Unterstützung</h3>
+
+<p>Es werden alle modernen Browser unterstützt, der Internet Explorer ab Version 9. Generell wird die Methode der <a href="http://de.wikipedia.org/wiki/Progressive_Verbesserung">progressiven Verbesserung</a> angewendet. <br />
+Crossbrowser-Testing lässt sich einfach durchführen mit <a href="http://www.browserstack.com/screenshots">Browserstack</a>.</p>
+
+<h3 id="ordnerstruktur">Ordnerstruktur</h3>
+
+<p>Die Ordnerstruktur orientiert sich an den Best-Practices von diesem <a href="https://scotch.io/tutorials/angularjs-best-practices-directory-structure">Artikel</a>.</p>
+
+<pre><code>app/
+----- components/   // each component is treated as a mini Angular app
+---------- home/
+--------------- homeController.js
+--------------- homeService.js
+--------------- homeView.html
+---------- blog/
+--------------- blogController.js
+--------------- blogService.js
+--------------- blogView.html
+----- shared/   // Beinhaltet 
+---------- sidebar/
+--------------- sidebarDirective.js
+--------------- sidebarView.html
+---------- article/
+--------------- articleDirective.js
+--------------- articleView.html
+----- app.controllers.js
+----- app.directives.js
+----- app.module.js
+----- app.routes.js
+assets/
+----- css/      // All styles and style related files (SCSS or LESS files)
+--------------- less/      // Less Dateien
+----- font/     // Webschriften
+----- js/       // JavaScript files written for your app that are not for angular
+----- img/      // Bilder, Logos, Icons, etc.
+----- libs/     // Third-party libraries such as jQuery, Moment, Underscore, etc.
+index.html
+</code></pre>
+
+<h3 id="angularjs">AngularJS</h3>
+
+<p>Verwendete Module:</p>
+
+<ul>
+<li>angular-ui-router</li>
+
+<li>angucomplete</li>
+
+<li>TODO</li>
+</ul>
+
+<p>Directiven:</p>
+
+<ul>
+<li>TODO</li>
+</ul>
+
+<h3 id="css">CSS</h3>
+
+<ul>
+<li>normalize.css</li>
+</ul>
+
+<p>TODO</p>
+
+<ul>
+<li>LESS Hat (http://lesshat.madebysource.com/)</li>
+
+<li>Less-Struktur erklären</li>
+
+<li>Mobile First approach for Media Queries</li>
+
+<li>Layout-Definitions are prefixed with „l-"</li>
+
+<li>Typography: using rem</li>
+
+<li>normalize.css</li>
+
+<li>Code style
+
+
+<ul>
+<li>CodeGuide (http://codeguide.co/) and Sass Styleguide (http://www.sitepoint.com/css-sass-styleguide/)</li>
+
+<li>BEM CSS Structure (http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)</li>
+
+<li>Less Structure:</li></ul>
+</li>
+</ul>
+
+<pre><code class="css language-css">.element {
+  $scoped-variable: whatever;
+  @extend .other-element;
+  @include mixin($argument);
+  property: value;
+
+  &amp;:pseudo {
+    /* styles here */
+  }
+
+  .nested {
+    /* styles here */
+  }
+
+  @include breakpoint($size) {
+    /* styles here */
+  }
+}
+</code></pre>
+
+<p>The different items in a Sass rule set go in the following order:
+Scoped variables
+Selector extensions with @extend
+Mixin inclusions with @include with the exception of media-query stuff
+Regular property: value pairs
+Pseudo-class/element nesting with &amp; after an empty line
+Regular selector nesting after an empty line
+Media query stuff (with or without a mixin)</p>
+
+<h2 id="versionsbersicht">Versionsübersicht</h2>
+
+<ul>
+<li>19.03.2015 - 0.0.1: Initiale Version, Stefan Pfister</li>
 </ul></article></body></html>

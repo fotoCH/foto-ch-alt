@@ -1014,10 +1014,54 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>API-Dokumentation</title></head><body><article class="markdown-body"><h1 id="ffentlichedokumentationvonfotoch">Öffentliche Dokumentation von fotoCH</h1>
+</style><title>API-Dokumentation</title></head><body><article class="markdown-body"><h1 id="apidokumentationinterneteile">API Dokumentation interne Teile</h1>
 
-<p>Die Dokumentation von fotoCH besteht aus den folgenden Dokumenten:</p>
+<p>Dieses Dokument beschreibt die API, welche für fotoCH entwickelt wurde.</p>
+
+<h2 id="allgemeineinfos">Allgemeine Infos</h2>
+
+<p>Alle API Aufrufe in diesem Dokument sind relativ zu <strong>API-URL: <a href="https://www2.foto-ch.ch/api/">https://www2.foto-ch.ch/api/</a></strong>. Die Daten werden im JSON Format zurückgegeben.</p>
+
+<h2 id="sprache">Sprache</h2>
+
+<p>Mit dem Parameter lang kann angegeben werden, in welcher Sprache der Content gewünscht wird</p>
+
+<h2 id="uistringslabelsprache">UI-Strings / Label / Sprache</h2>
+
+<p>Mit diesem Teil der API können sämtliche UI-Strings aus der Datenbank abgerufen werden.</p>
 
 <ul>
-<li><a href="https://www2.foto-ch.ch/fotofe/doc/API-Dokumentation.html">API Dokumentation</a></li>
+<li><strong><a href="https://www2.foto-ch.ch/api/?a=sprache&amp;lang=de">/?a=sprache&amp;lang=de</a></strong> (Deutsch)</li>
+</ul>
+
+<h2 id="statischeinhalte">Statische Inhalte</h2>
+
+<p>Lieferte Inhalte für statischen Seiten, z.B. Über uns.</p>
+
+<ul>
+<li><strong><a href="https://www2.foto-ch.ch/api/?a=pages&amp;lang=de">/?a=pages&amp;lang=de</a></strong> (Deutsch)</li>
+</ul>
+
+<h2 id="partner">Partner</h2>
+
+<p>Liefert Infos zu den Partner-Organisationen sowie den Dateinamen der Logos. Die Logos sind lokal auf dem Server gespeichert.</p>
+
+<ul>
+<li><strong><a href="https://www2.foto-ch.ch/api/?a=partner&amp;lang=de">/?a=partner&amp;lang=de</a></strong> (Deutsch)</li>
+</ul>
+
+<h2 id="versionsbersicht">Versionsübersicht</h2>
+
+<ul>
+<li>18.05.2016 - 0.9.0: Vorbereitung zur Publikation</li>
+
+<li>24.04.2015 - 0.0.5: Ausstellung und Fotografen aktualisiert, Stefan Pfister.</li>
+
+<li>23.03.2015 - 0.0.4: Ausstellung hinzugefügt, Stefan Pfister.</li>
+
+<li>18.03.2015 - 0.0.3: API-Aufrufe verlinken; API für statische Inhalte und Partner hinzugefügt, Stefan Pfister.</li>
+
+<li>16.03.2015 - 0.0.2: Bestandsfelder aktualisiert und Sprach-API hinzugefügt, Stefan Pfister.</li>
+
+<li>13.03.2015 - 0.0.1: Initiale Version, Stefan Pfister.</li>
 </ul></article></body></html>
