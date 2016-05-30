@@ -5,6 +5,8 @@ genutzt werden kann.
 Diese API wird vom neuen AngularJS basierten Frontend benutzt:
  [https://de.foto-ch.ch/](https://de.foto-ch.ch/)
 
+Zu inhaltlichen Aspekten verweisen wir auf das [foto-ch-Handbuch](http://foto-ch.ch/?a=hilfe&lang=de).
+
 Die API wird ständig weiterentwickelt. Künftige Änderungungen sollten mit dieser Version kompatibel sein.
 Nötige Anpassungen und Fehlerbehebungen können aber vorkommen. 
 
@@ -15,7 +17,7 @@ Alle API Aufrufe in diesem Dokument sind relativ zu **API-URL: [https://de.foto-
 Mit dem Parameter lang kann angegeben werden, in welcher Sprache der Content gewünscht wird
 
 ## Entitäten
-folgende Objekttypen können als Liste oder Einzelsatz abgerufen werden:
+Folgende Objekttypen können als Liste oder Einzelsatz abgerufen werden:
 * Fotografen: photographer
 dies ist die default-Entität und muss nicht angegeben werden.
 
@@ -33,7 +35,7 @@ dies ist die default-Entität und muss nicht angegeben werden.
 
 ## Attribute
 
-- Die Attributte sind aus den Beispielen erkennbar. Sie sind zum Teil Arrays. Gewisse Attribute liegen in verschieden Formatierten Varianten vor. Einge beteichnen css-Klassen, die zur Formatierung verwendet werden können.
+- Die Attributte sind aus den Beispielen erkennbar. Sie sind zum Teil Arrays. Gewisse Attribute liegen in verschieden formatierten Varianten vor. Einige bezeichnen css-Klassen, die zur Formatierung verwendet werden können.
 
 ### Liste aller Fotografen
 - **Beschreibung:** Gibt eine Liste aller Fotografen zurück.
@@ -443,7 +445,7 @@ dies ist die default-Entität und muss nicht angegeben werden.
 - **Nach Anfangsbuchstaben E filtern:** [/?a=institution&anf=E](https://de.foto-ch.ch/api/?a=institution&anf=E)
 
 ### Detaildaten einer Institution
-- **Beschreibung:** Gibt ein Liste mit Detailinfos einer Institution zurück
+- **Beschreibung:** Gibt eine Liste mit Detailinfos einer Institution zurück
 - **Aufruf:** [/?a=institution&id=300](https://de.foto-ch.ch/api/?a=institution&id=300)
 
 **Beispiel-Resultat für Institutions-ID 2**
@@ -551,7 +553,7 @@ dies ist die default-Entität und muss nicht angegeben werden.
 
 ## Ausstellungen
 ### Liste mit allen Ausstellungen
-- **Beschreibung:** Gibt eine Liste mit allen Beständen zurück.
+- **Beschreibung:** Gibt eine Liste mit allen Ausstellungen zurück.
 - **Aufruf:** [/?a=exhibition](https://de.foto-ch.ch/api/?a=exhibition)
 
 **Beispiel-Resultat (erste 2 Einträge)**
@@ -1397,6 +1399,7 @@ dieser Bereich ist noch nicht definitiv!
 
 
 ## Versionsübersicht
+- 30.05.2016 - 1.0.0: Schlusskorrekturen, Markus Schürpf
 - 19.05.2016 - 0.9.1: Ergänzungen und Erweiterungen (Suche, Georeferenzen), Christian Schweingruber
 - 18.05.2016 - 0.9.0: Vorbereitung zur Publikation, Christian Schweingruber
 - 24.04.2015 - 0.0.5: Ausstellung und Fotografen aktualisiert, Stefan Pfister.
