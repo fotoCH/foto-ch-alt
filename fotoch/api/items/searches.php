@@ -1,6 +1,6 @@
 <?php 
 
-functin search_photographer($q){
+function search_photographer($q){
 	$sql="SELECT fotografen.id,
 				fotografen.bearbeitungsdatum,
 				fotografen.geburtsdatum, 
