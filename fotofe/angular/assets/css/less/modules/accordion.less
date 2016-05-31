@@ -3,8 +3,11 @@
     padding: 10px 0 0 0;
     background: transparent;
     border: none;
+    box-shadow: none;
 
     &.panel-open {
+        box-shadow: none;
+
         .panel-heading {
             &:before {
                 right: 21px;
@@ -14,7 +17,6 @@
             }
         }
     }
-
     .panel-body {
         padding: 10px 0;
         p {
@@ -27,6 +29,11 @@
         background: transparent;
         padding-bottom: 10px;
         position: relative;
+        border-bottom:1px solid @colorLayoutBorder;
+
+        + .panel-collapse > .panel-body {
+             border-top: none;
+        }
 
         &:hover {
             .panel-title a {

@@ -1724,6 +1724,10 @@ a.power-search__link {
   padding: 10px 0 0 0;
   background: transparent;
   border: none;
+  box-shadow: none;
+}
+.panel-group .panel.panel-open {
+  box-shadow: none;
 }
 .panel-group .panel.panel-open .panel-heading:before {
   right: 21px;
@@ -1742,6 +1746,10 @@ a.power-search__link {
   background: transparent;
   padding-bottom: 10px;
   position: relative;
+  border-bottom: 1px solid #dddddd;
+}
+.panel-group .panel > .panel-heading + .panel-collapse > .panel-body {
+  border-top: none;
 }
 .panel-group .panel > .panel-heading:hover .panel-title a {
   color: #388099;
