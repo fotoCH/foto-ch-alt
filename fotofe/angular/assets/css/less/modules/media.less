@@ -43,20 +43,22 @@ ul.media--partner {
     }
   }
   li:hover .photo-teaser__description {
-    display: inline-block;
+    opacity: 1;
   }
   img {
     width: 100%;
     height: auto;
   }
   .photo-teaser__description {
-    display: none;
+    transition: 300ms;
+    opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+
     .l-photo-teaser__link {
       display: block;
       width: 100%;
@@ -81,13 +83,17 @@ ul.media--partner {
 @spaceDesktop: 0.5em;
 @spaceHomeDesktop: 1em;
 .l-home-teaser, .l-photo-teaser {
+  
   > div {
     margin: 0 -@space;
+
     > div {
       padding: 0 @space;
+
       .l-photo-teaser__image-container {
         position: relative;
         margin: 15px 0 5px 0;
+
         .l-photo-teaser__image {
           max-width: 100%;
           max-height: 100%;
@@ -95,6 +101,7 @@ ul.media--partner {
           display: inline-block;
           //.scale(1.05);
         }
+
         a {
           .photo-inner-container();
         }

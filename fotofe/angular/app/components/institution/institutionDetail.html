@@ -1,39 +1,44 @@
 <div class="l-content l-readerview">
-	<div class="l-content__main l-view--reader">
-		<div class="l-content__header">
-			<h1>{{detail.name}}</h1>
-			<div ng-if="detail.art">{{detail.art}}</div>
-		</div>
-		<div class="l-content__section l-content__section--meta">
-			<dl>
-				<dt ng-if="detail.isil">{{spr.isil}}</dt>
-				<dd ng-if="detail.isil">{{detail.isil}}</dd>
-				<dt ng-if="detail.adresse">{{spr.adresse}}</dt>
-				<dd ng-if="detail.adresse">{{detail.adresse}}<span ng-if="detail.ort"><br>{{detail.ort}}</span></dd>
-				<dt ng-if="detail.homepage">{{spr.homepage}}</dt>
-				<dd ng-if="detail.homepage" ng-bind-html="detail.homepage | rawHtml"></dd>
-				<dt ng-if="detail.zugang_zur_sammlung">{{spr.zugang_zur_sammlung}}</dt>
-				<dd ng-if="detail.zugang_zur_sammlung" ng-bind-html="detail.zugang_zur_sammlung | rawHtml"></dd>
-				<dt ng-if="detail.sammlungszeit">{{spr.sammlungszeit}}</dt>
-				<dd ng-if="detail.sammlungszeit">{{detail.sammlungszeit}}</dd>
-				<dt ng-if="detail.bildgattungen_set">{{spr.bildgattungen}}</dt>
-				<dd ng-if="detail.bildgattungen_set">{{detail.bildgattungen_set}}</dd>
-			</dl>
-		</div>
-		<content-raw headline="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></content-raw>
-		<content-raw headline="spr.sammlungsbeschreibung" value="detail.sammlungsbeschreibung"></content-raw>
-		<inventory-reference labels="spr" inventories="detail.bestaende"></inventory-reference>
-		<default-list headline="spr.literatur" values="detail.literatur"></default-list>
-		<exhibition-reference headline="spr.einzelausstellungen" labels="spr" exhibitions="detail.einzelausstellungen"></exhibition-reference>
-		<exhibition-reference headline="spr.gruppenausstellungen" labels="spr" exhibitions="detail.gruppenausstellungen"></exhibition-reference>
-		<content-default headline="spr.notiz" value="detail.notiz"></content-default>
-		<content-default headline="spr.npublizieren" value="detail.npublizieren"></content-default>
-	</div>
-	<aside class="l-content__aside l-content__right">
-		<photo-teaser photos="detail.photos" labels="spr" headline="spr.photos_from_institution"></photo-teaser>
-		<editing-info labels="spr" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
-		<div class="l-content__actions">
-			<a class="btn btn--action" ui-sref="contact">{{spr.proposal_for_improvements}}</a>
-		</div>
-	</aside>
+    <div class="l-content__main l-view--reader">
+        <div class="l-content__header">
+            <h1>{{detail.name}}</h1>
+            <div ng-if="detail.art">{{detail.art}}</div>
+        </div>
+        <div class="l-content__section l-content__section--meta">
+            <dl>
+                <dt ng-if="detail.isil">{{spr.isil}}</dt>
+                <dd ng-if="detail.isil">{{detail.isil}}</dd>
+                <dt ng-if="detail.adresse">{{spr.adresse}}</dt>
+                <dd ng-if="detail.adresse">{{detail.adresse}}<span ng-if="detail.ort"><br>{{detail.ort}}</span></dd>
+                <dt ng-if="detail.homepage">{{spr.homepage}}</dt>
+                <dd ng-if="detail.homepage" ng-bind-html="detail.homepage | rawHtml"></dd>
+                <dt ng-if="detail.zugang_zur_sammlung">{{spr.zugang_zur_sammlung}}</dt>
+                <dd ng-if="detail.zugang_zur_sammlung" ng-bind-html="detail.zugang_zur_sammlung | rawHtml"></dd>
+                <dt ng-if="detail.sammlungszeit">{{spr.sammlungszeit}}</dt>
+                <dd ng-if="detail.sammlungszeit">{{detail.sammlungszeit}}</dd>
+                <dt ng-if="detail.bildgattungen_set">{{spr.bildgattungen}}</dt>
+                <dd ng-if="detail.bildgattungen_set">{{detail.bildgattungen_set}}</dd>
+            </dl>
+        </div>
+        <content-raw headline="spr.sammlungsgeschichte" value="detail.sammlungsgeschichte"></content-raw>
+        <content-raw headline="spr.sammlungsbeschreibung" value="detail.sammlungsbeschreibung"></content-raw>
+        <inventory-reference labels="spr" inventories="detail.bestaende"></inventory-reference>
+        <default-list headline="spr.literatur" values="detail.literatur"></default-list>
+        <exhibition-reference headline="spr.einzelausstellungen" labels="spr" exhibitions="detail.einzelausstellungen"></exhibition-reference>
+        <exhibition-reference headline="spr.gruppenausstellungen" labels="spr" exhibitions="detail.gruppenausstellungen"></exhibition-reference>
+        <content-default headline="spr.notiz" value="detail.notiz"></content-default>
+        <content-default headline="spr.npublizieren" value="detail.npublizieren"></content-default>
+    </div>
+    <aside class="l-content__aside l-content__right">
+        <photo-teaser 
+            photos="detail.photos"
+            labels="spr"
+            headline="spr.photos_from_institution"
+            image-root-url="{{imageRootUrl}}">
+        </photo-teaser>
+        <editing-info labels="spr" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
+        <div class="l-content__actions">
+            <a class="btn btn--action" ui-sref="contact">{{spr.proposal_for_improvements}}</a>
+        </div>
+    </aside>
 </div>

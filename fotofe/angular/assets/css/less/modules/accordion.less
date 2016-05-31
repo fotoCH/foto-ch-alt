@@ -1,0 +1,74 @@
+.panel-group .panel {
+    width: 100%;
+    padding: 10px 0 0 0;
+    background: transparent;
+    border: none;
+
+    &.panel-open {
+        .panel-heading {
+            &:before {
+                right: 21px;
+            }
+            &:after {
+                right: 14px;
+            }
+        }
+    }
+
+    .panel-body {
+        padding: 10px 0;
+        p {
+            font-size: 15px;
+        }
+    }
+
+    > .panel-heading {
+        padding: 0;
+        background: transparent;
+        padding-bottom: 10px;
+        position: relative;
+
+        &:hover {
+            .panel-title a {
+                color: @colorActionPrimary;
+            }
+            &:after, &:before {
+                background-color: @colorActionPrimary;
+            }
+        }
+
+        &:after, &:before {
+            transition: 300ms;
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 10px;
+            width: 2px;
+            height: 11px;
+            background-color: darken(@colorLayoutBorder, 10%);
+        }
+        &:after {
+            transform: rotate(-45deg);
+            right: 21px;
+        }
+        &:before {
+            transform: rotate(45deg);
+        }
+
+        a {
+            display: block;
+            font-size: 20px;
+            font-weight: lighter;
+
+            &:focus, &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .panel-body {
+        * > * {
+            margin-top: 0;
+        }
+    }
+}

@@ -1,6 +1,15 @@
 /**
  * FILTER
  */
+
+
+/** 
+ * ADD + debug_version behind a template to avoid the cache
+ **/
+var d = new Date();
+var debug_version = '?version=' + d.getTime();
+
+
 app.filter('rawHtml', ['$sce', function ($sce) {
     return function (val) {
         return $sce.trustAsHtml(val);
@@ -119,11 +128,12 @@ app.directive('inventoryList', function () {
 app.directive('inventoryReference', function () {
     return {
         restrict: 'E',
-        templateUrl: 'app/shared/list/inventoryReference.html',
+        templateUrl: 'app/shared/list/inventoryReference.html' + debug_version,
         scope: {
             headline: '=',
             inventories: '=',
-            labels: '='
+            labels: '=',
+            hidetitle: '='
         }
     };
 });
@@ -181,7 +191,6 @@ app.directive('exhibitionReference', function () {
             headline: '=',
             exhibitions: '=',
             labels: '='
-
         }
     };
 });
@@ -204,6 +213,7 @@ app.directive('photoTeaser', function () {
             photos: '=',
             labels: '=',
             headline: '=',
+            imageRootUrl: '@',
             query: '@'
         }
     };
@@ -326,3 +336,4 @@ app.directive('readMore', function() {
             }]
     };
 });
+

@@ -3,7 +3,7 @@
     <ul>
         <li class="photo-teaser__item" ng-repeat="p in photos">
             <a class="l-photo-teaser__link" ui-sref="photoDetail({ id: p.id })">
-                <img src="{{p.image_path}}" alt="{{p.title}}">
+                <img src="{{imageRootUrl}}{{p.image_path}}" alt="{{p.title}}">
             </a>
 
             <div class="photo-teaser__description">

@@ -27,29 +27,40 @@
 	ul {
 		padding-left: 0;
 	}
+
 	.list__item,
 	.list__item--link {
 		margin-bottom: 0;
-		padding: 5px 10px;
+		padding: 10px 10px;
+		&:not(:last-child) {
+			border-bottom: 1px solid @colorLayoutBorder;
+		}
 		list-style: none;
+
 		&:before {
 			content: '';
 		}
+
 		.list__item__description {
 			color: @colorTextLight;
 		}
 	}
+
 	.list__item--link {
 		.border-radius(@borderRadius);
+
 		&:hover {
 			background-color: @colorLayoutLight;
 		}
+
 		a {
 			outline: none;
+
 			&:hover {
 				text-decoration: none;
 			}
 		}
+
 		.list__item__title {
 			color: @colorActionPrimary;
 		}

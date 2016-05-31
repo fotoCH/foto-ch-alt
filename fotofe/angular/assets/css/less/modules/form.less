@@ -3,11 +3,13 @@
   .l-content--center & {
     margin: 0 auto;
   }
+
   // Form validation with Angular
   .ng-invalid.ng-touched {
     border-color: @colorFeedbackError;
     outline-color: @colorFeedbackError;
   }
+
   .has-error .form__message {
     color: @colorFeedbackError;
     font-weight: bold;
@@ -40,9 +42,11 @@ textarea {
 
 // Definitions for the autocomplete field
 .field-autocomplete {
+
   input {
     outline: none;
   }
+
   .angucomplete-dropdown {
     margin-top: -10px;
     padding: 0;
@@ -50,22 +54,27 @@ textarea {
     color: @colorText;
     width: 100%;
   }
+
   .angucomplete-searching {
     padding: 5px;
     font-size: 1rem;
   }
+
   .angucomplete-title {
     padding: 2px 5px;
     font-size: 1rem;
     color: @colorText;
   }
+
   .angucomplete-description {
     padding-left: 5px;
     color: @colorTextLight;
   }
+
   .text-match {
     color: @colorActionPrimary;
   }
+
   .angucomplete-selected-row, .angucomplete-row:hover {
     background-color: @colorLayoutLight;
     color: @colorActionPrimary;
@@ -81,11 +90,18 @@ textarea {
   form {
     display: flex;
     margin-bottom: 15px;
+
     .power-search__input {
       padding: 10px;
       margin-bottom: 0;
       height: @input-height;
+
+      &:focus {
+        background-color: @colorLayoutLight;
+        outline: none;
+      }
     }
+
     .power-search__button {
       width: 60px;
       font-size: 22px;
@@ -105,6 +121,7 @@ textarea {
 }
 
 .power-search--half{
+
   @media @layoutMedium {
     width: 48%;
   }
@@ -115,9 +132,11 @@ textarea {
     form {
       position: relative;
       display: block;
-      input.power-search__input{
+
+      input.power-search__input {
         padding-right: 70px;
       }
+
       button.power-search__button {
         position: absolute;
         right: 0;

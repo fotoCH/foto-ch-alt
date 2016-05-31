@@ -19,11 +19,14 @@
     <meta name="keywords"
           content="Fotografie, Foto, Schweiz, Lexikon, Institution, Ausstellung, Biografie, Nachlass, Verzeichnis, Geschichte">
     <meta name="robots" content="follow, index">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="screen">
     <link rel="stylesheet" href="assets/css/normalize.min.css">
     <link rel="stylesheet" href="assets/css/angucomplete-alt.css">
     <link rel="stylesheet" href="assets/css/rangeSlider.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/less/vendor/jquery.fancybox.css" type="text/css" media="screen">
+
 
     <!--[if lt IE 10]>
 
@@ -102,6 +105,7 @@
 <div class="l-main" role="main">
     <div class="l-container" ui-view></div>
 </div>
+
 <footer class="l-footer" ngCloak class="ng-cloak">
     <div class="l-container">
         <div class="copyright">
@@ -117,8 +121,14 @@
     </div>
 </footer>
 
+
 <script src="assets/libs/jquery-2.1.3.min.js"></script>
-<script src="assets/libs/angular.js"></script>
+
+
+<!--<script src="assets/libs/angular.js"></script>-->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
+<script src="assets/libs/angular-animate.min.js"></script>
 <script src="assets/libs/angular-ui-router.min.js"></script>
 <script src="assets/libs/angucomplete-alt.min.js"></script>
 <script src="assets/libs/headroom.min.js"></script>
@@ -129,6 +139,11 @@
 <script src="assets/libs/angular-filter.min.js"></script>
 <script src="assets/libs/rangeSlider.min.js"></script>
 <script src="assets/libs/jquery.fancybox.pack.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="assets/libs/ui-bootstrap.min.js"></script>
+
 <script>
     // lightbox-links
     jQuery(document).ready(function() {
@@ -145,5 +160,6 @@
 <script src="app/app.testcontroller.js"></script>
 <script src="app/app.directives.js"></script>
 <script src="app/app.routes.js"></script>
+<script src="app/app.decorators.js"></script>
 </body>
 </html>

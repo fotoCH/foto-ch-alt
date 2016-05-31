@@ -1,5 +1,5 @@
 <div class="l-content__section list" ng-if="inventories">
-	<h2>{{labels.bestaende2}}</h2>
+	<h2 ng-if="!hidetitle">{{labels.bestaende2}}</h2>
 	<ul>
 		<li class="list__item--link" ng-repeat="i in inventories">
 			<a ui-sref="inventoryDetail( {id: '{{i.id}}', anf: ''} )">

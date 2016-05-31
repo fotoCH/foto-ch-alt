@@ -1,49 +1,108 @@
-<div class="l-content l-readerview">
-	<div class="l-content__main l-view--reader">
-		<div class="l-content__header">
-			<h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}}<span ng-if="n.vorname || n.namenszusatz">, {{n.vorname}} {{n.namenszusatz}}</span></h1>
-			<div ng-if="detail.fldatum" ng-bind-html="detail.fldatum | rawHtml"></div>
-		</div>
-		<div class="l-content__section" ng-if="detail.namen.length > 1 || detail.heimatort || detail.fotografengattungen || detail.bildgattungen || detail.beruf || detail.arbeitsperioden.length > 0 || detail.kantone || detail.pnd">
-			<dl>
-				<dt ng-if="detail.namen.length > 1">{{spr.namensvariante}}</dt>
-				<dd ng-if="!$first" ng-repeat="n in detail.namen">{{n.nachname}}, {{n.vorname}} {{n.namenszusatz}}</dd>
-				<dt ng-if="detail.heimatort">{{spr.heimatort}}</dt>
-				<dd ng-if="detail.heimatort">{{detail.heimatort}}</dd>
-				<dt ng-if="detail.fotografengattungen">{{spr.fotografengattungen}}</dt>
-				<dd ng-if="detail.fotografengattungen">{{detail.fotografengattungen}}</dd>
-				<dt ng-if="detail.bildgattungen">{{spr.bildgattungen}}</dt>
-				<dd ng-if="detail.bildgattungen">{{detail.bildgattungen}}</dd>
-				<dt ng-if="detail.beruf">{{spr.beruf}}</dt>
-				<dd ng-if="detail.beruf">{{detail.beruf}}</dd>
-				<dt ng-if="detail.arbeitsperioden.length > 1">{{spr.arbeitsorte}}</dt>
-				<dt ng-if="detail.arbeitsperioden.length==1">{{spr.arbeitsort}}</dt>
-				<dd ng-if="detail.arbeitsperioden.length > 0"><p><span ng-repeat="a in detail.arbeitsperioden">{{a.arbeitsort}} {{a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis}}<br></span></p></dd>
-				<dt ng-if="detail.kantone">{{spr.kantone}}</dt>
-				<dd ng-if="detail.kantone">{{detail.kantone}}</dd>
-				<dt ng-if="detail.pnd">GND</dt>
-				<dd ng-if="detail.pnd"><a target="_blank" href="http://d-nb.info/gnd/{{detail.pnd}}">{{detail.pnd}}</a></dd>
-			</dl>
-		</div>
-		<content-raw headline="spr.biografie" value="detail.biografie"></content-raw>
-		<content-raw class="hide-on-medium" headline="spr.umfeld" value="detail.umfeld"></content-raw>
-        <read-more-wrapper headline="spr.werdegang" value="detail.werdegang" showmore="{{ ::spr.show_more }}" showless="{{ ::spr.show_less }}"></read-more-wrapper>
-        <read-more-wrapper headline="spr.schaffensbeschrieb" value="detail.schaffensbeschrieb"></read-more-wrapper>
-		<content-raw headline="spr.auszeichnungen_und_stipendien" value="detail.auszeichnungen_und_stipendien"></content-raw>
-		<inventory-reference labels="spr" inventories="detail.bestaende"></inventory-reference>
-		<default-list headline="spr.primaerliteratur" values="detail.primaerliteratur"></default-list>
-		<default-list headline="spr.sekundaerliteratur" values="detail.sekundaerliteratur"></default-list>
-		<exhibition-reference headline="spr.einzelausstellungen" labels="spr" exhibitions="detail.einzelausstellungen"></exhibition-reference>
-		<exhibition-reference headline="spr.gruppenausstellungen" labels="spr" exhibitions="detail.gruppenausstellungen"></exhibition-reference>
-		<content-default headline="spr.notiz" value="detail.notiz"></content-default>
-		<content-default headline="spr.npublizieren" value="detail.npublizieren"></content-default>
-	</div>
-	<aside class="l-content__aside l-content__right">
-		<content-raw headline="spr.umfeld" value="detail.umfeld" class="hide-on-small"></content-raw>
-		<photo-teaser photos="detail.photos" labels="spr" headline="spr.photos" query="{{ detail.namen[0].nachname }}"></photo-teaser>
-		<editing-info labels="spr" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
-		<div class="l-content__actions">
-			<a class="btn btn--action" ui-sref="contact">{{spr.proposal_for_improvements}}</a>
-		</div>
-	</aside>
+<div class="l-content l-readerview has-aside">
+    <div class="l-content__main l-view--reader">
+        <div class="l-content__header">
+            <h1 ng-repeat="n in detail.namen" ng-if="$first">{{n.nachname}}<span ng-if="n.vorname || n.namenszusatz">, {{n.vorname}} {{n.namenszusatz}}</span></h1>
+            <div ng-if="detail.fldatum" ng-bind-html="detail.fldatum | rawHtml"></div>
+        </div>
+        <div class="l-content__section" ng-if="detail.namen.length > 1 || detail.heimatort || detail.fotografengattungen || detail.bildgattungen || detail.beruf || detail.arbeitsperioden.length > 0 || detail.kantone || detail.pnd">
+            <dl>
+                <dt ng-if="detail.namen.length > 1">{{spr.namensvariante}}</dt>
+                <dd ng-if="!$first" ng-repeat="n in detail.namen">{{n.nachname}}, {{n.vorname}} {{n.namenszusatz}}</dd>
+                <dt ng-if="detail.heimatort">{{spr.heimatort}}</dt>
+                <dd ng-if="detail.heimatort">{{detail.heimatort}}</dd>
+                <dt ng-if="detail.fotografengattungen">{{spr.fotografengattungen}}</dt>
+                <dd ng-if="detail.fotografengattungen">{{detail.fotografengattungen}}</dd>
+                <dt ng-if="detail.bildgattungen">{{spr.bildgattungen}}</dt>
+                <dd ng-if="detail.bildgattungen">{{detail.bildgattungen}}</dd>
+                <dt ng-if="detail.beruf">{{spr.beruf}}</dt>
+                <dd ng-if="detail.beruf">{{detail.beruf}}</dd>
+                <dt ng-if="detail.arbeitsperioden.length > 1">{{spr.arbeitsorte}}</dt>
+                <dt ng-if="detail.arbeitsperioden.length==1">{{spr.arbeitsort}}</dt>
+                <dd ng-if="detail.arbeitsperioden.length > 0"><p><span ng-repeat="a in detail.arbeitsperioden">{{a.arbeitsort}} {{a.um_vonf+a.von+ (a.um_vonf+a.von+a.um_bisf+a.bis!=''?' - ':' ')+a.um_bisf+a.bis}}<br></span></p></dd>
+                <dt ng-if="detail.kantone">{{spr.kantone}}</dt>
+                <dd ng-if="detail.kantone">{{detail.kantone}}</dd>
+                <dt ng-if="detail.pnd">GND</dt>
+                <dd ng-if="detail.pnd"><a target="_blank" href="http://d-nb.info/gnd/{{detail.pnd}}">{{detail.pnd}}</a></dd>
+            </dl>
+        </div>
+
+        <!-- Detail Information - Accordion -->
+        <uib-accordion close-others="oneAtATime">
+            <!-- Werdegang -->
+            <uib-accordion-group heading="{{spr.werdegang}}" ng-if="detail.werdegang">
+                <content-raw headline="" value="detail.werdegang"></content-raw>
+            </uib-accordion-group>
+
+            <!-- Schaffensbeschrieb -->
+            <uib-accordion-group heading="{{spr.schaffensbeschrieb}}" ng-if="detail.schaffensbeschrieb">
+                <content-raw headline="" value="detail.schaffensbeschrieb"></content-raw>
+            </uib-accordion-group>
+
+            <!-- Biographie -->
+            <uib-accordion-group heading="{{spr.biografie}}" ng-if="detail.biografie">
+                <content-raw headline="" value="detail.biografie"></content-raw>
+            </uib-accordion-group>
+
+            <!-- Auszeichnungen und Stipendien -->
+            <uib-accordion-group heading="{{spr.auszeichnungen_und_stipendien}}" ng-if="detail.auszeichnungen_und_stipendien">
+                <content-raw headline="" value="detail.auszeichnungen_und_stipendien"></content-raw>
+            </uib-accordion-group>
+
+            <!-- Bestände -->
+            <uib-accordion-group heading="{{spr.bestaende2}}" ng-if="detail.bestaende">
+                <inventory-reference hidetitle="true" labels="spr" inventories="detail.bestaende"></inventory-reference>
+            </uib-accordion-group>
+
+            <!-- Primärliteratur -->
+            <uib-accordion-group heading="{{spr.primaerliteratur}}" ng-if="detail.primaerliteratur">
+                <default-list headline="" values="detail.primaerliteratur"></default-list>
+            </uib-accordion-group>
+
+            <!-- Sekundärliteratur -->
+            <uib-accordion-group heading="{{spr.sekundaerliteratur}}" ng-if="detail.sekundaerliteratur">
+                <default-list headline="" values="detail.sekundaerliteratur"></default-list>
+            </uib-accordion-group>
+
+            <!-- Einzelausstellungen -->
+            <uib-accordion-group heading="{{spr.einzelausstellungen}}" ng-if="detail.einzelausstellungen">
+                <default-list headline="" values="detail.einzelausstellungen"></default-list>
+            </uib-accordion-group>
+
+            <!-- Gruppenausstellungen -->
+            <uib-accordion-group heading="{{spr.gruppenausstellungen}}" ng-if="detail.gruppenausstellungen">
+                <default-list headline="" values="detail.gruppenausstellungen"></default-list>
+            </uib-accordion-group>
+
+            <!-- Notiz -->
+            <uib-accordion-group heading="{{spr.notiz}}" ng-if="detail.notiz">
+                <default-list headline="" values="detail.notiz"></default-list>
+            </uib-accordion-group>
+
+            <!-- Publizieren -->
+            <uib-accordion-group heading="{{spr.npublizieren}}" ng-if="detail.npublizieren">
+                <default-list headline="" values="detail.npublizieren"></default-list>
+            </uib-accordion-group>
+
+
+        </uib-accordion>
+
+
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="l-content__aside l-content__right">
+        <content-raw headline="spr.umfeld" value="detail.umfeld" class="hide-on-small"></content-raw>
+        <photo-teaser 
+            photos="detail.photos" 
+            labels="spr" 
+            headline="spr.photos"
+            image-root-url="{{imageRootUrl}}"
+            query="{{ detail.namen[0].nachname }}"
+            >
+        </photo-teaser>
+        <editing-info labels="spr" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
+        <div class="l-content__actions">
+            <a class="btn btn--action" ui-sref="contact">{{spr.proposal_for_improvements}}</a>
+        </div>
+    </aside>
 </div>
