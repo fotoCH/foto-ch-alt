@@ -1,23 +1,7 @@
 <?php 
 
 function search_photographer($q){
-	$sql="SELECT fotografen.id,
-				fotografen.bearbeitungsdatum,
-				fotografen.geburtsdatum, 
-				fotografen.gen_geburtsdatum,
-				fotografen.todesdatum,
-				fotografen.gen_todesdatum,
-				fotografen.autorIn<>'' AS biog,
-				fotografen.showkurzbio,
-				fotografen.unpubliziert,
-				namen.nachname, namen.vorname,
-				namen.namenszusatz, namen.titel,
-				fotografen.pnd
-				FROM fotografen 
-				INNER JOIN namen ON fotografen.id=namen.fotografen_id 
-				WHERE (namen.nachname LIKE '%$q%' OR namen.vorname LIKE '%$q%') 
-				ORDER BY namen.nachname Asc, namen.vorname Asc";
-
+	$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (namen.nachname LIKE '%$q%' OR namen.vorname LIKE '%$q%') ORDER BY namen.nachname Asc, namen.vorname Asc";
 	$result = mysql_query ($sql);
 
 	while ( $fetch = mysql_fetch_assoc ( $result ) ) {
