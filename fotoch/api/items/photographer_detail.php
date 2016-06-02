@@ -1,6 +1,5 @@
 <?php
 //$id=$_GET['id'];
-
 if(auth_level(USER_GUEST_READER)) {
 	$result = mysql_query("SELECT * FROM fotografen WHERE (id=$id)");
 }
@@ -262,7 +261,6 @@ while($fetch=@mysql_fetch_assoc($result)){
 	}
 	$out['photos']=$photo;
 }//while
-
 	jsonout($out);
 /*
 if(auth_level(USER_GUEST_FOTOS)){

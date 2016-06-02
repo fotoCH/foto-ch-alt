@@ -39,13 +39,17 @@ function testauthedit(){   // sind editierrechte vorhanden?
 function getAuthFromHeader(){
 	global $userlevel;
 	global $inst_comment;
-	$headers = apache_request_headers(); 
-
+	if ($_GET['X-AuthToken']){
+	    $headers['X-AuthToken']=$_GET['X-AuthToken'];
+	} else {
+    	    $headers = apache_request_headers(); 
+    	}
+//print_r($headers);
 	if ($headers['X-AuthToken']){
 	    $at=$headers['X-AuthToken'];
 	    $tinfo=getTokenInfo($at);
 	    //$userlevel=testToken($at);
-	    $userlevel=$tinfo['userlevel'];
+	    $userlevel=$tinfo['level'];
 	    $inst_comment=$tinfo['inst_comment'];
 	}
 }

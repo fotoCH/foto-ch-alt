@@ -5,7 +5,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 $id=$_REQUEST['id'];
 
-$fields=array('title','name','description','created','comments');
+$fields=array('title','name','description','created','comments','ort','subject');
 
 $set='';
 
