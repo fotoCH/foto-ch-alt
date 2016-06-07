@@ -17,3 +17,20 @@ app.config(function($provide) {
     return $delegate;
   });
 });
+
+app.config(function($provide) {
+  $provide.decorator("$xhrFactory", [
+    "$delegate", "$injector", "$q",
+    function($delegate, $injector, $q) {
+      return function(method, url) {
+        var xhr = $delegate(method, url);
+        var $http = $injector.get("$http");
+        var callConfig = $http.pendingRequests[$http.pendingRequests.length - 1];
+        if (angular.isFunction(callConfig.onProgress)) {
+          xhr.addEventListener("progress", callConfig.onProgress);
+        }
+        return xhr;
+      };
+    }
+  ]);
+});

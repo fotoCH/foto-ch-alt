@@ -13,13 +13,19 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
 
     loadTranslation();
 
+    $scope.isHome = function () {
+        if ($location.path().substr(0, '/home'.length) == '/home') {
+            return "is-home"
+        } else {
+            return ""
+        }
+    }
+
     $scope.setLanguage = function (lang) {
-        console.log('switch to language', lang);
         $rootScope.lang = lang;
         $rootScope.isLangSwitchOpen = false;	// Close the language switch after selection of new language
         $rootScope.isMenuOpen = false;			// Close the mobile menu after selection of new language
         var hosta = $location.$$host.split('.');
-        console.log($location);
         for (i = 0, len = hosta.length; i < len; ++i) {
             if (languages.indexOf(hosta[i]) >= 0) {
                 hosta[i] = lang;
@@ -253,27 +259,40 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
         });
     }
 
+    function zeroFill( number, width ) {
+      width -= number.toString().length;
+      if ( width > 0 ) {
+        return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+      }
+      return number + ""; // always return a string
+    }
+    function getHeaderImage() {
+        var amountOfHeaderImages = 2;
+        var imageNo = Math.floor((Math.random() * amountOfHeaderImages) + 1);
+        $scope.imgURL = 'assets/img/home-intro/header-'+zeroFill(imageNo, 3)+'.png';
+    }
+    getHeaderImage();
+
     loadContent();
 
     $rootScope.reloadHome = function () {
+        getHeaderImage();
         loadContent();
     };
 
     $scope.submitForm = function () {
         $state.go('search', {query: $scope.powersearch});
-
     };
 }]);
 
 app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
 
-    $scope.limit = 6;
+    $scope.limit = 10;
 
     function search(query) {
         $http.get($rootScope.ApiUrl + '/?a=search&query=' + query).success(function (data) {
             $scope.result = data;
             $scope.powersearch = query;
-            //console.log($scope.result);
         });
     }
 
@@ -887,6 +906,92 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
 
 
 }]);
+
+app.controller('homeSearch', [
+    '$scope',
+    '$http', 
+    '$location', 
+    '$state', 
+    '$stateParams', 
+    '$rootScope',
+    '$q',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $q) {
+        $scope.searchActive = false;
+        $scope.user = false;
+        $scope.timeout = false;
+        $scope.result = false;
+        $scope.isLoading = false;
+        $scope.xhr = false;
+        $scope.limit = 3;
+
+        $scope.change = function(user) {
+
+            $scope.user = user;
+            $scope.isLoading = true;
+
+            // avoid query spams
+            clearTimeout($scope.timeout);
+            $scope.timeout = setTimeout(function() {
+
+                $http({
+                    method: "GET",
+                    url: $rootScope.ApiUrl + '/?a=streamsearch&query=' + $scope.user.query + '&limit='+$scope.limit,
+                    headers: {
+                       'Content-Type': "text/plain"
+                    },
+                    transformResponse: [function (data) {
+                      return data;
+                    }],
+                    onProgress: function(event) {
+                        try {
+                            var response = event.currentTarget.responseText;
+                            response = response.replace(/}{/g, "},{");
+                            response = "[" + response + "]";
+                            $scope.result = JSON.parse(response);
+                            $scope.result = $scope.result[$scope.result.length-1];
+                            $scope.$apply(function(){
+                                $scope.result = $scope.result;
+                            });
+                        } catch (e) {
+                            console.log("Invalid response: " + event.currentTarget.responseText);
+                        }
+                    }
+                }).then(function(e) {
+                    $scope.isLoading = false;
+                });
+
+            }, 1500);
+        }
+
+        $scope.focus = function() {
+            $scope.searchActive = true;
+        }
+
+        $scope.blur = function() {
+            if(typeof($scope.user.query) !== 'undefined' && $scope.user.query.length > 0) {
+                $scope.searchActive = true;
+            } else {
+                $scope.searchActive = false;
+            }
+        }
+
+    }
+]);
+
+/** Litarature **/
+app.controller('LiteraturCtrl', [
+    '$scope',
+    '$http', 
+    '$location', 
+    '$state', 
+    '$stateParams', 
+    '$rootScope', 
+    function ($scope, $http, $location, $state, $stateParams, $rootScope) {
+
+        console.log("Literature Controller reporting for duty.");
+
+    }
+]);
 
 
 

@@ -38,6 +38,20 @@
                     </div>
                 </div>
             </div>
+            <div class="l-content__box">
+                <div>
+                    <h1 ng-click="animateBox($event)">{{ spr.literatur }}</h1>
+
+                    <div class="box-info">{{ result.literature_result_count }} {{ spr.results }} <a
+                            ui-sref="inventory({ anf: powersearch })">{{ ::spr.show_all }}</a></div>
+                    <div ng-repeat="i in result.literature_results | limitTo: limit"  class="box-item">
+                        {{i.verfasser_name}}, {{i.verfasser_vorname}}:
+                        <a ui-sref="literaturDetail( {id: '{{i.id}}'} )">{{ i.titel }}</a>
+                        {{i.ort}}, {{i.verlag}} {{i.jahr}}
+                        <hr />
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="l-content__section l-boxview l-boxview--right">
             <div class="l-content__box">

@@ -85,16 +85,42 @@ textarea {
 }
 
 // power-search auf Startseite
-@input-height: 42px;
+@input-height: 50px;
 .power-search {
   form {
-    display: flex;
-    margin-bottom: 15px;
-
+    position: relative;
+    label {
+      position: absolute;
+      top: 0;
+      z-index: 3;
+      text-align: left;
+      top: 15px;
+      color: #000;
+      opacity: 0.54;
+      left: 65px;
+      width: auto;
+      padding: 0;
+    }
+    .s-icon {
+      position: absolute;
+      left: 20px;
+      top: 15px;
+      background-image:url("../img/icons/search.svg");
+      opacity: 0.26;
+      width: 20px;
+      height: 20px;
+      z-index: 3;
+    }
     .power-search__input {
-      padding: 10px;
+      padding: 16px 10px 10px 10px;
+      padding-left: 65px;
       margin-bottom: 0;
       height: @input-height;
+
+      border-radius: 3px;
+      -webkit-box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.25);
+      -moz-box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.25);
+      box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.25);
 
       &:focus {
         background-color: @colorLayoutLight;
@@ -120,8 +146,7 @@ textarea {
   }
 }
 
-.power-search--half{
-
+.power-search--half {
   @media @layoutMedium {
     width: 48%;
   }

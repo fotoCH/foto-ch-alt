@@ -1,22 +1,88 @@
 <div class="l-content">
-    <div class="l-content__main l-view--reader l-content__main--home">
-        <div class="l-content__header hero">
-            <h1 class="hero--headline">{{spr.home_headline}}</h1>
+    <div class="intro-block" ng-style="{'background-image':'url('+imgURL+')'}">
+        <div class="l-container">
+            <div class="l-content__main l-view--reader home-search"
+                ng-controller="homeSearch"
+                ng-class="{active : searchActive, loading : isLoading}">
+                <div class="l-content__header hero">
+                    <h1 class="hero--headline">{{spr.home_headline}}</h1>
 
-            <div class="hero--subheadline">{{spr.home_subheadline}}</div>
-        </div>
-        <div class="l-content__section power-search power-search--home">
-            <div power-search></div>
-        </div>
-        <div class="l-content__section">
-            <div in-content-menu></div>
-        </div>
-        <div class="l-content__section">
-            <div photo-teaser-box class="l-photo-teaser l-photo-teaser--home"
-                 limit="limit"
-                 photos="photos"
-                 image-root-url="{{ imageRootUrl }}"
-                 show-detail="true"></div>
+                    <div class="hero--subheadline">{{spr.home_subheadline}}</div>
+                </div>
+                <div class="l-content__section power-search power-search--home">
+                    <form class="form-container powersearch" novalidate>
+                        <label for="powersearch" >{{ spr.search_all }}</label>
+                        <div class="loading-indicator"></div>
+                        <span class="s-icon"></span>
+                        <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+                        <input type="text" id="powersearch"
+                               name="powersearch"
+                               class="power-search__input"
+                               ng-focus="focus()"
+                               ng-blur="blur()"
+                               ng-model="user.query"
+                               ng-change="change(user)"
+                               ng-readonly="!searchActive"
+                               autocomplete="off">
+                    </form>
+                </div>
+                <div class="results" ng-if="result.photographer_count > 0 || result.stock_count > 0">
+                    <div class="textual">
+                        <div class="result-set photographer" ng-if="result.photographer_count > 0">
+                            <h5>{{spr.photographers}}</h5>
+                            <ul>
+                                <li ng-repeat="photographer in result.photographer_results | limitTo: limit">
+                                    <a ui-sref="photographerDetail( {id: '{{photographer.id}}'} )">
+                                    {{photographer.nachname}} {{photographer.vorname}} {{photographer.namenszusatz}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="result-set stocks" ng-if="result.stock_count > 0">
+                            <h5>{{spr.bestaende2}}</h5>
+                            <ul>
+                                <li ng-repeat="stock in result.stock_results | limitTo: limit">
+                                    <a ui-sref="inventoryDetail( {id: '{{stock.id}}'} )">
+                                    {{stock.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="result-set institution" ng-if="result.institution_count > 0">
+                            <h5>{{spr.institution}}</h5>
+                            <ul>
+                                <li ng-repeat="institution in result.institution_results | limitTo: limit">
+                                    <a ui-sref="institutionDetail( {id: '{{institution.id}}'} )">
+                                    {{institution.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="result-set exhibition" ng-if="result.exhibition_count > 0">
+                            <h5>{{spr.ausstellung}}</h5>
+                            <ul>
+                                <li ng-repeat="exhibition in result.exhibition_results | limitTo: limit">
+                                    <a ui-sref="exhibitionDetail( {id: '{{exhibition.id}}'} )">
+                                    {{exhibition.titel}} - {{exhibition.jahr}}, {{exhibition.ort}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="result-set literature" ng-if="result.literature_count > 0">
+                            <h5>{{spr.literatur}}</h5>
+                            <ul>
+                                <li ng-repeat="literature in result.literature_results | limitTo: limit">
+                                    <a ui-sref="literaturDetail( {id: '{{literature.id}}'} )">
+                                    {{literature.titel}} - {{literature.jahr}}, {{literature.ort}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="imagery">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

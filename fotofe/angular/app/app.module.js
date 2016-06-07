@@ -26,7 +26,9 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory) {
       $rootScope.lang = hosta[0];
     }
     
-    $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
+    $rootScope.ApiUrl = 'http://localhost/fotoch/api';
+    //$rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
+
     
     var token=window.sessionStorage.authToken;
     $rootScope.userInfoCall = $q.defer();

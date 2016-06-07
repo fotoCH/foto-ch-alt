@@ -61,54 +61,10 @@
   content: "g";
 }
 
-@font-face {
-  font-family: 'Lato';
-  src: url('../font/Lato-Bold.eot') format('embedded-opentype');
-  src: url('../font/Lato-Bold.eot#iefix') format('embedded-openfont'), url('../font/Lato-Bold.woff') format('woff'), url('../font/Lato-Bold.ttf') format('truefont'), url('../font/Lato-Bold.svg#Lato-Bold') format('svg');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Lato';
-  src: url('../font/Lato-Light.eot') format('embedded-opentype');
-  src: url('../font/Lato-Light.eot#iefix') format('embedded-openfont'), url('../font/Lato-Light.woff') format('woff'), url('../font/Lato-Light.ttf') format('truefont'), url('../font/Lato-Light.svg#Lato-Light') format('svg');
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Lato';
-  src: url('../font/Lato-Regular.eot') format('embedded-opentype');
-  src: url('../font/Lato-Regular.eot#iefix') format('embedded-openfont'), url('../font/Lato-Regular.woff') format('woff'), url('../font/Lato-Regular.ttf') format('truefont'), url('../font/Lato-Regular.svg#Lato-Regular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'OpenSans';
-  src: url('../font/OpenSans-Regular-webfont.eot');
-  src: url('../font/OpenSans-Regular-webfont.eot?#iefix') format('embedded-openfont'), url('../font/OpenSans-Regular-webfont.woff2') format('woff2'), url('../font/OpenSans-Regular-webfont.woff') format('woff'), url('../font/OpenSans-Regular-webfont.ttf') format('truefont'), url('../font/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'OpenSans';
-  src: url('../font/OpenSans-Italic-webfont.eot');
-  src: url('../font/OpenSans-Italic-webfont.eot?#iefix') format('embedded-openfont'), url('../font/OpenSans-Italic-webfont.woff2') format('woff2'), url('../font/OpenSans-Italic-webfont.woff') format('woff'), url('../font/OpenSans-Italic-webfont.ttf') format('truefont'), url('../font/OpenSans-Italic-webfont.svg#open_sansitalic') format('svg');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'OpenSans';
-  src: url('../font/OpenSans-Semibold-webfont.eot');
-  src: url('../font/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-openfont'), url('../font/OpenSans-Semibold-webfont.woff2') format('woff2'), url('../font/OpenSans-Semibold-webfont.woff') format('woff'), url('../font/OpenSans-Semibold-webfont.ttf') format('truefont'), url('../font/OpenSans-Semibold-webfont.svg#open_sanssemibold') format('svg');
-  font-weight: 700;
-  font-style: normal;
-}
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,500italic,400italic,700,700italic);
 
 body {
-  font-family: OpenSans, sans-serif;
+  font-family: @fontMain;
   font-weight: normal;
   color: @colorText;
   line-height: @textLineHeightDefault;
@@ -135,16 +91,11 @@ h6 {
 
 h1 {
   margin-bottom: 0.5em;
-  font-family: Lato, sans-serif;
-  font-size: 1.75rem;
-  font-weight: 300;
+  font-family: @fontMain;
+  font-size: 1.85rem;
+  font-weight: 500;
   @media @layoutMedium {
     text-align: left;
-  }
-}
-.l-content__main--home h1{
-  @media @layoutMedium {
-    text-align: center;
   }
 }
 
@@ -161,7 +112,7 @@ p {
   line-height: @textLineHeightParagraph;
   &.text-intro {
     color: @colorTextHeadline;
-    font-family: Lato, sans-serif;
+    font-family: @fontMain;
   }
 }
 

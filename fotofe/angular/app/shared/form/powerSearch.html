@@ -1,10 +1,10 @@
-<form class="form-container" ng-submit="submitForm()" novalidate>
+<form class="form-container powersearch" ng-submit="submitForm()" novalidate>
+    <label for="powersearch" >{{ spr.search_all }}</label>
+    <span class="s-icon"></span>
     <input type="text"
+           id="powersearch"
+           name="powersearch"
            class="power-search__input"
-           placeholder="{{ spr.search_all }}"
            autofocus="true"
            ng-model="powersearch">
-    <button class="btn power-search__button" ng-click="submitForm()">
-        <span class="icon-magnifying-glass"></span>
-    </button>
 </form>

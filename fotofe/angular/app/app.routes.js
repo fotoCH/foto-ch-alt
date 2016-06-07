@@ -101,6 +101,12 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/photo/photoDetail.html',
             controller: 'PhotoCtrl'
         })
+        // Literatur
+        .state('literaturDetail', {
+            url: '/literatur/detail?id',
+            templateUrl: 'app/components/literatur/literaturDetail.html',
+            controller: 'LiteraturCtrl'
+        })
         // Powersearch
         .state('search', {
             url: '/search?query',

@@ -14,11 +14,8 @@ body {
 	min-height: 100vh;
 }
 .l-main {
-	margin-top: @headerHeightSmall;		// Required for the fixed header
+	margin-top: 0;
 	.flex(1 0 auto);
-	@media @layoutMedium {
-		margin-top: @headerHeightMedium;
-	}
 }
 
 // Define overall layout
@@ -28,6 +25,7 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	max-width: @layoutMaxWidth;
+    width: 100%;
 	overflow: hidden;		// Long URLs shall be cut on mobile
 	@media @layoutMedium {
 		overflow: inherit;
@@ -43,9 +41,6 @@ body {
 		.flex(1);
 	}
 	@media @layoutLarge {
-		padding-left: 40px;
-		padding-right: 40px;
-		padding-bottom: 40px;
 	}
 }
 
@@ -159,6 +154,10 @@ body.showOverlay:before {
 	background-color: @colorLayoutLight;
 	background-color: rgba(51, 51, 51, 0.8);
 	z-index: 1;
+}
+
+header:not(.is-home) + .l-main {
+    margin-top: 50px;
 }
 
 

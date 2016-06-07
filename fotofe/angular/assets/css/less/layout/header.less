@@ -1,9 +1,11 @@
 .l-header {
 	height: auto;
-	background-color: #ffffff;
-	border-bottom: 1px solid @colorLayoutBorder;
-	font-family: "Open Sans", sans-serif;
-	font-size: 1.5rem;
+	position: relative;
+	&:not(.is-home) {
+		background-color: #212121;
+	}
+	font-size: 0.855rem;
+	font-weight: 500;
 	height: @headerHeightSmall;
 	@media @layoutMedium {
 		height: @headerHeightMedium;
@@ -13,6 +15,7 @@
 		font-weight: bold;
 	}
 	.l-container {
+		max-width: @layoutMaxWidth;
 		padding: 0;
 		@media @layoutMedium {
 			padding-left: 10px;
@@ -22,18 +25,17 @@
 	a {
 		color: @colorText;
 		text-decoration: none;
-		font-weight: normal;
+		font-weight: 500;
 		outline: none;
 		&:hover,
 		&:focus {
-			color: @colorActionPrimary;
+			color: @colorActionSecondary;
 		}
 	}
 }
 
 .nav-container {
-	height: 0;
-	@media @layoutMedium {
+	&.right {
 		float: right;
 	}
 }
@@ -42,13 +44,12 @@
 .headroom {
 	position: fixed;
 	width: 100%;
-	z-index: 1;
+	z-index: 3;
 	.transition(transform @transitionDuration @transitionFunction);
 }
 
 .headroom--pinned {
 	.transform(translateY(0%));
-	.box-shadow(@boxShadow);
 }
 
 .headroom--unpinned {
