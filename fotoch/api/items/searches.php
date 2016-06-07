@@ -27,9 +27,9 @@ function search_photographer($q){
 
 function search_literature($q){
 		if(auth_level(USER_GUEST_READER_PARTNER)){  
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '%$q%' ORDER BY  name Asc");
+			$result=mysql_query("SELECT * FROM literatur WHERE titel LIKE '%$q%' ORDER BY  titel Asc");
 		} else {
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '%$q%' ORDER BY  name Asc");
+			$result=mysql_query("SELECT * FROM literatur WHERE titel LIKE '%$q%' ORDER BY  titel Asc");
 		}
 
 		while($fetch=mysql_fetch_array($result)){
@@ -39,11 +39,11 @@ function search_literature($q){
 			if(auth_level(USER_GUEST_READER_PARTNER)) if ($fetch['gesperrt']==1) $outl ['nameclass']='subtitle3x';
 			
 			//print_r($fetch);
-			pushfields($outl,$fetch,array('name','institution','inst_id','nameclass','id','gesperrt'));
+			pushfields($outl,$fetch,array('titel','verfasser_name', 'verfasser_vorname', 'verlag','jahr','ort','id'));
 			if (($fetch['gesperrt']!=1) || auth_level(USER_GUEST_READER_PARTNER)) $out[]=$outl;
 			//$def->parse("list.row_normal");
 		}
-		return $out;		
+		return $out;
 	}
 
 function search_institution($q){

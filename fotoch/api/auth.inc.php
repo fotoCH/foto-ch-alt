@@ -39,13 +39,13 @@ function testauthedit(){   // sind editierrechte vorhanden?
 function getAuthFromHeader(){
 	global $userlevel;
 	global $inst_comment;
-	if ($_GET['X-AuthToken']){
+	if (array_key_exists('X-AuthToken', $_GET)){
 	    $headers['X-AuthToken']=$_GET['X-AuthToken'];
 	} else {
-    	    $headers = apache_request_headers(); 
-    	}
-//print_r($headers);
-	if ($headers['X-AuthToken']){
+		$headers = apache_request_headers(); 
+	}
+
+	if (array_key_exists('X-AuthToken', $headers) && $headers['X-AuthToken']){
 	    $at=$headers['X-AuthToken'];
 	    $tinfo=getTokenInfo($at);
 	    //$userlevel=testToken($at);

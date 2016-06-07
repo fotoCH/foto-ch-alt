@@ -1,8 +1,8 @@
 <?php
 
-
 // load current language in array $spr
 $query = "SELECT name, de, array, ".$language." FROM sprache";
+
 $result = mysql_query($query);
 while($fetch = mysql_fetch_array($result)){
 	if ($fetch['array']>0){

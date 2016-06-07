@@ -1,7 +1,13 @@
 <?php
+// declare variables, to avoid warnings
+$language = '';
+$clanguage = '';
 
 $lang = getClean('lang');
 $clang = getClean('clang');
+if(!$clang) {
+	$clang = $lang;
+}
 //set language
 if($lang!=""){
     $language = $lang;
@@ -13,11 +19,15 @@ if($lang!=""){
     }
 }*/
 $supported_langs = array("de","fr","it","en","rm");//missing: "en","it",,"rm"
-if(!in_array($language ,$supported_langs)) $language = "de";
+if(!in_array($language ,$supported_langs)) {
+	$language = "de";
+}
 if($clang!=""){   // content_language
     $clanguage = $clang;
 }
-if(!in_array($clanguage ,$supported_langs)) $clanguage = "de";
+if(!in_array($clanguage ,$supported_langs)) {
+	$clanguage = "de";
+}
 
 //für (aktuelle) sprache ein cookie setzen für ca ein halbes jahr:
 //setcookie("lang", $language, (time() + (60*60*24*183)));

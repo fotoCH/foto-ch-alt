@@ -6,11 +6,15 @@ function pushfields(&$o,$i,$list){
 }
 
 function getClean($s){
-	return mysql_real_escape_string($_REQUEST[$s]);
+    if(array_key_exists($s, $_REQUEST)) {
+        return mysql_real_escape_string($_REQUEST[$s]);
+    }
+    return false;
 }
 
-function jsonout($out){
-	$json = json_encode ( $out );
+function jsonout($out, $plain=false){
+    // converting to utf8 to avoid warnings
+	$json = json_encode ( array_utf8($out) );
 	if (array_key_exists ( 'callback', $_GET )) {
 		
 		header ( 'Content-Type: text/javascript; charset=utf-8' );
@@ -23,12 +27,15 @@ function jsonout($out){
 		echo $callback . '(' . $json . ');';
 	} else {
 		// normal JSON string
-		header('Access-Control-Allow-Origin: *');
-		header ( 'Content-Type: application/json; charset=utf-8' );
-		header ( 'Access-Control-Allow-Headers: X-AuthToken, AuthToken, Origin, X-Requested-With, Content-Type, Accept' );
+        if(!headers_sent()) {
+		  header('Access-Control-Allow-Origin: *');
+		  header('Content-Type: application/json; charset=utf-8');
+		  header('Access-Control-Allow-Headers: X-AuthToken, AuthToken, Origin, X-Requested-With, Content-Type, Accept');
+        }
 
-		
 		echo $json;
+        ob_flush();
+        flush();
 	}
 
 }
@@ -39,10 +46,25 @@ function jsonfile($f){
 		header ( 'Content-Type: application/json; charset=utf-8' );
 		header ( 'Access-Control-Allow-Headers: X-AuthToken, AuthToken, Origin, X-Requested-With, Content-Type, Accept' );
 
-		
-		readfile($f);
-	
+        if(file_exists($f)) {
+            readfile($f);
+        }
+}
 
+function array_utf8($array) {
+    if(! is_array($array)) {
+        return $array;
+    }
+    foreach ($array as $n => $v) {
+        if (is_array($v)) {
+            $array[$n] = array_utf8($v);
+        } else {
+            if(mb_detect_encoding($v, 'UTF-8', true)  === false) {
+                $array[$n] = utf8_encode($v);
+            }
+        }
+    }
+    return $array;
 }
 
 

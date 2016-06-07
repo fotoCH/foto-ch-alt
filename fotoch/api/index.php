@@ -1,7 +1,7 @@
 <?php
 
 ini_set('display_errors', 1);
-error_reporting( E_ALL ^ E_NOTICE ^ E_DEPRECATED );
+error_reporting( E_WARNING | E_ERROR | E_PARSE );
 require("mysql.inc.php");
 
 //session_start();
@@ -33,12 +33,27 @@ require("lang.inc.php");
 require("auth.inc.php");
 
 $action=$_GET['a'];
-$actions=array("fotograf","institution","inventory","sprache","login","pages","partner","photographer","exhibition","literature","user","photo","search","orte","perioden");
+$actions=array(
+    "fotograf",
+    "institution",
+    "inventory",
+    "sprache",
+    "login",
+    "pages",
+    "partner",
+    "photographer",
+    "exhibition",
+    "literature",
+    "user",
+    "photo",
+    "search",
+    "orte",
+    "perioden", 
+    "streamsearch");
 if ($action=='fotograph') $action='photographer';
 if (!in_array($action,$actions)) $action='photographer';  // default Startseite
 
 $glob['LANG']=$language;
-
 //choose content sites
 include("items/".$action.".php");
 
