@@ -24,8 +24,22 @@ class StreamedSearch {
         'stock' => 1,
         'institution' => 2,
         'exhibition' => 1,
-        'literature' => 2
+        'literature' => 2,
+        'photos' => 2
     );
+
+    private function photoFields() {
+        return array(
+            "fotos.id",
+            "fotos.title",
+            "fotos.description",
+            "fotos.dc_identifier",
+            "fotos.dc_right",
+            "fotos.dc_terms_spatial",
+            "fotos.image_path",
+            "fotos.zeitraum"
+        );
+    }
 
     private function photographerFields() {
         return array(
@@ -97,10 +111,10 @@ class StreamedSearch {
 
 
     public function query() {
-        $this->getLevelResults(0);
-        $this->getLevelResults(1);
-        $this->getLevelResults(2);
-        $this->getLevelResults(3);
+        $levels = 3;
+        for($level = 0; $level <= $levels; $level++) {
+            $this->getLevelResults($level);
+        }
     }
 
     private function getLevelResults($level) {
@@ -129,6 +143,15 @@ class StreamedSearch {
             $this->literature($level);
             $this->response();
         }
+
+        if(! $this->enoughOfType('photo', $level)) {
+            $this->photo($level);
+            $this->response();
+        }
+    }
+
+    private function photo() {
+        $sql = "SELECT DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
     }
 
     private function literature($level = 0) {
@@ -172,7 +195,7 @@ class StreamedSearch {
             }
             $sql.= " LIMIT ".$this->limitResults;
 
-            mysql_query('set names utf8');
+            //mysql_query('set names utf8');
 
             $result = mysql_query($sql);
             $this->results['literature_results'] = array();
@@ -215,7 +238,7 @@ class StreamedSearch {
             $sql.= " AND fotografen.unpubliziert = 0";
             $sql.= " LIMIT ".$this->limitResults;
 
-            mysql_query('set names utf8');
+            //mysql_query('set names utf8');
 
             $result = mysql_query($sql);
             $this->results['exhibition_results'] = array();
@@ -265,7 +288,7 @@ class StreamedSearch {
                 $sql.= " ORDER BY bestand.nachlass DESC";
             }
             $sql.= " LIMIT ".$this->limitResults;
-            mysql_query('set names utf8');
+            ////mysql_query('set names utf8');
 
             $result = mysql_query($sql);
             $this->results['institution_results'] = array();
@@ -298,7 +321,7 @@ class StreamedSearch {
         if(!$first) {
             $sql.= " AND bestand.gesperrt = 0";
             $sql.= " LIMIT ".$this->limitResults;
-            mysql_query('set names utf8');
+            ////mysql_query('set names utf8');
 
             $result = mysql_query($sql);
             $this->results['stock_results'] = array();
@@ -351,7 +374,7 @@ class StreamedSearch {
             // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
 
             // make it utf8 for the query... - http://www.winfuture-forum.de/index.php?showtopic=193063
-            mysql_query('set names utf8');
+            ////mysql_query('set names utf8');
 
             $result = mysql_query($sql);
             $this->results['photographer_results'] = array();
