@@ -27,6 +27,8 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory) {
     }
     
     //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
+    
+    // Production Server API URL
     $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
 
     
