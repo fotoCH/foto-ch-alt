@@ -1,0 +1,33 @@
+<div class="filter-bar" ng-class="{loading : filtering}">
+    <div class="l-container">
+        <div class="loading-indicator"></div>
+        <div class="textsearch" ng-class="{active : textsearch_focus}">
+            <label for="textsearch" >{{ translations.search_all }}</label>
+            <span class="s-icon"></span>
+            <input 
+                type="text"
+                ng-focus="textsearchfocus()"
+                ng-blur="textsearchblur()"
+                ng-model="searchquery"
+                ng-change="textsearch(searchquery)"
+                id="textsearch">
+        </div>
+    </div>
+</div>
+<div class="table">
+    <div class="l-container">
+        <table>
+            <thead>
+                <th ng-repeat="th in tableHead track by $index" 
+                    ng-class="thisSortingClass(th.sort)"
+                    ng-click="updateSorting(th.sort)">{{th.title}}</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tr in tableRows track by $index" 
+                    ui-sref="{{detailRoute}}( {id: '{{tr.id}}'} )">
+                   <td ng-repeat="td in tr.dataset track by $index">{{td}}</td>
+                </th>
+            </tbody>
+        </table>
+    </div>
+</div>

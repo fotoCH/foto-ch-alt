@@ -1,26 +1,12 @@
-<div class="l-content l-listview">
-    <div class="l-content__main">
-        <div class="l-content__header">
-            <h1>{{spr.bestaende2}}</h1>
-
-            <form class="form-container" action="" novalidate ng-submit="enterFunc()">
-                <div angucomplete-alt
-                     id="inventory-autocomplete"
-                     class="field-autocomplete"
-                     placeholder="{{spr.name}} {{spr.bestand}}"
-                     pause="100"
-                     selected-object="inventorySelected"
-                     remote-url="https://www2.foto-ch.ch/api/?a=inventory&anf="
-                     minlength="1"
-                     title-field="name"
-                     description-field="ort"
-                     match-class="text-match"
-                     input-class="form-control">
-                </div>
-            </form>
-            <button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="inventory( {anf: '{{initial}}'} )">{{initial}}</button>
-        </div>
-        <inventory-list inventories="list.res" institution="{{ ::spr.institution }}"></inventory-list>
-        <loading-indicator></loading-indicator>
-    </div>
+<div class="typetable">
+    <type-table 
+        type='stock'
+        detail-route='inventoryDetail'
+        fields='{
+            "name":"name",
+            "institution": "institution",
+            "ort": "ort",
+            "kanton": "kanton"
+        }'>
+    </type-table>
 </div>

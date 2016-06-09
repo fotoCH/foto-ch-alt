@@ -1,23 +1,28 @@
 .l-footer {
-	margin-top: 1em;
-	padding-top: 1em;
-	padding-bottom: 2em;
-	.l-container {
-		padding-top: 0.5em;
-		border-top: 1px solid @colorLayoutBorder;
-		@media @layoutMedium {
-			padding-right: 2em;
-			padding-left: 2em;
-		}
-		@media @layoutMedium {
-			padding-right: 4em;
-			padding-left: 4em;
+	background-color: #212121;
+	height: 60px;
+
+	nav ul li a {
+		line-height: 60px;
+		font-size: 14px;
+		color: white;
+
+		&:hover {
+			text-decoration: none;
+			color: @colorActionSecondary;
 		}
 	}
-	a:hover,
-	a:focus {
-		outline: none;
-		text-decoration: none;
-		color: @colorActionPrimary;
+
+	.copyright {
+		line-height: 60px;
+		color: white;
+	}
+
+
+	.l-container {
+		@media @layoutMedium {
+		}
+		@media @layoutMedium {
+		}
 	}
 }

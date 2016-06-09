@@ -1,8 +1,7 @@
 <div class="l-content">
-    <div class="intro-block" ng-style="{'background-image':'url('+imgURL+')'}">
+    <div class="intro-block" ng-controller="homeSearch" ng-style="{'background-image':'url('+imgURL+')'}" ng-class="{active : searchActive}">
         <div class="l-container">
             <div class="l-content__main l-view--reader home-search"
-                ng-controller="homeSearch"
                 ng-class="{active : searchActive, loading : isLoading}">
                 <div class="l-content__header hero">
                     <h1 class="hero--headline">{{spr.home_headline}}</h1>
@@ -52,7 +51,7 @@
                             <h5>{{spr.institution}}</h5>
                             <ul>
                                 <li ng-repeat="institution in result.institution_results | limitTo: limit">
-                                    <a ui-sref="institutionDetail( {id: '{{institution.id}}'} )">
+                                    <a ui-sref="institutionDetail( {id: '{{institution.id}}'} )" ng-if="institution.name">
                                     {{institution.name}}
                                     </a>
                                 </li>
@@ -80,6 +79,13 @@
                         </div>
                     </div>
                     <div class="imagery">
+                        <ul>
+                            <li ng-repeat="photos in result.photos_results | limitTo: photolimit">
+                                <a ui-sref="photoDetail( {id: '{{photos.id}}'} )">
+                                    <img src="{{ imageRootUrl }}{{photos.image_path}}" width="100%" />
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

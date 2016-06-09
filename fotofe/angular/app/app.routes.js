@@ -102,6 +102,12 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             controller: 'PhotoCtrl'
         })
         // Literatur
+        .state('literatur', {
+            url: '/literatur',
+            templateUrl: 'app/components/literatur/literatur.html',
+            controller: 'LiteraturCtrl'
+        })
+        // Literatur
         .state('literaturDetail', {
             url: '/literatur/detail?id',
             templateUrl: 'app/components/literatur/literaturDetail.html',

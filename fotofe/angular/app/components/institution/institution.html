@@ -1,57 +1,12 @@
-<div class="l-content l-searchview">
-	<div class="l-content__main">
-		<div class="l-content__header">
-			<h1>{{spr.institutionen}}</h1>
-			<form class="form-container" action="" novalidate ng-submit="enterFunc()">
-                <!--
-				<div angucomplete-alt
-				id="institution-autocomplete"
-				class="field-autocomplete"
-				placeholder="{{spr.name}} {{spr.institution}}"
-				pause="100"
-				selected-object="institutionSelected"
-				remote-url="https://www2.foto-ch.ch/api/itas.php?s="
-				minlength="1"
-				title-field="name"
-				description-field="ort"
-				match-class="text-match"
-				input-class="form-control">
-				</div>
-				-->
-                <input type="text" ng-model="filterInstitutions.$" placeholder="{{spr.search_institutions}}" ng-model-options="{ debounce: 300 }">
-			</form>
-			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ng-click="setFirstChar(initial)" ng-class="{active: initial == firstChar}">{{initial}}</button>
-		</div>
-        <div class="l-content__section list ng-scope">
-            <loading-indicator></loading-indicator>
-            <institution-list institutions="filteredInstitutions" venue="{{ ::spr.ort }}"></institution-list>
-        </div>
-	</div>
-    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
-                class="icon-magnifying-glass"></span></a></div>
-    <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
-        <div class="l-content__section">
-            <h2>{{ spr.filter }}</h2>
-
-            <form>
-                <label for="filterInstitutionsCanton">{{ spr.kantone }}</label>
-                <select id="filterInstitutionsCanton" ng-model="filterInstitutions.kanton"
-                        ng-options="kanton.kanton as kanton.kanton for kanton in list.res | unique: 'kanton' | orderBy: 'kanton'"
-                        ng-change="updateSelect(filterInstitutions.kanton)"
-                        ng-disabled="!filtersReady">
-                    <option value="">...</option>
-                </select>
-
-                <label for="filterInstitutionsType">{{ spr.art_der_institution }}</label>
-                <select id="filterInstitutionsType" ng-model="filterInstitutions.art_id"
-                        ng-options="art.art_id as art.art for art in list.res | unique: 'art_id' | orderBy: 'art'"
-                        ng-change="updateSelect(filterInstitutions.art_id)"
-                        ng-disabled="!filtersReady">
-                    <option value="">...</option>
-                </select>
-
-                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{spr.reset}}</button>
-            </form>
-        </div>
-    </aside>
+<div class="typetable">
+    <type-table 
+        type='institution'
+        detail-route='institutionDetail'
+        fields='{
+            "name":"{name} {shortname}",
+            "art": "art",
+            "ort": "ort",
+            "kanton": "kanton"
+        }'>
+    </type-table>
 </div>

@@ -1,26 +1,13 @@
-<div class="l-content l-listview">
-	<div class="l-content__main">
-		<div class="l-content__header">
-			<h1>{{spr.ausstellungen}}</h1>
-
-			<form class="form-container" action="" novalidate ng-submit="enterFunc()">
-				<div angucomplete-alt 
-				id="exhibition-autocomplete"
-				class="field-autocomplete"
-				placeholder="{{spr.name}} {{spr.ausstellung}}"
-				pause="100"
-				selected-object="exhibitionSelected"
-				remote-url="https://www2.foto-ch.ch/api/atas.php?s="
-				minlength="1"
-				title-field="name"
-				description-field="ort"
-				match-class="text-match"
-				input-class="form-control">
-				</div>
-			</form>
-			<button type="button" class="btn btn--link" ng-repeat="initial in abc" ui-sref="exhibition( {anf: '{{initial}}'} )">{{initial}}</button>
-		</div>
-        <loading-indicator></loading-indicator>
-		<exhibition-list labels="spr" exhibitions="list.res"></exhibition-list>
-	</div>
+<div class="typetable">
+    <type-table 
+        type='exhibition'
+        detail-route='exhibitionDetail'
+        fields='{
+            "jahr" : "jahr",
+            "ort": "ort",
+            "institution" : "institution",
+            "titel":"titel",
+            "typ":"typ"
+        }'>
+    </type-table>
 </div>

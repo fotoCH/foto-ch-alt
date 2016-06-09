@@ -8,6 +8,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     function loadTranslation() {
         $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
             $scope.spr = data;
+            $rootScope.translations = data;
         });
     }
 
@@ -85,7 +86,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
     // console.log("Navigation Controller reporting for duty.");
     $scope.getClass = function (path) {
-        if ($location.path().substr(0, path.length) == path) {
+        var splittedPath = $location.path().split("/");
+        if (splittedPath[1] == path) {
             return "is-active"
         } else {
             return ""
@@ -98,14 +100,15 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
     // console.log("Institution Controller reporting for duty.");
 
     var id = $stateParams.id
+    /*
     var anf = $stateParams.anf;
     var query = $stateParams.query;
-
+    */
     if (!id) {
         /**
          *  Overview
          */
-
+         /*
             // load all institutions
         $scope.loading = true;
         $http.get($rootScope.ApiUrl + '/?a=institution', { cache: true }).success(function (data) {
@@ -169,7 +172,7 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
 
             }
         }
-
+    */
     } else {
         /**
          *  Detailpage
@@ -181,7 +184,7 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         });
 
     }
-
+    /*
 
     $scope.institutionSelected = function (selected) {
         //window.alert('You have selected ' + selected.originalObject.id);
@@ -201,6 +204,7 @@ app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$s
         abc[i] = String.fromCharCode(65 + i);
     }
     $scope.abc = abc;
+    */
 }]);
 
 app.controller('InventoryCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
@@ -214,7 +218,7 @@ app.controller('InventoryCtrl', ['$scope', '$http', '$location', '$state', '$sta
     };
 
     //$scope.debug='anf:'+anf+' id:'+id+$state;
-    if (anf >= 'A') {
+    /*if (anf >= 'A') {
         $http.get($rootScope.ApiUrl + '/?a=inventory&anf=' + anf).success(function (data) {
             $scope.list = data;
         });
@@ -231,7 +235,8 @@ app.controller('InventoryCtrl', ['$scope', '$http', '$location', '$state', '$sta
     for (var i = 0; i < 26; i++) {
         abc[i] = String.fromCharCode(65 + i);
     }
-    $scope.abc = abc;
+    $scope.abc = abc;*/
+    
 }]);
 
 app.controller('StaticPageCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
@@ -252,13 +257,6 @@ app.controller('StaticPageCtrl', ['$scope', '$http', '$location', '$state', '$st
 
 app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
 
-    function loadContent() {
-        $http.get($rootScope.ApiUrl + '/?a=photo&random=4').success(function (data) {
-            $scope.photos = data.res;
-            $scope.limit = 4;
-        });
-    }
-
     function zeroFill( number, width ) {
       width -= number.toString().length;
       if ( width > 0 ) {
@@ -266,6 +264,7 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
       }
       return number + ""; // always return a string
     }
+
     function getHeaderImage() {
         var amountOfHeaderImages = 2;
         var imageNo = Math.floor((Math.random() * amountOfHeaderImages) + 1);
@@ -273,11 +272,8 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
     }
     getHeaderImage();
 
-    loadContent();
-
     $rootScope.reloadHome = function () {
         getHeaderImage();
-        loadContent();
     };
 
     $scope.submitForm = function () {
@@ -430,7 +426,9 @@ app.controller('contactFormCtrl', function ($scope, $http) {
 app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', '$timeout', '$q', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q) {
     // console.log("Fotograf Controller reporting for duty.");
 
+
     var id = $stateParams.id
+    /*
     var anf = $stateParams.anf;
     var query = $stateParams.query;
     $scope.activeChar = anf;
@@ -445,12 +443,12 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
     $scope.enterFunc = function (selected) {
         var val = document.getElementById('photographer-autocomplete_value').value;
         $state.go('photographer', {anf: val});
-    };
+    };*/
 
     if (!id) {
         /*
-         Overview/search-page
-         */
+        // Overview/search-page
+         
         var limitExpander = 20;
         var cachedFilters = $rootScope.filterCache.get('filterPhotographer');
         var cachedLimit = $rootScope.filterCache.get('limitPhotographer');
@@ -498,6 +496,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
              }, filterObj);
              */
             // filter rest
+            /*
             $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj);
         }
 
@@ -615,6 +614,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
              console.log(begin);
              console.log(middle);
              console.log(new Date());*/
+             /*
         }
 
         // show more results
@@ -666,7 +666,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                         $scope.list = workerReply;
                         configureFilters();
                     });
-                     */
+                     *//*
                     $scope.list = data;
                     $timeout(configureFilters, 0);
                 }).error(function (data, status) {
@@ -674,7 +674,7 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
                         $scope.loadingError = true;
                     });
             }
-        }
+        }*/
     } else {
         /**
          *  detailpage
@@ -694,12 +694,13 @@ app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$
         });
 
     }
+    /*
     var abc = new Array();
 
     for (var i = 0; i < 26; i++) {
         abc[i] = String.fromCharCode(65 + i);
     }
-    $scope.abc = abc;
+    $scope.abc = abc;*/
 }]);
 
 app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', '$cacheFactory', '$timeout', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout) {
@@ -922,7 +923,8 @@ app.controller('homeSearch', [
         $scope.result = false;
         $scope.isLoading = false;
         $scope.xhr = false;
-        $scope.limit = 3;
+        $scope.limit = 8;
+        $scope.photolimit = 20;
 
         $scope.change = function(user) {
 
@@ -932,10 +934,12 @@ app.controller('homeSearch', [
             // avoid query spams
             clearTimeout($scope.timeout);
             $scope.timeout = setTimeout(function() {
-
+                $scope.result =  {};
                 $http({
                     method: "GET",
-                    url: $rootScope.ApiUrl + '/?a=streamsearch&query=' + $scope.user.query + '&limit='+$scope.limit,
+                    url: $rootScope.ApiUrl + '/?a=streamsearch&query=' + $scope.user.query 
+                        + '&limit='+$scope.limit 
+                        + '&photolimit='+$scope.photolimit,
                     headers: {
                        'Content-Type': "text/plain"
                     },
@@ -947,13 +951,14 @@ app.controller('homeSearch', [
                             var response = event.currentTarget.responseText;
                             response = response.replace(/}{/g, "},{");
                             response = "[" + response + "]";
-                            $scope.result = JSON.parse(response);
-                            $scope.result = $scope.result[$scope.result.length-1];
+                            var newresult = JSON.parse(response);
+                            newresult = newresult[newresult.length-1];
                             $scope.$apply(function(){
-                                $scope.result = $scope.result;
+                                $scope.result = newresult;
                             });
                         } catch (e) {
                             console.log("Invalid response: " + event.currentTarget.responseText);
+                            console.log(e);
                         }
                     }
                 }).then(function(e) {
@@ -986,11 +991,7 @@ app.controller('LiteraturCtrl', [
     '$state', 
     '$stateParams', 
     '$rootScope', 
-    function ($scope, $http, $location, $state, $stateParams, $rootScope) {
-
-        console.log("Literature Controller reporting for duty.");
-
-    }
+    function ($scope, $http, $location, $state, $stateParams, $rootScope) {}
 ]);
 
 

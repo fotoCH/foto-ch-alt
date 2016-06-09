@@ -1,84 +1,16 @@
-<div class="l-content l-searchview">
-    <div class="l-content__main">
-        <div class="l-content__header">
-            <h1>{{spr.photographers}}</h1>
-
-            <form class="form-container" action="" novalidate ng-submit="enterFunc()">
-                <!--<div angucomplete-alt
-                     id="photographer-autocomplete"
-                     class="field-autocomplete"
-                     placeholder="{{spr.nachname}} {{spr.vorname}} {{spr.fotograph}}"
-                     pause="100"
-                     selected-object="photographerSelected"
-                     remote-url="https://www2.foto-ch.ch/api/ftas.php?s="
-                     minlength="2"
-                     title-field="name,vorname"
-                     description-field="fldatum"
-                     match-class="text-match"
-                     input-class="form-control">
-                </div> -->
-                <input type="text" ng-model="filterPhotographer.$" placeholder="{{spr.search_photographers}}" ng-model-options="{ debounce: 300 }">
-            </form>
-            <button type="button" class="btn btn--link" ng-repeat="initial in abc" ng-class="{active: initial == '{{activeChar}}'}"
-                    ui-sref="photographer( {anf: '{{initial}}'} )">{{initial}}
-            </button>
-        </div>
-        <div class="l-content__section list" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
-
-            <loading-indicator></loading-indicator>
-            <loading-error ng-show="loadingError" text="{ spr.loadingError }}"></loading-error>
-            <photographer-list photographer="filteredPhotographer" limit="limit" ng-show="filteredPhotographer"></photographer-list>
-            <button ng-click="loadMore()" ng-show="filteredPhotographer.length > limit"
-                    class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}
-            </button>
-        </div>
-    </div>
-    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
-                class="icon-magnifying-glass"></span></a></div>
-    <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
-        <div class="l-content__section">
-            <h2>{{ ::spr.filter }}</h2>
-
-            <form>
-                <label for="filterPhotographerGenre">{{ ::spr.fotografengattungen }} ({{ filter.fotografengattungen.length }})</label>
-                <select id="filterPhotographerGenre" ng-model="filterPhotographer.fotografengattungen"
-                        ng-options="fotografengattungen for fotografengattungen in filter.fotografengattungen | orderBy:fotografengattungen"
-                        ng-change="updateSelect(filterPhotographer.fotografengattungen)"
-                        ng-disabled="!filtersReady"
-                        ng-model-options="{ debounce: 100 }">
-                    <option value="">...</option>
-                </select>
-
-                <label for="filterPhotoGenre">{{ ::spr.bildgattungen }} ({{ filter.bildgattungen.length }})</label>
-                <select id="filterPhotoGenre" ng-model="filterPhotographer.bildgattungen"
-                        ng-options="bildgattungen for bildgattungen in filter.bildgattungen | orderBy:bildgattungen"
-                        ng-change="updateSelect(filterPhotographer.bildgattungen)"
-                        ng-disabled="!filtersReady"
-                        ng-model-options="{ debounce: 100 }">
-                    <option value="">...</option>
-                    <!--<option ng-repeat="(key, value) in filter.bildgattungen" value="{{ key }}">{{ value }}</option>-->
-                </select>
-
-                <label for="filterPhotoVenue">{{ ::spr.arbeitsort }} ({{ filter.venues.length }})</label>
-                <select id="filterPhotoVenue" ng-model="filterPhotographer.arbeitsperioden"
-                        ng-options="venues for venues in filter.venues | orderBy:venues"
-                        ng-change="updateSelect(filterPhotographer.arbeitsperioden)"
-                        ng-disabled="!filtersReady"
-                        ng-model-options="{ debounce: 100 }">
-                    <option value="">...</option>
-                </select>
-
-                <label for="filterPhotoCanton">{{ ::spr.kantone }} ({{ filter.kanton.length }})</label>
-                <select id="filterPhotoCanton" ng-model="filterPhotographer.kanton"
-                        ng-options="kanton for kanton in filter.kanton | orderBy:kanton"
-                        ng-change="updateSelect(filterPhotographer.kanton)"
-                        ng-disabled="!filtersReady"
-                        ng-model-options="{ debounce: 100 }">
-                    <option value="">...</option>
-                </select>
-
-                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{spr.reset}}</button>
-            </form>
-        </div>
-    </aside>
+<div class="typetable">
+    <type-table 
+        type='photographer'
+        detail-route='photographerDetail'
+        sortings='nachname, geburtsdatum, todesdatum, arbeitsorte, kanton, fotografengattungen_set, bildgattungen_set'
+        fields='{
+            "name":"{nachname}, {vorname}",
+            "geburtsdatum": "geburtsdatum",
+            "todesdatum": "todesdatum",
+            "arbeitsorte" : "arbeitsorte",
+            "kanton": "kanton",
+            "fotografengattungen" : "fotografengattungen_set",
+            "bildgattungen": "bildgattungen_set"
+        }'>
+    </type-table>
 </div>

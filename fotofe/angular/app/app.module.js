@@ -26,10 +26,11 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory) {
       $rootScope.lang = hosta[0];
     }
     
-    //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
-    
+    // Development Server API URL
+    $rootScope.ApiUrl = 'http://localhost/fotoch/api';
+
     // Production Server API URL
-    $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
+    //$rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
 
     
     var token=window.sessionStorage.authToken;
