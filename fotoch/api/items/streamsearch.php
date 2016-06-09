@@ -5,8 +5,21 @@ $search->setLang($glob['LANG']);
 if(array_key_exists('limit', $_GET) && is_numeric($_GET['limit'])) {
     $search->setLimit($_GET['limit']);
 }
+if(array_key_exists('photolimit', $_GET) && is_numeric($_GET['photolimit'])) {
+    $search->setPhotoLimit($_GET['photolimit']);
+}
+if(array_key_exists('type', $_GET)) {
+    $search->setType($_GET['type']);
+}
+if(array_key_exists('sort', $_GET)); {
+    $search->setSorting($_GET['sort']);
+}
+if(array_key_exists('sortdir', $_GET)) {
+    $search->setSortDirection($_GET['sortdir']);
+}
 
-if($search->active()) {
+
+if($search->activate()) {
     $search->query();
 } else {
     $search->response();
@@ -16,12 +29,16 @@ if($search->active()) {
 class StreamedSearch {
     private $lang = '';
     private $limitResults = 100;
-    private $query = false;
+    private $limitPhotoResults = false;
+    private $query = "";
+    private $type = false;
+    private $sorting = false;
+    private $sortDirection = 'ASC';
     private $result = array();
 
     private $levels = array(
-        'photographer' => 4,
-        'stock' => 1,
+        'photographer' => 2,
+        'stock' => 2,
         'institution' => 2,
         'exhibition' => 1,
         'literature' => 2,
@@ -31,11 +48,10 @@ class StreamedSearch {
     private function photoFields() {
         return array(
             "fotos.id",
-            "fotos.title",
-            "fotos.description",
-            "fotos.dc_identifier",
-            "fotos.dc_right",
-            "fotos.dc_terms_spatial",
+            "fotos.dc_title as title",
+            "fotos.dc_description as description",
+            "fotos.dc_identifier as identifier",
+            "fotos.dc_right as copyright",
             "fotos.image_path",
             "fotos.zeitraum"
         );
@@ -43,7 +59,7 @@ class StreamedSearch {
 
     private function photographerFields() {
         return array(
-            "fotografen.id", 
+            "fotografen.id as id", 
             "fotografen.bearbeitungsdatum",
             "fotografen.geburtsdatum", 
             "fotografen.gen_geburtsdatum",
@@ -59,7 +75,8 @@ class StreamedSearch {
             "fotografen.pnd", 
             "fotografen.fotografengattungen_set",
             "fotografen.bildgattungen_set",
-            "fotografen.kanton"
+            "fotografen.kanton",
+            "CONCAT ('A', 'B', 'C') as arbeitsorte"
         );
     }
 
@@ -70,7 +87,10 @@ class StreamedSearch {
             "bestand.zeitraum",
             "bestand.bildgattungen", 
             "bestand.link_extern",
-            "bestand.signatur"
+            "bestand.signatur",
+            "institution.name AS institution",
+            "institution.ort AS ort",
+            "institution.kanton AS kanton"
         );
     }
 
@@ -95,7 +115,9 @@ class StreamedSearch {
             "ausstellung.id",
             "ausstellung.titel",
             "ausstellung.jahr",
-            "ausstellung.ort"
+            "ausstellung.ort",
+            "ausstellung.institution",
+            "ausstellung.typ"
         );
     }
 
@@ -105,7 +127,8 @@ class StreamedSearch {
             "literatur.titel",
             "literatur.verfasser_name", 
             "literatur.verfasser_vorname", 
-            "literatur.jahr"
+            "literatur.jahr",
+            "literatur.ort"
         );
     }
 
@@ -118,50 +141,97 @@ class StreamedSearch {
     }
 
     private function getLevelResults($level) {
+        $types = array('photographer', 'stock', 'institution', 'exhibition', 'literature', 'photos');
 
-        if(! $this->enoughOfType('photographer', $level) ) {
-            $this->photographer($level);
-            $this->response();
-        }
-
-        if(! $this->enoughOfType('stock', $level) ) {
-            $this->stocks($level);
-            $this->response();
-        }
-
-        if(! $this->enoughOfType('institution', $level)) {
-            $this->institution($level);
-            $this->response();
-        }
-
-        if(! $this->enoughOfType('exhibition', $level)) {
-            $this->exhibition($level);
-            $this->response();
-        }
-
-        if(! $this->enoughOfType('literature', $level)) {
-            $this->literature($level);
-            $this->response();
-        }
-
-        if(! $this->enoughOfType('photo', $level)) {
-            $this->photo($level);
-            $this->response();
+        foreach($types as $type) {
+            if(! $this->enoughOfType($type, $level) ) {
+                if(!$this->type || $this->type == $type) {
+                    $this->$type($level);
+                    $this->response();
+                }
+            }
         }
     }
 
-    private function photo() {
-        $sql = "SELECT DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
+    private function photos($level) {
+        $sql='';
+        if($this->sorting) {
+            $sql.= "SELECT * FROM (";
+        }
+        $sql.= "SELECT DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
+
+        if($level >= 1) {
+            $sql.=" INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
+            $sql.=" INNER JOIN bestand on fotos.dcterms_ispart_of = bestand.id";
+            $sql.=" RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
+            $sql.=" INNER JOIN institution on bestand.inst_id = institution.id";
+        }
+
+        $q = explode(" ", $this->query);
+        $first = true;
+        foreach($q as $term) {
+            $term = mysql_real_escape_string($term);
+            if($first) {
+                $first = false;
+                $sql.= " WHERE ";
+            } else {
+                $sql.= " AND ";
+            }
+            $sql.= '(';
+            if($level >= 0) {
+                $sql.= "fotos.dc_title LIKE '%".$term."%'";
+                $sql.= " OR fotos.dc_description LIKE '%".$term."%'";
+                $sql.= " OR fotos.dc_created LIKE '%".$term."%'";
+                $sql.= " OR fotos.dcterms_spatial LIKE '%".$term."%'";
+            }
+            if($level >= 1) {
+                $sql.= " OR namen.vorname LIKE '%".$term."%'";
+                $sql.= " OR namen.nachname LIKE '%".$term."%'";
+                $sql.= " OR bestand.name".$this->lang." LIKE '%".$term."%'";
+                $sql.= " OR institution.name".$this->lang." LIKE '%".$term."%'";
+            }
+            if($level >= 2) {
+                $sql.= " OR fotos.dcterms_medium LIKE '%".$term."%'";
+                $sql.= " OR fotos.dcterms_subject LIKE '%".$term."%'";
+            }
+            $sql.= ')';
+        }
+        if($level >= 1) {
+            $sql.= " AND fotografen.unpubliziert = 0";
+        }
+        if($this->limitPhotoResults) {
+            $sql.= " LIMIT ".$this->limitPhotoResults;
+        } else {
+            $sql.= " LIMIT ".$this->limitResults;
+        }
+
+        if($this->sorting) {
+            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        }
+
+        //mysql_query("SET NAMES 'utf8'");
+
+        $result = mysql_query($sql);
+        $this->results['photos_results'] = array();
+        while($assoc = mysql_fetch_assoc($result)) {
+            array_push($this->results['photos_results'], $assoc);
+        }
+        $this->results['photos_count'] = count($this->results['photos_results']);
+
     }
 
     private function literature($level = 0) {
-        $sql = "SELECT DISTINCT ".implode(", ", $this->literatureFields())." FROM literatur";
+        $sql='';
+        if($this->sorting) {
+            $sql.= "SELECT * FROM (";
+        }
+        $sql.="SELECT DISTINCT ".implode(", ", $this->literatureFields())." FROM literatur";
         if($level >= 1) {
             $sql.= " LEFT JOIN literatur_fotograf on literatur_fotograf.literatur_id = literatur.id";
             $sql.= " INNER JOIN fotografen on literatur_fotograf.fotografen_id = fotografen.id";
             $sql.= " LEFT JOIN literatur_institution on literatur_institution.literatur_id = literatur.id";
-            $sql.= " INNER JOIN institution on literatur_institution.institution_id = institution.id";
-            $sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
+            $sql.= " LEFT JOIN institution on literatur_institution.institution_id = institution.id";
+            $sql.= " RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
         }
 
         $q = explode(" ", $this->query);
@@ -189,31 +259,34 @@ class StreamedSearch {
             }
             $sql.= ')';
         }
-        if(!$first) {
-            if($level >= 1) {
-                $sql.= " AND fotografen.unpubliziert = 0";
-            }
-            $sql.= " LIMIT ".$this->limitResults;
+        if($level >= 1) {
+            $sql.= " AND fotografen.unpubliziert = 0";
+        }
+        $sql.= " LIMIT ".$this->limitResults;
 
-            //mysql_query('set names utf8');
-
-            $result = mysql_query($sql);
-            $this->results['literature_results'] = array();
-            while($assoc = mysql_fetch_assoc($result)) {
-                array_push($this->results['literature_results'], $assoc);
-            }
-            $this->results['literature_count'] = count($this->results['literature_results']);
+        if($this->sorting) {
+            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
 
+        //mysql_query("SET NAMES 'utf8'");
 
-
+        $result = mysql_query($sql);
+        $this->results['literature_results'] = array();
+        while($assoc = mysql_fetch_assoc($result)) {
+            array_push($this->results['literature_results'], $assoc);
+        }
+        $this->results['literature_count'] = count($this->results['literature_results']);
     }
 
     private function exhibition($level = 0) {
-        $sql = "SELECT DISTINCT ".implode(", ", $this->exhibitionFields())." FROM ausstellung";
+        $sql='';
+        if($this->sorting) {
+            $sql.= "SELECT * FROM (";
+        }
+        $sql.="SELECT DISTINCT ".implode(", ", $this->exhibitionFields())." FROM ausstellung";
         $sql.= " LEFT JOIN ausstellung_fotograf ON ausstellung.id = ausstellung_fotograf.ausstellung_id";
-        $sql.= " INNER JOIN fotografen ON ausstellung_fotograf.fotograf_id = fotografen.id";
-        $sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
+        //$sql.= " INNER JOIN fotografen ON ausstellung_fotograf.fotograf_id = fotografen.id";
+        //$sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
 
         $q = explode(" ", $this->query);
         $first = true;
@@ -229,34 +302,37 @@ class StreamedSearch {
             if($level >= 0) {
                 $sql.= "ausstellung.institution LIKE '%".$term."%'";
                 $sql.= " OR ausstellung.ort LIKE '%".$term."%'";
-                $sql.= " OR namen.vorname LIKE '%".$term."%'";
-                $sql.= " OR namen.nachname LIKE '%".$term."%'";
+                //$sql.= " OR namen.vorname LIKE '%".$term."%'";
+                //$sql.= " OR namen.nachname LIKE '%".$term."%'";
             }
             $sql.= ')';
         }
-        if(!$first) {
-            $sql.= " AND fotografen.unpubliziert = 0";
-            $sql.= " LIMIT ".$this->limitResults;
+        $sql.= " LIMIT ".$this->limitResults;
 
-            //mysql_query('set names utf8');
-
-            $result = mysql_query($sql);
-            $this->results['exhibition_results'] = array();
-            while($assoc = mysql_fetch_assoc($result)) {
-                array_push($this->results['exhibition_results'], $assoc);
-            }
-            $this->results['exhibition_count'] = count($this->results['exhibition_results']);
+        if($this->sorting) {
+            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
+
+        $result = mysql_query($sql);
+        $this->results['exhibition_results'] = array();
+        while($assoc = mysql_fetch_assoc($result)) {
+            array_push($this->results['exhibition_results'], $assoc);
+        }
+        $this->results['exhibition_count'] = count($this->results['exhibition_results']);
 
     }
 
     private function institution($level = 0) {
-        $sql = "SELECT DISTINCT ".implode(", ", $this->institutionFields())." FROM institution";
+        $sql='';
+        if($this->sorting) {
+            $sql.= "SELECT * FROM (";
+        }
+        $sql.="SELECT DISTINCT ".implode(", ", $this->institutionFields())." FROM institution";
         if($level >= 1) {
-            $sql.= " LEFT JOIN bestand on institution.id = bestand.inst_id";
-            $sql.= " LEFT JOIN bestand_fotograf on bestand.id = bestand_fotograf.bestand_id";
+            $sql.= " RIGHT JOIN bestand on institution.id = bestand.inst_id";
+            $sql.= " RIGHT JOIN bestand_fotograf on bestand.id = bestand_fotograf.bestand_id";
             $sql.= " INNER JOIN fotografen on bestand_fotograf.fotografen_id = fotografen.id";
-            $sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
+            $sql.= " RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
         }
 
         $q = explode(" ", $this->query);
@@ -282,25 +358,37 @@ class StreamedSearch {
             }
             $sql.= ')';
         }
-        if(!$first) {
-            $sql.= " AND institution.gesperrt = 0";
-            if($level >= 1) {
-                $sql.= " ORDER BY bestand.nachlass DESC";
-            }
-            $sql.= " LIMIT ".$this->limitResults;
-            ////mysql_query('set names utf8');
-
-            $result = mysql_query($sql);
-            $this->results['institution_results'] = array();
-            while($assoc = mysql_fetch_assoc($result)) {
-                array_push($this->results['institution_results'], $assoc);
-            }
-            $this->results['institution_count'] = count($this->results['institution_results']);
+        $sql.= " AND institution.gesperrt = 0";
+        if($level >= 1) {
+            $sql.= " ORDER BY bestand.nachlass DESC";
         }
+        $sql.= " LIMIT ".$this->limitResults;
+
+        if($this->sorting) {
+            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        }
+
+        //mysql_query("SET NAMES 'utf8'");
+
+        $result = mysql_query($sql);
+        $this->results['institution_results'] = array();
+        while($assoc = mysql_fetch_assoc($result)) {
+            array_push($this->results['institution_results'], $assoc);
+        }
+        $this->results['institution_count'] = count($this->results['institution_results']);
     }
 
-    private function stocks($level = 0) {
-        $sql = "SELECT DISTINCT ".implode(", ", $this->stockFields())." FROM bestand";
+    private function stock($level = 0) {
+        $sql='';
+        if($this->sorting) {
+            $sql.= "SELECT * FROM (";
+        }
+        $sql.="SELECT DISTINCT ".implode(", ", $this->stockFields())." FROM bestand";
+        $sql.= " INNER JOIN institution ON bestand.inst_id = institution.id";
+        if($level >= 1) {
+            $sql.= " RIGHT JOIN bestand_fotograf ON bestand.id = bestand_fotograf.bestand_id";
+            $sql.= " RIGHT JOIN namen ON bestand_fotograf.fotografen_id = namen.fotografen_id";
+        }
         $q = explode(" ", $this->query);
         $first = true;
         foreach($q as $term) {
@@ -316,29 +404,41 @@ class StreamedSearch {
                 $sql.= "bestand.name LIKE '%".$term."%'";
                 $sql.= " OR bestand.zeitraum LIKE '%".$term."%'";
             }
+            if($level >= 1) {
+                $sql.= " OR namen.nachname LIKE '%".$term."%'";
+                $sql.= " OR namen.vorname LIKE '%".$term."%'";
+            }
             $sql.= ')';
         }
-        if(!$first) {
-            $sql.= " AND bestand.gesperrt = 0";
-            $sql.= " LIMIT ".$this->limitResults;
-            ////mysql_query('set names utf8');
+        $sql.= " AND bestand.gesperrt = 0";
+        $sql.= " LIMIT ".$this->limitResults;
 
-            $result = mysql_query($sql);
-            $this->results['stock_results'] = array();
-            while($assoc = mysql_fetch_assoc($result)) {
-                array_push($this->results['stock_results'], $assoc);
-            }
-            $this->results['stock_count'] = count($this->results['stock_results']);
+        if($this->sorting) {
+            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
+
+        //mysql_query("SET NAMES 'utf8'");
+
+        $result = mysql_query($sql);
+        $this->results['stock_results'] = array();
+        while($assoc = mysql_fetch_assoc($result)) {
+            array_push($this->results['stock_results'], $assoc);
+        }
+        $this->results['stock_count'] = count($this->results['stock_results']);
 
     }
 
     private function photographer($level = 0) {
-        $sql = "SELECT DISTINCT ".implode(", ", $this->photographerFields())." FROM namen";
-        $sql.= " INNER JOIN fotografen on namen.fotografen_id = fotografen.id";
-        if($level >= 1) {
-            $sql.= " INNER JOIN arbeitsperioden on arbeitsperioden.fotografen_id = fotografen.id";
+        $sql = '';
+        if($this->sorting) {
+            $sql.= "SELECT * FROM (";
         }
+        $sql.= "SELECT DISTINCT ".implode(", ", $this->photographerFields())." FROM namen";
+        $sql.= " LEFT JOIN fotografen on namen.fotografen_id = fotografen.id";
+        /* removed due to performance...
+        if($level >= 1) {
+            $sql.= " LEFT JOIN arbeitsperioden on arbeitsperioden.fotografen_id = fotografen.id";
+        }*/
         $q = explode(" ", $this->query);
         $first = true;
         foreach($q as $term) {
@@ -353,36 +453,34 @@ class StreamedSearch {
                 $sql.= "(namen.nachname LIKE '%".$term."%'";
                 $sql.= " OR namen.vorname LIKE '%".$term."%'";
             }
+            /* removed due to performance...
             if($level >= 1) {
                 $sql.= " OR arbeitsperioden.arbeitsort LIKE '%".$term."%'";
-            }
-            if($level >= 2){
+            }*/
+            if($level >= 1){
                 $sql.= " OR fotografen.werdegang".$this->lang." LIKE '%".$term."%'";
-            }
-            if($level >= 3){
                 $sql.= " OR fotografen.schaffensbeschrieb".$this->lang." LIKE '%".$term."%'";
             }
             $sql.= ")";
         }
-        // only run query if we got a search term
-        if(!$first) {
-            $sql.= " AND fotografen.unpubliziert = 0";
+        $sql.= " AND fotografen.unpubliziert = 0";
 
-            $sql.= " ORDER BY (CASE WHEN namen.nachname LIKE '%".$q[0]."%' THEN 100 ELSE 0 END) DESC";
-            $sql.= " LIMIT ".$this->limitResults;
+        $sql.= " ORDER BY (CASE WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ELSE 0 END) DESC";
+        $sql.= " LIMIT ".$this->limitResults;
 
-            // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
-
-            // make it utf8 for the query... - http://www.winfuture-forum.de/index.php?showtopic=193063
-            ////mysql_query('set names utf8');
-
-            $result = mysql_query($sql);
-            $this->results['photographer_results'] = array();
-            while($assoc = mysql_fetch_assoc($result)) {
-                array_push($this->results['photographer_results'], $assoc);
-            }
-            $this->results['photographer_count'] = count($this->results['photographer_results']);
+        if($this->sorting) {
+            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
+
+        // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
+        //mysql_query("SET NAMES 'utf8'");
+
+        $result = mysql_query($sql);
+        $this->results['photographer_results'] = array();
+        while($assoc = mysql_fetch_assoc($result)) {
+            array_push($this->results['photographer_results'], $assoc);
+        }
+        $this->results['photographer_count'] = count($this->results['photographer_results']);
     }
 
     private function enoughOfType($type, $level) {
@@ -402,12 +500,12 @@ class StreamedSearch {
     }
 
 
-    public function active() {
+    public function activate() {
         if(array_key_exists('query', $_GET) && strlen($_GET['query']) >= 2 ) {
             $this->query = $_GET['query'];
             return true;
         }
-        return false;
+        return true;
     }
 
     public function setLang($lang) {
@@ -422,6 +520,24 @@ class StreamedSearch {
 
     public function setLimit($limit) {
         $this->limitResults = $limit;
+    }
+
+    public function setPhotoLimit($limit) {
+        $this->limitPhotoResults = $limit;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
+    }
+
+    public function setSorting($sort) {
+        $this->sorting = $sort;
+    }
+
+    public function setSortDirection($direction) {
+        if($direction == 'asc' || $direction == 'desc') {
+            $this->sortDirection = $direction;
+        }
     }
 
 }

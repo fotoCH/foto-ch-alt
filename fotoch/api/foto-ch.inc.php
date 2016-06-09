@@ -14,7 +14,7 @@ function getClean($s){
 
 function jsonout($out, $plain=false){
     // converting to utf8 to avoid warnings
-    // $json = json_encode ( array_utf8($out) );
+    //$json = json_encode ( array_utf8($out) );
 	$json = json_encode ( $out );
 	if (array_key_exists ( 'callback', $_GET )) {
 		
@@ -52,7 +52,7 @@ function jsonfile($f){
         }
 }
 
-/*
+
 function array_utf8($array) {
     if(! is_array($array)) {
         return $array;
@@ -68,7 +68,7 @@ function array_utf8($array) {
     }
     return $array;
 }
-*/
+
 
 
 function getToken($u, $l, $i){
