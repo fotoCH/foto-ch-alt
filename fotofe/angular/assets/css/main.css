@@ -2123,3 +2123,16 @@ a.power-search__link {
 .typetable .cropped ul li:last-child {
   margin-bottom: 0;
 }
+.typetable .grid {
+  column-count: 4;
+  column-gap: 20px;
+  margin-top: 80px;
+}
+.typetable .grid > div {
+  display: inline-block;
+  margin: 0 0 20px;
+  width: 100%;
+}
+.typetable .grid > div img {
+  max-width: 100%;
+}
