@@ -100,6 +100,8 @@ app.controller('TypeTableCtrl', [
         }
 
         $scope.shortenBySplit = function(value) {
+            if(value == null)
+                return '';
             var valueArray = value.split(",");
             if(valueArray.length > 2) {
                 // display the first two...
