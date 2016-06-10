@@ -12,26 +12,38 @@ app.controller('TypeTableCtrl', [
         $scope.tableHead = [];
         $scope.tableRows = [];
         $scope.query = $rootScope.ApiUrl + '/?a=streamsearch&type='+$scope.type;
-        $scope.fields = JSON.parse($scope.fields);
+        $scope.fields_obj = JSON.parse($scope.fields);
         $scope.textquery = '';
         $scope.textsearch_timeout = false;
         $scope.textsearch_focus = false;
         $scope.translations = $rootScope.translations;
         $scope.filtering = true;
+
+        
+        loadData();
         
 
-        function setHeadings() {
-            var sortings = $scope.sortings.split(", ");
-            var index = 0;
-            for(var key in $scope.fields) {
-                $scope.tableHead.push({
-                    key : key,
-                    title : $scope.translations[key],
-                    sort: sortings[index]
+        $scope.setHeadings = function() {
+            if(typeof($scope.translations) == 'undefined') {
+                $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
+                    $rootScope.translations = data;
+                    $scope.translations = data;
+                    $scope.setHeadings();
                 });
-                index++;
+            } else {
+                var sortings = $scope.sortings.split(", ");
+                var index = 0;
+                for(var key in $scope.fields_obj) {
+                    $scope.tableHead.push({
+                        key : key,
+                        title : $scope.translations[key],
+                        sort: sortings[index]
+                    });
+                    index++;
+                }
             }
         }
+        $scope.setHeadings();
 
         $scope.thisSortingClass = function (cell) {
             if($scope.sortParameter == cell) {
@@ -122,8 +134,8 @@ app.controller('TypeTableCtrl', [
         }
 
         function setValues(data) {
-            if(typeof($scope.fields) !== 'object') {
-                $scope.fields = JSON.parse($scope.fields);
+            if(typeof($scope.fields_obj) !== 'object') {
+                $scope.fields_obj = JSON.parse($scope.fields_obj);
             }
             var rows = [];
 
@@ -134,11 +146,11 @@ app.controller('TypeTableCtrl', [
                 var completeRow = data[$scope.type+'_results'][rowNo];
                 var rowId = completeRow.id;
                 var row = [];
-                for(var wanted_column in $scope.fields) {
+                for(var wanted_column in $scope.fields_obj) {
                     var rowValue = '';
                     var hasMatch = false;
                     var hasAtleastOneValue = false;
-                    while ((match = regex.exec($scope.fields[wanted_column])) !== null) {
+                    while ((match = regex.exec($scope.fields_obj[wanted_column])) !== null) {
                         if(!hasMatch)
                             hasMatch = '';
                         if (match.index === regex.lastIndex) {
@@ -163,7 +175,7 @@ app.controller('TypeTableCtrl', [
                             hasAtleastOneValue = true;
                         }
                         if(hasMatch == '') {
-                            hasMatch = $scope.fields[wanted_column].replace(match[0], value);
+                            hasMatch = $scope.fields_obj[wanted_column].replace(match[0], value);
                         } else {
                             hasMatch = hasMatch.replace(match[0], value);
                         }
@@ -176,7 +188,7 @@ app.controller('TypeTableCtrl', [
                         }
                     } else {
                         var value = '-';
-                        var toCheck = completeRow[$scope.fields[wanted_column]];
+                        var toCheck = completeRow[$scope.fields_obj[wanted_column]];
                         if(typeof(toCheck) != 'undefined' || toCheck != null) {
                             value = toCheck;
                         }
@@ -222,9 +234,6 @@ app.controller('TypeTableCtrl', [
                 $scope.filtering = false;
             });
         }
-
-        setHeadings();
-        loadData();
     }
 ]);
 
