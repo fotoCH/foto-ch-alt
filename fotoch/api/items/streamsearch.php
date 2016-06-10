@@ -76,7 +76,7 @@ class StreamedSearch {
             "fotografen.fotografengattungen_set",
             "fotografen.bildgattungen_set",
             "fotografen.kanton",
-            "CONCAT ('A', 'B', 'C') as arbeitsorte"
+            "(SELECT GROUP_CONCAT(arbeitsort) FROM arbeitsperioden WHERE fotografen.id = arbeitsperioden.fotografen_id) as arbeitsorte"
         );
     }
 
@@ -209,8 +209,6 @@ class StreamedSearch {
             $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
 
-        //mysql_query("SET NAMES 'utf8'");
-
         $result = mysql_query($sql);
         $this->results['photos_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
@@ -268,7 +266,6 @@ class StreamedSearch {
             $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
 
-        //mysql_query("SET NAMES 'utf8'");
 
         $result = mysql_query($sql);
         $this->results['literature_results'] = array();
@@ -368,7 +365,6 @@ class StreamedSearch {
             $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
 
-        //mysql_query("SET NAMES 'utf8'");
 
         $result = mysql_query($sql);
         $this->results['institution_results'] = array();
@@ -417,7 +413,6 @@ class StreamedSearch {
             $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
 
-        //mysql_query("SET NAMES 'utf8'");
 
         $result = mysql_query($sql);
         $this->results['stock_results'] = array();
@@ -473,7 +468,6 @@ class StreamedSearch {
         }
 
         // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
-        //mysql_query("SET NAMES 'utf8'");
 
         $result = mysql_query($sql);
         $this->results['photographer_results'] = array();
