@@ -143,7 +143,10 @@ app.controller('TypeTableCtrl', [
                             regex.lastIndex++;
                         }
                         var potentialValue = match[2];
-                        var splitted = potentialValue.split(":");
+                        var splitted = [];
+                        if(potentialValue != null) {
+                            splitted = potentialValue.split(":");
+                        } 
                         var value = '';
                         if(splitted.length > 1) {
                             // parse required
