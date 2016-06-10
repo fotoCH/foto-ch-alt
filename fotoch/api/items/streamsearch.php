@@ -53,7 +53,9 @@ class StreamedSearch {
             "fotos.dc_identifier as identifier",
             "fotos.dc_right as copyright",
             "fotos.image_path",
-            "fotos.zeitraum"
+            "fotos.zeitraum",
+            "namen.vorname AS autor_forename",
+            "namen.nachname AS autor_lastname"
         );
     }
 
@@ -159,11 +161,11 @@ class StreamedSearch {
             $sql.= "SELECT * FROM (";
         }
         $sql.= "SELECT DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
+        $sql.=" INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
+        $sql.=" RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
 
         if($level >= 1) {
-            $sql.=" INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
             $sql.=" INNER JOIN bestand on fotos.dcterms_ispart_of = bestand.id";
-            $sql.=" RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
             $sql.=" INNER JOIN institution on bestand.inst_id = institution.id";
         }
 
