@@ -5,12 +5,12 @@
         sortings='nachname, geburtsdatum, todesdatum, arbeitsorte, kanton, fotografengattungen_set, bildgattungen_set'
         fields='{
             "name":"{nachname}, {vorname}",
-            "geburtsdatum": "geburtsdatum",
-            "todesdatum": "todesdatum",
-            "arbeitsorte" : "arbeitsorte",
-            "kanton": "kanton",
-            "fotografengattungen" : "fotografengattungen_set",
-            "bildgattungen": "bildgattungen_set"
+            "geburtsdatum": "{date:geburtsdatum}",
+            "todesdatum": "{date:todesdatum}",
+            "arbeitsorte" : "{shorten:arbeitsorte}",
+            "kanton": "{shorten:kanton}",
+            "fotografengattungen" : "{shorten:fotografengattungen_set}",
+            "bildgattungen": "{shorten:bildgattungen_set}"
         }'>
     </type-table>
 </div>

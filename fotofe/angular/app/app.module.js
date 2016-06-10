@@ -8,7 +8,8 @@ var app = angular.module('fotochWebApp', [
     'yaru22.md',
     'infinite-scroll',
     'ui-rangeSlider',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngSanitize'
 ]);
 
 app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory) {

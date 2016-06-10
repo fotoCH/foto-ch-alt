@@ -75,6 +75,48 @@ app.controller('TypeTableCtrl', [
             }, 800);
         }
 
+        $scope.parseCellValue = function(type, value) {
+            if(type == "date") {
+                return $scope.parseDate(value);
+            }
+            if(type == "shortenBySplit" || type == "shorten") {
+                return $scope.shortenBySplit(value);   
+            }
+            if(type == 'nobreak') {
+                return '<span class="nobreak">'+value+'</span>';
+            }
+            return value;
+        }
+
+        $scope.parseDate = function(value) {
+            if(value == '0000-01-01') {
+                return '-';
+            } else {
+                var date = new Date(value);
+                return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth()+1)).slice(-2) + '.' + date.getFullYear();
+            }
+        }
+
+        $scope.shortenBySplit = function(value) {
+            var valueArray = value.split(",");
+            if(valueArray.length > 2) {
+                // display the first two...
+                // the rest goes in to mouseover popup
+                var firsts = [valueArray[0], valueArray[1]];
+                var result = '<div class="cropped">';
+                result += firsts.join(", ");
+                result += '<ul>';
+                for(var index = 2; index < valueArray.length; index++) {
+                    result += '<li>'+valueArray[index]+'</li>';
+                }
+                result += '</ul>';
+                result += '</div>';
+                return result;
+            } else {
+                return valueArray.join(", ");
+            }
+        }
+
         function setValues(data) {
             if(typeof($scope.fields) !== 'object') {
                 $scope.fields = JSON.parse($scope.fields);
@@ -98,7 +140,16 @@ app.controller('TypeTableCtrl', [
                         if (match.index === regex.lastIndex) {
                             regex.lastIndex++;
                         }
-                        var value = completeRow[match[2]];
+                        var potentialValue = match[2];
+                        var splitted = potentialValue.split(":");
+                        var value = '';
+                        if(splitted.length > 1) {
+                            // parse required
+                            value = $scope.parseCellValue(splitted[0], completeRow[splitted[1]]);
+                        } else {
+                            value = completeRow[match[2]];
+                        }
+
                         if(value == null || value == '') {
                             value = '';
                         } else {

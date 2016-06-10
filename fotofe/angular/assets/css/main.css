@@ -2082,3 +2082,44 @@ a.power-search__link {
   height: 50px;
   border-bottom: 1px solid rgba(141, 141, 141, 0.2);
 }
+.typetable .nobreak {
+  white-space: nowrap;
+  word-break: normal;
+}
+.typetable .cropped {
+  position: relative;
+  white-space: nowrap;
+}
+.typetable .cropped:hover ul {
+  display: block;
+  opacity: 1;
+  z-index: 20;
+}
+.typetable .cropped:after {
+  display: inline-block;
+  content: ", ...";
+}
+.typetable .cropped ul {
+  transition: 200ms;
+  opacity: 0;
+  display: none;
+  position: absolute;
+  top: 25px;
+  background-color: #eee;
+  border: 1px solid #e3e3e3;
+  padding: 10px 20px;
+  border-radius: 2px;
+  -webkit-box-shadow: 10px 10px 40px 0px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 10px 10px 40px 0px rgba(0, 0, 0, 0.24);
+  box-shadow: 10px 10px 40px 0px rgba(0, 0, 0, 0.24);
+}
+.typetable .cropped ul li {
+  white-space: nowrap;
+  word-break: normal;
+}
+.typetable .cropped ul li:before {
+  display: none;
+}
+.typetable .cropped ul li:last-child {
+  margin-bottom: 0;
+}

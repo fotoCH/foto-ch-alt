@@ -25,7 +25,7 @@
             <tbody>
                 <tr ng-repeat="tr in tableRows track by $index" 
                     ui-sref="{{detailRoute}}( {id: '{{tr.id}}'} )">
-                   <td ng-repeat="td in tr.dataset track by $index">{{td}}</td>
+                   <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{td}}</td>
                 </th>
             </tbody>
         </table>
