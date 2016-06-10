@@ -8,6 +8,7 @@ app.controller('TypeTableCtrl', [
     function($scope, $http, $location, $state, $stateParams, $rootScope) {
         $scope.sortDirection = 'desc';
         $scope.sortParameter = false;
+        $scope.grid = $scope.display == 'grid' ? true : false;
 
         $scope.tableHead = [];
         $scope.tableRows = [];
@@ -19,9 +20,7 @@ app.controller('TypeTableCtrl', [
         $scope.translations = $rootScope.translations;
         $scope.filtering = true;
 
-        
         loadData();
-        
 
         $scope.setHeadings = function() {
             if(typeof($scope.translations) == 'undefined') {
@@ -96,6 +95,9 @@ app.controller('TypeTableCtrl', [
             }
             if(type == 'nobreak') {
                 return '<span class="nobreak">'+value+'</span>';
+            }
+            if(type == 'image') {
+                return '<img src="'+$rootScope.imageRootUrl+value+'" />';
             }
             return value;
         }
@@ -244,7 +246,8 @@ app.directive('typeTable', function () {
             fields: '@',
             detailRoute: '@',
             type: '@',
-            sortings: '@'
+            sortings: '@',
+            display : '@'
         },
         templateUrl: 'app/shared/content/typetable.html',
         controller: 'TypeTableCtrl'

@@ -16,7 +16,7 @@
 </div>
 <div class="table">
     <div class="l-container">
-        <table>
+        <table ng-if="!grid">
             <thead>
                 <th ng-repeat="th in tableHead track by $index" 
                     ng-class="thisSortingClass(th.sort)"
@@ -29,5 +29,11 @@
                 </th>
             </tbody>
         </table>
+        <div ng-if="grid" class="grid">
+            <div ng-repeat="block in tableRows track by $index" 
+                ui-sref="{{detailRoute}}( {id: '{{block.id}}'} )">
+               <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{data}}</div>
+            </div>
+        </div>
     </div>
 </div>

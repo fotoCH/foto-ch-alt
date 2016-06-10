@@ -1,69 +1,13 @@
-<div class="l-content l-searchview">
-    <div class="l-content__main">
-        <div class="l-content__header">
-            <h1 class="hero--headline">{{spr.photos}}</h1>
-        </div>
-        <div class="l-content__section" infinite-scroll="loadMore()" infinite-scroll-disabled="loading">
-            <label for="filter-title"></label>
-            <input type="text" id="filter-title" ng-model="filterPhotos.$" ng-model-options="{ debounce: 300 }"
-                   placeholder="{{ spr.search_photos }}">
-
-            <div class="l-photo-teaser__info-bar">
-                <span ng-if="filteredPhotos">
-                    {{ spr.results }}: {{ filteredPhotos.length }} {{ spr.photos }}
-                </span>
-                <a ng-click="changeView('l-photo-teaser--list')">Liste</a>
-                <a ng-click="changeView()">Kacheln</a>
-            </div>
-            <loading-indicator></loading-indicator>
-            <photo-teaser-box class="l-photo-teaser l-photo-teaser--photo {{ viewClass }}"
-                              limit="limit"
-                              photos="filteredPhotos"
-                              image-root-url="{{ imageRootUrl }}"
-                              show-detail="true"></photo-teaser-box>
-            <button ng-click="loadMore()" ng-show="filteredPhotos.length > limit"
-                    class="l-photo-teaser__load-more btn btn--action">{{ spr.load_additional_content }}
-            </button>
-        </div>
-    </div>
-    <div class="l-off-canvas__toggle {{ filterClass }}"><a ng-click="toggleFilter()"><span
-                class="icon-magnifying-glass"></span></a></div>
-    <aside class="l-content__aside l-content__right l-off-canvas__box {{ filterClass }}">
-        <div class="l-content__section">
-            <h2>Filter</h2>
-
-            <form>
-                <label for="filterPhotographer">{{ spr.fotograph }}</label>
-                <select id="filterInstitution" ng-model="filterPhotos.name"
-                        ng-options="photo.name as photo.name for photo in photos | unique: 'name' | filter:filterExcludeNullName()"
-                        ng-change="updateSelect(filterPhotos.name)">
-                    <option value="">...</option>
-                </select>
-
-                <label for="filterInstitution">{{ spr.institution }}</label>
-                <select id="filterInstitution" ng-model="filterPhotos.institution_id"
-                        ng-options="photo.institution_id as photo.institution for photo in photos | unique: 'institution_id' | filter:filterExcludeNullInstitutionId()"
-                        ng-change="updateSelect(filterPhotos.institution_id)">
-                    <option value="">...</option>
-                </select>
-                <label for="filterStock">{{ spr.bestand }}</label>
-                <select id="filterStock" ng-model="filterPhotos.stock_id"
-                        ng-options="photo.stock_id as photo.stock for photo in photos | unique: 'stock_id' | filter:filterExcludeNullStockId()"
-                        ng-change="updateSelect(filterPhotos.stock_id)">
-                    <option value="">...</option>
-                </select>
-
-                <input type="checkbox" ng-model="allowDateFilter" ng-change="filterYear()" id="allowDateFilter">
-                <label for="allowDateFilter">{{ ::spr.filter_date }}</label>
-
-                <div range-slider min="1839" max="2015" model-min="filterDate.from" model-max="filterDate.to"
-                     show-values="true" on-handle-up="filterYear()" disabled="!allowDateFilter"></div>
-
-
-                <button type="reset" class="btn btn--primary" ng-click="resetFilter()">{{::spr.reset}}</button>
-            </form>
-        </div>
-    </aside>
+<div class="typetable">
+    <type-table 
+        display='grid'
+        type='photos'
+        sortings='title'
+        detail-route='literaturDetail'
+        fields='{
+            "image": "{image:image_path}",
+            "titel":"title",
+            "autor": "{autor_forename} {autor_lastname}"
+        }'>
+    </type-table>
 </div>
-
-

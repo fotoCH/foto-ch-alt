@@ -712,6 +712,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
         /*
          Overview
          */
+         /*
         $scope.loading = true;
         $scope.filterClass = 'inactive';
         $scope.viewClass = '';
@@ -822,7 +823,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
          $timeout(debouncing, 300, true, n, o);
 
          });*/
-
+    /*
         $scope.filterYear = function () {
             filterPhotos();
         }
@@ -858,7 +859,7 @@ app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$loca
             $scope.loading = false;
             $scope.photos = data.res;
             filterPhotos();
-        });
+        });*/
     } else {
         /*
          Detailpage
