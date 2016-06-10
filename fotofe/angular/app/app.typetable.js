@@ -89,8 +89,10 @@ app.controller('TypeTableCtrl', [
         }
 
         $scope.parseDate = function(value) {
-            if(value == '0000-01-01') {
+            if(value == '0000-01-01' || value == '0000-00-00') {
                 return '-';
+            } else if(value.indexOf('-00-00') != -1) {
+                return value.substring(0, 4);
             } else {
                 var date = new Date(value);
                 return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth()+1)).slice(-2) + '.' + date.getFullYear();
