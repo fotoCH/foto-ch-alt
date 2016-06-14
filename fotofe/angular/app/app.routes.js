@@ -23,22 +23,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             controller: 'PhotographerCtrl'
         })
 
-        // Photographer detail view
-        .state('photographerDetail', {
-            url: '/photographer/detail?id',
-            templateUrl: 'app/components/photographer/photographerDetail.html',
-            controller: 'PhotographerCtrl'
-        })
         // Institution search view
         .state('institution', {
             url: '/institution?anf&query',
             templateUrl: 'app/components/institution/institution.html',
-            controller: 'InstitutionCtrl'
-        })
-        // Institution detail view
-        .state('institutionDetail', {
-            url: '/institution/detail?id',
-            templateUrl: 'app/components/institution/institutionDetail.html',
             controller: 'InstitutionCtrl'
         })
         // Exhibition search view
@@ -47,22 +35,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/exhibition/exhibition.html',
             controller: 'ExhibitionCtrl'
         })
-        // Institution detail view
-        .state('exhibitionDetail', {
-            url: '/exhibition/detail?id',
-            templateUrl: 'app/components/exhibition/exhibitionDetail.html',
-            controller: 'ExhibitionCtrl'
-        })
         // Inventory search view
         .state('inventory', {
             url: '/inventory?anf',
             templateUrl: 'app/components/inventory/inventory.html',
-            controller: 'InventoryCtrl'
-        })
-        // Inventory detail view
-        .state('inventoryDetail', {
-            url: '/inventory/detail?id',
-            templateUrl: 'app/components/inventory/inventoryDetail.html',
             controller: 'InventoryCtrl'
         })
         // Contact page
@@ -95,22 +71,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             templateUrl: 'app/components/photo/photo.html',
             controller: 'PhotoCtrl'
         })
-        // Fotoportal Detailseite
-        .state('photoDetail', {
-            url: '/photo/detail?id',
-            templateUrl: 'app/components/photo/photoDetail.html',
-            controller: 'PhotoCtrl'
-        })
         // Literatur
         .state('literatur', {
             url: '/literatur',
             templateUrl: 'app/components/literatur/literatur.html',
-            controller: 'LiteraturCtrl'
-        })
-        // Literatur
-        .state('literaturDetail', {
-            url: '/literatur/detail?id',
-            templateUrl: 'app/components/literatur/literaturDetail.html',
             controller: 'LiteraturCtrl'
         })
         // Powersearch
@@ -118,7 +82,132 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             url: '/search?query',
             templateUrl: 'app/components/powersearch/powersearch.html',
             controller: 'PowersearchCtrl'
+        })
+        // Institution detail view
+        .state('exhibitionDetail', {
+            url: '/detail?id',
+            parent: 'exhibition',
+            onEnter: [
+                "$uibModal",
+                "$location",
+                function($uibModal, $location) {
+                  $uibModal.open({
+                    controller: "ExhibitionCtrl",
+                    templateUrl: 'app/components/exhibition/exhibitionDetail.html',
+                    size: 'lg'
+                  }).result.then(function() {
+                    closeModal($location, 'exhibition');
+                  }, function() {
+                    closeModal($location, 'exhibition');
+                  });
+              }
+            ]
+        })
+        // Inventory detail view
+        .state('inventoryDetail', {
+            url: '/detail?id',
+            parent: 'inventory',
+            onEnter: [
+                "$uibModal",
+                "$location",
+                function($uibModal, $location) {
+                  $uibModal.open({
+                    controller: "InventoryCtrl",
+                    templateUrl: 'app/components/inventory/inventoryDetail.html',
+                    size: 'lg'
+                  }).result.then(function() {
+                    closeModal($location, 'inventory');
+                  }, function () {
+                    closeModal($location, 'inventory');
+                  });
+              }
+            ]
+        })
+        // Institution detail view
+        .state('institutionDetail', {
+            url: '/detail?id',
+            parent: 'institution',
+            onEnter: [
+                "$uibModal",
+                "$location",
+                function($uibModal, $location) {
+                  $uibModal.open({
+                    controller: "InstitutionCtrl",
+                    templateUrl: 'app/components/institution/institutionDetail.html',
+                    size: 'lg'
+                  }).result.then(function() {
+                    closeModal($location, 'institution');
+                  }, function () {
+                    closeModal($location, 'institution');
+                  });
+                }
+            ]
+        })
+        // Photographer detail view
+        .state('photographerDetail', {
+            url: '/detail?id',
+            parent: 'photographer',
+            onEnter: [
+                "$uibModal",
+                "$location",
+                function($uibModal, $location) {
+                  $uibModal.open({
+                    controller: "PhotographerCtrl",
+                    templateUrl: 'app/components/photographer/photographerDetail.html',
+                    size: 'lg'
+                  }).result.then(function() {
+                    closeModal($location, 'photographer');
+                  }, function () {
+                    closeModal($location, 'photographer');
+                  });
+                }
+            ]
+        })
+        // Fotoportal Detailseite
+        .state('photoDetail', {
+            url: '/detail?id',
+            parent: 'photo',
+            onEnter: [
+                "$uibModal",
+                "$location",
+                function($uibModal, $location) {
+                  $uibModal.open({
+                    controller: "PhotoCtrl",
+                    templateUrl: 'app/components/photo/photoDetail.html',
+                    size: 'lg'
+                  }).result.then(function() {
+                    closeModal($location, 'photo');
+                  }, function () {
+                    closeModal($location, 'photo');
+                  });
+                }
+            ]
+        })
+        // Literatur
+        .state('literaturDetail', {
+            url: '/detail?id',
+            parent: 'literatur',
+            onEnter: [
+                "$uibModal",
+                "$location",
+                function($uibModal, $location) {
+                  $uibModal.open({
+                    controller: "LiteraturCtrl",
+                    templateUrl: 'app/components/literatur/literaturDetail.html',
+                    size: 'lg'
+                  }).result.then(function() {
+                    closeModal($location, 'literatur');
+                  }, function () {
+                    closeModal($location, 'literatur');
+                  });
+                }
+            ]
         });
- 
 
-}]);	
+}]);
+
+function closeModal($location, parent) {
+    var path = $location.path();
+    $location.search("id", null);
+    $location.path("/"+parent);
+}

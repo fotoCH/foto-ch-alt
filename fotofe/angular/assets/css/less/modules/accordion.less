@@ -4,6 +4,7 @@
     background: transparent;
     border: none;
     box-shadow: none;
+    margin: 0;
 
     &.panel-open {
         box-shadow: none;
@@ -31,6 +32,14 @@
         position: relative;
         border-bottom:1px solid @colorLayoutBorder;
 
+        .panel-title {
+            a {
+                span {
+                    font-size: 16px;
+                }
+            }
+        }
+
         + .panel-collapse > .panel-body {
              border-top: none;
         }
@@ -57,6 +66,7 @@
         &:after {
             transform: rotate(-45deg);
             right: 21px;
+            top: 9px;
         }
         &:before {
             transform: rotate(45deg);

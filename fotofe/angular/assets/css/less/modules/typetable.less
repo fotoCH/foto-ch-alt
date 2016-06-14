@@ -1,5 +1,15 @@
 .typetable {
     .filter-bar {
+        position: fixed;
+        width: 100%;
+        top: 60px;
+        height: 60px;
+        background-color: #eeeeee;
+        -webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.24);
+        -moz-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.24);
+        box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.24);
+        z-index: 20;
+
         &.loading {
             .s-icon {
                 opacity: 0;
@@ -16,22 +26,16 @@
         }
         .l-container {
             position: relative;
+            display: flex;
+            justify-content: space-between;
         }
-        position: fixed;
-        width: 100%;
-        top: 60px;
-        height: 60px;
-        background-color: #eeeeee;
-        -webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.24);
-        -moz-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.24);
-        box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.24);
 
         input[type="text"] {
             background-color: transparent;
             border: none;
             margin-bottom: 0;
             height: 60px;
-            padding: 14px 0 6px 45px;
+            padding: 14px 0 6px 55px;
         }
         label[for="textsearch"] {
             transition: 300ms;
@@ -70,6 +74,45 @@
             z-index: 5;
             top: 50%;
             margin-top: -11px;
+        }
+
+        .textsearch {
+            width: 50%;
+            position: relative;
+        }
+
+        a.reset {
+            display: block;
+            width: 60px;
+            height: 60px;
+            position: relative;
+            cursor: pointer;
+
+            &:hover {
+                &:before, &:after {
+                    background-color: @colorActionPrimary;
+                }
+            }
+
+            &:before, &:after {
+                pointer-events: none;
+                transition: 300ms;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin-top: -8px;
+                content:'';
+                display: block;
+                width: 2px;
+                height: 16px;
+                background-color: #848484;
+            }
+            &:before {
+                transform:rotate(45deg);
+            }
+            &:after {
+                transform:rotate(-45deg);
+            }
         }
     }
 

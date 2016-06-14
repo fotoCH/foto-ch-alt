@@ -14,7 +14,8 @@ app.controller('TypeTableCtrl', [
         $scope.tableRows = [];
         $scope.query = $rootScope.ApiUrl + '/?a=streamsearch&type='+$scope.type;
         $scope.fields_obj = JSON.parse($scope.fields);
-        $scope.textquery = '';
+        $scope.textquery = $rootScope.textualSearch;
+        $scope.searchquery = $scope.textquery;
         $scope.textsearch_timeout = false;
         $scope.textsearch_focus = false;
         $scope.translations = $rootScope.translations;
@@ -43,6 +44,13 @@ app.controller('TypeTableCtrl', [
             }
         }
         $scope.setHeadings();
+
+        $scope.reset = function() {
+            $scope.textquery = '';
+            $scope.searchquery = '';
+            $scope.textsearchblur();
+            loadData();
+        }
 
         $scope.thisSortingClass = function (cell) {
             if($scope.sortParameter == cell) {
@@ -204,6 +212,7 @@ app.controller('TypeTableCtrl', [
 
         function loadData() {
             var textquery = '';
+            $rootScope.textualSearch = $scope.textquery;
             if($scope.textquery != '') {
                 textquery = '&query='+$scope.textquery;
             }
@@ -235,6 +244,10 @@ app.controller('TypeTableCtrl', [
             }).then(function(e) {
                 $scope.filtering = false;
             });
+        }
+
+        if($scope.searchquery != '') {
+            $scope.textsearchfocus();
         }
     }
 ]);

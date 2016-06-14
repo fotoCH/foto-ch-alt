@@ -2,14 +2,22 @@
  * Controllers
  */
 
-app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', function ($scope, $http, $state, $stateParams, $rootScope, $location, languages) {
+app.controller('MainCtrl', 
+    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', 
+    function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal) {
     // console.log("Main Controller reporting for duty.");
+    $rootScope.textualSearch = '';
 
     function loadTranslation() {
         $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
             $scope.spr = data;
             $rootScope.translations = data;
         });
+    }
+
+    $scope.title =  'fotoCH';
+    $rootScope.setTitle = function(title) {
+        $scope.title = title;
     }
 
     loadTranslation();
@@ -24,8 +32,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
 
     $scope.setLanguage = function (lang) {
         $rootScope.lang = lang;
-        $rootScope.isLangSwitchOpen = false;	// Close the language switch after selection of new language
-        $rootScope.isMenuOpen = false;			// Close the mobile menu after selection of new language
+        $rootScope.isLangSwitchOpen = false;    // Close the language switch after selection of new language
+        $rootScope.isMenuOpen = false;            // Close the mobile menu after selection of new language
         var hosta = $location.$$host.split('.');
         for (i = 0, len = hosta.length; i < len; ++i) {
             if (languages.indexOf(hosta[i]) >= 0) {
@@ -37,7 +45,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
 
         loadTranslation();
 
-        if ($state.includes('aboutFotoch') || $state.includes('contact')) {		// Reload content after switching language
+        if ($state.includes('aboutFotoch') || $state.includes('contact')) {        // Reload content after switching language
             $rootScope.reloadPages();
         }
         else if ($state.includes('home')) {
@@ -64,10 +72,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     $rootScope.isLangSwitchOpen = false;
 
     // Close mobile menu on state change
-    $rootScope.$on('$stateChangeSuccess',
-        function () {
-            $rootScope.isMenuOpen = false;
-        });
+    $rootScope.$on('$stateChangeSuccess', function () {
+        $rootScope.isMenuOpen = false;
+    });
 
     $rootScope.goBack = function () {
         window.history.back();
@@ -77,10 +84,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
         alert(text.replace(/\\n/g, "\n"));
     }
 
-//    $rootScope.userInfoCall.promise.then(function() {
-//    	$scope.authinfo=$rootScope.authToken;
-//    });
-    
 }]);
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
@@ -88,174 +91,93 @@ app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function 
     $scope.getClass = function (path) {
         var splittedPath = $location.path().split("/");
         if (splittedPath[1] == path) {
-            return "is-active"
+            return "is-active";
         } else {
-            return ""
+            return "";
         }
     };
 
 }]);
 
-app.controller('InstitutionCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter) {
-    // console.log("Institution Controller reporting for duty.");
+app.controller('InstitutionCtrl', [
+    '$scope',
+    '$http',
+    '$location',
+    '$state',
+    '$stateParams',
+    '$rootScope',
+    '$filter',
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $uibModalStack) {
+        $uibModalStack.dismissAll();
 
-    var id = $stateParams.id
-    /*
-    var anf = $stateParams.anf;
-    var query = $stateParams.query;
-    */
-    if (!id) {
-        /**
-         *  Overview
-         */
-         /*
-            // load all institutions
-        $scope.loading = true;
-        $http.get($rootScope.ApiUrl + '/?a=institution', { cache: true }).success(function (data) {
-            $scope.list = data;
-            onLoaded();
-        });
+        $rootScope.setTitle('fotoCH - Institutionen');
+        $scope.translations = $rootScope.translations;
 
-        // things to do after ajax-content has loaded successfully
-        var onLoaded = function () {
-            $scope.loading = false;
+        var id = $stateParams.id;
 
-            configureFilters();
-
-            $scope.filtersReady = true;
-            // filter photographer on every change of the filter model
-            $scope.$watchCollection('filterInstitutions', function (n, o) {
-                filterInstitutions();
-            });
-        };
-
-        var configureFilters = function () {
-            if (query) {
-                $scope.filterInstitutions = {"$": query};
-            }
-        }
-
-
-        // filtering institutions before passing to directive (a little ugly, but results in better performance - cause no exchange between scopes needed)
-        var filterInstitutions = function () {
-            $scope.filteredInstitutions = $filter('filter')($scope.list.res, $scope.filterInstitutions);
-
-            // filter on first char (speacial chars not included)
-            if ($scope.firstChar) {
-                var filteredInstitutions = [];
-                $scope.filteredInstitutions.forEach(function (item) {
-                    if (item.name.charAt(0).toUpperCase() == $scope.firstChar) {
-                        filteredInstitutions.push(item);
-                    }
-                });
-                $scope.filteredInstitutions = filteredInstitutions;
-            }
-        }
-
-        $scope.setFirstChar = function (char) {
-            $scope.firstChar = char;
-            filterInstitutions();
-        }
-
-        $scope.resetFilter = function () {
-            $scope.filterInstitutions = {};
-        }
-
-        // remove undefined from filter model (angular error). Needed when select-option value=""
-        $scope.updateSelect = function (val) {
-            if (val === null) {
-                angular.forEach($scope.filterInstitutions, function (value, index) {
-                    if (value === null) {
-                        this[index] = '';
-                    }
-                }, $scope.filterInstitutions);
-
-            }
-        }
-    */
-    } else {
-        /**
-         *  Detailpage
-         */
-
-        $http.get($rootScope.ApiUrl + '/?a=institution&id=' + id).success(function (data) {
-            $scope.detail = data;
-            $scope.list = null;
-        });
-
-    }
-    /*
-
-    $scope.institutionSelected = function (selected) {
-        //window.alert('You have selected ' + selected.originalObject.id);
-        $state.go('institutionDetail', {id: selected.originalObject.id, anf: ''});
-    };
-
-    $scope.enterFunc = function (selected) {
-        var val = document.getElementById('institution-autocomplete_value').value;
-        $state.go('institution', {anf: val});
-    };
-
-
-    //$scope.debug='anf:'+anf+' id:'+id+$state;
-    var abc = new Array();
-
-    for (var i = 0; i < 26; i++) {
-        abc[i] = String.fromCharCode(65 + i);
-    }
-    $scope.abc = abc;
-    */
-}]);
-
-app.controller('InventoryCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
-    // console.log("Inventory Controller reporting for duty.");
-
-    var id = $stateParams.id
-    var anf = $stateParams.anf;
-    $scope.institutionSelected = function (selected) {
-        //window.alert('You have selected ' + selected.originalObject.id);
-        $state.go('inventoryDetail', {id: selected.originalObject.id, anf: ''});
-    };
-
-    //$scope.debug='anf:'+anf+' id:'+id+$state;
-    /*if (anf >= 'A') {
-        $http.get($rootScope.ApiUrl + '/?a=inventory&anf=' + anf).success(function (data) {
-            $scope.list = data;
-        });
-    } else {
-        if (id) {
-            $http.get($rootScope.ApiUrl + '/?a=inventory&id=' + id).success(function (data) {
+        if(id) {
+            $http.get($rootScope.ApiUrl + '/?a=institution&id=' + id).success(function (data) {
                 $scope.detail = data;
                 $scope.list = null;
             });
         }
     }
-    var abc = new Array();
+]);
 
-    for (var i = 0; i < 26; i++) {
-        abc[i] = String.fromCharCode(65 + i);
+app.controller('InventoryCtrl', [
+    '$scope',
+    '$http',
+    '$location',
+    '$state',
+    '$stateParams',
+    '$rootScope',
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+        $uibModalStack.dismissAll();
+
+        $rootScope.setTitle('fotoCH - Bestände');
+        $scope.translations = $rootScope.translations;
+
+        var id = $stateParams.id;
+        var anf = $stateParams.anf;
+        if(id) {
+            $http.get($rootScope.ApiUrl + '/?a=inventory&id=' + id).success(function (data) {
+                console.log(data);
+                $scope.detail = data;
+            });
+        }
     }
-    $scope.abc = abc;*/
-    
-}]);
+]);
 
-app.controller('StaticPageCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
-    // console.log("Static Page Controller reporting for duty.");
+app.controller('StaticPageCtrl', [
+    '$scope',
+    '$http',
+    '$location',
+    '$state',
+    '$stateParams',
+    '$rootScope',
+    '$uibModalStack', 
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+        $uibModalStack.dismissAll();
 
-    function loadContent() {
-        $http.get($rootScope.ApiUrl + '/?a=pages&lang=' + $rootScope.lang).success(function (data) {
-            $scope.pages = data;
-        });
-    }
+        function loadContent() {
+            $http.get($rootScope.ApiUrl + '/?a=pages&lang=' + $rootScope.lang).success(function (data) {
+                $scope.pages = data;
+            });
+        }
 
-    loadContent();
-
-    $rootScope.reloadPages = function () {
         loadContent();
-    };
-}]);
+
+        $rootScope.reloadPages = function () {
+            loadContent();
+        };
+    }
+]);
 
 app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
+
+    $rootScope.setTitle('fotoCH - Dokumentation der Schweizer Fotografie');
 
     function zeroFill( number, width ) {
       width -= number.toString().length;
@@ -279,6 +201,17 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
     $scope.submitForm = function () {
         $state.go('search', {query: $scope.powersearch});
     };
+
+    // recent updated
+    $scope.recent_photographer = {};
+    $scope.recentAmount = 5;
+    function recents() {
+        $http.get($rootScope.ApiUrl + '/?recent=' + $scope.recentAmount + '&nocache=true').success(function (data) {
+            $scope.recent_photographer = data.res;
+            console.log($scope.recent_photographer);
+        });
+    }
+    recents();
 }]);
 
 app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
@@ -356,44 +289,30 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
     }
 }]);
 
-app.controller('ExhibitionCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
-    // console.log("Exhibition Controller reporting for duty.");
+app.controller('ExhibitionCtrl', [
+    '$scope',
+    '$http',
+    '$location',
+    '$state',
+    '$stateParams',
+    '$rootScope',
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+        $uibModalStack.dismissAll();
 
-    var id = $stateParams.id
-    var anf = $stateParams.anf;
-    $scope.exhibitionSelected = function (selected) {
-        //window.alert('You have selected ' + selected.originalObject.id);
-        $state.go('exhibitionDetail', {id: selected.originalObject.id, anf: ''});
-    };
+        $rootScope.setTitle('fotoCH - Fotografie Ausstelungen in der Schweiz');
+        $scope.translations = $rootScope.translations;
 
-    $scope.enterFunc = function (selected) {
-        var val = document.getElementById('exhibition-autocomplete_value').value;
-        $state.go('exhibition', {anf: val});
-    };
+        var id = $stateParams.id
 
-    //$scope.debug='anf:'+anf+' id:'+id+$state;
-    if (anf >= 'A') {
-        $scope.loading = true;
-        $http.get($rootScope.ApiUrl + '/?a=exhibition&anf=' + anf).success(function (data) {
-
-            $scope.list = data;
-            $scope.loading = false;
-        });
-    } else {
-        if (id) {
+        if(id) {
             $http.get($rootScope.ApiUrl + '/?a=exhibition&id=' + id).success(function (data) {
                 $scope.detail = data;
-                $scope.list = null;
             });
         }
-    }
-    var abc = new Array();
 
-    for (var i = 0; i < 26; i++) {
-        abc[i] = String.fromCharCode(65 + i);
     }
-    $scope.abc = abc;
-}]);
+]);
 
 // Controller for the contact form on the contact form
 app.controller('contactFormCtrl', function ($scope, $http) {
@@ -404,10 +323,10 @@ app.controller('contactFormCtrl', function ($scope, $http) {
         $http({
             method: 'POST',
             url: 'sendContactMail.php',
-            data: $.param($scope.formData), 		// Pass in data as strings
+            data: $.param($scope.formData),         // Pass in data as strings
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
-            } 		// Set headers so angular passing info as form data (not request payload)
+            }         // Set headers so angular passing info as form data (not request payload)
         })
             .success(function (data) {
                 if (!data.success) {
@@ -423,491 +342,85 @@ app.controller('contactFormCtrl', function ($scope, $http) {
     };
 });
 
-app.controller('PhotographerCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$filter', '$timeout', '$q', function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q) {
-    // console.log("Fotograf Controller reporting for duty.");
+app.controller('PhotographerCtrl', [
+    '$scope',
+    '$http',
+    '$location',
+    '$state',
+    '$stateParams',
+    '$rootScope',
+    '$filter',
+    '$timeout',
+    '$q',
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack) {
+        $uibModalStack.dismissAll();
 
+        $rootScope.setTitle('fotoCH - Fotografen');
 
-    var id = $stateParams.id
-    /*
-    var anf = $stateParams.anf;
-    var query = $stateParams.query;
-    $scope.activeChar = anf;
-    $scope.input = '';
+        var id = $stateParams.id;
+        $scope.translations = $rootScope.translations;
 
-
-    $scope.photographerSelected = function (selected) {
-        //window.alert('You have selected ' + selected.originalObject.id);
-        $state.go('photographerDetail', {id: selected.originalObject.id, anf: ''});
-    };
-
-    $scope.enterFunc = function (selected) {
-        var val = document.getElementById('photographer-autocomplete_value').value;
-        $state.go('photographer', {anf: val});
-    };*/
-
-    if (!id) {
-        /*
-        // Overview/search-page
-         
-        var limitExpander = 20;
-        var cachedFilters = $rootScope.filterCache.get('filterPhotographer');
-        var cachedLimit = $rootScope.filterCache.get('limitPhotographer');
-
-        // set filters
-        if (cachedFilters !== undefined) {
-            $scope.filterPhotographer = $rootScope.filterCache.get('filterPhotographer');
-            console.log($scope.filterPhotographer);
-        } else {
-            $scope.filterPhotographer = {"$": query};
-        }
-
-        // set limit
-        if (cachedLimit !== undefined) {
-            $scope.limit = $rootScope.filterCache.get('limitPhotographer');
-        } else {
-            $scope.limit = limitExpander;
-        }
-
-        // cache filterObject & limit on page change (only to detail)
-        $scope.$on('$stateChangeStart', function (event, toState) {
-            if (toState.name == 'photographerDetail') {
-                $rootScope.filterCache.put('filterPhotographer', $scope.filterPhotographer);
-                $rootScope.filterCache.put('limitPhotographer', $scope.limit);
-            } else {
-                $rootScope.filterCache.remove('filterPhotographer');
-                $rootScope.filterCache.remove('limitPhotographer');
-            }
-        });
-
-        // filtering photographers before passing to directive (a little ugly, but results in better performance - cause no exchange between scopes needed)
-        var filterPhotographers = function () {
-            var time = new Date();
-            // clone object, since we don't want to change the current filter object
-            var filterObj = jQuery.extend({}, $scope.filterPhotographer);
-
-            //filter on array values with custom comparator
-            /*$scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj, comparator);
-
-             //remove array from filterObject clone (already filtered)
-             angular.forEach(filterObj, function(value, index, array){
-             if(angular.isArray(value)){
-             this[index] = undefined;
-             }
-             }, filterObj);
+        if (id) {
+            /**
+             *  detailpage
              */
-            // filter rest
-            /*
-            $scope.filteredPhotographer = $filter('filter')($scope.list.res, filterObj);
-        }
-
-        $scope.comparator = function (actual, expected) {
-
-            if (angular.isArray(expected) && actual) {
-                for (i in expected) {
-                    if (actual.indexOf(expected[i]) > -1) {
-                        //console.log(expected[i] + ' gefunden in ' + actual)
-                        return true;
-                    }
-                }
-            } else if (angular.isString(expected) && actual) {
-                if (actual.indexOf(expected) > -1) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // toggle filter (only mobile version)
-        $scope.toggleFilter = function () {
-            if ($scope.filterClass === 'active') {
-                $scope.filterClass = 'inactive';
-            } else {
-                $scope.filterClass = 'active';
-            }
-        };
-
-        // get filters from result array
-        var configureFilters = function () {
-            var begin = new Date();
-            $scope.filter = {};
-
-            //  detect if web workers available
-            if (typeof(Worker) !== "undefined") {
-
-                console.log(new Date());
-
-                $scope.callWebWorker = function () {
-
-                    var worker = new Worker('app/filterPhotographer.js');
-                    var defer = $q.defer();
-                    worker.onmessage = function (e) {
-                        defer.resolve(e.data);
-                        worker.terminate();
-                    };
-                    worker.postMessage($scope.list.res);
-                    return defer.promise;
-                }
-
-                $scope.callWebWorker().then(function (workerReply) {
-                    $scope.filter.fotografengattungen = workerReply[0];
-                    $scope.filter.bildgattungen = workerReply[1];
-                    $scope.filter.kanton = workerReply[2];
-                    $scope.filter.venues = workerReply[3];
-                    // display filters
-                    $scope.filtersReady = true;
-                });
-
-            } else {
-                // add filters to array
-                var fotografengattungen = '';
-                var bildgattungen = '';
-                var kanton = '';
-                var venues = '';
-
-                angular.forEach($scope.list.res, function (value, index, array) {
-                    if (value.fotografengattungen != '') {
-                        fotografengattungen = fotografengattungen + value.fotografengattungen + ',';
-                    }
-                    if (value.bildgattungen != '') {
-                        bildgattungen = bildgattungen + value.bildgattungen + ',';
-                    }
-                    if (value.kanton != '') {
-                        kanton = kanton + value.kanton + ',';
-                    }
-                    if (value.arbeitsperioden != '') {
-                        venues = venues + value.arbeitsperioden + ',';
-                    }
-
-                    //$scope.list.res[index].fotografengattungenstring = value.fotografengattungen.toString();
-                    //$scope.list.res[index].bildgattungenstring = value.bildgattungen.toString();
-                }, $scope.list.res);
-
-                // set filters
-
-                $scope.filter.fotografengattungen = $filter('unique')(fotografengattungen.split(',').filter(Boolean));
-                $scope.filter.bildgattungen = $filter('unique')(bildgattungen.split(',').filter(Boolean));
-                $scope.filter.kanton = $filter('unique')(kanton.split(',').filter(Boolean));
-                $scope.filter.venues = $filter('unique')(venues.split(',').filter(Boolean));
-                if (query) {
-                    $scope.filter.searchfield = query;
-                }
-
-                // display filters
-                $scope.filtersReady = true;
-            }
-
-            var middle = new Date();
-
-            filterPhotographers();
-
-            // filter photographer on every change of the filter model
-            $scope.$watchCollection('filterPhotographer', function (n, o) {
-                filterPhotographers();
+            $http.get($rootScope.ApiUrl + '/?id=' + id).success(function (data) {
+                $scope.readMoreLimit = 50;
+                $scope.detail = data;
+                $scope.list = null;
             });
-
-            $scope.resetFilter = function () {
-                $scope.filterPhotographer = {};
-            }
-
-            $scope.loading = false;
-            /*
-             console.log(begin);
-             console.log(middle);
-             console.log(new Date());*/
-             /*
         }
-
-        // show more results
-        $scope.loadMore = function () {
-            $scope.limit = $scope.limit + limitExpander;
-        }
-
-        // remove undefined from filter model (angular error). Needed when select-option value=""
-        $scope.updateSelect = function (val) {
-            if (val === null) {
-                angular.forEach($scope.filterPhotographer, function (value, index) {
-                    if (value === null) {
-                        $scope.filterPhotographer[index] = '';
-                    }
-                });
-            }
-        }
-
-        // ajax calls
-        $scope.loading = true;
-        if (anf >= 'A') {
-            $http.get($rootScope.ApiUrl + '/?anf=' + anf, { cache: true }).success(function (data) {
-                $scope.list = data;
-                configureFilters();
-            });
-        } else {
-            $scope.$on('$viewContentLoaded', function (event) {
-                //prevent browser from freezing before state change
-                $timeout(loadPhotographers, 0);
-            });
-
-            var loadPhotographers = function () {
-                $http.get($rootScope.ApiUrl + '/?a=photographer', { cache: true }).success(function (data) {
-
-                    /**
-                     $scope.callWebWorker = function () {
-
-                        var worker = new Worker('app/assignJSON.js');
-                        var defer = $q.defer();
-                        worker.onmessage = function(e) {
-                            defer.resolve(e.data);
-                            worker.terminate();
-                        };
-                        worker.postMessage(data);
-                        return defer.promise;
-                    }
-
-                     $scope.callWebWorker().then(function (workerReply) {
-                        $scope.list = workerReply;
-                        configureFilters();
-                    });
-                     *//*
-                    $scope.list = data;
-                    $timeout(configureFilters, 0);
-                }).error(function (data, status) {
-                        $scope.loading = false;
-                        $scope.loadingError = true;
-                    });
-            }
-        }*/
-    } else {
-        /**
-         *  detailpage
-         */
-        $http.get($rootScope.ApiUrl + '/?id=' + id).success(function (data) {
-            $scope.readMoreLimit = 50;
-            $scope.detail = data;
-            $scope.list = null;
-        });
-
-        // remove filter if not returning to overview
-        $scope.$on('$stateChangeStart', function (event, toState) {
-            if (toState.name != 'photographer') {
-                $rootScope.filterCache.remove('filterPhotographer');
-                $rootScope.filterCache.remove('limitPhotographer');
-            }
-        });
-
     }
-    /*
-    var abc = new Array();
+]);
 
-    for (var i = 0; i < 26; i++) {
-        abc[i] = String.fromCharCode(65 + i);
-    }
-    $scope.abc = abc;*/
-}]);
+app.controller('PhotoCtrl', [
+    '$scope',
+    '$http',
+    '$state',
+    '$stateParams',
+    '$location',
+    '$rootScope',
+    '$filter',
+    '$cacheFactory',
+    '$timeout', 
+    '$uibModalStack',
+    function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack) {
+        $uibModalStack.dismissAll();
 
-app.controller('PhotoCtrl', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', '$filter', '$cacheFactory', '$timeout', function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout) {
+        $rootScope.setTitle('fotoCH - Fotos Schweiz');
 
-    var anf = $stateParams.anf;
-    var id = $stateParams.id;
+        var id = $stateParams.id;
 
-    if (!id) {
-        /*
-         Overview
-         */
-         /*
-        $scope.loading = true;
-        $scope.filterClass = 'inactive';
-        $scope.viewClass = '';
-        $scope.filterDate = {};
-        $scope.filterDate.from = 1839;
-        $scope.filterDate.to = new Date().getFullYear();
-        var cachedFilters = $rootScope.filterCache.get('filterPhotos');
-        var cachedLimit = $rootScope.filterCache.get('limitPhotos');
-        var cachedViewClass = $rootScope.filterCache.get('viewClass');
-        var limitExpander = 12;
-
-
-        // set filters
-        if (cachedFilters !== undefined) {
-            $scope.filterPhotos = $rootScope.filterCache.get('filterPhotos');
-        } else {
-            $scope.filterPhotos = {"$": $stateParams.query};
-        }
-        // set limit
-        if (cachedLimit !== undefined) {
-            $scope.limit = $rootScope.filterCache.get('limitPhotos');
-        } else {
-            $scope.limit = limitExpander;
-        }
-        // set limit
-        if (cachedLimit !== undefined) {
-            $scope.viewClass = $rootScope.filterCache.get('viewClass');
-        } else {
-            $scope.viewClass = '';
-        }
-
-        // cache filterObject & limit on page change (only to detail)
-        $scope.$on('$stateChangeStart', function (event, toState) {
-            if (toState.name == 'photoDetail') {
-                $rootScope.filterCache.put('filterPhotos', $scope.filterPhotos);
-                $rootScope.filterCache.put('limitPhotos', $scope.limit);
-                $rootScope.filterCache.put('viewClass', $scope.viewClass);
-            } else {
-                $rootScope.filterCache.remove('filterPhotos');
-                $rootScope.filterCache.remove('limitPhotos');
-                $rootScope.filterCache.remove('viewClass');
-            }
-        });
-
-        // toggle filter (only mobile version)
-        $scope.toggleFilter = function () {
-            if ($scope.filterClass === 'active') {
-                $scope.filterClass = 'inactive';
-            } else {
-                $scope.filterClass = 'active';
-            }
-        };
-
-        $scope.changeView = function (cssClass) {
-            if (cssClass) {
-                $scope.viewClass = cssClass;
-            } else {
-                $scope.viewClass = '';
-            }
-        };
-
-        $scope.loadMore = function () {
-            $scope.limit = $scope.limit + limitExpander;
-        }
-
-
-        $scope.filterExcludeNullName = function () {
-            return function (photo) {
-                return photo.name !== null;
-            };
-        }
-
-
-        $scope.filterExcludeNullStockId = function () {
-            return function (photo) {
-                return photo.stock_id !== null;
-            };
-        }
-
-        $scope.filterExcludeNullInstitutionId = function () {
-            return function (photo) {
-                return photo.institution !== null;
-            };
-        }
-
-        $scope.updateSelect = function (val) {
-            if (val === null) {
-                angular.forEach($scope.filterPhotos, function (value, index, array) {
-                    if (value === null) {
-                        $scope.filterPhotos[index] = '';
-                    }
-                });
-            }
-        }
-
-        $scope.$watchCollection('filterPhotos', function (n, o) {
-            filterPhotos();
-        });
-        /*
-         $scope.$watchCollection('filterDate', function (n, o) {
-         var debouncing = function(n,o){
-         if($(document).mous){
-         filterPhotos();
-         }else{
-         console.log('not same');
-         }
-         }
-         $timeout(debouncing, 300, true, n, o);
-
-         });*/
-    /*
-        $scope.filterYear = function () {
-            filterPhotos();
-        }
-
-        // filtering photos before passing to directive (a little ugly, but results in better performance) (?)
-        var filterPhotos = function () {
-            $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.filterPhotos);
-            if ($scope.filteredPhotos && $scope.allowDateFilter && $scope.filterDate) {
-
-                var ms = new Date().getMilliseconds();
-                var filteredPhotos = [];
-                $scope.filteredPhotos.forEach(function (item) {
-                    var from = new Date($scope.filterDate.from.toString());
-                    var to = new Date($scope.filterDate.to.toString());
-                    var date = new Date(item.dc_created);
-                    if (from <= date && date <= to) {
-                        filteredPhotos.push(item);
-                    }
-                });
-                $scope.filteredPhotos = filteredPhotos;
-                //--> 30-40ms
-            }
-        }
-
-        $scope.resetFilter = function () {
-            $scope.filterPhotos = {};
-            $scope.allowDateFilter = false;
-            $scope.filterDate.from = 1839;
-            $scope.filterDate.to = new Date().getFullYear();
-        }
-
-        $http.get($rootScope.ApiUrl + '/?a=photo', { cache: true }).success(function (data) {
-            $scope.loading = false;
-            $scope.photos = data.res;
-            filterPhotos();
-        });*/
-    } else {
-        /*
-         Detailpage
-         */
-        $scope.doComments = false;
-        
-        $rootScope.userInfoCall.promise.then(function() {
+        if (id) {
+            /*
+             Detailpage
+             */
+            $scope.doComments = false;
             $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
-            	$scope.photo = data;
-            		
-            	if (parseInt(data.inst_id)==$rootScope.instComment){
-            		if (data.comment){
-            			$scope.comment=data.comment;
-            		} else {
-            			$scope.comment={name: 'Fehler, beim Laden der Kommentare, das sollte nicht passieren...'};
-            		}
-            		
-            		
-            		$scope.doComments = true;
-            		
-            		$scope.submit = function () {
-            			console.log($scope.comment);
-            			$http.post($rootScope.ApiUrl + '/?a=photo&id=' + id, $scope.comment).success(function (data) {
-            	           //console.log(data);
-            	        });
-            			return;
-            		}
+                $scope.photo = data;
+                    
+                if (parseInt(data.inst_id)==$rootScope.instComment){
+                    if (data.comment){
+                        $scope.comment=data.comment;
+                    } else {
+                        $scope.comment={name: 'Fehler, beim Laden der Kommentare, das sollte nicht passieren...'};
+                    }
 
-            		
-            	}
+                    $scope.doComments = true;
+
+                    $scope.submit = function () {
+                        console.log($scope.comment);
+                        $http.post($rootScope.ApiUrl + '/?a=photo&id=' + id, $scope.comment).success(function (data) {
+                           //console.log(data);
+                        });
+                        return;
+                    }
+                }
             });
-        });
-        
-    	
-
-
-        // remove filter if not returning to overview
-        $scope.$on('$stateChangeStart', function (event, toState) {
-            if (toState.name != 'photo') {
-                $rootScope.filterCache.remove('filterPhotos');
-                $rootScope.filterCache.remove('limitPhotos');
-                $rootScope.filterCache.remove('viewClass');
-            }
-        });
+        }
     }
-
-
-}]);
+]);
 
 app.controller('homeSearch', [
     '$scope',
@@ -936,6 +449,7 @@ app.controller('homeSearch', [
             clearTimeout($scope.timeout);
             $scope.timeout = setTimeout(function() {
                 $scope.result =  {};
+                $rootScope.textualSearch = $scope.user.query;
                 $http({
                     method: "GET",
                     url: $rootScope.ApiUrl + '/?a=streamsearch&query=' + $scope.user.query 
@@ -992,7 +506,29 @@ app.controller('LiteraturCtrl', [
     '$state', 
     '$stateParams', 
     '$rootScope', 
-    function ($scope, $http, $location, $state, $stateParams, $rootScope) {}
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+        // close all open modals
+        $uibModalStack.dismissAll();
+
+        $rootScope.setTitle('fotoCH - Literatur zur Schweizer Fotografie');
+        $scope.translations = $rootScope.translations;
+        var id = $stateParams.id;
+
+        // detail
+        if(id) {
+            $http.get($rootScope.ApiUrl + '/?a=literature&id=' + id).success(function (data) {
+                $scope.detail = data;
+                $scope.list = null;
+            });
+        }
+
+        $scope.close = function() {
+            $location.search('id', null);
+            $scope.$close(true);
+        }
+
+    }
 ]);
 
 

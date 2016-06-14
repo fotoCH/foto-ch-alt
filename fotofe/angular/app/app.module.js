@@ -9,6 +9,8 @@ var app = angular.module('fotochWebApp', [
     'infinite-scroll',
     'ui-rangeSlider',
     'ui.bootstrap',
+    'ui.bootstrap.modal',
+    'ui.bootstrap.popover',
     'ngSanitize'
 ]);
 

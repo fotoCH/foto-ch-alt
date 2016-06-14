@@ -91,4 +91,16 @@
             </div>
         </div>
     </div>
+
+    <div class="latest-photographer">
+        <div class="l-container">
+            <h2>Zuletzt aktualisierte Fotografen</h2>
+            <div>
+                <div class="photographer" ng-repeat="p in recent_photographer">
+                    <h4><a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{p.nachname}}, {{p.vorname}}</a></h4>
+                    <small>{{p.fgeburtsdatum}} {{p.fldatum}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

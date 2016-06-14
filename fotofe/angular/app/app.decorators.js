@@ -19,6 +19,20 @@ app.config(function($provide) {
 });
 
 app.config(function($provide) {
+  $provide.decorator('uibModalWindowDirective', function($delegate) {
+    $delegate[0].templateUrl = "app/components/bootstrap/modal/window.html";
+    return $delegate;
+  });
+});
+
+app.config(function($provide) {
+  $provide.decorator('uibModalBackdropDirective', function($delegate) {
+    $delegate[0].templateUrl = "app/components/bootstrap/modal/backdrop.html";
+    return $delegate;
+  });
+});
+
+app.config(function($provide) {
   $provide.decorator("$xhrFactory", [
     "$delegate", "$injector", "$q",
     function($delegate, $injector, $q) {
