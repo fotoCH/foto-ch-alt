@@ -3,6 +3,8 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     $scope.name="";
     $scope.ch=$stateParams.ch;
     $scope.photo=$stateParams.photo;
+    $scope.land=$stateParams.land;
+    $scope.kanton=$stateParams.kanton;
     $scope.aps=[];
     hosta = $location.$$host.split('.');
     var layer = ga.layer.create('ch.swisstopo.pixelkarte-farbe');
@@ -59,6 +61,16 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     	    src: 'assets/img/marker.png'
     	  }))
     	});
+
+    var iconStyleB = new ol.style.Style({
+    	  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+    	    anchor: [0.5, 1],
+    	    anchorXUnits: 'fraction',
+    	    anchorYUnits: 'fraction',
+    	    opacity: 0.75,
+    	    src: 'assets/img/marker-blue.png'
+    	  }))
+    	});
     
     $scope.displayFeatureInfo = function(e) {
     		pixel=[e.offsetX,e.offsetY];
@@ -97,10 +109,22 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     	});*/
     
     addmarker=function(ort){
+	var randx=0.0;
+	var randy=0.0;
+    	if (ort.swissname=='fotoquery'){
+    	    //randx=Math.random()/250;
+    	    //randy=Math.random()/500;
+    	    var x=Math.sin(ort.id) * 10000;
+    	    randx=(x - Math.floor(x))/250;
+    	    x=Math.sin(ort.id) * 11111;
+    	    randy=(x - Math.floor(x))/500;
+    	}
+    
     	var iconFeature = new ol.Feature({
     		  //geometry: new ol.geom.Point(ol.proj.transform([0+ort.lon, 0+ort.lat], 'EPSG:4326', 'EPSG:21781')),
     		  //geometry: new ol.geom.Point(ol.proj.transform([0+ort.lon, 0+ort.lat], 'EPSG:4326', 'EPSG:3857')),
-    		geometry: new ol.geom.Point(ol.proj.transform([+ort.lon, +ort.lat], 'EPSG:4326', $scope.prj)),
+    		  
+    		geometry: new ol.geom.Point(ol.proj.transform([+ort.lon+randx, +ort.lat+randy], 'EPSG:4326', $scope.prj)),
     		
     		  name: ort.name,
     		  id: ort.id,
@@ -110,16 +134,31 @@ app.controller('TestCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootS
     		  
     		});
     	//console.log(ort.lon,+ort.lon);
-    	iconFeature.setStyle(iconStyle);
+    	if (ort.swissname!='fotoquery')
+    	    iconFeature.setStyle(iconStyle);
+    	else
+    	    iconFeature.setStyle(iconStyleB);
+    	
     	vectorSource.addFeature(iconFeature);
     	
     };
     var phot="";
+    var land="";
+    var kanton="";
     if ($scope.photo==1){
 	phot="&photos=1";
     }
+    if ($scope.land!=undefined){
+	land="&land="+$scope.land;
+	phot="&photo=0";
+    }
+    if ($scope.kanton!=undefined){
+	kanton="&kanton="+$scope.kanton;
+	phot="";
+	phot="&photo=0";
+    }
     
-    $http.get($rootScope.ApiUrl + '/?a=orte'+phot, { cache: true }).success(function (data) {
+    $http.get($rootScope.ApiUrl + '/?a=orte'+phot+land+kanton, { cache: true }).success(function (data) {
         //console.log(data);
     	angular.forEach(data, function(value, key) {
     		  //console.log(value.id+" "+value.swissname);

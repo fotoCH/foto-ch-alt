@@ -40,6 +40,8 @@
                     <dd ng-if="photo.img_url" ng-bind-html="photo.img_url | rawHtml" style="word-wrap: break-word;"></dd>
                     <dt ng-if="photo.supp_id">{{spr.supp_id}}</dt>
                     <dd ng-if="photo.supp_id" ng-bind-html="photo.supp_id | rawHtml"></dd>
+                    <dt ng-if="photo.supp_id">ID-Foto</dt>
+                    <dd ng-if="photo.supp_id" ng-bind-html="photo.id | rawHtml"></dd>
                 </dl>
                 <dl ng-if="doComments"><form ng-submit="submit()">
                     <dt>{{spr.name}}</dt>
@@ -54,16 +56,35 @@
                     <dd ng-bind-html="photo.description | rawHtml"></dd>
                     <dt>{{spr.aenderungsvorschlag}}</dt>
                     <dd><textarea ng-model="comment.description"></textarea></dd>
-                    <dt>{{spr.allgemeine_bemerkungen}}</dt>
-                    <dd><textarea ng-model="comment.comments"></textarea></dd>
+                    <dt>{{spr.ort}}</dt>
+                    <dd ng-bind-html="photo.dct_spatial | rawHtml"></dd>
+                    <dt>{{spr.aenderungsvorschlag}}</dt>
+                    <dd><textarea ng-model="comment.ort"></textarea></dd>
                     <dt>{{spr.erstellungsdatum}}</dt>
                     <dd ng-bind-html="photo.created | rawHtml"></dd>
                     <dt>{{spr.aenderungsvorschlag}}</dt>
                     <dd><input ng-model="comment.created" style="width: 100%;"></input></dd>
+                    <dt>{{spr.keywords}}</dt>
+                    <dd ng-bind-html="photo.subject | rawHtml"></dd>
+                    <dt>{{spr.aenderungsvorschlag}}</dt>
+                    <dd><textarea ng-model="comment.subject"></textarea></dd>
+                    <dt>{{spr.allgemeine_bemerkungen}}</dt>
+                    <dd><textarea ng-model="comment.comments"></textarea></dd>
+                    <dt>{{spr.erstellungsdatum}}</dt>
                     <dt ng-if="photo.institution">{{spr.institution}}</dt>
-                    <dd ng-if="photo.institution" ng-bind-html="photo.institution | rawHtml"></dd>
-                    <dt>{{spr.bestand}}</dt>
-                    <dd ng-if="photo.stock" ng-bind-html="photo.stock | rawHtml"></dd>
+		    <dd ng-if="photo.institution"><a ui-sref="institutionDetail( {id: '{{photo.inst_id}}'} )">{{ photo.institution }}</a></dd>
+                    <dt ng-if="photo.stock">{{spr.bestand}}</dt>
+                    <dd ng-if="photo.stock"><a ui-sref="inventoryDetail( {id: '{{photo.stock_id}}'} )">{{ photo.stock }}</a></dd>
+                    <dt ng-if="photo.copy">{{spr.copy}}</dt>
+                    <dd ng-if="photo.copy" ng-bind-html="photo.copy | rawHtml"></dd>
+                    <dt ng-if="photo.medium">{{spr.medium}}</dt>
+                    <dd ng-if="photo.medium" ng-bind-html="photo.medium | rawHtml"></dd>
+                    <dt ng-if="photo.img_url">{{spr.img_url}}</dt>
+                    <dd ng-if="photo.img_url" ng-bind-html="photo.img_url | rawHtml" style="word-wrap: break-word;"></dd>
+                    <dt ng-if="photo.supp_id">{{spr.supp_id}}</dt>
+                    <dd ng-if="photo.supp_id" ng-bind-html="photo.supp_id | rawHtml"></dd>
+                    <dt ng-if="photo.supp_id">ID-Foto</dt>
+                    <dd ng-if="photo.supp_id" ng-bind-html="photo.id | rawHtml"></dd>
                     <dt></dt>
                     <dd><input type="submit" id="submit" value="{{spr.aenderungsvorschlag_speichern}}" /></dd>
                     </form>
