@@ -1,0 +1,30 @@
+.photographer-block {
+    h4 {
+        border-bottom: 1px solid #cccccc;
+        padding-bottom: 15px;
+        padding-right: 30px;
+        margin-bottom: 15px;
+        position: relative;
+
+        > span {
+            position: absolute;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background-size: 100%;
+            top: 0;
+
+            &.gender-m {
+                background-image:url("../img/icons/gender-male.svg");
+            }
+            &.gender-f {
+                background-image:url("../img/icons/gender-female.svg");
+            }
+        }
+    }
+    small {
+        font-size: 11px;
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: 500;
+    }
+}

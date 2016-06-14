@@ -92,15 +92,55 @@
         </div>
     </div>
 
-    <div class="latest-photographer">
+    <div class="photographer-teaser">
         <div class="l-container">
-            <h2>Zuletzt aktualisierte Fotografen</h2>
-            <div>
-                <div class="photographer" ng-repeat="p in recent_photographer">
-                    <h4><a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{p.nachname}}, {{p.vorname}}</a></h4>
-                    <small>{{p.fgeburtsdatum}} {{p.fldatum}}</small>
-                </div>
+            <h2>{{spr.fotographInnen}}</h2>
+            <uib-tabset active="active">
+                <uib-tab index="1" heading="{{spr.latest_changed}}">
+                    <div class="flex">
+                      <div class="photographer-block" ng-repeat="p in recent_photographer">
+                        <h4>
+                            <a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{p.nachname}}, {{p.vorname}}</a>
+                            <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
+                        </h4>
+                        <small ng-bind-html="p.fgeburtsdatum"></small>
+                        <small ng-bind-html="p.fldatum"></small><br />
+                        <small ng-bind-html="p.arbeitsperioden"></small>
+                        <p ng-bind-html="p.bildgattungen"></p>
+                        <p ng-bind-html="p.fotografengattungen"></p>
+                      </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="2" heading="{{spr.most_viewed}}">
+                  <div class="flex">
+                      <div class="photographer-block" ng-repeat="p in mostviewed_photographer">
+                        <h4>
+                            <a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{p.nachname}}, {{p.vorname}}</a>
+                            <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
+                        </h4>
+                        <small ng-bind-html="p.fgeburtsdatum"></small>
+                        <small ng-bind-html="p.fldatum"></small><br />
+                        <small ng-bind-html="p.arbeitsperioden"></small>
+                        <p ng-bind-html="p.bildgattungen"></p>
+                        <p ng-bind-html="p.fotografengattungen"></p>
+                      </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+
+
+    <div class="big-numbers">
+        <div class="l-container">
+            <div class="flex">
+                <count-up-number number="{{statistics.photographer.count}}" title="{{spr.fotographInnen}}"></count-up-number>
+                <count-up-number number="{{statistics.institution.count}}" title="{{spr.institutionen}}"></count-up-number>
+                <count-up-number number="{{statistics.photos.count}}" title="{{spr.photos}}"></count-up-number>
+                <count-up-number number="{{statistics.literature.count}}" title="{{spr.literatur}}"></count-up-number>
             </div>
         </div>
     </div>
+
+    <photo-grid type="random" amount="20"></photo-grid>
 </div>

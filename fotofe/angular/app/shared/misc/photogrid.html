@@ -1,0 +1,5 @@
+<div class="photogrid">
+    <div class="grid">
+        <img ng-repeat="photo in photos" src="{{root}}{{photo.image_path}}" ui-sref="photoDetail( {id: '{{photo.id}}'} )" />
+    </div>
+</div>

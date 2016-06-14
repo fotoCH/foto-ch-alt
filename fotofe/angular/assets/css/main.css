@@ -185,6 +185,9 @@ a:hover {
 .l-header:not(.is-home) {
   background-color: #212121;
 }
+.l-header.is-home {
+  position: absolute;
+}
 @media screen and (min-width: 768px) {
   .l-header {
     height: 60px;
@@ -441,6 +444,22 @@ body.showOverlay:before {
 }
 header:not(.is-home) + .l-main {
   margin-top: 60px;
+}
+h2 {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 400;
+}
+h4 {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.76);
+  font-weight: normal;
+}
+h4 > a {
+  color: rgba(0, 0, 0, 0.76);
+}
+h4 > a:hover {
+  text-decoration: none;
 }
 .l-content__section {
   margin-top: 1em;
@@ -753,33 +772,6 @@ header:not(.is-home) + .l-main {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
-h2 {
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.87);
-  font-weight: 500;
-}
-h4 {
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.76);
-  font-weight: normal;
-}
-h4 > a {
-  color: rgba(0, 0, 0, 0.76);
-}
-h4 > a:hover {
-  text-decoration: none;
-}
-.latest-photographer h2 {
-  margin-top: 50px;
-}
-.latest-photographer .l-container > div {
-  display: flex;
-  justify-content: space-between;
-}
-.latest-photographer .l-container > div .photographer {
-  margin-bottom: 40px;
-  width: 240px;
 }
 /* doesn't seem to exist
 @import "layout/ie-fixes"; */
@@ -2313,4 +2305,120 @@ a.power-search__link {
 }
 .modal-open .modal .modal-footer {
   border-top: none;
+}
+ul.nav-tabs {
+  padding-left: 0px;
+}
+ul.nav-tabs li {
+  border: none;
+  margin-bottom: 0;
+  margin-right: 30px;
+}
+ul.nav-tabs li:hover,
+ul.nav-tabs li:focus {
+  border: none;
+  background-color: transparent;
+}
+ul.nav-tabs li.active {
+  border-bottom: 2px solid #01579b;
+}
+ul.nav-tabs li.active a {
+  color: #01579b;
+  border: none;
+}
+ul.nav-tabs li.active a:hover,
+ul.nav-tabs li.active a:focus {
+  background-color: transparent;
+  border: none;
+  color: #01579b;
+  animation: none;
+}
+ul.nav-tabs li:before {
+  display: none;
+}
+ul.nav-tabs li a {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  padding: 15px 0;
+  margin: 0;
+}
+ul.nav-tabs li a:hover,
+ul.nav-tabs li a:focus {
+  border: none;
+  background-color: transparent;
+  animation: none;
+}
+.tab-pane {
+  margin-top: 30px;
+}
+.photographer-block h4 {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 15px;
+  padding-right: 30px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.photographer-block h4 > span {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-size: 100%;
+  top: 0;
+}
+.photographer-block h4 > span.gender-m {
+  background-image: url("../img/icons/gender-male.svg");
+}
+.photographer-block h4 > span.gender-f {
+  background-image: url("../img/icons/gender-female.svg");
+}
+.photographer-block small {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+.photographer-teaser {
+  margin: 60px 0;
+}
+.photographer-teaser .flex > div {
+  min-width: 200px;
+}
+.big-numbers {
+  padding: 100px 0;
+  background-color: #f0f0f0;
+}
+.photogrid {
+  max-height: 800px;
+  overflow: hidden;
+}
+.photogrid .grid {
+  column-count: 5;
+  column-gap: 0;
+  column-width: 20%;
+}
+.photogrid .grid img {
+  display: inline-block;
+  width: 100%;
+}
+.count-up-number span {
+  display: block;
+}
+.count-up-number span.number {
+  font-size: 58px;
+  color: #333333;
+  font-weight: 500;
+}
+.count-up-number span.label {
+  text-align: left;
+  font-size: 18px;
+  color: #333333;
+  padding: 0;
+  font-weight: 400;
 }

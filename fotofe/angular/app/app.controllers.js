@@ -202,16 +202,44 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
         $state.go('search', {query: $scope.powersearch});
     };
 
+    $scope.getGenderClass = function(gender) {
+        if(gender=='m') {
+            return 'gender-m';
+        } else if(gender == 'f') {
+            return 'gender-f';
+        }
+        return '';
+    }
+
     // recent updated
     $scope.recent_photographer = {};
     $scope.recentAmount = 5;
     function recents() {
         $http.get($rootScope.ApiUrl + '/?recent=' + $scope.recentAmount + '&nocache=true').success(function (data) {
             $scope.recent_photographer = data.res;
-            console.log($scope.recent_photographer);
         });
     }
     recents();
+
+    // most viewed
+    $scope.mostviewed_photographer = {};
+    function mostviewed() {
+        $http.get($rootScope.ApiUrl + '/?mostviewed=' + $scope.recentAmount + '&nocache=true').success(function (data) {
+            $scope.mostviewed_photographer = data.res;
+        });
+    }
+    mostviewed();
+
+
+    $scope.statistics = {};
+    function statistics() {
+        $http.get($rootScope.ApiUrl + '/?a=statistics').success(function (data) {
+            $scope.statistics = data;
+        });
+    }
+    statistics();
+
+
 }]);
 
 app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {

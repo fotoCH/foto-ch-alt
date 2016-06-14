@@ -26,8 +26,15 @@ app.config(function($provide) {
 });
 
 app.config(function($provide) {
-  $provide.decorator('uibModalBackdropDirective', function($delegate) {
-    $delegate[0].templateUrl = "app/components/bootstrap/modal/backdrop.html";
+  $provide.decorator('uibTabDirective', function($delegate) {
+    $delegate[0].templateUrl = "app/components/bootstrap/tabs/tab.html";
+    return $delegate;
+  });
+});
+
+app.config(function($provide) {
+  $provide.decorator('uibTabsetDirective', function($delegate) {
+    $delegate[0].templateUrl = "app/components/bootstrap/tabs/tabset.html";
     return $delegate;
   });
 });

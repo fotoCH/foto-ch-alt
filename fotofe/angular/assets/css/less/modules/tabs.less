@@ -1,0 +1,52 @@
+ul.nav-tabs {
+    padding-left: 0px;
+    li {
+        border: none;
+        margin-bottom: 0;
+        margin-right: 30px;
+
+        &:hover, &:focus {
+            border: none;
+            background-color: transparent;
+        }
+
+        &.active {
+            border-bottom: 2px solid @colorActionPrimary;
+
+            a {
+                color: @colorActionPrimary;
+                border: none;
+
+                &:hover, &:focus {
+                    background-color: transparent;
+                    border: none;
+                    color: @colorActionPrimary;
+                    animation: none;
+                }
+            }
+        }
+
+        &:before {
+            display: none;
+        }
+
+        a {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            background-color: transparent;
+            padding: 15px 0;
+            margin: 0;
+
+            &:hover, &:focus {
+                border: none;
+                background-color: transparent;
+                animation: none;
+            }
+        }
+    }
+}
+.tab-pane {
+    margin-top: 30px;
+}
