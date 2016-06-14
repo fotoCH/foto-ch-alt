@@ -3,8 +3,8 @@
  */
 
 app.controller('MainCtrl', 
-    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', 
-    function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal) {
+    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', 
+    function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies) {
     // console.log("Main Controller reporting for duty.");
     $rootScope.textualSearch = '';
 
@@ -32,6 +32,7 @@ app.controller('MainCtrl',
 
     $scope.setLanguage = function (lang) {
         $rootScope.lang = lang;
+        $cookies.put('lang', lang);
         $rootScope.isLangSwitchOpen = false;    // Close the language switch after selection of new language
         $rootScope.isMenuOpen = false;            // Close the mobile menu after selection of new language
         var hosta = $location.$$host.split('.');
@@ -51,6 +52,8 @@ app.controller('MainCtrl',
         else if ($state.includes('home')) {
             $rootScope.reloadHome();
         }
+
+        $state.reload();
     };
 
     $scope.getLclass = function (lang) {

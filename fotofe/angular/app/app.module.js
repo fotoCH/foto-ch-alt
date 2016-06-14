@@ -11,14 +11,20 @@ var app = angular.module('fotochWebApp', [
     'ui.bootstrap',
     'ui.bootstrap.modal',
     'ui.bootstrap.popover',
-    'ngSanitize'
+    'ngSanitize',
+    'ngCookies'
 ]);
 
-app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory) {
+app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $cookies) {
     $rootScope.user = '';
     $rootScope.userLevel = '';
     $rootScope.authToken = '';
-    $rootScope.lang = 'de';
+    if(! $cookies.get('lang')) {
+        $rootScope.lang = 'de';
+        $cookies.put('lang', 'de');
+    } else {
+        $rootScope.lang = $cookies.get('lang');
+    }
     $rootScope.imageRootUrl = 'https://www2.foto-ch.ch/';
     $rootScope.filterCache = $cacheFactory('filterCache');
 
@@ -30,10 +36,10 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory) {
     }
     
     // Development Server API URL
-    //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
+    $rootScope.ApiUrl = 'http://localhost/fotoch/api';
 
     // Production Server API URL
-    $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
+    //$rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
 
     
     var token=window.sessionStorage.authToken;

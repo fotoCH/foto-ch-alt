@@ -11,13 +11,18 @@ app.controller('CountUpNumberCtrl', [
         $scope.num = 0;
         $scope.id = "counter-" + new Date().getTime();
 
+        $rootScope.$on('$stateChangeSuccess', function () {
+            $scope.countUp();
+        });
+
         $scope.countUp = function() {
             var steps = 40;
             var timeout = 50;
-            var intv = Math.floor($scope.number / steps);
+            var intv = Math.floor(parseInt($scope.number) / steps);
 
             var running = setInterval(function() {
                 if($scope.num >= $scope.number) {
+                    $scope.counted = true;
                     clearInterval(running);
                 }
                 if($scope.num + intv >= $scope.number) {
@@ -35,6 +40,9 @@ app.controller('CountUpNumberCtrl', [
                 return;
             }
             var element = document.getElementById($scope.id);
+            if(typeof(element) == 'undefined' || element == null) {
+                return;
+            }
             if(isElementInViewport(element)) {
                 $scope.countUp();
             }
@@ -50,7 +58,6 @@ app.directive('countUpNumber', function () {
             title: '@',
             number: '@'
         },
-        transclude: true,
         templateUrl: 'app/shared/misc/countup.html',
         controller: 'CountUpNumberCtrl'
     }

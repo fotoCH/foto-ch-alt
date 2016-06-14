@@ -19,6 +19,11 @@ app.controller('TypeTableCtrl', [
         $scope.textsearch_timeout = false;
         $scope.textsearch_focus = false;
         $scope.translations = $rootScope.translations;
+        setTimeout(function() {
+            console.log($rootScope.translations);
+            $scope.translations = $rootScope.translations;
+            $scope.setHeadings();
+        }, 500);
         $scope.filtering = true;
 
         loadData();
@@ -33,6 +38,7 @@ app.controller('TypeTableCtrl', [
             } else {
                 var sortings = $scope.sortings.split(", ");
                 var index = 0;
+                $scope.tableHead = [];
                 for(var key in $scope.fields_obj) {
                     $scope.tableHead.push({
                         key : key,

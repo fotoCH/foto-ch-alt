@@ -1507,6 +1507,7 @@ div.fancybox-overlay {
 }
 .lang-fr .logo-header a {
   background: url('../img/logo-fotoch-fr.svg') no-repeat;
+  background-size: 100%;
 }
 @media screen and (min-width: 768px) {
   .logo-header {
@@ -2406,6 +2407,9 @@ ul.nav-tabs li a:focus {
 .photogrid .grid img {
   display: inline-block;
   width: 100%;
+}
+.count-up-number {
+  width: 240px;
 }
 .count-up-number span {
   display: block;
