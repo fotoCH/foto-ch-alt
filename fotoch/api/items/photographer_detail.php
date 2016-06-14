@@ -260,6 +260,14 @@ while($fetch=@mysql_fetch_assoc($result)){
 		$photo[]=$result;
 	}
 	$out['photos']=$photo;
+
+	// update visits
+	if(is_numeric($id)) {
+		$updateSQL = "UPDATE fotografen SET visits = visits + 1 WHERE id=".$id;
+		// suppress errors from this update.
+		@mysql_query($updateSQL);
+	}
+
 }//while
 	jsonout($out);
 /*

@@ -49,7 +49,8 @@ $actions=array(
     "search",
     "orte",
     "perioden", 
-    "streamsearch");
+    "streamsearch",
+    "statistics");
 if ($action=='fotograph') $action='photographer';
 if (!in_array($action,$actions)) $action='photographer';  // default Startseite
 
