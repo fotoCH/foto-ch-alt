@@ -4,7 +4,6 @@ $anf = getClean('anf');
 // alph. suche
 // if submit is empty -> listenansicht
 if ($id == '') {
-	
 	// do query
 	$issearch = 2;
 	if (auth_level ( USER_GUEST_READER )) {
@@ -14,11 +13,10 @@ if ($id == '') {
 	}
 	if (!$anf){
 	    if (!$_GET['nocache']){
-	    //$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set, fotografen.kanton FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname < 'Z') ORDER BY namen.nachname Asc, namen.vorname Asc";
-		jsonfile('cache/photographer.json');
-		exit;
+    		jsonfile('cache/photographer.json');
+    		exit;
 	    } else {
-		$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set, fotografen.kanton FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname < 'Z') ORDER BY namen.nachname Asc, namen.vorname Asc";
+		  $sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, fotografen.fotografengattungen_set, fotografen.bildgattungen_set, fotografen.kanton FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname < 'Z') ORDER BY namen.nachname Asc, namen.vorname Asc";
 	    }
 	    
 	}

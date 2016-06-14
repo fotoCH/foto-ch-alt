@@ -260,14 +260,13 @@ class StreamedSearch {
             $sql.= ')';
         }
         if($level >= 1) {
-            $sql.= " AND fotografen.unpubliziert = 0";
+            //$sql.= " AND fotografen.unpubliziert = 0";
         }
         $sql.= " LIMIT ".$this->limitResults;
 
         if($this->sorting) {
             $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
-
 
         $result = mysql_query($sql);
         $this->results['literature_results'] = array();
@@ -367,7 +366,6 @@ class StreamedSearch {
             $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
 
-
         $result = mysql_query($sql);
         $this->results['institution_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
@@ -408,7 +406,7 @@ class StreamedSearch {
             }
             $sql.= ')';
         }
-        $sql.= " AND bestand.gesperrt = 0";
+        $sql.= " AND bestand.gesperrt = 0 AND institution.gesperrt = 0";
         $sql.= " LIMIT ".$this->limitResults;
 
         if($this->sorting) {
