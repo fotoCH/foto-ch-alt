@@ -41,7 +41,7 @@ class StreamedSearch {
         'stock' => 2,
         'institution' => 2,
         'exhibition' => 1,
-        'literature' => 2,
+        'literature' => 1,
         'photos' => 2
     );
 
@@ -226,13 +226,13 @@ class StreamedSearch {
             $sql.= "SELECT * FROM (";
         }
         $sql.="SELECT DISTINCT ".implode(", ", $this->literatureFields())." FROM literatur";
-        if($level >= 1) {
+        /*if($level >= 1) {
             $sql.= " LEFT JOIN literatur_fotograf on literatur_fotograf.literatur_id = literatur.id";
             $sql.= " INNER JOIN fotografen on literatur_fotograf.fotografen_id = fotografen.id";
             $sql.= " LEFT JOIN literatur_institution on literatur_institution.literatur_id = literatur.id";
             $sql.= " LEFT JOIN institution on literatur_institution.institution_id = institution.id";
             $sql.= " RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
-        }
+        }*/
 
         $q = explode(" ", $this->query);
         $first = true;
@@ -251,12 +251,12 @@ class StreamedSearch {
                 $sql.= " OR literatur.verfasser_vorname LIKE '%".$term."%'";
                 $sql.= " OR literatur.jahr LIKE '%".$term."%'";
             }
-            if($level >= 1) {
+            /*if($level >= 1) {
                 $sql.= " OR namen.vorname LIKE '%".$term."%'";
                 $sql.= " OR namen.nachname LIKE '%".$term."%'";
                 $sql.= " OR institution.name".$this->lang." LIKE '%".$term."%'";
                 $sql.= " OR institution.abkuerzung".$this->lang." LIKE '%".$term."%'";
-            }
+            }*/
             $sql.= ')';
         }
         if($level >= 1) {
