@@ -19,6 +19,7 @@ class Statistics {
     private function photographer() {
         $this->stats['photographer'] = array();
         $this->stats['photographer']['count'] = $this->count('fotografen', 'WHERE unpubliziert = 0');
+        $this->stats['photographer']['biographies'] = $this->count('fotografen', 'WHERE werdegang <> ""');
     }
 
     private function exhibition() {
