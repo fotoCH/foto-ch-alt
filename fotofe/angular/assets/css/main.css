@@ -2123,6 +2123,9 @@ a.power-search__link {
 .typetable .table table tbody tr:hover {
   background-color: rgba(0, 0, 0, 0.025);
 }
+.typetable .table table tr {
+  cursor: pointer;
+}
 .typetable .table table tr th {
   height: 60px;
   font-size: 16px;
@@ -2207,10 +2210,14 @@ a.power-search__link {
   width: 100%;
 }
 .typetable .grid > div img {
+  cursor: pointer;
   max-width: 100%;
 }
 .modal {
-  transition: 300ms;
+  transition: none !important;
+}
+.modal .modal-dialog {
+  transition: none;
 }
 .modal .modal-header,
 .modal .modal-body {
@@ -2221,6 +2228,46 @@ a.power-search__link {
   position: absolute;
   right: 0;
   top: 0;
+}
+.modal a.next,
+.modal a.prev {
+  display: block;
+  position: absolute;
+  top: 150px;
+  padding: 0 10px;
+  width: 30px;
+}
+.modal a.next:hover:before,
+.modal a.prev:hover:before,
+.modal a.next:hover:after,
+.modal a.prev:hover:after {
+  background-color: #01579b;
+}
+.modal a.next:before,
+.modal a.prev:before,
+.modal a.next:after,
+.modal a.prev:after {
+  transition: 200ms;
+  content: '';
+  display: block;
+  height: 30px;
+  width: 5px;
+  background-color: #FFF;
+  transform: rotate(45deg);
+}
+.modal a.next:after,
+.modal a.prev:after {
+  transform: rotate(-45deg);
+  margin-top: -12px;
+}
+.modal a.next {
+  transition: 300ms;
+  right: -40px;
+  transform: rotate(180deg);
+}
+.modal a.prev {
+  transition: 300ms;
+  left: -40px;
 }
 .modal .left {
   flex-basis: 70%;

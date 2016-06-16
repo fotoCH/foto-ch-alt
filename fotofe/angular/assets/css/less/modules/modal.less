@@ -1,5 +1,9 @@
 .modal {
-    transition: 300ms;
+
+    transition: none !important;
+    .modal-dialog {
+        transition: none;
+    }
 
     .modal-header, .modal-body {
         display: flex;
@@ -10,6 +14,41 @@
         position: absolute;
         right: 0;
         top: 0;
+    }
+
+    a.next, a.prev {
+        display: block;
+        position: absolute;
+        top: 150px;
+        padding: 0 10px;
+        width: 30px;
+        &:hover {
+            &:before, &:after {
+                background-color: @colorActionPrimary;
+            }
+        }
+        &:before, &:after {
+            transition: 200ms;
+            content: '';
+            display: block;
+            height: 30px;
+            width: 5px;
+            background-color: #FFF;
+            transform:rotate(45deg);
+        }
+        &:after {
+            transform:rotate(-45deg);
+            margin-top:-12px;
+        }
+    }
+    a.next {
+        transition: 300ms;
+        right: -40px;
+        transform: rotate(180deg);
+    }
+    a.prev {
+        transition: 300ms;
+        left: -40px;
     }
 
     .left {

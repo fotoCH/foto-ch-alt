@@ -15,6 +15,25 @@ app.controller('DetailController', [
             $uibModalStack.dismissAll();
         }
 
+        $scope.carousel = false;
+        $scope.prev = false;
+        $scope.next = false;
+        $scope.type = params.type;
+        $scope.id = params.id;
+
+        if(typeof(params.carousel) !== 'undefined') {
+            $scope.carousel = params.carousel;
+
+            var requiredIndex = $scope.carousel.indexOf(params.id);
+            if(requiredIndex > 0) {
+                $scope.prev = $scope.carousel[requiredIndex-1];
+            }
+            if(requiredIndex < $scope.carousel.length) {
+                $scope.next = $scope.carousel[requiredIndex+1];
+            }
+        }
+        console.log($scope.carousel);
+
         switch(params.type) {
             case 'photo':
                 DetailService.getPhoto(params.id).then(function(photo) {

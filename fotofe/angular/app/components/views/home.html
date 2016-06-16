@@ -31,7 +31,7 @@
                             <h5>{{spr.photographers}}</h5>
                             <ul>
                                 <li ng-repeat="photographer in result.photographer_results | limitTo: limit">
-                                    <a ng-click="$root.detail(photographer.id, 'photographer')">
+                                    <a ng-click="$root.detail(photographer.id, 'photographer', result.photographer_ids)">
                                     {{photographer.nachname}} {{photographer.vorname}} {{photographer.namenszusatz}}
                                     </a>
                                 </li>
@@ -41,7 +41,7 @@
                             <h5>{{spr.bestaende2}}</h5>
                             <ul>
                                 <li ng-repeat="stock in result.stock_results | limitTo: limit">
-                                    <a ng-click="$root.detail(stock.id, 'inventory')">
+                                    <a ng-click="$root.detail(stock.id, 'inventory', result.stock_ids)">
                                     {{stock.name}}
                                     </a>
                                 </li>
@@ -51,7 +51,8 @@
                             <h5>{{spr.institution}}</h5>
                             <ul>
                                 <li ng-repeat="institution in result.institution_results | limitTo: limit">
-                                    <a ng-click="$root.detail(institution.id, 'institution')" ng-if="institution.name">
+                                    <a ng-click="$root.detail(institution.id, 'institution', result.institution_ids)"
+                                        ng-if="institution.name">
                                     {{institution.name}}
                                     </a>
                                 </li>
@@ -61,7 +62,7 @@
                             <h5>{{spr.ausstellung}}</h5>
                             <ul>
                                 <li ng-repeat="exhibition in result.exhibition_results | limitTo: limit">
-                                    <a ng-click="$root.detail(exhibition.id, 'exhibition')">
+                                    <a ng-click="$root.detail(exhibition.id, 'exhibition', result.exhibition_ids)">
                                     {{exhibition.titel}} - {{exhibition.jahr}}, {{exhibition.ort}}
                                     </a>
                                 </li>
@@ -71,7 +72,7 @@
                             <h5>{{spr.literatur}}</h5>
                             <ul>
                                 <li ng-repeat="literature in result.literature_results | limitTo: limit">
-                                    <a ng-click="$root.detail(literature.id, 'literature')">
+                                    <a ng-click="$root.detail(literature.id, 'literature', result.literature_ids)">
                                     {{literature.titel}} - {{literature.jahr}}, {{literature.ort}}
                                     </a>
                                 </li>
@@ -81,7 +82,7 @@
                     <div class="imagery">
                         <ul>
                             <li ng-repeat="photos in result.photos_results | limitTo: photolimit">
-                                <a ng-click="$root.detail(photos.id, 'photo')">
+                                <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)">
                                     <img src="{{ imageRootUrl }}{{photos.image_path}}" width="100%" />
                                 </a>
                             </li>

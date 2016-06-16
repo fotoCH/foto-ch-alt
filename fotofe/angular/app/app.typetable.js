@@ -18,6 +18,7 @@ app.controller('TypeTableCtrl', [
         $scope.searchquery = $scope.textquery;
         $scope.textsearch_timeout = false;
         $scope.textsearch_focus = false;
+        $scope.carousel = [];
         $scope.translations = $rootScope.translations;
         setTimeout(function() {
             $scope.translations = $rootScope.translations;
@@ -157,7 +158,11 @@ app.controller('TypeTableCtrl', [
             var regex = /({([^}]+)+})/g;
             var match;
 
+            $scope.carousel = [];
             for(var rowNo = 0; rowNo < data[$scope.type+'_results'].length; rowNo++) {
+                // fill all ids in the carousel array for the detail overlay
+                $scope.carousel.push(data[$scope.type+'_results'][rowNo].id);
+
                 var completeRow = data[$scope.type+'_results'][rowNo];
                 var rowId = completeRow.id;
                 var row = [];
@@ -210,7 +215,10 @@ app.controller('TypeTableCtrl', [
                         row.push(value);
                     }
                 }
-                rows.push({id: rowId, dataset: row});
+                rows.push({
+                    id: rowId, 
+                    dataset: row
+                });
             }
             $scope.tableRows = rows;
         }

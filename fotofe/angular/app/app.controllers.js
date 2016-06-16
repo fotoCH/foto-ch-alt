@@ -30,7 +30,7 @@ app.controller('MainCtrl',
         $scope.title = title;
     }
 
-    $rootScope.detail = function(id, type) {
+    $rootScope.detail = function(id, type, carousel) {
         $uibModalStack.dismissAll();
         $rootScope.openNew = false;
         
@@ -43,9 +43,14 @@ app.controller('MainCtrl',
                     controller: "DetailController",
                     templateUrl: 'app/shared/content/detail.html',
                     size: 'lg',
+                    animation: false,
                     resolve: {
                         params : function() {
-                            return {id: id, type: type};
+                            return {
+                                id: id, 
+                                type: type,
+                                carousel: carousel
+                            };
                         }
                     }
                 }).result.then(function() {
@@ -425,6 +430,18 @@ app.controller('homeSearch', [
         $scope.limit = 8;
         $scope.photolimit = 20;
 
+        $scope.setIdArrays = function() {
+            var parts = ['exhibition', 'institution', 'literature', 'photographer', 'photos', 'stock'];
+            for(var index = 0; index < parts.length; index++) {
+                $scope.result[parts[index]+'_ids'] = [];
+                if(typeof($scope.result[parts[index]+'_results']) !== 'undefined') { 
+                    for(var item = 0; item < $scope.result[parts[index]+'_results'].length; item++ ) {
+                        $scope.result[parts[index]+'_ids'].push($scope.result[parts[index]+'_results'][item].id);
+                    }
+                }
+            }
+        }
+
         $scope.change = function(user) {
 
             $scope.user = user;
@@ -455,6 +472,7 @@ app.controller('homeSearch', [
                             newresult = newresult[newresult.length-1];
                             $scope.$apply(function(){
                                 $scope.result = newresult;
+                                $scope.setIdArrays();
                             });
                         } catch (e) {
                             console.log("Invalid response: " + event.currentTarget.responseText);

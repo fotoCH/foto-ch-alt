@@ -10,4 +10,6 @@
 <div class="modal-body" ng-include="bodytemplate">
 </div>
 <div class="modal-footer">
+    <a class="prev" ng-if="prev" ng-click="$root.detail(prev, type, carousel)"></a>
+    <a class="next" ng-if="next" ng-click="$root.detail(next, type, carousel)"></a>
 </div>
