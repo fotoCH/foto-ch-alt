@@ -31,7 +31,7 @@
                             <h5>{{spr.photographers}}</h5>
                             <ul>
                                 <li ng-repeat="photographer in result.photographer_results | limitTo: limit">
-                                    <a ui-sref="photographerDetail( {id: '{{photographer.id}}'} )">
+                                    <a ng-click="$root.detail(photographer.id, 'photographer')">
                                     {{photographer.nachname}} {{photographer.vorname}} {{photographer.namenszusatz}}
                                     </a>
                                 </li>
@@ -41,7 +41,7 @@
                             <h5>{{spr.bestaende2}}</h5>
                             <ul>
                                 <li ng-repeat="stock in result.stock_results | limitTo: limit">
-                                    <a ui-sref="inventoryDetail( {id: '{{stock.id}}'} )">
+                                    <a ng-click="$root.detail(stock.id, 'inventory')">
                                     {{stock.name}}
                                     </a>
                                 </li>
@@ -51,7 +51,7 @@
                             <h5>{{spr.institution}}</h5>
                             <ul>
                                 <li ng-repeat="institution in result.institution_results | limitTo: limit">
-                                    <a ui-sref="institutionDetail( {id: '{{institution.id}}'} )" ng-if="institution.name">
+                                    <a ng-click="$root.detail(institution.id, 'institution')" ng-if="institution.name">
                                     {{institution.name}}
                                     </a>
                                 </li>
@@ -61,7 +61,7 @@
                             <h5>{{spr.ausstellung}}</h5>
                             <ul>
                                 <li ng-repeat="exhibition in result.exhibition_results | limitTo: limit">
-                                    <a ui-sref="exhibitionDetail( {id: '{{exhibition.id}}'} )">
+                                    <a ng-click="$root.detail(exhibition.id, 'exhibition')">
                                     {{exhibition.titel}} - {{exhibition.jahr}}, {{exhibition.ort}}
                                     </a>
                                 </li>
@@ -71,7 +71,7 @@
                             <h5>{{spr.literatur}}</h5>
                             <ul>
                                 <li ng-repeat="literature in result.literature_results | limitTo: limit">
-                                    <a ui-sref="literaturDetail( {id: '{{literature.id}}'} )">
+                                    <a ng-click="$root.detail(literature.id, 'literature')">
                                     {{literature.titel}} - {{literature.jahr}}, {{literature.ort}}
                                     </a>
                                 </li>
@@ -81,7 +81,7 @@
                     <div class="imagery">
                         <ul>
                             <li ng-repeat="photos in result.photos_results | limitTo: photolimit">
-                                <a ui-sref="photoDetail( {id: '{{photos.id}}'} )">
+                                <a ng-click="$root.detail(photos.id, 'photo')">
                                     <img src="{{ imageRootUrl }}{{photos.image_path}}" width="100%" />
                                 </a>
                             </li>
@@ -100,7 +100,7 @@
                     <div class="flex">
                       <div class="photographer-block" ng-repeat="p in recent_photographer">
                         <h4>
-                            <a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{p.nachname}}, {{p.vorname}}</a>
+                            <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}, {{p.vorname}}</a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
                         <small ng-bind-html="p.fgeburtsdatum"></small>
@@ -115,7 +115,7 @@
                   <div class="flex">
                       <div class="photographer-block" ng-repeat="p in mostviewed_photographer">
                         <h4>
-                            <a ui-sref="photographerDetail( {id: '{{p.id}}'} )">{{p.nachname}}, {{p.vorname}}</a>
+                            <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}, {{p.vorname}}</a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
                         <small ng-bind-html="p.fgeburtsdatum"></small>
@@ -135,6 +135,7 @@
         <div class="l-container">
             <div class="flex">
                 <count-up-number number="{{statistics.photographer.count}}" title="{{spr.fotographInnen}}"></count-up-number>
+                <count-up-number number="{{statistics.photographer.biographies}}" title="{{spr.biographies}}"></count-up-number>
                 <count-up-number number="{{statistics.institution.count}}" title="{{spr.institutionen}}"></count-up-number>
                 <count-up-number number="{{statistics.photos.count}}" title="{{spr.photos}}"></count-up-number>
                 <count-up-number number="{{statistics.literature.count}}" title="{{spr.literatur}}"></count-up-number>

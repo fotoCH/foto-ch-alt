@@ -3,8 +3,8 @@
  */
 
 app.controller('MainCtrl', 
-    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', 
-    function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies) {
+    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', '$window', '$uibModalStack',
+    function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies, $window, $uibModalStack) {
     // console.log("Main Controller reporting for duty.");
     $rootScope.textualSearch = '';
 
@@ -15,10 +15,69 @@ app.controller('MainCtrl',
         });
     }
 
+    $rootScope.currentDetail = '';
+    $rootScope.$on('$locationChangeSuccess', function () {
+        if($location.hash().indexOf('detail') >= 0) {
+            checkHashForModal();
+        } else {
+            $uibModalStack.dismissAll();
+            $rootScope.currentDetail = '';
+        }
+    });
+
     $scope.title =  'fotoCH';
     $rootScope.setTitle = function(title) {
         $scope.title = title;
     }
+
+    $rootScope.detail = function(id, type) {
+        $uibModalStack.dismissAll();
+        $rootScope.openNew = false;
+        
+        if($rootScope.currentDetail != 'detail='+id+'&type='+type) {
+            $rootScope.openNew = true;
+            $rootScope.currentDetail = 'detail='+id+'&type='+type;
+            $location.hash('detail='+id+'&type='+type);
+            setTimeout(function() {
+                $rootScope.detailModal = $uibModal.open({
+                    controller: "DetailController",
+                    templateUrl: 'app/shared/content/detail.html',
+                    size: 'lg',
+                    resolve: {
+                        params : function() {
+                            return {id: id, type: type};
+                        }
+                    }
+                }).result.then(function() {
+                }, function() {
+                    if(!$rootScope.openNew) {
+                        $location.hash('');
+                        $rootScope.currentDetail = '';
+                    }
+                });
+            }, 300);
+        }
+    }
+
+    function checkHashForModal() {
+        var hash = $location.hash();
+        hash = hash.split('&');
+        if(hash.length > 1) {
+            var id = 0;
+            var type = 'unknown';
+            for(index = 0; index < hash.length; index++) {
+                var split = hash[index].split('=');
+                if(index == 0 && split[0] == 'detail') {
+                    id = split[1];
+                }
+                if(index == 1 && split[0] == 'type') {
+                    type = split[1];
+                }
+            }
+            $rootScope.detail(id, type);
+        }
+    }
+    checkHashForModal();
 
     loadTranslation();
 
@@ -112,19 +171,7 @@ app.controller('InstitutionCtrl', [
     '$filter',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $uibModalStack) {
-        $uibModalStack.dismissAll();
-
         $rootScope.setTitle('fotoCH - Institutionen');
-        $scope.translations = $rootScope.translations;
-
-        var id = $stateParams.id;
-
-        if(id) {
-            $http.get($rootScope.ApiUrl + '/?a=institution&id=' + id).success(function (data) {
-                $scope.detail = data;
-                $scope.list = null;
-            });
-        }
     }
 ]);
 
@@ -137,19 +184,7 @@ app.controller('InventoryCtrl', [
     '$rootScope',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $uibModalStack.dismissAll();
-
         $rootScope.setTitle('fotoCH - Bestände');
-        $scope.translations = $rootScope.translations;
-
-        var id = $stateParams.id;
-        var anf = $stateParams.anf;
-        if(id) {
-            $http.get($rootScope.ApiUrl + '/?a=inventory&id=' + id).success(function (data) {
-                console.log(data);
-                $scope.detail = data;
-            });
-        }
     }
 ]);
 
@@ -162,7 +197,6 @@ app.controller('StaticPageCtrl', [
     '$rootScope',
     '$uibModalStack', 
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $uibModalStack.dismissAll();
 
         function loadContent() {
             $http.get($rootScope.ApiUrl + '/?a=pages&lang=' + $rootScope.lang).success(function (data) {
@@ -175,6 +209,67 @@ app.controller('StaticPageCtrl', [
         $rootScope.reloadPages = function () {
             loadContent();
         };
+    }
+]);
+
+app.controller('ExhibitionCtrl', [
+    '$scope',
+    '$http',
+    '$location',
+    '$state',
+    '$stateParams',
+    '$rootScope',
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+        $rootScope.setTitle('fotoCH - Fotografie Ausstelungen in der Schweiz');
+    }
+]);
+
+app.controller('PhotographerCtrl', [
+    '$scope',
+    '$http',
+    '$location',
+    '$state',
+    '$stateParams',
+    '$rootScope',
+    '$filter',
+    '$timeout',
+    '$q',
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack) {
+        $rootScope.setTitle('fotoCH - Fotografen');
+    }
+]);
+
+app.controller('PhotoCtrl', [
+    '$scope',
+    '$http',
+    '$state',
+    '$stateParams',
+    '$location',
+    '$rootScope',
+    '$filter',
+    '$cacheFactory',
+    '$timeout', 
+    '$uibModalStack',
+    function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack) {
+        $rootScope.setTitle('fotoCH - Fotos Schweiz');
+    }
+]);
+
+/** Litarature **/
+app.controller('LiteraturCtrl', [
+    '$scope',
+    '$http', 
+    '$location', 
+    '$state', 
+    '$stateParams', 
+    '$rootScope', 
+    '$uibModalStack',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+
+        $rootScope.setTitle('fotoCH - Literatur zur Schweizer Fotografie');
+
     }
 ]);
 
@@ -245,42 +340,6 @@ app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$statePar
 
 }]);
 
-app.controller('PowersearchCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
-
-    $scope.limit = 10;
-
-    function search(query) {
-        $http.get($rootScope.ApiUrl + '/?a=search&query=' + query).success(function (data) {
-            $scope.result = data;
-            $scope.powersearch = query;
-        });
-    }
-
-    $scope.submitForm = function () {
-        $state.go('search', {query: $scope.powersearch});
-    }
-
-    // open and close result boxes
-    $scope.animateBox = function (e) {
-        var element = jQuery(e.currentTarget);
-
-        var parentHeight = element.parent().prop('scrollHeight');
-
-        if (element.hasClass('closed')) {
-            element.parent().animate({height: parentHeight}, 200);
-        } else {
-            element.parent().animate({height: element.outerHeight(true)}, 200);
-        }
-        element.toggleClass('closed');
-
-    }
-
-    // if query is given, then search
-    if ($stateParams.query) {
-        search($stateParams.query);
-    }
-}]);
-
 app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', function ($scope, $http, $state, $stateParams, $rootScope, $window) {
     // console.log("Login Controller reporting for duty.");
     // console.log($scope);
@@ -320,31 +379,6 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
     }
 }]);
 
-app.controller('ExhibitionCtrl', [
-    '$scope',
-    '$http',
-    '$location',
-    '$state',
-    '$stateParams',
-    '$rootScope',
-    '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $uibModalStack.dismissAll();
-
-        $rootScope.setTitle('fotoCH - Fotografie Ausstelungen in der Schweiz');
-        $scope.translations = $rootScope.translations;
-
-        var id = $stateParams.id
-
-        if(id) {
-            $http.get($rootScope.ApiUrl + '/?a=exhibition&id=' + id).success(function (data) {
-                $scope.detail = data;
-            });
-        }
-
-    }
-]);
-
 // Controller for the contact form on the contact form
 app.controller('contactFormCtrl', function ($scope, $http) {
     // console.log("Contact Form Controller reporting for duty.")
@@ -372,86 +406,6 @@ app.controller('contactFormCtrl', function ($scope, $http) {
             });
     };
 });
-
-app.controller('PhotographerCtrl', [
-    '$scope',
-    '$http',
-    '$location',
-    '$state',
-    '$stateParams',
-    '$rootScope',
-    '$filter',
-    '$timeout',
-    '$q',
-    '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack) {
-        $uibModalStack.dismissAll();
-
-        $rootScope.setTitle('fotoCH - Fotografen');
-
-        var id = $stateParams.id;
-        $scope.translations = $rootScope.translations;
-
-        if (id) {
-            /**
-             *  detailpage
-             */
-            $http.get($rootScope.ApiUrl + '/?id=' + id).success(function (data) {
-                $scope.readMoreLimit = 50;
-                $scope.detail = data;
-                $scope.list = null;
-            });
-        }
-    }
-]);
-
-app.controller('PhotoCtrl', [
-    '$scope',
-    '$http',
-    '$state',
-    '$stateParams',
-    '$location',
-    '$rootScope',
-    '$filter',
-    '$cacheFactory',
-    '$timeout', 
-    '$uibModalStack',
-    function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack) {
-        $uibModalStack.dismissAll();
-
-        $rootScope.setTitle('fotoCH - Fotos Schweiz');
-
-        var id = $stateParams.id;
-
-        if (id) {
-            /*
-             Detailpage
-             */
-            $scope.doComments = false;
-            $http.get($rootScope.ApiUrl + '/?a=photo&id=' + id).success(function (data) {
-                $scope.photo = data;
-                    
-                if (parseInt(data.inst_id)==$rootScope.instComment){
-                    if (data.comment){
-                        $scope.comment=data.comment;
-                    } else {
-                        $scope.comment={name: 'Fehler, beim Laden der Kommentare, das sollte nicht passieren...'};
-                    }
-
-                    $scope.doComments = true;
-
-                    $scope.submit = function () {
-                        console.log($scope.comment);
-                        $http.post($rootScope.ApiUrl + '/?a=photo&id=' + id, $scope.comment).success(function (data) {
-                           //console.log(data);
-                        });
-                        return;
-                    }
-                }
-            });
-        }
-    }
-]);
 
 app.controller('homeSearch', [
     '$scope',
@@ -528,40 +482,3 @@ app.controller('homeSearch', [
 
     }
 ]);
-
-/** Litarature **/
-app.controller('LiteraturCtrl', [
-    '$scope',
-    '$http', 
-    '$location', 
-    '$state', 
-    '$stateParams', 
-    '$rootScope', 
-    '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        // close all open modals
-        $uibModalStack.dismissAll();
-
-        $rootScope.setTitle('fotoCH - Literatur zur Schweizer Fotografie');
-        $scope.translations = $rootScope.translations;
-        var id = $stateParams.id;
-
-        // detail
-        if(id) {
-            $http.get($rootScope.ApiUrl + '/?a=literature&id=' + id).success(function (data) {
-                $scope.detail = data;
-                $scope.list = null;
-            });
-        }
-
-        $scope.close = function() {
-            $location.search('id', null);
-            $scope.$close(true);
-        }
-
-    }
-]);
-
-
-
-

@@ -2,7 +2,7 @@
 	<h2 ng-if="!hidetitle">{{labels.bestaende2}}</h2>
 	<ul>
 		<li class="list__item--link" ng-repeat="i in inventories">
-			<a ui-sref="inventoryDetail( {id: '{{i.id}}', anf: ''} )">
+			<a ng-click="$root.detail(i.id, 'inventory' )">
 				<div class="list__item__title">
 					{{i.name}}
 				</div>

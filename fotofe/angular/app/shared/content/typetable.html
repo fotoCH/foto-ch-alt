@@ -24,15 +24,15 @@
                     ng-click="updateSorting(th.sort)">{{th.title}}</th>
             </thead>
             <tbody>
-                <tr ng-repeat="tr in tableRows track by $index" 
-                    ui-sref="{{detailRoute}}( {id: '{{tr.id}}'} )">
+                <tr ng-repeat="tr in tableRows track by $index"
+                    ng-click="$root.detail(tr.id, detailRoute)">
                    <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{td}}</td>
                 </th>
             </tbody>
         </table>
         <div ng-if="grid" class="grid">
-            <div ng-repeat="block in tableRows track by $index" 
-                ui-sref="{{detailRoute}}( {id: '{{block.id}}'} )">
+            <div ng-repeat="block in tableRows track by $index"
+                ng-click="$root.detail(block.id, detailRoute)">
                <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{data}}</div>
             </div>
         </div>

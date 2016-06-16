@@ -1,0 +1,40 @@
+<div class="left">
+    <div class="l-content__section l-content__section--meta">
+        <dl>
+            <dt ng-if="detail.isil">{{translations.isil}}</dt>
+            <dd ng-if="detail.isil">{{detail.isil}}</dd>
+            <dt ng-if="detail.adresse">{{translations.adresse}}</dt>
+            <dd ng-if="detail.adresse">{{detail.adresse}}<span ng-if="detail.ort"><br>{{detail.ort}}</span></dd>
+            <dt ng-if="detail.homepage">{{translations.homepage}}</dt>
+            <dd ng-if="detail.homepage" ng-bind-html="detail.homepage | rawHtml"></dd>
+            <dt ng-if="detail.zugang_zur_sammlung">{{translations.zugang_zur_sammlung}}</dt>
+            <dd ng-if="detail.zugang_zur_sammlung" ng-bind-html="detail.zugang_zur_sammlung | rawHtml"></dd>
+            <dt ng-if="detail.sammlungszeit">{{translations.sammlungszeit}}</dt>
+            <dd ng-if="detail.sammlungszeit">{{detail.sammlungszeit}}</dd>
+            <dt ng-if="detail.bildgattungen_set">{{translations.bildgattungen}}</dt>
+            <dd ng-if="detail.bildgattungen_set">{{detail.bildgattungen_set}}</dd>
+        </dl>
+    </div>
+    <content-raw headline="translations.sammlungsgeschichte" value="detail.sammlungsgeschichte"></content-raw>
+    <content-raw headline="translations.sammlungsbeschreibung" value="detail.sammlungsbeschreibung"></content-raw>
+    <inventory-reference labels="translations" inventories="detail.bestaende"></inventory-reference>
+    <default-list headline="translations.literatur" values="detail.literatur"></default-list>
+    <exhibition-reference headline="translations.einzelausstellungen" labels="translations" exhibitions="detail.einzelausstellungen"></exhibition-reference>
+    <exhibition-reference headline="translations.gruppenausstellungen" labels="translations" exhibitions="detail.gruppenausstellungen"></exhibition-reference>
+    <content-default headline="translations.notiz" value="detail.notiz"></content-default>
+    <content-default headline="translations.npublizieren" value="detail.npublizieren"></content-default>
+</div>
+<div class="right">
+    <editing-info labels="translations" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
+    <div class="l-content__actions">
+        <a class="btn btn--action" ui-sref="contact">{{translations.proposal_for_improvements}}</a>
+    </div>
+</div>
+<div class="full">
+    <photo-teaser 
+            photos="detail.photos"
+            labels="translations"
+            headline="translations.photos_from_institution"
+            image-root-url="{{imageRootUrl}}">
+    </photo-teaser>
+</div>

@@ -2,8 +2,12 @@
 	<h2 ng-if="headline">{{headline}}</h2>
 	<ul>
 		<li ng-repeat="p in photographer">
-			<a ng-if="p.gesperrt==0" ui-sref="photographerDetail( {id: '{{p.id}}', anf:''} )">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span></a>
-			<span ng-if="p.gesperrt==1">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span></span>
+			<a ng-if="p.gesperrt==0" ng-click="$root.detail(p.id, 'photographer' )">{{p.nachname}}
+                <span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span>
+            </a>
+			<span ng-if="p.gesperrt==1">{{p.nachname}}
+                <span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span>
+            </span>
 		</li>
 	</ul>
 </div>

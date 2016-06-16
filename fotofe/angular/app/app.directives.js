@@ -81,12 +81,49 @@ app.directive('contentRaw', function () {
     return {
         restrict: 'E',
         templateUrl: 'app/shared/content/raw.html',
+        controller: ['$scope', function($scope) {
+            $scope.$watch('value', function() {
+                var re = /data-target-id="([0-9]*)" data-target-type="([a-z]*)"/g; 
+                var m;
+                 
+                while ((m = re.exec($scope.value)) !== null) {
+                    if (m.index === re.lastIndex) {
+                        re.lastIndex++;
+                    }
+                    $scope.value = $scope.value.replace(m[0], ' ng-click="$root.detail('+m[1]+', \''+m[2]+'\')" ');
+                }
+            });
+        }],
         scope: {
             headline: '=',
             value: '='
         }
     };
 });
+
+
+// http://stackoverflow.com/questions/17417607/angular-ng-bind-html-and-directive-within-it
+app.directive('compile', ['$compile', function ($compile) {
+    return function(scope, element, attrs) {
+        scope.$watch(
+            function(scope) {
+                // watch the 'compile' expression for changes
+                return scope.$eval(attrs.compile);
+            },
+            function(value) {
+                // when the 'compile' expression changes
+                // assign it into the current DOM
+                element.html(value);
+
+                // compile the new DOM and link it to the current
+                // scope.
+                // NOTE: we only compile .childNodes so that
+                // we don't get into infinite loop compiling ourselves
+                $compile(element.contents())(scope);
+            }
+        );
+    };
+}])
 
 app.directive('readMoreWrapper', function () {
     return {

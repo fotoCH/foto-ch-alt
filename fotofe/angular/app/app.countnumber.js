@@ -36,7 +36,7 @@ app.controller('CountUpNumberCtrl', [
         };
 
         angular.element($window).bind("scroll", function() {
-            if($scope.counted == true) {
+            if($scope.counted == true && ! isNaN($scope.number)) {
                 return;
             }
             var element = document.getElementById($scope.id);
@@ -44,7 +44,9 @@ app.controller('CountUpNumberCtrl', [
                 return;
             }
             if(isElementInViewport(element)) {
-                $scope.countUp();
+                setTimeout(function() {
+                    $scope.countUp();
+                }, 500);
             }
         });
 

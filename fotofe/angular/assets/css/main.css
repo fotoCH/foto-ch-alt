@@ -286,6 +286,9 @@ body {
 .l-content {
   flex-direction: column;
 }
+a {
+  cursor: pointer;
+}
 .l-container {
   margin-left: auto;
   margin-right: auto;
@@ -460,6 +463,9 @@ h4 > a {
 }
 h4 > a:hover {
   text-decoration: none;
+}
+a.ng-scope {
+  cursor: pointer;
 }
 .l-content__section {
   margin-top: 1em;
@@ -2211,6 +2217,11 @@ a.power-search__link {
   display: flex;
   flex-wrap: wrap;
 }
+.modal .modal-header .right button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 .modal .left {
   flex-basis: 70%;
   min-width: 70%;
@@ -2238,16 +2249,37 @@ a.power-search__link {
 .modal-open .modal {
   background-color: rgba(0, 0, 0, 0.8);
 }
+.modal-open .modal dl {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+.modal-open .modal dl dt {
+  width: 100%;
+  font-size: 11px;
+  color: #666666;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.modal-open .modal dl dd {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  padding-bottom: 20px;
+  font-size: 13.68px;
+  margin-top: 3px;
+}
 .modal-open .modal .modal-content {
   padding: 30px 40px;
   border-radius: 3px;
 }
 .modal-open .modal .modal-dialog {
-  margin-top: 120px;
+  margin-top: 60px;
 }
 .modal-open .modal .modal-lg {
-  width: 95%;
-  max-width: 1180px;
+  width: 96%;
+  max-width: 1260px;
 }
 .modal-open .modal .modal-header {
   position: relative;
@@ -2409,19 +2441,19 @@ ul.nav-tabs li a:focus {
   width: 100%;
 }
 .count-up-number {
-  width: 240px;
+  width: 200px;
 }
 .count-up-number span {
   display: block;
 }
 .count-up-number span.number {
-  font-size: 58px;
+  font-size: 34px;
   color: #333333;
   font-weight: 500;
 }
 .count-up-number span.label {
   text-align: left;
-  font-size: 18px;
+  font-size: 16px;
   color: #333333;
   padding: 0;
   font-weight: 400;

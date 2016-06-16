@@ -20,7 +20,6 @@ app.controller('TypeTableCtrl', [
         $scope.textsearch_focus = false;
         $scope.translations = $rootScope.translations;
         setTimeout(function() {
-            console.log($rootScope.translations);
             $scope.translations = $rootScope.translations;
             $scope.setHeadings();
         }, 500);

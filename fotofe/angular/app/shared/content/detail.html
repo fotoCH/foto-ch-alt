@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <div class="left">
+        <h1 ng-bind-html="title"></h1>
+        <h4 ng-bind-html="subtitle"></h4>
+    </div>
+    <div class="right">
+        <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+    </div>
+</div>
+<div class="modal-body" ng-include="bodytemplate">
+</div>
+<div class="modal-footer">
+</div>
