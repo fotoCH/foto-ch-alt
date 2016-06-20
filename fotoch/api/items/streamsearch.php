@@ -17,6 +17,12 @@ if(array_key_exists('sort', $_GET)); {
 if(array_key_exists('sortdir', $_GET)) {
     $search->setSortDirection($_GET['sortdir']);
 }
+if(array_key_exists('offset', $_GET)) {
+    $search->setOffset($_GET['offset']);
+}
+if(array_key_exists('direct', $_GET)) {
+    $search->setDirectQuery($_GET['direct']);
+}
 
 
 if($search->activate()) {
@@ -35,13 +41,15 @@ class StreamedSearch {
     private $sorting = false;
     private $sortDirection = 'ASC';
     private $result = array();
+    private $offset = 0;
+    private $direct = array();
 
     private $levels = array(
         'photographer' => 2,
         'stock' => 2,
         'institution' => 2,
         'exhibition' => 1,
-        'literature' => 1,
+        'literature' => 2,
         'photos' => 2
     );
 
@@ -50,6 +58,7 @@ class StreamedSearch {
             "fotos.id",
             "fotos.dc_title as title",
             "fotos.dc_description as description",
+            "fotos.dcterms_subject as descriptor",
             "fotos.dc_identifier as identifier",
             "fotos.dc_right as copyright",
             "fotos.image_path",
@@ -78,7 +87,7 @@ class StreamedSearch {
             "fotografen.fotografengattungen_set",
             "fotografen.bildgattungen_set",
             "fotografen.kanton",
-            "(SELECT GROUP_CONCAT(arbeitsort) FROM arbeitsperioden WHERE fotografen.id = arbeitsperioden.fotografen_id) as arbeitsorte"
+            "(SELECT GROUP_CONCAT(DISTINCT arbeitsort) FROM arbeitsperioden WHERE fotografen.id = arbeitsperioden.fotografen_id) as arbeitsorte"
         );
     }
 
@@ -157,9 +166,6 @@ class StreamedSearch {
 
     private function photos($level) {
         $sql='';
-        if($this->sorting) {
-            $sql.= "SELECT * FROM (";
-        }
         $sql.= "SELECT DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
         $sql.=" INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
         $sql.=" RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
@@ -201,15 +207,19 @@ class StreamedSearch {
         if($level >= 1) {
             $sql.= " AND fotografen.unpubliziert = 0";
         }
+
+        $sql.= $this->appendDirectQuery();
+
+        if($this->sorting) {
+            $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        }
+
         if($this->limitPhotoResults) {
             $sql.= " LIMIT ".$this->limitPhotoResults;
         } else {
             $sql.= " LIMIT ".$this->limitResults;
         }
-
-        if($this->sorting) {
-            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
-        }
+        $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
         $this->results['photos_results'] = array();
@@ -222,17 +232,14 @@ class StreamedSearch {
 
     private function literature($level = 0) {
         $sql='';
-        if($this->sorting) {
-            $sql.= "SELECT * FROM (";
-        }
         $sql.="SELECT DISTINCT ".implode(", ", $this->literatureFields())." FROM literatur";
-        /*if($level >= 1) {
+        if($level >= 1) {
             $sql.= " LEFT JOIN literatur_fotograf on literatur_fotograf.literatur_id = literatur.id";
             $sql.= " INNER JOIN fotografen on literatur_fotograf.fotografen_id = fotografen.id";
             $sql.= " LEFT JOIN literatur_institution on literatur_institution.literatur_id = literatur.id";
             $sql.= " LEFT JOIN institution on literatur_institution.institution_id = institution.id";
             $sql.= " RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
-        }*/
+        }
 
         $q = explode(" ", $this->query);
         $first = true;
@@ -251,22 +258,25 @@ class StreamedSearch {
                 $sql.= " OR literatur.verfasser_vorname LIKE '%".$term."%'";
                 $sql.= " OR literatur.jahr LIKE '%".$term."%'";
             }
-            /*if($level >= 1) {
+            if($level >= 1) {
                 $sql.= " OR namen.vorname LIKE '%".$term."%'";
                 $sql.= " OR namen.nachname LIKE '%".$term."%'";
                 $sql.= " OR institution.name".$this->lang." LIKE '%".$term."%'";
                 $sql.= " OR institution.abkuerzung".$this->lang." LIKE '%".$term."%'";
-            }*/
+            }
             $sql.= ')';
         }
         if($level >= 1) {
-            //$sql.= " AND fotografen.unpubliziert = 0";
+            $sql.= " AND fotografen.unpubliziert = 0";
         }
-        $sql.= " LIMIT ".$this->limitResults;
+
+        $sql.= $this->appendDirectQuery();
 
         if($this->sorting) {
-            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
+            $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
+        $sql.= " LIMIT ".$this->limitResults;
+        $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
         $this->results['literature_results'] = array();
@@ -278,13 +288,10 @@ class StreamedSearch {
 
     private function exhibition($level = 0) {
         $sql='';
-        if($this->sorting) {
-            $sql.= "SELECT * FROM (";
-        }
         $sql.="SELECT DISTINCT ".implode(", ", $this->exhibitionFields())." FROM ausstellung";
         $sql.= " LEFT JOIN ausstellung_fotograf ON ausstellung.id = ausstellung_fotograf.ausstellung_id";
-        //$sql.= " INNER JOIN fotografen ON ausstellung_fotograf.fotograf_id = fotografen.id";
-        //$sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
+        $sql.= " INNER JOIN fotografen ON ausstellung_fotograf.fotograf_id = fotografen.id";
+        $sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
 
         $q = explode(" ", $this->query);
         $first = true;
@@ -300,16 +307,20 @@ class StreamedSearch {
             if($level >= 0) {
                 $sql.= "ausstellung.institution LIKE '%".$term."%'";
                 $sql.= " OR ausstellung.ort LIKE '%".$term."%'";
-                //$sql.= " OR namen.vorname LIKE '%".$term."%'";
-                //$sql.= " OR namen.nachname LIKE '%".$term."%'";
+                $sql.= " OR namen.vorname LIKE '%".$term."%'";
+                $sql.= " OR namen.nachname LIKE '%".$term."%'";
             }
             $sql.= ')';
         }
-        $sql.= " LIMIT ".$this->limitResults;
+
+        $sql.= $this->appendDirectQuery();
 
         if($this->sorting) {
-            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
+            $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
+
+        $sql.= " LIMIT ".$this->limitResults;
+        $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
         $this->results['exhibition_results'] = array();
@@ -322,9 +333,6 @@ class StreamedSearch {
 
     private function institution($level = 0) {
         $sql='';
-        if($this->sorting) {
-            $sql.= "SELECT * FROM (";
-        }
         $sql.="SELECT DISTINCT ".implode(", ", $this->institutionFields())." FROM institution";
         if($level >= 1) {
             $sql.= " RIGHT JOIN bestand on institution.id = bestand.inst_id";
@@ -357,14 +365,18 @@ class StreamedSearch {
             $sql.= ')';
         }
         $sql.= " AND institution.gesperrt = 0";
-        if($level >= 1) {
+
+        $sql.= $this->appendDirectQuery();
+
+        if($level >= 1 && ! $this->sorting) {
             $sql.= " ORDER BY bestand.nachlass DESC";
+        } else {
+            if($this->sorting) {
+                $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+            }
         }
         $sql.= " LIMIT ".$this->limitResults;
-
-        if($this->sorting) {
-            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
-        }
+        $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
         $this->results['institution_results'] = array();
@@ -376,9 +388,6 @@ class StreamedSearch {
 
     private function stock($level = 0) {
         $sql='';
-        if($this->sorting) {
-            $sql.= "SELECT * FROM (";
-        }
         $sql.="SELECT DISTINCT ".implode(", ", $this->stockFields())." FROM bestand";
         $sql.= " INNER JOIN institution ON bestand.inst_id = institution.id";
         if($level >= 1) {
@@ -407,12 +416,15 @@ class StreamedSearch {
             $sql.= ')';
         }
         $sql.= " AND bestand.gesperrt = 0 AND institution.gesperrt = 0";
-        $sql.= " LIMIT ".$this->limitResults;
+
+        $sql.= $this->appendDirectQuery();
 
         if($this->sorting) {
-            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
+            $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }
 
+        $sql.= " LIMIT ".$this->limitResults;
+        $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
         $this->results['stock_results'] = array();
@@ -425,11 +437,8 @@ class StreamedSearch {
 
     private function photographer($level = 0) {
         $sql = '';
-        if($this->sorting) {
-            $sql.= "SELECT * FROM (";
-        }
         $sql.= "SELECT DISTINCT ".implode(", ", $this->photographerFields())." FROM namen";
-        $sql.= " LEFT JOIN fotografen on namen.fotografen_id = fotografen.id";
+        $sql.= " RIGHT JOIN fotografen on namen.fotografen_id = fotografen.id";
         /* removed due to performance...
         if($level >= 1) {
             $sql.= " LEFT JOIN arbeitsperioden on arbeitsperioden.fotografen_id = fotografen.id";
@@ -460,12 +469,15 @@ class StreamedSearch {
         }
         $sql.= " AND fotografen.unpubliziert = 0";
 
-        $sql.= " ORDER BY (CASE WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ELSE 0 END) DESC";
-        $sql.= " LIMIT ".$this->limitResults;
+        $sql.= $this->appendDirectQuery();
 
         if($this->sorting) {
-            $sql.= ") AS T1 ORDER BY ".$this->sorting.' '.$this->sortDirection;
+            $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        } else {
+            $sql.= " ORDER BY (CASE WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ELSE 0 END) DESC";
         }
+        $sql.= " LIMIT ".$this->limitResults;
+        $sql.= " OFFSET ".$this->offset;
 
         // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
 
@@ -475,6 +487,14 @@ class StreamedSearch {
             array_push($this->results['photographer_results'], $assoc);
         }
         $this->results['photographer_count'] = count($this->results['photographer_results']);
+    }
+
+    private function appendDirectQuery() {
+        $returnable = '';
+        foreach ($this->direct as $direct) {
+            $returnable.=" AND ".$direct['field']." LIKE '%".$direct['value']."%' ";
+        }
+        return $returnable;
     }
 
     private function enoughOfType($type, $level) {
@@ -526,6 +546,23 @@ class StreamedSearch {
 
     public function setSorting($sort) {
         $this->sorting = $sort;
+    }
+
+    public function setOffset($offset) {
+        if(is_numeric($offset)) {
+            $this->offset = $offset;
+        }
+    }
+
+    public function setDirectQuery($query) {
+        $q = explode(",", $query);
+        foreach($q as $where) {
+            $where = explode(":", $where);
+            array_push($this->direct, array(
+                'field' => $where[0],
+                'value' => $where[1]
+            ));
+        }
     }
 
     public function setSortDirection($direction) {
