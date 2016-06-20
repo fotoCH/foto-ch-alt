@@ -291,9 +291,9 @@ app.controller('HomeCtrl',
     }
 
     function getHeaderImage() {
-        var amountOfHeaderImages = 2;
+        var amountOfHeaderImages = 7;
         var imageNo = Math.floor((Math.random() * amountOfHeaderImages) + 1);
-        $scope.imgURL = 'assets/img/home-intro/header-'+zeroFill(imageNo, 3)+'.png';
+        $scope.imgURL = 'assets/img/home-intro/header-'+zeroFill(imageNo, 3)+'.jpg';
     }
     getHeaderImage();
 
@@ -469,11 +469,11 @@ app.controller('homeSearch', [
                             response = response.replace(/}{/g, "},{");
                             response = "[" + response + "]";
                             var newresult = JSON.parse(response);
+                            console.log(newresult);
                             newresult = newresult[newresult.length-1];
-                            $scope.$apply(function(){
-                                $scope.result = newresult;
-                                $scope.setIdArrays();
-                            });
+                            $scope.result = newresult;
+                            $scope.setIdArrays();
+                            $scope.$apply();
                         } catch (e) {
                             console.log("Invalid response: " + event.currentTarget.responseText);
                             console.log(e);

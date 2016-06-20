@@ -9,11 +9,14 @@ app.controller('DetailController', [
     'DetailService',
     '$uibModalStack',
     'params',
-    function($scope, $http, $location, $state, $stateParams, $rootScope, $window, DetailService, $uibModalStack, params) {
+    '$analytics',
+    function($scope, $http, $location, $state, $stateParams, $rootScope, $window, DetailService, $uibModalStack, params, $analytics) {
 
         $scope.close = function() {
             $uibModalStack.dismissAll();
         }
+
+        $analytics.pageTrack(params.type + '/detail/' + params.id);
 
         $scope.carousel = false;
         $scope.prev = false;
@@ -32,7 +35,6 @@ app.controller('DetailController', [
                 $scope.next = $scope.carousel[requiredIndex+1];
             }
         }
-        console.log($scope.carousel);
 
         switch(params.type) {
             case 'photo':
@@ -49,10 +51,13 @@ app.controller('DetailController', [
                 DetailService.getPhotographer(params.id).then(function(photographer) {
                     var title = '';
                     angular.forEach(photographer.data.namen, function(value, key) {
-                        title+= value.vorname + ", " + value.nachname + " ";
+                        if(value.vorname !== '') {
+                            title+= value.vorname + ", ";
+                        }
+                        title+= value.nachname + " ";
                     });
                     $scope.title = title;
-                    $scope.subtitle = photographer.data.heimatort;
+                    $scope.subtitle = photographer.data.fldatum;
                     $scope.detail = photographer.data;
                 });
                 $scope.translations = $rootScope.translations;
@@ -102,6 +107,10 @@ app.controller('DetailController', [
             default:
                 console.log('Unknown Detail Type: ' + params.type);
         }
+
+        console.log(params.type);
+        console.log($rootScope.translations);
+        $scope.toptitle = $rootScope.translations[params.type];
     }
 ]);
 

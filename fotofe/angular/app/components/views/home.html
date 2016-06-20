@@ -25,10 +25,15 @@
                                autocomplete="off">
                     </form>
                 </div>
-                <div class="results" ng-if="result.photographer_count > 0 || result.stock_count > 0">
+                <div class="results" ng-if="result.photographer_count > 0 
+                    || result.stock_count > 0
+                    || result.institution_count > 0
+                    || result.exhibition_count > 0
+                    || result.literature_count > 0
+                    || result.photos_results > 0">
                     <div class="textual">
                         <div class="result-set photographer" ng-if="result.photographer_count > 0">
-                            <h5><a ui-sref="photographer">{{spr.photographers}}</a></h5>
+                            <h5><a ui-sref="photographer">{{spr.photographers}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
                                 <li ng-repeat="photographer in result.photographer_results | limitTo: limit">
                                     <a ng-click="$root.detail(photographer.id, 'photographer', result.photographer_ids)">
@@ -38,7 +43,7 @@
                             </ul>
                         </div>
                         <div class="result-set stocks" ng-if="result.stock_count > 0">
-                            <h5><a ui-sref="inventory">{{spr.bestaende2}}</a></h5>
+                            <h5><a ui-sref="inventory">{{spr.bestaende2}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
                                 <li ng-repeat="stock in result.stock_results | limitTo: limit">
                                     <a ng-click="$root.detail(stock.id, 'inventory', result.stock_ids)">
@@ -48,7 +53,7 @@
                             </ul>
                         </div>
                         <div class="result-set institution" ng-if="result.institution_count > 0">
-                            <h5><a ui-sref="institution">{{spr.institution}}</a></h5>
+                            <h5><a ui-sref="institution">{{spr.institution}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
                                 <li ng-repeat="institution in result.institution_results | limitTo: limit">
                                     <a ng-click="$root.detail(institution.id, 'institution', result.institution_ids)"
@@ -59,7 +64,7 @@
                             </ul>
                         </div>
                         <div class="result-set exhibition" ng-if="result.exhibition_count > 0">
-                            <h5><a ui-sref="exhibition">{{spr.ausstellung}}</a></h5>
+                            <h5><a ui-sref="exhibition">{{spr.ausstellung}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
                                 <li ng-repeat="exhibition in result.exhibition_results | limitTo: limit">
                                     <a ng-click="$root.detail(exhibition.id, 'exhibition', result.exhibition_ids)">
@@ -69,7 +74,7 @@
                             </ul>
                         </div>
                         <div class="result-set literature" ng-if="result.literature_count > 0">
-                            <h5><a ui-sref="literatur">{{spr.literatur}}</a></h5>
+                            <h5><a ui-sref="literatur">{{spr.literatur}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
                                 <li ng-repeat="literature in result.literature_results | limitTo: limit">
                                     <a ng-click="$root.detail(literature.id, 'literature', result.literature_ids)">

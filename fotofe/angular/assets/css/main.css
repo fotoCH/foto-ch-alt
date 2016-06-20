@@ -598,6 +598,7 @@ a.ng-scope {
 }
 .intro-block {
   background-size: cover;
+  background-position: center center;
   width: 100%;
   min-height: 580px;
   position: relative;
@@ -683,6 +684,9 @@ a.ng-scope {
   top: 136px;
   transition: 300ms;
 }
+.home-search.active .results .result-set:hover h5 small {
+  opacity: 1;
+}
 .home-search.active .results .textual {
   background-color: rgba(255, 255, 255, 0.85);
   position: absolute;
@@ -737,9 +741,18 @@ a.ng-scope {
 .home-search.active .results .textual h5 > a {
   color: rgba(102, 102, 102, 0.7);
   transition: 300ms;
+  display: inline-block;
+  width: 100%;
+}
+.home-search.active .results .textual h5 > a small {
+  opacity: 0;
+  float: right;
+  font-size: 11px;
+  margin-right: 20px;
+  transition: 100ms;
 }
 .home-search.active .results .textual h5 > a:hover {
-  color: #666666;
+  color: #01579b;
   text-decoration: none;
 }
 .home-search.active .results .textual h5:before,
@@ -2500,6 +2513,14 @@ a.power-search__link {
 }
 .modal-open .modal {
   background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-open .modal small {
+  width: 100%;
+  font-size: 11px;
+  color: #666666;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 .modal-open .modal dl {
   margin-top: 0;
