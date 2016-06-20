@@ -4,15 +4,26 @@ app.controller('TypeTableCtrl', [
     '$location', 
     '$state', 
     '$stateParams', 
-    '$rootScope', 
-    function($scope, $http, $location, $state, $stateParams, $rootScope) {
+    '$rootScope',
+    '$window',
+    function($scope, $http, $location, $state, $stateParams, $rootScope, $window) {
         $scope.sortDirection = 'desc';
         $scope.sortParameter = false;
         $scope.grid = $scope.display == 'grid' ? true : false;
+        $scope.realFilters = [];
+
+        $scope.filterModels = {};
+        $scope.filterToggles = {};
+        $scope.directFilters = [];
+
+        $scope.queryLimit = 30;
+        $scope.queryOffset = 0;
 
         $scope.tableHead = [];
         $scope.tableRows = [];
-        $scope.query = $rootScope.ApiUrl + '/?a=streamsearch&type='+$scope.type;
+
+        $scope.hasImage = false;
+
         $scope.fields_obj = JSON.parse($scope.fields);
         $scope.textquery = $rootScope.textualSearch;
         $scope.searchquery = $scope.textquery;
@@ -27,6 +38,86 @@ app.controller('TypeTableCtrl', [
         $scope.filtering = true;
 
         loadData();
+
+        $scope.filterValue = function(value, target) {
+            $scope.filtering = true;
+            var toFilter = target+":"+value;
+            if($scope.directFilters.indexOf(toFilter) == -1) {
+                $scope.directFilters.push(toFilter);
+            } else {
+                $scope.directFilters.splice($scope.directFilters.indexOf(toFilter), 1);
+            }
+            loadData();
+        }
+
+        $scope.filterActive = function(value, target) {
+            var toFilter = target+":"+value;
+            if($scope.directFilters.indexOf(toFilter) == -1) {
+                return '';
+            } else {
+                return 'active';
+            }
+        }
+
+        $scope.setFilter = function(key, index) {
+            $http.get($rootScope.ApiUrl + '/?a=filters&type=' + key).success(function (data) {
+                var sourceFilter = $scope.filters;
+                if(typeof(sourceFilter) == 'string') {
+                    sourceFilter = JSON.parse(sourceFilter);
+                }
+                var filter = {};
+                filter.title = $scope.translations[key];
+                if(typeof(filter.title) == 'undefined') {
+                    var lang_key = sourceFilter[index][key];
+                    if(lang_key.indexOf(".") > 0) {
+                        lang_key = lang_key.split(".");
+                        lang_key = lang_key[1];
+                    }
+                    filter.title = $scope.translations[lang_key]
+                }
+                filter.key = key;
+                filter.target = sourceFilter[index][key];
+                filter.values = data.possible_values;
+                $scope.realFilters.push(filter);
+            });
+        }
+
+        $scope.prepareFilters = function() {
+            if(typeof($scope.filters) !== 'undefined') {
+                $scope.filters = JSON.parse($scope.filters);
+                for(var filterIndex = 0; filterIndex < $scope.filters.length; filterIndex++) {
+                    for(key in $scope.filters[filterIndex]) {
+                        $scope.setFilter(key, filterIndex);
+                    }
+                }
+            }
+        }
+        $scope.prepareFilters();
+
+        $scope.currentViewClass = function() {
+            if($scope.grid) {
+                return 'to-table';
+            } else {
+                return 'to-grid';
+            }
+        }
+
+        $scope.switchView = function() {
+            if($scope.grid) {
+                $scope.grid = false;
+            } else {
+                $scope.grid = true;
+            }
+        };
+
+        $scope.increaseLimit = function() {
+            if($scope.tableRows.length >= $scope.queryOffset + $scope.queryLimit) {
+                $scope.filtering = true;
+                $scope.queryOffset += $scope.queryLimit;
+                // load data, but append to current dataset.
+                loadData(true);
+            }
+        }
 
         $scope.setHeadings = function() {
             if(typeof($scope.translations) == 'undefined') {
@@ -54,6 +145,7 @@ app.controller('TypeTableCtrl', [
         $scope.reset = function() {
             $scope.textquery = '';
             $scope.searchquery = '';
+            $scope.queryOffset = 0;
             $scope.textsearchblur();
             loadData();
         }
@@ -67,6 +159,7 @@ app.controller('TypeTableCtrl', [
 
         $scope.updateSorting = function(parameter) {
             $scope.filtering = true;
+            $scope.queryOffset = 0;
             if($scope.sortDirection == 'desc') {
                 $scope.sortDirection = 'asc';
             } else {
@@ -90,11 +183,13 @@ app.controller('TypeTableCtrl', [
         }
 
         $scope.textsearch = function(filter) {
+            $window.scrollTo(0, 0);
             $scope.filtering = true;
             $scope.textquery = filter;
+            $scope.queryOffset = 0;
             if($scope.textsearch_timeout)
                 clearTimeout($scope.textsearch_timeout);
-            $scope.tableRows = {};
+            $scope.tableRows = [];
             $scope.textsearch_timeout = setTimeout(function() {
                 loadData();
             }, 800);
@@ -111,6 +206,7 @@ app.controller('TypeTableCtrl', [
                 return '<span class="nobreak">'+value+'</span>';
             }
             if(type == 'image') {
+                $scope.hasImage = true;
                 return '<img src="'+$rootScope.imageRootUrl+value+'" />';
             }
             return value;
@@ -149,7 +245,7 @@ app.controller('TypeTableCtrl', [
             }
         }
 
-        function setValues(data) {
+        function setValues(data, append) {
             if(typeof($scope.fields_obj) !== 'object') {
                 $scope.fields_obj = JSON.parse($scope.fields_obj);
             }
@@ -220,10 +316,24 @@ app.controller('TypeTableCtrl', [
                     dataset: row
                 });
             }
-            $scope.tableRows = rows;
+            if(typeof(append) !== 'undefined') {
+                $scope.tableRows = $scope.tableRows.concat(rows);
+            } else {
+                $scope.tableRows = rows;
+            }
         }
 
-        function loadData() {
+        function loadData(append) {
+            $scope.query = $rootScope.ApiUrl +
+                '/?a=streamsearch'+
+                '&type='+$scope.type +
+                '&limit='+$scope.queryLimit +
+                '&offset='+$scope.queryOffset;
+
+            if($scope.directFilters.length > 0) {
+                $scope.query += '&direct=' + $scope.directFilters.join(",");
+            }
+
             var textquery = '';
             $rootScope.textualSearch = $scope.textquery;
             if($scope.textquery != '') {
@@ -249,7 +359,7 @@ app.controller('TypeTableCtrl', [
                         response = "[" + response + "]";
                         var newresult = JSON.parse(response);
                         newresult = newresult[newresult.length-1];
-                        setValues(newresult);
+                        setValues(newresult, append);
                     } catch (e) {
                         console.log(e);
                     }
@@ -273,7 +383,8 @@ app.directive('typeTable', function () {
             detailRoute: '@',
             type: '@',
             sortings: '@',
-            display : '@'
+            display : '@',
+            filters: '@'
         },
         templateUrl: 'app/shared/content/typetable.html',
         controller: 'TypeTableCtrl'

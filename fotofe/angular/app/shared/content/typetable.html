@@ -1,18 +1,40 @@
 <div class="filter-bar" ng-class="{loading : filtering}">
     <div class="l-container">
-        <div class="loading-indicator"></div>
-        <div class="textsearch" ng-class="{active : textsearch_focus}">
-            <label for="textsearch" >{{ translations.search_all }}</label>
-            <span class="s-icon"></span>
-            <input 
-                type="text"
-                ng-focus="textsearchfocus()"
-                ng-blur="textsearchblur()"
-                ng-model="searchquery"
-                ng-change="textsearch(searchquery)"
-                id="textsearch">
+        <div class="left">
+            <div class="loading-indicator"></div>
+            <div class="textsearch" ng-class="{active : textsearch_focus}">
+                <label for="textsearch" >{{ translations.search_all }}</label>
+                <span class="s-icon"></span>
+                <input 
+                    type="text"
+                    ng-focus="textsearchfocus()"
+                    ng-blur="textsearchblur()"
+                    ng-model="searchquery"
+                    ng-change="textsearch(searchquery)"
+                    id="textsearch">
+            </div>
         </div>
-        <a class="reset" ng-click="reset()"></a>
+        <div class="right">
+            <div class="filter" ng-repeat="filter in realFilters track by $index">
+                <span class="title" 
+                    ng-init="filterToggles[filter.key] = false"
+                    ng-click="filterToggles[filter.key] = !filterToggles[filter.key]">{{filter.title}}
+                </span>
+                <div class="values" ng-show="filterToggles[filter.key]">
+                    <input ng-model="filterModels[filter.key]"></label>
+                    <div class="list-wrapper">
+                        <div ng-repeat="value in filter.values | filter:filterModels[filter.key]" 
+                            class="value"
+                            ng-class="filterActive(value, filter.target)"
+                            ng-click="filterValue(value, filter.target)">
+                            {{value}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="switchview" ng-class="currentViewClass()" ng-click="switchView()"></a>
+            <a class="reset" ng-click="reset()"></a>
+        </div>
     </div>
 </div>
 <div class="table">
@@ -23,16 +45,23 @@
                     ng-class="thisSortingClass(th.sort)"
                     ng-click="updateSorting(th.sort)">{{th.title}}</th>
             </thead>
-            <tbody>
+            <tbody infinite-scroll="increaseLimit()" infinite-scroll-distance="0.1">
                 <tr ng-repeat="tr in tableRows track by $index"
                     ng-click="$root.detail(tr.id, detailRoute, carousel)">
                    <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{td}}</td>
                 </th>
             </tbody>
         </table>
-        <div ng-if="grid" class="grid">
+        <div ng-if="grid" class="grid"
+            infinite-scroll="increaseLimit()" 
+            infinite-scroll-distance="0.1"
+            masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}'
+            ng-class="{'has-image' : hasImage}"
+            >
             <div ng-repeat="block in tableRows track by $index"
-                ng-click="$root.detail(block.id, detailRoute, carousel)">
+                 ng-click="$root.detail(block.id, detailRoute, carousel)"
+                 masonry-tile
+                 class="tile">
                <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{data}}</div>
             </div>
         </div>

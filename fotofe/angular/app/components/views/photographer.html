@@ -11,6 +11,11 @@
             "kanton": "{shorten:kanton}",
             "fotografengattungen" : "{shorten:fotografengattungen_set}",
             "bildgattungen": "{shorten:bildgattungen_set}"
-        }'>
+        }'
+        filters='[
+            {"fotografengattungen" : "fotografengattungen_set"},
+            {"bildgattungen" : "bildgattungen_set"},
+            {"fotografen_kanton" : "kanton"}
+        ]'>
     </type-table>
 </div>

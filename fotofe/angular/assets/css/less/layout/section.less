@@ -248,6 +248,16 @@
 
           position: relative;
 
+          > a {
+            color:rgba(102,102,102,0.7);
+            transition: 300ms;
+
+            &:hover {
+              color:rgba(102,102,102,1);
+              text-decoration: none;
+            }
+          }
+
           &:before, &:after {
             content: '';
             left: -20px;

@@ -56,7 +56,7 @@ app.controller('MainCtrl',
                 }).result.then(function() {
                 }, function() {
                     if(!$rootScope.openNew) {
-                        $location.hash('');
+                        $location.hash('!');
                         $rootScope.currentDetail = '';
                     }
                 });

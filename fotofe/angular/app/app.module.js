@@ -12,7 +12,8 @@ var app = angular.module('fotochWebApp', [
     'ui.bootstrap.modal',
     'ui.bootstrap.popover',
     'ngSanitize',
-    'ngCookies'
+    'ngCookies',
+    'masonry'
 ]);
 
 app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $cookies, $state) {

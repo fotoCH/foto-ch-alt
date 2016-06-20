@@ -2,12 +2,18 @@
     <type-table 
         display='grid'
         type='photos'
-        sortings='title'
+        sortings='id, autor_lastname, title, description, descriptor, dcterms_medium'
         detail-route='photo'
         fields='{
-            "image": "{image:image_path}",
+            "photos": "{image:image_path}",
+            "fotograph": "{nobreak:autor_forename} {autor_lastname}",
             "titel":"title",
-            "autor": "{autor_forename} {autor_lastname}"
-        }'>
+            "description": "description",
+            "descriptor": "descriptor",
+            "medium": "dcterms_medium"
+        }'
+        filters='[
+            {"photo_stichworte" : "fotos.dcterms_subject"}
+        ]'>
     </type-table>
 </div>
