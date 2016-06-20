@@ -13,7 +13,9 @@ var app = angular.module('fotochWebApp', [
     'ui.bootstrap.popover',
     'ngSanitize',
     'ngCookies',
-    'masonry'
+    'masonry',
+    'angulartics',
+    'angulartics.google.tagmanager'
 ]);
 
 app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $cookies, $state) {
@@ -42,10 +44,10 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     }
     
     // Development Server API URL
-    //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
+    $rootScope.ApiUrl = 'http://localhost/fotoch/api';
 
     // Production Server API URL
-    $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
+    //$rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
 
     
     var token=window.sessionStorage.authToken;

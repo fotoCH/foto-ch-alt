@@ -180,10 +180,16 @@ a:hover {
   width: 100%;
   font-size: 0.855rem;
   font-weight: 500;
-  height: 50px;
+  height: 60px;
 }
 .l-header:not(.is-home) {
   background-color: #212121;
+}
+@media screen and (max-width: 769px) {
+  .l-header {
+    z-index: 10;
+    background-color: #212121 !important;
+  }
 }
 .l-header.is-home {
   position: absolute;
@@ -596,6 +602,11 @@ a.ng-scope {
   min-height: 580px;
   position: relative;
 }
+@media screen and (max-width: 769px) {
+  .intro-block {
+    min-height: 360px;
+  }
+}
 .intro-block.active:before {
   background-color: rgba(0, 0, 0, 0.75);
 }
@@ -614,8 +625,19 @@ a.ng-scope {
   position: relative;
   z-index: 2;
 }
+@media screen and (max-width: 769px) {
+  .intro-block .home-search {
+    height: 360px;
+  }
+}
 .intro-block .l-content__header {
   margin-top: 220px;
+}
+@media screen and (max-width: 769px) {
+  .intro-block .l-content__header {
+    margin-top: 130px;
+    overflow: visible;
+  }
 }
 .intro-block h1,
 .intro-block .hero--subheadline {
@@ -634,6 +656,12 @@ a.ng-scope {
   position: absolute;
   width: 100%;
   top: 280px;
+}
+@media screen and (max-width: 769px) {
+  .home-search .power-search {
+    width: 80%;
+    top: 200px;
+  }
 }
 .home-search .results {
   display: none;
@@ -668,6 +696,11 @@ a.ng-scope {
   border-bottom-left-radius: 3px;
   max-height: 410px;
   overflow-x: auto;
+}
+@media screen and (max-width: 769px) {
+  .home-search.active .results .textual {
+    max-height: 210px;
+  }
 }
 .home-search.active .results .textual ul {
   padding-left: 0;
@@ -736,6 +769,7 @@ a.ng-scope {
   border: 0.18rem solid rgba(0, 0, 0, 0.2);
   border-top-color: black;
   -webkit-animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
   animation: spin 1s infinite linear;
   position: absolute;
   right: 20px;
@@ -755,6 +789,7 @@ a.ng-scope {
   position: absolute;
 }
 .home-search .imagery ul {
+  padding-left: 0;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -774,10 +809,35 @@ a.ng-scope {
   width: 140px;
   margin-right: 10px;
 }
+@media screen and (max-width: 769px) {
+  .home-search .imagery li {
+    width: 70px;
+  }
+}
 .home-search .imagery li:before {
   display: none;
 }
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 @-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -1507,7 +1567,6 @@ div.fancybox-overlay {
   display: inline-block;
   height: 60px;
   padding: 0 70px 0 10px;
-  background-color: #ffffff;
 }
 .logo-header a {
   display: block;
@@ -1598,7 +1657,7 @@ section-raw {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #212121;
   border-bottom: 1px solid #dddddd;
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -1628,7 +1687,7 @@ section-raw {
 .nav-main.is-open ul {
   display: block;
   top: 100%;
-  border-top: 1px solid #dddddd;
+  border: none;
   -webkit-transform: translateY(0%);
   -moz-transform: translateY(0%);
   -o-transform: translateY(0%);
@@ -1641,6 +1700,7 @@ section-raw {
   padding-left: 20px;
   padding-right: 20px;
   list-style-type: none;
+  line-height: 30px;
 }
 @media screen and (min-width: 768px) {
   .nav-main li {
@@ -1694,7 +1754,7 @@ header .nav-container.right .nav-main a.is-active {
   right: 5px;
   top: 0px;
   width: auto;
-  height: 50px;
+  height: 60px;
   padding: 0 10px;
 }
 @media screen and (min-width: 768px) {
@@ -1706,10 +1766,10 @@ header .nav-container.right .nav-main a.is-active {
 .nav-main__toggle .icon-bar:before,
 .nav-main__toggle .icon-bar:after {
   display: block;
-  width: 25px;
+  width: 20px;
   height: 3px;
   border-radius: 3px;
-  background-color: #01579b;
+  background-color: #fff;
 }
 .nav-main__toggle .icon-bar {
   -webkit-transition: -webkit-transform 500ms ease;
@@ -2608,6 +2668,7 @@ ul.nav-tabs li a:focus {
 .flex {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .photographer-teaser {
   margin: 60px 0;
@@ -2623,9 +2684,17 @@ ul.nav-tabs li a:focus {
   max-height: 800px;
   overflow: hidden;
 }
+@media screen and (max-width: 769px) {
+  .photogrid {
+    max-height: 480px;
+  }
+}
 .photogrid .grid {
+  -moz-column-count: 5;
   column-count: 5;
+  -moz-column-gap: 0;
   column-gap: 0;
+  -moz-column-width: 20%;
   column-width: 20%;
 }
 .photogrid .grid img {

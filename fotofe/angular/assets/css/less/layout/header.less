@@ -8,14 +8,18 @@
 	&:not(.is-home) {
 		background-color: #212121;
 	}
+	@media @layoutMediumMax {
+		z-index: 10;
+		background-color: #212121 !important;
+	}
 	&.is-home {
 		position: absolute;
 	}
 	font-size: 0.855rem;
 	font-weight: 500;
-	height: @headerHeightSmall;
+	height: 60px;
 	@media @layoutMedium {
-		height: @headerHeightMedium;
+		height: 60px;
 	}
 	.lang-switch .btn {
 		font-size: 0.9rem;

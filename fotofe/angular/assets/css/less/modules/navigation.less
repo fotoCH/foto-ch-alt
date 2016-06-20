@@ -7,7 +7,7 @@
         margin: 0;
         padding: 0;
         width: 100%;
-        background-color: #ffffff;
+        background-color: #212121;
         border-bottom: 1px solid @colorLayoutBorder;
         .transition(transform @transitionDuration @transitionFunction);
         .transform(translateY(-100%));
@@ -24,7 +24,7 @@
     &.is-open ul {
         display: block;
         top: 100%;
-        border-top: 1px solid @colorLayoutBorder;
+        border: none;
         .transform(translateY(0%));
     }
     li {
@@ -33,6 +33,7 @@
         padding-left: 20px;
         padding-right: 20px;
         list-style-type: none;
+        line-height: 30px;
         @media @layoutMedium {
             float: left;
             width: auto;
@@ -90,7 +91,7 @@ header .nav-container {
     right: 5px;
     top: 0px;
     width: auto;
-    height: @headerHeightSmall;
+    height: 60px;
     padding: 0 10px;
     @media @layoutMedium {
         display: none;            // Hide the menu button on tablet and desktop devices
@@ -99,10 +100,10 @@ header .nav-container {
     .icon-bar:before,
     .icon-bar:after {
         display: block;
-        width: 25px;
+        width: 20px;
         height: 3px;
         border-radius: 3px;
-        background-color: @colorActionPrimary;
+        background-color: #fff;
     }
     .icon-bar {
         .transition(transform @transitionDuration @transitionFunction);

@@ -1,6 +1,7 @@
 .flex {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .photographer-teaser {
@@ -22,9 +23,16 @@
     max-height: 800px;
     overflow: hidden;
 
+    @media @layoutMediumMax {
+        max-height: 480px;
+    }
+
     .grid {
+        -moz-column-count: 5;
         column-count: 5;
+        -moz-column-gap: 0;
         column-gap: 0;
+        -moz-column-width: 20%;
         column-width: 20%;
 
         img {

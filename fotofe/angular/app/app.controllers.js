@@ -278,8 +278,11 @@ app.controller('LiteraturCtrl', [
     }
 ]);
 
-app.controller('HomeCtrl', ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', function ($scope, $http, $location, $state, $stateParams, $rootScope) {
+app.controller('HomeCtrl', 
+    ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics', 
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics) {
 
+    $analytics.pageTrack('/home');
     $rootScope.setTitle('fotoCH - Dokumentation der Schweizer Fotografie');
 
     function zeroFill( number, width ) {
