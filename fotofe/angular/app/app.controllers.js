@@ -280,7 +280,6 @@ app.controller('HomeCtrl',
     ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics', 
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics) {
 
-    console.log($analytics);
     $analytics.pageTrack('/home');
     $rootScope.setTitle('fotoCH - Dokumentation der Schweizer Fotografie');
 
