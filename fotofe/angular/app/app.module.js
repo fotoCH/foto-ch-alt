@@ -15,7 +15,7 @@ var app = angular.module('fotochWebApp', [
     'ngCookies',
     'masonry',
     'angulartics',
-    'angulartics.google.tagmanager'
+    'angulartics.google.analytics'
 ]);
 
 app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $cookies, $state) {
