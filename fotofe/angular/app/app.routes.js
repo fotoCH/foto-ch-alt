@@ -4,7 +4,9 @@
  */
 
 	
-app.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', function($urlRouterProvider, $stateProvider, $locationProvider) {
+app.config(
+    ['$urlRouterProvider', '$stateProvider', '$locationProvider', '$analyticsProvider',
+    function($urlRouterProvider, $stateProvider, $locationProvider, $analyticsProvider) {
 
     $urlRouterProvider.otherwise('/home');
  

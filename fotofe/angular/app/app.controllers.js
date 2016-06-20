@@ -272,9 +272,7 @@ app.controller('LiteraturCtrl', [
     '$rootScope', 
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-
         $rootScope.setTitle('fotoCH - Literatur zur Schweizer Fotografie');
-
     }
 ]);
 
@@ -282,6 +280,7 @@ app.controller('HomeCtrl',
     ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics', 
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics) {
 
+    console.log($analytics);
     $analytics.pageTrack('/home');
     $rootScope.setTitle('fotoCH - Dokumentation der Schweizer Fotografie');
 
