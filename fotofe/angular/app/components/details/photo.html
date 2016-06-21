@@ -8,6 +8,14 @@
             <dd ng-if="photo.name">
                 <a ng-click="$root.detail(photo.dc_creator, 'photographer' )">{{ photo.name }}</a>
             </dd>
+            <editable 
+                title="spr.titel" 
+                institution="photo.inst_id" 
+                value="photo.title" 
+                field="dc_title" 
+                type="photo" 
+                entry="photo.id" />
+
             <dt ng-if="photo.title">{{spr.titel}}</dt>
             <dd ng-if="photo.title" ng-bind-html="photo.title | rawHtml"></dd>
             <dt ng-if="photo.description">{{spr.description}}</dt>

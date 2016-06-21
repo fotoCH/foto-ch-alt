@@ -879,6 +879,10 @@ dl dd {
 .user-profile {
   margin-top: 30px;
 }
+.no-animate {
+  -webkit-transition: none !important;
+  transition: none !important;
+}
 /* doesn't seem to exist
 @import "layout/ie-fixes"; */
 .btn {
@@ -2813,6 +2817,29 @@ ul.nav-tabs li a:focus {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
+}
+.editable {
+  position: relative;
+}
+.editable .edit-indicator {
+  position: absolute;
+  left: -25px;
+  width: 19px;
+  height: 19px;
+  content: '';
+  display: block;
+  background-image: url(../img/icons/edit.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.2;
+  overflow: hidden;
+  text-indent: 999px;
+  transition: 300ms;
+  top: 3px;
+}
+.editable .edit-indicator:hover {
+  opacity: 0.7;
 }
 .count-up-number {
   width: 200px;

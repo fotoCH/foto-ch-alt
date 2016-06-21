@@ -123,3 +123,30 @@
         }
     }
 }
+
+.editable {
+    position: relative;
+
+    .edit-indicator {
+        transition: 300ms;
+        position: absolute;
+        left: -25px;
+        width: 19px;
+        height: 19px;
+        content: '';
+        display: block;
+        background-image: url(../img/icons/edit.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        opacity: 0.2;
+        overflow: hidden;
+        text-indent: 999px;
+        transition: 300ms;
+        top: 3px;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}

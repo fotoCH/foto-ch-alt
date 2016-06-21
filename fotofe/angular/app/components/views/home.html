@@ -35,7 +35,7 @@
                         <div class="result-set photographer" ng-if="result.photographer_count > 0">
                             <h5><a ui-sref="photographer">{{spr.photographers}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
-                                <li ng-repeat="photographer in result.photographer_results | limitTo: limit">
+                                <li ng-repeat="photographer in result.photographer_results | limitTo: limit" class="no-animate">
                                     <a ng-click="$root.detail(photographer.id, 'photographer', result.photographer_ids)">
                                     {{photographer.nachname}} {{photographer.vorname}} {{photographer.namenszusatz}}
                                     </a>
@@ -45,7 +45,7 @@
                         <div class="result-set stocks" ng-if="result.stock_count > 0">
                             <h5><a ui-sref="inventory">{{spr.bestaende2}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
-                                <li ng-repeat="stock in result.stock_results | limitTo: limit">
+                                <li ng-repeat="stock in result.stock_results | limitTo: limit" class="no-animate">
                                     <a ng-click="$root.detail(stock.id, 'inventory', result.stock_ids)">
                                     {{stock.name}}
                                     </a>
@@ -55,7 +55,7 @@
                         <div class="result-set institution" ng-if="result.institution_count > 0">
                             <h5><a ui-sref="institution">{{spr.institution}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
-                                <li ng-repeat="institution in result.institution_results | limitTo: limit">
+                                <li ng-repeat="institution in result.institution_results | limitTo: limit" class="no-animate">
                                     <a ng-click="$root.detail(institution.id, 'institution', result.institution_ids)"
                                         ng-if="institution.name">
                                     {{institution.name}}
@@ -66,7 +66,7 @@
                         <div class="result-set exhibition" ng-if="result.exhibition_count > 0">
                             <h5><a ui-sref="exhibition">{{spr.ausstellung}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
-                                <li ng-repeat="exhibition in result.exhibition_results | limitTo: limit">
+                                <li ng-repeat="exhibition in result.exhibition_results | limitTo: limit" class="no-animate">
                                     <a ng-click="$root.detail(exhibition.id, 'exhibition', result.exhibition_ids)">
                                     {{exhibition.titel}} - {{exhibition.jahr}}, {{exhibition.ort}}
                                     </a>
@@ -76,7 +76,7 @@
                         <div class="result-set literature" ng-if="result.literature_count > 0">
                             <h5><a ui-sref="literatur">{{spr.literatur}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
-                                <li ng-repeat="literature in result.literature_results | limitTo: limit">
+                                <li ng-repeat="literature in result.literature_results | limitTo: limit" class="no-animate">
                                     <a ng-click="$root.detail(literature.id, 'literature', result.literature_ids)">
                                     {{literature.titel}} - {{literature.jahr}}, {{literature.ort}}
                                     </a>
@@ -87,7 +87,7 @@
                     <div class="imagery">
                         <ul>
                             <li ng-repeat="photos in result.photos_results | limitTo: photolimit">
-                                <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)">
+                                <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)" class="no-animate">
                                     <img src="{{ imageRootUrl }}{{photos.image_path}}" width="100%" />
                                 </a>
                             </li>

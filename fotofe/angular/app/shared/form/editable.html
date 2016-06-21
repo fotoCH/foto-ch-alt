@@ -1,0 +1,14 @@
+<div class="editable">
+    <a ng-if="allowedToEdit()" class="edit-indicator" ng-click="changeEdit()">{{$root.translations.edit}}</a>
+    <dt ng-if="value">{{title}}</dt>
+
+    <div ng-if="! editing" class="no-animate">
+        <dd ng-if="value" ng-bind-html="value | rawHtml"></dd>
+    </div>
+
+    <form ng-if="editing" class="no-animate form-container" ng-submit="save(value)">
+        <input type="text" placeholder="" name="toSaveValue" focus-me="{{editing}}" ng-model="value">
+        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+    </form>
+
+</div>
