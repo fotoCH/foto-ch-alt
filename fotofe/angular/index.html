@@ -109,6 +109,11 @@
     <div class="view" ui-view></div>
 </div>
 
+
+<div class="bottom-panel" ng-if="$root.user">
+    <a ui-sref="login" class="username" ng-if="$root.user">{{spr.logged_in_as}}: <strong>{{$root.user_data.username}}</strong></a>
+</div>
+
 <footer class="l-footer" ngCloak class="ng-cloak">
     <div class="l-container">
         <div class="copyright">

@@ -24,7 +24,11 @@
     <uib-accordion close-others="oneAtATime">
         <!-- Werdegang -->
         <uib-accordion-group heading="{{translations.werdegang}}" ng-if="detail.werdegang">
-            <content-raw headline="" value="detail.werdegang"></content-raw>
+            <read-more-wrapper 
+                value="detail.werdegang" 
+                showmore="{{translations.show_werdegang}}"
+                showless="{{translations.hide_werdegang}}">
+            </read-more-wrapper>
         </uib-accordion-group>
 
         <!-- Schaffensbeschrieb -->
@@ -69,19 +73,19 @@
 
         <!-- Notiz -->
         <uib-accordion-group heading="{{translations.notiz}}" ng-if="detail.notiz">
-            <default-list headline="" values="detail.notiz"></default-list>
+            <content-raw headline="" value="detail.notiz"></content-raw>
         </uib-accordion-group>
 
         <!-- Publizieren -->
-        <uib-accordion-group heading="{{translations.npublizieren}}" ng-if="detail.npublizieren">
-            <default-list headline="" values="detail.npublizieren"></default-list>
+        <uib-accordion-group heading="{{translations.npublizieren}}" ng-if="detail.npublizieren != 0">
+            <content-raw headline="" value="detail.npublizieren"></content-raw>
         </uib-accordion-group>
 
 
     </uib-accordion>
 </div>
 <div class="right">
-    <content-raw headline="translations.umfeld" value="detail.umfeld" class="hide-on-small"></content-raw>
+    <content-raw headline="translations.umfeld" ng-if="detail.umfeld" value="detail.umfeld" class="hide-on-small"></content-raw>
     <editing-info labels="translations" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
     <div class="l-content__actions">
         <a class="btn btn--action" ui-sref="contact">{{translations.proposal_for_improvements}}</a>
@@ -92,7 +96,6 @@
         photos="detail.photos" 
         labels="translations" 
         headline="translations.photos"
-        image-root-url="{{imageRootUrl}}"
         query="{{ detail.namen[0].nachname }}"
         >
     </photo-teaser>

@@ -5,8 +5,12 @@
 app.controller('MainCtrl', 
     ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', '$window', '$uibModalStack',
     function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies, $window, $uibModalStack) {
-    // console.log("Main Controller reporting for duty.");
     $rootScope.textualSearch = '';
+
+    if(typeof($window.sessionStorage.user_data) !== 'undefined' && 
+        typeof($rootScope.user_data) == 'undefined') {
+        $rootScope.user_data = JSON.parse($window.sessionStorage.user_data);
+    }
 
     function loadTranslation() {
         $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
@@ -154,7 +158,6 @@ app.controller('MainCtrl',
 }]);
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
-    // console.log("Navigation Controller reporting for duty.");
     $scope.getClass = function (path) {
         var splittedPath = $location.path().split("/");
         if (splittedPath[1] == path) {
@@ -345,21 +348,30 @@ app.controller('HomeCtrl',
 
 }]);
 
-app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', function ($scope, $http, $state, $stateParams, $rootScope, $window) {
-    // console.log("Login Controller reporting for duty.");
-    // console.log($scope);
+app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', '$timeout', function ($scope, $http, $state, $stateParams, $rootScope, $window, $timeout) {
+    
     $scope.doLogin = function (user) {
-        // console.log("$scope.doLogin");
         $http.get($rootScope.ApiUrl + '/?a=user&b=login&user=' + user.username + '&password=' + user.password).success(function (data) {
 
             var status = data.status;
 
             if (status == 'ok') {
-                $scope.errorMsg = 'Login ok ' + $scope.spr.welcome + ' ' + data.vorname + ' ' + data.nachname;
+                $scope.errorMsg = $scope.spr.login_success;
+                $timeout(function() {
+                    $scope.errorMsg = '';
+                }, 5000);
                 $rootScope.user = user.username;
+                $rootScope.user_data = {
+                    "username": user.username,
+                    "forename": data.vorname,
+                    "name": data.nachname
+                }
+                $window.sessionStorage.user_data = JSON.stringify($rootScope.user_data);
+
                 $rootScope.userLevel = parseInt(data.level);
                 $rootScope.instComment = parseInt(data.inst_comment);
                 $rootScope.authToken = data.token;
+
                 $window.sessionStorage.authToken = data.token;
                 $http.defaults.headers.common['X-AuthToken'] = $rootScope.authToken;
             } else {
@@ -369,7 +381,6 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
         });
     }
     $scope.doLogout = function () {
-        // console.log("$scope.doLogout");
         $http.get($rootScope.ApiUrl + '/?a=user&b=logout').success(function (data) {
             var resp = data;
 
@@ -379,6 +390,7 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
             $rootScope.instComment = 0;
             $http.defaults.headers.common['X-AuthToken'] = undefined;
             $window.sessionStorage.authToken = undefined;
+            $window.sessionStorage.removeItem('user_data');
 
         });
     }
@@ -469,7 +481,6 @@ app.controller('homeSearch', [
                             response = response.replace(/}{/g, "},{");
                             response = "[" + response + "]";
                             var newresult = JSON.parse(response);
-                            console.log(newresult);
                             newresult = newresult[newresult.length-1];
                             $scope.result = newresult;
                             $scope.setIdArrays();

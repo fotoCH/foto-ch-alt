@@ -1,4 +1,14 @@
 <div class="left">
+    <dl>
+        <dt ng-if="detail.verfasser_name.length > 1">{{translations.autorIn}}</dt>
+        <dd>{{detail.verfasser_name}}, {{detail.verfasser_vorname}}</dd>
+        <dt ng-if="detail.ort.length > 1">{{translations.ort}}</dt>
+        <dd>{{detail.ort}}</dd>
+        <dt ng-if="detail.verlag.length > 1">{{translations.verlag}}</dt>
+        <dd>{{detail.verlag}}</dd>
+        <dt ng-if="detail.jahr.length > 1">{{translations.jahr}}</dt>
+        <dd>{{detail.jahr}}</dd>
+    </dl>
     <h2>{{translations.fotographen}}</h2>
     <ul>
         <li ng-repeat="photographer in detail.photographer">

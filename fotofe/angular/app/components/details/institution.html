@@ -1,4 +1,8 @@
 <div class="left">
+    <div ng-if="!detail.isil && !detail.adresse && !detail.zugang_zur_sammlung && ! detail.bildgattungen_set && ! detail.name">
+        <h2>{{translations.not_available}}</h2>
+        <p>{{translations.not_available_text}}</p>
+    </div>
     <div class="l-content__section l-content__section--meta">
         <dl>
             <dt ng-if="detail.isil">{{translations.isil}}</dt>
@@ -25,8 +29,8 @@
     <content-default headline="translations.npublizieren" value="detail.npublizieren"></content-default>
 </div>
 <div class="right">
-    <editing-info labels="translations" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
-    <div class="l-content__actions">
+    <editing-info ng-if="detail.gesperrt == 0" labels="translations" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
+    <div class="l-content__actions" ng-if="detail.gesperrt == 0">
         <a class="btn btn--action" ui-sref="contact">{{translations.proposal_for_improvements}}</a>
     </div>
 </div>

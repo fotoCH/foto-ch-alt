@@ -2,12 +2,12 @@
     <h2 ng-if="headline">{{headline}}</h2>
     <ul>
         <li class="photo-teaser__item" ng-repeat="p in photos">
-            <a class="l-photo-teaser__link" ui-sref="photoDetail({ id: p.id })">
-                <img src="{{imageRootUrl}}{{p.image_path}}" alt="{{p.title}}">
+            <a class="l-photo-teaser__link" ng-click="$root.detail(p.id, 'photo' )">
+                <img ng-if="p.image_path" src="{{$root.imageRootUrl}}{{p.image_path}}" alt="{{p.title}}">
             </a>
 
             <div class="photo-teaser__description">
-                <a class="l-photo-teaser__link" ui-sref="photoDetail({ id: p.id })">
+                <a class="l-photo-teaser__link"  ng-click="$root.detail(p.id, 'photo' )">
                     <span class="photo-teaser__caption" ng-bind-html="p.title | rawHtml"></span>
                 </a>
             </div>

@@ -455,9 +455,9 @@ header:not(.is-home) + .l-main {
   margin-top: 60px;
 }
 h2 {
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.87);
-  font-weight: 400;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.76);
+  font-weight: 500;
 }
 h4 {
   font-size: 16px;
@@ -530,11 +530,6 @@ a.ng-scope {
 @media screen and (min-width: 1024px) {
   .l-content__section.power-search--home form {
     max-width: 45%;
-  }
-}
-@media screen and (min-width: 768px) {
-  .l-content__actions {
-    padding: 0.5em 1em;
   }
 }
 .l-content__section.l-boxview .l-content__box {
@@ -865,12 +860,14 @@ a.ng-scope {
 .btn {
   display: inline-block;
   padding: 0.5em 1em;
-  width: 100%;
   outline: none;
-  font-size: 1rem;
+  font-size: 14px;
   font-family: "Roboto", sans-serif;
-  font-weight: bold;
+  font-weight: 500;
   text-align: center;
+  text-transform: uppercase;
+  border-radius: 2px;
+  min-width: 100px;
   -webkit-border-radius: 3px;
   -webkit-background-clip: padding-box;
   -moz-border-radius: 3px;
@@ -895,7 +892,7 @@ a.btn {
 .btn--primary {
   margin: 10px 0;
   width: 100%;
-  background-color: #01579b;
+  background-color: #333;
   border: none;
   color: #ffffff;
 }
@@ -906,7 +903,8 @@ a.btn {
 }
 .btn--primary:hover,
 .btn--primary:focus {
-  background-color: #013b68;
+  color: #fff;
+  background-color: #01579b;
 }
 .btn--secondary {
   border: 1px solid #b3e5fc;
@@ -968,6 +966,24 @@ a.btn {
 .form-container .has-error .form__message {
   color: #d37961;
   font-weight: bold;
+}
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"],
+.form-container textarea {
+  font-size: 14px;
+  line-height: 25px;
+  padding-left: 10px;
+  border-radius: 2px;
+  border: 1px solid #e0e0e0;
+  transition: 300ms;
+}
+.form-container input[type="text"]:focus,
+.form-container input[type="password"]:focus,
+.form-container input[type="email"]:focus,
+.form-container textarea:focus {
+  border-color: #a0a0a0;
+  background-color: #fafafa;
 }
 label {
   padding-bottom: 0.5em;
@@ -2722,6 +2738,46 @@ ul.nav-tabs li a:focus {
   display: inline-block;
   width: 100%;
   cursor: pointer;
+}
+.small-highlight {
+  max-width: 50%;
+  margin: 5% auto;
+  padding: 5%;
+  background-color: #fafafa;
+}
+.bottom-panel {
+  position: fixed;
+  bottom: 0;
+  right: 5%;
+  background-color: rgba(33, 33, 33, 0.9);
+  color: #fff;
+  padding: 5px 20px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  z-index: 10;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.bottom-panel .username {
+  display: inline-block;
+  line-height: 25px;
+  color: #fff;
+}
+.bottom-panel .username:hover {
+  color: #fff;
+}
+.bottom-panel .username:before {
+  display: inline-block;
+  width: 16px;
+  height: 12px;
+  position: relative;
+  top: 1px;
+  content: '';
+  margin-right: 10px;
+  background-image: url(../img/icons/person.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 .count-up-number {
   width: 200px;

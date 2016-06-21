@@ -250,7 +250,6 @@ app.directive('photoTeaser', function () {
             photos: '=',
             labels: '=',
             headline: '=',
-            imageRootUrl: '@',
             query: '@'
         }
     };

@@ -1,19 +1,36 @@
-<div class="l-content l-content--center">
-	<div class="l-content__main l-view--reader">
-		<div class="l-content__header">
-			<h1>Login</h1>
-		</div>
-		<div class="l-content__section">
-			<form class="form-container" ng-if="!user">
-				<input type="text" name="benutzername" tabindex="1" ng-model="login.username" autofocus="autofocus" autocorrect="off" autocapitalize="off" placeholder="{{spr.benutzername}}">
-				<input type="password" name="password" tabindex="2" ng-model="login.password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="{{spr.passwort}}">
-				<input class="btn btn--primary" type="submit" tabindex="3" ng-click="doLogin(login)" value="{{spr.senden}}"></input>
-				<p id="error-msg">{{errorMsg}}</p>
-			</form>
-			<form class="form-container" ng-if="user">
-				<input class="btn btn--primary" type="submit" tabindex="4" ng-click="doLogout()" value="{{spr.logout}}"></input>
-				<p id="error-msg">{{errorMsg}}</p>
-			</form>
-		</div>
-	</div>
+<div class="l-container">
+    <div class="small-highlight">
+        <h1 ng-if="!user">{{spr.login}}</h1>
+        <h1 ng-if="user">{{spr.profile}}</h1>
+        <form class="form-container" ng-if="!user">
+            <input 
+                type="text" 
+                name="benutzername" 
+                tabindex="1" 
+                ng-model="login.username" 
+                autofocus="autofocus" 
+                autocorrect="off" 
+                autocapitalize="off" 
+                placeholder="{{spr.benutzername}}">
+
+            <input 
+                type="password" 
+                name="password" 
+                tabindex="2" 
+                ng-model="login.password" 
+                autocomplete="off" 
+                autocorrect="off" 
+                autocapitalize="off" 
+                spellcheck="false" 
+                placeholder="{{spr.passwort}}">
+
+            <input class="btn btn--primary" type="submit" tabindex="3" ng-click="doLogin(login)" value="{{spr.login}}"></input>
+            <p id="error-msg" ng-bind-html="errorMsg"></p>
+        </form>
+        <form class="form-container" ng-if="user">
+            <p>{{spr.logged_in_as}}: {{$root.user_data.forename}} {{$root.user_data.name}}</p>
+            <input class="btn btn--primary" type="submit" tabindex="4" ng-click="doLogout()" value="{{spr.logout}}"></input>
+            <p id="error-msg" ng-bind-html="errorMsg"></p>
+        </form>
+    </div>
 </div>

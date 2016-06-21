@@ -50,12 +50,11 @@ app.controller('DetailController', [
             case 'photographer':
                 DetailService.getPhotographer(params.id).then(function(photographer) {
                     var title = '';
-                    angular.forEach(photographer.data.namen, function(value, key) {
-                        if(value.vorname !== '') {
-                            title+= value.vorname + ", ";
-                        }
-                        title+= value.nachname + " ";
-                    });
+                    var name = photographer.data.namen[0];
+                    if(name.vorname !== '') {
+                        title+= name.vorname + ", ";
+                    }
+                    title+= name.nachname + " ";
                     $scope.title = title;
                     $scope.subtitle = photographer.data.fldatum;
                     $scope.detail = photographer.data;
@@ -108,8 +107,6 @@ app.controller('DetailController', [
                 console.log('Unknown Detail Type: ' + params.type);
         }
 
-        console.log(params.type);
-        console.log($rootScope.translations);
         $scope.toptitle = $rootScope.translations[params.type];
     }
 ]);

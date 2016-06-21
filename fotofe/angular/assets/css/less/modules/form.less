@@ -14,6 +14,23 @@
     color: @colorFeedbackError;
     font-weight: bold;
   }
+
+  input[type="text"], 
+  input[type="password"],
+  input[type="email"],
+  textarea {
+    font-size: 14px;
+    line-height: 25px;
+    padding-left: 10px;
+    border-radius: 2px;
+    border: 1px solid #e0e0e0;
+    transition: 300ms;
+
+    &:focus {
+      border-color: #a0a0a0;
+      background-color: #fafafa;
+    }
+  }
 }
 
 label {

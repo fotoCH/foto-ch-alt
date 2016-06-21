@@ -1,36 +1,39 @@
 <div class="l-content l-readerview">
-	<div class="l-content__main">
-		<div class="l-content__header">
-			<h1>{{spr.kontakt}}</h1>
+	<div class="l-container">
+		<div class="l-content__main">
+			<div class="l-content__header">
+				<h1>{{spr.kontakt}}</h1>
+			</div>
+			<div class="l-content__section" ng-controller="contactFormCtrl">
+				<div class="msg-success" ng-show="message">
+	                <p>{{ message }}</p>
+	            </div>
+				<form class="form-container" id="test" name="contactForm" novalidate ng-hide="message" ng-submit="processForm()">
+					<div class="form-group" ng-class="{ 'has-error' : errorName }">
+						<input type="text" name="name" tabindex="1" autofocus="autofocus"  autocorrect="off" autocapitalize="off" required="required" placeholder="{{spr.name}}" ng-model="formData.name">
+						<span class="form__message" ng-show="errorName">{{ errorName }}</span>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error' : errorEmail }">
+						<input type="email" name="email" tabindex="2" autocorrect="off" autocapitalize="off" required placeholder="{{spr.email}}" ng-model="formData.email">
+						<span class="form__message" ng-show="errorEmail">{{ errorEmail }}</span>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error' : errorMessage }">
+						<textarea name="message" cols="30" rows="10" tabindex="3" autocomplete="off" autocorrect="off" autocapitalize="off" required="required" placeholder="{{spr.message}}" ng-model="formData.message"></textarea>
+						<span class="form__message" ng-show="errorMessage">{{ errorMessage }}</span>
+					</div>
+					<input class="btn btn--primary" type="submit" tabindex="4" value="{{spr.senden}}"></input>
+				</form>
+			</div>
+			<md class="l-content__section" ng-model="pages.imprint"></md>
 		</div>
-		<div class="l-content__section" ng-controller="contactFormCtrl">
-			<div class="msg-success" ng-show="message">
-                <p>{{ message }}</p>
-            </div>
-			<form class="form-container" id="test" name="contactForm" novalidate ng-hide="message" ng-submit="processForm()">
-				<div class="form-group" ng-class="{ 'has-error' : errorName }">
-					<input type="text" name="name" tabindex="1" autofocus="autofocus"  autocorrect="off" autocapitalize="off" required="required" placeholder="{{spr.name}}" ng-model="formData.name">
-					<span class="form__message" ng-show="errorName">{{ errorName }}</span>
-				</div>
-				<div class="form-group" ng-class="{ 'has-error' : errorEmail }">
-					<input type="email" name="email" tabindex="2" autocorrect="off" autocapitalize="off" required placeholder="{{spr.email}}" ng-model="formData.email">
-					<span class="form__message" ng-show="errorEmail">{{ errorEmail }}</span>
-				</div>
-				<div class="form-group" ng-class="{ 'has-error' : errorMessage }">
-					<textarea name="message" cols="30" rows="10" tabindex="3" autocomplete="off" autocorrect="off" autocapitalize="off" required="required" placeholder="{{spr.message}}" ng-model="formData.message"></textarea>
-					<span class="form__message" ng-show="errorMessage">{{ errorMessage }}</span>
-				</div>
-				<input class="btn btn--primary" type="submit" tabindex="4" value="{{spr.senden}}"></input>
-			</form>
-		</div>
-		<md class="l-content__section" ng-model="pages.imprint"></md>
-	</div>
-	<div class="l-content__aside l-content__right">
-		<div class="l-content__section">
-			<h2>{{spr.adresse}}</h2>
-			<p>Büro für Fotografiegeschichte Bern<br>Optingenstrasse 54<br>3013 Bern</p>
-			<a class="btn btn--secondary" href="tel:0041313402337">Tel: 031 340 23 37</a><br>
-			<a class="btn btn--secondary" href="https://www.google.ch/maps/place/Optingenstrasse+54,+3013+Bern/@46.9567671,7.4510473,17z/data=!4m7!1m4!3m3!1s0x478e39e94fe12519:0xde2e8459f6318b58!2sOptingenstrasse+54,+3013+Bern!3b1!3m1!1s0x478e39e94fe12519:0xde2e8459f6318b58" target="_blank">{{spr.directions}}</a>
+		<div class="l-content__aside l-content__right">
+			<div class="l-content__section">
+				<h2>{{spr.adresse}}</h2>
+				<p>Büro für Fotografiegeschichte Bern<br>Optingenstrasse 54<br>3013 Bern</p>
+				<a class="" href="tel:0041313402337">Tel: 031 340 23 37</a>
+				<br />
+				<a class="btn btn--primary" href="https://www.google.ch/maps/place/Optingenstrasse+54,+3013+Bern/@46.9567671,7.4510473,17z/data=!4m7!1m4!3m3!1s0x478e39e94fe12519:0xde2e8459f6318b58!2sOptingenstrasse+54,+3013+Bern!3b1!3m1!1s0x478e39e94fe12519:0xde2e8459f6318b58" target="_blank">{{spr.directions}}</a>
+			</div>
 		</div>
 	</div>
 </div>	
