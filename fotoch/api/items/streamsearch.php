@@ -139,7 +139,8 @@ class StreamedSearch {
             "literatur.verfasser_name", 
             "literatur.verfasser_vorname", 
             "literatur.jahr",
-            "literatur.ort"
+            "literatur.ort",
+            "literatur.verlag"
         );
     }
 
