@@ -111,7 +111,13 @@
 
 
 <div class="bottom-panel" ng-if="$root.user">
-    <a ui-sref="profile" class="username" ng-if="$root.user">{{spr.logged_in_as}}: <strong>{{$root.user_data.username}}</strong></a>
+    <div class="user-panel">
+        <a ui-sref="profile" class="username" ng-if="$root.user">{{spr.logged_in_as}}: <strong>{{$root.user_data.username}}</strong></a>
+        <ul class="submenu">
+            <li><a ui-sref="profile">{{spr.profile}}</a></li>
+            <li><a ng-click="$root.doLogout()">{{spr.logout}}</a></li>
+        </ul>
+    </div>
 </div>
 
 <footer class="l-footer" ngCloak class="ng-cloak">

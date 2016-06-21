@@ -29,6 +29,23 @@ app.controller('MainCtrl',
         }
     });
 
+    $rootScope.doLogout = function () {
+        $http.get($rootScope.ApiUrl + '/?a=user&b=logout').success(function (data) {
+            var resp = data;
+
+            $rootScope.user = '';
+            $rootScope.userLevel = 0;
+            $rootScope.authToken = '';
+            $rootScope.instComment = 0;
+            $http.defaults.headers.common['X-AuthToken'] = undefined;
+            $rootScope.user_data = false;
+            $window.sessionStorage.authToken = undefined;
+            $window.sessionStorage.removeItem('user_data');
+
+            $state.go("home");
+        });
+    }
+
     $scope.title =  'fotoCH';
     $rootScope.setTitle = function(title) {
         $scope.title = title;
@@ -348,7 +365,7 @@ app.controller('HomeCtrl',
 
 }]);
 
-app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', '$timeout', function ($scope, $http, $state, $stateParams, $rootScope, $window, $timeout) {
+app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', '$timeout', 'DetailService', function ($scope, $http, $state, $stateParams, $rootScope, $window, $timeout, DetailService) {
     
     $scope.doLogin = function (user) {
         $http.get($rootScope.ApiUrl + '/?a=user&b=login&user=' + user.username + '&password=' + user.password).success(function (data) {
@@ -369,6 +386,12 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
                     "level" : data.level,
                     "email" : data.email
                 }
+                if(data.inst_comment != '') {
+                    DetailService.getInstitute(data.inst_comment).then(function(institute) {
+                        $rootScope.user_data.institute = institute.data;
+                        $window.sessionStorage.user_data = JSON.stringify($rootScope.user_data);
+                    });
+                }
                 $window.sessionStorage.user_data = JSON.stringify($rootScope.user_data);
 
                 $rootScope.userLevel = parseInt(data.level);
@@ -378,24 +401,9 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
                 $window.sessionStorage.authToken = data.token;
                 $http.defaults.headers.common['X-AuthToken'] = $rootScope.authToken;
                 $state.go("profile");
-                
             } else {
                 $scope.errorMsg = 'Bad login';
             }
-
-        });
-    }
-    $scope.doLogout = function () {
-        $http.get($rootScope.ApiUrl + '/?a=user&b=logout').success(function (data) {
-            var resp = data;
-
-            $rootScope.user = '';
-            $rootScope.userLevel = 0;
-            $rootScope.authToken = '';
-            $rootScope.instComment = 0;
-            $http.defaults.headers.common['X-AuthToken'] = undefined;
-            $window.sessionStorage.authToken = undefined;
-            $window.sessionStorage.removeItem('user_data');
 
         });
     }

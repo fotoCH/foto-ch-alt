@@ -1,0 +1,21 @@
+<div class="l-container">
+    <div class="user-profile left">
+        <h2>{{$root.translations.profile}}</h2>
+        <dl>
+            <dt>{{$root.translations.username}}</dt>
+            <dd>{{$root.user_data.username}}</dd>
+            <dt>{{$root.translations.name}}</dt>
+            <dd>{{$root.user_data.forename}} {{$root.user_data.name}}</dd>
+            <dt>{{$root.translations.email}}</dt>
+            <dd ng-if="$root.user_data.email">{{$root.user_data.email}}</dd>
+            <dd ng-if="!$root.user_data.email">-</dd>
+            <dt>{{$root.translations.connected_institute}}</dt>
+            <dd ng-if="$root.user_data.inst != 0">
+                <a ng-click="$root.detail($root.user_data.inst, 'institution' )">{{$root.user_data.institute.name}}</a>
+            </dd>
+            <dd ng-if="$root.user_data.inst == 0">
+                <span>{{$root.translations.none}}</span>
+            </dd>
+        </dl>
+    </div>
+</div>

@@ -53,32 +53,69 @@
 
 .bottom-panel {
     position: fixed;
-    bottom: 0;
+    bottom: -70px;
     right: 5%;
     background-color: rgba(33, 33, 33, 1);
     color: #fff;
-    padding: 5px 20px;
+    padding: 0 30px;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
-    z-index: 10;
+    z-index: 30;
     font-size: 11px;
     text-transform: uppercase;
+
+    &:hover {
+        bottom: 0;
+    }
+
+    -webkit-transition: all 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+       -moz-transition: all 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+         -o-transition: all 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+            transition: all 500ms cubic-bezier(0.215, 0.610, 0.355, 1.000); /* easeOutCubic */
+
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+       -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+         -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+            transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); /* easeOutCubic */
+
+    .user-panel {
+        .submenu {
+            margin: 0;
+            margin-top: 1px;
+            padding: 0;
+
+            a {
+                display: block;
+                color: #fff;
+                &:hover {
+                    color: @colorActionSecondary;
+                    text-decoration: none;
+                }
+            }
+            li {
+                border-top: 1px solid #333;
+                line-height: 35px;
+                list-style-type: none;
+            }
+        }
+    }
 
     .username {
         display: inline-block;
         line-height: 50px;
         color: #fff;
         &:hover {
-            color: #fff;
+            color: @colorActionSecondary;
+            text-decoration: none;
         }
-        &:before {
+        &:after {
             display: inline-block;
             width: 16px;
             height: 12px;
             position: relative;
             top: 1px;
             content: '';
-            margin-right: 10px;
+            margin-left: 10px;
             background-image:url(../img/icons/person.svg);
             background-size: 100%;
             background-repeat: no-repeat;

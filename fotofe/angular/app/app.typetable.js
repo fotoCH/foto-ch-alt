@@ -147,6 +147,7 @@ app.controller('TypeTableCtrl', [
             $scope.searchquery = '';
             $scope.queryOffset = 0;
             $scope.textsearchblur();
+            $scope.directFilters = [];
             loadData();
         }
 
