@@ -42,12 +42,20 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     if (hosta.length>0 && ((l=languages.indexOf(hosta[0]))>=0)){
       $rootScope.lang = hosta[0];
     }
+
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
+        console.log(toState.name);
+        if (toState.name == 'profile' && ! $rootScope.user_data) {
+            event.preventDefault();
+            $state.go('login');
+        }
+    });
     
     // Development Server API URL
-    //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
+    $rootScope.ApiUrl = 'http://localhost/fotoch/api';
 
     // Production Server API URL
-    $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
+    //$rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
 
     
     var token=window.sessionStorage.authToken;

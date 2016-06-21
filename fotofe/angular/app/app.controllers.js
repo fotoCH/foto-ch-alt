@@ -364,7 +364,10 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
                 $rootScope.user_data = {
                     "username": user.username,
                     "forename": data.vorname,
-                    "name": data.nachname
+                    "name": data.nachname,
+                    "inst" : data.inst_comment,
+                    "level" : data.level,
+                    "email" : data.email
                 }
                 $window.sessionStorage.user_data = JSON.stringify($rootScope.user_data);
 
@@ -374,6 +377,8 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
 
                 $window.sessionStorage.authToken = data.token;
                 $http.defaults.headers.common['X-AuthToken'] = $rootScope.authToken;
+                $state.go("profile");
+                
             } else {
                 $scope.errorMsg = 'Bad login';
             }
@@ -422,6 +427,10 @@ app.controller('contactFormCtrl', function ($scope, $http) {
                 }
             });
     };
+});
+
+app.controller('ProfileCtrl', function ($scope, $http, $location) {
+
 });
 
 app.controller('homeSearch', [

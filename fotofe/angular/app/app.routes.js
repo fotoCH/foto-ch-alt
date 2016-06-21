@@ -61,6 +61,12 @@ app.config(
         controller: 'LoginCtrl'
     })
     // Testpage for development
+    .state('profile', {
+        url: '/profile',
+        templateUrl: 'app/components/meta/profile.html',
+        controller: 'ProfileCtrl'
+    })
+    // Testpage for development
     .state('test', {
         url: '/test?ch&photo&kanton&land',
         templateUrl: 'app/components/test/test.html',
