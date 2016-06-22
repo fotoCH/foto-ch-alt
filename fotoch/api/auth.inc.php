@@ -28,6 +28,24 @@ function testauth(){
 	}
 }
 
+function testInstitution($toTest) {
+	global $inst_comment;
+	if($toTest == $inst_comment) {
+		return true;
+	}
+	return false;
+}
+
+function auth_user($field = false) {
+	global $authToken;
+	$info = getTokenInfo($authToken);
+	if(! $field) {
+		return $info;
+	} else {
+		return $info[$field];
+	}
+}
+
 function testauthedit(){   // sind editierrechte vorhanden?
 	global $userlevel;
 	if ($userlevel < USER_WORKER){
@@ -39,6 +57,7 @@ function testauthedit(){   // sind editierrechte vorhanden?
 function getAuthFromHeader(){
 	global $userlevel;
 	global $inst_comment;
+	global $authToken;
 	if (array_key_exists('X-AuthToken', $_GET)){
 	    $headers['X-AuthToken']=$_GET['X-AuthToken'];
 	} else {
@@ -46,6 +65,7 @@ function getAuthFromHeader(){
 	}
 
 	if (array_key_exists('X-AuthToken', $headers) && $headers['X-AuthToken']){
+		$authToken = $headers['X-AuthToken'];
 	    $at=$headers['X-AuthToken'];
 	    $tinfo=getTokenInfo($at);
 	    //$userlevel=testToken($at);

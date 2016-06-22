@@ -16,11 +16,13 @@ if ($b=='login'){
 			$inst_comment=$fetch['inst_comment'];
 			$success = true;
 			$res=$fetch;
+			// break after user has been found
+			break;
 		}
 		
 	}
 	if ($success){
-		$out['status']='ok'; print_r($fetch);
+		$out['status']='ok';
 		$out['token']=getToken($user,$level,$inst_comment);
 		pushfields($out,$res,array('vorname','nachname','email','level','inst_comment'));
 	} else {
@@ -29,7 +31,7 @@ if ($b=='login'){
 	
 	
 } elseif ($b=='logout'){
-	$out['status']=(logOff($token)?'ok':'nok');
+	$out['status']=(logOff($authToken)?'ok':'nok');
 } elseif ($b=='info'){
 	$out=getTokenInfo($tok);
 }

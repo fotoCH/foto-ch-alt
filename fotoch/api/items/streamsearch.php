@@ -191,6 +191,7 @@ class StreamedSearch {
                 $sql.= "fotos.dc_title LIKE '%".$term."%'";
                 $sql.= " OR fotos.dc_description LIKE '%".$term."%'";
                 $sql.= " OR fotos.dc_created LIKE '%".$term."%'";
+                $sql.= " OR fotos.dcterms_subject LIKE '%".$term."%'";
                 $sql.= " OR fotos.dcterms_spatial LIKE '%".$term."%'";
             }
             if($level >= 1) {

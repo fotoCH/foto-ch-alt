@@ -109,7 +109,7 @@ function logOff($t){
 	$res=get1fromselect($sql);
 	if ($res){
 		$sql="DELETE FROM auth WHERE token='$t'";
-		//mysql_query($sql);
+		mysql_query($sql);
 		return true;
 	} 
 	return false;

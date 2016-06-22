@@ -2,9 +2,11 @@
 
 $id=$_GET['id'];
 
-if (auth_level(USER_GUEST_READER_PARTNER))
-$result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
-else  $result=mysql_query("SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
+if (auth_level(USER_WORKER)) {
+	$result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
+} else {
+	$result=mysql_query("SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
+}
 
 while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
 
