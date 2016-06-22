@@ -212,10 +212,18 @@ while($fetch=@mysql_fetch_assoc($result)){
 	}
 
 	$aus='';
-
-	$result8=mysql_query("SELECT ausstellung_fotograf.fotograf_id, ausstellung_fotograf.id AS af_id, ausstellung.*
-			FROM ausstellung_fotograf INNER JOIN ausstellung ON ausstellung_fotograf.ausstellung_id = ausstellung.id
-			WHERE ausstellung_fotograf.fotograf_id=$id ORDER BY ausstellung.typ, ausstellung.jahr, ausstellung.ort, af_id");
+	$query ="SELECT 
+			ausstellung_fotograf.fotograf_id, 
+			ausstellung_fotograf.id AS af_id, 
+			ausstellung.*,
+			institution.gesperrt as 'gesperrt'
+			FROM ausstellung_fotograf 
+			INNER JOIN ausstellung ON ausstellung_fotograf.ausstellung_id = ausstellung.id
+			LEFT JOIN ausstellung_institution ON ausstellung.id = ausstellung_institution.ausstellung_id
+			LEFT JOIN institution ON ausstellung_institution.institution_id = institution.id
+			WHERE ausstellung_fotograf.fotograf_id=$id 
+			ORDER BY ausstellung.typ, ausstellung.jahr, ausstellung.ort, af_id";
+	$result8=mysql_query($query);
 	//if(mysql_num_rows($result8)!=0) abstand($def);
 	while($fetch8=mysql_fetch_array($result8)){
 		$aus=$fetch8['typ'];
@@ -227,7 +235,15 @@ while($fetch=@mysql_fetch_assoc($result)){
 		}
 		//$def->parse($det.".z.aus");
 		//$def->parse($det.".z");
-		$a=array('id'=>$fetch8['id'],'text'=>$fetch8['text'], 'titel'=>$fetch8['titel'], 'ort'=>$fetch8['ort'],'jahr'=>$fetch8['jahr'],'institution'=>$fetch8['institution']);
+		$a=array(
+			'id'=>$fetch8['id'],
+			'text'=>$fetch8['text'],
+			'titel'=>$fetch8['titel'],
+			'ort'=>$fetch8['ort'],
+			'jahr'=>$fetch8['jahr'],
+			'institution'=>$fetch8['institution'],
+			'gesperrt' => $fetch8['gesperrt']
+		);
 		if ($aus=='E'){
 			$eaus[]=$a;
 		} else {
