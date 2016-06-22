@@ -2,8 +2,10 @@ app.controller('EditableController', [
     '$scope',
     '$http',
     '$rootScope',
-    function($scope, $http, $rootScope) {
-        $scope.allowed = '';
+    '$window',
+    '$state',
+    function($scope, $http, $rootScope, $window, $state) {
+        $scope.allowed = false;
         $scope.editing = false;
 
         $scope.changeEdit = function() {
@@ -15,19 +17,27 @@ app.controller('EditableController', [
         }
 
         $scope.save = function(newValue) {
-            console.log("SAVE > " + newValue);
+            var query = $rootScope.ApiUrl + '/?a=request';
+            query+= '&entry=' + $scope.entry;
+            query+= '&field=' + $scope.field;
+            query+= '&type=' + $scope.type;
+            query+= '&value=' + newValue;
+            if($scope.institution) {
+                query+= '&institution='+$scope.institution;
+            }
+            $http({
+                method: 'get',
+                url: query
+            }).then(function (response) {
+                $scope.changeEdit();
+                $scope.value = newValue;
+            });
         }
 
         $scope.allowedToEdit = function() {
-            // prevent from checking on every field...
-            if($scope.allowed !== '') {
-                return $scope.allowed;
-            }
-
-            // check user rights
             if($rootScope.user_data 
                 && ( parseInt($rootScope.user_data.level) >= 8 
-                    || $rootScope.user_data.institution == $scope.institution )) {
+                    || $rootScope.user_data.inst == $scope.institution )) {
                 $scope.allowed = true;
                 return true;
             }
@@ -45,9 +55,9 @@ app.directive('editable', function () {
         controller: 'EditableController',
         scope: {
             'title' : '=',
-            'field': '=',
+            'field': '@',
             'value': '=',
-            'type': '=',
+            'type': '@',
             'entry': '=',
             'institution': '='
         }

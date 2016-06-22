@@ -7,10 +7,30 @@ app.controller('MainCtrl',
     function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies, $window, $uibModalStack) {
     $rootScope.textualSearch = '';
 
+    $rootScope.pendingRequests = 0;
+
     if(typeof($window.sessionStorage.user_data) !== 'undefined' && 
         typeof($rootScope.user_data) == 'undefined') {
         $rootScope.user_data = JSON.parse($window.sessionStorage.user_data);
     }
+
+
+    $rootScope.updatePendingRequests = function() {
+        if($rootScope.user_data && $rootScope.user_data.level >= 8) {
+            $http.get($rootScope.ApiUrl + '?a=request&action=pendingAmount').success(function(data) {
+                $rootScope.pendingRequests = data.count;
+            });
+        } else {
+            $rootScope.pendingRequests = 0;
+        }
+    }
+    $rootScope.updatePendingRequests();
+    if($rootScope.user_data && $rootScope.user_data.level >= 8) {
+        setInterval(function() {
+            $rootScope.updatePendingRequests();
+        }, 10000);
+    }
+
 
     function loadTranslation() {
         $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
@@ -28,6 +48,17 @@ app.controller('MainCtrl',
             $rootScope.currentDetail = '';
         }
     });
+
+    $rootScope.pendingAllowed = function() {
+        if($rootScope.user_data.level >= 8) {
+            return true;
+        }
+        return false;
+    }
+
+    $scope.getUserLevelClass = function() {
+        return 'level-' + $rootScope.user_data.level;
+    }
 
     $rootScope.doLogout = function () {
         $http.get($rootScope.ApiUrl + '/?a=user&b=logout').success(function (data) {
@@ -282,6 +313,63 @@ app.controller('PhotoCtrl', [
     }
 ]);
 
+app.controller('PendingCtrl', [
+    '$scope',
+    '$http',
+    '$rootScope',
+    function(
+        $scope,
+        $http,
+        $rootScope
+    ) {
+
+        $scope.overwriting = false;
+        $scope.pending = [];
+        $scope.rejected = [];
+        $scope.accepted = [];
+        $scope.getRequests = function() {
+            $http.get($rootScope.ApiUrl + '?a=request&action=pendingList').success(function (data) {
+                $scope.pending = data;
+            });
+            $http.get($rootScope.ApiUrl + '?a=request&action=rejectedList').success(function (data) {
+                $scope.rejected = data;
+            });
+            $http.get($rootScope.ApiUrl + '?a=request&action=acceptedList').success(function (data) {
+                $scope.accepted = data;
+            });
+        }
+        $scope.getRequests();
+
+        $scope.overwrite = function(index) {
+            if($scope.overwriting == index) {
+                $scope.overwriting = false;
+            } else {
+                $scope.overwriting = index;
+            }
+            console.log($scope.overwriting);
+        }
+
+        $scope.accept = function(id, value) {
+            var q = $rootScope.ApiUrl + '?a=request&action=accept&id='+id;
+            if(typeof(value) !== 'undefined') {
+                q+= '&overwrite='+value;
+            }
+            $http.get(q).success(function (data) {
+                $rootScope.updatePendingRequests();
+                $scope.getRequests();
+            });
+        }
+
+        $scope.reject = function(id) {
+            $http.get($rootScope.ApiUrl + '?a=request&action=reject&id='+id).success(function (data) {
+                $rootScope.updatePendingRequests();
+                $scope.getRequests();
+            });
+        }
+
+    }
+]);
+
 /** Litarature **/
 app.controller('LiteraturCtrl', [
     '$scope',
@@ -353,7 +441,6 @@ app.controller('HomeCtrl',
     }
     mostviewed();
 
-
     $scope.statistics = {};
     function statistics() {
         $http.get($rootScope.ApiUrl + '/?a=statistics').success(function (data) {
@@ -361,7 +448,6 @@ app.controller('HomeCtrl',
         });
     }
     statistics();
-
 
 }]);
 

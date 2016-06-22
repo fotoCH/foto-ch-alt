@@ -12,9 +12,12 @@
     <h2>{{translations.fotographen}}</h2>
     <ul>
         <li ng-repeat="photographer in detail.photographer">
-            <a ng-click="$root.detail(photographer.id, 'photographer' )">
+            <a ng-if="photographer.gesperrt != 1" ng-click="$root.detail(photographer.id, 'photographer' )">
                 {{photographer.nachname}} {{photographer.vorname}}
             </a>
+            <span ng-if="photographer.gesperrt == 1">
+                {{photographer.nachname}} {{photographer.vorname}}
+            </span>
         </li>
     </ul>
 </div>

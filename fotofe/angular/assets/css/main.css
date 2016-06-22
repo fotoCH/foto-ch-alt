@@ -494,6 +494,10 @@ dl dd {
   font-size: 13.68px;
   margin-top: 3px;
 }
+dl dd.no-value {
+  font-style: italic;
+  opacity: 0.9;
+}
 .l-content__section {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -876,12 +880,37 @@ dl dd {
     transform: rotate(360deg);
   }
 }
-.user-profile {
+.user-profile,
+.pending-requests {
   margin-top: 30px;
 }
 .no-animate {
   -webkit-transition: none !important;
   transition: none !important;
+}
+.pending-requests .tab-content ul {
+  padding-left: 0;
+}
+.pending-requests .tab-content ul li {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0;
+  margin-bottom: 10px;
+  transition: 300ms;
+}
+.pending-requests .tab-content ul li:hover .heading {
+  color: #01579b;
+}
+.pending-requests .tab-content ul li:before {
+  display: none;
+}
+.pending-requests .tab-content ul li:last-child {
+  border-bottom: 0;
+}
+.pending-requests .tab-content ul li .additional {
+  display: flex;
+}
+.pending-requests .tab-content ul li .additional dl {
+  min-width: 200px;
 }
 /* doesn't seem to exist
 @import "layout/ie-fixes"; */
@@ -2775,6 +2804,17 @@ ul.nav-tabs li a:focus {
   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   /* easeOutCubic */
 }
+.bottom-panel.level-8 {
+  bottom: -110px;
+}
+.bottom-panel .counter {
+  color: #ffffff;
+  font-weight: 800;
+  background-color: #333333;
+  padding: 5px 8px;
+  margin-left: 4px;
+  border-radius: 30px;
+}
 .bottom-panel:hover {
   bottom: 0;
 }
@@ -2840,6 +2880,26 @@ ul.nav-tabs li a:focus {
 }
 .editable .edit-indicator:hover {
   opacity: 0.7;
+}
+.default-list li {
+  padding: 7px 0;
+  border-bottom: 1px solid #eaeaea;
+}
+.default-list li a,
+.default-list li span {
+  line-height: 18px;
+  color: #333;
+}
+.default-list li a {
+  transition: 300ms;
+}
+.default-list li a:hover,
+.default-list li a:focus {
+  text-decoration: none;
+  color: #01579b;
+}
+.default-list li:last-child {
+  border-bottom: none;
 }
 .count-up-number {
   width: 200px;

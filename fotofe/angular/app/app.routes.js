@@ -66,6 +66,11 @@ app.config(
         templateUrl: 'app/components/meta/profile.html',
         controller: 'ProfileCtrl'
     })
+    .state('update-requests', {
+        url: '/pending-requests',
+        templateUrl: 'app/components/meta/requests.html',
+        controller: 'PendingCtrl'
+    })
     // Testpage for development
     .state('test', {
         url: '/test?ch&photo&kanton&land',

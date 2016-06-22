@@ -1,9 +1,10 @@
 <div class="editable">
     <a ng-if="allowedToEdit()" class="edit-indicator" ng-click="changeEdit()">{{$root.translations.edit}}</a>
-    <dt ng-if="value">{{title}}</dt>
+    <dt ng-if="value || allowedToEdit()">{{title}}</dt>
 
     <div ng-if="! editing" class="no-animate">
         <dd ng-if="value" ng-bind-html="value | rawHtml"></dd>
+        <dd class="no-value" ng-if="!value && allowedToEdit()">{{$root.translations.not_set}}</dd>
     </div>
 
     <form ng-if="editing" class="no-animate form-container" ng-submit="save(value)">

@@ -44,7 +44,6 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     }
 
     $rootScope.$on('$stateChangeStart', function (event, toState) {
-        console.log(toState.name);
         if (toState.name == 'profile' && ! $rootScope.user_data) {
             event.preventDefault();
             $state.go('login');
@@ -56,9 +55,11 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
 
     // Production Server API URL
     $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
-
     
     var token=window.sessionStorage.authToken;
+    $http.defaults.headers.common['X-AuthToken']=token;
+
+    
     $rootScope.userInfoCall = $q.defer();
     if ((token!==undefined) && ($rootScope.authToken != token)){
         $http.get($rootScope.ApiUrl+'/?a=user&b=info&token='+token).success (function(data){

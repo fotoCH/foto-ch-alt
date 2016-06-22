@@ -144,7 +144,8 @@ app.directive('defaultList', function () {
         templateUrl: 'app/shared/list/defaultList.html',
         scope: {
             headline: '=',
-            values: '='
+            values: '=',
+            linkTo: '@'
         }
     };
 });

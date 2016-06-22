@@ -16,16 +16,40 @@
                 type="photo" 
                 entry="photo.id" />
 
-            <dt ng-if="photo.title">{{spr.titel}}</dt>
-            <dd ng-if="photo.title" ng-bind-html="photo.title | rawHtml"></dd>
-            <dt ng-if="photo.description">{{spr.description}}</dt>
-            <dd ng-if="photo.description" ng-bind-html="photo.description | rawHtml"></dd>
-            <dt ng-if="photo.dct_spatial">{{spr.ort}}</dt>
-            <dd ng-if="photo.dct_spatial" ng-bind-html="photo.dct_spatial | rawHtml"></dd>
-            <dt ng-if="photo.created">{{spr.erstellungsdatum}}</dt>
-            <dd ng-if="photo.created" ng-bind-html="photo.created | rawHtml"></dd>
-            <dt ng-if="photo.subject">{{spr.keywords}}</dt>
-            <dd ng-if="photo.subject" ng-bind-html="photo.subject | rawHtml"></dd>
+            <editable 
+                title="spr.description" 
+                institution="photo.inst_id" 
+                value="photo.description" 
+                field="dc_description" 
+                type="photo" 
+                entry="photo.id" />
+
+            <editable 
+                title="spr.ort" 
+                institution="photo.inst_id" 
+                value="photo.dct_spatial" 
+                field="dcterms_spatial" 
+                type="photo" 
+                entry="photo.id" />
+
+
+            <editable 
+                title="spr.erstellungsdatum" 
+                institution="photo.inst_id" 
+                value="photo.created" 
+                field="zeitraum" 
+                type="photo" 
+                entry="photo.id" />
+
+
+            <editable 
+                title="spr.keywords" 
+                institution="photo.inst_id" 
+                value="photo.subject" 
+                field="dcterms_subject" 
+                type="photo" 
+                entry="photo.id" />
+
             <dt ng-if="photo.institution">{{spr.institution}}</dt>
             <dd ng-if="photo.institution">
                 <a ng-click="$root.detail(photo.inst_id, 'institution' )">{{ photo.institution }}</a>

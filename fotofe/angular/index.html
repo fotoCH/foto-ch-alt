@@ -110,11 +110,16 @@
 </div>
 
 
-<div class="bottom-panel" ng-if="$root.user">
+<div class="bottom-panel" ng-if="$root.user" ng-class="getUserLevelClass()">
     <div class="user-panel">
         <a ui-sref="profile" class="username" ng-if="$root.user">{{spr.logged_in_as}}: <strong>{{$root.user_data.username}}</strong></a>
         <ul class="submenu">
             <li><a ui-sref="profile">{{spr.profile}}</a></li>
+            <li>
+                <a ng-if="$root.pendingAllowed()" ui-sref="update-requests">{{spr.updaterequests}}
+                    <span class="counter" ng-if="$root.pendingRequests">{{$root.pendingRequests}}</span>
+                </a>
+            </li>
             <li><a ng-click="$root.doLogout()">{{spr.logout}}</a></li>
         </ul>
     </div>

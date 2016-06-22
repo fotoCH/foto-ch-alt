@@ -1,7 +1,9 @@
-<div class="l-content__section" ng-if="values">
+<div class="l-content__section default-list" ng-if="values">
 	<h2 ng-if="headline">{{headline}}</h2>
 	<ul>
-		<li ng-repeat="v in values" ng-bind-html="v.text | rawHtml">
+		<li ng-repeat="v in values">
+            <a ng-if="linkTo && !v.gesperrt" ng-bind-html="v.text | rawHtml" ng-click="$root.detail(v.id, linkTo )"></a>
+            <span ng-if="!linkTo || v.gesperrt" ng-bind-html="v.text | rawHtml"></span>
         </li>
 	</ul>
 </div>

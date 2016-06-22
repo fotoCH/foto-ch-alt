@@ -1,0 +1,117 @@
+<div class="l-container">
+    <div class="pending-requests">
+        <h2>{{$root.translations.updaterequests}}</h2>
+
+
+        <uib-tabset active="active">
+            <!-- PENDING -->
+            <uib-tab index="1" heading="{{$root.translations.pending}}">
+                <ul>
+                    <li ng-repeat="p in pending track by $index" class="no-animate">
+                        <span class="heading">
+                            <span class="from">{{p.current}}</span>
+                            <span class="connector">&#8674;</span>
+                            <span class="to">{{p.request}}</span>
+                        </span>
+                        <span class="additional">
+                            <dl>
+                                <dt>{{$root.translations.id}}</dt>
+                                <dd><a ng-click="$root.detail(p.entry, p.type)">
+                                    {{p.entry}}</a></dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.field}}</dt>
+                                <dd>{{p.field}}</dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.typ}}</dt>
+                                <dd>{{p.type}}</dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.user}}</dt>
+                                <dd>{{p.user}}</dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.actions}}</dt>
+                                <dd>
+                                    <a ng-click="accept(p.id)">{{$root.translations.accept}}</a> | 
+                                    <a ng-click="reject(p.id)">{{$root.translations.reject}}</a> |
+                                    <a ng-click="overwrite(p.id)">{{$root.translations.overwrite}}</a>
+                                </dd>
+                            </dl>
+                        </span>
+                        <form ng-if="p.id == overwriting" class="no-animate form-container" ng-submit="accept(p.id, pending[$index].request)">
+                            <input type="text" placeholder="" name="toSaveValue" focus-me="{{overwriting==p.id}}" ng-model="pending[$index].request">
+                            <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+                        </form>
+                    </li>
+                    <li ng-if="pending.length == 0">{{$root.translations.no_open_requests}}</li>
+                </ul>
+            </uib-tab>
+
+            <!-- REJECTED -->
+            <uib-tab index="2" heading="{{$root.translations.rejected}}">
+                <ul>
+                    <li ng-repeat="p in rejected" class="no-animate">
+                        <span class="heading">
+                            <span class="from">{{p.current}}</span>
+                            <span class="connector">&#8674;</span>
+                            <span class="to">{{p.request}}</span>
+                        </span>
+                        <span class="additional">
+                            <dl>
+                                <dt>{{$root.translations.id}}</dt>
+                                <dd><a ng-click="$root.detail(p.entry, p.type)">
+                                    {{p.entry}}</a></dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.field}}</dt>
+                                <dd>{{p.field}}</dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.typ}}</dt>
+                                <dd>{{p.type}}</dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.user}}</dt>
+                                <dd>{{p.user}}</dd>
+                            </dl>
+                            <dl>
+                                <dt>{{$root.translations.action_user}}</dt>
+                                <dd>{{p.action_user}}</dd>
+                            </dl>
+                        </span>
+                    </li>
+                    <li ng-if="rejected.length == 0">{{$root.translations.no_open_requests}}</li>
+                </ul>
+            </uib-tab>
+
+            <!-- ACCEPTED -->
+            <uib-tab index="3" heading="{{$root.translations.accepted}}">
+                <ul>
+                    <li ng-repeat="p in accepted" class="no-animate">
+                        <span class="heading">
+                            <span class="from">{{p.current}}</span>
+                            <span class="connector">&#8674;</span>
+                            <span class="to">{{p.request}}</span>
+                        </span>
+                        <span class="additional">
+                            <dl>
+                                <dt>{{$root.translations.id}}</dt>
+                                <dd><a ng-click="$root.detail(p.entry, p.type)">
+                                    {{p.entry}}</a></dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.field}}</dt>
+                                <dd>{{p.field}}</dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.typ}}</dt>
+                                <dd>{{p.type}}</dd>
+                            </dl><dl>
+                                <dt>{{$root.translations.user}}</dt>
+                                <dd>{{p.user}}</dd>
+                            </dl>
+                            <dl>
+                                <dt>{{$root.translations.action_user}}</dt>
+                                <dd>{{p.action_user}}</dd>
+                            </dl>
+                        </span>
+                    </li>
+                    <li ng-if="accepted.length == 0">{{$root.translations.no_open_requests}}</li>
+                </ul>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

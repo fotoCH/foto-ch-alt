@@ -86,8 +86,8 @@
                     </div>
                     <div class="imagery">
                         <ul>
-                            <li ng-repeat="photos in result.photos_results | limitTo: photolimit">
-                                <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)" class="no-animate">
+                            <li ng-repeat="photos in result.photos_results | limitTo: photolimit" class="no-animate">
+                                <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)">
                                     <img src="{{ imageRootUrl }}{{photos.image_path}}" width="100%" />
                                 </a>
                             </li>

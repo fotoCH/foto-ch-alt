@@ -1,8 +1,8 @@
 <div class="left">
     <dl ng-if="detail.jahr || detail.ort || detail.institution">
         <dt ng-if="detail.jahr">{{translations.jahr}}</dt><dd>{{detail.jahr}}</dd> 
-        <dt ng-if="detail.ort">{{translations.ort}}:</dt><dd>{{detail.ort}}</dd>
-        <dt ng-if="detail.institution">{{translations.institution}}:</dt><dd>{{detail.institution}}</dd>
+        <dt ng-if="detail.ort">{{translations.ort}}</dt><dd>{{detail.ort}}</dd>
+        <dt ng-if="detail.institution">{{translations.institution}}</dt><dd>{{detail.institution}}</dd>
     </dl>
     <photographer-reference headline="translations.fotographInnen" photographer="detail.photographer"></photographer-reference>
 </div>
