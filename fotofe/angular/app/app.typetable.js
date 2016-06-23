@@ -215,7 +215,7 @@ app.controller('TypeTableCtrl', [
             }
             if(type == 'image') {
                 $scope.hasImage = true;
-                return '<img src="'+$rootScope.imageRootUrl+value+'" />';
+                return '<img src="'+$rootScope.imageRootUrl+'/thumb/'+value+'" />';
             }
             return value;
         }

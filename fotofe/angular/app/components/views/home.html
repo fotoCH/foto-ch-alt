@@ -88,7 +88,7 @@
                         <ul>
                             <li ng-repeat="photos in result.photos_results | limitTo: photolimit" class="no-animate">
                                 <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)">
-                                    <img src="{{ imageRootUrl }}{{photos.image_path}}" width="100%" />
+                                    <img src="{{ imageRootUrl }}/thumb/{{photos.image_path}}" width="100%" />
                                 </a>
                             </li>
                         </ul>
@@ -109,11 +109,11 @@
                             <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}, {{p.vorname}}</a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
-                        <small ng-bind-html="p.fgeburtsdatum"></small>
-                        <small ng-bind-html="p.fldatum"></small><br />
-                        <small ng-bind-html="p.arbeitsperioden"></small>
-                        <p ng-bind-html="p.bildgattungen"></p>
-                        <p ng-bind-html="p.fotografengattungen"></p>
+                        <small ng-if="p.fgeburtsdatum" ng-bind-html="p.fgeburtsdatum"></small>
+                        <small ng-if="p.fldatum" ng-bind-html="p.fldatum"></small><br />
+                        <small ng-if="p.arbeitsperioden" ng-bind-html="p.arbeitsperioden"></small>
+                        <p ng-if="p.bildgattungen" ng-bind-html="p.bildgattungen"></p>
+                        <p ng-if="p.fotografengattungen" ng-bind-html="p.fotografengattungen"></p>
                       </div>
                     </div>
                 </uib-tab>
@@ -124,9 +124,9 @@
                             <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}, {{p.vorname}}</a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
-                        <small ng-bind-html="p.fgeburtsdatum"></small>
-                        <small ng-bind-html="p.fldatum"></small><br />
-                        <small ng-bind-html="p.arbeitsperioden"></small>
+                        <small ng-if="p.fgeburtsdatum" ng-bind-html="p.fgeburtsdatum"></small>
+                        <small ng-if="p.fldatum" ng-bind-html="p.fldatum"></small><br />
+                        <small ng-if="p.arbeitsperioden" ng-bind-html="p.arbeitsperioden"></small>
                         <p ng-bind-html="p.bildgattungen"></p>
                         <p ng-bind-html="p.fotografengattungen"></p>
                       </div>
