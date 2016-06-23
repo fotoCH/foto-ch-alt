@@ -2278,16 +2278,18 @@ a.power-search__link {
   border-bottom: 1px solid #ccc;
   position: relative;
 }
-.typetable .filter-bar .right .filter .values .value.active {
+.typetable .filter-bar .right .filter .values .value a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+.typetable .filter-bar .right .filter .values .value a.active {
   color: #01579b;
 }
-.typetable .filter-bar .right .filter .values .value.active:after {
+.typetable .filter-bar .right .filter .values .value a.active:after {
   background-color: #01579b;
 }
-.typetable .filter-bar .right .filter .values .value:hover:after {
-  background-color: #c0c0c0;
-}
-.typetable .filter-bar .right .filter .values .value:after {
+.typetable .filter-bar .right .filter .values .value a:after {
   top: 50%;
   content: '';
   position: absolute;
@@ -2299,7 +2301,7 @@ a.power-search__link {
   margin-top: -6px;
   transition: 300ms;
 }
-.typetable .filter-bar .right .filter .values .value:last-child {
+.typetable .filter-bar .right .filter .values .value a:last-child {
   border-bottom: none;
 }
 .typetable .filter-bar .right .filter .title {

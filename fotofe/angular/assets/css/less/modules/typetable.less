@@ -127,20 +127,20 @@
                         border-bottom: 1px solid #ccc;
                         position: relative;
 
-                        &.active {
+                        a {
+                            color: #333;
+                            text-decoration: none;
+                            display: block;
+                        }
+
+                        a.active {
                             color: @colorActionPrimary;
                             &:after {
                                 background-color: @colorActionPrimary;
                             }
                         }
 
-                        &:hover {
-                            &:after {
-                                background-color: #c0c0c0;
-                            }
-                        }
-
-                        &:after {
+                        a:after {
                             top: 50%;
                             content: '';
                             position: absolute;
@@ -153,7 +153,7 @@
                             transition: 300ms;
                         }
 
-                        &:last-child {
+                        a:last-child {
                             border-bottom: none;
                         }
                     }

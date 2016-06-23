@@ -47,6 +47,7 @@ app.controller('TypeTableCtrl', [
             } else {
                 $scope.directFilters.splice($scope.directFilters.indexOf(toFilter), 1);
             }
+            $scope.queryOffset = 0;
             loadData();
         }
 
@@ -77,6 +78,11 @@ app.controller('TypeTableCtrl', [
                 }
                 filter.key = key;
                 filter.target = sourceFilter[index][key];
+                if(typeof(data.possible_values[0]) == 'object') {
+                    filter.assoc = true;
+                } else {
+                    filter.assoc = false;
+                }
                 filter.values = data.possible_values;
                 $scope.realFilters.push(filter);
             });
@@ -192,6 +198,7 @@ app.controller('TypeTableCtrl', [
                 clearTimeout($scope.textsearch_timeout);
             $scope.tableRows = [];
             $scope.textsearch_timeout = setTimeout(function() {
+                $scope.queryOffset = 0;
                 loadData();
             }, 800);
         }

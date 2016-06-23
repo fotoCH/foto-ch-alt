@@ -24,10 +24,13 @@
                     <input ng-model="filterModels[filter.key]"></label>
                     <div class="list-wrapper">
                         <div ng-repeat="value in filter.values | filter:filterModels[filter.key]" 
-                            class="value"
-                            ng-class="filterActive(value, filter.target)"
-                            ng-click="filterValue(value, filter.target)">
-                            {{value}}
+                            class="value">
+                            <a ng-if="!filter.assoc" ng-click="filterValue(value, filter.target)" ng-class="filterActive(value, filter.target)">
+                                <span>{{value}}</span>
+                            </a>
+                            <a ng-if="filter.assoc" ng-click="filterValue(value.id, filter.target)" ng-class="filterActive(value.id, filter.target)">
+                                <span>{{value.value}}</span>
+                            </a>
                         </div>
                     </div>
                 </div>

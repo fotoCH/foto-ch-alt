@@ -26,6 +26,11 @@
                         elem.children(options.itemSelector).css('visibility', 'visible');
                     }, 30);
                 };
+
+                /** dirty layout reload for delayed images... **/
+                setInterval(function() {
+                    masonry.layout();
+                }, 500);
                 
                 scope.removeBrick = function() {
                     $timeout(function() {
