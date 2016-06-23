@@ -59,12 +59,15 @@ class StreamedSearch {
             "fotos.dc_title as title",
             "fotos.dc_description as description",
             "fotos.dcterms_subject as descriptor",
+            "fotos.dcterms_spatial as ort",
             "fotos.dc_identifier as identifier",
             "fotos.dc_right as copyright",
             "fotos.image_path",
             "fotos.zeitraum",
             "namen.vorname AS autor_forename",
-            "namen.nachname AS autor_lastname"
+            "namen.nachname AS autor_lastname",
+            "institution.name AS institution",
+            "bestand.name as bestand"
         );
     }
 
@@ -170,11 +173,9 @@ class StreamedSearch {
         $sql.= "SELECT DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
         $sql.=" INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
         $sql.=" RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
+        $sql.=" INNER JOIN bestand on fotos.dcterms_ispart_of = bestand.id";
+        $sql.=" INNER JOIN institution on bestand.inst_id = institution.id";
 
-        if($level >= 1) {
-            $sql.=" INNER JOIN bestand on fotos.dcterms_ispart_of = bestand.id";
-            $sql.=" INNER JOIN institution on bestand.inst_id = institution.id";
-        }
 
         $q = explode(" ", $this->query);
         $first = true;
@@ -214,6 +215,8 @@ class StreamedSearch {
 
         if($this->sorting) {
             $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        } else {
+            $sql.= " ORDER BY id desc";
         }
 
         if($this->limitPhotoResults) {

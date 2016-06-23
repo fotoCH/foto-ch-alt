@@ -60,6 +60,30 @@ class Filters {
         $this->distinctFieldValues("dcterms_subject", "fotos");
     }
 
+    private function photoStocks() {
+        $this->filters['possible_values'] = array();
+        $sql = "SELECT DISTINCT dcterms_ispart_of as 'value' FROM fotos";
+        $set = mysql_query($sql);
+        while($row = mysql_fetch_assoc($set)) {
+            $possible = $row['value'];
+            if(!array_key_exists($possible, $this->filters['possible_values'])) {
+                $stockQuery = "SELECT name FROM bestand WHERE id=".$possible;
+                $result = mysql_query($stockQuery);
+                while($stock = mysql_fetch_assoc($result)) {
+                    array_push($this->filters['possible_values'], array(
+                        "id" => $possible, 
+                        "value" => $stock['name']
+                    ));
+                }
+            }
+        }
+        if($desc) {
+            rsort($this->filters['possible_values']);
+        } else {
+            sort($this->filters['possible_values']);
+        }
+    }
+
     private function distinctFieldValues($field, $table, $where='', $desc = false) {
         $this->filters['possible_values'] = array();
         $sql = "SELECT DISTINCT ".$field." as 'value' FROM ".$table.$where;
@@ -118,6 +142,9 @@ class Filters {
                 break;
             case 'photo_stichworte':
                 $this->photoStickworte();
+                break;
+            case 'photo_stocks':
+                $this->photoStocks();
                 break;
             default :
                 $this->unknown();
