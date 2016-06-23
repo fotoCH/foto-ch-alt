@@ -26,7 +26,7 @@ app.controller('EditableController', [
                 query+= '&institution='+$scope.institution;
             }
             $http({
-                method: 'get',
+                method: 'GET',
                 url: query
             }).then(function (response) {
                 $scope.changeEdit();
@@ -63,12 +63,6 @@ app.directive('editable', function () {
         }
     };
 });
-
-angular.module('fotochWebApp').service('EditRequest', function($http, $rootScope) {
-
-});
-
-
 
 
 app.directive('focusMe', function($timeout) {

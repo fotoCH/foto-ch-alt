@@ -54,7 +54,7 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
 
     // Production Server API URL
-    $rootScope.ApiUrl = 'https://www2.foto-ch.ch/api';
+    $rootScope.ApiUrl = 'https://'+$rootScope.lang+'.foto-ch.ch/api';
     
     var token=window.sessionStorage.authToken;
     $http.defaults.headers.common['X-AuthToken']=token;
