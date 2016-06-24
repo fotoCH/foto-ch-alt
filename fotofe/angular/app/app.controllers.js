@@ -399,7 +399,7 @@ app.controller('HomeCtrl',
     }
 
     function getHeaderImage() {
-        var amountOfHeaderImages = 7;
+        var amountOfHeaderImages = 11;
         var imageNo = Math.floor((Math.random() * amountOfHeaderImages) + 1);
         $scope.imgURL = 'assets/img/home-intro/header-'+zeroFill(imageNo, 3)+'.jpg';
     }

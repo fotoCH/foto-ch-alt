@@ -1,0 +1,63 @@
+<div class="year-highlight">
+    <div class="indictator">{{year}}</div>
+    <div class="data">
+        <div ng-if="loading" class="loading-indicator"></div>
+        <div class="flexdata" ng-if="!loading">
+            <div class="block" ng-if="data.workbegin.length > 0 || data.workstop.length > 0">
+                <h3>{{$root.translations.fotographInnen}}</h3>
+                <h4 ng-if="data.deaths.length > 0">{{$root.translations.deaths}}</h4>
+                <ul ng-if="data.deaths.length > 0">
+                    <li ng-repeat="death in data.deaths">
+                        <a ng-click="$root.detail(death.photograph_id, 'photographer' )">
+                        {{death.photographer_name}}</a> <span ng-if="death.deathplace !== ''">{{$root.translations.work_start_in}} {{death.deathplace}}</span>
+                    </li>
+                </ul>
+
+                <h4 ng-if="data.born.length > 0">{{$root.translations.born}}</h4>
+                <ul ng-if="data.born.length > 0">
+                    <li ng-repeat="born in data.born">
+                        <a ng-click="$root.detail(born.photograph_id, 'photographer' )">
+                        {{born.photographer_name}}</a> <span ng-if="born.birthplace !== ''">{{$root.translations.work_start_in}} {{born.birthplace}}</span>
+                    </li>
+                </ul>
+                <h4 ng-if="data.workbegin.length > 0">{{$root.translations.work_begin}}</h4>
+                <ul ng-if="data.workbegin.length > 0">
+                    <li ng-repeat="begin in data.workbegin">
+                        <a ng-click="$root.detail(begin.photograph_id, 'photographer' )">{{begin.photographer_name}}</a> 
+                        {{$root.translations.work_start_in}} {{begin.workplace}}
+                    </li>
+                </ul>
+                <h4 ng-if="data.workstop.length > 0">{{$root.translations.work_end}}</h4>
+                <ul ng-if="data.workstop.length > 0">
+                    <li ng-repeat="stop in data.workstop">
+                        <a ng-click="$root.detail(stop.photograph_id, 'photographer' )">
+                        {{stop.photographer_name}}</a> {{$root.translations.work_start_in}} {{stop.workplace}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="block" ng-if="data.literature.length > 0">
+                <h3>{{$root.translations.literatur}}</h3>
+                <ul>
+                    <li ng-repeat="literatur in data.literature | limitTo:30">
+                        {{literatur.author}} {{$root.translations.published}} 
+                        <a ng-click="$root.detail(literatur.id, 'literature' )">{{literatur.title}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="block" ng-if="data.exhibitions.length > 0">
+                <h3>{{$root.translations.exhibitions}}</h3>
+                <ul>
+                    <li ng-repeat="exhibition in data.exhibitions | limitTo:30">
+                        <a ng-click="$root.detail(exhibition.id, 'exhibition' )">
+                        <span ng-if="exhibition.title == ''">{{exhibition.id}}</span>{{exhibition.title}}</a> {{$root.translations.work_start_in}} {{exhibition.institution}}, {{exhibition.place}}
+                    </li>
+                </ul>
+            </div>
+            <div class="block">
+                <button ng-class="loadingClass()" ng-if="!complete" ng-click="showComplete()">{{$root.translations.show_complete}}</button>
+            </div>
+        </div>
+    </div>
+</div>

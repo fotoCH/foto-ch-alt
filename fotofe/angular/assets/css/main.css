@@ -2229,29 +2229,21 @@ a.power-search__link {
   margin-top: -11px;
 }
 .typetable .filter-bar .textsearch {
-  width: 50%;
+  width: 320px;
   position: relative;
 }
-.typetable .filter-bar .left {
-  position: relative;
-  float: left;
-  width: 30%;
-}
-.typetable .filter-bar .right {
-  float: right;
-}
-.typetable .filter-bar .right > * {
-  float: left;
-}
-.typetable .filter-bar .right .filter {
+.typetable .filter-bar .filter {
   padding-right: 20px;
   padding-left: 20px;
-  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   position: relative;
   min-width: 200px;
   cursor: pointer;
 }
-.typetable .filter-bar .right .filter .values {
+.typetable .filter-bar .filter:last-child {
+  border-right: 1px solid #ccc;
+}
+.typetable .filter-bar .filter .values {
   position: absolute;
   left: 0;
   background-color: #eeeeee;
@@ -2261,35 +2253,35 @@ a.power-search__link {
   -moz-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.23);
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.23);
 }
-.typetable .filter-bar .right .filter .values > input {
+.typetable .filter-bar .filter .values > input {
   height: 30px;
   border: 1px solid #ccc;
   margin-bottom: 10px;
   width: 100%;
   padding-left: 5px;
 }
-.typetable .filter-bar .right .filter .values .list-wrapper {
+.typetable .filter-bar .filter .values .list-wrapper {
   max-height: 200px;
   overflow: auto;
   padding-right: 10px;
 }
-.typetable .filter-bar .right .filter .values .value {
+.typetable .filter-bar .filter .values .value {
   line-height: 35px;
   border-bottom: 1px solid #ccc;
   position: relative;
 }
-.typetable .filter-bar .right .filter .values .value a {
+.typetable .filter-bar .filter .values .value a {
   color: #333;
   text-decoration: none;
   display: block;
 }
-.typetable .filter-bar .right .filter .values .value a.active {
+.typetable .filter-bar .filter .values .value a.active {
   color: #01579b;
 }
-.typetable .filter-bar .right .filter .values .value a.active:after {
+.typetable .filter-bar .filter .values .value a.active:after {
   background-color: #01579b;
 }
-.typetable .filter-bar .right .filter .values .value a:after {
+.typetable .filter-bar .filter .values .value a:after {
   top: 50%;
   content: '';
   position: absolute;
@@ -2301,17 +2293,17 @@ a.power-search__link {
   margin-top: -6px;
   transition: 300ms;
 }
-.typetable .filter-bar .right .filter .values .value a:last-child {
+.typetable .filter-bar .filter .values .value a:last-child {
   border-bottom: none;
 }
-.typetable .filter-bar .right .filter .title {
+.typetable .filter-bar .filter .title {
   display: block;
   height: 60px;
   line-height: 60px;
   position: relative;
   padding-right: 30px;
 }
-.typetable .filter-bar .right .filter .title:after {
+.typetable .filter-bar .filter .title:after {
   content: '';
   position: absolute;
   top: 50%;
@@ -2322,6 +2314,19 @@ a.power-search__link {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid rgba(0, 0, 0, 0.5);
+}
+.typetable .filter-bar .left {
+  position: relative;
+  float: left;
+}
+.typetable .filter-bar .left > * {
+  float: left;
+}
+.typetable .filter-bar .right {
+  float: right;
+}
+.typetable .filter-bar .right > * {
+  float: left;
 }
 .typetable .filter-bar a.switchview {
   display: block;
@@ -2713,6 +2718,177 @@ ul.nav-tabs li a:focus {
 }
 .tab-pane {
   margin-top: 30px;
+}
+.timeline .head {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  position: fixed;
+  width: 100%;
+  top: 60px;
+  z-index: 10;
+  background-color: #FFF;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+.timeline .head h1 {
+  margin: 0;
+}
+.timeline .move-down {
+  margin-top: 120px;
+}
+.timeline h1 {
+  float: left;
+}
+.timeline .starting,
+.timeline button {
+  float: right;
+}
+.timeline .starting {
+  width: 130px;
+}
+.timeline label,
+.timeline input,
+.timeline button {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.timeline label {
+  float: left;
+  width: 60px;
+  line-height: 33px;
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-right: 10px;
+}
+.timeline input {
+  width: 60px;
+  border: 1px solid #f3f3f3;
+  border-radius: 3px;
+  text-align: center;
+  font-weight: bold;
+  height: 32px;
+}
+.timeline button {
+  background-color: #333;
+  border: 1px solid #333;
+  border-radius: 2px;
+  line-height: 30px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 0 10px;
+  margin-left: 20px;
+  text-transform: uppercase;
+  transition: 300ms;
+}
+.timeline button:hover {
+  background-color: #808080;
+  border-color: #808080;
+}
+.year-highlight {
+  display: flex;
+  padding-bottom: 30px;
+}
+.year-highlight button.loading {
+  overflow: hidden;
+  width: 160px;
+  text-indent: 1000px;
+  height: 35px;
+  position: relative;
+  background-color: #808080;
+  border-color: #808080;
+}
+.year-highlight button.loading:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -9px;
+  margin-left: -9px;
+  opacity: 1;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  border: 0.18rem solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  -webkit-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+.year-highlight .indictator {
+  background-color: #f0f0f0;
+  border-radius: 2px;
+  width: 60px;
+  height: 55px;
+  color: #333;
+  text-align: center;
+  font-weight: 600;
+  padding-top: 21px;
+  font-size: 13px;
+  margin-right: 10px;
+}
+.year-highlight .data {
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 2px;
+  position: relative;
+  padding: 30px;
+}
+.year-highlight .data .flexdata {
+  display: flex;
+  flex-wrap: wrap;
+}
+.year-highlight .data .flexdata h3 {
+  margin-top: 0;
+}
+.year-highlight .data .flexdata .block {
+  max-width: 50%;
+  min-width: 50%;
+}
+.year-highlight .data .flexdata .block:last-child {
+  min-width: 100%;
+}
+.year-highlight .data .flexdata .block h4 {
+  font-size: 11px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.year-highlight .data .flexdata .block ul {
+  margin-bottom: 20px;
+}
+.year-highlight .data .flexdata .block ul li:before {
+  display: none;
+}
+.year-highlight .data:before {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid #f0f0f0;
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 21px;
+}
+.year-highlight .data .loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -9px;
+  margin-top: -9px;
+}
+.loading-indicator {
+  opacity: 1;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  border: 0.18rem solid rgba(0, 0, 0, 0.2);
+  border-top-color: black;
+  -webkit-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
 }
 .photographer-block h4 {
   border-bottom: 1px solid #cccccc;

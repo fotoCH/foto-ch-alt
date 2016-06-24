@@ -1,0 +1,22 @@
+<div class="timeline">
+    <div class="head">
+        <div class="l-container">
+            <h1>{{$root.translations.timeline}}</h1>
+            <button ng-click="switchdirection()">{{button_label}}</button>
+            <div class="starting">
+                <label for="start">{{$root.translations.starting_year}}</label>
+                <input type="text" id="start" id="start" ng-model="starting" ng-change="updateStart()" />
+            </div>
+        </div>
+    </div>
+    <div class="l-container move-down">
+        <div 
+            class="list"
+            infinite-scroll="increaseLimit()"
+            infinite-scroll-immediate-check="false">
+            <div class="year-entry" ng-repeat="year in years">
+                <yearhighlight year="year"></yearhighlight>
+            </div>
+        </div>
+    </div>
+</div>

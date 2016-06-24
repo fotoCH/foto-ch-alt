@@ -1,0 +1,196 @@
+.timeline {
+    .head {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        position: fixed;
+        width: 100%;
+        top: 60px;
+        z-index: 10;
+        background-color: #FFF;
+
+        -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1);
+        -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1);
+        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1);
+
+        h1 {
+            margin: 0;
+        }
+    }
+
+    .move-down {
+        margin-top: 120px;
+    }
+
+    h1 {
+        float: left;
+    }
+    .starting, button {
+        float: right;
+    }
+    .starting {
+        width: 130px;
+    }
+    label, input, button {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    label {
+        float: left;
+        width: 60px;
+        line-height: 33px;
+        font-weight: bold;
+        font-size: 11px;
+        text-transform: uppercase;
+        margin-right: 10px;
+    }
+    input {
+        width: 60px;
+        border: 1px solid #f3f3f3;
+        border-radius: 3px;
+        text-align: center;
+        font-weight: bold;
+        height: 32px;
+    }
+    button {
+        background-color: #333;
+        border: 1px solid #333;
+        border-radius: 2px;
+        line-height: 30px;
+        color: #FFF;
+        font-weight: bold;
+        font-size: 11px;
+        padding: 0 10px;
+        margin-left: 20px;
+        text-transform: uppercase;
+        transition: 300ms;
+
+        &:hover {
+            background-color: #808080;
+            border-color: #808080;
+        }
+    }
+}
+
+.year-highlight {
+
+    button.loading {
+        overflow: hidden;
+        width: 160px;
+        text-indent: 1000px;
+        height: 35px;
+        position: relative;
+        
+        background-color: #808080;
+        border-color: #808080;
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -9px;
+            margin-left: -9px;
+            opacity: 1;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            border: 0.18rem solid rgba(255, 255, 255, 0.2);
+            border-top-color: white;
+            -webkit-animation: spin 1s infinite linear;
+                    animation: spin 1s infinite linear;
+
+        }
+    }
+
+    .indictator {
+        background-color: #f0f0f0;
+        border-radius: 2px;
+        width: 60px;
+        height: 55px;
+        color: #333;
+        text-align: center;
+        font-weight: 600;
+        padding-top: 21px;
+        font-size: 13px;
+        margin-right: 10px;
+    }
+
+    .data {
+        width: 100%;
+        background-color: #f0f0f0;
+        border-radius: 2px;
+        position: relative;
+        padding: 30px;
+
+        .flexdata {
+            display: flex;
+            flex-wrap: wrap;
+
+            h3 {
+                margin-top: 0;
+            }
+
+            .block {
+                max-width: 50%;
+                min-width: 50%;
+
+                &:last-child {
+                    min-width: 100%;
+                }
+
+                h4 {
+                    font-size: 11px;
+                    color: #666;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+
+                ul {
+                    li {
+                        &:before {
+                            display: none;
+                        }
+                    }
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
+        &:before {
+          width: 0; 
+          height: 0; 
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent; 
+          
+          border-right:7px solid #f0f0f0; 
+          content: '';
+          position: absolute;
+          left: -7px;
+          top: 21px;
+        }
+
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -9px;
+            margin-top: -9px;
+        }
+    }
+
+    display: flex;
+    padding-bottom: 30px;
+}
+
+.loading-indicator {
+    opacity: 1;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    border: 0.18rem solid rgba(0, 0, 0, 0.2);
+    border-top-color: black;
+    -webkit-animation: spin 1s infinite linear;
+            animation: spin 1s infinite linear;
+
+}

@@ -89,4 +89,10 @@ app.config(
         templateUrl: 'app/components/views/literatur.html',
         controller: 'LiteraturCtrl'
     })
+    // Literatur
+    .state('timeline', {
+        url: '/timeline',
+        templateUrl: 'app/components/views/timeline.html',
+        controller: 'TimelineCtrl'
+    })
 }]);
