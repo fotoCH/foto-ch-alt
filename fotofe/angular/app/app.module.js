@@ -29,7 +29,7 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     } else {
         $rootScope.lang = $cookies.get('lang');
     }
-    $rootScope.imageRootUrl = 'https://www2.foto-ch.ch/';
+    $rootScope.imageRootUrl = 'https://de.foto-ch.ch/';
     $rootScope.filterCache = $cacheFactory('filterCache');
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
@@ -51,10 +51,10 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     });
     
     // Development Server API URL
-    $rootScope.ApiUrl = 'http://localhost/fotoch/api';
+    //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
 
     // Production Server API URL
-    //$rootScope.ApiUrl = 'https://'+$rootScope.lang+'.foto-ch.ch/api';
+    $rootScope.ApiUrl = 'https://'+$rootScope.lang+'.foto-ch.ch/api';
     
     var token=window.sessionStorage.authToken;
     $http.defaults.headers.common['X-AuthToken']=token;
