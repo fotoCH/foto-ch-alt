@@ -29,7 +29,6 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     } else {
         $rootScope.lang = $cookies.get('lang');
     }
-    $rootScope.imageRootUrl = 'https://de.foto-ch.ch/';
     $rootScope.filterCache = $cacheFactory('filterCache');
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
@@ -43,6 +42,7 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
       $rootScope.lang = hosta[0];
     }
 
+    $rootScope.imageRootUrl = 'https://'+$rootScope.lang+'.foto-ch.ch/';
     $rootScope.$on('$stateChangeStart', function (event, toState) {
         if (toState.name == 'profile' && ! $rootScope.user_data) {
             event.preventDefault();
