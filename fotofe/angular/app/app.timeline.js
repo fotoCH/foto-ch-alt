@@ -10,7 +10,10 @@ app.controller('TimelineCtrl', [
         $scope.initYearAmount = 3;
         $scope.starting = false;
         $scope.changed = false;
-        $scope.button_label = $rootScope.translations.descending;
+
+        setTimeout(function() {
+            $scope.button_label = $rootScope.translations.descending;
+        }, 100);
 
         $scope.switchdirection = function() {
             if($scope.direction == "new-to-old") {
@@ -38,13 +41,11 @@ app.controller('TimelineCtrl', [
 
         $scope.updateStart = function() {
             $scope.starting = parseInt($scope.starting);
-            console.log($scope.starting);
             if($scope.starting > 1700 && $scope.starting <= new Date().getFullYear()) {
                 if($scope.changed) {
                     clearTimeout($scope.changed);
                 }
                 $scope.changed = setTimeout(function() {
-                    console.log("GO");
                     $scope.initYears(true);
                 }, 500);
             }
@@ -78,6 +79,17 @@ app.controller('TimelineCtrl', [
     }
 ]);
 
+app.directive('yearhighlight', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            year: '=',
+        },
+        templateUrl: 'app/shared/misc/year.html',
+        controller: 'YearHightlightController'
+    }
+});
+
 app.controller('YearHightlightController', [
     '$scope',
     '$http',
@@ -110,14 +122,3 @@ app.controller('YearHightlightController', [
         }
     }
 ]);
-
-app.directive('yearhighlight', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            year: '=',
-        },
-        templateUrl: 'app/shared/misc/year.html',
-        controller: 'YearHightlightController'
-    }
-});
