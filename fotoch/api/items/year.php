@@ -3,6 +3,9 @@
 if(array_key_exists('wanted', $_GET)) {
     $yp = new YearProvider();
     $yp->setYears($_GET['wanted']);
+    if(array_key_exists('nolimit', $_GET)) {
+        $yp->nolimit();
+    }
     $yp->getEvents();
     $yp->output();
 }
@@ -11,6 +14,7 @@ if(array_key_exists('wanted', $_GET)) {
 class YearProvider {
     private $years = array();
     private $events = array();
+    private $limit = " LIMIT 4";
 
     public function getEvents() {
         foreach($this->years as $year) {
@@ -32,6 +36,7 @@ class YearProvider {
     private function literature($year) {
         $query = "SELECT * FROM literatur";
         $query.= " WHERE jahr = '".$year."'";
+        $query.= $this->limit;
         $rs = mysql_query($query);
         $this->events[$year]['literature'] = array();
 
@@ -47,6 +52,7 @@ class YearProvider {
     private function exhibition($year) {
         $query = "SELECT * FROM ausstellung";
         $query.= " WHERE jahr = '".$year."'";
+        $query.= $this->limit;
         $rs = mysql_query($query);
         $this->events[$year]['exhibitions'] = array();
 
@@ -63,6 +69,7 @@ class YearProvider {
     private function photos($year) {
         $query = "SELECT * FROM fotos";
         $query.= " WHERE dc_created LIKE '".$year."%'";
+        $query.= $this->limit;
         $rs = mysql_query($query);
         $this->events[$year]['photos'] = array();
 
@@ -79,6 +86,7 @@ class YearProvider {
         $query = "SELECT * FROM fotografen";
         $query.= " INNER JOIN namen ON fotografen.id = namen.fotografen_id";
         $query.= " WHERE geburtsdatum LIKE '".$year."%' AND unpubliziert = 0";
+        $query.= $this->limit;
         $rs = mysql_query($query);
         $this->events[$year]['born'] = array();
 
@@ -95,6 +103,7 @@ class YearProvider {
         $query = "SELECT * FROM fotografen";
         $query.= " INNER JOIN namen ON fotografen.id = namen.fotografen_id";
         $query.= " WHERE todesdatum LIKE '".$year."%' AND unpubliziert = 0";
+        $query.= $this->limit;
         $rs = mysql_query($query);
         $this->events[$year]['deaths'] = array();
 
@@ -112,6 +121,7 @@ class YearProvider {
         $query.= " INNER JOIN namen on arbeitsperioden.fotografen_id = namen.fotografen_id";
         $query.= " INNER JOIN fotografen on arbeitsperioden.fotografen_id = fotografen.id";
         $query.= " WHERE bis = ".$year." AND arbeitsort <> '' AND um_von = 0 AND fotografen.unpubliziert = 0";
+        $query.= $this->limit;
         $rs = mysql_query($query);
         $this->events[$year]['workstop'] = array();
 
@@ -129,6 +139,7 @@ class YearProvider {
         $query.= " INNER JOIN namen on arbeitsperioden.fotografen_id = namen.fotografen_id";
         $query.= " INNER JOIN fotografen on arbeitsperioden.fotografen_id = fotografen.id";
         $query.= " WHERE von = ".$year." AND arbeitsort <> '' AND um_von = 0 AND fotografen.unpubliziert = 0";
+        $query.= $this->limit;
         $rs = mysql_query($query);
         $this->events[$year]['workbegin'] = array();
 
@@ -143,6 +154,10 @@ class YearProvider {
 
     public function output() {
         jsonout($this->events);
+    }
+
+    public function nolimit() {
+        $this->limit = "";
     }
 
     public function setYears($years) {
