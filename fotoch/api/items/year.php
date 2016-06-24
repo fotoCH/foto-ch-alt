@@ -46,8 +46,7 @@ class YearProvider {
 
     private function exhibition($year) {
         $query = "SELECT * FROM ausstellung";
-        $query.= " INNER JOIN ausstellung_institution ON ausstellung.id = ausstellung_institution.ausstellung_id";
-        $query.= " WHERE jahr = '".$year."' AND institution.gesperrt = 0";
+        $query.= " WHERE jahr = '".$year."'";
         $rs = mysql_query($query);
         $this->events[$year]['exhibitions'] = array();
 
