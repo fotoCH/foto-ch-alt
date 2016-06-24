@@ -52,7 +52,8 @@ $actions=array(
     "streamsearch",
     "statistics",
     "filters",
-    "request");
+    "request",
+    "year");
 if ($action=='fotograph') $action='photographer';
 if (!in_array($action,$actions)) $action='photographer';  // default Startseite
 
