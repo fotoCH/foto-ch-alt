@@ -78,7 +78,7 @@ class YearProvider {
     private function born($year) {
         $query = "SELECT * FROM fotografen";
         $query.= " INNER JOIN namen ON fotografen.id = namen.fotografen_id";
-        $query.= " WHERE geburtsdatum LIKE '".$year."%'";
+        $query.= " WHERE geburtsdatum LIKE '".$year."%' AND unpubliziert = 0";
         $rs = mysql_query($query);
         $this->events[$year]['born'] = array();
 
@@ -94,7 +94,7 @@ class YearProvider {
     private function died($year) {
         $query = "SELECT * FROM fotografen";
         $query.= " INNER JOIN namen ON fotografen.id = namen.fotografen_id";
-        $query.= " WHERE todesdatum LIKE '".$year."%'";
+        $query.= " WHERE todesdatum LIKE '".$year."%' AND unpubliziert = 0";
         $rs = mysql_query($query);
         $this->events[$year]['deaths'] = array();
 
@@ -110,7 +110,8 @@ class YearProvider {
     private function stoppedWork($year) {
         $query = "SELECT * FROM arbeitsperioden";
         $query.= " INNER JOIN namen on arbeitsperioden.fotografen_id = namen.fotografen_id";
-        $query.= " WHERE bis = ".$year." AND arbeitsort <> '' AND um_von = 0";
+        $query.= " INNER JOIN fotografen on arbeitsperioden.fotografen_id = fotografen.id";
+        $query.= " WHERE bis = ".$year." AND arbeitsort <> '' AND um_von = 0 AND fotografen.unpubliziert = 0";
         $rs = mysql_query($query);
         $this->events[$year]['workstop'] = array();
 
@@ -126,7 +127,8 @@ class YearProvider {
     public function startedWork($year) {
         $query = "SELECT * FROM arbeitsperioden";
         $query.= " INNER JOIN namen on arbeitsperioden.fotografen_id = namen.fotografen_id";
-        $query.= " WHERE von = ".$year." AND arbeitsort <> '' AND um_von = 0";
+        $query.= " INNER JOIN fotografen on arbeitsperioden.fotografen_id = fotografen.id";
+        $query.= " WHERE von = ".$year." AND arbeitsort <> '' AND um_von = 0 AND fotografen.unpubliziert = 0";
         $rs = mysql_query($query);
         $this->events[$year]['workbegin'] = array();
 
