@@ -52,7 +52,7 @@ app.controller('DetailController', [
                     var title = '';
                     var name = photographer.data.namen[0];
                     if(name.vorname !== '') {
-                        title+= name.vorname + ", ";
+                        title+= name.vorname + " ";
                     }
                     title+= name.nachname + " ";
                     $scope.title = title;
