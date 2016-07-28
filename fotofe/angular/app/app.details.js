@@ -54,6 +54,9 @@ app.controller('DetailController', [
                     if(name.vorname !== '') {
                         title+= name.vorname + " ";
                     }
+                    if(name.namenszusatz !== '') {
+                        title+= name.namenszusatz + " ";
+                    }
                     title+= name.nachname + " ";
                     $scope.title = title;
                     $scope.subtitle = photographer.data.fldatum;
