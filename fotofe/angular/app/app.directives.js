@@ -86,7 +86,7 @@ app.directive('scrollToTop', function () {
             restrict: 'E',
             transclude: true,
             replace: true,
-            template: '<div class="scroll-to-top""><button><img src="/assets/img/icons/arrow-up.svg"></button></div>',
+            template: '<div class="scroll-to-top""><button title="{{ text }}"></button></div>',
             scope: {
                 text: "@buttonText",
                 speed: "@scrollSpeed"
