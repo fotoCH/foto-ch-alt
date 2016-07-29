@@ -30,8 +30,13 @@
                     || result.institution_count > 0
                     || result.exhibition_count > 0
                     || result.literature_count > 0
-                    || result.photos_results > 0">
-                    <div class="textual">
+                    || result.photos_count > 0">
+                    <div class="textual" ng-if="result.photographer_count > 0
+                    || result.stock_count > 0
+                    || result.institution_count > 0
+                    || result.exhibition_count > 0
+                    || result.literature_count > 0
+                    || result.photos_count > 0">
                         <div class="result-set photographer" ng-if="result.photographer_count > 0">
                             <h5><a ui-sref="photographer">{{spr.photographers}}<small>{{spr.show_all}}</small></a></h5>
                             <ul>
