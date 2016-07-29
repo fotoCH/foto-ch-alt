@@ -2,8 +2,8 @@
 	<h2 ng-if="headline">{{headline}}</h2>
 	<ul>
 		<li ng-repeat="v in values">
-            <a ng-if="linkTo && !v.gesperrt" ng-bind-html="v.text | rawHtml" ng-click="$root.detail(v.id, linkTo )"></a>
-            <span ng-if="!linkTo || v.gesperrt" ng-bind-html="v.text | rawHtml"></span>
+            <a ng-if="linkTo && (!v.gesperrt || v.gesperrt==0)" ng-bind-html="v.text | rawHtml" ng-click="$root.detail(v.id, linkTo )"></a>
+            <span ng-if="!linkTo || (v.gesperrt && v.gesperrt!=0)" ng-bind-html="v.text | rawHtml"></span>
         </li>
 	</ul>
 </div>
