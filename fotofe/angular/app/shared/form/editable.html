@@ -8,7 +8,8 @@
     </div>
 
     <form ng-if="editing" class="no-animate form-container" ng-submit="save(value)">
-        <input type="text" placeholder="" name="toSaveValue" focus-me="{{editing}}" ng-model="value">
+        <textarea ng-if="value.length > 40" placeholder="" name="toSaveValue" focus-me="{{editing}}" ng-model="value"></textarea>
+        <input ng-if="value.length <=40" type="text" placeholder="" name="toSaveValue" focus-me="{{editing}}" ng-model="value">
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
 
