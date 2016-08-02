@@ -462,6 +462,7 @@ class StreamedSearch {
             if($level >= 0) {
                 $sql.= "(namen.nachname LIKE '%".$term."%'";
                 $sql.= " OR namen.vorname LIKE '%".$term."%'";
+                $sql.= " OR namen.namenszusatz LIKE '%".$term."%'";
             }
             /* removed due to performance...
             if($level >= 1) {
