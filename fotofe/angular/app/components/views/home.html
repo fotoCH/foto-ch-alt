@@ -114,7 +114,6 @@
                             <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}, {{p.vorname}}</a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
-                        <small ng-if="p.fgeburtsdatum" ng-bind-html="p.fgeburtsdatum"></small>
                         <small ng-if="p.fldatum" ng-bind-html="p.fldatum"></small><br />
                         <small ng-if="p.arbeitsperioden" ng-bind-html="p.arbeitsperioden"></small>
                         <p ng-if="p.bildgattungen" ng-bind-html="p.bildgattungen"></p>
@@ -129,7 +128,6 @@
                             <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}, {{p.vorname}}</a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
-                        <small ng-if="p.fgeburtsdatum" ng-bind-html="p.fgeburtsdatum"></small>
                         <small ng-if="p.fldatum" ng-bind-html="p.fldatum"></small><br />
                         <small ng-if="p.arbeitsperioden" ng-bind-html="p.arbeitsperioden"></small>
                         <p ng-bind-html="p.bildgattungen"></p>
