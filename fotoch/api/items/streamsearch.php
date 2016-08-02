@@ -311,6 +311,7 @@ class StreamedSearch {
             $sql.= '(';
             if($level >= 0) {
                 $sql.= "ausstellung.institution LIKE '%".$term."%'";
+                $sql.= " OR ausstellung.titel LIKE '%".$term."%'";
                 $sql.= " OR ausstellung.ort LIKE '%".$term."%'";
                 $sql.= " OR namen.vorname LIKE '%".$term."%'";
                 $sql.= " OR namen.nachname LIKE '%".$term."%'";
