@@ -189,7 +189,7 @@ while($fetch=@mysql_fetch_assoc($result)){
 		//$tmpfetch7 = $fetch7;
 		$lit=$fetch7['if_typ'];
 		//if($litHasChanged) abstand($def);
-		$fetch7=formlit($fetch7);
+		$fetch7=formlit($fetch7, false);
 		//$def->assign("FETCH7",$fetch7);
 		if(auth_level(USER_GUEST_READER)) {
 			//$def->parse($det.".z.lit.adm");

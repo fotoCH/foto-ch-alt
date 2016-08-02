@@ -150,7 +150,7 @@ function getinsta($id){ // Institut
 	return($fetch);
 }
 
-function formlit($f){  // expandiert Verweise in Literatur, formatiert
+function formlit($f, $url = true){  // expandiert Verweise in Literatur, formatiert
 	$suchmuster = "/<llink:(.\d+)>/";
 	$tref=preg_match_all($suchmuster,$f['in'],$treffer);
 	for ($i=0; $i< count($treffer[0]); $i++) {
@@ -188,7 +188,9 @@ function formlit($f){  // expandiert Verweise in Literatur, formatiert
 	if ($f['code']=='U') {
 		if ($text[strlen($text)-1]!=' ') $text.=', ';
 		$f['url']=preg_replace("/http:\/\/(.*)/","<a href=\"http://\$1\" target=\"_new\">\$1</a> ",$f['url']);
-		$text.=$f['url'];
+        if($url){
+            $text.=$f['url'];
+        }
 	}
 
 	if ($f['seite']){ if ($text[strlen($text)-1]!=' ') $text.=', ';
