@@ -3,8 +3,8 @@
  */
 
 app.controller('MainCtrl', 
-    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', '$window', '$uibModalStack',
-    function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies, $window, $uibModalStack) {
+    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', '$window', '$uibModalStack', 'TranslationService',
+    function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies, $window, $uibModalStack, TranslationService) {
     $rootScope.textualSearch = '';
 
     $rootScope.pendingRequests = 0;
@@ -33,7 +33,8 @@ app.controller('MainCtrl',
 
 
     function loadTranslation() {
-        $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
+        var translationPromise = TranslationService.getTranslation();
+        translationPromise.then(function(data) {
             $scope.spr = data;
             $rootScope.translations = data;
         });
@@ -135,7 +136,6 @@ app.controller('MainCtrl',
         }
     }
     checkHashForModal();
-
     loadTranslation();
 
     $scope.isHome = function () {
@@ -204,6 +204,17 @@ app.controller('MainCtrl',
     }
 
 }]);
+angular.module('fotochWebApp').service('TranslationService', function($http, $rootScope) {
+    
+    var getTranslation = function () {
+        return $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).then(function (result) {
+            return result.data;
+        });
+    }
+    
+    return {getTranslation: getTranslation};
+});
+
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
     $scope.getClass = function (path) {
@@ -227,7 +238,7 @@ app.controller('InstitutionCtrl', [
     '$filter',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Institutionen');
+        $rootScope.setTitle($rootScope.translations.institution_title);
     }
 ]);
 
@@ -240,7 +251,7 @@ app.controller('InventoryCtrl', [
     '$rootScope',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Bestände');
+        $rootScope.setTitle($rootScope.translations.inventory_title);
     }
 ]);
 
@@ -277,7 +288,7 @@ app.controller('ExhibitionCtrl', [
     '$rootScope',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Fotografie Ausstelungen in der Schweiz');
+        $rootScope.setTitle($rootScope.translations.exhibition_title);
     }
 ]);
 
@@ -293,7 +304,7 @@ app.controller('PhotographerCtrl', [
     '$q',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Fotografen');
+        $rootScope.setTitle($rootScope.translations.photographer_title);
     }
 ]);
 
@@ -309,7 +320,7 @@ app.controller('PhotoCtrl', [
     '$timeout', 
     '$uibModalStack',
     function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Fotos Schweiz');
+        $rootScope.setTitle($rootScope.translations.photos_title);
     }
 ]);
 
@@ -380,7 +391,7 @@ app.controller('LiteraturCtrl', [
     '$rootScope', 
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Literatur zur Schweizer Fotografie');
+        $rootScope.setTitle($rootScope.translations.literature_title);
     }
 ]);
 
@@ -388,7 +399,7 @@ app.controller('HomeCtrl',
     ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics', 
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics) {
 
-    $rootScope.setTitle('fotoCH - Dokumentation der Schweizer Fotografie');
+    $rootScope.setTitle($rootScope.translations.home_title);
 
     function zeroFill( number, width ) {
       width -= number.toString().length;
