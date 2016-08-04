@@ -111,7 +111,11 @@ class StreamedSearch {
     private function institutionFields() {
         return array(
             "institution.id",
-            "institution.name".$this->lang." AS name",
+            "institution.name",
+            "institution.name_fr",
+            "institution.name_it",
+            "institution.name_rm",
+            "institution.name_en",
             "institution.abkuerzung".$this->lang." AS shortname",
             "institution.art",
             "institution.adresse",
@@ -387,6 +391,10 @@ class StreamedSearch {
         $result = mysql_query($sql);
         $this->results['institution_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
+            //echo '<pre>';
+            //print_r($assoc);
+            $assoc['name']=clean_entry(clangcont($assoc,'name'));
+            //print_r($assoc);die();
             array_push($this->results['institution_results'], $assoc);
         }
         $this->results['institution_count'] = count($this->results['institution_results']);
