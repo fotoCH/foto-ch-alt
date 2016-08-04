@@ -15,10 +15,10 @@
     <ul>
         <li ng-repeat="photographer in detail.photographer">
             <a ng-if="photographer.gesperrt != 1" ng-click="$root.detail(photographer.id, 'photographer' )">
-                {{photographer.nachname}} {{photographer.vorname}}
+                {{photographer.nachname}}, {{photographer.vorname}} {{photographer.namenszusatz}}
             </a>
             <span ng-if="photographer.gesperrt == 1">
-                {{photographer.nachname}} {{photographer.vorname}}
+                {{photographer.nachname}}, {{photographer.vorname}} {{photographer.namenszusatz}}
             </span>
         </li>
     </ul>
