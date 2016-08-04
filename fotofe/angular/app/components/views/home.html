@@ -42,7 +42,7 @@
                             <ul>
                                 <li ng-repeat="photographer in result.photographer_results | limitTo: limit" class="no-animate">
                                     <a ng-click="$root.detail(photographer.id, 'photographer', result.photographer_ids)">
-                                    {{photographer.nachname}} {{photographer.vorname}} {{photographer.namenszusatz}}
+                                    {{photographer.nachname}}, {{photographer.vorname}} {{photographer.namenszusatz}}
                                     </a>
                                 </li>
                             </ul>
