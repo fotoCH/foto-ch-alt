@@ -83,7 +83,7 @@ if ($id == '') {
                 //$results.=$def->text($det.".z");
                 //pushfields($arb,$fetch2,array('arbeitsort','um_vonf','von','um_bisf','bis'));
                 //$arbeitsperioden[]=$arb;
-                if ($arbeitsperioden!='') $arbeitsperioden.=',';
+                if ($arbeitsperioden!='') $arbeitsperioden.=', ';
                 $arbeitsperioden.=$fetch2['arbeitsort'];
 	        }
 	        mysql_free_result($result2);
