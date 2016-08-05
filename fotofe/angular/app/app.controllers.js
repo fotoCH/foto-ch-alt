@@ -3,45 +3,49 @@
  */
 
 app.controller('MainCtrl',
-    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', '$window', '$uibModalStack',
-        function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies, $window, $uibModalStack) {
+    ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$uibModal', '$cookies', '$window', '$uibModalStack', 'TranslationService',
+        function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $uibModal, $cookies, $window, $uibModalStack, TranslationService) {
             $rootScope.textualSearch = '';
 
             $rootScope.pendingRequests = 0;
+            $rootScope.translationLoaded = false;
+            $scope.title = 'fotoCH';
 
-            if(typeof($window.sessionStorage.user_data) !== 'undefined' &&
+            if (typeof($window.sessionStorage.user_data) !== 'undefined' &&
                 typeof($rootScope.user_data) == 'undefined') {
                 $rootScope.user_data = JSON.parse($window.sessionStorage.user_data);
             }
 
 
-            $rootScope.updatePendingRequests = function() {
-                if($rootScope.user_data && $rootScope.user_data.level >= 8) {
-                    $http.get($rootScope.ApiUrl + '?a=request&action=pendingAmount').success(function(data) {
+            $rootScope.updatePendingRequests = function () {
+                if ($rootScope.user_data && $rootScope.user_data.level >= 8) {
+                    $http.get($rootScope.ApiUrl + '?a=request&action=pendingAmount').success(function (data) {
                         $rootScope.pendingRequests = data.count;
                     });
-                } else {
+                } else {
                     $rootScope.pendingRequests = 0;
                 }
             }
             $rootScope.updatePendingRequests();
-            if($rootScope.user_data && $rootScope.user_data.level >= 8) {
-                setInterval(function() {
+            if ($rootScope.user_data && $rootScope.user_data.level >= 8) {
+                setInterval(function () {
                     $rootScope.updatePendingRequests();
                 }, 10000);
             }
 
 
             function loadTranslation() {
-                $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
+                var translationPromise = TranslationService.getTranslation();
+                translationPromise.then(function (data) {
                     $scope.spr = data;
                     $rootScope.translations = data;
+                    $rootScope.translationLoaded = true;
                 });
             }
 
             $rootScope.currentDetail = '';
             $rootScope.$on('$locationChangeSuccess', function () {
-                if($location.hash().indexOf('detail') >= 0) {
+                if ($location.hash().indexOf('detail') >= 0) {
                     checkHashForModal();
                 } else {
                     $uibModalStack.dismissAll();
@@ -49,14 +53,14 @@ app.controller('MainCtrl',
                 }
             });
 
-            $rootScope.pendingAllowed = function() {
-                if($rootScope.user_data.level >= 8) {
+            $rootScope.pendingAllowed = function () {
+                if ($rootScope.user_data.level >= 8) {
                     return true;
                 }
                 return false;
             }
 
-            $scope.getUserLevelClass = function() {
+            $scope.getUserLevelClass = function () {
                 return 'level-' + $rootScope.user_data.level;
             }
 
@@ -77,27 +81,26 @@ app.controller('MainCtrl',
                 });
             }
 
-            $scope.title =  'fotoCH';
-            $rootScope.setTitle = function(title) {
+            $rootScope.setTitle = function (title) {
                 $scope.title = title;
             }
 
-            $rootScope.detail = function(id, type, carousel) {
+            $rootScope.detail = function (id, type, carousel) {
                 $uibModalStack.dismissAll();
                 $rootScope.openNew = false;
 
-                if($rootScope.currentDetail != 'detail='+id+'&type='+type) {
+                if ($rootScope.currentDetail != 'detail=' + id + '&type=' + type) {
                     $rootScope.openNew = true;
-                    $rootScope.currentDetail = 'detail='+id+'&type='+type;
-                    $location.hash('detail='+id+'&type='+type);
-                    setTimeout(function() {
+                    $rootScope.currentDetail = 'detail=' + id + '&type=' + type;
+                    $location.hash('detail=' + id + '&type=' + type);
+                    setTimeout(function () {
                         $rootScope.detailModal = $uibModal.open({
                             controller: "DetailController",
                             templateUrl: 'app/shared/content/detail.html',
                             size: 'lg',
                             animation: false,
                             resolve: {
-                                params : function() {
+                                params: function () {
                                     return {
                                         id: id,
                                         type: type,
@@ -105,9 +108,9 @@ app.controller('MainCtrl',
                                     };
                                 }
                             }
-                        }).result.then(function() {
-                        }, function() {
-                            if(!$rootScope.openNew) {
+                        }).result.then(function () {
+                        }, function () {
+                            if (!$rootScope.openNew) {
                                 $location.hash('!');
                                 $rootScope.currentDetail = '';
                             }
@@ -119,21 +122,22 @@ app.controller('MainCtrl',
             function checkHashForModal() {
                 var hash = $location.hash();
                 hash = hash.split('&');
-                if(hash.length > 1) {
+                if (hash.length > 1) {
                     var id = 0;
                     var type = 'unknown';
-                    for(index = 0; index < hash.length; index++) {
+                    for (index = 0; index < hash.length; index++) {
                         var split = hash[index].split('=');
-                        if(index == 0 && split[0] == 'detail') {
+                        if (index == 0 && split[0] == 'detail') {
                             id = split[1];
                         }
-                        if(index == 1 && split[0] == 'type') {
+                        if (index == 1 && split[0] == 'type') {
                             type = split[1];
                         }
                     }
                     $rootScope.detail(id, type);
                 }
             }
+
             checkHashForModal();
 
             loadTranslation();
@@ -204,6 +208,16 @@ app.controller('MainCtrl',
             }
 
         }]);
+angular.module('fotochWebApp').service('TranslationService', function ($http, $rootScope) {
+
+    var getTranslation = function () {
+        return $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).then(function (result) {
+            return result.data;
+        });
+    };
+
+    return {getTranslation: getTranslation};
+});
 
 app.controller('NavigationCtrl', ['$scope', '$location', '$rootScope', function ($scope, $location, $rootScope) {
     $scope.getClass = function (path) {
@@ -227,7 +241,22 @@ app.controller('InstitutionCtrl', [
     '$filter',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Institutionen');
+        function setMeta() {
+            $rootScope.setTitle($rootScope.translations.institution_title);
+        }
+
+        // wait for translations to be loaded before setting title
+        if (!$rootScope.translationLoaded) {
+
+            var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
+                if (newValue) {
+                    setMeta();
+                    cancelWatcher();
+                }
+            });
+        } else {
+            setMeta();
+        }
     }
 ]);
 
@@ -240,7 +269,23 @@ app.controller('InventoryCtrl', [
     '$rootScope',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Bestände');
+
+        function setMeta() {
+            $rootScope.setTitle($rootScope.translations.inventory_title);
+        }
+
+        // wait for translations to be loaded before setting title
+        if (!$rootScope.translationLoaded) {
+
+            var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
+                if (newValue) {
+                    setMeta();
+                    cancelWatcher();
+                }
+            });
+        } else {
+            setMeta();
+        }
     }
 ]);
 
@@ -277,7 +322,22 @@ app.controller('ExhibitionCtrl', [
     '$rootScope',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Fotografie Ausstelungen in der Schweiz');
+        function setMeta() {
+            $rootScope.setTitle($rootScope.translations.exhibition_title);
+        }
+
+        // wait for translations to be loaded before setting title
+        if (!$rootScope.translationLoaded) {
+
+            var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
+                if (newValue) {
+                    setMeta();
+                    cancelWatcher();
+                }
+            });
+        } else {
+            setMeta();
+        }
     }
 ]);
 
@@ -293,7 +353,22 @@ app.controller('PhotographerCtrl', [
     '$q',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Fotografen');
+        function setMeta() {
+            $rootScope.setTitle($rootScope.translations.photographer_title);
+        }
+
+        // wait for translations to be loaded before setting title
+        if (!$rootScope.translationLoaded) {
+
+            var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
+                if (newValue) {
+                    setMeta();
+                    cancelWatcher();
+                }
+            });
+        } else {
+            setMeta();
+        }
     }
 ]);
 
@@ -309,7 +384,22 @@ app.controller('PhotoCtrl', [
     '$timeout',
     '$uibModalStack',
     function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Fotos Schweiz');
+        function setMeta() {
+            $rootScope.setTitle($rootScope.translations.photos_title);
+        }
+
+        // wait for translations to be loaded before setting title
+        if (!$rootScope.translationLoaded) {
+
+            var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
+                if (newValue) {
+                    setMeta();
+                    cancelWatcher();
+                }
+            });
+        } else {
+            setMeta();
+        }
     }
 ]);
 
@@ -317,17 +407,15 @@ app.controller('PendingCtrl', [
     '$scope',
     '$http',
     '$rootScope',
-    function(
-        $scope,
-        $http,
-        $rootScope
-    ) {
+    function ($scope,
+              $http,
+              $rootScope) {
 
         $scope.overwriting = false;
         $scope.pending = [];
         $scope.rejected = [];
         $scope.accepted = [];
-        $scope.getRequests = function() {
+        $scope.getRequests = function () {
             $http.get($rootScope.ApiUrl + '?a=request&action=pendingList').success(function (data) {
                 $scope.pending = data;
             });
@@ -340,8 +428,8 @@ app.controller('PendingCtrl', [
         }
         $scope.getRequests();
 
-        $scope.overwrite = function(index) {
-            if($scope.overwriting == index) {
+        $scope.overwrite = function (index) {
+            if ($scope.overwriting == index) {
                 $scope.overwriting = false;
             } else {
                 $scope.overwriting = index;
@@ -349,10 +437,10 @@ app.controller('PendingCtrl', [
             console.log($scope.overwriting);
         }
 
-        $scope.accept = function(id, value) {
-            var q = $rootScope.ApiUrl + '?a=request&action=accept&id='+id;
-            if(typeof(value) !== 'undefined') {
-                q+= '&overwrite='+value;
+        $scope.accept = function (id, value) {
+            var q = $rootScope.ApiUrl + '?a=request&action=accept&id=' + id;
+            if (typeof(value) !== 'undefined') {
+                q += '&overwrite=' + value;
             }
             $http.get(q).success(function (data) {
                 $rootScope.updatePendingRequests();
@@ -360,8 +448,8 @@ app.controller('PendingCtrl', [
             });
         }
 
-        $scope.reject = function(id) {
-            $http.get($rootScope.ApiUrl + '?a=request&action=reject&id='+id).success(function (data) {
+        $scope.reject = function (id) {
+            $http.get($rootScope.ApiUrl + '?a=request&action=reject&id=' + id).success(function (data) {
                 $rootScope.updatePendingRequests();
                 $scope.getRequests();
             });
@@ -380,7 +468,22 @@ app.controller('LiteraturCtrl', [
     '$rootScope',
     '$uibModalStack',
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
-        $rootScope.setTitle('fotoCH - Literatur zur Schweizer Fotografie');
+        function setMeta() {
+            $rootScope.setTitle($rootScope.translations.literature_title);
+        }
+
+        // wait for translations to be loaded before setting title
+        if (!$rootScope.translationLoaded) {
+
+            var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
+                if (newValue) {
+                    setMeta();
+                    cancelWatcher();
+                }
+            });
+        } else {
+            setMeta();
+        }
     }
 ]);
 
@@ -388,12 +491,27 @@ app.controller('HomeCtrl',
     ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics',
         function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics) {
 
-            $rootScope.setTitle('fotoCH - Dokumentation der Schweizer Fotografie');
+            function setMeta() {
+                $rootScope.setTitle($rootScope.translations.home_title);
+            }
 
-            function zeroFill( number, width ) {
+            // wait for translations to be loaded before setting title
+            if (!$rootScope.translationLoaded) {
+
+                var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
+                    if (newValue) {
+                        setMeta();
+                        cancelWatcher();
+                    }
+                });
+            } else {
+                setMeta();
+            }
+
+            function zeroFill(number, width) {
                 width -= number.toString().length;
-                if ( width > 0 ) {
-                    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+                if (width > 0) {
+                    return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
                 }
                 return number + ""; // always return a string
             }
@@ -401,8 +519,9 @@ app.controller('HomeCtrl',
             function getHeaderImage() {
                 var amountOfHeaderImages = 11;
                 var imageNo = Math.floor((Math.random() * amountOfHeaderImages) + 1);
-                $scope.imgURL = 'assets/img/home-intro/header-'+zeroFill(imageNo, 3)+'.jpg';
+                $scope.imgURL = 'assets/img/home-intro/header-' + zeroFill(imageNo, 3) + '.jpg';
             }
+
             getHeaderImage();
 
             $rootScope.reloadHome = function () {
@@ -413,10 +532,10 @@ app.controller('HomeCtrl',
                 $state.go('search', {query: $scope.powersearch});
             };
 
-            $scope.getGenderClass = function(gender) {
-                if(gender=='m') {
+            $scope.getGenderClass = function (gender) {
+                if (gender == 'm') {
                     return 'gender-m';
-                } else if(gender == 'f') {
+                } else if (gender == 'f') {
                     return 'gender-f';
                 }
                 return '';
@@ -430,6 +549,7 @@ app.controller('HomeCtrl',
                     $scope.recent_photographer = data.res;
                 });
             }
+
             recents();
 
             // most viewed
@@ -439,6 +559,7 @@ app.controller('HomeCtrl',
                     $scope.mostviewed_photographer = data.res;
                 });
             }
+
             mostviewed();
 
             $scope.statistics = {};
@@ -447,6 +568,7 @@ app.controller('HomeCtrl',
                     $scope.statistics = data;
                 });
             }
+
             statistics();
 
         }]);
@@ -460,7 +582,7 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
 
             if (status == 'ok') {
                 $scope.errorMsg = $scope.spr.login_success;
-                $timeout(function() {
+                $timeout(function () {
                     $scope.errorMsg = '';
                 }, 5000);
                 $rootScope.user = user.username;
@@ -468,12 +590,12 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
                     "username": user.username,
                     "forename": data.vorname,
                     "name": data.nachname,
-                    "inst" : data.inst_comment,
-                    "level" : data.level,
-                    "email" : data.email
+                    "inst": data.inst_comment,
+                    "level": data.level,
+                    "email": data.email
                 }
-                if(data.inst_comment != '') {
-                    DetailService.getInstitute(data.inst_comment).then(function(institute) {
+                if (data.inst_comment != '') {
+                    DetailService.getInstitute(data.inst_comment).then(function (institute) {
                         $rootScope.user_data.institute = institute.data;
                         $window.sessionStorage.user_data = JSON.stringify($rootScope.user_data);
                     });
@@ -545,46 +667,46 @@ app.controller('homeSearch', [
         $scope.limit = 8;
         $scope.photolimit = 20;
 
-        $scope.setIdArrays = function() {
+        $scope.setIdArrays = function () {
             var parts = ['exhibition', 'institution', 'literature', 'photographer', 'photos', 'stock'];
-            for(var index = 0; index < parts.length; index++) {
-                $scope.result[parts[index]+'_ids'] = [];
-                if(typeof($scope.result[parts[index]+'_results']) !== 'undefined') {
-                    for(var item = 0; item < $scope.result[parts[index]+'_results'].length; item++ ) {
-                        $scope.result[parts[index]+'_ids'].push($scope.result[parts[index]+'_results'][item].id);
+            for (var index = 0; index < parts.length; index++) {
+                $scope.result[parts[index] + '_ids'] = [];
+                if (typeof($scope.result[parts[index] + '_results']) !== 'undefined') {
+                    for (var item = 0; item < $scope.result[parts[index] + '_results'].length; item++) {
+                        $scope.result[parts[index] + '_ids'].push($scope.result[parts[index] + '_results'][item].id);
                     }
                 }
             }
         }
 
-        $scope.change = function(user) {
+        $scope.change = function (user) {
 
             $scope.user = user;
             $scope.isLoading = true;
 
             // avoid query spams
             clearTimeout($scope.timeout);
-            $scope.timeout = setTimeout(function() {
-                $scope.result =  {};
+            $scope.timeout = setTimeout(function () {
+                $scope.result = {};
                 $rootScope.textualSearch = $scope.user.query;
                 $http({
                     method: "GET",
                     url: $rootScope.ApiUrl + '/?a=streamsearch&query=' + $scope.user.query
-                    + '&limit='+$scope.limit
-                    + '&photolimit='+$scope.photolimit,
+                    + '&limit=' + $scope.limit
+                    + '&photolimit=' + $scope.photolimit,
                     headers: {
                         'Content-Type': "text/plain"
                     },
                     transformResponse: [function (data) {
                         return data;
                     }],
-                    onProgress: function(event) {
+                    onProgress: function (event) {
                         try {
                             var response = event.currentTarget.responseText;
                             response = response.replace(/}{/g, "},{");
                             response = "[" + response + "]";
                             var newresult = JSON.parse(response);
-                            newresult = newresult[newresult.length-1];
+                            newresult = newresult[newresult.length - 1];
                             $scope.result = newresult;
                             $scope.setIdArrays();
                             $scope.$apply();
@@ -593,19 +715,19 @@ app.controller('homeSearch', [
                             console.log(e);
                         }
                     }
-                }).then(function(e) {
+                }).then(function (e) {
                     $scope.isLoading = false;
                 });
 
             }, 1500);
         }
 
-        $scope.focus = function() {
+        $scope.focus = function () {
             $scope.searchActive = true;
         }
 
-        $scope.blur = function() {
-            if(typeof($scope.user.query) !== 'undefined' && $scope.user.query.length > 0) {
+        $scope.blur = function () {
+            if (typeof($scope.user.query) !== 'undefined' && $scope.user.query.length > 0) {
                 $scope.searchActive = true;
             } else {
                 $scope.searchActive = false;
