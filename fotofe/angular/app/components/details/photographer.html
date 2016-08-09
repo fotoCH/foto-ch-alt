@@ -2,7 +2,7 @@
     <div class="" ng-if="detail.namen.length > 1 || detail.heimatort || detail.fotografengattungen || detail.bildgattungen || detail.beruf || detail.arbeitsperioden.length > 0 || detail.kantone || detail.pnd">
         <dl>
             <dt ng-if="detail.namen.length > 1">{{translations.namensvariante}}</dt>
-            <dd ng-if="!$first" ng-repeat="n in detail.namen">{{n.nachname}}, {{n.vorname}} {{n.namenszusatz}}</dd>
+            <dd ng-if="!$first" ng-repeat="n in detail.namen">{{n.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span></dd>
             <dt ng-if="detail.heimatort">{{translations.heimatort}}</dt>
             <dd ng-if="detail.heimatort">{{detail.heimatort}}</dd>
             <dt ng-if="detail.fotografengattungen">{{translations.fotografengattungen}}</dt>
