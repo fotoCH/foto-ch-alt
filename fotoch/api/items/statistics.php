@@ -40,7 +40,7 @@ class Statistics {
 
     private function stocks() {
         $this->stats['stocks'] = array();
-        $this->stats['stocks']['count'] = $this->count('bestand', 'WHERE gesperrt = 0');
+        $this->stats['stocks']['count'] = $this->count('bestand', 'JOIN institution ON bestand.inst_id = institution.id WHERE institution.gesperrt=0 AND bestand.`gesperrt`=0', 'bestand.id');
     }
 
     private function photos() {
@@ -48,8 +48,8 @@ class Statistics {
         $this->stats['photos']['count'] = $this->count('fotos');
     }
 
-    private function count($table, $where='') {
-        $sql = "SELECT COUNT(id) as num FROM $table $where";
+    private function count($table, $where='', $id_field='id') {
+        $sql = "SELECT COUNT($id_field) as num FROM $table $where";
         $result = mysql_query($sql);
         while($row = mysql_fetch_assoc($result)) {
             return $row['num'];
