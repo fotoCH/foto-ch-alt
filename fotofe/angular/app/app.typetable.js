@@ -22,6 +22,8 @@ app.controller('TypeTableCtrl', [
         $scope.tableHead = [];
         $scope.tableRows = [];
 
+        $scope.totalcnt = 0;
+
         $scope.hasImage = false;
 
         $scope.fields_obj = JSON.parse($scope.fields);
@@ -374,6 +376,8 @@ app.controller('TypeTableCtrl', [
                 }
             }).then(function(e) {
                 $scope.filtering = false;
+                $rootScope.loadednum = $scope.tableRows.length;
+                $rootScope.totalcnt = 500;
             });
         }
 

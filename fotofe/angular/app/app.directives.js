@@ -86,10 +86,13 @@ app.directive('scrollToTop', function () {
             restrict: 'E',
             transclude: true,
             replace: true,
-            template: '<div class="scroll-to-top""><button title="{{ text }}"></button></div>',
+            templateUrl: 'app/shared/navigation/scrollToTop.html',
             scope: {
                 text: "@buttonText",
-                speed: "@scrollSpeed"
+                textloaded: "@loadedText",
+                loading: "=",
+                loaded: "@loadednum",
+                total: "@totalcnt"
             },
             link: function(scope, element) {
 
@@ -141,14 +144,14 @@ app.directive('scrollToTop', function () {
 
                 scope.button.on('click', function() {
                     scope.smoothScroll();
-                    element.removeClass('show');
+                    element.removeClass('showbutton');
                 });
 
                 window.addEventListener('scroll', function() {
                     if (window.pageYOffset > 0) {
-                        element.addClass('show');
+                        element.addClass('showbutton');
                     } else {
-                        element.removeClass('show');
+                        element.removeClass('showbutton');
                     }
                 });
             }
@@ -226,6 +229,19 @@ app.directive('defaultList', function () {
             linkTo: '@'
         }
     };
+});
+
+app.directive('historyBack', function () {
+    return {
+        restrict: 'A',
+        scope: {back: '@back'},
+        link: function (scope, elem, attrs) {
+            elem.bind('click', function () {
+                $window.history.back();
+                scope.$apply();
+            });
+        }
+    }
 });
 
 
