@@ -264,6 +264,8 @@ app.controller('TypeTableCtrl', [
             var regex = /({([^}]+)+})/g;
             var match;
 
+            $scope.totalcnt = data[$scope.type+'_total_count'];
+
             $scope.carousel = [];
             for(var rowNo = 0; rowNo < data[$scope.type+'_results'].length; rowNo++) {
                 // fill all ids in the carousel array for the detail overlay
@@ -308,7 +310,8 @@ app.controller('TypeTableCtrl', [
                     }
                     if(hasMatch) {
                         if(hasAtleastOneValue) {
-                            row.push(hasMatch);
+                            // remove comma at the end of value (if there is one, e.g. in name when vorname is not set)
+                            row.push(hasMatch.trim().replace(/\,$/,''));
                         } else {
                             row.push('-');
                         }
@@ -377,7 +380,6 @@ app.controller('TypeTableCtrl', [
             }).then(function(e) {
                 $scope.filtering = false;
                 $rootScope.loadednum = $scope.tableRows.length;
-                $rootScope.totalcnt = 500;
             });
         }
 
