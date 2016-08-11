@@ -9,7 +9,9 @@ app.controller('MainCtrl',
 
             $rootScope.pendingRequests = 0;
             $rootScope.translationLoaded = false;
+            // Default description + title
             $scope.title = 'fotoCH';
+            $scope.description = 'fotoCH ist ein Online-Werk, das über die historische Fotografie in der Schweiz informiert. Es besteht aus einem biografischen Lexikon der Fotografinnen und Fotografen und einem Repertorium der fotografischen Archive und Nachlässe.';
 
             if (typeof($window.sessionStorage.user_data) !== 'undefined' &&
                 typeof($rootScope.user_data) == 'undefined') {
@@ -83,6 +85,10 @@ app.controller('MainCtrl',
 
             $rootScope.setTitle = function (title) {
                 $scope.title = title;
+            }
+
+            $rootScope.setDescription = function (desciption) {
+                $scope.description = desciption;
             }
 
             $rootScope.detail = function (id, type, carousel) {
@@ -243,6 +249,7 @@ app.controller('InstitutionCtrl', [
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $uibModalStack) {
         function setMeta() {
             $rootScope.setTitle($rootScope.translations.institution_title);
+            $rootScope.setDescription($rootScope.translations.institution_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -272,6 +279,7 @@ app.controller('InventoryCtrl', [
 
         function setMeta() {
             $rootScope.setTitle($rootScope.translations.inventory_title);
+            $rootScope.setDescription($rootScope.translations.inventory_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -324,6 +332,7 @@ app.controller('ExhibitionCtrl', [
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
         function setMeta() {
             $rootScope.setTitle($rootScope.translations.exhibition_title);
+            $rootScope.setDescription($rootScope.translations.exhibition_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -355,6 +364,7 @@ app.controller('PhotographerCtrl', [
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack) {
         function setMeta() {
             $rootScope.setTitle($rootScope.translations.photographer_title);
+            $rootScope.setDescription($rootScope.translations.photographer_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -386,6 +396,7 @@ app.controller('PhotoCtrl', [
     function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack) {
         function setMeta() {
             $rootScope.setTitle($rootScope.translations.photos_title);
+            $rootScope.setDescription($rootScope.translations.photos_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -470,6 +481,7 @@ app.controller('LiteraturCtrl', [
     function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
         function setMeta() {
             $rootScope.setTitle($rootScope.translations.literature_title);
+            $rootScope.setDescription($rootScope.translations.literature_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -493,6 +505,7 @@ app.controller('HomeCtrl',
 
             function setMeta() {
                 $rootScope.setTitle($rootScope.translations.home_title);
+                $rootScope.setDescription($rootScope.translations.home_description);
             }
 
             // wait for translations to be loaded before setting title
