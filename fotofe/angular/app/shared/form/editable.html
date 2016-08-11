@@ -1,5 +1,5 @@
 <div class="editable">
-    <a ng-if="allowedToEdit()" class="edit-indicator" ng-click="changeEdit()">{{$root.translations.edit}}</a>
+    <a ng-if="allowedToEdit()" class="edit-indicator" ng-click="changeEdit()" ng-class="{active: editing}">{{$root.translations.edit}}</a>
     <dt ng-if="value || allowedToEdit()">{{title}}</dt>
 
     <div ng-if="! editing" class="no-animate">
@@ -7,10 +7,15 @@
         <dd class="no-value" ng-if="!value && allowedToEdit()">{{$root.translations.not_set}}</dd>
     </div>
 
-    <form ng-if="editing" class="no-animate form-container" ng-submit="save(value)">
-        <textarea ng-if="value.length > 40" placeholder="" name="toSaveValue" focus-me="{{editing}}" ng-model="value"></textarea>
-        <input ng-if="value.length <=40" type="text" placeholder="" name="toSaveValue" focus-me="{{editing}}" ng-model="value">
+    <!-- input for short text -->
+    <form ng-if="editing && value.length < 40" class="no-animate form-container" ng-submit="save(value)">
+        <input type="text" placeholder="" name="toSaveValue" focus-me="{{editing}}" ng-model="value">
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+    </form>
+
+    <form ng-if="editing && value.length > 40" class="no-animate form-container" ng-submit="save(value)">
+        <textarea ng-model="value" focus-me="{{ editing }}" name="toSaveValue" placeholder="" style="margin-bottom: 0" ng-keypress="checkShortcuts($event, value)"></textarea>
+        <input type="submit" value="{{ $root.translations.speichern }} (Ctrl + Enter)" class="black-button" style="margin-bottom: 20px;" />
     </form>
 
 </div>

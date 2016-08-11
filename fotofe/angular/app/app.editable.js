@@ -34,6 +34,12 @@ app.controller('EditableController', [
             });
         }
 
+        $scope.checkShortcuts = function (e, value) {
+            if(e.ctrlKey && e.which == 10){
+                $scope.save(value);
+            }
+        }
+
         $scope.allowedToEdit = function() {
             if($rootScope.user_data 
                 && ( parseInt($rootScope.user_data.level) >= 8 
