@@ -1,7 +1,7 @@
 <div class="scroll-to-top flex" ng-class="{loading : loading}">
     <div class="loading-container flex">
         <div class="loading-indicator"></div>
-        <div class="loading-data"><b>{{ loaded }} / {{ total }}</b><br><span class="uppercase">{{ textloaded }}</span></div>
+        <div class="loading-data"><b>{{ loaded }}<span ng-if="total">/ {{ total }}</span></b><br><span class="uppercase">{{ textloaded }}</span></div>
     </div>
     <button title="{{ text }}"></button>
 </div>
