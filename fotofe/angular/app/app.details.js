@@ -15,8 +15,6 @@ app.controller('DetailController', [
         $scope.close = function() {
             $uibModalStack.dismissAll();
             $rootScope.accCache = {};
-            console.log($rootScope.accCache);
-
         }
 
         // enable accordion cache
