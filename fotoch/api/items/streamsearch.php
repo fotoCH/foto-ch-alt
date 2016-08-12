@@ -405,8 +405,8 @@ class StreamedSearch {
         $sql.="SELECT DISTINCT ".implode(", ", $this->stockFields())." FROM bestand";
         $sql.= " INNER JOIN institution ON bestand.inst_id = institution.id";
         if($level >= 1) {
-            $sql.= " RIGHT JOIN bestand_fotograf ON bestand.id = bestand_fotograf.bestand_id";
-            $sql.= " RIGHT JOIN namen ON bestand_fotograf.fotografen_id = namen.fotografen_id";
+            $sql.= " LEFT JOIN bestand_fotograf ON bestand.id = bestand_fotograf.bestand_id";
+            $sql.= " LEFT JOIN namen ON bestand_fotograf.fotografen_id = namen.fotografen_id";
         }
         $q = explode(" ", $this->query);
         $first = true;
