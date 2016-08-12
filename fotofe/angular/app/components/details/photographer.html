@@ -21,59 +21,71 @@
         </dl>
     </div>
     <!-- Detail Information - Accordion -->
-    <uib-accordion close-others="oneAtATime">
+    <uib-accordion close-others="oneAtATime" ng-model="status">
+
         <!-- Werdegang -->
-        <uib-accordion-group heading="{{translations.werdegang}}" ng-if="detail.werdegang">
+        <uib-accordion-group heading="{{translations.werdegang}}" ng-if="detail.werdegang"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.werdegang">
             <content-raw headline="" value="detail.werdegang"></content-raw>
         </uib-accordion-group>
 
         <!-- Schaffensbeschrieb -->
-        <uib-accordion-group heading="{{translations.schaffensbeschrieb}}" ng-if="detail.schaffensbeschrieb">
+        <uib-accordion-group heading="{{translations.schaffensbeschrieb}}" ng-if="detail.schaffensbeschrieb"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.schaffensbeschrieb">
             <content-raw headline="" value="detail.schaffensbeschrieb"></content-raw>
         </uib-accordion-group>
 
         <!-- Biographie -->
-        <uib-accordion-group heading="{{translations.biografie}}" ng-if="detail.biografie">
+        <uib-accordion-group heading="{{translations.biografie}}" ng-if="detail.biografie"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.biografie">
             <content-raw headline="" value="detail.biografie"></content-raw>
         </uib-accordion-group>
 
         <!-- Auszeichnungen und Stipendien -->
-        <uib-accordion-group heading="{{translations.auszeichnungen_und_stipendien}}" ng-if="detail.auszeichnungen_und_stipendien">
+        <uib-accordion-group heading="{{translations.auszeichnungen_und_stipendien}}" ng-if="detail.auszeichnungen_und_stipendien"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.auszeichnungen_und_stipendien">
             <content-raw headline="" value="detail.auszeichnungen_und_stipendien"></content-raw>
         </uib-accordion-group>
 
         <!-- Bestände -->
-        <uib-accordion-group heading="{{translations.bestaende2}}" ng-if="detail.bestaende">
+        <uib-accordion-group heading="{{translations.bestaende2}}" ng-if="detail.bestaende"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.bestaende">
             <inventory-reference hidetitle="true" labels="translations" inventories="detail.bestaende"></inventory-reference>
         </uib-accordion-group>
 
         <!-- Primärliteratur -->
-        <uib-accordion-group heading="{{translations.primaerliteratur}}" ng-if="detail.primaerliteratur">
+        <uib-accordion-group heading="{{translations.primaerliteratur}}" ng-if="detail.primaerliteratur"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.primaerliteratur">
             <default-list headline="" values="detail.primaerliteratur" link-to="literature"></default-list>
         </uib-accordion-group>
 
         <!-- Sekundärliteratur -->
-        <uib-accordion-group heading="{{translations.sekundaerliteratur}}" ng-if="detail.sekundaerliteratur">
+        <uib-accordion-group heading="{{translations.sekundaerliteratur}}" ng-if="detail.sekundaerliteratur"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.sekundaerliteratur">
             <default-list headline="" values="detail.sekundaerliteratur" link-to="literature"></default-list>
         </uib-accordion-group>
 
         <!-- Einzelausstellungen -->
-        <uib-accordion-group heading="{{translations.einzelausstellungen}}" ng-if="detail.einzelausstellungen">
+        <uib-accordion-group heading="{{translations.einzelausstellungen}}" ng-if="detail.einzelausstellungen"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.einzelausstellungen">
             <default-list headline="" values="detail.einzelausstellungen" link-to="exhibition"></default-list>
         </uib-accordion-group>
 
         <!-- Gruppenausstellungen -->
-        <uib-accordion-group heading="{{translations.gruppenausstellungen}}" ng-if="detail.gruppenausstellungen">
+        <uib-accordion-group heading="{{translations.gruppenausstellungen}}" ng-if="detail.gruppenausstellungen"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.gruppenausstellungen">
             <default-list headline="" values="detail.gruppenausstellungen" link-to="exhibition"></default-list>
         </uib-accordion-group>
 
         <!-- Notiz -->
-        <uib-accordion-group heading="{{translations.notiz}}" ng-if="detail.notiz">
+        <uib-accordion-group heading="{{translations.notiz}}" ng-if="detail.notiz"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.notiz">
             <content-raw headline="" value="detail.notiz"></content-raw>
         </uib-accordion-group>
 
         <!-- Publizieren -->
-        <uib-accordion-group heading="{{translations.npublizieren}}" ng-if="detail.npublizieren">
+        <uib-accordion-group heading="{{translations.npublizieren}}" ng-if="detail.npublizieren"
+                             ng-click="updateAccCache()" is-open="temporaryAccCache.npublizieren">
             <content-raw headline="" value="detail.npublizieren"></content-raw>
         </uib-accordion-group>
 

@@ -18,6 +18,8 @@ app.controller('MainCtrl',
                 $rootScope.user_data = JSON.parse($window.sessionStorage.user_data);
             }
 
+            $rootScope.accCache = {};
+
 
             $rootScope.updatePendingRequests = function () {
                 if ($rootScope.user_data && $rootScope.user_data.level >= 8) {

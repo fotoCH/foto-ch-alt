@@ -14,6 +14,22 @@ app.controller('DetailController', [
 
         $scope.close = function() {
             $uibModalStack.dismissAll();
+            $rootScope.accCache = {};
+            console.log($rootScope.accCache);
+
+        }
+
+        // enable accordion cache
+        var cacheIndex = params.type + params.id;
+        if (typeof $rootScope.accCache[cacheIndex] !== 'undefined') {
+            $scope.temporaryAccCache = $rootScope.accCache[cacheIndex];
+        }else{
+            $scope.temporaryAccCache = {};
+        }
+
+        // update accordion cache on click
+        $scope.updateAccCache = function (e, status, id) {
+            $rootScope.accCache[cacheIndex] = $scope.temporaryAccCache;
         }
 
         $analytics.pageTrack(params.type + '/detail/' + params.id);
