@@ -147,19 +147,19 @@ angular.module('fotochWebApp').service('DetailService', function($http, $rootSco
     }
 
     function getPhotographer(id) {
-        return $http.get($rootScope.ApiUrl + '/?a=photographer&id=' + id).success(function (data) {
+        return $http.get($rootScope.ApiUrl + '/?a=photographer&id=' + id + '&lang=' + $rootScope.lang).success(function (data) {
             return data;
         });
     }
 
     function getInstitute(id) {
-        return $http.get($rootScope.ApiUrl + '/?a=institution&id=' + id).success(function (data) {
+        return $http.get($rootScope.ApiUrl + '/?a=institution&id=' + id + '&lang=' + $rootScope.lang).success(function (data) {
             return data;
         });
     }
 
     function getInventory(id) {
-        return $http.get($rootScope.ApiUrl + '/?a=inventory&id=' + id).success(function (data) {
+        return $http.get($rootScope.ApiUrl + '/?a=inventory&id=' + id + '&lang=' + $rootScope.lang).success(function (data) {
             return data;
         });
     }
