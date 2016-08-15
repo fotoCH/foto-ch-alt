@@ -19,7 +19,7 @@ while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
         die('Not allowed to watch this.'); // sollte nicht passieren
     }
     if (array_key_exists('lang', $_GET) && $_GET['lang'] != 'de'){
-        $fetch['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen_set']);
+        $fetch['bildgattungen']=setuebersetzungen('bildgattungen_uebersetzungen',$fetch['bildgattungen']);
     }
     $fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
     $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
