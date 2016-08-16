@@ -26,6 +26,24 @@ while($fetch=@mysql_fetch_assoc($result)){
 	$out['werdegang_s']=clangues($fetch,'werdegang');
 	$out['schaffensbeschrieb_s']=clangues($fetch,'schaffensbeschrieb');
 	$out['beruf_s']=clangues($fetch,'beruf');
+
+	// check available languages for content language switcher
+	$fetch['availableLanguages'] = array();
+	if(is_array($out['umfeld_s'])){
+		$fetch['availableLanguages'] = $fetch['availableLanguages'] + array_keys($out['umfeld_s']);
+	}
+	if(is_array($out['werdegang_s'])){
+		$fetch['availableLanguages'] = $fetch['availableLanguages'] + array_keys($out['werdegang_s']);
+	}
+	if(is_array($out['schaffensbeschrieb_s'])){
+		$fetch['availableLanguages'] = $fetch['availableLanguages'] + array_keys($out['schaffensbeschrieb_s']);
+	}
+	if(is_array($out['beruf_s'])){
+		$fetch['availableLanguages'] = $fetch['availableLanguages'] + array_keys($out['beruf_s']);
+	}
+
+
+
 	if ($_GET['lang']!='de'){
 		$fetch['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$fetch['fotografengattungen_set']);
 	}
@@ -72,7 +90,7 @@ while($fetch=@mysql_fetch_assoc($result)){
 	//$def->parse($det.".fldatum");
 	//abstand($def);
 	$out['namen']=$namen;
-	pushfields($out,$fetch,array('originalsprache','sprachanzeige','id','pnd','pnd_status','fbearbeitungsdatum','fldatum','fumfeld','fotografengattungen_set','bildgattungen_set'));
+	pushfields($out,$fetch,array('originalsprache','sprachanzeige','availableLanguages', 'id','pnd','pnd_status','fbearbeitungsdatum','fldatum','fumfeld','fotografengattungen_set','bildgattungen_set'));
 
 	$out['heimatort']=trim($fetch['heimatort']);
 
