@@ -47,7 +47,7 @@
             </div>
 
             <div class="block" ng-if="data.exhibitions.length > 0">
-                <h3>{{$root.translations.exhibitions}}</h3>
+                <h3>{{$root.translations.ausstellungen}}</h3>
                 <ul>
                     <li ng-repeat="exhibition in data.exhibitions | limitTo:30">
                         <a ng-click="$root.detail(exhibition.id, 'exhibition' )">
