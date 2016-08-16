@@ -95,7 +95,6 @@
 <div class="right">
     <content-raw headline="translations.umfeld" ng-if="detail.umfeld" value="detail.umfeld" class="hide-on-small"></content-raw>
     <div class="l-content__section" ng-if="detail.availableLanguages.length > 1">
-        <!-- @todo richtig ausgeben -->
         <h2>{{ translations.available_languages }}</h2>
         <button ng-click="setContentLanguage( language )" ng-repeat="language in detail.availableLanguages" class="black-button" style="margin-right: 10px">
             {{ language }}
