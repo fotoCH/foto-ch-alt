@@ -75,6 +75,20 @@ app.controller('DetailController', [
                     $scope.title = title;
                     $scope.subtitle = photographer.data.fldatum;
                     $scope.detail = photographer.data;
+
+                    $scope.contentLanguage = $rootScope.lang;
+                    $scope.getContent = function (attribute_string) {
+                        if(typeof $scope.detail[attribute_string + '_s'][$scope.contentLanguage] !== 'undefined'){
+                           return $scope.detail[attribute_string + '_s'][$scope.contentLanguage];
+                        }else if(typeof $scope.detail[attribute_string] !== 'undefined'){
+                            return $scope.detail[attribute_string];
+                        }else{
+                            return '';
+                        }
+                    }
+                    $scope.setContentLanguage = function (contentLanguage){
+                        $scope.contentLanguage = contentLanguage;
+                    }
                 });
                 $scope.translations = $rootScope.translations;
                 $scope.bodytemplate = DetailService.getBodyTemplate(params.type);

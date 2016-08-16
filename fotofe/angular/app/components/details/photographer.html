@@ -26,19 +26,19 @@
         <!-- Werdegang -->
         <uib-accordion-group heading="{{translations.werdegang}}" ng-if="detail.werdegang"
                              ng-click="updateAccCache()" is-open="temporaryAccCache.werdegang">
-            <content-raw headline="" value="detail.werdegang"></content-raw>
+            <content-raw headline="" value="getContent('werdegang')"></content-raw>
         </uib-accordion-group>
 
         <!-- Schaffensbeschrieb -->
         <uib-accordion-group heading="{{translations.schaffensbeschrieb}}" ng-if="detail.schaffensbeschrieb"
                              ng-click="updateAccCache()" is-open="temporaryAccCache.schaffensbeschrieb">
-            <content-raw headline="" value="detail.schaffensbeschrieb"></content-raw>
+            <content-raw headline="" value="getContent('schaffensbeschrieb')"></content-raw>
         </uib-accordion-group>
 
         <!-- Biographie -->
         <uib-accordion-group heading="{{translations.biografie}}" ng-if="detail.biografie"
                              ng-click="updateAccCache()" is-open="temporaryAccCache.biografie">
-            <content-raw headline="" value="detail.biografie"></content-raw>
+            <content-raw headline="" value="getContent('biografie')"></content-raw>
         </uib-accordion-group>
 
         <!-- Auszeichnungen und Stipendien -->
@@ -94,6 +94,13 @@
 </div>
 <div class="right">
     <content-raw headline="translations.umfeld" ng-if="detail.umfeld" value="detail.umfeld" class="hide-on-small"></content-raw>
+    <div class="l-content__section" ng-if="detail.availableLanguages.length > 1">
+        <!-- @todo richtig ausgeben -->
+        <h2>{{ translations.available_languages }}</h2>
+        <button ng-click="setContentLanguage( language )" ng-repeat="language in detail.availableLanguages" class="black-button" style="margin-right: 10px">
+            {{ language }}
+        </button>
+    </div>
     <editing-info labels="translations" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
     <div class="l-content__actions">
         <a class="btn btn--action" ui-sref="contact">{{translations.proposal_for_improvements}}</a>
