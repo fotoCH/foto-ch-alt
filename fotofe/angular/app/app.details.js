@@ -63,9 +63,8 @@ app.controller('DetailController', [
 
             case 'photographer':
                 DetailService.getPhotographer(params.id).then(function(photographer) {
-
                     $scope.getContent = function (attribute_string) {
-                        if(typeof $scope.detail[attribute_string + '_s'][$scope.contentLanguage] !== 'undefined'){
+                        if($scope.detail[attribute_string + '_s'] != null && typeof $scope.detail[attribute_string + '_s'][$scope.contentLanguage] !== 'undefined'){
                             return $scope.detail[attribute_string + '_s'][$scope.contentLanguage];
                         }else if(typeof $scope.detail[attribute_string] !== 'undefined'){
                             return $scope.detail[attribute_string];
