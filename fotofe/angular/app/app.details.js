@@ -63,6 +63,23 @@ app.controller('DetailController', [
 
             case 'photographer':
                 DetailService.getPhotographer(params.id).then(function(photographer) {
+
+                    $scope.getContent = function (attribute_string) {
+                        if(typeof $scope.detail[attribute_string + '_s'][$scope.contentLanguage] !== 'undefined'){
+                            return $scope.detail[attribute_string + '_s'][$scope.contentLanguage];
+                        }else if(typeof $scope.detail[attribute_string] !== 'undefined'){
+                            return $scope.detail[attribute_string];
+                        }else{
+                            return '';
+                        }
+                    }
+                    $scope.setContentLanguage = function (contentLanguage){
+                        if($scope.contentLanguage != contentLanguage){
+                            $scope.contentLanguage = contentLanguage;
+                            $scope.detail.umfeld = $scope.getContent('umfeld'); // if not done like this contentRaw-directive throws en error
+                        }
+                    }
+
                     var title = '';
                     var name = photographer.data.namen[0];
                     if(name.vorname !== '') {
@@ -76,19 +93,8 @@ app.controller('DetailController', [
                     $scope.subtitle = photographer.data.fldatum;
                     $scope.detail = photographer.data;
 
-                    $scope.contentLanguage = $rootScope.lang;
-                    $scope.getContent = function (attribute_string) {
-                        if(typeof $scope.detail[attribute_string + '_s'][$scope.contentLanguage] !== 'undefined'){
-                           return $scope.detail[attribute_string + '_s'][$scope.contentLanguage];
-                        }else if(typeof $scope.detail[attribute_string] !== 'undefined'){
-                            return $scope.detail[attribute_string];
-                        }else{
-                            return '';
-                        }
-                    }
-                    $scope.setContentLanguage = function (contentLanguage){
-                        $scope.contentLanguage = contentLanguage;
-                    }
+                    $scope.setContentLanguage($rootScope.lang);
+
                 });
                 $scope.translations = $rootScope.translations;
                 $scope.bodytemplate = DetailService.getBodyTemplate(params.type);
