@@ -344,12 +344,13 @@ class StreamedSearch {
     private function institution($level = 0) {
         $sql='';
         $sql.="SELECT DISTINCT ".implode(", ", $this->institutionFields())." FROM institution";
-        if($level >= 1) {
+        /*if($level >= 1) {
+
             $sql.= " RIGHT JOIN bestand on institution.id = bestand.inst_id";
             $sql.= " RIGHT JOIN bestand_fotograf on bestand.id = bestand_fotograf.bestand_id";
             $sql.= " INNER JOIN fotografen on bestand_fotograf.fotografen_id = fotografen.id";
             $sql.= " RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
-        }
+        }*/
 
         $q = explode(" ", $this->query);
         $first = true;
@@ -367,24 +368,26 @@ class StreamedSearch {
                 $sql.= " OR institution.abkuerzung".$this->lang." LIKE '%".$term."%'";
                 $sql.= " OR institution.ort LIKE '%".$term."%'";
                 $sql.= " OR institution.plz LIKE '%".$term."%'";
-            }
+            }/*
             if($level >= 1) {
                 $sql.= " OR namen.nachname LIKE '%".$term."%'";
                 $sql.= " OR namen.vorname LIKE '%".$term."%'";
-            }
+            }*/
             $sql.= ')';
         }
         $sql.= " AND institution.gesperrt = 0";
 
         $sql.= $this->appendDirectQuery();
 
+        /*
         if($level >= 1 && ! $this->sorting) {
+
             $sql.= " ORDER BY bestand.nachlass DESC";
-        } else {
+        } else { */
             if($this->sorting) {
                 $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
             }
-        }
+        /*}*/
         $sql.= " LIMIT ".$this->limitResults;
         $sql.= " OFFSET ".$this->offset;
 
