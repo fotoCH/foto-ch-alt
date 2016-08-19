@@ -15,10 +15,11 @@ var app = angular.module('fotochWebApp', [
     'ngCookies',
     'masonry',
     'angulartics',
-    'angulartics.google.analytics'
+    'angulartics.google.analytics',
+    'ngMeta'
 ]);
 
-app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $cookies, $state) {
+app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $cookies, $state, ngMeta) {
     $rootScope.user = '';
     $rootScope.userLevel = '';
     $rootScope.authToken = '';
@@ -49,9 +50,12 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
             $state.go('login');
         }
     });
+    $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        ngMeta.setTag('ogUrl', $location.$$absUrl);
+    });
     
     // Development Server API URL
-    //$rootScope.ApiUrl = 'http://localhost/fotoch/api';
+    //$rootScope.ApiUrl = 'http://localhost/fotoch/fotoch/api';
 
     // Production Server API URL
     $rootScope.ApiUrl = 'https://'+$rootScope.lang+'.foto-ch.ch/api';
