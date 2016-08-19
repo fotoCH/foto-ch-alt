@@ -1,0 +1,62 @@
+<div class="typetable map-container">
+    <style>
+        .map {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+    <div class="filter-bar" ng-class="{loading : filtering}">
+        <div class="l-container">
+            <div class="left">
+                <div class="loading-indicator"></div>
+                <!--
+                <div class="filter" ng-repeat="filter in realFilters track by $index">
+                <span class="title"
+                      ng-init="filterToggles[filter.key] = false"
+                      ng-click="filterToggles[filter.key] = !filterToggles[filter.key]">{{filter.title}}
+                </span>
+                    <div class="values" ng-show="filterToggles[filter.key]">
+                        <input ng-model="filterModels[filter.key]"></label>
+                        <div class="list-wrapper">
+                            <div ng-repeat="value in filter.values | filter:filterModels[filter.key]"
+                                 class="value">
+                                <a ng-if="!filter.assoc" ng-click="filterValue(value, filter.target)"
+                                   ng-class="filterActive(value, filter.target)">
+                                    <span>{{value}}</span>
+                                </a>
+                                <a ng-if="filter.assoc" ng-click="filterValue(value.id, filter.target)"
+                                   ng-class="filterActive(value.id, filter.target)">
+                                    <span>{{value.value}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div class="right">
+                <a class="switchview" ng-class="currentViewClass()" ng-click="switchView()"></a>
+                <a class="reset" ng-click="reset()"></a>
+            </div>
+        </div>
+    </div>
+    <div id="map" class="map" ng-click="displayFeatureInfo($event)"></div>
+    <h1>Testseite</h1>
+    <button type="button" class="btn btn-primary" ng-click="changemap(1)">geo.admin</button>
+    <button class="btn btn-primary" ng-click="changemap(0)">OSM</button>
+    <br/>
+    <div ng-if="swissname=='fotoquery'">
+        <a ui-sref="photoDetail( {id: '{{id}}'} )">{{name}}<br/>
+            <img src="{{ image_path }}" width="300"/></a><br/>
+        {{copyr}}
+    </div>
+    <div ng-if="swissname!='fotoquery'">
+        <p class="text-intro" ng-bind="name"></p>
+        <p class="text-intro" ng-bind-html="swissname | rawHtml"></p>
+        <div ng-repeat="ap in aps">
+            <a ui-sref="photographerDetail( {id: '{{ap.id}}'} )">{{ap.name}}</a> {{ap.periode}}
+            <a ng-click="$root.detail(ap.id,'photographer)">{{ ap.name }}</a>
+        </div>
+    </div>
+</div>
+<!--   <button type="button" class="btn btn-primary" ng-click="changephoto(1)">Fotos</button>
+        <button class="btn btn-primary" ng-click="changephoto(0)">Arbeitsorte</button>  -->
