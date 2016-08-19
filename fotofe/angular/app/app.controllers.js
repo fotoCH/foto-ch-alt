@@ -9,9 +9,6 @@ app.controller('MainCtrl',
 
             $rootScope.pendingRequests = 0;
             $rootScope.translationLoaded = false;
-            // Default description + title
-            $scope.title = 'fotoCH';
-            $scope.description = 'fotoCH ist ein Online-Werk, das über die historische Fotografie in der Schweiz informiert. Es besteht aus einem biografischen Lexikon der Fotografinnen und Fotografen und einem Repertorium der fotografischen Archive und Nachlässe.';
 
             if (typeof($window.sessionStorage.user_data) !== 'undefined' &&
                 typeof($rootScope.user_data) == 'undefined') {
@@ -19,7 +16,6 @@ app.controller('MainCtrl',
             }
 
             $rootScope.accCache = {};
-
 
             $rootScope.updatePendingRequests = function () {
                 if ($rootScope.user_data && $rootScope.user_data.level >= 8) {
@@ -248,10 +244,11 @@ app.controller('InstitutionCtrl', [
     '$rootScope',
     '$filter',
     '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $uibModalStack) {
+    'ngMeta',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $uibModalStack, ngMeta) {
         function setMeta() {
-            $rootScope.setTitle($rootScope.translations.institution_title);
-            $rootScope.setDescription($rootScope.translations.institution_description);
+            ngMeta.setTitle($rootScope.translations.institution_title);
+            ngMeta.setTag('description', $rootScope.translations.institution_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -277,11 +274,12 @@ app.controller('InventoryCtrl', [
     '$stateParams',
     '$rootScope',
     '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+    'ngMeta',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack, ngMeta) {
 
         function setMeta() {
-            $rootScope.setTitle($rootScope.translations.inventory_title);
-            $rootScope.setDescription($rootScope.translations.inventory_description);
+            ngMeta.setTitle($rootScope.translations.inventory_title);
+            ngMeta.setTag('description', $rootScope.translations.inventory_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -307,7 +305,8 @@ app.controller('StaticPageCtrl', [
     '$stateParams',
     '$rootScope',
     '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+    'ngMeta',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack, ngMeta) {
 
         function loadContent() {
             $http.get($rootScope.ApiUrl + '/?a=pages&lang=' + $rootScope.lang).success(function (data) {
@@ -331,10 +330,11 @@ app.controller('ExhibitionCtrl', [
     '$stateParams',
     '$rootScope',
     '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+    'ngMeta',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack, ngMeta) {
         function setMeta() {
-            $rootScope.setTitle($rootScope.translations.exhibition_title);
-            $rootScope.setDescription($rootScope.translations.exhibition_description);
+            ngMeta.setTitle($rootScope.translations.exhibition_title);
+            ngMeta.setTag('description', $rootScope.translations.exhibition_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -363,10 +363,11 @@ app.controller('PhotographerCtrl', [
     '$timeout',
     '$q',
     '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack) {
+    'ngMeta',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $filter, $timeout, $q, $uibModalStack, ngMeta) {
         function setMeta() {
-            $rootScope.setTitle($rootScope.translations.photographer_title);
-            $rootScope.setDescription($rootScope.translations.photographer_description);
+            ngMeta.setTitle($rootScope.translations.photographer_title);
+            ngMeta.setTag('description', $rootScope.translations.photographer_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -395,10 +396,11 @@ app.controller('PhotoCtrl', [
     '$cacheFactory',
     '$timeout',
     '$uibModalStack',
-    function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack) {
+    'ngMeta',
+    function ($scope, $http, $state, $stateParams, $location, $rootScope, $filter, $cacheFactory, $timeout, $uibModalStack, ngMeta) {
         function setMeta() {
-            $rootScope.setTitle($rootScope.translations.photos_title);
-            $rootScope.setDescription($rootScope.translations.photos_description);
+            ngMeta.setTitle($rootScope.translations.photos_title);
+            ngMeta.setTag('description', $rootScope.translations.photos_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -480,10 +482,11 @@ app.controller('LiteraturCtrl', [
     '$stateParams',
     '$rootScope',
     '$uibModalStack',
-    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack) {
+    'ngMeta',
+    function ($scope, $http, $location, $state, $stateParams, $rootScope, $uibModalStack, ngMeta) {
         function setMeta() {
-            $rootScope.setTitle($rootScope.translations.literature_title);
-            $rootScope.setDescription($rootScope.translations.literature_description);
+            ngMeta.setTitle($rootScope.translations.literature_title);
+            ngMeta.setTag('description', $rootScope.translations.literature_description);
         }
 
         // wait for translations to be loaded before setting title
@@ -502,17 +505,16 @@ app.controller('LiteraturCtrl', [
 ]);
 
 app.controller('HomeCtrl',
-    ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics',
-        function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics) {
+    ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics', 'ngMeta',
+        function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics, ngMeta) {
 
             function setMeta() {
-                $rootScope.setTitle($rootScope.translations.home_title);
-                $rootScope.setDescription($rootScope.translations.home_description);
+                ngMeta.setTitle($rootScope.translations.home_title);
+                ngMeta.setTag('description', $rootScope.translations.home_description);
             }
 
             // wait for translations to be loaded before setting title
             if (!$rootScope.translationLoaded) {
-
                 var cancelWatcher = $rootScope.$watch('translationLoaded', function (newValue, oldvalue) {
                     if (newValue) {
                         setMeta();
