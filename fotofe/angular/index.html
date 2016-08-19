@@ -10,7 +10,7 @@
 <!--[if gt IE 8]><!-->
 <html ng-app="fotochWebApp" ng-controller="MainCtrl" > <!--<![endif]-->
 <head>
-    <title>{{ ngMeta.title }}</title>
+    <title ng-bind="ngMeta.title">fotoCH</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -198,5 +198,6 @@
 <script src="app/app.details.js"></script>
 <script src="app/app.editable.js"></script>
 <script src="app/app.timeline.js"></script>
+<script src="app/app.map.js"></script>
 </body>
 </html>
