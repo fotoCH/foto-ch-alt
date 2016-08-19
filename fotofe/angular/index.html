@@ -10,15 +10,29 @@
 <!--[if gt IE 8]><!-->
 <html ng-app="fotochWebApp" ng-controller="MainCtrl" > <!--<![endif]-->
 <head>
-    <title>{{ title }}</title>
+    <title>{{ ngMeta.title }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="description"
-          content="{{ description }}">
+          content="{{ ngMeta.description }}">
     <meta name="keywords"
           content="Fotografie, Foto, Schweiz, Lexikon, Institution, Ausstellung, Biografie, Nachlass, Verzeichnis, Geschichte">
     <meta name="robots" content="follow, index">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{ ngMeta.title }}" />
+    <meta property="og:url" content="{{ ngMeta.ogUrl }}" />
+    <meta property="og:type" content="{{ ngMeta.ogType }}" />
+    <meta property="og:description" content="{{ ngMeta.description }}" />
+    <meta property="og:image" content="{{ ngMeta.ogImage }}" />
+
+    <!-- Twitter data -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ ngMeta.title }}" />
+    <meta name="twitter:description" content="{{ ngMeta.description }}" />
+    <meta name="twitter:url" content="{{ ngMeta.ogUrl }}" />
+    <meta name="twitter:image" content="{{ ngMeta.ogImage }}" />
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="screen">
     <link rel="stylesheet" href="assets/css/normalize.min.css">
@@ -162,6 +176,7 @@
 <script src="assets/libs/jquery.fancybox.pack.js"></script>
 <script src="assets/libs/masonry.js"></script>
 <script src="assets/libs/angular-masonry-directive.js"></script>
+<script src="assets/libs/ngMeta.min.js"></script>
 
 <script src="assets/libs/analytics/angulartics.min.js"></script>
 <script src="assets/libs/analytics/angulartics-ga.js"></script>
