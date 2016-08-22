@@ -368,7 +368,26 @@ class StreamedSearch {
                 $sql.= " OR institution.abkuerzung".$this->lang." LIKE '%".$term."%'";
                 $sql.= " OR institution.ort LIKE '%".$term."%'";
                 $sql.= " OR institution.plz LIKE '%".$term."%'";
-            }/*
+            }
+            if($level >= 1){
+                // look for term in other languages (e.g. "archives")
+                if("institution.name" != "institution.name".$this->lang){
+                    $sql.= " OR institution.name LIKE '%".$term."%'";
+                }
+                if("institution.name_fr" != "institution.name".$this->lang){
+                    $sql.= " OR institution.name_fr LIKE '%".$term."%'";
+                }
+                if("institution.name_it" != "institution.name".$this->lang){
+                    $sql.= " OR institution.name_it LIKE '%".$term."%'";
+                }
+                if("institution.name_rm" != "institution.name".$this->lang){
+                    $sql.= " OR institution.name_rm LIKE '%".$term."%'";
+                }
+                if("institution.name_en" != "institution.name".$this->lang){
+                    $sql.= " OR institution.name_en LIKE '%".$term."%'";
+                }
+            }
+            /*
             if($level >= 1) {
                 $sql.= " OR namen.nachname LIKE '%".$term."%'";
                 $sql.= " OR namen.vorname LIKE '%".$term."%'";
@@ -390,14 +409,11 @@ class StreamedSearch {
         /*}*/
         $sql.= " LIMIT ".$this->limitResults;
         $sql.= " OFFSET ".$this->offset;
-
+        //var_dump($sql);
         $result = mysql_query($sql);
         $this->results['institution_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
-            //echo '<pre>';
-            //print_r($assoc);
             $assoc['name']=clean_entry(clangcont($assoc,'name'));
-            //print_r($assoc);die();
             array_push($this->results['institution_results'], $assoc);
         }
         $this->results['institution_count'] = count($this->results['institution_results']);
