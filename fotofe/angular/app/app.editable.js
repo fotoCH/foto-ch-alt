@@ -41,9 +41,7 @@ app.controller('EditableController', [
         }
 
         $scope.allowedToEdit = function() {
-            if($rootScope.user_data 
-                && ( parseInt($rootScope.user_data.level) >= 8 
-                    || $rootScope.user_data.inst == $scope.institution )) {
+            if($rootScope.user_data && ( parseInt($rootScope.user_data.level) >= 8 || $rootScope.user_data.inst == $scope.institution || $scope.stock in $rootScope.user_data.stocks)) {
                 $scope.allowed = true;
                 return true;
             }
@@ -65,7 +63,8 @@ app.directive('editable', function () {
             'value': '=',
             'type': '@',
             'entry': '=',
-            'institution': '='
+            'institution': '=',
+            'stock': '='
         }
     };
 });
