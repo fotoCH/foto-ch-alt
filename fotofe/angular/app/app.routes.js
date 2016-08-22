@@ -102,9 +102,13 @@ app.config(
                     controller: 'TimelineCtrl'
                 })
 
+            // meta tags default values
             ngMetaProvider.setDefaultTitle('fotoCH');
             ngMetaProvider.setDefaultTag('desciption', 'fotoCH ist ein Online-Werk, das über die historische Fotografie in der Schweiz informiert. Es besteht aus einem biografischen Lexikon der Fotografinnen und Fotografen und einem Repertorium der fotografischen Archive und Nachlässe.');
             ngMetaProvider.setDefaultTag('ogType', 'website');
+
+
+
 
         }]).run(function (ngMeta) {
     ngMeta.init();
