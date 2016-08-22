@@ -169,7 +169,7 @@ function formumfeldn($t){  // expandiert Links im Umfeld
 			}
 		} else {
 			/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! fotograph  */
-			$t=str_replace($treffer[0][$i],'<a data-target-id="'.$id.'" data-target-type="photographer">'.$name.'</a>',$t);
+			$t=str_replace($treffer[0][$i],'<a data-target-id="'.trim($id).'" data-target-type="photographer">'.$name.'</a>',$t);
 			//$t=str_replace($treffer[0][$i],'<a ui-sref="fotographerDetail( {id: \''.$id.'\'} ">'.$name.'</a>',$t);
 			//$t=str_replace($treffer[0][$i],'<section-fotographer-link name="'.$name.'" id="\''.$id.'\'"></section-fotographer-link>',$t);
 		}
