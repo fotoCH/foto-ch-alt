@@ -1,5 +1,15 @@
 <?php
 
+function getStocks($user_id){
+	$query = "SELECT bu.bestand_id, bestand.name FROM bestand_users as bu INNER JOIN bestand on bu.bestand_id=bestand.id WHERE bu.user_id=" . $user_id;
+	$result = mysql_query($query);
+	$stocks = array();
+	while ($fetch = mysql_fetch_array($result)){
+		$stocks[$fetch['bestand_id']] = $fetch['name'];
+	}
+	return $stocks;
+
+}
 
 $b=getClean('b');
 $user=getClean('user');
@@ -15,6 +25,7 @@ if ($b=='login'){
 			$level = $fetch['level'];
 			$inst_comment=$fetch['inst_comment'];
 			$success = true;
+			$userId = $fetch['id'];
 			$res=$fetch;
 			// break after user has been found
 			break;
@@ -24,6 +35,7 @@ if ($b=='login'){
 	if ($success){
 		$out['status']='ok';
 		$out['token']=getToken($user,$level,$inst_comment);
+		$out['stocks'] = getStocks($userId);
 		pushfields($out,$res,array('vorname','nachname','email','level','inst_comment'));
 	} else {
 		$out['status']='nok';
