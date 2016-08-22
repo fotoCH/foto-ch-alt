@@ -588,6 +588,9 @@ app.controller('HomeCtrl',
 
             statistics();
 
+            //alert('html is ready!?');
+            //$rootScope.htmlReady()
+
         }]);
 
 app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$window', '$timeout', 'DetailService', function ($scope, $http, $state, $stateParams, $rootScope, $window, $timeout, DetailService) {
@@ -609,7 +612,8 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
                     "name": data.nachname,
                     "inst": data.inst_comment,
                     "level": data.level,
-                    "email": data.email
+                    "email": data.email,
+                    "stocks": data.stocks
                 }
                 if (data.inst_comment != '') {
                     DetailService.getInstitute(data.inst_comment).then(function (institute) {

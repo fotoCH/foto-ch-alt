@@ -16,6 +16,13 @@
             <dd ng-if="$root.user_data.inst == 0">
                 <span>{{$root.translations.none}}</span>
             </dd>
+            <dt>{{$root.translations.connected_stocks}}</dt>
+            <dd ng-if="$root.user_data.stocks != 0">
+                <span ng-repeat="(key,stock) in $root.user_data.stocks"><a ng-click="$root.detail(key, 'inventory' )">{{stock}}</a><br></span>
+            </dd>
+            <dd ng-if="$root.user_data.stocks == 0">
+                <span>{{$root.translations.none}}</span>
+            </dd>
         </dl>
     </div>
 </div>

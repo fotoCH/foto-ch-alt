@@ -13,6 +13,7 @@
         <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
 
+    <!-- textarea for text longer than 40 chars -->
     <form ng-if="editing && value.length > 40" class="no-animate form-container" ng-submit="save(value)">
         <textarea ng-model="value" focus-me="{{ editing }}" name="toSaveValue" placeholder="" style="margin-bottom: 0" ng-keypress="checkShortcuts($event, value)"></textarea>
         <input type="submit" value="{{ $root.translations.speichern }} (Ctrl + Enter)" class="black-button" style="margin-bottom: 20px;" />
