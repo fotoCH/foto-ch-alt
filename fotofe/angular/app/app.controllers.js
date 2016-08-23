@@ -588,11 +588,10 @@ app.controller('HomeCtrl',
 
             statistics();
 
-            //alert('html is ready!?');
-            //$rootScope.htmlReady()
-
             $timeout(function(){
                 $rootScope.htmlReady();
+                console.log('ready');
+                console.log($scope);
             }, 1500);
 
         }]);
