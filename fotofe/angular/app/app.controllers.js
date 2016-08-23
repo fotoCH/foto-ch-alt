@@ -590,6 +590,11 @@ app.controller('HomeCtrl',
 
             //alert('html is ready!?');
             //$rootScope.htmlReady()
+            $timeout(function(){
+                if($http.pendingRequests.length < 1){
+                    $rootScope.htmlReady();
+                }
+            }, 1500);
 
         }]);
 
