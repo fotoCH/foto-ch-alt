@@ -592,7 +592,6 @@ app.controller('HomeCtrl',
             //$rootScope.htmlReady()
 
             $timeout(function(){
-                alert('ready');
                 $rootScope.htmlReady();
             }, 1500);
 
