@@ -10,7 +10,8 @@ app.controller('DetailController', [
     '$uibModalStack',
     'params',
     '$analytics',
-    function($scope, $http, $location, $state, $stateParams, $rootScope, $window, DetailService, $uibModalStack, params, $analytics) {
+    'ngMeta',
+    function($scope, $http, $location, $state, $stateParams, $rootScope, $window, DetailService, $uibModalStack, params, $analytics, ngMeta) {
 
         $scope.close = function() {
             $uibModalStack.dismissAll();
@@ -56,6 +57,8 @@ app.controller('DetailController', [
                     $scope.title = photo.data.title;
                     $scope.subtitle = photo.data.name;
                     $scope.photo = photo.data;
+                    ngMeta.setTitle('fotoCH: ' + $scope.title + ' - ' + $scope.subtitle);
+                    ngMeta.setTag('ogImage', $rootScope.imageRootUrl + photo.data.image_path);
                 });
                 $scope.spr = $rootScope.translations;
                 $scope.bodytemplate = DetailService.getBodyTemplate('photo');
