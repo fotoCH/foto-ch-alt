@@ -112,7 +112,6 @@ app.config(
                 return {
                     response: function(resp) {
                         var $http = $injector.get('$http');
-                        console.log($http.pendingRequests);
                         if (!$http.pendingRequests.length) {
                             $timeout(function() {
                                 if (!$http.pendingRequests.length) {
