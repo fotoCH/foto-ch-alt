@@ -505,8 +505,8 @@ app.controller('LiteraturCtrl', [
 ]);
 
 app.controller('HomeCtrl',
-    ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics', 'ngMeta',
-        function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics, ngMeta) {
+    ['$scope', '$http', '$location', '$state', '$stateParams', '$rootScope', '$analytics', 'ngMeta', '$timeout',
+        function ($scope, $http, $location, $state, $stateParams, $rootScope, $analytics, ngMeta, $timeout) {
 
             function setMeta() {
                 ngMeta.setTitle($rootScope.translations.home_title);
@@ -590,10 +590,10 @@ app.controller('HomeCtrl',
 
             //alert('html is ready!?');
             //$rootScope.htmlReady()
+
             $timeout(function(){
-                if($http.pendingRequests.length < 1){
-                    $rootScope.htmlReady();
-                }
+                alert('ready');
+                $rootScope.htmlReady();
             }, 1500);
 
         }]);
