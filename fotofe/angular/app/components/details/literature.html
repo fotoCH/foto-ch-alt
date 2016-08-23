@@ -1,7 +1,7 @@
 <div class="left">
     <dl>
         <dt ng-if="detail.verfasser_name.length > 1">{{translations.autorIn}}</dt>
-        <dd ng-if="detail.verfasser_name.length > 1">{{detail.verfasser_name}}, {{detail.verfasser_vorname}}</dd>
+        <dd ng-if="detail.verfasser_name.length > 1">{{detail.verfasser_name}}<span ng-if="detail.verfasser_vorname.length > 1">, {{detail.verfasser_vorname}}</span></dd>
         <dt ng-if="detail.url.length > 1">{{translations.link_extern}}</dt>
         <dd ng-if="detail.url.length > 1"><a href="{{detail.url}}" class="external-link" target="_blank">{{detail.url}}</a></dd>
         <dt ng-if="detail.ort.length > 1">{{translations.ort}}</dt>
