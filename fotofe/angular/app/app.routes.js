@@ -4,8 +4,8 @@
 
 
 app.config(
-    ['$urlRouterProvider', '$stateProvider', '$locationProvider', '$analyticsProvider', 'ngMetaProvider',
-        function ($urlRouterProvider, $stateProvider, $locationProvider, $analyticsProvider, ngMetaProvider) {
+    ['$urlRouterProvider', '$stateProvider', '$locationProvider', '$analyticsProvider', 'ngMetaProvider', '$httpProvider',
+        function ($urlRouterProvider, $stateProvider, $locationProvider, $analyticsProvider, ngMetaProvider, $httpProvider) {
 
             $urlRouterProvider.otherwise('/home');
 
@@ -107,8 +107,25 @@ app.config(
             ngMetaProvider.setDefaultTag('desciption', 'fotoCH ist ein Online-Werk, das über die historische Fotografie in der Schweiz informiert. Es besteht aus einem biografischen Lexikon der Fotografinnen und Fotografen und einem Repertorium der fotografischen Archive und Nachlässe.');
             ngMetaProvider.setDefaultTag('ogType', 'website');
 
+            // for seo, call ready as soon as all http-requests are done, code from https://github.com/steeve/angular-seo/issues/30
+            var interceptor = ['$q', '$injector', '$timeout', '$rootScope', function($q, $injector, $timeout, $rootScope) {
+                return {
+                    response: function(resp) {
+                        var $http = $injector.get('$http');
+                        console.log($http.pendingRequests);
+                        if (!$http.pendingRequests.length) {
+                            $timeout(function() {
+                                if (!$http.pendingRequests.length) {
+                                    $rootScope.htmlReady();
+                                }
+                            }, 700); // Use .7s as safety interval
+                        }
+                        return resp;
+                    }
+                };
+            }];
 
-
+            $httpProvider.interceptors.push(interceptor);
 
         }]).run(function (ngMeta) {
     ngMeta.init();
