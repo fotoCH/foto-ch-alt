@@ -1,5 +1,4 @@
 <?php
-
 $id=$_GET['id'];
 
 if (auth_level(USER_WORKER)){
@@ -11,11 +10,31 @@ if (auth_level(USER_WORKER)){
 	$afields=array();
 }
 
-
-
 while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
-    pushfields($out,$fetch,array_merge(array('titel','verfasser_name','verfasser_vorname','bearbeitungsdatum','jahr','ort','in','nummer','seite','text','url','verlag'),$afields));
+	switch ($fetch['code']){
+		case 'H':
+			$fetch['herausgeber_name'] = $fetch['verfasser_name'];
+			$fetch['herausgeber_vorname'] = $fetch['verfasser_vorname'];
+			$fetch['herausgeber_code'] = '(Hg.)';
+			pushfields($out,$fetch,array_merge(array('titel','herausgeber_name', 'herausgeber_vorname','herausgeber_code','bearbeitungsdatum','jahr','ort','in','nummer','seite','text','url','verlag', 'code'),$afields));
+			break;
+		case 'Z':
+			$fetch['intext'] = implode(', ', array_filter(array($fetch['in'], $fetch['nummer'], $fetch['seite'])));
+			pushfields($out,$fetch,array_merge(array('titel','verfasser_name','verfasser_vorname','intext','bearbeitungsdatum','jahr','ort','in','nummer','seite','text','url','verlag', 'code'),$afields));
+			break;
+		case 'P':
+			$fetch['intext'] = implode(', ', array_filter(array($fetch['in'], $fetch['jahr'], $fetch['nummer'], $fetch['seite'])));
+			pushfields($out,$fetch,array_merge(array('titel','verfasser_name','verfasser_vorname','intext','bearbeitungsdatum','in','nummer','seite','text','url','verlag', 'code'),$afields));
+			break;
+		case 'T':
+			$fetch['intext'] = implode(', ', array_filter(array($fetch['in'], $fetch['jahr'], $fetch['nummer'], $fetch['seite'])));
+			pushfields($out,$fetch,array_merge(array('titel','verfasser_name','verfasser_vorname','intext','bearbeitungsdatum','in','nummer','seite','text','url','verlag', 'code'),$afields));
+			break;
+		default:
+			pushfields($out,$fetch,array_merge(array('titel','verfasser_name','verfasser_vorname','bearbeitungsdatum','jahr','ort','in','nummer','seite','text','url','verlag', 'code'),$afields));
+			break;
+	}
     $result6=mysql_query("SELECT * FROM literatur_fotograf WHERE literatur_id=$id");
     
     $fotogr=array();
