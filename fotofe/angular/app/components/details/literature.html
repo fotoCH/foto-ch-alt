@@ -1,9 +1,18 @@
 <div class="left">
     <dl>
         <dt ng-if="detail.verfasser_name.length > 1">{{translations.autorIn}}</dt>
-        <dd ng-if="detail.verfasser_name.length > 1">{{detail.verfasser_name}}<span ng-if="detail.verfasser_vorname.length > 1">, {{detail.verfasser_vorname}}</span></dd>
+        <dd ng-if="detail.verfasser_name.length > 1">{{detail.verfasser_name}}<span
+                ng-if="detail.verfasser_vorname.length > 1">, {{detail.verfasser_vorname}}</span></dd>
+        <dt ng-if="detail.herausgeber_name.length > 1">{{translations.herausgeberIn}}</dt>
+        <dd ng-if="detail.herausgeber_name.length > 1">{{detail.herausgeber_name}}<span
+                ng-if="detail.herausgeber_vorname.length > 1">, {{detail.herausgeber_vorname}}</span>
+            {{detail.herausgeber_code}}
+        </dd>
+        <dt ng-if="detail.intext.length > 1">{{translations.in}}</dt>
+        <dd ng-if="detail.intext.length > 1">{{detail.intext}}</dd>
         <dt ng-if="detail.url.length > 1">{{translations.link_extern}}</dt>
-        <dd ng-if="detail.url.length > 1"><a href="{{detail.url}}" class="external-link" target="_blank">{{detail.url}}</a></dd>
+        <dd ng-if="detail.url.length > 1"><a href="{{detail.url}}" class="external-link"
+                                             target="_blank">{{detail.url}}</a></dd>
         <dt ng-if="detail.ort.length > 1">{{translations.ort}}</dt>
         <dd ng-if="detail.ort.length > 1">{{detail.ort}}</dd>
         <dt ng-if="detail.verlag.length > 1">{{translations.verlag}}</dt>
@@ -11,8 +20,8 @@
         <dt ng-if="detail.jahr.length > 1">{{translations.jahr}}</dt>
         <dd ng-if="detail.jahr.length > 1">{{detail.jahr}}</dd>
     </dl>
-    <h2>{{translations.fotographen}}</h2>
-    <photographer-reference headline="translations.fotographInnen" photographer="detail.photographer"></photographer-reference>
+    <photographer-reference headline="translations.fotographInnen"
+                            photographer="detail.photographer"></photographer-reference>
 </div>
 <div class="right">
 </div>
