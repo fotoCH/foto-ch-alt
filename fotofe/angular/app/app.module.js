@@ -16,7 +16,8 @@ var app = angular.module('fotochWebApp', [
     'masonry',
     'angulartics',
     'angulartics.google.analytics',
-    'ngMeta'
+    'ngMeta',
+    'seo'
 ]);
 
 app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $cookies, $state, ngMeta) {
