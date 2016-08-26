@@ -86,7 +86,6 @@ app.controller('TypeTableCtrl', [
                     filter.assoc = false;
                 }
                 filter.values = data.possible_values;
-                console.log('push ' + index + ' ' + filter.title);
                 $scope.realFilters[index] = filter;
             });
         }
