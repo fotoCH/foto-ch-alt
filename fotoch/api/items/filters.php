@@ -1,6 +1,7 @@
 <?php
 
 $filters = new Filters();
+$filters->setLang($glob['LANG']);
 if (array_key_exists('type', $_GET)) {
     $filters->output($_GET['type']);
 } else {
@@ -12,6 +13,13 @@ class Filters
 {
     private $filters = array();
     private $type = false;
+    private $language = '';
+
+    public function setLang($lang) {
+        if($lang != 'de') {
+            $this->language = '_'.$lang;
+        }
+    }
 
     private function unknown()
     {
@@ -41,6 +49,21 @@ class Filters
     private function institution()
     {
         $this->distinctFieldValues("institution.name", "institution", " WHERE institution.gesperrt = 0");
+    }
+
+    private function exhibitionInstitution()
+    {
+        $this->distinctFieldValues("institution", "ausstellung");
+    }
+
+    private function stockInstitution()
+    {
+        $this->distinctFieldValues("institution.name", "institution, bestand", " WHERE institution.gesperrt = 0 AND institution.id=bestand.inst_id");
+    }
+
+    private function photoInstitution()
+    {
+        $this->distinctFieldValues("institution.name", "institution", " JOIN bestand on bestand.inst_id = institution.id JOIN fotos on fotos.dcterms_ispart_of = bestand.id  WHERE institution.gesperrt = 0");
     }
 
     private function institutionOrt()
@@ -162,6 +185,15 @@ class Filters
                 break;
             case 'institution':
                 $this->institution();
+                break;
+            case 'ausstellung_institution':
+                $this->exhibitionInstitution();
+                break;
+            case 'bestand_institution':
+                $this->stockInstitution();
+                break;
+            case 'photo_institution':
+                $this->photoInstitution();
                 break;
             case 'institution_kanton':
                 $this->institutionKanton();
