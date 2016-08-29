@@ -5,7 +5,7 @@
         <h4 ng-bind-html="subtitle"></h4>
     </div>
     <div class="right">
-        <a ng-click="goBack()" class="go-back">&#8592; {{ $root.translations.back }}</a>
+        <a ng-click="goBack()" class="go-back" title="{{ $root.translations.back }}">{{ $root.translations.back }}</a>
         <button type="button" class="btn btn-default" ng-click="close()">Close</button>
     </div>
 </div>
