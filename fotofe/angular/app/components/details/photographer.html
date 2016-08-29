@@ -96,13 +96,13 @@
     <content-raw headline="translations.umfeld" ng-if="detail.umfeld" value="detail.umfeld" class="hide-on-small"></content-raw>
     <div class="l-content__section" ng-if="detail.availableLanguages.length > 1">
         <h2>{{ translations.available_languages }}</h2>
-        <button ng-click="setContentLanguage( language )" ng-repeat="language in detail.availableLanguages" class="black-button" style="margin-right: 10px">
+        <a ng-click="setContentLanguage( language )" ng-repeat="language in detail.availableLanguages" class="fancy-button-black" style="margin-right: 10px">
             {{ language }}
-        </button>
+        </a>
     </div>
     <editing-info labels="translations" date="detail.bearbeitungsdatum" author="detail.autorIn"></editing-info>
     <div class="l-content__actions">
-        <a class="btn btn--action" ui-sref="contact">{{translations.proposal_for_improvements}}</a>
+        <a class="fancy-button-black" ui-sref="contact">{{translations.proposal_for_improvements}}</a>
     </div>
 </div>
 <div class="full">
