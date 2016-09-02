@@ -133,6 +133,7 @@
         <a ui-sref="profile" class="username" ng-if="$root.user">{{spr.logged_in_as}}: <strong>{{$root.user_data.username}}</strong></a>
         <ul class="submenu">
             <li><a ui-sref="profile">{{spr.profile}}</a></li>
+            <li ng-if="$root.manageUsersAllowed()"><a ui-sref="user-management">{{spr.useradmin}}</a></li>
             <li>
                 <a ng-if="$root.pendingAllowed()" ui-sref="update-requests">{{spr.updaterequests}}
                     <span class="counter" ng-if="$root.pendingRequests">{{$root.pendingRequests}}</span>
@@ -203,5 +204,6 @@
 <script src="app/app.editable.js"></script>
 <script src="app/app.timeline.js"></script>
 <script src="app/app.map.js"></script>
+<script src="app/app.administration.js"></script>
 </body>
 </html>
