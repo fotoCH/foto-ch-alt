@@ -7,9 +7,26 @@
 .photographer-teaser {
     margin: 60px 0;
 
+
     .flex {
         > div {
-            width: 200px;
+            width: 90%;
+        }
+    }
+
+    @media @layoutMedium{
+        .flex {
+            > div {
+                width: 50%;
+            }
+        }
+    }
+
+    @media @layoutLarge{
+        .flex {
+            > div {
+                width: 200px;
+            }
         }
     }
 }
@@ -27,13 +44,42 @@
         max-height: 480px;
     }
 
+    @media @layoutLarge {
+        .grid{
+            -moz-column-count: 5;
+            column-count: 5;
+            -moz-column-gap: 0;
+            column-gap: 0;
+            -moz-column-width: 20%;
+            column-width: 20%;
+        }
+    }
+
+    @media @layoutMedium {
+        .grid{
+            -moz-column-count: 4;
+            column-count: 4;
+            -moz-column-gap: 0;
+            column-gap: 0;
+            -moz-column-width: 25%;
+            column-width: 25%;
+        }
+    }
+
+    @media @layoutSmallMax {
+        .grid{
+            -moz-column-count: 2;
+            column-count: 2;
+            -moz-column-gap: 0;
+            column-gap: 0;
+            -moz-column-width: 50%;
+            column-width: 50%;
+        }
+    }
+
+
     .grid {
-        -moz-column-count: 5;
-        column-count: 5;
-        -moz-column-gap: 0;
-        column-gap: 0;
-        -moz-column-width: 20%;
-        column-width: 20%;
+
 
         img {
             display: inline-block;
@@ -41,6 +87,7 @@
             cursor: pointer;
         }
     }
+
 }
 
 .small-highlight {

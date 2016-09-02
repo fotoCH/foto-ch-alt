@@ -79,6 +79,12 @@
             position: relative;
         }
 
+        @media @layoutSmallMax{
+            .filter{
+                display: none;
+            }
+        }
+
         .filter {
             padding-right: 20px;
             padding-left: 20px;
@@ -174,19 +180,32 @@
             }
         }
 
-        .left {
-            position: relative;
-            float: left;
-            > * {
-                float: left;
+        @media @layoutSmallMax{
+            .right {
+
+                position: absolute;
+                right: 0;
+                top: 0;
             }
         }
-        .right {
-            float: right;
-            > * {
+
+        @media @layoutMedium{
+            .left {
+                position: relative;
                 float: left;
+                > * {
+                    float: left;
+                }
+            }
+            .right {
+                float: right;
+                > * {
+                    float: left;
+                }
             }
         }
+
+
 
         a.switchview {
             display: block;
@@ -219,6 +238,12 @@
             }
             &.to-grid:after {
                 background-image:url("../img/icons/grid.svg");
+            }
+        }
+
+        @media @layoutSmallMax{
+            a.switchview{
+                display: none;
             }
         }
 
@@ -259,6 +284,37 @@
 
     .table {
         margin-top: 60px;
+
+        td, th{
+            display: none;
+        }
+
+        td, th{
+            display: none;
+        }
+        td:first-child,
+        th:first-child{
+            display: table-cell;
+        }
+
+        @media @layoutMedium{
+            td:first-child,
+            th:first-child,
+            td:nth-child(2),
+            th:nth-child(2),
+            td:nth-child(3),
+            th:nth-child(3)
+            {
+                display: table-cell;
+            }
+        }
+
+
+        @media @layoutLarge{
+            td, th{
+                display: table-cell;
+            }
+        }
 
         table {
             width: 100%;
