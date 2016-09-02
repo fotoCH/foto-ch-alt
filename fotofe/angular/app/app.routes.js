@@ -61,16 +61,29 @@ app.config(
                     templateUrl: 'app/components/meta/login.html',
                     controller: 'LoginCtrl'
                 })
-                // Testpage for development
+                // user-profile
                 .state('profile', {
                     url: '/profile',
                     templateUrl: 'app/components/meta/profile.html',
                     controller: 'ProfileCtrl'
                 })
+                // change requests
                 .state('update-requests', {
                     url: '/pending-requests',
                     templateUrl: 'app/components/meta/requests.html',
                     controller: 'PendingCtrl'
+                })
+                // user management
+                .state('user-management', {
+                    url: '/user-management',
+                    templateUrl: 'app/components/meta/users.html',
+                    controller: 'UserCtrl'
+                })
+                // user management
+                .state('add-user', {
+                    url: '/add-user',
+                    templateUrl: 'app/components/meta/userform.html',
+                    controller: 'AddUserCtrl'
                 })
                 // Testpage for development
                 .state('test', {

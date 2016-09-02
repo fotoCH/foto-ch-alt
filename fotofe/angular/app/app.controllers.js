@@ -10,6 +10,8 @@ app.controller('MainCtrl',
             $rootScope.pendingRequests = 0;
             $rootScope.translationLoaded = false;
 
+            $rootScope.user_levels = {2:'USER_GUEST_READER',3:'USER_GUEST_FOTOS',4:'USER_GUEST_READER_PARTNER',8:'Administrator',9:'Superadmin'};
+
             if (typeof($window.sessionStorage.user_data) !== 'undefined' &&
                 typeof($rootScope.user_data) == 'undefined') {
                 $rootScope.user_data = JSON.parse($window.sessionStorage.user_data);
@@ -58,7 +60,14 @@ app.controller('MainCtrl',
                     return true;
                 }
                 return false;
-            }
+            };
+
+            $rootScope.manageUsersAllowed = function () {
+                if ($rootScope.user_data.level >= 8) {
+                    return true;
+                }
+                return false;
+            };
 
             $scope.getUserLevelClass = function () {
                 return 'level-' + $rootScope.user_data.level;
@@ -418,61 +427,6 @@ app.controller('PhotoCtrl', [
     }
 ]);
 
-app.controller('PendingCtrl', [
-    '$scope',
-    '$http',
-    '$rootScope',
-    function ($scope,
-              $http,
-              $rootScope) {
-
-        $scope.overwriting = false;
-        $scope.pending = [];
-        $scope.rejected = [];
-        $scope.accepted = [];
-        $scope.getRequests = function () {
-            $http.get($rootScope.ApiUrl + '?a=request&action=pendingList').success(function (data) {
-                $scope.pending = data;
-            });
-            $http.get($rootScope.ApiUrl + '?a=request&action=rejectedList').success(function (data) {
-                $scope.rejected = data;
-            });
-            $http.get($rootScope.ApiUrl + '?a=request&action=acceptedList').success(function (data) {
-                $scope.accepted = data;
-            });
-        }
-        $scope.getRequests();
-
-        $scope.overwrite = function (index) {
-            if ($scope.overwriting == index) {
-                $scope.overwriting = false;
-            } else {
-                $scope.overwriting = index;
-            }
-            console.log($scope.overwriting);
-        }
-
-        $scope.accept = function (id, value) {
-            var q = $rootScope.ApiUrl + '?a=request&action=accept&id=' + id;
-            if (typeof(value) !== 'undefined') {
-                q += '&overwrite=' + value;
-            }
-            $http.get(q).success(function (data) {
-                $rootScope.updatePendingRequests();
-                $scope.getRequests();
-            });
-        }
-
-        $scope.reject = function (id) {
-            $http.get($rootScope.ApiUrl + '?a=request&action=reject&id=' + id).success(function (data) {
-                $rootScope.updatePendingRequests();
-                $scope.getRequests();
-            });
-        }
-
-    }
-]);
-
 /** Litarature **/
 app.controller('LiteraturCtrl', [
     '$scope',
@@ -665,10 +619,6 @@ app.controller('contactFormCtrl', function ($scope, $http) {
                 }
             });
     };
-});
-
-app.controller('ProfileCtrl', function ($scope, $http, $location) {
-
 });
 
 app.controller('homeSearch', [
