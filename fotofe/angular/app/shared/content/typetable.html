@@ -14,7 +14,7 @@
                     ng-change="textsearch(searchquery)"
                     id="textsearch">
             </div>
-            <div class="filter" ng-repeat="filter in realFilters track by $index">
+            <div class="filter" ng-repeat="filter in realFilters track by $index" ng-class="{'medium-hidden' : $index != 0}">
                 <span class="title" 
                     ng-init="filterToggles[filter.key] = false"
                     ng-click="filterToggles[filter.key] = !filterToggles[filter.key]">{{filter.title}}
