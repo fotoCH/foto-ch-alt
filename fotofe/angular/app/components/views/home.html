@@ -89,7 +89,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="imagery">
+                    <div class="imagery medium-hidden">
                         <ul>
                             <li ng-repeat="photos in result.photos_results | limitTo: photolimit" class="no-animate">
                                 <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)">
@@ -108,7 +108,7 @@
             <h2>{{spr.fotographInnen}}</h2>
             <uib-tabset active="active">
                 <uib-tab index="1" heading="{{spr.latest_changed}}">
-                    <div class="flex">
+                    <div class="flex flex--photographer-blocks">
                       <div class="photographer-block" ng-repeat="p in recent_photographer">
                         <h4>
                             <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</a>
@@ -122,7 +122,7 @@
                     </div>
                 </uib-tab>
                 <uib-tab index="2" heading="{{spr.most_viewed}}">
-                  <div class="flex">
+                  <div class="flex flex--photographer-blocks">
                       <div class="photographer-block" ng-repeat="p in mostviewed_photographer">
                         <h4>
                             <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</a>
@@ -142,14 +142,14 @@
 
     <div class="big-numbers">
         <div class="l-container">
-            <div class="flex">
-                <count-up-number number="{{statistics.photographer.count}}" title="{{spr.fotographInnen}}"></count-up-number>
-                <count-up-number number="{{statistics.photographer.biographies}}" title="{{spr.biographies}}"></count-up-number>
-                <count-up-number number="{{statistics.institution.count}}" title="{{spr.institutionen}}"></count-up-number>
-                <count-up-number number="{{statistics.stocks.count}}" title="{{spr.bestaende2}}"></count-up-number>
-                <count-up-number number="{{statistics.exhibition.count}}" title="{{spr.ausstellungen}}"></count-up-number>
-                <count-up-number number="{{statistics.literature.count}}" title="{{spr.literatur}}"></count-up-number>
-                <count-up-number number="{{statistics.photos.count}}" title="{{spr.photos}}"></count-up-number>
+            <div class="flex  flex--align-last">
+                <count-up-number number="{{statistics.photographer.count}}" title="{{spr.fotographInnen}}" class="count-up-container"></count-up-number>
+                <count-up-number number="{{statistics.photographer.biographies}}" title="{{spr.biographies}}" class="count-up-container"></count-up-number>
+                <count-up-number number="{{statistics.institution.count}}" title="{{spr.institutionen}}" class="count-up-container"></count-up-number>
+                <count-up-number number="{{statistics.stocks.count}}" title="{{spr.bestaende2}}" class="count-up-container"></count-up-number>
+                <count-up-number number="{{statistics.exhibition.count}}" title="{{spr.ausstellungen}}" class="count-up-container"></count-up-number>
+                <count-up-number number="{{statistics.literature.count}}" title="{{spr.literatur}}" class="count-up-container"></count-up-number>
+                <count-up-number number="{{statistics.photos.count}}" title="{{spr.photos}}" class="count-up-container"></count-up-number>
             </div>
         </div>
     </div>
