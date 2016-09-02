@@ -75,7 +75,8 @@ class UserManagement
         if(is_numeric($_GET['id']) && is_numeric($_GET['level'])) {
             $update_query = "UPDATE users SET level=" . $_GET['level'] . " WHERE id=" . $_GET['id'];
 
-            return mysql_query($update_query) ? jsonout(array('changeUserLevel' => 'success')) : jsonout(array('changeUserLevel' => 'database error')) ;
+            mysql_query($update_query) ? jsonout(array('changeUserLevel' => 'success')) : jsonout(array('changeUserLevel' => 'database error (' . mysql_error() . ')')) ;
+            return;
         }else{
             jsonout(array('changeUserLevel' =>  'Paremeter are not numeric or not set.'));
             return;
