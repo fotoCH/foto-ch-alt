@@ -26,7 +26,7 @@
                         <span ng-if="user.inst_comment == 0">{{ $root.translations.all }}</span>
                     </td>
                     <td>
-                        <select ng-model="user.level" ng-change="changeLevel(user.id, user.level, {{ user.level }})" ng-disabled="user.username == $root.user" ng-class="{'input--disabled': (user.username == currentUser)}">
+                        <select ng-model="user.level" ng-change="changeLevel(user.id, user.level, {{ user.level }})" ng-disabled="user.username == $root.user" ng-class="{'input--disabled': (user.username == $root.user)}">
                             <option ng-repeat="(key, value) in levels" value="{{ key }}">{{ value }} ({{ key }})</option>
                         </select>
                     </td>
