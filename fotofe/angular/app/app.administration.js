@@ -110,13 +110,13 @@ app.controller('AddUserCtrl', [
 
         //$scope.newuser = {};
 
-        $scope.newuser = {
+        /*$scope.newuser = {
             "level": "3",
             "username": "mmu",
             "vorname": "Max",
             "nachname": "Muster",
             "password": "test123"
-        };
+        };*/
 
         $scope.submitUser = function () {
             if ($scope.userForm.$valid) {
