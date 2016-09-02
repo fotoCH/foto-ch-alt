@@ -1,0 +1,40 @@
+<div class="l-container">
+    <div class="user-management" ng-class="{loading : isLoading}">
+        <h1>{{ $root.translations.useradmin }}</h1><div class="loading-indicator"></div>
+
+        <div>
+            <a class="btn btn--primary btn--right-top" ui-sref="add-user"> + {{ $root.translations.adduser }}</a>
+        </div>
+        <table ng-if="users">
+            <thead>
+            <tr>
+                <th>{{ $root.translations.user }}</th>
+                <th>{{ $root.translations.vorname }}, {{ $root.translations.nachname }}</th>
+                <th>{{ $root.translations.email }}</th>
+                <th>{{ $root.translations.institutionen }}</th>
+                <th>{{ $root.translations.permission }}</th>
+                <th>{{ $root.translations.bestaende2 }}</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users" ng-class-odd="'row--odd'" ng-class-even="'row--even'">
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.nachname }}<span ng-if="user.vorname">, {{ user.vorname }}</span></td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <span ng-if="user.inst_comment != 0">{{ user.inst_comment }}</span>
+                        <span ng-if="user.inst_comment == 0">{{ $root.translations.all }}</span>
+                    </td>
+                    <td>
+                        <select ng-model="user.level" ng-change="changeLevel(user.id, user.level, {{ user.level }})" ng-disabled="user.username == currentUser" ng-class="{'input--disabled': (user.username == currentUser)}">
+                            <option ng-repeat="(key, value) in levels" value="{{ key }}">{{ value }} ({{ key }})</option>
+                        </select>
+                    </td>
+                    <td>
+                        <span ng-repeat="stock in user.stocks">{{ stock.name }}<br></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
