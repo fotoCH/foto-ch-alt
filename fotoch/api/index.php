@@ -1,5 +1,4 @@
 <?php
-
 ini_set('display_errors', 1);
 error_reporting( E_WARNING | E_ERROR | E_PARSE );
 require("mysql.inc.php");
@@ -53,7 +52,8 @@ $actions=array(
     "statistics",
     "filters",
     "request",
-    "year");
+    "year",
+    "usermanagement");
 if ($action=='fotograph') $action='photographer';
 if (!in_array($action,$actions)) $action='photographer';  // default Startseite
 
