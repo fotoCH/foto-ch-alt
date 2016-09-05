@@ -28,7 +28,12 @@
         float: right;
     }
     .starting {
-        width: 130px;
+        width: 70px;
+    }
+    @media @layoutMedium{
+        .starting{
+            width: 130px;
+        }
     }
     label, input, button {
         margin-bottom: 0;
@@ -131,12 +136,14 @@
                 margin-top: 0;
             }
 
+
             .block {
-                max-width: 50%;
-                min-width: 50%;
+                max-width: 100%;
+                min-width: 100%;
 
                 &:last-child {
                     min-width: 100%;
+                    padding: 0 !important;
                 }
 
                 h4 {
@@ -154,6 +161,20 @@
                     }
                     margin-bottom: 20px;
                 }
+            }
+
+            @media @layoutMedium{
+                .block{
+                    max-width: 50%;
+                    min-width: 50%;
+                }
+                .block:nth-child(odd){
+                    padding-right: 10px;
+                }
+                .block:nth-child(even){
+                    padding-left: 10px;
+                }
+
             }
         }
 
