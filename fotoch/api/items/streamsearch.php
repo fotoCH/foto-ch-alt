@@ -297,7 +297,7 @@ class StreamedSearch {
 
     private function exhibition($level = 0) {
         $sql='';
-        $sql.="SELECT DISTINCT ".implode(", ", $this->exhibitionFields())." FROM ausstellung";
+        $sql.="SELECT SQL_CALC_FOUND_ROWS DISTINCT ".implode(", ", $this->exhibitionFields())." FROM ausstellung";
         $sql.= " LEFT JOIN ausstellung_fotograf ON ausstellung.id = ausstellung_fotograf.ausstellung_id";
         $sql.= " INNER JOIN fotografen ON ausstellung_fotograf.fotograf_id = fotografen.id";
         $sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
@@ -333,17 +333,19 @@ class StreamedSearch {
         $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
+        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['exhibition_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
             array_push($this->results['exhibition_results'], $assoc);
         }
         $this->results['exhibition_count'] = count($this->results['exhibition_results']);
+        $this->results['exhibition_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
 
     }
 
     private function institution($level = 0) {
         $sql='';
-        $sql.="SELECT DISTINCT ".implode(", ", $this->institutionFields())." FROM institution";
+        $sql.="SELECT SQL_CALC_FOUND_ROWS DISTINCT ".implode(", ", $this->institutionFields())." FROM institution";
         /*if($level >= 1) {
 
             $sql.= " RIGHT JOIN bestand on institution.id = bestand.inst_id";
@@ -411,17 +413,19 @@ class StreamedSearch {
         $sql.= " OFFSET ".$this->offset;
         //var_dump($sql);
         $result = mysql_query($sql);
+        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['institution_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
             $assoc['name']=clean_entry(clangcont($assoc,'name'));
             array_push($this->results['institution_results'], $assoc);
         }
         $this->results['institution_count'] = count($this->results['institution_results']);
+        $this->results['institution_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
     }
 
     private function stock($level = 0) {
         $sql='';
-        $sql.="SELECT DISTINCT ".implode(", ", $this->stockFields())." FROM bestand";
+        $sql.="SELECT SQL_CALC_FOUND_ROWS DISTINCT ".implode(", ", $this->stockFields())." FROM bestand";
         $sql.= " INNER JOIN institution ON bestand.inst_id = institution.id";
         if($level >= 1) {
             $sql.= " LEFT JOIN bestand_fotograf ON bestand.id = bestand_fotograf.bestand_id";
@@ -458,19 +462,27 @@ class StreamedSearch {
 
         $sql.= " LIMIT ".$this->limitResults;
         $sql.= " OFFSET ".$this->offset;
+/*
+        echo '<br>' . $sql . '<br>';
+        echo '<br>' . $sql_count . '<br>';*/
+
+        //$count = mysql_fetch_assoc(mysql_query($sql_count))['total_count'];
 
         $result = mysql_query($sql);
+        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
+
         $this->results['stock_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
             array_push($this->results['stock_results'], $assoc);
         }
         $this->results['stock_count'] = count($this->results['stock_results']);
+        $this->results['stock_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
 
     }
 
     private function photographer($level = 0) {
         $sql = '';
-        $sql.= "SELECT DISTINCT ".implode(", ", $this->photographerFields())." FROM namen";
+        $sql.= "SELECT SQL_CALC_FOUND_ROWS DISTINCT ".implode(", ", $this->photographerFields())." FROM namen";
         $sql.= " RIGHT JOIN fotografen on namen.fotografen_id = fotografen.id";
         /* removed due to performance...
         if($level >= 1) {
@@ -514,13 +526,14 @@ class StreamedSearch {
         $sql.= " OFFSET ".$this->offset;
 
         // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
-
         $result = mysql_query($sql);
+        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['photographer_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
             array_push($this->results['photographer_results'], $assoc);
         }
         $this->results['photographer_count'] = count($this->results['photographer_results']);
+        $this->results['photographer_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
     }
 
     private function appendDirectQuery() {
