@@ -83,6 +83,21 @@ class UserManagement
         }
     }
 
+    private function deleteUser(){
+        if(is_numeric($_GET['id'])) {
+            $delete_query = "DELETE FROM users WHERE id=" . $_GET['id'];
+
+            $delete_relations_query = "DELETE FROM bestand_users WHERE user_id=" . $_GET['id'];
+            mysql_query($delete_relations_query);
+
+            mysql_query($delete_query) ? jsonout(array('deleteUser' => 'success')) : jsonout(array('deleteUser' => 'database error (' . mysql_error() . ')')) ;
+            return;
+        }else{
+            jsonout(array('deleteUser' =>  'Paremeter are not numeric or not set.'));
+            return;
+        }
+    }
+
     private function addUser(){
 
         // todo POST request!
@@ -139,6 +154,9 @@ class UserManagement
                     break;
                 case 'changeUserLevel':
                     $this->changeUserLevel();
+                    break;
+                case 'deleteUser':
+                    $this->deleteUser();
                     break;
                 case 'addUser':
                     $this->addUser();
