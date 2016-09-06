@@ -109,6 +109,11 @@
         }
 
         .modal-header {
+
+            @media @layoutSmallMax {
+
+                padding: 15px 0;
+            }
             position: relative;
             border-bottom: none;
             h1 {
@@ -167,9 +172,13 @@
         .modal-body {
             display: flex;
             @media @layoutSmallMax{
+
+                padding: 15px 0;
+
                 .left,.right{
                     width: 100%;
                     flex-basis: 100%;
+                    margin: 0;
                 }
             }
         }
