@@ -14,6 +14,7 @@
                 <th>{{ $root.translations.institutionen }}</th>
                 <th>{{ $root.translations.permission }}</th>
                 <th>{{ $root.translations.bestaende2 }}</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +33,9 @@
                     </td>
                     <td>
                         <span ng-repeat="stock in user.stocks">{{ stock.name }}<br></span>
+                    </td>
+                    <td>
+                        <button class="btn btn--link" ng-if="user.username != $root.user" ng-click="delete(user.id)">{{ $root.translations.loeschen }}</button>
                     </td>
                 </tr>
             </tbody>
