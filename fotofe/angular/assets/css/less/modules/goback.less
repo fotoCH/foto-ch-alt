@@ -13,6 +13,12 @@ a.go-back {
   text-indent: -9999px;
   direction: ltr;
   transform: rotate(180deg);
+
+  @media @layoutSmallMax{
+      right: 30px;
+      top: -30px;
+  }
+
   &:before, &:after{
     content: '';
     pointer-events: none;
