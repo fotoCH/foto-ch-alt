@@ -67,10 +67,12 @@ app.controller('UserCtrl', [
 
         $scope.isLoading = true;
 
-        $http.get($rootScope.ApiUrl + '/?a=usermanagement&action=getUsers').then(function (result) {
-            $scope.users = result.data;
-            $scope.isLoading = false;
-        });
+        var loadUsers = function () {
+            $http.get($rootScope.ApiUrl + '/?a=usermanagement&action=getUsers').then(function (result) {
+                $scope.users = result.data;
+                $scope.isLoading = false;
+            });
+        };
 
         $scope.changeLevel = function (userId, level, oldValue) {
             $scope.isLoading = true;
@@ -81,7 +83,24 @@ app.controller('UserCtrl', [
                     level = parseInt(oldValue);
                 }
             });
-        }
+        };
+
+        $scope.delete = function (userId) {
+            if(confirm('Delete user?')){
+                $scope.isLoading = true;
+                $http.get($rootScope.ApiUrl + '?a=usermanagement&action=deleteUser&id=' + userId).success(function (data) {
+                    $scope.isLoading = false;
+                    if (data.deleteUser !== 'success') {
+                        alert('User not deleted: ' + data.deleteUser);
+                    }else{
+                        loadUsers();
+                    }
+
+                });
+            }
+        };
+
+        loadUsers();
     }
 ]);
 
@@ -107,16 +126,17 @@ app.controller('AddUserCtrl', [
         });
 
         $scope.userForm = {};
+        $scope.newuser = {};
 
-        //$scope.newuser = {};
-
-        /*$scope.newuser = {
-            "level": "3",
-            "username": "mmu",
-            "vorname": "Max",
-            "nachname": "Muster",
-            "password": "test123"
-        };*/
+/*
+        $scope.newuser = {
+         "level": "3",
+         "username": "mmu",
+         "vorname": "Max",
+         "nachname": "Muster",
+         "password": "test123"
+         };
+*/
 
         $scope.submitUser = function () {
             if ($scope.userForm.$valid) {
