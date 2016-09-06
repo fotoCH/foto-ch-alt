@@ -166,6 +166,12 @@
 
         .modal-body {
             display: flex;
+            @media @layoutSmallMax{
+                .left,.right{
+                    width: 100%;
+                    flex-basis: 100%;
+                }
+            }
         }
 
         .modal-footer {
