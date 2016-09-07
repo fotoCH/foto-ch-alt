@@ -52,8 +52,8 @@
             <tbody infinite-scroll="increaseLimit()" infinite-scroll-distance="0.1">
                 <tr ng-repeat="tr in tableRows track by $index"
                     ng-click="$root.detail(tr.id, detailRoute, carousel)">
-                   <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{td}}</td>
-                </th>
+                   <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{::td}}</td>
+                </tr>
             </tbody>
         </table>
         <div ng-if="grid" class="grid"
@@ -66,7 +66,7 @@
                  ng-click="$root.detail(block.id, detailRoute, carousel)"
                  masonry-tile
                  class="tile">
-               <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{data}}</div>
+               <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{::data}}</div>
             </div>
         </div>
     </div>
