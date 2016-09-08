@@ -174,7 +174,7 @@ class StreamedSearch {
 
     private function photos($level) {
         $sql='';
-        $sql.= "SELECT DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
+        $sql.= "SELECT SQL_CALC_FOUND_ROWS DISTINCT ".implode(", ", $this->photoFields())." FROM fotos";
         $sql.=" INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
         $sql.=" RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
         $sql.=" INNER JOIN bestand on fotos.dcterms_ispart_of = bestand.id";
@@ -220,7 +220,7 @@ class StreamedSearch {
         if($this->sorting) {
             $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
         } else {
-            $sql.= " ORDER BY id desc";
+            $sql.= " ORDER BY id ASC";
         }
 
         if($this->limitPhotoResults) {
@@ -231,17 +231,19 @@ class StreamedSearch {
         $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
+        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['photos_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
             array_push($this->results['photos_results'], $assoc);
         }
         $this->results['photos_count'] = count($this->results['photos_results']);
+        $this->results['photos_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
 
     }
 
     private function literature($level = 0) {
         $sql='';
-        $sql.="SELECT DISTINCT ".implode(", ", $this->literatureFields())." FROM literatur";
+        $sql.="SELECT SQL_CALC_FOUND_ROWS DISTINCT ".implode(", ", $this->literatureFields())." FROM literatur";
         if($level >= 1) {
             $sql.= " LEFT JOIN literatur_fotograf on literatur_fotograf.literatur_id = literatur.id";
             $sql.= " INNER JOIN fotografen on literatur_fotograf.fotografen_id = fotografen.id";
@@ -283,16 +285,20 @@ class StreamedSearch {
 
         if($this->sorting) {
             $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        }else{
+            $sql.= " ORDER BY titel ASC";
         }
         $sql.= " LIMIT ".$this->limitResults;
         $sql.= " OFFSET ".$this->offset;
 
         $result = mysql_query($sql);
+        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['literature_results'] = array();
         while($assoc = mysql_fetch_assoc($result)) {
             array_push($this->results['literature_results'], $assoc);
         }
         $this->results['literature_count'] = count($this->results['literature_results']);
+        $this->results['literature_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
     }
 
     private function exhibition($level = 0) {
@@ -327,6 +333,8 @@ class StreamedSearch {
 
         if($this->sorting) {
             $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        }else{
+            $sql.= " ORDER BY titel,jahr  ASC";
         }
 
         $sql.= " LIMIT ".$this->limitResults;
@@ -407,11 +415,13 @@ class StreamedSearch {
         } else { */
             if($this->sorting) {
                 $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+            }else{
+                $sql .= " ORDER BY name asc";
             }
         /*}*/
         $sql.= " LIMIT ".$this->limitResults;
         $sql.= " OFFSET ".$this->offset;
-        //var_dump($sql);
+
         $result = mysql_query($sql);
         $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['institution_results'] = array();
@@ -458,6 +468,8 @@ class StreamedSearch {
 
         if($this->sorting) {
             $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
+        }else{
+            $sql.= " ORDER BY name ASC";
         }
 
         $sql.= " LIMIT ".$this->limitResults;
@@ -467,7 +479,6 @@ class StreamedSearch {
         echo '<br>' . $sql_count . '<br>';*/
 
         //$count = mysql_fetch_assoc(mysql_query($sql_count))['total_count'];
-
         $result = mysql_query($sql);
         $count_result = mysql_query("Select FOUND_ROWS() as total_count");
 
@@ -520,10 +531,13 @@ class StreamedSearch {
         if($this->sorting) {
             $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
         } else {
-            $sql.= " ORDER BY (CASE WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ELSE 0 END) DESC";
+            $sql.= " ORDER BY nachname, vorname asc";
+            //$sql.= " ORDER BY (CASE WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ELSE 0 END) DESC";
         }
         $sql.= " LIMIT ".$this->limitResults;
         $sql.= " OFFSET ".$this->offset;
+
+        //echo $sql;
 
         // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
         $result = mysql_query($sql);
