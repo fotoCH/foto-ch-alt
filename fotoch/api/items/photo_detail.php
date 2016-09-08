@@ -11,7 +11,12 @@ if (auth_level(USER_WORKER)){
 	$afields=array();
 }
 
-$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, f.dc_creator, image_path, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.dcterms_spatial AS dct_spatial, f.dcterms_subject AS subject, f.dc_coverage, ';
+$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, f.dc_creator, ';
+$select .= 'image_path, f.dc_right AS copy, f.dcterms_medium AS medium, f.dc_identifier AS img_url, f.dcterms_spatial AS dct_spatial, ';
+$select .= 'f.dcterms_subject AS subject, f.dc_coverage, f.edm_licence, f.edm_watermark, f.edm_order, f.url_wikimedia, ';
+if(auth_level(USER_GUEST_FOTOS)){
+    $select .= 'f.edm_notes, f.edm_condition, f.edm_author, f.edm_editing_date, ';
+}
 $select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
 $select.= 'i.name AS institution, i.id as inst_id,';
 $select.= 'b.name AS stock, b.id AS stock_id, f.supplier_id as supp_id ';
@@ -24,7 +29,7 @@ $query="SELECT DISTINCT $select FROM fotos AS f $join";
 
 	$query.=" WHERE f.id=$id";
 
-//echo $query;
+//echo $query;die();
 $result=mysql_query($query);
 $rowCount = mysql_num_rows($result);
 $out['result_count']= $rowCount;
