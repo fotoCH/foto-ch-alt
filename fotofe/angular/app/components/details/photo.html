@@ -64,15 +64,68 @@
                 <a ng-click="$root.detail(photo.stock_id, 'inventory' )">{{ photo.stock }}</a>
             </dd>
             <dt ng-if="photo.copy">{{spr.copy}}</dt>
-            <dd ng-if="photo.copy" ng-bind-html="photo.copy | rawHtml"></dd>
-            <dt ng-if="photo.medium">{{spr.medium}}</dt>
-            <dd ng-if="photo.medium" ng-bind-html="photo.medium | rawHtml"></dd>
+            <dd ng-if="photo.copy" ng-bind-html="photo.copy + ' ' + photo.edm_licence | rawHtml"></dd>
+            <dt ng-if="photo.url_wikimedia">{{spr.url_wikimedia}}</dt>
+            <dd ng-if="photo.url_wikimedia"><a href="{{ photo.url_wikimedia }}" target="_blank" style="word-wrap: break-word;">
+                    {{ photo.url_wikimedia }}</a>
+            </dd>
+            <dt ng-if="photo.edm_order">{{spr.edm_order}}</dt>
+            <dd ng-if="photo.edm_order"><a href="{{ photo.edm_order }}" style="word-wrap: break-word;">
+                    {{ photo.edm_order }}</a>
+            </dd>
+
+            <editable
+                title="spr.medium"
+                institution="photo.inst_id"
+                stock="photo.stock_id"
+                value="photo.medium"
+                field="dcterms_medium"
+                type="photo"
+                entry="photo.id" />
+
             <dt ng-if="photo.img_url">{{spr.img_url}}</dt>
             <dd ng-if="photo.img_url" ng-bind-html="photo.img_url | rawHtml" style="word-wrap: break-word;"></dd>
             <dt ng-if="photo.supp_id">{{spr.supp_id}}</dt>
             <dd ng-if="photo.supp_id" ng-bind-html="photo.supp_id | rawHtml"></dd>
             <dt ng-if="photo.supp_id">ID-Foto</dt>
             <dd ng-if="photo.supp_id" ng-bind-html="photo.id | rawHtml"></dd>
+
+            <editable
+                title="spr.edm_notes"
+                institution="photo.inst_id"
+                stock="photo.stock_id"
+                value="photo.edm_notes"
+                field="edm_notes"
+                type="photo"
+                entry="photo.id" />
+
+            <editable
+                title="spr.edm_condition"
+                institution="photo.inst_id"
+                stock="photo.stock_id"
+                value="photo.edm_condition"
+                field="edm_condition"
+                type="photo"
+                entry="photo.id" />
+
+            <editable
+                title="spr.edm_author"
+                institution="photo.inst_id"
+                stock="photo.stock_id"
+                value="photo.edm_author"
+                field="edm_author"
+                type="photo"
+                entry="photo.id" />
+
+            <editable
+                title="spr.edm_editing_date"
+                institution="photo.inst_id"
+                stock="photo.stock_id"
+                value="photo.edm_editing_date"
+                field="edm_editing_date"
+                type="photo"
+                entry="photo.id" />
+
         </dl>
         <dl ng-if="doComments"><form ng-submit="submit()">
             <dt>{{spr.name}}</dt>
