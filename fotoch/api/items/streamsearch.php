@@ -135,7 +135,7 @@ class StreamedSearch {
             "ausstellung.jahr",
             "ausstellung.ort",
             "ausstellung.institution",
-            "ausstellung.typ"
+            "REPLACE( REPLACE( ausstellung.typ,  'E',  '%s' ) ,  'G', '%s' ) as typ"
         );
     }
 
@@ -302,8 +302,14 @@ class StreamedSearch {
     }
 
     private function exhibition($level = 0) {
+        $langfield = $this->lang ? str_replace('_', '', $this->lang) : 'de';
+        $translation_result = mysql_query("SELECT name, " . $langfield . " as translation FROM sprache WHERE name='einzelausstellung' OR name='gruppenausstellung'");
+        while($row = mysql_fetch_assoc($translation_result)){
+            $translations[$row['name']] = $row['translation'];
+        }
+
         $sql='';
-        $sql.="SELECT SQL_CALC_FOUND_ROWS DISTINCT ".implode(", ", $this->exhibitionFields())." FROM ausstellung";
+        $sql.="SELECT SQL_CALC_FOUND_ROWS DISTINCT ". sprintf( implode(", ", $this->exhibitionFields()), $translations['einzelausstellung'], $translations['gruppenausstellung']) . " FROM ausstellung";
         $sql.= " LEFT JOIN ausstellung_fotograf ON ausstellung.id = ausstellung_fotograf.ausstellung_id";
         $sql.= " INNER JOIN fotografen ON ausstellung_fotograf.fotograf_id = fotografen.id";
         $sql.= " INNER JOIN namen on fotografen.id = namen.fotografen_id";
@@ -339,7 +345,6 @@ class StreamedSearch {
 
         $sql.= " LIMIT ".$this->limitResults;
         $sql.= " OFFSET ".$this->offset;
-
         $result = mysql_query($sql);
         $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['exhibition_results'] = array();
