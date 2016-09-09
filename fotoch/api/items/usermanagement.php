@@ -149,23 +149,28 @@ class UserManagement
         $stocks = array_filter(explode(',', $_REQUEST['stocks']));
         $userId = $_REQUEST['user'];
 
-        if (count($stocks) > 0 && is_numeric($userId)) {
+        if (is_numeric($userId)) {
             // delete former relations
             $delete_query = "DELETE FROM bestand_users WHERE user_id=" . $userId;
             if (mysql_query($delete_query)) {
-                // insert new relations
-                $stocks_query = "INSERT INTO bestand_users (bestand_id, user_id)";
-                $stocks_values = array();
-                foreach ($stocks as $stock) {
-                    $stocks_values[] = "(" . $stock . "," . $userId . ")";
+                if (count($stocks) > 0) {
+                    // insert new relations
+                    $stocks_query = "INSERT INTO bestand_users (bestand_id, user_id)";
+                    $stocks_values = array();
+                    foreach ($stocks as $stock) {
+                        $stocks_values[] = "(" . $stock . "," . $userId . ")";
+                    }
+                    $stocks_query .= " VALUES " . implode(',', $stocks_values) . ";";
+                    return mysql_query($stocks_query) ? jsonout(array('changeStocks' => 'success')) : jsonout(array('changeStocks' => 'database error: ' . mysql_error()));
                 }
-                $stocks_query .= " VALUES " . implode(',', $stocks_values) . ";";
-                return mysql_query($stocks_query) ? jsonout(array('changeStocks' => 'success')) : jsonout(array('changeStocks' => 'database error: ' . mysql_error()));
+                return jsonout(array('changeStocks' => 'success'));
+
             } else {
                 return jsonout(array('changeStocks' => 'database error: ' . mysql_error()));
             }
         }
     }
+
 
     /**
      *  START Meta functions from request.php
