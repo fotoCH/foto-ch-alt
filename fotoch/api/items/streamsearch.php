@@ -340,7 +340,7 @@ class StreamedSearch {
         if($this->sorting) {
             $sql.= " ORDER BY ".$this->sorting.' '.$this->sortDirection;
         }else{
-            $sql.= " ORDER BY titel,jahr  ASC";
+            $sql.= " ORDER BY jahr DESC";
         }
 
         $sql.= " LIMIT ".$this->limitResults;
