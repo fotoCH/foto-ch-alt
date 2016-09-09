@@ -17,8 +17,10 @@ while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
     $fetch['name']=clean_entry(clangcont($fetch,'name'));
 	$name_translations=clangues($fetch,'name');
 	$real_lang = $lang != '' ? $lang : 'de';
-	unset($name_translations[$real_lang]);
-	$fetch['name_translations']=$name_translations;
+	//die(array_search($fetch['name'],$name_translations));
+	if(count($name_translations) > 1){
+		$fetch['name_translations']=$name_translations;
+	}
     $fetch['abkuerzung']=clean_entry(clangcont($fetch,'abkuerzung'));
     if ($fetch['abkuerzung']) $fetch['name'].=' ('.$fetch['abkuerzung'].')';
     unset($fetch['abkuerzung']);
