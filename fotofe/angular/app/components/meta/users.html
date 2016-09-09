@@ -32,7 +32,23 @@
                         </select>
                     </td>
                     <td>
-                        <span ng-repeat="stock in user.stocks">{{ stock.name }}<br></span>
+                        <span ng-if="stocks.length > 0">
+                            <form name="stocksform">
+                                <select multiple
+                                        ng-model="user.newStocks"
+                                        id="stocks"
+                                        ng-init="user.newStocks = getUserStocks(user.stocks)"
+                                        ng-options="stock.id as stock.value for stock in stocks">
+                                    <input
+                                        type="submit"
+                                        class="btn btn--primary"
+                                        ng-click="submitStocks(user.newStocks, user.id)"
+                                        value="{{ $root.translations.senden }}"
+                                        ng-disabled="user.newStocks == getUserStocks(user.stocks)">
+                                    <button class="btn btn--link" ng-click="user.newStocks=[]">reset</button>
+                            </form>
+
+                        </span>
                     </td>
                     <td>
                         <button class="btn btn--link" ng-if="user.username != $root.user" ng-click="delete(user.id)">{{ $root.translations.loeschen }}</button>
