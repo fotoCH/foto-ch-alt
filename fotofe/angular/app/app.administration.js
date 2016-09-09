@@ -60,14 +60,24 @@ app.controller('UserCtrl', [
     '$scope',
     '$http',
     '$rootScope',
-    function ($scope, $http, $rootScope) {
+    'adminService',
+    '$httpParamSerializer',
+    function ($scope, $http, $rootScope, adminService, $httpParamSerializer) {
         $scope.users = {};
+        $scope.stocks = {};
         $scope.currentUser = $rootScope.user;
         $scope.levels = $rootScope.user_levels;
 
         $scope.isLoading = true;
 
         var loadUsers = function () {
+            adminService.getStocks().then(function (result) {
+                $scope.stocks = result;
+            }).catch(function () {
+                $scope.errorMsg = 'Network error.';
+                alert($scope.errorMsg);
+                $scope.isLoading = false;
+            });
             $http.get($rootScope.ApiUrl + '/?a=usermanagement&action=getUsers').then(function (result) {
                 $scope.users = result.data;
                 $scope.isLoading = false;
@@ -85,14 +95,44 @@ app.controller('UserCtrl', [
             });
         };
 
+        $scope.submitStocks = function (stocks, userId) {
+            $scope.isLoading = true;
+            var data = $httpParamSerializer({user: userId, stocks: stocks.toString()});
+
+            var url = $rootScope.ApiUrl + '?a=usermanagement&action=changeStocks&' + data;
+            //var url = $rootScope.ApiUrl + '?a=usermanagement&action=changeStocks';
+
+            $http({
+                url: url,
+                method: "post",
+                data: data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(
+                    function(response){
+                        $scope.isLoading = false;
+                        if (response.data.changeStocks !== 'success') {
+                            alert('Stocks not changed: ' + response.data.changeStocks);
+                        } else {
+                            loadUsers();
+                        }
+                    },
+                    function(response){
+                        $scope.errorMsg = 'Network error.';
+                        alert($scope.errorMsg);
+                        $scope.isLoading = false;
+                    }
+                );
+
+        };
+
         $scope.delete = function (userId) {
-            if(confirm('Delete user?')){
+            if (confirm('Delete user?')) {
                 $scope.isLoading = true;
                 $http.get($rootScope.ApiUrl + '?a=usermanagement&action=deleteUser&id=' + userId).success(function (data) {
                     $scope.isLoading = false;
                     if (data.deleteUser !== 'success') {
                         alert('User not deleted: ' + data.deleteUser);
-                    }else{
+                    } else {
                         loadUsers();
                     }
 
@@ -101,6 +141,14 @@ app.controller('UserCtrl', [
         };
 
         loadUsers();
+
+        $scope.getUserStocks = function (userStocks) {
+            var value = [];
+            for (i = 0; i < userStocks.length; i++) {
+                value.push(userStocks[i].id);
+            }
+            return value;
+        }
     }
 ]);
 
@@ -110,16 +158,15 @@ app.controller('AddUserCtrl', [
     '$rootScope',
     '$httpParamSerializer',
     '$state',
-    function ($scope, $http, $rootScope, $httpParamSerializer, $state) {
+    'adminService',
+    function ($scope, $http, $rootScope, $httpParamSerializer, $state, adminService) {
         $scope.levels = $rootScope.user_levels;
         $scope.isLoading = true;
 
-        var stocksPromise = $http.get($rootScope.ApiUrl + '?a=usermanagement&action=getStocks');
-        stocksPromise.success(function (data, status, headers, config) {
-            $scope.stocks = data;
+        adminService.getStocks().then(function (result) {
+            $scope.stocks = result;
             $scope.isLoading = false;
-        });
-        stocksPromise.error(function (data, status, headers, config) {
+        }).catch(function () {
             $scope.errorMsg = 'Network error.';
             alert($scope.errorMsg);
             $scope.isLoading = false;
@@ -128,15 +175,15 @@ app.controller('AddUserCtrl', [
         $scope.userForm = {};
         $scope.newuser = {};
 
-/*
-        $scope.newuser = {
+        /*
+         $scope.newuser = {
          "level": "3",
          "username": "mmu",
          "vorname": "Max",
          "nachname": "Muster",
          "password": "test123"
          };
-*/
+         */
 
         $scope.submitUser = function () {
             if ($scope.userForm.$valid) {
@@ -163,3 +210,17 @@ app.controller('AddUserCtrl', [
         }
     }
 ]);
+
+app.factory('adminService', function ($rootScope, $http) {
+
+    var getStocks = function () {
+
+        return $http.get($rootScope.ApiUrl + '?a=usermanagement&action=getStocks').then(function (response) {
+            return response.data;
+        });
+    };
+
+    return {
+        getStocks: getStocks
+    };
+});
