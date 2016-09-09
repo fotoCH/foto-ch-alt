@@ -14,6 +14,7 @@ class Filters
     private $filters = array();
     private $type = false;
     private $language = '';
+    private $cachePrefix = 'filter_';
 
     public function setLang($lang) {
         if($lang != 'de') {
@@ -173,70 +174,76 @@ class Filters
     public function output($type)
     {
         $this->type = $type;
-        switch ($this->type) {
-            case 'fotografengattungen':
-                $this->fotografengattungen();
-                break;
-            case 'bildgattungen':
-                $this->bildgattungen();
-                break;
-            case 'fotografen_kanton':
-                $this->fotografenKanton();
-                break;
-            case 'institution':
-                $this->institution();
-                break;
-            case 'ausstellung_institution':
-                $this->exhibitionInstitution();
-                break;
-            case 'bestand_institution':
-                $this->stockInstitution();
-                break;
-            case 'photo_institution':
-                $this->photoInstitution();
-                break;
-            case 'institution_kanton':
-                $this->institutionKanton();
-                break;
-            case 'institution_ort':
-                $this->institutionOrt();
-                break;
-            case 'ausstellung_jahr':
-                $this->ausstellungJahr();
-                break;
-            case 'ausstellung_typ':
-                $this->ausstellungTyp();
-                break;
-            case 'ausstellung_ort':
-                $this->ausstellungOrt();
-                break;
-            case 'literatur_jahr':
-                $this->literaturJahr();
-                break;
-            case 'literatur_ort':
-                $this->literaturOrt();
-                break;
-            case 'photo_stichworte':
-                $this->photoStickworte();
-                break;
-            case 'photo_stocks':
-                $this->photoStocks();
-                break;
-            case 'arbeitsorte':
-                $this->arbeitsorte();
-                break;
-            case 'verlag':
-                $this->verlag();
-                break;
-            case 'zeitraum':
-                $this->zeitraum();
-                break;
-            case 'photo_ort':
-                $this->spatial();
-                break;
-            default :
-                $this->unknown();
-                break;
+        $cacheObj = new fotoCache($this->cachePrefix);
+        if($cacheObj->isCached($this->type)){
+            $this->filters = $cacheObj->getCache($this->type);
+        }else {
+            switch ($this->type) {
+                case 'fotografengattungen':
+                    $this->fotografengattungen();
+                    break;
+                case 'bildgattungen':
+                    $this->bildgattungen();
+                    break;
+                case 'fotografen_kanton':
+                    $this->fotografenKanton();
+                    break;
+                case 'institution':
+                    $this->institution();
+                    break;
+                case 'ausstellung_institution':
+                    $this->exhibitionInstitution();
+                    break;
+                case 'bestand_institution':
+                    $this->stockInstitution();
+                    break;
+                case 'photo_institution':
+                    $this->photoInstitution();
+                    break;
+                case 'institution_kanton':
+                    $this->institutionKanton();
+                    break;
+                case 'institution_ort':
+                    $this->institutionOrt();
+                    break;
+                case 'ausstellung_jahr':
+                    $this->ausstellungJahr();
+                    break;
+                case 'ausstellung_typ':
+                    $this->ausstellungTyp();
+                    break;
+                case 'ausstellung_ort':
+                    $this->ausstellungOrt();
+                    break;
+                case 'literatur_jahr':
+                    $this->literaturJahr();
+                    break;
+                case 'literatur_ort':
+                    $this->literaturOrt();
+                    break;
+                case 'photo_stichworte':
+                    $this->photoStickworte();
+                    break;
+                case 'photo_stocks':
+                    $this->photoStocks();
+                    break;
+                case 'arbeitsorte':
+                    $this->arbeitsorte();
+                    break;
+                case 'verlag':
+                    $this->verlag();
+                    break;
+                case 'zeitraum':
+                    $this->zeitraum();
+                    break;
+                case 'photo_ort':
+                    $this->spatial();
+                    break;
+                default :
+                    $this->unknown();
+                    break;
+            }
+            $cacheObj->cache($this->type, $this->filters);
         }
         jsonout($this->filters);
     }

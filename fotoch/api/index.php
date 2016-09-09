@@ -27,6 +27,7 @@ if(!in_array($clanguage ,$supported_langs)) $clanguage = "de";
 //define action
 include("fotofunc.inc.php");
 include("foto-ch.inc.php");
+include("fotocache.inc.php");
 
 require("lang.inc.php");
 require("auth.inc.php");
