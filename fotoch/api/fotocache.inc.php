@@ -14,9 +14,13 @@ class FotoCache{
 
     public function isCached($key)
     {
-        $maximal_timestamp = time() - self::MAX_CACHE_TIME_SEC;
-        $file_timestamp = filemtime($this->getFilePath($key));
-        return file_exists($this->getFilePath($key)) && $maximal_timestamp < $file_timestamp;
+        if(file_exists($this->getFilePath($key))){
+            $maximal_timestamp = time() - self::MAX_CACHE_TIME_SEC;
+            $file_timestamp = filemtime($this->getFilePath($key));
+            return $maximal_timestamp < $file_timestamp;
+        }else{
+            return false;
+        }
     }
 
     public function getCache($key, $method = 'unserialize')
