@@ -5,6 +5,8 @@
     </div>
     <div class="l-content__section l-content__section--meta">
         <dl>
+            <dt ng-if="detail.name_translations">{{translations.namensvariante}}</dt>
+            <dd ng-if="!$first" ng-repeat="n in detail.name_translations">{{n}}</span></dd>
             <dt ng-if="detail.isil">{{translations.isil}}</dt>
             <dd ng-if="detail.isil">{{detail.isil}}</dd>
             <dt ng-if="detail.adresse">{{translations.adresse}}</dt>
