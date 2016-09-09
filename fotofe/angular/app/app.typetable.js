@@ -51,7 +51,7 @@ app.controller('TypeTableCtrl', [
             }
             $scope.queryOffset = 0;
             loadData();
-        }
+        };
 
         $scope.filterActive = function(value, target) {
             var toFilter = target+":"+value;
@@ -60,7 +60,7 @@ app.controller('TypeTableCtrl', [
             } else {
                 return 'active';
             }
-        }
+        };
 
         $scope.setFilter = function(key, index) {
             $http.get($rootScope.ApiUrl + '/?a=filters&type=' + key).success(function (data) {
@@ -330,13 +330,19 @@ app.controller('TypeTableCtrl', [
                 });
             }
             if(typeof(append) !== 'undefined') {
+                console.log('concat');
+                console.log(rows);
                 $scope.tableRows = $scope.tableRows.concat(rows);
             } else {
+                console.log('all');
+                console.log(rows);
                 $scope.tableRows = rows;
             }
         }
 
         function loadData(append) {
+
+            console.log('load data: ' + $scope.queryOffset);
             $scope.query = $rootScope.ApiUrl +
                 '/?a=streamsearch'+
                 '&type='+$scope.type +
@@ -364,9 +370,10 @@ app.controller('TypeTableCtrl', [
                 },
                 transformResponse: [function (data) {
                   return data;
-                }],
+                }]/*,
                 onProgress: function(event) {
                     try {
+                        console.log('progress');
                         var response = event.currentTarget.responseText;
                         response = response.replace(/}{/g, "},{");
                         response = "[" + response + "]";
@@ -376,8 +383,12 @@ app.controller('TypeTableCtrl', [
                     } catch (e) {
                         console.log(e);
                     }
-                }
-            }).then(function(e) {
+                }*/
+            }).then(function(response) {
+                var data = response.data.replace(/}{/g, "},{");
+                var result = JSON.parse("[" + data + "]");
+                result = result[result.length - 1];
+                setValues(result, append);
                 $scope.filtering = false;
                 $rootScope.loadednum = $scope.tableRows.length;
             });
