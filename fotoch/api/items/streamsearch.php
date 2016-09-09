@@ -315,12 +315,10 @@ class StreamedSearch
 
     private function exhibition($level = 0)
     {
-        session_start();
-
-        if ($_SESSION['exhibition_results']) {
-            $this->results['exhibition_results'] = $_SESSION['exhibition_results'];
-            $this->results['exhibition_count'] = $_SESSION['exhibition_count'];
-            $this->results['exhibition_total_count'] = $_SESSION['exhibition_total_count'];
+        $cacheObj = new fotoCache('exhibition_');
+        $key = md5($_SERVER['QUERY_STRING']);
+        if ($cacheObj->isCached($key)) {
+            $this->results = $cacheObj->getCache($key);
         } else {
             $langfield = $this->lang ? str_replace('_', '', $this->lang) : 'de';
             $translation_result = mysql_query("SELECT name, " . $langfield . " as translation FROM sprache WHERE name='einzelausstellung' OR name='gruppenausstellung'");
@@ -375,14 +373,8 @@ class StreamedSearch
             $this->results['exhibition_count'] = count($this->results['exhibition_results']);
             $this->results['exhibition_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
 
-
-            $_SESSION['exhibition_results'] = $this->results['exhibition_results'];
-            $_SESSION['exhibition_count'] = count($this->results['exhibition_results']);
-            $_SESSION['exhibition_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
-
+            $cacheObj->cache($key, $this->results);
         }
-
-
     }
 
     private function institution($level = 0)
