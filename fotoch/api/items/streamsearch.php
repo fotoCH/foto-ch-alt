@@ -573,6 +573,9 @@ class StreamedSearch
         $count_result = mysql_query("Select FOUND_ROWS() as total_count");
         $this->results['photographer_results'] = array();
         while ($assoc = mysql_fetch_assoc($result)) {
+            if ($_GET['lang']!='de'){
+                $assoc['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$assoc['fotografengattungen_set']);
+            }
             array_push($this->results['photographer_results'], $assoc);
         }
         $this->results['photographer_count'] = count($this->results['photographer_results']);
