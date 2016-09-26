@@ -43,6 +43,12 @@ app.config(
                     templateUrl: 'app/components/views/inventory.html',
                     controller: 'InventoryCtrl'
                 })
+                // Support page
+                .state('support', {
+                    url: '/support',
+                    templateUrl: 'app/components/meta/support.html',
+                    controller: 'StaticPageCtrl'
+                })
                 // Contact page
                 .state('contact', {
                     url: '/contact',
