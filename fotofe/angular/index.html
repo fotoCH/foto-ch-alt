@@ -151,6 +151,7 @@
         </div>
         <nav class="nav-meta ng-cloak" ng-controller="NavigationCtrl">
             <ul>
+                <li><a ng-class="getClass('/support')" ui-sref="support">{{spr.support}}</a></li>
                 <li><a ng-class="getClass('/contact')" ui-sref="contact">{{spr.kontakt}}</a></li>
                 <li><a ng-class="getClass('/aboutfotoch')" ui-sref="aboutFotoch">{{spr.about_fotoch}}</a></li>
                 <li><a ng-if="!$root.user_data" ng-class="getClass('/login')" ui-sref="login">Login</a></li>
