@@ -90,6 +90,26 @@
             <dt ng-if="photo.supp_id">ID-Foto</dt>
             <dd ng-if="photo.supp_id" ng-bind-html="photo.id | rawHtml"></dd>
 
+
+
+            <editable
+                title="spr.latitude"
+                institution="photo.lat"
+                stock="photo.lat"
+                value="photo.lat"
+                field="lat"
+                type="photo"
+                entry="photo.id" />
+
+            <editable
+                title="spr.longitude"
+                institution="photo.lon"
+                stock="photo.lon"
+                value="photo.lon"
+                field="lon"
+                type="photo"
+                entry="photo.id" />
+
             <editable
                 title="spr.edm_notes"
                 institution="photo.inst_id"
