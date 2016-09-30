@@ -575,6 +575,7 @@ class StreamedSearch
         while ($assoc = mysql_fetch_assoc($result)) {
             if ($_GET['lang']!='de'){
                 $assoc['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$assoc['fotografengattungen_set']);
+                $assoc['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$assoc['bildgattungen_set']);
             }
             array_push($this->results['photographer_results'], $assoc);
         }
