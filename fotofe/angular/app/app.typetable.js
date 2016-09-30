@@ -347,7 +347,8 @@ app.controller('TypeTableCtrl', [
                 '/?a=streamsearch'+
                 '&type='+$scope.type +
                 '&limit='+$scope.queryLimit +
-                '&offset='+$scope.queryOffset;
+                '&offset='+$scope.queryOffset  +
+                '&lang='+$rootScope.lang;
 
             if($scope.directFilters.length > 0) {
                 $scope.query += '&direct=' + $scope.directFilters.join(",");
