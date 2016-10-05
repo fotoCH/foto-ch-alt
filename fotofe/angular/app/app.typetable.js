@@ -380,7 +380,7 @@ app.controller('TypeTableCtrl', [
                         response = "[" + response + "]";
                         var newresult = JSON.parse(response);
                         newresult = newresult[newresult.length-1];
-                        console.log(newresult)
+
                         if(newresult[$scope.type + "_results"].length > 0){
                             setValues(newresult, append);
                         }
@@ -391,6 +391,9 @@ app.controller('TypeTableCtrl', [
             }).then(function(response) {
                 //console.log('then');
                 $scope.filtering = false;
+                var result = JSON.parse("[" + data + "]");
+                result = result[result.length - 1];
+                console.log(result);
                 /*
                 try {
                     var data = response.data.replace(/}{/g, "},{");
