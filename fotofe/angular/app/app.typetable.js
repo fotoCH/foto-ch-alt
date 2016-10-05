@@ -406,7 +406,7 @@ app.controller('TypeTableCtrl', [
                 catch (e){
                     console.log(e);
                 }
-                */
+                
 
             });
         }
