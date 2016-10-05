@@ -389,7 +389,8 @@ app.controller('TypeTableCtrl', [
                     }
                 }
             }).then(function(response) {
-                console.log('then');
+                //console.log('then');
+                $scope.filtering = false;
                 /*
                 try {
                     var data = response.data.replace(/}{/g, "},{");
@@ -404,6 +405,7 @@ app.controller('TypeTableCtrl', [
                     console.log(e);
                 }
                 */
+
             });
         }
 
