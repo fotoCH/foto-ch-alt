@@ -388,7 +388,9 @@ app.controller('TypeTableCtrl', [
                         console.log(e);
                     }
                 }
-            })/*.then(function(response) {
+            }).then(function(response) {
+                console.log('then');
+                /*
                 try {
                     var data = response.data.replace(/}{/g, "},{");
                     console.log();
@@ -401,7 +403,8 @@ app.controller('TypeTableCtrl', [
                 catch (e){
                     console.log(e);
                 }
-            })*/;
+                */
+            });
         }
 
         if($scope.searchquery != '') {
