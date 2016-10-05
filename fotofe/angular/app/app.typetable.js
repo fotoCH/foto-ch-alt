@@ -371,7 +371,7 @@ app.controller('TypeTableCtrl', [
                 },
                 transformResponse: [function (data) {
                   return data;
-                }]/*,
+                }],
                 onProgress: function(event) {
                     try {
                         console.log('progress');
@@ -384,10 +384,11 @@ app.controller('TypeTableCtrl', [
                     } catch (e) {
                         console.log(e);
                     }
-                }*/
-            }).then(function(response) {
+                }
+            })/*.then(function(response) {
                 try {
                     var data = response.data.replace(/}{/g, "},{");
+                    console.log();
                     var result = JSON.parse("[" + data + "]");
                     result = result[result.length - 1];
                     setValues(result, append);
@@ -397,7 +398,7 @@ app.controller('TypeTableCtrl', [
                 catch (e){
                     console.log(e);
                 }
-            });
+            })*/;
         }
 
         if($scope.searchquery != '') {
