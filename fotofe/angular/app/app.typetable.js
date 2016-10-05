@@ -380,7 +380,9 @@ app.controller('TypeTableCtrl', [
                         response = "[" + response + "]";
                         var newresult = JSON.parse(response);
                         newresult = newresult[newresult.length-1];
-                        setValues(newresult, append);
+                        if(newresult.length > 0){
+                            setValues(newresult, append);
+                        }
                     } catch (e) {
                         console.log(e);
                     }
