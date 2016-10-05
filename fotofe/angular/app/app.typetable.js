@@ -381,7 +381,7 @@ app.controller('TypeTableCtrl', [
                         var newresult = JSON.parse(response);
                         newresult = newresult[newresult.length-1];
                         console.log(newresult)
-                        if(newresult.length > 0){
+                        if(newresult[$scope.type + "_results"].length > 0){
                             setValues(newresult, append);
                         }
                     } catch (e) {
