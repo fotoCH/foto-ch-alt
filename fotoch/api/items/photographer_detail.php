@@ -43,6 +43,16 @@ while($fetch=@mysql_fetch_assoc($result)){
 	}
 
 
+	$fetch['fotografengattungen_s'] = array();
+	$fetch['bildgattungen_s'] = array();
+
+	$translationsGattungen = getTranslationsGattungen();
+	$baseLang = $_GET['lang'] ? $_GET['lang'] : 'de';
+
+	foreach ($fetch['availableLanguages'] as $lang){
+		$fetch['fotografengattungen_s'][$lang] = str_replace($translationsGattungen['fotografengattungen_uebersetzungen'][$baseLang],$translationsGattungen['fotografengattungen_uebersetzungen'][$lang],$fetch['fotografengattungen_set']);
+		$fetch['bildgattungen_s'][$lang] = str_replace($translationsGattungen['bildgattungen_uebersetzungen'][$baseLang],$translationsGattungen['bildgattungen_uebersetzungen'][$lang],$fetch['bildgattungen_set']);
+	}
 
 	if ($_GET['lang']!='de'){
 		$fetch['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$fetch['fotografengattungen_set']);
@@ -99,6 +109,9 @@ while($fetch=@mysql_fetch_assoc($result)){
 	$out['fotografengattungen']=trim($fetch['fotografengattungen_set']);
 
 	$out['bildgattungen']=trim($fetch['bildgattungen_set']);
+	$out['fotografengattungen_s']=$fetch['fotografengattungen_s'];
+	$out['bildgattungen_s']=$fetch['bildgattungen_s'];
+
 
 	//$def->assign("Arbeitsort",$spr['arbeitsort']);
 
@@ -324,4 +337,17 @@ if(auth_level(USER_GUEST_FOTOS)){
 	$fotograph->assign('PHOTOS',$randomPhotos);
 	$fotograph->parse('contents.content_detail.photo_panel');
 } */
+
+function getTranslationsGattungen(){
+	$translationsResult = mysql_query("Select * from sprache WHERE array>0");
+	$translations = array();
+	while($row=@mysql_fetch_assoc($translationsResult)) {
+		$translations[$row['name']]['de'] = explode(',', $row['de']);
+		$translations[$row['name']]['fr'] = explode(',', $row['fr']);
+		$translations[$row['name']]['it'] = explode(',', $row['it']);
+		$translations[$row['name']]['rm'] = explode(',', $row['rm']);
+		$translations[$row['name']]['en'] = explode(',', $row['en']);
+	}
+	return $translations;
+}
 ?>
