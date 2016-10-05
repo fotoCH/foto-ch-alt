@@ -213,8 +213,10 @@ class StreamedSearch
             if ($level >= 1) {
                 $sql .= " OR namen.vorname LIKE '%" . $term . "%'";
                 $sql .= " OR namen.nachname LIKE '%" . $term . "%'";
-                $sql .= " OR bestand.name" . $this->lang . " LIKE '%" . $term . "%'";
-                $sql .= " OR institution.name" . $this->lang . " LIKE '%" . $term . "%'";
+                $sql .= " OR bestand.name" . " LIKE '%" . $term . "%'";
+                //$sql .= " OR bestand.name" . $this->lang . " LIKE '%" . $term . "%'";
+                $sql .= " OR institution.name" . " LIKE '%" . $term . "%'";
+                //$sql .= " OR institution.name" . $this->lang . " LIKE '%" . $term . "%'";
             }
             if ($level >= 2) {
                 $sql .= " OR fotos.dcterms_medium LIKE '%" . $term . "%'";
@@ -604,6 +606,9 @@ class StreamedSearch
         }
         // not enough results yet for the limit...
         if (count($this->results[$type . '_results']) <= $this->limitResults) {
+            /*echo $level . '&' . $type . ': <br>';
+            var_dump(count($this->results[$type . '_results']));
+            var_dump($this->results);*/
             return false;
         }
         return true;
