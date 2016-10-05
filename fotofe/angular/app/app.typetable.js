@@ -386,12 +386,17 @@ app.controller('TypeTableCtrl', [
                     }
                 }*/
             }).then(function(response) {
-                var data = response.data.replace(/}{/g, "},{");
-                var result = JSON.parse("[" + data + "]");
-                result = result[result.length - 1];
-                setValues(result, append);
-                $scope.filtering = false;
-                $rootScope.loadednum = $scope.tableRows.length;
+                try {
+                    var data = response.data.replace(/}{/g, "},{");
+                    var result = JSON.parse("[" + data + "]");
+                    result = result[result.length - 1];
+                    setValues(result, append);
+                    $scope.filtering = false;
+                    $rootScope.loadednum = $scope.tableRows.length;
+                }
+                catch (e){
+                    console.log(e);
+                }
             });
         }
 
