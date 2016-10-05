@@ -391,15 +391,14 @@ app.controller('TypeTableCtrl', [
             }).then(function(response) {
                 //console.log('then');
                 $scope.filtering = false;
-                var result = JSON.parse("[" + data + "]");
-                result = result[result.length - 1];
-                console.log(result);
-                /*
+
+
                 try {
                     var data = response.data.replace(/}{/g, "},{");
-                    console.log();
+                    console.log(data);
                     var result = JSON.parse("[" + data + "]");
                     result = result[result.length - 1];
+                    console.log(result);
                     setValues(result, append);
                     $scope.filtering = false;
                     $rootScope.loadednum = $scope.tableRows.length;
