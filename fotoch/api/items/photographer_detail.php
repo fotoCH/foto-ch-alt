@@ -50,8 +50,8 @@ while($fetch=@mysql_fetch_assoc($result)){
 	$baseLang = $_GET['lang'] ? $_GET['lang'] : 'de';
 
 	foreach ($fetch['availableLanguages'] as $lang){
-		$fetch['fotografengattungen_s'][$lang] = str_replace($translationsGattungen['fotografengattungen_uebersetzungen'][$baseLang],$translationsGattungen['fotografengattungen_uebersetzungen'][$lang],$fetch['fotografengattungen_set']);
-		$fetch['bildgattungen_s'][$lang] = str_replace($translationsGattungen['bildgattungen_uebersetzungen'][$baseLang],$translationsGattungen['bildgattungen_uebersetzungen'][$lang],$fetch['bildgattungen_set']);
+		$fetch['fotografengattungen_s'][$lang] = implode(', ', explode(',', str_replace($translationsGattungen['fotografengattungen_uebersetzungen'][$baseLang],$translationsGattungen['fotografengattungen_uebersetzungen'][$lang],$fetch['fotografengattungen_set'])));
+		$fetch['bildgattungen_s'][$lang] = implode(', ', explode(',',str_replace($translationsGattungen['bildgattungen_uebersetzungen'][$baseLang],$translationsGattungen['bildgattungen_uebersetzungen'][$lang],$fetch['bildgattungen_set'])));
 	}
 
 	if ($_GET['lang']!='de'){
