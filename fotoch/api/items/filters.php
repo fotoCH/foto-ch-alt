@@ -30,6 +30,8 @@ class Filters
     private function fotografengattungen()
     {
         $this->distinctFieldValues("fotografen.fotografengattungen_set", "fotografen");
+        $filters = implode(',', $this->filters['possible_values']);
+        $this->filters['translations'] = explode(',', setuebersetzungen('fotografengattungen_uebersetzungen', $filters));
     }
 
     private function bildgattungen()
