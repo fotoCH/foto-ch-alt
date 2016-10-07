@@ -37,6 +37,8 @@ class Filters
     private function bildgattungen()
     {
         $this->distinctFieldValues("fotografen.bildgattungen_set", "fotografen");
+        $filters = implode(',', $this->filters['possible_values']);
+        $this->filters['translations'] = explode(',', setuebersetzungen('bildgattungen_uebersetzungen', $filters));
     }
 
     private function fotografenKanton()
@@ -176,7 +178,7 @@ class Filters
     public function output($type)
     {
         $this->type = $type;
-        $cacheObj = new fotoCache($this->cachePrefix);
+        $cacheObj = new fotoCache($this->cachePrefix . '_' . $this->lang);
         if($cacheObj->isCached($this->type)){
             $this->filters = $cacheObj->getCache($this->type);
         }else {
