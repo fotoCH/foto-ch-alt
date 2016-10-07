@@ -64,7 +64,8 @@
                 <a ng-click="$root.detail(photo.stock_id, 'inventory' )">{{ photo.stock }}</a>
             </dd>
             <dt ng-if="photo.copy">{{spr.copy}}</dt>
-            <dd ng-if="photo.copy" ng-bind-html="photo.copy + ' ' + photo.edm_licence | rawHtml"></dd>
+            <dd ng-if="photo.copy && photo.edm_licence" ng-bind-html="photo.copy + ' ' + photo.edm_licence | rawHtml"></dd>
+            <dd ng-if="photo.copy && !photo.edm_licence" ng-bind-html="photo.copy | rawHtml"></dd>
             <dt ng-if="photo.url_wikimedia">{{spr.url_wikimedia}}</dt>
             <dd ng-if="photo.url_wikimedia"><a href="{{ photo.url_wikimedia }}" target="_blank" style="word-wrap: break-word;">
                     {{ photo.url_wikimedia }}</a>
@@ -89,8 +90,6 @@
             <dd ng-if="photo.supp_id" ng-bind-html="photo.supp_id | rawHtml"></dd>
             <dt ng-if="photo.supp_id">ID-Foto</dt>
             <dd ng-if="photo.supp_id" ng-bind-html="photo.id | rawHtml"></dd>
-
-
 
             <editable
                 title="spr.latitude"
