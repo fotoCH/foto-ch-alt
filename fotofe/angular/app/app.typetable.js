@@ -41,6 +41,15 @@ app.controller('TypeTableCtrl', [
 
         loadData();
 
+        $scope.getFilterTranslation = function (target, value, key){
+            for (var index in $scope.realFilters) {
+                if($scope.realFilters[index].target == target && typeof ($scope.realFilters[index].translations) !== 'undefined'){
+                    return $scope.realFilters[index].translations[key];
+                }
+            }
+            return value;
+        };
+
         $scope.filterValue = function(value, target) {
             $scope.filtering = true;
             var toFilter = target+":"+value;
@@ -86,6 +95,7 @@ app.controller('TypeTableCtrl', [
                     filter.assoc = false;
                 }
                 filter.values = data.possible_values;
+                filter.translations = data.translations;
                 $scope.realFilters[index] = filter;
             });
         }
@@ -371,7 +381,7 @@ app.controller('TypeTableCtrl', [
                 },
                 transformResponse: [function (data) {
                   return data;
-                }],
+                }]/*,
                 onProgress: function(event) {
                     try {
                         console.log('progress');
@@ -387,7 +397,7 @@ app.controller('TypeTableCtrl', [
                     } catch (e) {
                         console.log(e);
                     }
-                }
+                }*/
             }).then(function(response) {
                 //console.log('then');
                 $scope.filtering = false;
@@ -406,7 +416,7 @@ app.controller('TypeTableCtrl', [
                 catch (e){
                     console.log(e);
                 }
-                
+
 
             });
         }
