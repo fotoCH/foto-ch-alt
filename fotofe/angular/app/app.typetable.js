@@ -72,7 +72,7 @@ app.controller('TypeTableCtrl', [
         };
 
         $scope.setFilter = function(key, index) {
-            $http.get($rootScope.ApiUrl + '/?a=filters&type=' + key).success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=filters&type=' + key + '&lang=' + $rootScope.lang).success(function (data) {
                 var sourceFilter = $scope.filters;
                 if(typeof(sourceFilter) == 'string') {
                     sourceFilter = JSON.parse(sourceFilter);
