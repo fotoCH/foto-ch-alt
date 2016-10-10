@@ -47,7 +47,7 @@ while($fetch=@mysql_fetch_assoc($result)){
 	$fetch['bildgattungen_s'] = array();
 
 	$translationsGattungen = getTranslationsGattungen();
-	$baseLang = $this->lang ? $this->lang : 'de';
+	$baseLang = $glob['LANG'];;
 
 	foreach ($fetch['availableLanguages'] as $lang){
 		$fetch['fotografengattungen_s'][$lang] = implode(', ', explode(',', str_replace($translationsGattungen['fotografengattungen_uebersetzungen'][$baseLang],$translationsGattungen['fotografengattungen_uebersetzungen'][$lang],$fetch['fotografengattungen_set'])));
