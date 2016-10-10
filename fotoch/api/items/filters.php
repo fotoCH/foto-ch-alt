@@ -178,7 +178,7 @@ class Filters
     public function output($type)
     {
         $this->type = $type;
-        $cacheObj = new fotoCache($this->cachePrefix . '_' . $this->lang);
+        $cacheObj = new fotoCache($this->cachePrefix . '_' . $this->language);
         if($cacheObj->isCached($this->type)){
             $this->filters = $cacheObj->getCache($this->type);
         }else {
