@@ -16,7 +16,7 @@ class Venue{
 
     function __construct($get_array)
     {
-        $this->term = isset($get_array['query']) ? mysql_escape_string($get_array['query']) : false;
+        $this->term = isset($get_array['query']) ? mysqli_escape_string($sqli, $get_array['query']) : false;
         $this->searchPhotographers = isset($get_array['photographer']) ? filter_var($get_array['photographer'], FILTER_VALIDATE_BOOLEAN) : true;
         $this->searchPhotos = isset($get_array['photos']) ? filter_var($get_array['photos'], FILTER_VALIDATE_BOOLEAN) : true;
     }

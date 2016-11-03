@@ -62,11 +62,11 @@ if ($id == '') {
 	if (!empty($where)){
 		$query.=" WHERE $where";
 	}
-	$result=mysql_query($query);
-	$rowCount = mysql_num_rows($result);
+	$result=mysqli_query($sqli, $query);
+	$rowCount = mysqli_num_rows($result);
 	$out['result_count']= $rowCount;
 	// do query
-	while ( $fetch = mysql_fetch_assoc ( $result ) ) {
+	while ( $fetch = mysqli_fetch_assoc ( $result ) ) {
 		//pushfields($outl,$fetch,array('nachname','vorname','namenszusatz','id'));
 		if(array_key_exists('fbearbeitungsdatum', $fetch)) {
 			$outl['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];

@@ -33,8 +33,8 @@ if ($id==''){
 			    $sql="SELECT * FROM ausstellung ORDER BY titel Asc";
 			}
 		} 
-		$result=mysql_query($sql);
-		while($fetch=mysql_fetch_array($result)){
+		$result=mysqli_query($sqli, $sql);
+		while($fetch=mysqli_fetch_array($result)){
 			
 			if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				
@@ -44,17 +44,17 @@ if ($id==''){
 			pushfields($outl,$fetch,array('titel','jahr','ort','typ','institution','inst_id','nameclass','id','gesperrt'));
 			
 			
-			$result6=mysql_query("SELECT * FROM ausstellung_fotograf WHERE ausstellung_id=".$fetch['id']);
+			$result6=mysqli_query($sqli, "SELECT * FROM ausstellung_fotograf WHERE ausstellung_id=".$fetch['id']);
     
 		        $fotogr=array();
 //			$outl=array();
 			$outf=array();
 			$fotographer=array();
-		        while($fetch6=mysql_fetch_array($result6)){
+		        while($fetch6=mysqli_fetch_array($result6)){
 		                $fo=getfo($fetch6['fotograf_id']);
     			        $fotogr[$fo['sortn']]=$fo;
     			}
-    			mysql_free_result($result6);
+    			mysqli_free_result($result6);
 		    	$foton=array_keys($fotogr);
 			sort($foton);
 			foreach ($foton as $k){

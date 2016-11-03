@@ -34,13 +34,14 @@ class YearProvider {
     }
 
     private function literature($year) {
+	global $sqli;
         $query = "SELECT * FROM literatur";
         $query.= " WHERE jahr = '".$year."'";
         $query.= $this->limit;
-        $rs = mysql_query($query);
+        $rs = mysqli_query($sqli, $query);
         $this->events[$year]['literature'] = array();
 
-        while($row = mysql_fetch_assoc($rs)) {
+        while($row = mysqli_fetch_assoc($rs)) {
             array_push($this->events[$year]['literature'], array(
                 "id" => $row['id'],
                 "author" => $row['verfasser_vorname'].' '.$row['verfasser_name'],
@@ -50,13 +51,14 @@ class YearProvider {
     }
 
     private function exhibition($year) {
+	global $sqli;
         $query = "SELECT * FROM ausstellung";
         $query.= " WHERE jahr = '".$year."'";
         $query.= $this->limit;
-        $rs = mysql_query($query);
+        $rs = mysqli_query($sqli, $query);
         $this->events[$year]['exhibitions'] = array();
 
-        while($row = mysql_fetch_assoc($rs)) {
+        while($row = mysqli_fetch_assoc($rs)) {
             array_push($this->events[$year]['exhibitions'], array(
                 "id" => $row['id'],
                 "place" => $row['ort'],
@@ -67,13 +69,14 @@ class YearProvider {
     }
 
     private function photos($year) {
+	global $sqli;
         $query = "SELECT * FROM fotos";
         $query.= " WHERE dc_created LIKE '".$year."%'";
         $query.= $this->limit;
-        $rs = mysql_query($query);
+        $rs = mysqli_query($sqli, $query);
         $this->events[$year]['photos'] = array();
 
-        while($row = mysql_fetch_assoc($rs)) {
+        while($row = mysqli_fetch_assoc($rs)) {
             array_push($this->events[$year]['photos'], array(
                 "id" => $row['id'],
                 "path" => $row['image_path'],
@@ -83,14 +86,15 @@ class YearProvider {
     }
 
     private function born($year) {
+	global $sqli;
         $query = "SELECT * FROM fotografen";
         $query.= " INNER JOIN namen ON fotografen.id = namen.fotografen_id";
         $query.= " WHERE geburtsdatum LIKE '".$year."%' AND unpubliziert = 0";
         $query.= $this->limit;
-        $rs = mysql_query($query);
+        $rs = mysqli_query($sqli, $query);
         $this->events[$year]['born'] = array();
 
-        while($row = mysql_fetch_assoc($rs)) {
+        while($row = mysqli_fetch_assoc($rs)) {
             array_push($this->events[$year]['born'], array(
                 "photograph_id" => $row['fotografen_id'],
                 "photographer_name" => $row['vorname']." ".$row['nachname'],
@@ -100,14 +104,15 @@ class YearProvider {
     }
 
     private function died($year) {
+	global $sqli;
         $query = "SELECT * FROM fotografen";
         $query.= " INNER JOIN namen ON fotografen.id = namen.fotografen_id";
         $query.= " WHERE todesdatum LIKE '".$year."%' AND unpubliziert = 0";
         $query.= $this->limit;
-        $rs = mysql_query($query);
+        $rs = mysqli_query($sqli, $query);
         $this->events[$year]['deaths'] = array();
 
-        while($row = mysql_fetch_assoc($rs)) {
+        while($row = mysqli_fetch_assoc($rs)) {
             array_push($this->events[$year]['deaths'], array(
                 "photograph_id" => $row['fotografen_id'],
                 "photographer_name" => $row['vorname']." ".$row['nachname'],
@@ -117,15 +122,16 @@ class YearProvider {
     }
 
     private function stoppedWork($year) {
+	global $sqli;
         $query = "SELECT * FROM arbeitsperioden";
         $query.= " INNER JOIN namen on arbeitsperioden.fotografen_id = namen.fotografen_id";
         $query.= " INNER JOIN fotografen on arbeitsperioden.fotografen_id = fotografen.id";
         $query.= " WHERE bis = ".$year." AND arbeitsort <> '' AND um_von = 0 AND fotografen.unpubliziert = 0";
         $query.= $this->limit;
-        $rs = mysql_query($query);
+        $rs = mysqli_query($sqli, $query);
         $this->events[$year]['workstop'] = array();
 
-        while($row = mysql_fetch_assoc($rs)) {
+        while($row = mysqli_fetch_assoc($rs)) {
             array_push($this->events[$year]['workstop'], array(
                 "photograph_id" => $row['fotografen_id'],
                 "photographer_name" => $row['vorname']." ".$row['nachname'],
@@ -135,15 +141,16 @@ class YearProvider {
     }
 
     public function startedWork($year) {
+	global $sqli;
         $query = "SELECT * FROM arbeitsperioden";
         $query.= " INNER JOIN namen on arbeitsperioden.fotografen_id = namen.fotografen_id";
         $query.= " INNER JOIN fotografen on arbeitsperioden.fotografen_id = fotografen.id";
         $query.= " WHERE von = ".$year." AND arbeitsort <> '' AND um_von = 0 AND fotografen.unpubliziert = 0";
         $query.= $this->limit;
-        $rs = mysql_query($query);
+        $rs = mysqli_query($sqli, $query);
         $this->events[$year]['workbegin'] = array();
 
-        while($row = mysql_fetch_assoc($rs)) {
+        while($row = mysqli_fetch_assoc($rs)) {
             array_push($this->events[$year]['workbegin'], array(
                 "photograph_id" => $row['fotografen_id'],
                 "photographer_name" => $row['vorname']." ".$row['nachname'],

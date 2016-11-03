@@ -50,17 +50,18 @@ class UserManagement
 
     private function getStocks()
     {
+	global $sqli;
         $stocks = array();
 
         // copied from filters->photoStocks (only stocks with photos)
         $query = "SELECT DISTINCT dcterms_ispart_of as 'value' FROM fotos";
-        $set = mysql_query($query);
-        while ($row = mysql_fetch_assoc($set)) {
+        $set = mysqli_query($sqli, $query);
+        while ($row = mysqli_fetch_assoc($set)) {
             $possible = $row['value'];
             if (!array_key_exists($possible, $stocks)) {
                 $stockQuery = "SELECT name FROM bestand WHERE id=" . $possible;
-                $result = mysql_query($stockQuery);
-                while ($stock = mysql_fetch_assoc($result)) {
+                $result = mysqli_query($sqli, $stockQuery);
+                while ($stock = mysqli_fetch_assoc($result)) {
                     array_push($stocks, array(
                         "id" => $possible,
                         "value" => $stock['name']
@@ -73,10 +74,11 @@ class UserManagement
 
     private function changeUserLevel()
     {
+	global sqli;
         if (is_numeric($_GET['id']) && is_numeric($_GET['level'])) {
             $update_query = "UPDATE users SET level=" . $_GET['level'] . " WHERE id=" . $_GET['id'];
 
-            mysql_query($update_query) ? jsonout(array('changeUserLevel' => 'success')) : jsonout(array('changeUserLevel' => 'database error (' . mysql_error() . ')'));
+            mysqli_query($sqli, $update_query) ? jsonout(array('changeUserLevel' => 'success')) : jsonout(array('changeUserLevel' => 'database error (' . mysqli_error($sqli) . ')'));
             return;
         } else {
             jsonout(array('changeUserLevel' => 'Paremeter are not numeric or not set.'));
@@ -86,13 +88,14 @@ class UserManagement
 
     private function deleteUser()
     {
+	global $sqli;
         if (is_numeric($_GET['id'])) {
             $delete_query = "DELETE FROM users WHERE id=" . $_GET['id'];
 
             $delete_relations_query = "DELETE FROM bestand_users WHERE user_id=" . $_GET['id'];
-            mysql_query($delete_relations_query);
+            mysqli_query($sqli, $delete_relations_query);
 
-            mysql_query($delete_query) ? jsonout(array('deleteUser' => 'success')) : jsonout(array('deleteUser' => 'database error (' . mysql_error() . ')'));
+            mysqli_query($sqli, $delete_query) ? jsonout(array('deleteUser' => 'success')) : jsonout(array('deleteUser' => 'database error (' . mysqli_error($sqli) . ')'));
             return;
         } else {
             jsonout(array('deleteUser' => 'Paremeter are not numeric or not set.'));
@@ -100,9 +103,17 @@ class UserManagement
         }
     }
 
+function array_map_callback($a)
+{
+  global $sqli;
+  return mysqli_real_escape_string($sqli, $a);
+}
+
+
     private function addUser()
     {
 
+	global $sqli;
         // todo POST request!
         /*
         $user = json_decode(file_get_contents("php://input"));
@@ -116,7 +127,7 @@ class UserManagement
         unset($userData['action']);
         unset($userData['stocks']);
 
-        $userData = array_map('mysql_escape_string', $userData);
+        $userData = array_map('array_map_callback', $userData);
         $userData['password'] = md5($userData['password']);
 
         $query = "INSERT INTO users (";
@@ -124,21 +135,21 @@ class UserManagement
         $query .= " VALUES('" . implode("', '", $userData) . "')";
 
         if (count($stocks) > 0) {
-            $insert_result = mysql_query($query);
+            $insert_result = mysqli_query($sqli, $query);
             if ($insert_result) {
-                $user_id = mysql_fetch_assoc(mysql_query("SELECT id FROM users WHERE username='" . $userData['username'] . "' LIMIT 1"))['id'];
+                $user_id = mysqli_fetch_assoc(mysqli_query($sqli, "SELECT id FROM users WHERE username='" . $userData['username'] . "' LIMIT 1"))['id'];
                 $stocks_query = "INSERT INTO bestand_users (bestand_id, user_id)";
                 $stocks_values = array();
                 foreach ($stocks as $stock) {
                     $stocks_values[] = "(" . $stock . "," . $user_id . ")";
                 }
                 $stocks_query .= " VALUES " . implode(',', $stocks_values) . ";";
-                return mysql_query($stocks_query) ? jsonout(array('addUser' => 'success')) : jsonout(array('addUser' => 'database error: ' . mysql_error()));
+                return mysqli_query($sqli, $stocks_query) ? jsonout(array('addUser' => 'success')) : jsonout(array('addUser' => 'database error: ' . mysqli_error($sqli)));
             } else {
-                jsonout(array('addUser' => 'database error: ' . mysql_error()));
+                jsonout(array('addUser' => 'database error: ' . mysqli_error($sqli)));
             }
         } else {
-            return mysql_query($query) ? jsonout(array('addUser' => 'success')) : jsonout(array('addUser' => 'database error: ' . mysql_error()));
+            return mysqli_query($sqli, $query) ? jsonout(array('addUser' => 'success')) : jsonout(array('addUser' => 'database error: ' . mysqli_error($sqli)));
         }
 
     }
@@ -146,13 +157,14 @@ class UserManagement
 
     private function changeStocks()
     {
+	global $sqli;
         $stocks = array_filter(explode(',', $_REQUEST['stocks']));
         $userId = $_REQUEST['user'];
 
         if (is_numeric($userId)) {
             // delete former relations
             $delete_query = "DELETE FROM bestand_users WHERE user_id=" . $userId;
-            if (mysql_query($delete_query)) {
+            if (mysqli_query($sqli, $delete_query)) {
                 if (count($stocks) > 0) {
                     // insert new relations
                     $stocks_query = "INSERT INTO bestand_users (bestand_id, user_id)";
@@ -161,12 +173,12 @@ class UserManagement
                         $stocks_values[] = "(" . $stock . "," . $userId . ")";
                     }
                     $stocks_query .= " VALUES " . implode(',', $stocks_values) . ";";
-                    return mysql_query($stocks_query) ? jsonout(array('changeStocks' => 'success')) : jsonout(array('changeStocks' => 'database error: ' . mysql_error()));
+                    return mysqli_query($sqli, $stocks_query) ? jsonout(array('changeStocks' => 'success')) : jsonout(array('changeStocks' => 'database error: ' . mysqli_error($sqli)));
                 }
                 return jsonout(array('changeStocks' => 'success'));
 
             } else {
-                return jsonout(array('changeStocks' => 'database error: ' . mysql_error()));
+                return jsonout(array('changeStocks' => 'database error: ' . mysqli_error($sqli)));
             }
         }
     }

@@ -6,8 +6,9 @@ function pushfields(&$o,$i,$list){
 }
 
 function getClean($s){
+    global $sqli;
     if(array_key_exists($s, $_REQUEST)) {
-        return mysql_real_escape_string($_REQUEST[$s]);
+        return mysqli_real_escape_string($sqli,$_REQUEST[$s]);
     }
     return false;
 }
@@ -72,11 +73,12 @@ function array_utf8($array) {
 
 
 function getToken($u, $l, $i){
+        global $sqli;
 	$sql="SELECT * FROM auth WHERE user='$u'";
 	$res=get1fromselect($sql);
 	if (!$res){
 		$sql="INSERT INTO `auth` SET `user`='$u', `token`=UUID(), `expires`=DATE_ADD(NOW(), INTERVAL 2 HOUR), `level`=$l, `inst_comment`=$i;";
-		mysql_query($sql);
+		mysqli_query($sqli, $sql);
 		$sql="SELECT * FROM auth WHERE user='$u'";
 		$res=get1fromselect($sql);
 	}
@@ -105,11 +107,12 @@ function getTokenInfo($t){
 
 
 function logOff($t){
+        global $sqli;
 	$sql="SELECT * FROM auth WHERE token='$t'";
 	$res=get1fromselect($sql);
 	if ($res){
 		$sql="DELETE FROM auth WHERE token='$t'";
-		mysql_query($sql);
+		mysqli_query($sqli, $sql);
 		return true;
 	} 
 	return false;
@@ -138,6 +141,7 @@ function formlebensdaten($gdate,$gcode,$tdate,$tcode){  // formatiert lebenszeit
 }
 
 function formumfeldn($t){  // expandiert Links im Umfeld
+        global $sqli;
 	$suchmuster = "/<.link:(.\d+)>/";
 	$tref=preg_match_all($suchmuster,$t,$treffer);
 	//print_r($treffer);
@@ -151,13 +155,13 @@ function formumfeldn($t){  // expandiert Links im Umfeld
 			$id=substr($id,1);
 			$n=1;
 
-			$result=mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
+			$result=mysqli_query($sqli, "SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
 			//echo("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
 
 		} else {
-			$result=mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen_id=$id ORDER BY namen.id Asc");
+			$result=mysqli_query($sqli, "SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen_id=$id ORDER BY namen.id Asc");
 		}
-		$fetch=mysql_fetch_array($result);
+		$fetch=mysqli_fetch_array($result);
 		$name=$fetch['vorname'] .' '.$fetch['namenszusatz'].' '.$fetch['nachname'];
 		// echo $name;
 		if ($n==1) $id=$fetch['fotografen_id'];
@@ -195,10 +199,11 @@ function formdatesimp2($date,$code){
 }
 
 function get1fromtable($t,$w){
+        global $sqli;
 	$sql="SELECT * FROM $t WHERE $w LIMIT 1";
-	$result=mysql_query($sql);
-	if (mysql_num_rows($result)!=0){
-		$res= mysql_fetch_assoc($result);
+	$result=mysqli_query($sqli, $sql);
+	if (mysqli_num_rows($result)!=0){
+		$res= mysqli_fetch_assoc($result);
 
 		return($res);
 	} else {
@@ -207,12 +212,13 @@ function get1fromtable($t,$w){
 }
 
 function getfromtable($t,$w){
+        global $sqli;
 	$res=array();
 	$sql="SELECT * FROM $t WHERE $w";
-	$result=mysql_query($sql);
+	$result=mysqli_query($sqli, $sql);
 	//echo $sql;
-	if (mysql_num_rows($result)!=0){
-		while ($r= mysql_fetch_assoc($result)){
+	if (mysqli_num_rows($result)!=0){
+		while ($r= mysqli_fetch_assoc($result)){
 			$res[]=$r;
 		}
 
@@ -223,16 +229,17 @@ function getfromtable($t,$w){
 }
 
 function getfromtableUser($t,$w){  // liefert alle Stundeneinträge des Monats minestens aber die neuesten 20
+        global $sqli;
 	$res=array();
 	$sql="SELECT * FROM $t WHERE $w";
-	$result=mysql_query($sql);
+	$result=mysqli_query($sqli, $sql);
 	//echo $sql;
-	if (mysql_num_rows($result)!=0){
+	if (mysqli_num_rows($result)!=0){
 		$count=0;
 		$fertig=0;
 		$h=getErster();
 
-		while (($r= mysql_fetch_assoc($result)) && ($fertig==0)){
+		while (($r= mysqli_fetch_assoc($result)) && ($fertig==0)){
 			//print_r($r);
 			//echo $r['datum'];
 			$count++;
@@ -248,12 +255,13 @@ function getfromtableUser($t,$w){  // liefert alle Stundeneinträge des Monats m
 }
 
 function getfromselect($s){
+        global $sqli;
 	$res=array();
 	$sql=$s;
-	$result=mysql_query($sql);
+	$result=mysqli_query($sqli, $sql);
 	//echo $sql;
-	if (mysql_num_rows($result)!=0){
-		while ($r= mysql_fetch_assoc($result)){
+	if (mysqli_num_rows($result)!=0){
+		while ($r= mysqli_fetch_assoc($result)){
 			$res[]=$r;
 		}
 
@@ -264,11 +272,12 @@ function getfromselect($s){
 }
 
 function get1fromselect($s){
+        global $sqli;
 	$sql=$s;
-	$result=mysql_query($sql);
+	$result=mysqli_query($sqli, $sql);
 	//echo $sql;
-	if (mysql_num_rows($result)!=0){
-		$res= mysql_fetch_assoc($result);
+	if (mysqli_num_rows($result)!=0){
+		$res= mysqli_fetch_assoc($result);
 		return($res);
 	} else {
 		return false;
@@ -276,11 +285,12 @@ function get1fromselect($s){
 }
 
 function getfromtablebyid($t,$w){
+        global $sqli;
 	$res=array();
 	$sql="SELECT * FROM $t WHERE $w";
-	$result=mysql_query($sql);
-	if (mysql_num_rows($result)!=0){
-		while ($r= mysql_fetch_assoc($result)){
+	$result=mysqli_query($sqli, $sql);
+	if (mysqli_num_rows($result)!=0){
+		while ($r= mysqli_fetch_assoc($result)){
 			$res[$r['id']]=$r;
 		}
 

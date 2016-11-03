@@ -11,14 +11,14 @@ $set='';
 
 foreach ($fields as $f){
     if ($set) $set.=', ';
-    $set.='`'.$f.'`=\''.mysql_real_escape_string($data[$f]).'\'';
+    $set.='`'.$f.'`=\''.mysqli_real_escape_string($sqli, $data[$f]).'\'';
 }
 
 $sql="REPLACE fotos_comments SET $set , id=$id";
 
-mysql_query($sql);
+mysqli_query($sqli, $sql);
 $out['sql']=$sql;
-$out['sqle']=mysql_error();
+$out['sqle']=mysqli_error($sqli);
 
 jsonout($out);
 ?>

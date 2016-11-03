@@ -72,6 +72,7 @@ class RequestHandler {
     }
 
     private function reject() {
+	global $sqli;
         if(! array_key_exists('id', $_GET)) {
             return;
         }
@@ -80,7 +81,7 @@ class RequestHandler {
         $query.= " SET action = 'rejected', action_user = '".auth_user('user')."'";
         $query.= " WHERE id = ".$_GET['id'];
 
-        if(mysql_query($query)) {
+        if(mysqli_query($sqli, $query)) {
             jsonout(array('rejection' => 'success'));
         } else {
             jsonout(array('rejection' => 'failed'));
@@ -88,6 +89,7 @@ class RequestHandler {
     }
 
     private function accept() {
+	global $sqli;
         if(! array_key_exists('id', $_GET)) {
             return;
         }
@@ -102,7 +104,7 @@ class RequestHandler {
         $query.= " SET action = 'accepted', action_user = '".auth_user('user')."'";
         $query.= " WHERE id = ".$_GET['id'];
 
-        if(mysql_query($query)) {
+        if(mysqli_query($sqli, $query)) {
             jsonout(array('acception' => 'success'));
         } else {
             jsonout(array('acception' => 'failed'));
@@ -110,6 +112,7 @@ class RequestHandler {
     }
 
     private function updateValue() {
+	global $sqli;
         // some checks...
         if(! is_numeric($this->entry)) {
             return;
@@ -122,13 +125,14 @@ class RequestHandler {
         $query.= " SET ".$this->field." = '".$this->value."'";
         $query.= " WHERE id=".$this->entry;
 
-        mysql_query($query);
+        mysqli_query($sqli, $query);
     }
 
     private function updateQueueItem($id) {
+	global $sqli;
         $sql = "SELECT * FROM request_queue WHERE id =".$id;
-        $result = mysql_query($sql);
-        while($row = mysql_fetch_assoc($result)) {
+        $result = mysqli_query($sql);
+        while($row = mysqli_fetch_assoc($result)) {
             $this->entry = $row['entry'];
             $this->field = $row['field'];
             $this->type = $row['type'];
@@ -137,10 +141,11 @@ class RequestHandler {
     }
 
     private function getPending() {
+	global $sqli;
         $query = "SELECT COUNT(*) as 'num' FROM request_queue WHERE action IS NULL";
-        $set = mysql_query($query);
+        $set = mysqli_query($sqli, $query);
         $count = 0;
-        while($row = mysql_fetch_assoc($set)) {
+        while($row = mysqli_fetch_assoc($set)) {
             $count = $row['num'];
         }
 
@@ -150,6 +155,7 @@ class RequestHandler {
     }
 
     private function getRequests($type = 'pending') {
+	global $sqli;
         $query = "SELECT * FROM request_queue WHERE";
         if($type == 'pending') {
             $query.= " action IS NULL";
@@ -160,9 +166,9 @@ class RequestHandler {
         }
         $query.= " ORDER BY date DESC";
 
-        $result = mysql_query($query);
+        $result = mysqli_query($sqli, $query);
         $data = [];
-        while($row = mysql_fetch_assoc($result)) {
+        while($row = mysqli_fetch_assoc($result)) {
             $this->field = $row['field'];
             $this->type = $row['type'];
             $this->entry = $row['entry'];
@@ -173,6 +179,7 @@ class RequestHandler {
     }
 
     public function appendToQueue() {
+	global $sqli;
         if( $this->currentValue() == $this->value ) {
             jsonout(array(
                 "queue" => "no_change"
@@ -187,7 +194,7 @@ class RequestHandler {
                         '".$this->type."',
                         '".$this->value."'
                         )";
-            mysql_query($query);
+            mysqli_query($sqli, $query);
 
             jsonout(array(
                 "queue" => "append"
@@ -197,11 +204,12 @@ class RequestHandler {
     }
 
     private function currentValue() {
+	global $sqli;
         $query = "SELECT ".$this->field." FROM ".$this->typeTable[$this->type]. " WHERE id=".$this->entry. ' LIMIT 1';
-        $result = mysql_query($query);
+        $result = mysqli_query($sqli, $query);
         $count = 0;
         $value = '';
-        while($row = mysql_fetch_assoc($result)) {
+        while($row = mysqli_fetch_assoc($result)) {
             $value = $row[$this->field];
         }
         return $value;

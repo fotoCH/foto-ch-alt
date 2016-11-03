@@ -108,15 +108,16 @@ class Filters
 
     private function photoStocks()
     {
+	global $sqli;
         $this->filters['possible_values'] = array();
         $sql = "SELECT DISTINCT dcterms_ispart_of as 'value' FROM fotos";
-        $set = mysql_query($sql);
-        while ($row = mysql_fetch_assoc($set)) {
+        $set = mysqli_query($sqli, $sql);
+        while ($row = mysqli_fetch_assoc($set)) {
             $possible = $row['value'];
             if (!array_key_exists($possible, $this->filters['possible_values'])) {
                 $stockQuery = "SELECT name FROM bestand WHERE id=" . $possible;
-                $result = mysql_query($stockQuery);
-                while ($stock = mysql_fetch_assoc($result)) {
+                $result = mysqli_query($sqli, $stockQuery);
+                while ($stock = mysqli_fetch_assoc($result)) {
                     array_push($this->filters['possible_values'], array(
                         "id" => $possible,
                         "value" => $stock['name']
@@ -153,10 +154,11 @@ class Filters
 
     private function distinctFieldValues($field, $table, $where = '', $desc = false)
     {
+	global $sqli;
         $this->filters['possible_values'] = array();
         $sql = "SELECT DISTINCT " . $field . " as 'value' FROM " . $table . $where;
-        $set = mysql_query($sql);
-        while ($row = mysql_fetch_assoc($set)) {
+        $set = mysqli_query($sqli, $sql);
+        while ($row = mysqli_fetch_assoc($set)) {
             $possibles = explode(",", $row['value']);
             foreach ($possibles as $poss) {
                 $poss = trim($poss);

@@ -29,9 +29,9 @@ foreach ($res as $r){
 	$a=doCode($r['name']);
 	if ($a<>NULL){
 		//print_r($a);
-		$sql=("UPDATE arbeitsorte set lat='$a->lat', lon='$a->lon', swissname='".mysql_real_escape_string($a->label)."' WHERE id=$r[id]");
+		$sql=("UPDATE arbeitsorte set lat='$a->lat', lon='$a->lon', swissname='".mysqli_real_escape_string($sqli, $a->label)."' WHERE id=$r[id]");
 		echo $sql; echo "<br />\r\n";
-		mysql_query($sql);
+		mysqli_query($sqli, $sql);
 		flush();
 	}
 }

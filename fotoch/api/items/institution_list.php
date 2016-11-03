@@ -20,12 +20,12 @@ if ($id==''){
 		$issearch=2;
 		// Select: code
 		if(auth_level(USER_GUEST_READER_PARTNER)){
-			$result=mysql_query("SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $namecase LIKE '$anf%' ORDER BY ".$namecase);
+			$result=mysqli_query($sqli, "SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $namecase LIKE '$anf%' ORDER BY ".$namecase);
 		} else {
-			$result=mysql_query("SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '$anf%') AND (gesperrt=0) ORDER BY ".$namecase);
+			$result=mysqli_query($sqli, "SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '$anf%') AND (gesperrt=0) ORDER BY ".$namecase);
 		}
 
-		while($fetch=mysql_fetch_array($result)){
+		while($fetch=mysqli_fetch_array($result)){
 			
 			if ($fetch['autorin']!=''){
 				$outl ['nameclass']='subtitle3bio';

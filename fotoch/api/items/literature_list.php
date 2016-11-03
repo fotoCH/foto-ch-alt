@@ -20,12 +20,12 @@ if ($id==''){
 		$issearch=2;
 		// Select: code
 		if(auth_level(USER_GUEST_READER_PARTNER)){  
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$result=mysqli_query($sqli, "SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
 		} else {
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$result=mysqli_query($sqli, "SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
 		}
 
-		while($fetch=mysql_fetch_array($result)){
+		while($fetch=mysqli_fetch_array($result)){
 			
 			if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				

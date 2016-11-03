@@ -1,4 +1,4 @@
 <?php
-mysql_connect("localhost","fotouser","");
-mysql_select_db("foto-ch");
+$sqli=mysqli_connect("localhost","fotouser","password","foto-ch");
+mysqli_set_charset ( $sqli, 'utf8');
 ?>

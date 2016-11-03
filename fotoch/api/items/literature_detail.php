@@ -2,15 +2,15 @@
 $id=$_GET['id'];
 
 if (auth_level(USER_WORKER)){
-	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
+	$result=mysqli_query($sqli, "SELECT * FROM literatur WHERE id=$id");
 	$afields=array("id","lexikon","kontaktperson","telefon","fax","email","notiz");
 	
 } else {
-	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
+	$result=mysqli_query($sqli, "SELECT * FROM literatur WHERE id=$id");
 	$afields=array();
 }
 
-while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+while($fetch=mysqli_fetch_assoc($result)){
     $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
 	switch ($fetch['code']){
 		case 'H':
@@ -35,10 +35,10 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 			pushfields($out,$fetch,array_merge(array('titel','verfasser_name','verfasser_vorname','bearbeitungsdatum','jahr','ort','in','nummer','seite','text','url','verlag', 'code'),$afields));
 			break;
 	}
-    $result6=mysql_query("SELECT * FROM literatur_fotograf WHERE literatur_id=$id");
+    $result6=mysqli_query($sqli, "SELECT * FROM literatur_fotograf WHERE literatur_id=$id");
     
     $fotogr=array();
-    while($fetch6=mysql_fetch_array($result6)){
+    while($fetch6=mysqli_fetch_array($result6)){
     	//print_r($fetch6);
     	//if ($fetch6['institution_id']>0){
     	if ($fetch6['namen_id']){

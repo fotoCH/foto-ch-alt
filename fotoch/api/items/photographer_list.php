@@ -26,14 +26,14 @@ if ($id == '') {
 	    exit;
 	}
 	if ($_GET['recent']){
-	    $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY bearbeitungsdatum DESC LIMIT ".mysql_real_escape_string($_GET['recent']);
+	    $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY bearbeitungsdatum DESC LIMIT ".mysqli_real_escape_string($sqli, $_GET['recent']);
 	}
     if ($_GET['mostviewed']) {
-        $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY visits DESC LIMIT ".mysql_real_escape_string($_GET['mostviewed']);
+        $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY visits DESC LIMIT ".mysqli_real_escape_string($sqli, $_GET['mostviewed']);
     }
 	//$out['sql']=$sql;  // debug
-	$result = mysql_query ($sql);
-	while ( $fetch = mysql_fetch_array ( $result ) ) {
+	$result = mysqli_query ($sqli, $sql);
+	while ( $fetch = mysqli_fetch_array ( $result ) ) {
 		$fetch['fbearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
 		if ($fetch ['biog'] == 1) {
 			$outl ['bioclass'] = 'subtitle3bio';
@@ -60,11 +60,11 @@ if ($id == '') {
         $outl['geschlecht']=$fetch['geschlecht'];
 		pushfields($outl,$fetch,array('nachname','vorname','namenszusatz','id'));
 		$outl['bearbeitungsdatum']=$fetch['fbearbeitungsdatum'];
-		$result2=mysql_query("SELECT * FROM arbeitsperioden WHERE fotografen_id=".$fetch['id']." ORDER BY  id");
+		$result2=mysqli_query($sqli, "SELECT * FROM arbeitsperioden WHERE fotografen_id=".$fetch['id']." ORDER BY  id");
         //$def->assign("SPR2",$spr);
 		//$arbeitsperioden=array();
 		$arbeitsperioden="";
-	        while($fetch2=mysql_fetch_array($result2)){
+	        while($fetch2=mysqli_fetch_array($result2)){
                 if ($fetch2['von'].$fetch2['bis']!=''){
                         $fetch2['um_vonf']=$fetch2['um_von']==0?'':$spr['um'].' ';
                         $fetch2['um_bisf']=$fetch2['um_bis']==0?'':$spr['um'].' ';
@@ -86,7 +86,7 @@ if ($id == '') {
                 if ($arbeitsperioden!='') $arbeitsperioden.=', ';
                 $arbeitsperioden.=$fetch2['arbeitsort'];
 	        }
-	        mysql_free_result($result2);
+	        mysqli_free_result($result2);
     		$outl['arbeitsperioden']=$arbeitsperioden;
 		$out['res'][]=$outl;
 	}

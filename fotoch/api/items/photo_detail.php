@@ -3,11 +3,11 @@
 $id=$_GET['id'];
 
 if (auth_level(USER_WORKER)){
-	$result=mysql_query("SELECT * FROM fotos WHERE id=$id");
+	$result=mysqli_query($sqli, "SELECT * FROM fotos WHERE id=$id");
 	$afields=array("id","typ","notiz");
 	
 } else {
-	$result=mysql_query("SELECT * FROM fotos WHERE id=$id");
+	$result=mysqli_query($sqli, "SELECT * FROM fotos WHERE id=$id");
 	$afields=array();
 }
 
@@ -30,21 +30,21 @@ $query="SELECT DISTINCT $select FROM fotos AS f $join";
 	$query.=" WHERE f.id=$id";
 
 //echo $query;die();
-$result=mysql_query($query);
-$rowCount = mysql_num_rows($result);
+$result=mysqli_query($sqli, $query);
+$rowCount = mysqli_num_rows($result);
 $out['result_count']= $rowCount;
 
 // do query
-$fetch = mysql_fetch_assoc ( $result );
+$fetch = mysqli_fetch_assoc ( $result );
 $out=$fetch;
 
 if ($inst_comment==$fetch['inst_id']){
-    $result=mysql_query("SELECT * FROM fotos_comments WHERE id=$id");
-    $rowCount = mysql_num_rows($result);
+    $result=mysqli_query($sqli, "SELECT * FROM fotos_comments WHERE id=$id");
+    $rowCount = mysqli_num_rows($result);
     if ($rowCount==0){
 	$out['comment']=array('id'=>$id);
     } else {
-        $out['comment']=mysql_fetch_assoc ( $result );
+        $out['comment']=mysqli_fetch_assoc ($sqli,  $result );
     }
 //$out['comment']=array('name'=>'testname', 'title'=>'testt');
 }

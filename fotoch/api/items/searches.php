@@ -1,10 +1,11 @@
 <?php 
 
 function search_photographer($q){
+	global $sqli;
 	$sql="SELECT fotografen.id, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (namen.nachname LIKE '%$q%' OR namen.vorname LIKE '%$q%') ORDER BY namen.nachname Asc, namen.vorname Asc";
-	$result = mysql_query ($sql);
+	$result = mysqli_query ($sqli, $sql);
 
-	while ( $fetch = mysql_fetch_assoc ( $result ) ) {
+	while ( $fetch = mysqli_fetch_assoc ( $result ) ) {
 		$fetch['fbearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
 		if ($fetch ['biog'] == 1) {
 			$outl ['bioclass'] = 'subtitle3bio';
@@ -26,13 +27,14 @@ function search_photographer($q){
 }
 
 function search_literature($q){
+		global $sqli;
 		if(auth_level(USER_GUEST_READER_PARTNER)){  
-			$result=mysql_query("SELECT * FROM literatur WHERE titel LIKE '%$q%' ORDER BY  titel Asc");
+			$result=mysqli_query($sqli, "SELECT * FROM literatur WHERE titel LIKE '%$q%' ORDER BY  titel Asc");
 		} else {
-			$result=mysql_query("SELECT * FROM literatur WHERE titel LIKE '%$q%' ORDER BY  titel Asc");
+			$result=mysqli_query($sqli, "SELECT * FROM literatur WHERE titel LIKE '%$q%' ORDER BY  titel Asc");
 		}
 
-		while($fetch=mysql_fetch_array($result)){
+		while($fetch=mysqli_fetch_array($result)){
 			
 			if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				
@@ -47,16 +49,17 @@ function search_literature($q){
 	}
 
 function search_institution($q){
+	global $sqli;
 	$namecase="CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END";
 	$abkcase ="CASE `territoriumszugegoerigkeit` WHEN 'de' THEN abkuerzung WHEN 'fr' THEN abkuerzung_fr WHEN 'it' THEN abkuerzung_it WHEN 'rm' THEN abkuerzung_rm END";
 	
 		if(auth_level(USER_GUEST_READER_PARTNER)){
-			$result=mysql_query("SELECT id, gesperrt, ".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $namecase LIKE '%$q%' ORDER BY ".$namecase);
+			$result=mysqli_query($sqli, "SELECT id, gesperrt, ".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $namecase LIKE '%$q%' ORDER BY ".$namecase);
 		} else {
-			$result=mysql_query("SELECT id, gesperrt,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '%$q%') AND (gesperrt=0) ORDER BY ".$namecase);
+			$result=mysqli_query($sqli, "SELECT id, gesperrt,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '%$q%') AND (gesperrt=0) ORDER BY ".$namecase);
 		} 
 
-		while($fetch=mysql_fetch_assoc($result)){
+		while($fetch=mysqli_fetch_assoc($result)){
 
 			if ($fetch['autorin']!=''){
 				$outl ['nameclass']='subtitle3bio';
@@ -76,13 +79,14 @@ function search_institution($q){
 	}
 
 function search_inventory($q){
+		global $sqli;
 		if(auth_level(USER_GUEST_READER_PARTNER)){  
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '%$q%' ORDER BY  name Asc");
+			$result=mysqli_query($sqli, "SELECT * FROM bestand WHERE name LIKE '%$q%' ORDER BY  name Asc");
 		} else {
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '%$q%' ORDER BY  name Asc");
+			$result=mysqli_query($sqli, "SELECT * FROM bestand WHERE name LIKE '%$q%' ORDER BY  name Asc");
 		}
 
-		while($fetch=mysql_fetch_array($result)){
+		while($fetch=mysqli_fetch_array($result)){
 			
 			if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				
@@ -99,13 +103,14 @@ function search_inventory($q){
 }
 
 function search_exhibition($q){
+	global $sqli;
 	if(auth_level(USER_GUEST_READER_PARTNER)){
-		$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '%$q%' ORDER BY titel Asc");
+		$result=mysqli_query($sqli, "SELECT * FROM ausstellung WHERE titel LIKE '%$q%' ORDER BY titel Asc");
 	} else {
-		$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '%$q%' ORDER BY titel Asc");
+		$result=mysqli_query($sqli, "SELECT * FROM ausstellung WHERE titel LIKE '%$q%' ORDER BY titel Asc");
 	}
 	$c=0;
-	while($fetch=mysql_fetch_array($result)){
+	while($fetch=mysqli_fetch_array($result)){
 			
 		if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 	
@@ -121,6 +126,7 @@ function search_exhibition($q){
 }
 
 function search_photo($q){
+	global $sqli;
 	$where .= ($where!='' ? ' AND ' : '')."(n.nachname LIKE '%$q%' OR n.vorname LIKE '%$q%' OR f.dc_title LIKE '%$q%')";
 	$select = 'f.id AS id, f.dc_created, f.zeitraum AS created, f.dc_title AS title, f.dc_description AS description, f.dcterms_ispart_of, image_path, ';
 	$select.= 'CONCAT(n.vorname, " ", n.nachname) AS name, ';
@@ -135,9 +141,9 @@ function search_photo($q){
 	if (!empty($where)){
 		$query.=" WHERE $where";
 	}
-	$result=mysql_query($query. ' LIMIT 100');
+	$result=mysqli_query($sqli, $query. ' LIMIT 100');
 	
-	while($fetch=mysql_fetch_assoc($result)){
+	while($fetch=mysqli_fetch_assoc($result)){
 		$out[]=$fetch;			
 	}
 	return $out;

@@ -184,6 +184,7 @@ class StreamedSearch
 
     private function photos($level)
     {
+	global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->photoFields()) . " FROM fotos";
         $sql .= " INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
@@ -195,7 +196,7 @@ class StreamedSearch
         $q = explode(" ", $this->query);
         $first = true;
         foreach ($q as $term) {
-            $term = mysql_real_escape_string($term);
+            $term = mysqli_real_escape_string($sqli, $term);
             if ($first) {
                 $first = false;
                 $sql .= " WHERE ";
@@ -243,19 +244,20 @@ class StreamedSearch
         }
         $sql .= " OFFSET " . $this->offset;
 
-        $result = mysql_query($sql);
-        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
+        $result = mysqli_query($sqli, $sql);
+        $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
         $this->results['photos_results'] = array();
-        while ($assoc = mysql_fetch_assoc($result)) {
+        while ($assoc = mysqli_fetch_assoc($result)) {
             array_push($this->results['photos_results'], $assoc);
         }
         $this->results['photos_count'] = count($this->results['photos_results']);
-        $this->results['photos_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
+        $this->results['photos_total_count'] = mysqli_fetch_assoc($count_result)['total_count'];
 
     }
 
     private function literature($level = 0)
     {
+	global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->literatureFields()) . " FROM literatur";
         if ($level >= 1) {
@@ -269,7 +271,7 @@ class StreamedSearch
         $q = explode(" ", $this->query);
         $first = true;
         foreach ($q as $term) {
-            $term = mysql_real_escape_string($term);
+            $term = mysqli_real_escape_string($sqli, $term);
             if ($first) {
                 $first = false;
                 $sql .= " WHERE ";
@@ -305,26 +307,27 @@ class StreamedSearch
         $sql .= " LIMIT " . $this->limitResults;
         $sql .= " OFFSET " . $this->offset;
 
-        $result = mysql_query($sql);
-        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
+        $result = mysqli_query($sqli, $sql);
+        $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
         $this->results['literature_results'] = array();
-        while ($assoc = mysql_fetch_assoc($result)) {
+        while ($assoc = mysqli_fetch_assoc($result)) {
             array_push($this->results['literature_results'], $assoc);
         }
         $this->results['literature_count'] = count($this->results['literature_results']);
-        $this->results['literature_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
+        $this->results['literature_total_count'] = mysqli_fetch_assoc($count_result)['total_count'];
     }
 
     private function exhibition($level = 0)
     {
+	global $sqli;
         $cacheObj = new fotoCache('exhibition_');
         $key = md5($_SERVER['QUERY_STRING']);
         if ($cacheObj->isCached($key)) {
             $this->results = $cacheObj->getCache($key);
         } else {
             $langfield = $this->lang ? str_replace('_', '', $this->lang) : 'de';
-            $translation_result = mysql_query("SELECT name, " . $langfield . " as translation FROM sprache WHERE name='einzelausstellung' OR name='gruppenausstellung'");
-            while ($row = mysql_fetch_assoc($translation_result)) {
+            $translation_result = mysqli_query($sqli, "SELECT name, " . $langfield . " as translation FROM sprache WHERE name='einzelausstellung' OR name='gruppenausstellung'");
+            while ($row = mysqli_fetch_assoc($translation_result)) {
                 $translations[$row['name']] = $row['translation'];
             }
 
@@ -337,7 +340,7 @@ class StreamedSearch
             $q = explode(" ", $this->query);
             $first = true;
             foreach ($q as $term) {
-                $term = mysql_real_escape_string($term);
+                $term = mysqli_real_escape_string($sqli, $term);
                 if ($first) {
                     $first = false;
                     $sql .= " WHERE ";
@@ -365,15 +368,15 @@ class StreamedSearch
 
             $sql .= " LIMIT " . $this->limitResults;
             $sql .= " OFFSET " . $this->offset;
-            $result = mysql_query($sql);
-            $count_result = mysql_query("Select FOUND_ROWS() as total_count");
+            $result = mysqli_query($sqli, $sql);
+            $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
             $this->results['exhibition_results'] = array();
-            while ($assoc = mysql_fetch_assoc($result)) {
+            while ($assoc = mysqli_fetch_assoc($result)) {
                 array_push($this->results['exhibition_results'], $assoc);
             }
 
             $this->results['exhibition_count'] = count($this->results['exhibition_results']);
-            $this->results['exhibition_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
+            $this->results['exhibition_total_count'] = mysqli_fetch_assoc($count_result)['total_count'];
 
             $cacheObj->cache($key, $this->results);
         }
@@ -381,6 +384,7 @@ class StreamedSearch
 
     private function institution($level = 0)
     {
+	global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->institutionFields()) . " FROM institution";
         /*if($level >= 1) {
@@ -394,7 +398,7 @@ class StreamedSearch
         $q = explode(" ", $this->query);
         $first = true;
         foreach ($q as $term) {
-            $term = mysql_real_escape_string($term);
+            $term = mysqli_real_escape_string($sqli, $term);
             if ($first) {
                 $first = false;
                 $sql .= " WHERE ";
@@ -451,19 +455,20 @@ class StreamedSearch
         $sql .= " LIMIT " . $this->limitResults;
         $sql .= " OFFSET " . $this->offset;
 
-        $result = mysql_query($sql);
-        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
+        $result = mysqli_query($sqli, $sql);
+        $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
         $this->results['institution_results'] = array();
-        while ($assoc = mysql_fetch_assoc($result)) {
+        while ($assoc = mysqli_fetch_assoc($result)) {
             $assoc['name'] = clean_entry(clangcont($assoc, 'name'));
             array_push($this->results['institution_results'], $assoc);
         }
         $this->results['institution_count'] = count($this->results['institution_results']);
-        $this->results['institution_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
+        $this->results['institution_total_count'] = mysqli_fetch_assoc($count_result)['total_count'];
     }
 
     private function stock($level = 0)
     {
+	global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->stockFields()) . " FROM bestand";
         $sql .= " INNER JOIN institution ON bestand.inst_id = institution.id";
@@ -474,7 +479,7 @@ class StreamedSearch
         $q = explode(" ", $this->query);
         $first = true;
         foreach ($q as $term) {
-            $term = mysql_real_escape_string($term);
+            $term = mysqli_real_escape_string($sqli, $term);
             if ($first) {
                 $first = false;
                 $sql .= " WHERE ";
@@ -508,21 +513,22 @@ class StreamedSearch
                 echo '<br>' . $sql . '<br>';
                 echo '<br>' . $sql_count . '<br>';*/
 
-        //$count = mysql_fetch_assoc(mysql_query($sql_count))['total_count'];
-        $result = mysql_query($sql);
-        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
+        //$count = mysqli_fetch_assoc(mysqli_query($sql_count))['total_count'];
+        $result = mysqli_query($sqli, $sql);
+        $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
 
         $this->results['stock_results'] = array();
-        while ($assoc = mysql_fetch_assoc($result)) {
+        while ($assoc = mysqli_fetch_assoc($result)) {
             array_push($this->results['stock_results'], $assoc);
         }
         $this->results['stock_count'] = count($this->results['stock_results']);
-        $this->results['stock_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
+        $this->results['stock_total_count'] = mysqli_fetch_assoc($count_result)['total_count'];
 
     }
 
     private function photographer($level = 0)
     {
+	global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->photographerFields()) . " FROM namen";
         $sql .= " RIGHT JOIN fotografen on namen.fotografen_id = fotografen.id";
@@ -533,7 +539,7 @@ class StreamedSearch
         $q = explode(" ", $this->query);
         $first = true;
         foreach ($q as $term) {
-            $term = mysql_real_escape_string($term);
+            $term = mysqli_real_escape_string($sqli, $term);
             if ($first) {
                 $first = false;
                 $sql .= " WHERE ";
@@ -571,10 +577,10 @@ class StreamedSearch
         //echo $sql;
 
         // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
-        $result = mysql_query($sql);
-        $count_result = mysql_query("Select FOUND_ROWS() as total_count");
+        $result = mysqli_query($sqli, $sql);
+        $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
         $this->results['photographer_results'] = array();
-        while ($assoc = mysql_fetch_assoc($result)) {
+        while ($assoc = mysqli_fetch_assoc($result)) {
             if ($_GET['lang']!='de'){
                 $assoc['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$assoc['fotografengattungen_set']);
                 $assoc['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$assoc['bildgattungen_set']);
@@ -582,7 +588,7 @@ class StreamedSearch
             array_push($this->results['photographer_results'], $assoc);
         }
         $this->results['photographer_count'] = count($this->results['photographer_results']);
-        $this->results['photographer_total_count'] = mysql_fetch_assoc($count_result)['total_count'];
+        $this->results['photographer_total_count'] = mysqli_fetch_assoc($count_result)['total_count'];
     }
 
     private function appendDirectQuery()

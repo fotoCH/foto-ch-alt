@@ -10,10 +10,11 @@ function clean_entry($t)
 
 function escposts()
 {
+    global $sqli;
     if (!get_magic_quotes_gpc()) {
         foreach ($_POST as $k => $v) {
             if (!is_array($v)) {
-                $w = mysql_real_escape_string($v);
+                $w = mysqli_real_escape_string($sqli, $v);
                 if ($w != $v) $_POST[$k] = $w;
             }
         }
@@ -22,10 +23,11 @@ function escposts()
 
 function escrequest()
 {
+    global $sqli;
     if (!get_magic_quotes_gpc()) {
         foreach ($_REQUEST as $k => $v) {
             if (!is_array($v)) {
-                $w = mysql_real_escape_string($v);
+                $w = mysqli_real_escape_string($sqli, $v);
                 if ($w != $v) $_REQUEST[$k] = $w;
             }
         }
@@ -41,6 +43,7 @@ function formmon($m)
 
 function formumfeld($t)
 {  // expandiert Links im Umfeld
+    global $sqli;
     $suchmuster = "/<.link:(.\d+)>/";
     $tref = preg_match_all($suchmuster, $t, $treffer);
     //print_r($treffer);
@@ -54,13 +57,13 @@ function formumfeld($t)
             $id = substr($id, 1);
             $n = 1;
 
-            $result = mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
+            $result = mysqli_query($sqli, "SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
             //echo("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE namen.id=$id ORDER BY namen.id Asc");
 
         } else {
-            $result = mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen_id=$id ORDER BY namen.id Asc");
+            $result = mysqli_query($sqli, "SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen_id=$id ORDER BY namen.id Asc");
         }
-        $fetch = mysql_fetch_array($result);
+        $fetch = mysqli_fetch_array($result);
         $name = $fetch['vorname'] . ' ' . $fetch['namenszusatz'] . ' ' . $fetch['nachname'];
         // echo $name;
         if ($n == 1) $id = $fetch['fotografen_id'];
@@ -80,8 +83,9 @@ function formumfeld($t)
 
 function getname($id)
 {   // Gibt formatierten Namen mit der id zurück
-    $result = mysql_query("SELECT *  FROM namen WHERE id=$id ORDER BY id Asc");
-    $fetch = mysql_fetch_array($result);
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT *  FROM namen WHERE id=$id ORDER BY id Asc");
+    $fetch = mysqli_fetch_array($result);
     $name = $fetch['vorname'] . ' ' . $fetch['namenszusatz'] . ' ' . $fetch['nachname'];
 
     return ($name);
@@ -89,8 +93,9 @@ function getname($id)
 
 function getnamer($id)
 {   // Gibt formatierten Namen mit der id zurück
-    $result = mysql_query("SELECT *  FROM namen WHERE id=$id ORDER BY id Asc");
-    $fetch = mysql_fetch_array($result);
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT *  FROM namen WHERE id=$id ORDER BY id Asc");
+    $fetch = mysqli_fetch_array($result);
     $name = trim($fetch['nachname'] . ', ' . $fetch['vorname'] . ' ' . $fetch['namenszusatz']);
 
     return ($name);
@@ -98,8 +103,9 @@ function getnamer($id)
 
 function getfon($id)
 {   // Gibt Namen zu einer Namen id als Array zurück
-    $result = mysql_query("SELECT  *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE `namen`.id=$id ");
-    $fetch = mysql_fetch_array($result);
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT  *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE `namen`.id=$id ");
+    $fetch = mysqli_fetch_array($result);
 
     $r['namen'] = $fetch['vorname'] . ' ' . $fetch['namenszusatz'] . ' ' . $fetch['nachname'];
     $r['gesperrt'] = $fetch['unpubliziert'];
@@ -110,15 +116,16 @@ function getfon($id)
     $r['namenszusatz'] = $fetch['namenszusatz'];
     $r['sortn'] = $fetch['nachname'] . ', ' . $fetch['vorname'] . ' ' . $fetch['namenszusatz'];
     $r['lebensdaten'] = formldatesimp($fetch['geburtsdatum'], $fetch['gen_geburtsdatum'], $fetch['todesdatum'], $fetch['gen_todesdatum']);
-    mysql_free_result($result);
+    mysqli_free_result($result);
     return ($r);
 }
 
 
 function getfo($id)
 {  // Gibt ersten Namen zu einer Forografen id als Array zurück
-    $result = mysql_query("SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen.id=$id ORDER BY namen.id Asc");
-    $fetch = mysql_fetch_array($result);
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen.id=$id ORDER BY namen.id Asc");
+    $fetch = mysqli_fetch_array($result);
     $r['namen'] = $fetch['vorname'] . ' ' . $fetch['namenszusatz'] . ' ' . $fetch['nachname'];
     $r['gesperrt'] = $fetch['unpubliziert'];
     $r['id'] = $fetch['id'];
@@ -129,14 +136,15 @@ function getfo($id)
     $r['sortn'] = $fetch['nachname'] . ', ' . $fetch['vorname'] . ' ' . $fetch['namenszusatz'];
     $r['lebensdaten'] = formldatesimp($fetch['geburtsdatum'], $fetch['gen_geburtsdatum'], $fetch['todesdatum'], $fetch['gen_todesdatum']);
     $r['bildgattungen_set'] = $fetch['bildgattungen_set'];
-    mysql_free_result($result);
+    mysqli_free_result($result);
     return ($r);
 }
 
 function getallnam($id)
 {  // Gibt alle Namen zu einer Forografen id als Array zurück
-    $result = mysql_query("SELECT fotografen.id as fid, namen.id as nid, namen.nachname, namen.vorname, namen.namenszusatz, fotografen.unpubliziert  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen.id=$id ORDER BY namen.id Asc");
-    while ($fetch = mysql_fetch_array($result)) {
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT fotografen.id as fid, namen.id as nid, namen.nachname, namen.vorname, namen.namenszusatz, fotografen.unpubliziert  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen.id=$id ORDER BY namen.id Asc");
+    while ($fetch = mysqli_fetch_array($result)) {
         $fetch['namen'] = $fetch['vorname'] . ' ' . $fetch['namenszusatz'] . ' ' . $fetch['nachname'];
         $fetch['sortn'] = $fetch['nachname'] . ', ' . $fetch['vorname'] . ' ' . $fetch['namenszusatz'];
         $r[] = $fetch;
@@ -149,16 +157,18 @@ $abkcase = "CASE `territoriumszugegoerigkeit` WHEN 'de' THEN abkuerzung WHEN 'fr
 
 function getinst($id)
 { // Institutsname aus Id
-    $result = mysql_query("SELECT *, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END as name FROM institution WHERE id=$id ORDER BY id Asc");
-    $fetch = mysql_fetch_array($result);
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT *, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END as name FROM institution WHERE id=$id ORDER BY id Asc");
+    $fetch = mysqli_fetch_array($result);
     $name = $fetch['name'];
     return ($name);
 }
 
 function getinsta($id)
 { // Institut
-    $result = mysql_query("SELECT *, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END as name, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN abkuerzung WHEN 'fr' THEN abkuerzung_fr WHEN 'it' THEN abkuerzung_it WHEN 'rm' THEN abkuerzung_rm END as abkuerzung  FROM institution WHERE id=$id ORDER BY id Asc");
-    $fetch = mysql_fetch_array($result);
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT *, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN name WHEN 'fr' THEN name_fr WHEN 'it' THEN name_it WHEN 'rm' THEN name_rm END as name, CASE `territoriumszugegoerigkeit` WHEN 'de' THEN abkuerzung WHEN 'fr' THEN abkuerzung_fr WHEN 'it' THEN abkuerzung_it WHEN 'rm' THEN abkuerzung_rm END as abkuerzung  FROM institution WHERE id=$id ORDER BY id Asc");
+    $fetch = mysqli_fetch_array($result);
     //$name=$fetch['name'];
     return ($fetch);
 }
@@ -341,8 +351,9 @@ function formlit2_alt($f)
 
 function getlit($id)
 {
-    $result = mysql_query("SELECT *  FROM literatur WHERE id=$id ORDER BY id Asc");
-    $fetch = mysql_fetch_array($result);
+    global $sqli;
+    $result = mysqli_query($sqli, "SELECT *  FROM literatur WHERE id=$id ORDER BY id Asc");
+    $fetch = mysqli_fetch_array($result);
     $fetch = formlit2($fetch);
     return ($fetch);
 }
@@ -488,7 +499,8 @@ function auth2()
 {
     global $s_uid;
     global $s_pw;
-    if (mysql_num_rows(mysql_query("SELECT * FROM g_usr WHERE usr_uid='$s_uid' AND usr_pw=PASSWORD('$s_pw') AND usr_rechte!='gast'")) != 0) {
+    global $sqli;
+    if (mysqli_num_rows(mysqli_query($sqli, "SELECT * FROM g_usr WHERE usr_uid='$s_uid' AND usr_pw=PASSWORD('$s_pw') AND usr_rechte!='gast'")) != 0) {
         return true;
     } else {
         return false;
@@ -810,9 +822,10 @@ function kontinente()
 {
     global $kontinente;
     global $language;
+    global $sqli;
     $sql = "SELECT id, name_" . $language . " FROM kontinent";
-    $result = mysql_query($sql);
-    while ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    while ($fetch = mysqli_fetch_array($result)) {
         $kontinente[$fetch[0]] = $fetch[1];
     }
     //print_r($kontinente);
@@ -822,23 +835,24 @@ function formseg(&$f)
 {
     global $language;
     global $kontinente;
+    global $sqli;
 
     $sql = "SELECT name_" . $language . " FROM provsubk WHERE id=" . $f['subk_id'];
 
-    $result = mysql_query($sql);
-    if ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    if ($fetch = mysqli_fetch_array($result)) {
         $f['subkontinent'] = $fetch[0];
     }
     $sql = "SELECT name_" . $language . " FROM provsubk WHERE id=" . $f['prov_id'];
 
-    $result = mysql_query($sql);
-    if ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    if ($fetch = mysqli_fetch_array($result)) {
         $f['herkunft'] = $fetch[0];
     }
     $sql = "SELECT name_" . $language . ",typ FROM regiort WHERE id=" . $f['regionort_id'];
     //echo $sql; return;
-    $result = mysql_query($sql);
-    if ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    if ($fetch = mysqli_fetch_array($result)) {
         if ($fetch[1] == 'ort') {
             $f['ort'] = $fetch[0];
         } else {
@@ -855,20 +869,20 @@ function formseg1(&$f)
 
     $sql = "SELECT name_" . $language . " FROM provsubk WHERE id=" . $f['subk_id'];
 
-    $result = mysql_query($sql);
-    if ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    if ($fetch = mysqli_fetch_array($result)) {
         $f['subkontinent'] = $fetch[0];
     }
     $sql = "SELECT name_" . $language . " FROM provsubk WHERE id=" . $f['prov_id'];
 
-    $result = mysql_query($sql);
-    if ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    if ($fetch = mysqli_fetch_array($result)) {
         $f['herkunft'] = $fetch[0];
     }
     $sql = "SELECT ethnie.name_" . $language . ", kontinent FROM ethnie WHERE ethnie.id=" . $f['ethnien_id'];
     //echo $sql;
-    $result = mysql_query($sql);
-    if ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    if ($fetch = mysqli_fetch_array($result)) {
         $f['ethnie'] = $fetch[0];
         $f['subkontinent'] = $kontinente[$fetch[1]];
     }
@@ -878,11 +892,12 @@ function formseg2(&$f)
 {
     global $language;
     global $kontinente;
+    global $sqli;
 
     $sql = "SELECT ethnie.name_" . $language . ", kontinent FROM ethnie WHERE ethnie.id=" . $f['ethnien_id'];
     //echo $sql;
-    $result = mysql_query($sql);
-    if ($fetch = mysql_fetch_array($result)) {
+    $result = mysqli_query($sqli, $sql);
+    if ($fetch = mysqli_fetch_array($result)) {
         $f['ethnie'] = $fetch[0];
         $f['kontinent'] = $kontinente[$fetch[1]];
     }

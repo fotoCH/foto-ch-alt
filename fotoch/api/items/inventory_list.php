@@ -32,8 +32,8 @@ if ($id==''){
                             $sql="SELECT * FROM bestand ORDER BY  name Asc";
                         }
                 }
-		$result=mysql_query($sql);
-		while($fetch=mysql_fetch_array($result)){
+		$result=mysqli_query($sqli, $sql);
+		while($fetch=mysqli_fetch_array($result)){
 			
 			if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				
@@ -45,12 +45,12 @@ if ($id==''){
 			pushfields($outl,$fetch,array('name','institution','inst_id','nameclass','id','gesperrt'));
 			
 			
-			$result6=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=".$fetch['id']);
+			$result6=mysqli_query($sqli, "SELECT * FROM bestand_fotograf WHERE bestand_id=".$fetch['id']);
     
 		        $fotogr=array();
 		        $fotographer=array();
 
-		        while($fetch6=mysql_fetch_array($result6)){
+		        while($fetch6=mysqli_fetch_array($result6)){
 		        if ($fetch6['namen_id']){
             		    $fo=getfon($fetch6['namen_id']);
 		        } else {

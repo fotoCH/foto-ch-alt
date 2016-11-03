@@ -40,8 +40,8 @@ switch ($action) {
             $query = "SELECT DISTINCT bestand.id, bestand.name FROM  `fotos` LEFT JOIN bestand ON fotos.dcterms_ispart_of = bestand.id where gesperrt >= 0 ORDER BY bestand.name";
         }
         $result = "<option value='0' selected='selected'>".$spr['all_stock']."</option>";
-        $objResult=mysql_query($query);
-        while($row = mysql_fetch_assoc($objResult)){
+        $objResult=mysqli_query($sqli, $query);
+        while($row = mysqli_fetch_assoc($objResult)){
             $result .= "<option value='".$row['id']."'>".$row['name']."</option>";
         }
 
@@ -53,8 +53,8 @@ switch ($action) {
         if ($id!=0) {
             $query = "SELECT `all` FROM fotos WHERE id=$id";
         }
-        $objResult=mysql_query($query);
-        $row = mysql_fetch_assoc($objResult);
+        $objResult=mysqli_query($sqli, $query);
+        $row = mysqli_fetch_assoc($objResult);
         $result = $row['all'];
         if ($_GET['form']){
     	    $result="<pre>".$result."</pre>";
@@ -79,8 +79,8 @@ switch ($action) {
                             $query = "SELECT fotografen_id FROM namen WHERE (nachname LIKE '%$arrName[0]%' OR vorname LIKE '%$arrName[0]%') LIMIT 0,1";
                         }
 
-                        $objResult = mysql_query($query);
-                        $value = mysql_fetch_assoc($objResult);
+                        $objResult = mysqli_query($sqli, $query);
+                        $value = mysqli_fetch_assoc($objResult);
                         $value = $value['fotografen_id'];
                         if ($value==1294) $value=1295; // quickfix for "Jost"
                     }
@@ -121,11 +121,11 @@ switch ($action) {
         }
         $query .= ' LIMIT '.$_GET['nextItem'].', '.ENDLESS_SCROLL_ITEMS;
 
-        $objResult = mysql_query($query);
+        $objResult = mysqli_query($sqli, $query);
         $mode = $_GET['view'];
         $result = '';
         if ($mode==VIEW_TILE) {
-            while ($arrResult = mysql_fetch_assoc($objResult)){
+            while ($arrResult = mysqli_fetch_assoc($objResult)){
                 $rowItem['id'] = $arrResult['id'];
                 $rowItem['image_src'] = $arrResult['image_path'];
 
@@ -157,7 +157,7 @@ switch ($action) {
                             </div>";
             }
         } else {
-            while ($arrResult = mysql_fetch_assoc($objResult)){
+            while ($arrResult = mysqli_fetch_assoc($objResult)){
                 $rowItem['id'] = $arrResult['id'];
                 $rowItem['url'] = '?a=fotos&amp;id='.$arrResult['id'];
                 $rowItem['url'] .= $_GET['photograph']!='' ? ('&photograph='.urlencode($_GET['photograph'])) : '';

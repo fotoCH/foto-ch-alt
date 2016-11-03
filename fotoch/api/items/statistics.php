@@ -49,9 +49,10 @@ class Statistics {
     }
 
     private function count($table, $where='', $id_field='id') {
+	global $sqli;
         $sql = "SELECT COUNT($id_field) as num FROM $table $where";
-        $result = mysql_query($sql);
-        while($row = mysql_fetch_assoc($result)) {
+        $result = mysqli_query($sqli, $sql);
+        while($row = mysqli_fetch_assoc($result)) {
             return $row['num'];
         }
     }

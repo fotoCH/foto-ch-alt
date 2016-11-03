@@ -2,12 +2,12 @@
 
 $id=$_GET['id'];
 if (auth_level(USER_WORKER)){
-    $result=mysql_query("SELECT * FROM bestand WHERE id=$id");
+    $result=mysqli_query($sqli, "SELECT * FROM bestand WHERE id=$id");
 } else {
-    $result=mysql_query("SELECT * FROM bestand WHERE (id=$id) AND gesperrt=0");
+    $result=mysqli_query($sqli, "SELECT * FROM bestand WHERE (id=$id) AND gesperrt=0");
 }
 
-while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
+while($fetch=@mysqli_fetch_assoc($result)){
 
     if(auth_level(USER_GUEST_READER)){
         $outl['idd']=$id;
@@ -24,11 +24,11 @@ while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
     $fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
     $fetch['bearbeitungsdatum']=formdatesimp2($fetch['bearbeitungsdatum'],0);
     pushfields($out,$fetch,array('id','name','bearbeitungsdatum','zeitraum','bestandsbeschreibung','link_extern','signatur','copyright','bildgattungen','umfang','weiteres','erschliessungsgrad','inst_id','inst_name'));
-    $result6=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=$id");
+    $result6=mysqli_query($sqli, "SELECT * FROM bestand_fotograf WHERE bestand_id=$id");
 
     $fotogr=array();
 
-    while($fetch6=mysql_fetch_array($result6)){
+    while($fetch6=mysqli_fetch_array($result6)){
         //if ($fetch6['institution_id']>0){
         if ($fetch6['namen_id']){
             $fo=getfon($fetch6['namen_id']);
@@ -55,8 +55,8 @@ while($fetch=@mysql_fetch_array($result, MYSQL_ASSOC)){
     }
     $out['photographer']=$fotographer;
         
-    $objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
-    while($result=mysql_fetch_assoc($objResult)){
+    $objResult=mysqli_query($sqli, "SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
+    while($result=mysqli_fetch_assoc($objResult)){
         $photo[]=$result;
     }
     $out['photos']=$photo;
