@@ -6,10 +6,10 @@ error_reporting(E_ALL && ~E_NOTICE);
 //require("templates/xtemplate.class.php");
 require("../mysql.inc.php");
 ob_start();
-mysql_select_db("foto-ch_test");
+mysqli_select_db($sqli, "foto-ch_test");
 $sql="SELECT * FROM bildarchivbcu"; 
-$result=mysql_query($sql); echo mysql_error();
-while ($fetch=mysql_fetch_assoc($result)){
+$result=mysqli_query($sqli, $sql); echo mysqli_error($sqli);
+while ($fetch=mysqli_fetch_assoc($result)){
 	$rec=array();
 	if ($fetch['245_00_a']) $f245='00';
 	if ($fetch['245_02_a']) $f245='02';
@@ -38,20 +38,20 @@ while ($fetch=mysql_fetch_assoc($result)){
 	$u='';
 	foreach ($res as $k => $v){
 		//echo "$k => $v\r\n";
-		$u.="`".$k."`='".mysql_escape_string($v)."', ";
+		$u.="`".$k."`='".mysqli_real_escape_string ($sqli, $v)."', ";
 	}
 	foreach ($path as $p){
 		$ip='bcu/'.substr($p,42);
-		$nu="`image_path`='".mysql_escape_string($ip)."', ";
-		$nu2="`dc_identifier`='".mysql_escape_string($p)."'";
+		$nu="`image_path`='".mysqli_real_escape_string ($sqli, $ip)."', ";
+		$nu2="`dc_identifier`='".mysqli_real_escape_string ($sqli, $p)."'";
 		$sql="INSERT INTO fotos SET ".$u.$nu.$nu2;
-		mysql_query($sql);
+		mysqli_query($sqli, $sql);
 		echo $sql;
 		echo ("\r\n");
 	}
 	//echo "xxx".$u."vvv";
 	//$sql="INSERT INTO fotos_bcu SET ".substr($u,0,-2);
-	//mysql_query($sql);
+	//mysqli_query($sqli, $sql);
 	//echo $sql;
 }
 

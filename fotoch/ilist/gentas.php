@@ -17,10 +17,10 @@ $sql="SELECT id, $suchfeld, $retfeld".($ergfeld?', '.$ergfeld:'')." FROM $table 
 //echo $sql;
 //$sql="SELECT * FROM namen WHERE SUBSTRING(nachname,1,$l) = '$foto%' ORDER BY nachname LIMIT 8";
 //echo($sql);
-$result=mysql_query($sql);
+$result=mysqli_query($sqli, $sql);
 $c=0;
 //print_r($result);
-while(($c<12) && ($fetch=mysql_fetch_array($result))){
+while(($c<12) && ($fetch=mysqli_fetch_array($result))){
 //while($c<11){
 //if (strtolower(substr($fetch['nachname'],0,$l))==$foto){
 if (true){

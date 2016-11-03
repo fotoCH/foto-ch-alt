@@ -3,13 +3,19 @@
 global $debug;
 
 function getnames(&$names){
-	$result=mysql_query("SELECT fotografen.id, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id ORDER BY namen.nachname Asc, namen.vorname Asc");
+	$result=mysqli_query($sqli, "SELECT fotografen.id, namen.nachname, namen.vorname, namen.namenszusatz  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id ORDER BY namen.nachname Asc, namen.vorname Asc");
 	$names=array();
-	while($fetch=mysql_fetch_array($result)){
+	while($fetch=mysqli_fetch_array($result)){
 		$id=$fetch['id'];
 		$names[$id]=$fetch;
 	}
 
+}
+
+function mysqli_real_escape_string_callback($a)
+{
+	global $sqli;
+	return mysqli_real_escape_string($sqli, $a);
 }
 
 $def=new XTemplate ("././templates/list_results.xtpl");
@@ -21,7 +27,7 @@ $def->assign("SPR",$spr);
 $lang = $_GET['lang'];
 $id=$_GET['id'];
 $anf=$_GET['anf'];
-$volltext = mysql_real_escape_string($_GET['volltext']);
+$volltext = mysqli_real_escape_string($sqli, $_GET['volltext']);
 
 
 
@@ -34,10 +40,10 @@ $def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 // 			testauth();
 			$def->parse("list.head_bestand");
 			// Select: code
-			$result=mysql_query("SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
+			$result=mysqli_query($sqli, "SELECT * FROM bestand WHERE name LIKE '$anf%' ORDER BY  name Asc");
 			$issearch=2;
 			//echo "SELECT * FROM fotografen WHERE nachname LIKE '$anf%' ORDER BY  nachname Asc, vorname Asc";
-			while($fetch=mysql_fetch_array($result)){
+			while($fetch=mysqli_fetch_array($result)){
 		
 				if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				$def->assign("FETCH",$fetch);
@@ -52,10 +58,10 @@ $def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 	
 		if ($_GET['submitbutton']=="suchen") {	//&& !$ayax){
 			$params['volltext'] = $volltext;
-			$params['name'] = mysql_real_escape_string($_GET['name']);
-			$params['bestandsbeschreibung'] = mysql_real_escape_string($_GET['bestandsbeschreibung']);
+			$params['name'] = mysqli_real_escape_string($sqli, $_GET['name']);
+			$params['bestandsbeschreibung'] = mysqli_real_escape_string($sqli, $_GET['bestandsbeschreibung']);
 			$params['bildgattungen'] = $_GET['bildgattungen'];
-			array_walk($params['bildgattungen'], mysql_real_escape_string);
+			array_walk($params['bildgattungen'], 'mysqli_real_escape_string_callback');
 // 			var_dump($params);
 			
 // 			testauth();
@@ -86,10 +92,10 @@ $def->assign("BEARBEITEN","[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 			
 			$sql .= "ORDER BY name Asc";
 // 			echo $sql;
-			$result = mysql_query($sql);
+			$result = mysqli_query($sqli, $sql);
 			$issearch=3;
 			//echo "SELECT * FROM fotografen WHERE nachname LIKE '$anf%' ORDER BY  nachname Asc, vorname Asc";
-			while($fetch=mysql_fetch_array($result)){
+			while($fetch=mysqli_fetch_array($result)){
 				if ($fetch['gesperrt']==1) $fetch['nameclass']='subtitle3x'; else $fetch['nameclass']='subtitle3';
 				$def->assign("FETCH",$fetch);
 				$def->parse("list.row".((auth_level(USER_WORKER))?'_admin_bestand':'_normal_bestand'));

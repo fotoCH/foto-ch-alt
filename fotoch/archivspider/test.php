@@ -45,15 +45,16 @@ function putData($t){
 }
 
 function putToDB($r){
+	global $sqli;
 	$s='Staatsarchiv des Kantons Bern';
 	$q="REPLACE INTO bildarchiv SET ";
 	foreach ($r as $k => $v){
-		$q.="`$v[0]`='".mysql_escape_string($v[1])."', ";
-		$all.="$v[0]=".mysql_escape_string($v[1])."\r\n";
+		$q.="`$v[0]`='".mysqli_real_escape_string ($sqli, $v[1])."', ";
+		$all.="$v[0]=".mysqli_real_escape_string ($sqli, $v[1])."\r\n";
 	}
 	$q.="`source`='$s', `all`='".$all."'";
-	$res=mysql_query($q);
-	if ($e=mysql_error()){
+	$res=mysqli_query($sqli, $q);
+	if ($e=mysqli_error($sqli)){
 		echo($e);
 
 		addMissingColums($r);
@@ -61,9 +62,10 @@ function putToDB($r){
 }
 
 function addMissingColums($r){
-	$res=mysql_query('DESCRIBE bildarchiv');
+	global $sqli;
+	$res=mysqli_query($sqli, 'DESCRIBE bildarchiv');
 	$fields=array();
-	while ($fetch=mysql_fetch_assoc($res)){
+	while ($fetch=mysqli_fetch_assoc($res)){
 		$fields[]=$fetch['Field'];
 	}
 	foreach ($r as $k => $v){
@@ -71,7 +73,7 @@ function addMissingColums($r){
 		if (!in_array($k,$fields)){
 			echo"missing: $k\r\n";
 			$q='ALTER TABLE  `bildarchiv` ADD  `'.$k.'` VARCHAR( 255 ) NOT NULL';
-			mysql_query($q);
+			mysqli_query($sqli, $q);
 		}
 	}
 	//print_r($res);
@@ -114,9 +116,10 @@ file_put_contents($odir.$id.'.jpg', file_get_contents($url));
 //getBild(90913);
 
 function getBilder(){
+global $sqli;
 $q="SELECT id FROM bildarchiv WHERE id>0 ORDER BY id";
-$res=mysql_query($q);
-while ($fetch=mysql_fetch_assoc($res)){
+$res=mysqli_query($sqli, $q);
+while ($fetch=mysqli_fetch_assoc($res)){
  getBild($fetch['id']);
  echo $fetch['id']."\r\n";
  flush();

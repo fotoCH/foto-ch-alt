@@ -23,13 +23,13 @@ subgenformitem($xtpl_fotosearch,'textfield',$spr['titelbeschreibung'], ($_GET['t
 
 // retrieve institution data from the database
 $query = 'SELECT DISTINCT institution.id, institution.name, institution.name_fr, institution.name_it  FROM `fotos` LEFT JOIN institution on fotos.`edm_dataprovider`=institution.id  WHERE gesperrt >= 0 ORDER BY name';
-$objResult=mysql_query($query);
+$objResult=mysqli_query($sqli, $query);
 
 // prepare language specific institution array
 if (!$language) $language='de';
 switch ($language) {
     case 'de':
-        while ($row = mysql_fetch_assoc($objResult)){
+        while ($row = mysqli_fetch_assoc($objResult)){
             if ($row['name'] != '') {
                 $arrInstitution[$row['id']] = $row['name'];
             } elseif ($row['name_fr'] != '') {
@@ -40,7 +40,7 @@ switch ($language) {
         }
         break;
     case 'fr':
-        while ($row = mysql_fetch_assoc($objResult)){
+        while ($row = mysqli_fetch_assoc($objResult)){
             if ($row['name_fr'] != '') {
                 $arrInstitution[$row['id']] = $row['name_fr'];
             } elseif ($row['name'] != '') {
@@ -51,7 +51,7 @@ switch ($language) {
         }
         break;
     case 'it':
-        while ($row = mysql_fetch_assoc($objResult)){
+        while ($row = mysqli_fetch_assoc($objResult)){
             if ($row['name_it'] != '') {
                 $arrInstitution[$row['id']] = $row['name_it'];
             } elseif ($row['name'] != '') {
@@ -74,8 +74,8 @@ $institutionList = implode(",", $institutionIDs);
 
 $query = "SELECT DISTINCT bestand.id, bestand.name FROM  `fotos` LEFT JOIN bestand ON fotos.dcterms_ispart_of = bestand.id where gesperrt >= 0 AND inst_id IN($institutionList) ORDER BY bestand.name";
 //echo $query;
-$objResult=mysql_query($query);
-while ($row = mysql_fetch_assoc($objResult)){
+$objResult=mysqli_query($sqli, $query);
+while ($row = mysqli_fetch_assoc($objResult)){
     if ($row['name']!='') {
         $arrBestand[$row['id']] = $row['name'];
     }

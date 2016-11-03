@@ -132,9 +132,9 @@ if($_GET['submitbutton'] != ""){
 		}
 	}
 //echo $query; exit;
-	$result=mysql_query($query);
+	$result=mysqli_query($sqli, $query);
 	
-	while($fetch=mysql_fetch_array($result)){
+	while($fetch=mysqli_fetch_array($result)){
 	
 		$fetch['fgeburtsdatum']=formdatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum']);
 		$fetch['fldatum']=formldatesimp($fetch['geburtsdatum'],$fetch['gen_geburtsdatum'],$fetch['todesdatum'],$fetch['gen_todesdatum']);
@@ -185,15 +185,15 @@ if($_GET['submitbutton'] != ""){
 		//do query
 		$issearch=2;
 		if(auth_level(USER_GUEST_READER)){
-			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc");
+			$result=mysqli_query($sqli, "SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE namen.nachname LIKE '$anf%' ORDER BY namen.nachname Asc, namen.vorname Asc");
 		}else{
-			$result=mysql_query("SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc");		
+			$result=mysqli_query($sqli, "SELECT fotografen.id, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd  FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) AND (namen.nachname LIKE '$anf%') ORDER BY namen.nachname Asc, namen.vorname Asc");		
 		}	
 		
 		//assign title template:
 		(auth_level(USER_WORKER)) ? $def->parse("list.listhead_admin") : $def->parse("list.listhead_normal");
 		
-		while($fetch=mysql_fetch_array($result)){
+		while($fetch=mysqli_fetch_array($result)){
 			if ($fetch['biog']==1){
 				$fetch['bioclass']='subtitle3bio';
 			} else {

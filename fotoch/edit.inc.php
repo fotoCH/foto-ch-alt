@@ -7,12 +7,13 @@ class EditFotograf extends Edit {
 
 	function namen($id){ //nur fotograf
 		global $spr;
+		global $sqli;
 		$def = $this->def;
 		$sql = "SELECT * FROM namen WHERE fotografen_id=$id ORDER BY id"; // Weitere Formdaten aus Tabelle 'Namen' holen
-		$result = mysql_query($sql);
-		if(mysql_num_rows($result)>0){
+		$result = mysqli_query($sqli, $sql);
+		if(mysqli_num_rows($result)>0){
 			$num=1;
-			while($array=mysql_fetch_array($result)){
+			while($array=mysqli_fetch_array($result)){
 				if ($num==1){
 					$def->assign("DELETE", "");
 					$def->assign("STANDARD", "(Standard)");				
@@ -37,12 +38,13 @@ class EditFotograf extends Edit {
 	}
 	
 	function arbeitsperioden($id){//nur fotograf
+		global $sqli;
 		$def = $this->def;
 		$sql = "SELECT * FROM `arbeitsperioden` WHERE fotografen_id = $id ORDER BY id asc"; // Weitere Formdaten aus Tabelle 'arbeitsperioden' holen
-		$result = mysql_query($sql);
-		if(mysql_num_rows($result)>0){
+		$result = mysqli_query($sqli, $sql);
+		if(mysqli_num_rows($result)>0){
 			$num=1;
-			while($array=mysql_fetch_array($result)){
+			while($array=mysqli_fetch_array($result)){
 				if($array['um_von']=="1"){
 					$def->assign("check_von", "checked=\"checked\"");
 				}else{
@@ -96,12 +98,13 @@ class Edit {
 	}
 	
 	function bestand($id){
+	   global $sqli;
        $sql = $this->bestand_qry($id);
        $def = $this->def;
-       $result = mysql_query($sql);
-       if(mysql_num_rows($result)>0){
+       $result = mysqli_query($sqli, $sql);
+       if(mysqli_num_rows($result)>0){
                $num=1;
-               while($array=mysql_fetch_array($result)){
+               while($array=mysqli_fetch_array($result)){
                        $def->assign("NUM", $num);
                        $def->assign("BESTAND", $array);
                        $def->parse("bearbeiten.form.bestand{$this->type_suffix}");
@@ -116,6 +119,7 @@ class Edit {
 	
 	function namendf($id,$n=''){
 		global $spr;
+		global $sqli;
 		$def = $this->def;
 		if( $this->type == 'institution') {
 			$def->assign("ID", $id);
@@ -125,10 +129,10 @@ class Edit {
 			return;
 		}
 		$sql = "SELECT * FROM namen WHERE fotografen_id=$id ORDER BY id"; // Weitere Formdaten aus Tabelle 'Namen' holen
-		$result = mysql_query($sql);
-		if(mysql_num_rows($result)>0){
+		$result = mysqli_query($sqli, $sql);
+		if(mysqli_num_rows($result)>0){
 			$num=1;
-			while($array=mysql_fetch_array($result)){
+			while($array=mysqli_fetch_array($result)){
 				if ($num==1){
 					$def->assign("STANDARD", "(Standard)");				
 				}else{
@@ -145,15 +149,16 @@ class Edit {
 	}
 	
 	function literatur($id){
+		global $sqli;
 		$def = $this->def;
 		$sql = "SELECT literatur_{$this->type}.{$this->type_plur}_id, literatur_{$this->type}.id AS if_id, ".
 		($this->type=='fotograf'?"literatur_{$this->type}.typ AS if_typ, ":"").
 		"literatur.* FROM literatur_{$this->type} INNER JOIN literatur ON literatur_{$this->type}.literatur_id = literatur.id
 		WHERE literatur_{$this->type}.{$this->type_plur}_id=$id ORDER BY if_id"; // Weitere Formdaten aus Tabelle 'bestaende' holen
-		$result = mysql_query($sql);
-		if(mysql_num_rows($result)>0){
+		$result = mysqli_query($sqli, $sql);
+		if(mysqli_num_rows($result)>0){
 			$num=1;
-			while($array=mysql_fetch_array($result)){	
+			while($array=mysqli_fetch_array($result)){	
 				$def->assign("NUM", $num);
 				$array=formlit($array);
 				$def->assign("LITERATUR", $array);
@@ -166,15 +171,16 @@ class Edit {
 		$def->parse("bearbeiten.form");
 	}
 	function ausstellungen($id){
+		global $sqli;
 		$def = $this->def;
 		// ausstellungen
 		$sql = "SELECT ausstellung_{$this->type}.{$this->type}_id, ausstellung_{$this->type}.id AS af_id, ausstellung.*
 		FROM ausstellung_{$this->type} INNER JOIN ausstellung ON ausstellung_{$this->type}.ausstellung_id = ausstellung.id
 		WHERE ausstellung_{$this->type}.{$this->type}_id=$id ORDER BY ausstellung.typ, af_id"; // Weitere Formdaten aus Tabelle 'bestaende' holen
-		$result = mysql_query($sql);
-		if(mysql_num_rows($result)>0){
+		$result = mysqli_query($sqli, $sql);
+		if(mysqli_num_rows($result)>0){
 			$num=1;
-			while($array=mysql_fetch_array($result)){
+			while($array=mysqli_fetch_array($result)){
 				$def->assign("NUM", $num);
 				$def->assign("AUSSTELLUNG", $array);			
 				$def->parse("bearbeiten.form.ausstellung");
@@ -187,9 +193,10 @@ class Edit {
 	}
 	
 	function writeHistory($id,$line){
-		$sql="UPDATE $this->type_plur SET history=CONCAT(history,'".mysql_real_escape_string($line."\r\n")."') WHERE id=$id LIMIT 1";
+		global $sqli;
+		$sql="UPDATE $this->type_plur SET history=CONCAT(history,'".mysqli_real_escape_string($sqli, $line."\r\n")."') WHERE id=$id LIMIT 1";
 		//echo $sql;
-		$result = mysql_query($sql);
+		$result = mysqli_query($sqli, $sql);
 		return;
 	}	
 }

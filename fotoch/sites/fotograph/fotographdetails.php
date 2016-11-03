@@ -19,13 +19,13 @@ if ($_GET['style']=='print') $det="detailprint";
 $def->assign("KOMMA1", ", "); //assign komma for name, vorname in header
 
 if(auth_level(USER_GUEST_READER)) {
-	$result = mysql_query("SELECT * FROM fotografen WHERE (id=$id)");
+	$result = mysqli_query($sqli, "SELECT * FROM fotografen WHERE (id=$id)");
 }
 else {
-	$result=mysql_query("SELECT * FROM fotografen WHERE (id=$id) AND (unpubliziert=0)");
+	$result=mysqli_query($sqli, "SELECT * FROM fotografen WHERE (id=$id) AND (unpubliziert=0)");
 }
 
-while($fetch=mysql_fetch_array($result)){
+while($fetch=mysqli_fetch_array($result)){
 	if ($fetch['originalsprache']=='fr' && $_GET['clang']=='') $clanguage='fr';
 	$def->assign('sprachanzeige',checklangsf($fetch,array('beruf','umfeld','werdegang','schaffensbeschrieb'),"<a href=\"./?a=fotograph&amp;id=$id&amp;lang=$lang"));
 	if (auth_level(USER_WORKER)){
@@ -76,10 +76,10 @@ while($fetch=mysql_fetch_array($result)){
 	$fetch['bildgattungen_set']=str_replace(',',', ',$fetch['bildgattungen_set']);
 	$def->assign("FETCH",$fetch);
 
-	$result4=mysql_query("SELECT * FROM namen WHERE fotografen_id=$id ORDER BY  id");
+	$result4=mysqli_query($sqli, "SELECT * FROM namen WHERE fotografen_id=$id ORDER BY  id");
 	//echo "SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id";
 	$def->assign("SPR1",$spr);
-	while($fetch4=mysql_fetch_array($result4)){
+	while($fetch4=mysqli_fetch_array($result4)){
 		if($fetch4[vorname]!=""){
 			$def->assign("KOMMA",",");
 		}else{
@@ -111,9 +111,9 @@ while($fetch=mysql_fetch_array($result)){
 
 	//$def->assign("Arbeitsort",$spr['arbeitsort']);
 
-	$result2=mysql_query("SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id");
+	$result2=mysqli_query($sqli, "SELECT * FROM arbeitsperioden WHERE fotografen_id=$id ORDER BY  id");
 	$def->assign("SPR2",$spr);
-	while($fetch2=mysql_fetch_array($result2)){
+	while($fetch2=mysqli_fetch_array($result2)){
 		if ($fetch2['von'].$fetch2['bis']!=''){
 			$fetch2['um_vonf']=$fetch2['um_von']==0?'':$spr['um'].' ';
 			$fetch2['um_bisf']=$fetch2['um_bis']==0?'':$spr['um'].' ';
@@ -130,7 +130,7 @@ while($fetch=mysql_fetch_array($result)){
 		$def->assign("SPR2", ""); //delete table-header
 		//$results.=$def->text($det.".z");
 	}
-	if(mysql_num_rows($result2)!=0) abstand($def);
+	if(mysqli_num_rows($result2)!=0) abstand($def);
 
 	normfelda($def,$spr['umfeld'],clean_entry($fetch['fumfeld']));
 
@@ -150,17 +150,17 @@ while($fetch=mysql_fetch_array($result)){
 	normfelda($def,$spr['auszeichnungen_und_stipendien'],clean_entry($fetch['auszeichnungen']));
 
 	if(auth_level(USER_GUEST_READER_PARTNER)){
-		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, CASE institution.`territoriumszugegoerigkeit` WHEN 'de' THEN institution.name WHEN 'fr' THEN institution.name_fr WHEN 'it' THEN institution.name_it WHEN 'rm' THEN institution.name_rm END AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
+		$result6=mysqli_query($sqli, "SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, CASE institution.`territoriumszugegoerigkeit` WHEN 'de' THEN institution.name WHEN 'fr' THEN institution.name_fr WHEN 'it' THEN institution.name_it WHEN 'rm' THEN institution.name_rm END AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
 				WHERE bestand_fotograf.fotografen_id=$id ORDER BY bestand.nachlass DESC, bestand.name ASC");
 	} else {
-		$result6=mysql_query("SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, CASE institution.`territoriumszugegoerigkeit` WHEN 'de' THEN institution.name WHEN 'fr' THEN institution.name_fr WHEN 'it' THEN institution.name_it WHEN 'rm' THEN institution.name_rm END AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
+		$result6=mysqli_query($sqli, "SELECT bestand_fotograf.fotografen_id, bestand_fotograf.id AS bf_id, CASE institution.`territoriumszugegoerigkeit` WHEN 'de' THEN institution.name WHEN 'fr' THEN institution.name_fr WHEN 'it' THEN institution.name_it WHEN 'rm' THEN institution.name_rm END AS inst_name, institution.id AS inst_id, institution.gesperrt as instgesp, bestand.*
 				FROM bestand_fotograf INNER JOIN (bestand INNER JOIN institution ON bestand.inst_id = institution.id) ON bestand_fotograf.bestand_id = bestand.id
 				WHERE (bestand_fotograf.fotografen_id=$id) AND (bestand.gesperrt=0) AND (institution.gesperrt=0) ORDER BY bestand.nachlass DESC, bestand.name ASC");
 	}
 
 	$bes=$spr['bestaende'];
-	while($fetch6=mysql_fetch_array($result6)){
+	while($fetch6=mysqli_fetch_array($result6)){
 		if (auth_level(USER_GUEST_READER_PARTNER) || $fetch6['instgesp']==0){
 			$fetch6['institution']="<a href=\"./?a=institution&amp;id=".$fetch6['institution_id']."&amp;lang=$lang\">".$fetch6['institution_id']."</a>";
 		} else {
@@ -180,12 +180,12 @@ while($fetch=mysql_fetch_array($result)){
 		$bes='';
 		//$results.=$def->text($det.".z");
 	}
-	if(mysql_num_rows($result6)!=0) abstand($def);
+	if(mysqli_num_rows($result6)!=0) abstand($def);
 
 	if (auth_level(USER_GUEST_READER_PARTNER)){ // alte bestaende
-		$result3=mysql_query("SELECT * FROM bestaende WHERE fotografen_id=$id ORDER BY  id");
+		$result3=mysqli_query($sqli, "SELECT * FROM bestaende WHERE fotografen_id=$id ORDER BY  id");
 		$def->assign("alt_best", "Alt. Best.");
-		while($fetch3=mysql_fetch_array($result3)){
+		while($fetch3=mysqli_fetch_array($result3)){
 			if ($fetch3['institution_id']>0){
 				$fetch3['institution']="<a href=\"./?a=institution&amp;id=".$fetch3['institution_id']."&amp;lang=$lang\">".$fetch3['institution']."</a>";
 			}
@@ -197,14 +197,14 @@ while($fetch=mysql_fetch_array($result)){
 		}
 		//
 	}
-	if(mysql_num_rows($result3)>0) abstand($def);
+	if(mysqli_num_rows($result3)>0) abstand($def);
 	$lit='';
 
-	$result7=mysql_query("SELECT literatur_fotograf.fotografen_id, literatur_fotograf.id AS if_id, literatur_fotograf.typ AS if_typ, IF(literatur_fotograf.typ='P',literatur.jahr,literatur.verfasser_name) AS sortsp, literatur.*
+	$result7=mysqli_query($sqli, "SELECT literatur_fotograf.fotografen_id, literatur_fotograf.id AS if_id, literatur_fotograf.typ AS if_typ, IF(literatur_fotograf.typ='P',literatur.jahr,literatur.verfasser_name) AS sortsp, literatur.*
 			FROM literatur_fotograf INNER JOIN literatur ON literatur_fotograf.literatur_id = literatur.id
 			WHERE literatur_fotograf.fotografen_id=$id ORDER BY if_typ, sortsp");
 
-	while($fetch7=mysql_fetch_array($result7)){
+	while($fetch7=mysqli_fetch_array($result7)){
 		//$tmpfetch7 = $fetch7;
 		$litHasChanged = false;
 		if ($fetch7['if_typ']!=$lit){
@@ -226,7 +226,7 @@ while($fetch=mysql_fetch_array($result)){
 		$def->parse($det.".z.lit");
 		$def->parse($det.".z");
 	}
-	if(mysql_num_rows($result7)!=0) abstand($def);
+	if(mysqli_num_rows($result7)!=0) abstand($def);
 	if (auth_level(USER_GUEST_READER)){  //alte Literatur
 		normfelda($def,$spr['primaerliteratur_alt'],$fetch['primaerliteratur']);
 		normfelda($def,$spr['sekundaerliteratur_alt'],$fetch['sekundaerliteratur']);
@@ -234,11 +234,11 @@ while($fetch=mysql_fetch_array($result)){
 
 	$aus='';
 
-	$result8=mysql_query("SELECT ausstellung_fotograf.fotograf_id, ausstellung_fotograf.id AS af_id, ausstellung.*
+	$result8=mysqli_query($sqli, "SELECT ausstellung_fotograf.fotograf_id, ausstellung_fotograf.id AS af_id, ausstellung.*
 			FROM ausstellung_fotograf INNER JOIN ausstellung ON ausstellung_fotograf.ausstellung_id = ausstellung.id
 			WHERE ausstellung_fotograf.fotograf_id=$id ORDER BY ausstellung.typ, ausstellung.jahr, ausstellung.ort, af_id");
-	//if(mysql_num_rows($result8)!=0) abstand($def);
-	while($fetch8=mysql_fetch_array($result8)){
+	//if(mysqli_num_rows($result8)!=0) abstand($def);
+	while($fetch8=mysqli_fetch_array($result8)){
 		$typeHasChanged=false;
 		if ($fetch8['typ']!=$aus){
 			if($aus!=''){
@@ -260,7 +260,7 @@ while($fetch=mysql_fetch_array($result)){
 		$def->parse($det.".z.aus");
 		$def->parse($det.".z");
 	}
-	if(mysql_num_rows($result8)!=0) abstand($def);
+	if(mysqli_num_rows($result8)!=0) abstand($def);
 	if (auth_level(USER_GUEST_READER)){  //alte Literatur
 		normfelda($def,$spr['einzelausstellung_alt'],$fetch['einzelausstellungen']);
 		normfelda($def,$spr['gruppenausstellung_alt'],$fetch['gruppenausstellungen']);
@@ -287,8 +287,8 @@ $results.=$def->text($det);
 
 if(auth_level(USER_GUEST_FOTOS)){
 	// prepare photo details
-	$objResult=mysql_query("SELECT vorname, nachname FROM namen WHERE fotografen_id=$id LIMIT 0,1");
-	while($result=mysql_fetch_assoc($objResult)){
+	$objResult=mysqli_query($sqli, "SELECT vorname, nachname FROM namen WHERE fotografen_id=$id LIMIT 0,1");
+	while($result=mysqli_fetch_assoc($objResult)){
 		$firstname = $result['vorname'];
 		$name = $result['nachname'];
 		$fotograph->assign('panel_headline', $spr['photos_from'].' '.$firstname.' '.$name);
@@ -297,8 +297,8 @@ if(auth_level(USER_GUEST_FOTOS)){
 	$fotograph->assign("SPR",$spr);
 	$fotograph->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&photograph='.$firstname.(($firstname!='' && $name!='') ? '+' : '').$name.'&submitbutton='.$spr['submit']);
 
-	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dc_creator=$id ORDER BY RAND() LIMIT 0,3");
-	while($result=mysql_fetch_assoc($objResult)){
+	$objResult=mysqli_query($sqli, "SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dc_creator=$id ORDER BY RAND() LIMIT 0,3");
+	while($result=mysqli_fetch_assoc($objResult)){
 		$randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&photograph='.$firstname.(($firstname!='' && $name!='') ? '+' : '').$name.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 	}
 	$fotograph->assign('PHOTOS',$randomPhotos);

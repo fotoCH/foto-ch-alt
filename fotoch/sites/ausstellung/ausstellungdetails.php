@@ -12,8 +12,8 @@ $def->assign("SPR",$spr);
 
 $id=$_GET['id'];
 $anf=$_GET['anf'];
-$result=mysql_query("SELECT * FROM ausstellung WHERE id=$id");
-while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+$result=mysqli_query($sqli, "SELECT * FROM ausstellung WHERE id=$id");
+while($fetch=mysqli_fetch_assoc($result)){
 	$fetch=formaus($fetch);
 	normfeld($def,'',$fetch['text'].'.');
 	unset ($fetch['titel']);
@@ -54,11 +54,11 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	}
 }
 
-$result6=mysql_query("SELECT * FROM ausstellung_fotograf WHERE ausstellung_id=$id");
+$result6=mysqli_query($sqli, "SELECT * FROM ausstellung_fotograf WHERE ausstellung_id=$id");
 
 $def->assign("fotografIn",$spr['fotografIn']);
 $fotogr=array();
-while($fetch6=mysql_fetch_array($result6)){
+while($fetch6=mysqli_fetch_array($result6)){
 
 	$fo=getfo($fetch6['fotograf_id']);
 	$fotogr[$fo['sortn']]=$fo;

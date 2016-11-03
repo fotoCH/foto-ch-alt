@@ -58,15 +58,15 @@ $def->assign("EINTRAGNEU", "[&nbsp;".$spr['neuereintrag']."&nbsp;]");
 if ($_POST) escposts();
 if ($_GET['id']=="new"){
 	$sql = "INSERT INTO `bestand` ( `id` , `inst_id` , `name` , `zeitraum` , `umfang` , `erschliessungsgrad` , `weiteres` , `bildgattungen` , `bearbeitungsdatum` , `notiz` , `gesperrt` ) VALUES (NULL , '0', '', NULL , NULL, '', NULL , '', '0000-01-01', '', '0')";
-	$result = mysql_query($sql);
-	$last_insert_id = mysql_insert_id();
+	$result = mysqli_query($sqli, $sql);
+	$last_insert_id = mysqli_insert_id($sqli);
 }
 $del=$_GET['delete'];
 if ($del=="2"){
 	$id=$_GET['id'];
 	$sql = "DELETE FROM `bestand` WHERE id=$id LIMIT 1";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$def->parse("loeschen2");
 	$out.=$def->text("loeschen2");
 	$fertig=1;
@@ -79,36 +79,36 @@ if ($del=="1"){
 if($_REQUEST['new_fotograf']){
 	$sql="INSERT INTO `bestand_fotograf` (`bestand_id`, `fotografen_id`) VALUES ($_REQUEST[id],$_REQUEST[fotograf_id])";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `fotografen` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[fotograf_id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 }
 if($_REQUEST['new_inst']){
 	$sql="UPDATE `bestand` SET `inst_id`=$_REQUEST[institution_id] WHERE `id`=$_REQUEST[id]";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 }
 //////////////Fotograf löschen////////////////////////////
 if($_GET['f']=="del"){
 	$sql = "DELETE FROM `bestand_fotograf` WHERE id='$_GET[f_id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 }
 //////////////Fotograf namen bearbeiten////////////////////////////
 if($_GET['f']=="edit"){
 	$sql = "UPDATE `bestand_fotograf` set `namen_id`=$_GET[nid] WHERE id='$_GET[f_id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `bestand` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 }
 //////////////Bildgattugnen zur Speicherung in DB aufbereiten////////////////////////////
 if($_POST['submitbutton']){
@@ -144,7 +144,7 @@ if($_POST['submitbutton']){
 	`notiz` = '$_POST[notiz]',
 	`nachlass` = $nachlass,
 	`gesperrt` = $unpubliziert WHERE `id` =$_POST[hidden_id] LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 }
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
@@ -161,15 +161,15 @@ if ($fertig==1){
 	}
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
 	$sql = "SELECT * FROM bestand WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$array_eintrag = mysqli_fetch_array($result);
 	$def->assign('g',$array_eintrag['gesperrt']==1?'g':'');
 //	$sql = "SELECT bestand_fotograf.fotografen_id,  bestand_fotograf.id AS bf_id, namen.nachname, namen.vorname, namen.namenszusatz FROM bestand_fotograf INNER JOIN (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) ON bestand_fotograf.fotografen_id=fotografen.id WHERE bestand_fotograf.bestand_id=$id ORDER BY namen.nachname ASC"; // Weitere Formdaten  // Weitere Formdaten aus Tabelle 'bestaende' holen
 	$sql = "SELECT * FROM bestand_fotograf WHERE bestand_id=$id"; // Weitere Formdaten  // Weitere Formdaten aus Tabelle 'bestaende' holen
-	$result = mysql_query($sql);
-	if(mysql_num_rows($result)>0){
+	$result = mysqli_query($sqli, $sql);
+	if(mysqli_num_rows($result)>0){
 		$num=1;
-		while($array=mysql_fetch_array($result)){
+		while($array=mysqli_fetch_array($result)){
 			$def->assign("NUM", $num);
 			procbestand($def,$array);
 			$num++;
@@ -191,19 +191,19 @@ if ($fertig==1){
 	$def->assign("LEGEND","SEG");
 	// delete entries
 	if(isset($_GET['segdel'])) {
-		$sql="DELETE FROM `bestand_segref` WHERE `id` = ".mysql_real_escape_string($_GET['segdel']);
-		$result=mysql_query($sql);
+		$sql="DELETE FROM `bestand_segref` WHERE `id` = ".mysqli_real_escape_string($sqli, $_GET['segdel']);
+		$result=mysqli_query($sqli, $sql);
 	}
 	// show entries
 	$entries=Array();
-	$bid=mysql_real_escape_string($_GET['id']);
+	$bid=mysqli_real_escape_string($sqli, $_GET['id']);
 	if($bid!='new')
 		$sql="SELECT bestand_segref.id as id, bestand_segref.bestand_id as bid, a.name_".$lang." as prov, b.name_".$lang." as subk, c.name_".$lang." as kont, d.name_".$lang." as ethnie, e.name_".$lang." as regiort FROM bestand_segref LEFT JOIN provsubk a ON bestand_segref.prov_id=a.id LEFT JOIN provsubk b ON bestand_segref.subk_id=b.id LEFT JOIN kontinent c ON bestand_segref.kontinent_id=c.id LEFT JOIN ethnie d ON bestand_segref.ethnien_id=d.id LEFT JOIN regiort e ON bestand_segref.regionort_id=e.id WHERE bestand_segref.bestand_id=".$bid.";";
-	$result=mysql_query($sql);
+	$result=mysqli_query($sqli, $sql);
 	if (!$result) {
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . mysqli_error($sqli));
 	}
-	while($row=mysql_fetch_array($result)) {
+	while($row=mysqli_fetch_array($result)) {
 		array_push($entries, $row);
 	}
 	if(count($entries) == 0) {
@@ -240,8 +240,8 @@ if ($fertig==1){
 	//$def->assign('NAME',$array_eintrag['name']);
 	gencheckitem($def,$spr['nachlass'],$array_eintrag['nachlass'],'nachlass');
 	$sql = 'SELECT id , name FROM `institution` WHERE id='.$array_eintrag['inst_id'].' ORDER BY name';
-	$result = mysql_query($sql);
-	$fetch = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$fetch = mysqli_fetch_array($result);
 	
 	$iname=$fetch['name'];
 	
@@ -268,8 +268,8 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['erschliessungsgrad'],$array_eintrag['erschliessungsgrad'],'erschliessungsgrad');
 	genformitem($def,'textfield',$spr['weitere_materialien'],$array_eintrag['weiteres'],'weiteres');
 	$sql ="DESCRIBE bestand bildgattungen";//Beschreibung des Sets bekommen
-	$result = mysql_query($sql);
-	$fetch = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$fetch = mysqli_fetch_array($result);
 	$set_list = $fetch[Type];
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list);

@@ -22,10 +22,10 @@
 	$bearbeiten = "&nbsp;&nbsp;[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 	
 	if (auth_level(USER_GUEST_READER_PARTNER))
-	$result=mysql_query("SELECT * FROM users WHERE users.id=$id");
-	else  $result=mysql_query("SELECT * FROM users WHERE (users.id=$id)");
+	$result=mysqli_query($sqli, "SELECT * FROM users WHERE users.id=$id");
+	else  $result=mysqli_query($sqli, "SELECT * FROM users WHERE (users.id=$id)");
 
-	while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+	while($fetch=mysqli_fetch_assoc($result)){
 		//print_r($fetch);
 		$def->assign("ACTION",$_GET['a']);
 		$def->assign("ID",$_GET['id']);

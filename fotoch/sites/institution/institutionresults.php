@@ -78,9 +78,9 @@ if ($_GET['submitbutton']!=""){
 		$query="SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE MATCH (zugang_zur_sammlung,sammlungsbeschreibung,sammlungsgeschichte,abkuerzung) AGAINST ('".$vars['volltext']."') OR name LIKE '%".$vars['volltext']."%' OR name_fr LIKE '%".$vars['volltext']."%' OR name_it LIKE '%".$vars['volltext']."%' OR name_rm LIKE '%".$vars['volltext']."%' OR name_en LIKE '%".$vars['volltext']."%' OR abkuerzung LIKE '%".$vars['volltext']."%' OR abkuerzung_fr LIKE '%".$vars['volltext']."%' OR abkuerzung_it LIKE '%".$vars['volltext']."%' OR abkuerzung_rm LIKE '%".$vars['volltext']."%' OR abkuerzung_en LIKE '%".$vars['volltext']."%' OR ort LIKE '%".$vars['volltext']."%' ORDER BY ".$namecase;
 	}
 	//echo $query;
-	$result=mysql_query($query);
+	$result=mysqli_query($sqli, $query);
 	
-	if(mysql_num_rows($result) > 0){
+	if(mysqli_num_rows($result) > 0){
 		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
@@ -88,7 +88,7 @@ if ($_GET['submitbutton']!=""){
 		}
 	}
 	
-	while($fetch=mysql_fetch_array($result)){
+	while($fetch=mysqli_fetch_array($result)){
 		//
 		$fetch['nameclass']='subtitle3';
 		if ($fetch['autorin']!=''){
@@ -116,18 +116,18 @@ if ($_GET['submitbutton']!=""){
 		$issearch=2;
 		// Select: code
 		if(auth_level(USER_GUEST_READER_PARTNER)){
-			$result=mysql_query("SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $namecase LIKE '$anf%' ORDER BY ".$namecase);
+			$result=mysqli_query($sqli, "SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE $namecase LIKE '$anf%' ORDER BY ".$namecase);
 		} else {
-			$result=mysql_query("SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '$anf%') AND (gesperrt=0) ORDER BY ".$namecase);
+			$result=mysqli_query($sqli, "SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '$anf%') AND (gesperrt=0) ORDER BY ".$namecase);
 		}
-		echo $mysql_error;
+		echo $mysqli_error($sqli);
 		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
 			$def->parse("list.listhead_normal_institution");
 		}
-	echo $mysql_error;
-		while($fetch=mysql_fetch_array($result)){
+	echo $mysqli_error($sqli);
+		while($fetch=mysqli_fetch_array($result)){
 			$fetch['nameclass']='subtitle3';
 			if ($fetch['autorin']!=''){
 				$fetch['nameclass']='subtitle3bio';

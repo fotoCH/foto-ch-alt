@@ -31,8 +31,8 @@ if (auth_level(USER_WORKER)) $leerout='';
 if ($id==''){
 	// Select: code
 	$issearch=2;
-	$result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '$anf%' $leerout ORDER BY begriff Asc");
-	if(!$anf) $result=mysql_query("SELECT * FROM glossar WHERE begriff LIKE '%$volltext%' ORDER BY begriff Asc");
+	$result=mysqli_query($sqli, "SELECT * FROM glossar WHERE begriff LIKE '$anf%' $leerout ORDER BY begriff Asc");
+	if(!$anf) $result=mysqli_query($sqli, "SELECT * FROM glossar WHERE begriff LIKE '%$volltext%' ORDER BY begriff Asc");
 	if (auth_level(USER_WORKER)){
 		$suff='row_admin_glossar';
 	}
@@ -41,7 +41,7 @@ if ($id==''){
 	}
 
 	//echo "SELECT * FROM fotografen WHERE nachname LIKE '$anf%' ORDER BY  nachname Asc, vorname Asc";
-	while($fetch=mysql_fetch_array($result)){
+	while($fetch=mysqli_fetch_array($result)){
 
 		$def->assign("FETCH",$fetch);
 		//print_r($fetch);

@@ -113,29 +113,31 @@ function register(&$ar, $recr){
 }
 
 function putToDB($r){
+	global $sqli;
 	$s='BCU';
 	$q="REPLACE INTO bildarchivbcu SET ";
 	
 	foreach ($r as $k => $v){
 	
 		if ($k!=''){
-			$q.="`$k`='".mysql_escape_string($v)."', ";
+			$q.="`$k`='".mysqli_real_escape_string ($sqli, $v)."', ";
 		}
 	}
 	$q.="`source`='$s'";
 	echo $q;
-	$res=mysql_query($q);
-	if ($e=mysql_error()){
+	$res=mysqli_query($sqli, $q);
+	if ($e=mysqli_error($sqli)){
 		echo($e);
 		addMissingColums($r);
-		$res=mysql_query($q);
+		$res=mysqli_query($sqli, $q);
 	}
 }
 
 function addMissingColums($r){
-	$res=mysql_query('DESCRIBE bildarchivbcu');
+	global $sqli;
+	$res=mysqli_query($sqli, 'DESCRIBE bildarchivbcu');
 	$fields=array();
-	while ($fetch=mysql_fetch_assoc($res)){
+	while ($fetch=mysqli_fetch_assoc($res)){
 		$fields[]=$fetch['Field'];
 	}
 	foreach ($r as $k => $v){
@@ -143,7 +145,7 @@ function addMissingColums($r){
 		if (!in_array($k,$fields)){
 			echo"missing: $k\r\n";
 			$q='ALTER TABLE  `bildarchivbcu` ADD  `'.$k.'` VARCHAR( 255 ) NOT NULL';
-			mysql_query($q);
+			mysqli_query($sqli, $q);
 		}
 	}
 	//print_r($res);

@@ -10,9 +10,9 @@ $xtpl->assign("LANG", $_GET['lang']);
 if ($_POST['usr_uid'] !="" && $_POST['usr_pw']!=""){
 
 	$query = "SELECT * FROM users";
-	$result = mysql_query($query);
+	$result = mysqli_query($sqli, $query);
 	$success = false;
-	while($fetch = mysql_fetch_array($result)){
+	while($fetch = mysqli_fetch_array($result)){
 		if($fetch['username'] == $_POST['usr_uid'] && $fetch['password'] == md5($_POST['usr_pw'])){
 			$_SESSION['usr_level'] = $fetch['level'];
 			$_SESSION['s_uid'] = $_POST['usr_uid'];

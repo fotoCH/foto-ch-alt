@@ -14,15 +14,15 @@ $def->assign("SPR",$spr);
 if ($_POST) escposts();
 if ($_GET[id]=="new"){
 	$sql = "INSERT INTO `literatur` ( `id` , `titel` , `verfasser_name` , `verfasser_vorname` , `jahr` , `ort` , `in` , `nummer` , `seite` , `code` , `text` ) VALUES (NULL , '', NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL , NULL)";
-	$result = mysql_query($sql);
-	$last_insert_id = mysql_insert_id();
+	$result = mysqli_query($sqli, $sql);
+	$last_insert_id = mysqli_insert_id($sqli);
 }
 $del=$_GET['delete'];
 if ($del=="2"){
 	$id=$_GET['id'];
 	$sql = "DELETE FROM `literatur` WHERE id=$id LIMIT 1";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$def->parse("loeschen2");
 	$out.=$def->text("loeschen2");
 	$fertig=1;
@@ -51,7 +51,7 @@ if($_POST['submitbutton']){
 	`notiz` = '$_POST[notiz]',
 	`bearbeitungsdatum` = '$bearbeitungsdatum'
 	WHERE `id` =$_POST[hidden_id] LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 }
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
@@ -68,8 +68,8 @@ if ($fertig==1){
 	}
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
 	$sql = "SELECT * FROM literatur WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$array_eintrag = mysqli_fetch_array($result);
 	
 	$def->assign("TITEL",$array_eintrag['titel']);
 	$def->parse("bearbeiten.bearbeiten_head_literatur");

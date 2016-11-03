@@ -17,10 +17,10 @@ $join .= "LEFT JOIN institution AS i ON f.edm_dataprovider=i.id ";
 $join .= "LEFT JOIN bestand AS b ON f.dcterms_ispart_of=b.id ";
 
 $query = "SELECT DISTINCT $select FROM fotos AS f $join WHERE f.id=$id";
-$objResult=mysql_query($query);
+$objResult=mysqli_query($sqli, $query);
 
 // prepare the metadata
-while($arrResult=mysql_fetch_assoc($objResult)){
+while($arrResult=mysqli_fetch_assoc($objResult)){
 	$photographID = $arrResult['photograph_id'];
 	$institutionID = $arrResult['institution_id'];
 	$stockID = $arrResult['stock_id'];
@@ -143,8 +143,8 @@ foreach($_GET as $key=>$value) {
 					$query = "SELECT id FROM namen WHERE (nachname LIKE '%$arrName[0]%' OR vorname LIKE '%$arrName[0]%') LIMIT 0,1";
 				}
 
-				$objResult = mysql_query($query);
-				$value = mysql_fetch_assoc($objResult);
+				$objResult = mysqli_query($sqli, $query);
+				$value = mysqli_fetch_assoc($objResult);
 				$value = $value['id'];
 			}
 			$where = ($where!='' ? ' AND ' : '')."dc_creator=$value";
@@ -171,17 +171,17 @@ foreach($_GET as $key=>$value) {
 
 $query = "SELECT id FROM fotos".($where!='' ? ' WHERE '.$where : '');
 $nextQuery = $query.($where!='' ? ' AND ' : ' WHERE ')."id>$id LIMIT 0,1";
-$objNextResult = mysql_query($nextQuery);
-if (mysql_num_rows($objNextResult)>0){
-	$result = mysql_fetch_assoc($objNextResult);
+$objNextResult = mysqli_query($sqli, $nextQuery);
+if (mysqli_num_rows($objNextResult)>0){
+	$result = mysqli_fetch_assoc($objNextResult);
 	$url = str_replace('&id='.$id, '&id='.$result['id'], $_SERVER['REQUEST_URI']);
 	$next = '<a href="'.$url.'">'.$spr['next_photo'].'</a>';
 	$xtpl_fotos->assign("next_link", $next);
 }
 $previousQuery = $query.($where!='' ? ' AND ' : ' WHERE ')."id<$id ORDER BY id DESC LIMIT 0,1";
-$objPreviousResult = mysql_query($previousQuery);
-if (mysql_num_rows($objPreviousResult)>0){
-	$result = mysql_fetch_assoc($objPreviousResult);
+$objPreviousResult = mysqli_query($sqli, $previousQuery);
+if (mysqli_num_rows($objPreviousResult)>0){
+	$result = mysqli_fetch_assoc($objPreviousResult);
 	$url = str_replace('&id='.$id, '&id='.$result['id'], $_SERVER['REQUEST_URI']);
 	$xtpl_fotos->assign("previous_link", '<a href="'.$url.'">'.$spr['previous_photo'].'</a>'.($next!='' ? ' | ' : ''));
 }

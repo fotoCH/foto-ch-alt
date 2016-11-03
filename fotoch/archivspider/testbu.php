@@ -68,6 +68,7 @@ function checktechnik($t){
 }
 
 function putToDB($r){
+	global $sqli;
 	$s='Burgerbibliothek der Stadt Bern';
 	$q="REPLACE INTO bildarchivbu SET ";
 	$ok=false;
@@ -77,8 +78,8 @@ function putToDB($r){
 		if ($v[0]=='id') $ok=true;
 		
 		if ($v[0]!=''){
-			$q.="`$v[0]`='".mysql_escape_string($v[1])."', ";
-			$all.="$v[0]=".mysql_escape_string($v[1])."\r\n";
+			$q.="`$v[0]`='".mysqli_real_escape_string ($sqli, $v[1])."', ";
+			$all.="$v[0]=".mysqli_real_escape_string ($sqli, $v[1])."\r\n";
 		}
 		if ($v[0]=='Technik') $tech=$v[1];
 		
@@ -86,20 +87,21 @@ function putToDB($r){
 	$q.="`source`='$s', `all`='".$all."'";
 	//echo $q;
 	if ($ok && checktechnik($tech)){
-		$res=mysql_query($q);
-		if ($e=mysql_error()){
+		$res=mysqli_query($sqli, $q);
+		if ($e=mysqli_error($sqli)){
 			echo($e);
 
 			addMissingColums($r);
-			$res=mysql_query($q);
+			$res=mysqli_query($sqli, $q);
 		}
 	}
 }
 
 function addMissingColums($r){
-	$res=mysql_query('DESCRIBE bildarchivbu');
+	global $sqli;
+	$res=mysqli_query($sqli, 'DESCRIBE bildarchivbu');
 	$fields=array();
-	while ($fetch=mysql_fetch_assoc($res)){
+	while ($fetch=mysqli_fetch_assoc($res)){
 		$fields[]=$fetch['Field'];
 	}
 	foreach ($r as $k => $v){
@@ -107,7 +109,7 @@ function addMissingColums($r){
 		if (!in_array($k,$fields)){
 			echo"missing: $k\r\n";
 			$q='ALTER TABLE  `bildarchivbu` ADD  `'.$k.'` VARCHAR( 255 ) NOT NULL';
-			mysql_query($q);
+			mysqli_query($sqli, $q);
 		}
 	}
 	//print_r($res);
@@ -150,9 +152,10 @@ function getBild($id){
 //getBild(106716);
 
 function getBilder(){
+	global $sqli;
 	$q="SELECT id FROM bildarchivbu WHERE id>0 ORDER BY id";
-	$res=mysql_query($q);
-	while ($fetch=mysql_fetch_assoc($res)){
+	$res=mysqli_query($sqli, $q);
+	while ($fetch=mysqli_fetch_assoc($res)){
 		getBild($fetch['id']);
 		echo $fetch['id']."\r\n";
 		flush();
@@ -164,8 +167,8 @@ function getBilder(){
 //getDetailScopeWeb(106737);
 
 /*
-$r=mysql_query("SELECT id FROM bildarchivbu_o");
-while ($f=mysql_fetch_assoc($r)){
+$r=mysqli_query($sqli, "SELECT id FROM bildarchivbu_o");
+while ($f=mysqli_fetch_assoc($r)){
 	getDetailScopeWeb($f['id']);
 }
 */

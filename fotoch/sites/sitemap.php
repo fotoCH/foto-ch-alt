@@ -12,14 +12,14 @@ $sitemap=new XTemplate ("./templates/contents.xtpl");
 //do queries
 
 //assign for content
-//$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'sitemap'");
-//while($fetch = mysql_fetch_array($result)){
+//$result = mysqli_query($sqli, "SELECT ".$language." FROM sprache WHERE name = 'sitemap'");
+//while($fetch = mysqli_fetch_array($result)){
 	
 	$sitemap->assign("ITEM","<h1>".$spr['sitemap']."</h1>");
 //}
 
-//$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'sitemap_content'");
-//while($fetch = mysql_fetch_array($result)){
+//$result = mysqli_query($sqli, "SELECT ".$language." FROM sprache WHERE name = 'sitemap_content'");
+//while($fetch = mysqli_fetch_array($result)){
 	$sitemap->assign("DATA",$spr['sitemap_content']);
 //}
 

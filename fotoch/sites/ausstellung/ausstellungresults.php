@@ -24,11 +24,11 @@ $def->parse("list.head_ausstellung".$admin);
 
 
 if ($anf=='andere'){
-	$result=mysql_query("SELECT * FROM ausstellung WHERE (`titel` <'A') OR (`titel`>'zz') ORDER BY  titel Asc");
+	$result=mysqli_query($sqli, "SELECT * FROM ausstellung WHERE (`titel` <'A') OR (`titel`>'zz') ORDER BY  titel Asc");
 }
 else {
 	if($anf!=''){
-		$result=mysql_query("SELECT * FROM ausstellung WHERE titel LIKE '$anf%' ORDER BY  titel Asc");
+		$result=mysqli_query($sqli, "SELECT * FROM ausstellung WHERE titel LIKE '$anf%' ORDER BY  titel Asc");
 		$issearch=2;
 	}
 	else {
@@ -63,10 +63,10 @@ else {
 		}
 		$sql = "SELECT * FROM ausstellung WHERE $where ORDER BY jahr DESC";
 		$issearch=3;
-		$result=mysql_query($sql);
+		$result=mysqli_query($sqli, $sql);
 	}
 }
-while($fetch=mysql_fetch_array($result)){
+while($fetch=mysqli_fetch_array($result)){
 
 	
 	if (trim($fetch['titel'])==''){

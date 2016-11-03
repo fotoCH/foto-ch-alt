@@ -9,15 +9,15 @@ $def->assign("SPR",$spr);
 $def->assign("TITLE", $spr['bestand']);
 
 if (auth_level(USER_WORKER)){
-	$result=mysql_query("SELECT * FROM bestand WHERE id=$id");
+	$result=mysqli_query($sqli, "SELECT * FROM bestand WHERE id=$id");
 } else {
-	$result=mysql_query("SELECT * FROM bestand WHERE (id=$id) AND gesperrt=0");
+	$result=mysqli_query($sqli, "SELECT * FROM bestand WHERE (id=$id) AND gesperrt=0");
 }
 
 $bearbeiten = "&nbsp;&nbsp;[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 $det="autodetail";
 if ($_GET['style']=='print') $det="detailprint";
-while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+while($fetch=mysqli_fetch_assoc($result)){
 	$def->assign("ACTION",$_GET['a']);
 	$def->assign("ID",$_GET['id']);
 	if(auth_level(USER_GUEST_READER)){
@@ -52,10 +52,10 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	normfeld($def,$spr['erschliessungsgrad'],$fetch['erschliessungsgrad']);
 	if (auth_level(USER_WORKER)) normfeld($def, $spr['fotografen_alt'],$fetch['fotografen']);
 
-	$result6=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=$id");
+	$result6=mysqli_query($sqli, "SELECT * FROM bestand_fotograf WHERE bestand_id=$id");
 	$def->assign("fotografIn",$spr['fotographInnen']);
 	$fotogr=array();
-	while($fetch6=mysql_fetch_array($result6)){
+	while($fetch6=mysqli_fetch_array($result6)){
 		//print_r($fetch6);
 		//if ($fetch6['institution_id']>0){
 		if ($fetch6['namen_id']){
@@ -90,12 +90,12 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 		$def->assign("fotografIn","");
 
 	}
-	if(mysql_num_rows($result6)!=0) abstand($def);
-	//if(mysql_result($result6)!=0) abstand($def);
+	if(mysqli_num_rows($result6)!=0) abstand($def);
+	//if(mysqli_result($result6)!=0) abstand($def);
 	kontinente();
-	$result7=mysql_query("SELECT * FROM bestand_segref WHERE bestand_id=$id AND ethnien_id=0");
+	$result7=mysqli_query($sqli, "SELECT * FROM bestand_segref WHERE bestand_id=$id AND ethnien_id=0");
 	$ofetch=array();
-	while($fetch7=mysql_fetch_array($result7)){
+	while($fetch7=mysqli_fetch_array($result7)){
 		formseg($fetch7);
 		if ($ofetch['subkontinent']==$fetch7['subkontinent'] && $ofetch['herkunft']==$fetch7['herkunft']){
 			if ($ofetch['regiort']) $ofetch['regiort'].=', ';
@@ -121,8 +121,8 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 		$def->parse("autodetail.z");
 	}
 
-	$result9=mysql_query("SELECT * FROM bestand_segref WHERE bestand_id=$id AND ethnien_id!=0");
-	while($fetch9=mysql_fetch_array($result9)){
+	$result9=mysqli_query($sqli, "SELECT * FROM bestand_segref WHERE bestand_id=$id AND ethnien_id!=0");
+	while($fetch9=mysqli_fetch_array($result9)){
 		formseg2($fetch9);
 		$def->assign("FETCH9",$fetch9);
 		$def->parse("autodetail.z.bestn_9.row");
@@ -134,7 +134,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
 	}
 
 		
-	if(mysql_num_rows($result6)!=0) abstand($def);
+	if(mysqli_num_rows($result6)!=0) abstand($def);
 	if (auth_level(USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
 	if (auth_level(USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
 
@@ -149,8 +149,8 @@ if(auth_level(USER_GUEST_FOTOS)){
 	$bestand->assign("SPR",$spr);
 	$bestand->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&stock='.$id.'&submitbutton='.$spr['submit']);
 
-	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
-	while($result=mysql_fetch_assoc($objResult)){
+	$objResult=mysqli_query($sqli, "SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE dcterms_ispart_of=$id ORDER BY RAND() LIMIT 0,3");
+	while($result=mysqli_fetch_assoc($objResult)){
 		$randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&stock='.$id.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 	}
 	$bestand->assign('PHOTOS',$randomPhotos);

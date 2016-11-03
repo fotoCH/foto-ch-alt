@@ -109,8 +109,9 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 
 	
 	function getKantone() {
-		$type = mysql_query( "SHOW COLUMNS FROM institution WHERE Field = 'Kanton'" );
-		while($i = mysql_fetch_object($type)) {
+		global $sqli;
+		$type = mysqli_query($sqli,  "SHOW COLUMNS FROM institution WHERE Field = 'Kanton'" );
+		while($i = mysqli_fetch_object($type)) {
 			$type=$i->Type;break;
 		}
 		preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
@@ -122,8 +123,9 @@ for ($an=ord('A');$an<=ord('Z');$an++){
 	}
 	
 	function getBildgattungen() {
-		$type = mysql_query( "SHOW COLUMNS FROM institution WHERE Field = 'bildgattungen_set'" );
-		while($i = mysql_fetch_object($type)) {
+		global $sqli;
+		$type = mysqli_query($sqli,  "SHOW COLUMNS FROM institution WHERE Field = 'bildgattungen_set'" );
+		while($i = mysqli_fetch_object($type)) {
 			$type=$i->Type;break;
 		}
 		preg_match("/^set\(\'(.*)\'\)$/", $type, $matches);

@@ -13,11 +13,11 @@ $anf=$_GET['anf'];
 $def->assign("TITLE", $spr['glossar']);
 $def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 
-	$result=mysql_query("SELECT * FROM glossar WHERE id=$id");
+	$result=mysqli_query($sqli, "SELECT * FROM glossar WHERE id=$id");
 
 
 	if($_SESSION[s_uid]=="fotobe"){////////////////////////////// Admincode
-		while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+		while($fetch=mysqli_fetch_assoc($result)){
 			$def->assign("PHP_SELF",$_SERVER['PHP_SELF']);
 			$def->assign("ACTION",$_GET['a']);
 			$def->assign("ID",$_GET['id']);
@@ -36,7 +36,7 @@ $def->assign("BEARBEITEN", "[&nbsp;".$spr['bearbeiten']."&nbsp;]");
 		$def->parse("autodetail.z.bearbeiten_glossar");
 		$def->parse("autodetail.z");
 	}else{////////////////////////////// nicht-Admincode
-		while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+		while($fetch=mysqli_fetch_assoc($result)){
 			//print_r($fetch);
 			$def->assign("PHP_SELF",$_SERVER['PHP_SELF']);
 			$def->assign("ACTION",$_GET['a']);

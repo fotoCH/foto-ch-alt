@@ -30,12 +30,12 @@ if($_POST['submitbutton']!=''){
 	
 	//echo $pagecontent;
 	$query = "UPDATE sprache SET $lang = '$pagecontent' WHERE name='$page'";
-	$result = mysql_query($query);
+	$result = mysqli_query($sqli, $query);
 	if($result){
 		//show updated content...
 		$query1 = "SELECT $lang FROM sprache WHERE name = '$page'";
-		$result1 = mysql_query($query1);
-		$editpages->assign("PAGECONTENT", htmlspecialchars(mysql_result($result1, 0)));
+		$result1 = mysqli_query($sqli, $query1);
+		$editpages->assign("PAGECONTENT", htmlspecialchars(mysqli_result($result1, 0)));
 		$editpages->assign("PAGE", $_POST['page']);
 	}
 	else {
@@ -48,8 +48,8 @@ if($_POST['submitbutton']!=''){
 		$lang = $_GET['lang'];
 		$page = $_GET['pages'];
 		$query = "SELECT $lang FROM sprache WHERE name = '$page'";
-		$result = mysql_query($query);
-		$editpages->assign("PAGECONTENT", htmlspecialchars(mysql_result($result, 0)));
+		$result = mysqli_query($sqli, $query);
+		$editpages->assign("PAGECONTENT", htmlspecialchars(mysqli_result($result, 0)));
 		$editpages->assign("PAGE",$page);
 	} else {
 		// simply show the page

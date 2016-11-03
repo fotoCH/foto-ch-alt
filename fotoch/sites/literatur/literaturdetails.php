@@ -10,10 +10,10 @@
 	$def->assign("SPR",$spr);
 	//$bearbeiten = "[&nbsp;".$spr['bearbeiten']."&nbsp;]";
 	
-	$result=mysql_query("SELECT * FROM literatur WHERE id=$id");
-	//if(mysql_num_rows($result)>0){ echo "es" ;} else {echo "no";}
+	$result=mysqli_query($sqli, "SELECT * FROM literatur WHERE id=$id");
+	//if(mysqli_num_rows($result)>0){ echo "es" ;} else {echo "no";}
 	if(auth_level(USER_WORKER)){////////////////////////////// Admincode
-		while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+		while($fetch=mysqli_fetch_assoc($result)){
 					
 			foreach ($fetch as $key=>$value){
 				
@@ -27,7 +27,7 @@
 			}
 		}
 	}else{////////////////////////////// nicht-Admincode
-		while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+		while($fetch=mysqli_fetch_assoc($result)){
 			
 			foreach ($fetch as $key=>$value){
 				//print "$key=>$value<br />";
@@ -45,11 +45,11 @@
 			}
 		}
 	}
-	$result6=mysql_query("SELECT * FROM literatur_fotograf WHERE literatur_id=$id");
+	$result6=mysqli_query($sqli, "SELECT * FROM literatur_fotograf WHERE literatur_id=$id");
 	
 	$def->assign("fotografIn",$spr['fotografIn']);
 	$fotogr=array();
-	while($fetch6=mysql_fetch_array($result6)){
+	while($fetch6=mysqli_fetch_array($result6)){
 		
 		$fo=getfo($fetch6['fotografen_id']);
 		$fotogr[$fo['sortn']]=$fo;

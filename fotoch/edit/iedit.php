@@ -21,16 +21,16 @@ $edit = new Edit( $def, 'institution' );
 //if ($_POST) escposts();
 if ($_GET[id]=="new"){
 	$sql = "INSERT INTO `institution` (`name`,`gesperrt`) VALUES ( 'neue Institution','1')";
-	$result = mysql_query($sql);
-	$last_insert_id = mysql_insert_id();
-	$edit->writeHistory($last_insert_id, getHistEntry("IN", "add", mysql_insert_id()));
+	$result = mysqli_query($sqli, $sql);
+	$last_insert_id = mysqli_insert_id($sqli);
+	$edit->writeHistory($last_insert_id, getHistEntry("IN", "add", mysqli_insert_id($sqli)));
 }
 $del=$_GET['delete'];
 if ($del=="2"){
 	$id=$_GET['id'];
 	$sql = "DELETE FROM `institution` WHERE id=$id LIMIT 1";
 	//echo $sql;
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$edit->writeHistory($last_insert_id, getHistEntry("IN", "deleted", ''));
 	$def->parse("loeschen2");
 	$out.=$def->text("loeschen2");
@@ -44,38 +44,38 @@ if ($del=="1"){
 //////////////Literatur löschen////////////////////////////
 if($_GET['l']=="del"){
 	$sql = "DELETE FROM `literatur_institution` WHERE id='$_GET[l_id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$edit->writeHistory($_GET['id'], getHistEntry("IN", "del literatur: ",$_GET['logid'] ));
 }
 if($_GET['au']=="del"){
 	$sql = "DELETE FROM `ausstellung_institution` WHERE id='$_GET[a_id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_GET[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$edit->writeHistory($_GET['id'], getHistEntry("IN", "del ausstellung: ",$_GET['logid'] ));
 }
 //////////////Bestand bearbeiten->speichern////////////////////////////
 if($_REQUEST['new_literatur']){
 	
 	$sql="INSERT INTO `literatur_institution` (`literatur_id`, `institution_id`) VALUES ($_REQUEST[literatur_id],$_REQUEST[id])";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$edit->writeHistory($_GET['id'], getHistEntry("IN", "add literatur: ",$_GET['literatur_id'] ));
 }
 if($_REQUEST['new_ausstellung']){
 	
 	$sql="INSERT INTO `ausstellung_institution` (`ausstellung_id`, `institution_id`) VALUES ($_REQUEST[ausstellung_id],$_REQUEST[id])";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	//echo($sql);
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "UPDATE `institution` SET `bearbeitungsdatum` = '$bearbeitungsdatum' WHERE `id` ='$_REQUEST[id]' LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 	$edit->writeHistory($_GET['id'], getHistEntry("IN", "add ausstellung: ",$_GET['ausstellung_id'] ));
 	
 }
@@ -102,14 +102,14 @@ if($_POST['submitbutton']){
 	//////////////Formdaten in Tabelle 'fotografen' eintragen bzw aktualisieren////////////////////////////
 	$bearbeitungsdatum = date("Y-m-d");
 	$sql = "SELECT * FROM institution WHERE id =$id";
-	$result = mysql_query($sql);
-	$array_eintrag = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$array_eintrag = mysqli_fetch_array($result);
 	
 	$sql="UPDATE institution SET ";
 	$s='';
 	$s2=''; // für history
 	foreach ($langfs as $t){
-		$u=($_POST[$t]==$array_eintrag[$t.clangex()]?'':'`'.$t.clangex().'`=\''.mysql_real_escape_string($_POST[$t])."'");
+		$u=($_POST[$t]==$array_eintrag[$t.clangex()]?'':'`'.$t.clangex().'`=\''.mysqli_real_escape_string($sqli, $_POST[$t])."'");
 		if ($u){
 			$s.=($s?', ':'').$u;
 			$s2.=($s2?', ':'').getHChanged($t.clangex(),$_POST[$t],$array_eintrag[$t.clangex()]);
@@ -117,7 +117,7 @@ if($_POST['submitbutton']){
 	}
 
 	foreach ($textfs as $t){
-		$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$t])."'");
+		$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysqli_real_escape_string($sqli, $_POST[$t])."'");
 		if ($u){
 			$s.=($s?', ':'').$u;
 			$s2.=($s2?', ':'').getHChanged($t,$_POST[$t],$array_eintrag[$t]);
@@ -125,7 +125,7 @@ if($_POST['submitbutton']){
 	}
 	
 	foreach ($spezfs as $t=>$v){
-		$u=($_POST[$v]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$v])."'");
+		$u=($_POST[$v]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysqli_real_escape_string($sqli, $_POST[$v])."'");
 		if ($u){
 			$s.=($s?', ':'').$u;
 			$s2.=($s2?', ':'').getHChanged($t,$_POST[$v],$array_eintrag[$t]);
@@ -133,7 +133,7 @@ if($_POST['submitbutton']){
 	}
 	foreach ($varfields as $t){
 		//echo "$t: ".$$t."<br />";
-		$u=($$t==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($$t)."'");
+		$u=($$t==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysqli_real_escape_string($sqli, $$t)."'");
 		if ($u){
 			$s.=($s?', ':'').$u;
 			$s2.=($s2?', ':'').getHChanged($t,$$t,$array_eintrag[$t]);
@@ -168,7 +168,7 @@ if($_POST['submitbutton']){
 	`notiz` = '$_POST[notiz]',
 	`autorin` = '$_POST[autorin]',
 	`gesperrt` = $gesperrt WHERE `id` =$_POST[hidden_id] LIMIT 1"; */
-	$result = mysql_query($sql); 
+	$result = mysqli_query($sqli, $sql); 
 }
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
 if ($fertig==1){
@@ -185,8 +185,8 @@ if ($fertig==1){
 	}
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
 	$sql = "SELECT * FROM institution WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$array_eintrag = mysqli_fetch_array($result);
 	
 	$def->assign("LEGEND", "<b>".$spr['institution_details']."</b>");
 	$def->parse("bearbeiten.form.fieldset_start");	
@@ -213,8 +213,8 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['plz'],$array_eintrag['plz'],'plz');
 	genformitem($def,'textfield',$spr['ort'],$array_eintrag['ort'],'ort');
 	$sql ="DESCRIBE institution kanton";//Beschreibung des Sets bekommen
-	$result = mysql_query($sql);
-	$fetch = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$fetch = mysqli_fetch_array($result);
 	$set_list = $fetch[Type];
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list); $array_set_list[0]='';
@@ -232,8 +232,8 @@ if ($fertig==1){
 	genformitem($def,'textfield',$spr['sammlungszeit']." ".$spr['von'],$array_eintrag['sammlungszeit_von'],'sammlungszeit_von');
 	genformitem($def,'textfield',$spr['sammlungszeit']." ".$spr['bis'],$array_eintrag['sammlungszeit_bis'],'sammlungszeit_bis');
 	$sql ="DESCRIBE institution bildgattungen_set";//Beschreibung des Sets bekommen
-	$result = mysql_query($sql);
-	$fetch = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$fetch = mysqli_fetch_array($result);
 	$set_list = $fetch[Type];
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list);

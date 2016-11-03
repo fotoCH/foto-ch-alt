@@ -118,10 +118,10 @@ if ($_REQUEST['submitseiten'] || $_REQUEST['submitbesucher']){
 		}
 		$ot=-1;
 		$sql="SELECT $s FROM log_sessions $w $g $o";
-		$res=mysql_query($sql);
+		$res=mysqli_query($sqli, $sql);
 		$result=array();
 		
-		while ($f=mysql_fetch_array($res)){
+		while ($f=mysqli_fetch_array($res)){
 			$time=$f['time'];
 			if ($ot!=$time){
 				$times[]=$time;
@@ -243,11 +243,11 @@ if ($_REQUEST['submitseiten'] || $_REQUEST['submitbesucher']){
 
 		$sql="SELECT $s FROM log_pages $w $g $o";
 		//echo $sql;
-		$res=mysql_query($sql);
+		$res=mysqli_query($sqli, $sql);
 
 		$result=array();
 		$ot=-1;
-		while ($f=mysql_fetch_array($res)){
+		while ($f=mysqli_fetch_array($res)){
 			$time=$f['time'];
 			if ($ot!=$time){
 				$times[]=$time;

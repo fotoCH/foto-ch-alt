@@ -62,8 +62,8 @@ if($_GET[mod]=="erw"){
 	subgenformitem($def,'textfield',$spr['todesort'],$fetch['empty'],'todesort');
 
 	$sql ="DESCRIBE fotografen kanton";
-	$result = mysql_query($sql);
-	$fetch = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$fetch = mysqli_fetch_array($result);
 	$set_list = $fetch['Type'];
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list);
@@ -81,8 +81,8 @@ if($_GET[mod]=="erw"){
 	subgenformitem($def,'edittext',$spr['schaffensbeschrieb'],$fetch['empty'],'schaffensbeschrieb');
 
 	$sql ="DESCRIBE fotografen fotografengattungen_set";
-	$result = mysql_query($sql);
-	$fetch = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$fetch = mysqli_fetch_array($result);
 	$set_list = $fetch['Type'];
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list);
@@ -93,8 +93,8 @@ if($_GET[mod]=="erw"){
 		subgenselectitem($def, $spr['fotografengattungen'], 5, "fotografengattungen[]", $array_set_list, "true", "", "8");
 	}
 	$sql ="DESCRIBE fotografen bildgattungen_set";
-	$result = mysql_query($sql);
-	$fetch = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$fetch = mysqli_fetch_array($result);
 	$set_list = $fetch['Type'];
 	$set_list = substr($set_list, 5, strlen($set_list)-7);
 	$array_set_list = explode ("','", $set_list);

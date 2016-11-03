@@ -12,16 +12,16 @@ $ueberuns=new XTemplate("./templates/contents.xtpl");
 //do queries
 
 //assign for content
-//$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'kontakt'");
-//while($fetch = mysql_fetch_array($result)){
+//$result = mysqli_query($sqli, "SELECT ".$language." FROM sprache WHERE name = 'kontakt'");
+//while($fetch = mysqli_fetch_array($result)){
 	
 //	$ueberuns->assign("ITEM","<h1>".$spr['ueberuns']."</h1>");
 //}
 
 $ueberuns->assign("ITEM",$spr['ueberuns_index']);
 
-//$result = mysql_query("SELECT ".$language." FROM sprache WHERE name = 'kontakt_content'");
-//while($fetch = mysql_fetch_array($result)){
+//$result = mysqli_query($sqli, "SELECT ".$language." FROM sprache WHERE name = 'kontakt_content'");
+//while($fetch = mysqli_fetch_array($result)){
 	$ueberuns->assign("DATA",$spr['ueberuns_content']);
 //}
 

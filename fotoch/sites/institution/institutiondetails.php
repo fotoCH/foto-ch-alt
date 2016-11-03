@@ -24,10 +24,10 @@ $det="autodetail";
 if ($_GET['style']=='print') $det="detailprint";
 
 if (auth_level(USER_GUEST_READER_PARTNER))
-$result=mysql_query("SELECT * FROM institution WHERE institution.id=$id");
-else  $result=mysql_query("SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
+$result=mysqli_query($sqli, "SELECT * FROM institution WHERE institution.id=$id");
+else  $result=mysqli_query($sqli, "SELECT * FROM institution WHERE (institution.id=$id) AND (gesperrt=0)");
 
-while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
+while($fetch=mysqli_fetch_assoc($result)){
     //print_r($fetch);
     $def->assign("ACTION",$_GET['a']);
     $def->assign("ID",$_GET['id']);
@@ -87,10 +87,10 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
     if (auth_level(USER_GUEST_READER_PARTNER)) normfelda($def,'Literatur alt',$fetch['literatur']);
 
 
-    $result6=mysql_query("SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
+    $result6=mysqli_query($sqli, "SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
 
     $def->assign("Bestand",$spr['bestaende']);
-    while($fetch6=mysql_fetch_array($result6)){
+    while($fetch6=mysqli_fetch_array($result6)){
 
         $def->assign("FETCH6",$fetch6);
         if (auth_level(USER_GUEST_READER_PARTNER) || ($fetch6['gesperrt']==0)){
@@ -101,14 +101,14 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
         }
     }
 
-    if(mysql_num_rows($result6)!=0) abstand($def);
+    if(mysqli_num_rows($result6)!=0) abstand($def);
 
     $lit=$spr['literatur'];
 
-    $result7=mysql_query("SELECT literatur_institution.institution_id, literatur_institution.id AS if_id, literatur.*
+    $result7=mysqli_query($sqli, "SELECT literatur_institution.institution_id, literatur_institution.id AS if_id, literatur.*
     FROM literatur_institution INNER JOIN literatur ON literatur_institution.literatur_id = literatur.id
     WHERE literatur_institution.institution_id=$id ORDER BY literatur.verfasser_name");
-    while($fetch7=mysql_fetch_array($result7)){
+    while($fetch7=mysqli_fetch_array($result7)){
         $fetch7['if_typ']=$lit;
         $fetch7=formlit($fetch7);
         $fetch7['Literatur']=$lit;
@@ -117,13 +117,13 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
         $def->parse("autodetail.z");
         $lit='';
     }
-    if(mysql_num_rows($result7)!=0) abstand($def);
+    if(mysqli_num_rows($result7)!=0) abstand($def);
 
     $aus='';
-    $result8=mysql_query("SELECT ausstellung_institution.institution_id, ausstellung_institution.id AS af_id, ausstellung.*
+    $result8=mysqli_query($sqli, "SELECT ausstellung_institution.institution_id, ausstellung_institution.id AS af_id, ausstellung.*
     FROM ausstellung_institution INNER JOIN ausstellung ON ausstellung_institution.ausstellung_id = ausstellung.id
     WHERE ausstellung_institution.institution_id=$id ORDER BY ausstellung.typ, af_id");
-    while($fetch8=mysql_fetch_array($result8)){
+    while($fetch8=mysqli_fetch_array($result8)){
         $typeHasChanged = false;
         if ($fetch8['typ']!=$aus){
             if($aus!=''){
@@ -141,7 +141,7 @@ while($fetch=mysql_fetch_array($result, MYSQL_ASSOC)){
         $def->parse("autodetail.z.aus");
         $def->parse("autodetail.z");
     }
-    if(mysql_num_rows($result8)!=0) abstand($def);
+    if(mysqli_num_rows($result8)!=0) abstand($def);
 
     if (auth_level(USER_WORKER)) normfeld($def, $spr['notiz'],$fetch['notiz']);
     if (auth_level(USER_WORKER)) normfeld($def, $spr['npublizieren'],$fetch['gesperrt']);
@@ -159,8 +159,8 @@ if(auth_level(USER_GUEST_FOTOS)){
 	$institution->assign("view_all_photos",'?a=fotos&lang='.($lang != '' ? $lang : 'de').'&institution='.$id.'&submitbutton='.$spr['submit']);
 
 
-	$objResult=mysql_query("SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
-	while($result=mysql_fetch_assoc($objResult)){
+	$objResult=mysqli_query($sqli, "SELECT id, dc_title AS title, dc_description AS description, image_path FROM fotos WHERE edm_dataprovider=$id ORDER BY RAND() LIMIT 0,3");
+	while($result=mysqli_fetch_assoc($objResult)){
 		$randomPhotos .= '<a href="?a=fotos&id='.$result['id'].'&institution='.$id.'"><img src="'.$result['image_path'].'" alt="'.$result['title'].($result['title']!='' && $result['description']!='' ? ' - ' : '').$result['description'].'"></a>';
 	}
 	$institution->assign('PHOTOS',$randomPhotos);

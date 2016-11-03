@@ -15,9 +15,9 @@ if ($_POST) escposts();
 
 if ($_GET['id']=="new"){
 	$sql="INSERT INTO `glossar` ( `id` , `begriff` , `zeitraum` , `erlaeuterung` , `literatur` , `bearbeitungsdatum` ) VALUES (NULL,'','','','','0000-00-00')";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 
-	$last_insert_id = mysql_insert_id();
+	$last_insert_id = mysqli_insert_id($sqli);
 
 }
 
@@ -27,7 +27,7 @@ if ($del=="2"){
 	$id=$_GET['id'];
 	$sql = "DELETE FROM `glossar` WHERE id=$id LIMIT 1";
 	
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 
 
 
@@ -64,7 +64,7 @@ if($_POST['submitbutton']){
 	`literatur` = '$_POST[literatur]',
 	`bearbeitungsdatum` = '$bearbeitungsdatum'
 	WHERE `id` =$_POST[hidden_id] LIMIT 1";
-	$result = mysql_query($sql);
+	$result = mysqli_query($sqli, $sql);
 }
 
 //////////////Grundsätzliches: Template, assigns ect.////////////////////////////
@@ -86,8 +86,8 @@ if ($fertig==1){
 
 	//////////////Formdaten aus Tabelle 'fotografen'  holen////////////////////////////
 	$sql = "SELECT * FROM `glossar` WHERE id ='$id'";
-	$result = mysql_query($sql);
-	$array_eintrag = mysql_fetch_array($result);
+	$result = mysqli_query($sqli, $sql);
+	$array_eintrag = mysqli_fetch_array($result);
 	
 	$def->assign("NAME", $array_eintrag['begriff']);
 	$def->parse("bearbeiten.bearbeiten_head_glossar");

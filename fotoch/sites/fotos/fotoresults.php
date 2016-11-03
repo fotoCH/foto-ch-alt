@@ -78,8 +78,8 @@ if ($_GET['submitbutton']!=""){
         $query.=" WHERE $where";
     }
 //echo $query;
-    $result=mysql_query($query);
-    $rowCount = mysql_num_rows($result);
+    $result=mysqli_query($sqli, $query);
+    $rowCount = mysqli_num_rows($result);
     $xtpl_fotolist->assign('result_count', $rowCount);
     if($rowCount > 0){
         $xtpl_fotolist->parse("list.table_view.head_fotolist");
@@ -88,7 +88,7 @@ if ($_GET['submitbutton']!=""){
     $itrRow = 0;
     // prepare data depending on the current view
     if ($photoViewMode==VIEW_TABLE){
-        while(($fetch=mysql_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS){
+        while(($fetch=mysqli_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS){
             $rowItem['id'] = $fetch['id'];
             // build the url including all necessary filter parameter
             $rowItem['url'] = '?a=fotos&amp;id='.$fetch['id'];
@@ -115,7 +115,7 @@ if ($_GET['submitbutton']!=""){
         $results.=$xtpl_fotolist->text("list");
         $results.=$xtpl_fotolist->text("list.table_view");
     } else {
-        while(($fetch=mysql_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS) {
+        while(($fetch=mysqli_fetch_assoc($result)) && $itrRow<ENDLESS_SCROLL_ITEMS) {
             $rowItem['id'] = $fetch['id'];
             $rowItem['image_src'] = 'thumb/'.$fetch['image_path'];
 

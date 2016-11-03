@@ -63,7 +63,7 @@ if ($fertig==1){
 		$s='';
 		$s2=''; // für history
 		foreach ($fs as $t){
-			$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysql_real_escape_string($_POST[$t])."'");
+			$u=($_POST[$t]==$array_eintrag[$t]?'':'`'.$t.'`=\''.mysqli_real_escape_string($sqli, $_POST[$t])."'");
 			if ($u){
 				$s.=($s?', ':'').$u;
 				$s2.=($s2?', ':'').getHChanged($t,$_POST[$t],$array_eintrag[$t]);
@@ -72,13 +72,13 @@ if ($fertig==1){
 		foreach ($refs as $t){
 			$pdate=rformdate($_POST[$t.'_date']);
 			if ($_POST[$t.'_date']){
-				$u=($pdate==$array_eintrag[$t.'_date']?'':'`'.$t.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
+				$u=($pdate==$array_eintrag[$t.'_date']?'':'`'.$t.'_date'.'`=\''.mysqli_real_escape_string($sqli, $pdate)."'");
 				if ($u){
 					$s.=($s?', ':'').$u;
 					$s2.=($s2?', ':'').getHChanged($t.'_date',$pdate,$array_eintrag[$t.'_date']);
 				}
 
-				$u=($_POST[$t.'_user']==$array_eintrag[$t.'_user']?'':'`'.$t.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_user'])."'");
+				$u=($_POST[$t.'_user']==$array_eintrag[$t.'_user']?'':'`'.$t.'_user'.'`=\''.mysqli_real_escape_string($sqli, $_POST[$t.'_user'])."'");
 				if ($u){
 					$s.=($s?', ':'').$u;
 					$s2.=($s2?', ':'').getHChanged($t.'_user',getusername($_POST[$t.'_user']),getusername($array_eintrag[$t.'_user']));
@@ -97,13 +97,13 @@ if ($fertig==1){
 		foreach ($refsb as $t){
 			$pdate=rformdate($_POST[$t.'_date']);
 			if ($_POST[$t.'_date']){
-				$u=($pdate==$array_eintrag[$t.'_date']?'':'`'.$t.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
+				$u=($pdate==$array_eintrag[$t.'_date']?'':'`'.$t.'_date'.'`=\''.mysqli_real_escape_string($sqli, $pdate)."'");
 				if ($u){
 					$s.=($s?', ':'').$u;
 					$s2.=($s2?', ':'').getHChanged($t.'_date',$pdate,$array_eintrag[$t.'_date']);
 				}
 		
-				$u=($_POST[$t.'_userbox']==$array_eintrag[$t.'_user']?'':'`'.$t.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_userbox'])."'");
+				$u=($_POST[$t.'_userbox']==$array_eintrag[$t.'_user']?'':'`'.$t.'_user'.'`=\''.mysqli_real_escape_string($sqli, $_POST[$t.'_userbox'])."'");
 				if ($u){
 					$s.=($s?', ':'').$u;
 					$s2.=($s2?', ':'').getHChanged($t.'_user',getusername($_POST[$t.'_userbox']),getusername($array_eintrag[$t.'_user']));
@@ -125,20 +125,20 @@ if ($fertig==1){
 				$l=($ln==-1?7:$ln); 
 				$pdate=rformdate($_POST[$t.'_'.$l.'_date']);
 				if ($_POST[$t.'_'.$l.'_date']){
-					$u=($pdate==$array_eintrag[$t.'_l'.$l.'_date']?'':'`'.$t.'_l'.$l.'_date'.'`=\''.mysql_real_escape_string($pdate)."'");
+					$u=($pdate==$array_eintrag[$t.'_l'.$l.'_date']?'':'`'.$t.'_l'.$l.'_date'.'`=\''.mysqli_real_escape_string($sqli, $pdate)."'");
 					if ($u){
 						$s.=($s?', ':'').$u;
 						$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_date',$pdate,$array_eintrag[$t.'_l'.$l.'_date']);
 					}
 					if ($_POST[$t.'_'.$l.'_userbox']!=0){
-						$u=($_POST[$t.'_'.$l.'_userbox']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_userbox'])."'");
+						$u=($_POST[$t.'_'.$l.'_userbox']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysqli_real_escape_string($sqli, $_POST[$t.'_'.$l.'_userbox'])."'");
 						if ($u){
 							$s.=($s?', ':'').$u;
 							$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_user',getusername($_POST[$t.'_'.$l.'_userbox']),getusername($array_eintrag[$t.'_l'.$l.'_user']));
 						}
 					} else {
 						if ($_POST[$t.'_'.$l.'_user']!=0){
-							$u=($_POST[$t.'_'.$l.'_user']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysql_real_escape_string($_POST[$t.'_'.$l.'_user'])."'");
+							$u=($_POST[$t.'_'.$l.'_user']==$array_eintrag[$t.'_l'.$l.'_user']?'':'`'.$t.'_l'.$l.'_user'.'`=\''.mysqli_real_escape_string($sqli, $_POST[$t.'_'.$l.'_user'])."'");
 							if ($u){
 								$s.=($s?', ':'').$u;
 								$s2.=($s2?', ':'').getHChanged($t.'_l'.$l.'_user',getusername($_POST[$t.'_'.$l.'_user']),getusername($array_eintrag[$t.'_l'.$l.'_user']));
@@ -170,7 +170,7 @@ if ($fertig==1){
 					if(empty($pdate)){
 						unset($update[$t.'_'.$l.'_date']);
 					} else {
-						$update[$t.'_'.$l.'_date'] = mysql_real_escape_string($pdate);
+						$update[$t.'_'.$l.'_date'] = mysqli_real_escape_string($sqli, $pdate);
 					}
 					$s2.=($s2?', ':'').getHChanged($t.'_'.$l.'_date',$pdate,$array_eintrag[$t.'_'.$l.'_date']);
 					$changed = true;
@@ -179,14 +179,14 @@ if ($fertig==1){
 					if(empty($_POST[$t.'_'.$l.'_user'])){
 						unset($update[$t.'_'.$l.'_user']);	
 					} else {
-						$update[$t.'_'.$l.'_user'] = mysql_real_escape_string($_POST[$t.'_'.$l.'_user']);
+						$update[$t.'_'.$l.'_user'] = mysqli_real_escape_string($sqli, $_POST[$t.'_'.$l.'_user']);
 					}
 					$s2.=($s2?', ':'').getHChanged($t.'_'.$l.'_user',getusername($_POST[$t.'_'.$l.'_user']),getusername($array_eintrag[$t.'_'.$l.'_user']));
 					$changed = true;
 				}
 			}
 			if( $changed ) {
-				$s .= " `$t`='".mysql_real_escape_string(serialize($update))."' ";
+				$s .= " `$t`='".mysqli_real_escape_string($sqli, serialize($update))."' ";
 			}
 		} */
 
@@ -196,7 +196,7 @@ if ($fertig==1){
 			
 		$gen->edit->writeHistory($id, getHistEntry("DF", "edit", $s2));
 
-		$result = mysql_query($sql);
+		$result = mysqli_query($sqli, $sql);
 	}
 
 	//////////////Form generieren////////////////////////////

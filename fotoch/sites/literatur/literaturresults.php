@@ -22,26 +22,26 @@
 	testauth();
 	$def->parse("list.head_literatur");
 	// Select: code
-	if ($anf=='keiner'){ $result=mysql_query("SELECT * FROM literatur WHERE ISNULL(verfasser_name)  ORDER BY  titel Asc"); } 
-	elseif ($anf=='in'){ $result=mysql_query("SELECT * FROM literatur WHERE code='Z'  ORDER BY  verfasser_name, verfasser_vorname, titel Asc"); } 
-	elseif ($anf=='zeitschrift'){ $result=mysql_query("SELECT * FROM literatur WHERE (code='P') OR (code='T')  ORDER BY  code,verfasser_name, verfasser_vorname, titel Asc"); } 
-	elseif ($anf=='url'){ $result=mysql_query("SELECT * FROM literatur WHERE (code='U') ORDER BY  code,verfasser_name, verfasser_vorname, titel Asc"); } 
+	if ($anf=='keiner'){ $result=mysqli_query($sqli, "SELECT * FROM literatur WHERE ISNULL(verfasser_name)  ORDER BY  titel Asc"); } 
+	elseif ($anf=='in'){ $result=mysqli_query($sqli, "SELECT * FROM literatur WHERE code='Z'  ORDER BY  verfasser_name, verfasser_vorname, titel Asc"); } 
+	elseif ($anf=='zeitschrift'){ $result=mysqli_query($sqli, "SELECT * FROM literatur WHERE (code='P') OR (code='T')  ORDER BY  code,verfasser_name, verfasser_vorname, titel Asc"); } 
+	elseif ($anf=='url'){ $result=mysqli_query($sqli, "SELECT * FROM literatur WHERE (code='U') ORDER BY  code,verfasser_name, verfasser_vorname, titel Asc"); } 
 	
 	else { 
 		
 		if($volltext!=''){
 			$issearch=3;
-			$result=mysql_query("SELECT * FROM literatur WHERE verfasser_name LIKE '%$volltext%' OR verfasser_vorname LIKE '%$volltext%' OR titel LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR jahr LIKE '%$volltext%' OR url LIKE '%$volltext%' OR signatur LIKE '%$volltext%' OR verlag LIKE '%$volltext%' OR notiz LIKE '%$volltext%' ORDER BY titel, verfasser_name, verfasser_vorname ASC"); 
+			$result=mysqli_query($sqli, "SELECT * FROM literatur WHERE verfasser_name LIKE '%$volltext%' OR verfasser_vorname LIKE '%$volltext%' OR titel LIKE '%$volltext%' OR ort LIKE '%$volltext%' OR jahr LIKE '%$volltext%' OR url LIKE '%$volltext%' OR signatur LIKE '%$volltext%' OR verlag LIKE '%$volltext%' OR notiz LIKE '%$volltext%' ORDER BY titel, verfasser_name, verfasser_vorname ASC"); 
 		}
 		elseif ($anf!=''){
 			$issearch=2;
-			$result=mysql_query("SELECT * FROM literatur WHERE verfasser_name LIKE '$anf%'  ORDER BY verfasser_name, verfasser_vorname, titel Asc"); 
+			$result=mysqli_query($sqli, "SELECT * FROM literatur WHERE verfasser_name LIKE '$anf%'  ORDER BY verfasser_name, verfasser_vorname, titel Asc"); 
 		}
 		else {
 			$def->parse("list.head_literatur");
 		}
 	}
-	while($fetch=mysql_fetch_array($result)){
+	while($fetch=mysqli_fetch_array($result)){
 		$fetch['verfasser']=$fetch['verfasser_name'];
 		if ($fetch['verfasser_vorname']) $fetch['verfasser'].=', '.$fetch['verfasser_vorname'];
 		$def->assign("FETCH",$fetch);

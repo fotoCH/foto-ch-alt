@@ -45,9 +45,9 @@ if ($_GET['submitbutton']!=""){
 
 	//print_r($vars);
 
-	$result=mysql_query($query);
+	$result=mysqli_query($sqli, $query);
 
-	if(mysql_num_rows($result) > 0){
+	if(mysqli_num_rows($result) > 0){
 		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_user");
 		}else{
@@ -55,7 +55,7 @@ if ($_GET['submitbutton']!=""){
 		}
 	}
 
-	while($fetch=mysql_fetch_array($result)){
+	while($fetch=mysqli_fetch_array($result)){
 		//
 		$fetch['nameclass']='subtitle3';
 
@@ -70,7 +70,7 @@ if ($_GET['submitbutton']!=""){
 	if ($id==''){
 		// Select: code
 
-		$result=mysql_query("SELECT * FROM users WHERE username LIKE '$anf%' ORDER BY  username Asc");
+		$result=mysqli_query($sqli, "SELECT * FROM users WHERE username LIKE '$anf%' ORDER BY  username Asc");
 
 		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_user");
@@ -78,7 +78,7 @@ if ($_GET['submitbutton']!=""){
 			$def->parse("list.listhead_user");
 		}
 
-		while($fetch=mysql_fetch_array($result)){
+		while($fetch=mysqli_fetch_array($result)){
 			$fetch['nameclass']='subtitle3';
 				
 			$def->assign("FETCH",$fetch);

@@ -6,10 +6,10 @@ error_reporting(E_ALL && ~E_NOTICE);
 //require("templates/xtemplate.class.php");
 require("../mysql.inc.php");
 ob_start();
-mysql_select_db("foto-ch_test");
+mysqli_select_db($sqli, "foto-ch_test");
 $sql="SELECT * FROM bildarchivbu"; 
-$result=mysql_query($sql); echo mysql_error();
-while ($fetch=mysql_fetch_assoc($result)){
+$result=mysqli_query($sqli, $sql); echo mysqli_error($sqli);
+while ($fetch=mysqli_fetch_assoc($result)){
 	$rec=array();
 	$res['dc_title']=$fetch['Titel'];
 	//$res['dc_creator']=$fetch['fotograph'];
@@ -32,11 +32,11 @@ while ($fetch=mysql_fetch_assoc($result)){
 	$u='';
 	foreach ($res as $k => $v){
 		//echo "$k => $v\r\n";
-		$u.="`".$k."`='".mysql_escape_string($v)."', ";
+		$u.="`".$k."`='".mysqli_real_escape_string ($sqli, $v)."', ";
 	}
 	//echo "xxx".$u."vvv";
 	$sql="INSERT INTO fotos SET ".substr($u,0,-2);
-	mysql_query($sql);
+	mysqli_query($sqli, $sql);
 	//echo $sql;
 }
 

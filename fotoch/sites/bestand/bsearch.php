@@ -48,8 +48,9 @@ $def->parse("suchen");
 $search.=$def->text("suchen");
 
 function getBildgattungen() {
-	$type = mysql_query( "SHOW COLUMNS FROM bestand WHERE Field = 'bildgattungen'" );
-	while($i = mysql_fetch_object($type)) {
+	global $sqli;
+	$type = mysqli_query($sqli,  "SHOW COLUMNS FROM bestand WHERE Field = 'bildgattungen'" );
+	while($i = mysqli_fetch_object($type)) {
 		$type=$i->Type;break;
 	}
 	preg_match("/^set\(\'(.*)\'\)$/", $type, $matches);

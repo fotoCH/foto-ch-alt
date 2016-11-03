@@ -74,8 +74,8 @@ function getbildgb(&$fetch,$cb,$cbc){
 testauthedit();
 $def=new XTemplate ("./templates/export.html");
 $id=$_GET['id'];
-$result=mysql_query("SELECT * FROM institution WHERE institution.id=".$id);
-$i=mysql_fetch_array($result);
+$result=mysqli_query($sqli, "SELECT * FROM institution WHERE institution.id=".$id);
+$i=mysqli_fetch_array($result);
 foreach (array('de','fr','it','rm','en') as $l){
 	if ($i['territoriumszugegoerigkeit']==$l){
 		$i['t_'.$l]=$cbc='☒';
@@ -102,10 +102,10 @@ $def->parse("content.i9");
 $def->assign('bildg',getbildg($i,$cb,$cbc));
 $def->parse("content.i10");
 $def->parse("content.i11");
-$result7=mysql_query("SELECT literatur_institution.institution_id, literatur_institution.id AS if_id, literatur.*
+$result7=mysqli_query($sqli, "SELECT literatur_institution.institution_id, literatur_institution.id AS if_id, literatur.*
 		FROM literatur_institution INNER JOIN literatur ON literatur_institution.literatur_id = literatur.id
 		WHERE literatur_institution.institution_id=$id ORDER BY literatur.verfasser_name");
-while($fetch7=mysql_fetch_array($result7)){
+while($fetch7=mysqli_fetch_array($result7)){
 	$fetch7['if_typ']=$lit;
 	formlite($fetch7);
 	$fetch7['Literatur']=$lit;
@@ -118,10 +118,10 @@ $def->parse("content.i12");
 
 
 $aus='';
-$result8=mysql_query("SELECT ausstellung_institution.institution_id, ausstellung_institution.id AS af_id, ausstellung.*
+$result8=mysqli_query($sqli, "SELECT ausstellung_institution.institution_id, ausstellung_institution.id AS af_id, ausstellung.*
 		FROM ausstellung_institution INNER JOIN ausstellung ON ausstellung_institution.ausstellung_id = ausstellung.id
 		WHERE ausstellung_institution.institution_id=$id ORDER BY ausstellung.typ, af_id");
-while($fetch8=mysql_fetch_array($result8)){
+while($fetch8=mysqli_fetch_array($result8)){
 	$typeHasChanged = false;
 	if ($fetch8['typ']!=$aus){
 		if($aus!=''){
@@ -142,10 +142,10 @@ while($fetch8=mysql_fetch_array($result8)){
 
 $def->parse("content.i13");
 
-$result6=mysql_query("SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
+$result6=mysqli_query($sqli, "SELECT * FROM bestand WHERE inst_id=$id ORDER BY nachlass DESC, name ASC");
 
 
-while($fetch6=mysql_fetch_array($result6)){
+while($fetch6=mysqli_fetch_array($result6)){
 	if ($fetch6['nachlass']==1){
 		$fetch6['nja']=$cbc;
 		$fetch6['nnein']=$cb;
@@ -168,8 +168,8 @@ while($fetch6=mysql_fetch_array($result6)){
 	$def->parse("content.b.b9");
 
 	$fotogr=array();
-	$result8=mysql_query("SELECT * FROM bestand_fotograf WHERE bestand_id=".$fetch6['id']);
-	while($fetch8=mysql_fetch_array($result8)){
+	$result8=mysqli_query($sqli, "SELECT * FROM bestand_fotograf WHERE bestand_id=".$fetch6['id']);
+	while($fetch8=mysqli_fetch_array($result8)){
 		//print_r($fetch8);
 		//if ($fetch6['institution_id']>0){
 		if ($fetch8['namen_id']){

@@ -6,9 +6,9 @@ include("auth.inc.php");
 testauthedit();
 $lang = $_COOKIE['lang'];
 if(isset($_GET['a'])) {
-	$a = mysql_real_escape_string($_GET['a']);
+	$a = mysqli_real_escape_string($sqli, $_GET['a']);
 	if(!isset($_GET['term'])) $_GET['term'] = "%"; 
-	$q = strtolower(mysql_real_escape_string($_GET["term"]));
+	$q = strtolower(mysqli_real_escape_string($sqli, $_GET["term"]));
 	if (!$q) return;
 	// $a is always the input field to be filled (return type)
 	// $f is (if given) the info we have to fill it
@@ -19,7 +19,7 @@ if(isset($_GET['a'])) {
 		//autocomplete the ethnie input
 		case "ethnie":
 			if(isset($_GET['f'])) {
-				$f = strtolower(mysql_real_escape_string($_GET["f"]));
+				$f = strtolower(mysqli_real_escape_string($sqli, $_GET["f"]));
 				switch($f) {
 					case 'kont'://select ethnien by specific kont id
 						$sql = "SELECT id, name_".$lang." FROM ethnie WHERE kontinent=".$q;
@@ -29,9 +29,9 @@ if(isset($_GET['a'])) {
 			else { //load all from ethnie (standard)
 				$sql = "SELECT id, name_".$lang." FROM ethnie WHERE name_".$lang." LIKE '".$q."%'";
 			}
-			$rsd = mysql_query($sql);
+			$rsd = mysqli_query($sqli, $sql);
 			$array = array();
-			while($rs = mysql_fetch_array($rsd)) {
+			while($rs = mysqli_fetch_array($rsd)) {
 				$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 				$arr = (object)$arr;
 				array_push($array, $arr);
@@ -43,7 +43,7 @@ if(isset($_GET['a'])) {
 		case "kont":
 			// get kont from table $f at entry $q
 			if(isset($_GET['f'])) {
-				$f = strtolower(mysql_real_escape_string($_GET["f"]));
+				$f = strtolower(mysqli_real_escape_string($sqli, $_GET["f"]));
 				switch($f) {
 					case "subk":
 						$sql="SELECT super_r FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id<64";
@@ -52,13 +52,13 @@ if(isset($_GET['a'])) {
 						$sql = "SELECT kontinent FROM $f WHERE name_".$lang." LIKE '".$q."%'";
 						break;
 				}
-				$req = mysql_query($sql);
-				while($row = mysql_fetch_array($req)) {
+				$req = mysqli_query($sqli, $sql);
+				while($row = mysqli_fetch_array($req)) {
 					$kont = explode(",",$row[0]);
 				}
 				$sql = "SELECT id, name_".$lang." FROM kontinent WHERE id=".$kont[0]."";
-				$req = mysql_query($sql);
-				while($row = mysql_fetch_array($req)) {
+				$req = mysqli_query($sqli, $sql);
+				while($row = mysqli_fetch_array($req)) {
 					$arr = array('id' => $row['id'], 'label' => $row['name_'.$lang]);
 				}
 				echo $arr["id"];
@@ -67,9 +67,9 @@ if(isset($_GET['a'])) {
 			}
 			else {
 				$sql = "SELECT id, name_".$lang." FROM kontinent WHERE name_".$lang." LIKE '".$q."%'";
-				$rsd = mysql_query($sql);
+				$rsd = mysqli_query($sqli, $sql);
 				$array = array();
-				while($rs = mysql_fetch_array($rsd)) {
+				while($rs = mysqli_fetch_array($rsd)) {
 					$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 					$arr = (object)$arr;
 					array_push($array, $arr);
@@ -81,15 +81,15 @@ if(isset($_GET['a'])) {
 		// autocomplete the ort input field
 		case "ort":
 			if(isset($_GET['f'])) {
-				$f = strtolower(mysql_real_escape_string($_GET["f"]));
+				$f = strtolower(mysqli_real_escape_string($sqli, $_GET["f"]));
 				switch($f) {
 					case 'kont':
 						// provsql
 						$subksql = "SELECT DISTINCT id FROM provsubk WHERE FIND_IN_SET(".$q.", super_r) AND id<64";
-						$req = mysql_query($subksql);
+						$req = mysqli_query($sqli, $subksql);
 						$array = array();
 						$provsql="SELECT DISTINCT id  FROM provsubk WHERE FALSE";
-						while($r = mysql_fetch_array($req)) {
+						while($r = mysqli_fetch_array($req)) {
 							$provsql .= " OR FIND_IN_SET(".$r['id'].", super_r)";
 						}
 						$provsql .= " AND id>63";
@@ -108,9 +108,9 @@ if(isset($_GET['a'])) {
 			else {
 				$sql = "SELECT id, name_".$lang." FROM regiort WHERE name_".$lang." LIKE '".$q."%' AND typ='ort'";
 			}
-			$rsd = mysql_query($sql);
+			$rsd = mysqli_query($sqli, $sql);
 			$array = array();
-			while($rs = mysql_fetch_array($rsd)) {
+			while($rs = mysqli_fetch_array($rsd)) {
 				$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 				$arr = (object)$arr;
 				array_push($array, $arr);
@@ -122,15 +122,15 @@ if(isset($_GET['a'])) {
 		// autocomplete the region input field
 		case "region":
 			if(isset($_GET['f'])) {
-				$f = strtolower(mysql_real_escape_string($_GET["f"]));
+				$f = strtolower(mysqli_real_escape_string($sqli, $_GET["f"]));
 				switch($f) {
 					case 'kont':
 						// provsql
 						$subksql = "SELECT DISTINCT id FROM provsubk WHERE FIND_IN_SET(".$q.", super_r) AND id<64";
-						$req = mysql_query($subksql);
+						$req = mysqli_query($sqli, $subksql);
 						$array = array();
 						$provsql="SELECT DISTINCT id  FROM provsubk WHERE FALSE";
-						while($r = mysql_fetch_array($req)) {
+						while($r = mysqli_fetch_array($req)) {
 							$provsql .= " OR FIND_IN_SET(".$r['id'].", super_r)";
 						}
 						$provsql .= " AND id>63";
@@ -149,9 +149,9 @@ if(isset($_GET['a'])) {
 			else {
 				$sql = "SELECT id, name_".$lang." FROM regiort WHERE name_".$lang." LIKE '".$q."%' AND typ='region'";
 			}
-			$rsd = mysql_query($sql);
+			$rsd = mysqli_query($sqli, $sql);
 			$array = array();
-			while($rs = mysql_fetch_array($rsd)) {
+			while($rs = mysqli_fetch_array($rsd)) {
 				$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 				$arr = (object)$arr;
 				array_push($array, $arr);
@@ -162,17 +162,17 @@ if(isset($_GET['a'])) {
 		// autocomplete the prov field
 		case "prov":
 			if(isset($_GET['f'])) {
-				$f = strtolower(mysql_real_escape_string($_GET["f"]));
+				$f = strtolower(mysqli_real_escape_string($sqli, $_GET["f"]));
 				switch($f) {
 					case "regiort":
 						$sql="SELECT upper_tbl FROM regiort WHERE name_".$lang." LIKE '%".$q."%'";
-						$req = mysql_query($sql);
-						while($row = mysql_fetch_array($req)) {
+						$req = mysqli_query($sqli, $sql);
+						while($row = mysqli_fetch_array($req)) {
 							$super_r = $row;
 						}
 						$sql = "SELECT id, name_".$lang." FROM provsubk WHERE id=".$super_r[0];
-						$req = mysql_query($sql);
-						while($row = mysql_fetch_array($req)) {
+						$req = mysqli_query($sqli, $sql);
+						while($row = mysqli_fetch_array($req)) {
 							$arr = array('id' => $row['id'], 'label' => $row['name_'.$lang]);
 						}
 						echo $arr["id"];
@@ -182,18 +182,18 @@ if(isset($_GET['a'])) {
 					case "kont":
 						$sql = "SELECT DISTINCT id FROM provsubk WHERE FIND_IN_SET(".$q.", super_r) AND id<64;";
 // 						echo $sql;
-						$req = mysql_query($sql);
+						$req = mysqli_query($sqli, $sql);
 						$array = array();
 						$sql="SELECT DISTINCT id, name_".$lang." FROM provsubk WHERE FALSE";
-						while($r = mysql_fetch_array($req)) {
+						while($r = mysqli_fetch_array($req)) {
 							$sql .= " OR FIND_IN_SET(".$r['id'].", super_r)";
 						}
 						$sql .= " AND id>63";
 // 						echo $sql;
 						
-						$rsd = mysql_query($sql);
+						$rsd = mysqli_query($sqli, $sql);
 												
-						while($rs = mysql_fetch_array($rsd)) {
+						while($rs = mysqli_fetch_array($rsd)) {
 							$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 							$arr = (object)$arr;
 							array_push($array, $arr);
@@ -217,10 +217,10 @@ if(isset($_GET['a'])) {
 						break;
 					case 'subk':
 						$sql = "SELECT DISTINCT id, name_".$lang." FROM provsubk WHERE FIND_IN_SET(".$q.", super_r) AND id>63;";
-						$req = mysql_query($sql);
+						$req = mysqli_query($sqli, $sql);
 						$array = array();
 // 						echo $sql;
-						while($rs = mysql_fetch_array($req)) {
+						while($rs = mysqli_fetch_array($req)) {
 							$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 							$arr = (object)$arr;
 							array_push($array, $arr);
@@ -232,9 +232,9 @@ if(isset($_GET['a'])) {
 			}
 			else {
 				$sql = "SELECT id, name_".$lang." FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id>63";
-				$rsd = mysql_query($sql);
+				$rsd = mysqli_query($sqli, $sql);
 				$array = array();
-				while($rs = mysql_fetch_array($rsd)) {
+				while($rs = mysqli_fetch_array($rsd)) {
 					$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 					$arr = (object)$arr;
 					array_push($array, $arr);
@@ -246,17 +246,17 @@ if(isset($_GET['a'])) {
 		// autocomplete the subk field
 		case "subk":
 			if(isset($_GET['f'])) {
-				$f = strtolower(mysql_real_escape_string($_GET["f"]));
+				$f = strtolower(mysqli_real_escape_string($sqli, $_GET["f"]));
 				switch($f) {
 					case "prov":
 						$sql="SELECT super_r FROM provsubk WHERE name_".$lang." LIKE '%".$q."%' AND id>63;";
-						$req = mysql_query($sql);
-						while($row = mysql_fetch_array($req)) {
+						$req = mysqli_query($sqli, $sql);
+						while($row = mysqli_fetch_array($req)) {
 							$super_r = explode(",",$row[0]);
 						}
 						$sql = "SELECT id, name_".$lang." FROM provsubk WHERE id=".$super_r[0];
-						$req = mysql_query($sql);
-						while($row = mysql_fetch_array($req)) {
+						$req = mysqli_query($sqli, $sql);
+						while($row = mysqli_fetch_array($req)) {
 							$arr = array('id' => $row['id'], 'label' => $row['name_'.$lang]);
 						}
 						echo $arr["id"];
@@ -265,9 +265,9 @@ if(isset($_GET['a'])) {
 						break;
 					case "kont":
 						$sql="SELECT id, name_".$lang." FROM provsubk WHERE FIND_IN_SET(".$q.", super_r) AND id<64;";
-						$rsd = mysql_query($sql);
+						$rsd = mysqli_query($sqli, $sql);
 						$array = array();
-						while($rs = mysql_fetch_array($rsd)) {
+						while($rs = mysqli_fetch_array($rsd)) {
 							$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 							$arr = (object)$arr;
 							array_push($array, $arr);
@@ -279,9 +279,9 @@ if(isset($_GET['a'])) {
 			}
 			else {
 				$sql = "SELECT id, name_".$lang." FROM provsubk WHERE name_".$lang." LIKE '".$q."%' AND id<64";
-				$rsd = mysql_query($sql);
+				$rsd = mysqli_query($sqli, $sql);
 				$array = array();
-				while($rs = mysql_fetch_array($rsd)) {
+				while($rs = mysqli_fetch_array($rsd)) {
 					$arr = array('id' => $rs['id'], 'label' => $rs['name_'.$lang]);
 					$arr = (object)$arr;
 					array_push($array, $arr);
@@ -293,13 +293,13 @@ if(isset($_GET['a'])) {
 }
 // zum speichern von einträgen
 elseif (isset($_GET['s']) && $_GET['s']=='save') {
-	$data['bid']=mysql_real_escape_string($_GET['bid']);
-	$data['kont']=mysql_real_escape_string($_GET['kont']);
-	$data['ethnie']=mysql_real_escape_string($_GET['ethnie']);
-	$data['subk']=mysql_real_escape_string($_GET['subk']);
-	$data['prov']=mysql_real_escape_string($_GET['prov']);
-	$data['region']=mysql_real_escape_string($_GET['region']);
-	$data['ort']=mysql_real_escape_string($_GET['ort']);
+	$data['bid']=mysqli_real_escape_string($sqli, $_GET['bid']);
+	$data['kont']=mysqli_real_escape_string($sqli, $_GET['kont']);
+	$data['ethnie']=mysqli_real_escape_string($sqli, $_GET['ethnie']);
+	$data['subk']=mysqli_real_escape_string($sqli, $_GET['subk']);
+	$data['prov']=mysqli_real_escape_string($sqli, $_GET['prov']);
+	$data['region']=mysqli_real_escape_string($sqli, $_GET['region']);
+	$data['ort']=mysqli_real_escape_string($sqli, $_GET['ort']);
 	foreach ($data as $element) {
 		if (is_numeric($element) || empty($element)) {
 			continue;
@@ -316,9 +316,9 @@ elseif (isset($_GET['s']) && $_GET['s']=='save') {
 		die("Problem with setting ort=".$data['ort']." and region=".$data['region']);
 	}
 	$sql="INSERT INTO `bestand_segref` (`bestand_id`, `kontinent_id`, `subk_id`, `regionort_id`, `prov_id`, `ethnien_id`) VALUES ('".$data['bid']."', '".$data['kont']."', '".$data['subk']."', '".$data['regiort']."', '".$data['prov']."', '".$data['ethnie']."');";
-	$result=mysql_query($sql);
+	$result=mysqli_query($sqli, $sql);
 	if (!$result) { // add this check.
-		die('Invalid query: ' . mysql_error());
+		die('Invalid query: ' . mysqli_error($sqli));
 	}
 }
 ?>
