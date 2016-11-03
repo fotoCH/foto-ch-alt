@@ -3,11 +3,12 @@ $wusers=array();
 
 function initwar(){
 	global $wusers;
+	global $sqli
 	if (count($wusers)>0) return;
 	$wusers[0]='';
 	$sql="SELECT * FROM `users` WHERE `level` >= 8 ORDER BY username";
-	$result = mysql_query($sql);
-	while ($fetch = mysql_fetch_array($result)){
+	$result = mysqli_query($sqli, $sql);
+	while ($fetch = mysqli_fetch_array($result)){
 		$wusers[$fetch['id']]=$fetch['username'];
 	}
 	//print_r($wusers);
