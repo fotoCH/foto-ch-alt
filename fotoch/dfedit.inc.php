@@ -45,7 +45,6 @@ class DokuficheFormBuilder {
 	protected $def;
 	protected $id;
 	public $formData;
-	global $sqli;
 	
 	function __construct( $def ) {
 		$this->def = $def;
@@ -53,6 +52,7 @@ class DokuficheFormBuilder {
 	}
 	
 	function loadformData() {
+		global $sqli;
 		$sql = "SELECT * FROM {$this->edit->type_plur} WHERE id ='{$this->id}'";
 		$result = mysqli_query($sqli, $sql);
 		$this->formData = mysqli_fetch_array($result);

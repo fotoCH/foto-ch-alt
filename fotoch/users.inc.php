@@ -3,7 +3,7 @@ $wusers=array();
 
 function initwar(){
 	global $wusers;
-	global $sqli
+	global $sqli;
 	if (count($wusers)>0) return;
 	$wusers[0]='';
 	$sql="SELECT * FROM `users` WHERE `level` >= 8 ORDER BY username";

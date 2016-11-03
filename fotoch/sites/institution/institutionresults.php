@@ -120,13 +120,13 @@ if ($_GET['submitbutton']!=""){
 		} else {
 			$result=mysqli_query($sqli, "SELECT *,".$namecase." as name,".$abkcase." as abkuerzung FROM institution WHERE ($namecase LIKE '$anf%') AND (gesperrt=0) ORDER BY ".$namecase);
 		}
-		echo $mysqli_error($sqli);
+		//echo $mysqli_error($sqli);
 		if(auth_level(USER_WORKER)){
 			$def->parse("list.listhead_admin_institution");
 		}else{
 			$def->parse("list.listhead_normal_institution");
 		}
-	echo $mysqli_error($sqli);
+//	echo $mysqli_error($sqli);
 		while($fetch=mysqli_fetch_array($result)){
 			$fetch['nameclass']='subtitle3';
 			if ($fetch['autorin']!=''){

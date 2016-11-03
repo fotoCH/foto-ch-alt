@@ -10,10 +10,10 @@ require("lang.inc.php");
 $action=$_GET['action'];
 
 switch ($action) {
-    case getLang :
+    case 'getLang' :
         echo $language;
         break;
-    case sendFeedback :
+    case 'sendFeedback' :
         // send feedback from feedback button via mail
         $to = "info@foto-ch.ch";
         $from = $_POST['sender'];
@@ -31,7 +31,7 @@ switch ($action) {
             echo "Message Not Sent";
         }
         break;
-    case getStock :
+    case 'getStock' :
         // return associated stock information for the selected institution
         $id = $_GET['id'];
         if ($id!=0) {
@@ -48,7 +48,7 @@ switch ($action) {
 
         echo $result;
         break;
-    case fotoAll :
+    case 'fotoAll' :
         // return associated stock information for the selected institution
         $id = $_GET['id'];
         if ($id!=0) {
@@ -63,7 +63,7 @@ switch ($action) {
 
         echo( $result);
         break;
-    case getNextPhotos :
+    case 'getNextPhotos' :
         // prepare the query based on the url
         foreach($_GET as $key=>$value) {
             if ($value==''){

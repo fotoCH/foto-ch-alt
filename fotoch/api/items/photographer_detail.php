@@ -339,6 +339,7 @@ if(auth_level(USER_GUEST_FOTOS)){
 } */
 
 function getTranslationsGattungen(){
+	global $sqli;
 	$translationsResult = mysqli_query($sqli, "Select * from sprache WHERE array>0");
 	$translations = array();
 	while($row=@mysqli_fetch_assoc($translationsResult)) {
