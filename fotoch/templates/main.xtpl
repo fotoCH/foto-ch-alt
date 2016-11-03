@@ -4,7 +4,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="css/feedback.css">
     <link rel="stylesheet" href="css/animate-custom.css">
 	<link type="text/css" href="css/styles.css" rel="stylesheet" media="screen,print"/>
@@ -69,7 +69,7 @@
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://www.foto-ch.ch/piwik//";
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://de.neu.foto-ch.ch/piwik//";
     _paq.push(['setTrackerUrl', u+'piwik.php']);
     _paq.push(['setSiteId', 1]);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
@@ -77,7 +77,7 @@
   })();
 
 </script>
-<noscript><p><img src="http://www.foto-ch.ch/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<noscript><p><img src="https://de.neu.foto-ch.ch/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
 <!-- End Piwik Code -->
 </body>
 </html>
