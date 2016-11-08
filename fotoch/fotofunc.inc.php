@@ -111,6 +111,7 @@ function getfon($id){   // Gibt Namen zu einer Namen id als Array zurück
 
 
 function getfo($id){  // Gibt ersten Namen zu einer Forografen id als Array zurück
+	global $sqli;
 	$result=mysqli_query($sqli, "SELECT *  FROM (fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id) WHERE fotografen.id=$id ORDER BY namen.id Asc");
 	$fetch=mysqli_fetch_array($result);
 	$r['namen']=$fetch['vorname'] .' '.$fetch['namenszusatz'].' '.$fetch['nachname'];
