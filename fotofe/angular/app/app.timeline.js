@@ -101,7 +101,7 @@ app.controller('YearHightlightController', [
         $scope.loading = true;
         $scope.complete = false;
 
-        $http.get($rootScope.ApiUrl + '?a=year&wanted='+$scope.year).success(function(data) {
+        $http.get($rootScope.ApiUrl + '/?a=year&wanted='+$scope.year).success(function(data) {
             $scope.data = data[$scope.year];
             $scope.loading = false;
         });

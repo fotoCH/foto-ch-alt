@@ -85,7 +85,7 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
 
 app.service('fotochService', ['$http', function ($http) {
 
-    var urlBase = 'http://www2.foto-ch.ch/api';
+    var urlBase = 'https://foto-ch.ch/api/';
 
     this.getFotografs = function (anf) {
         return $http.get(urlBase+'?anf='+anf);
