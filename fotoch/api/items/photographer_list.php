@@ -26,10 +26,11 @@ if ($id == '') {
 	    exit;
 	}
 	if ($_GET['recent']){
-	    $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY bearbeitungsdatum DESC LIMIT ".mysqli_real_escape_string($sqli, $_GET['recent']);
+	    $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) GROUP BY fotografen.id ORDER BY bearbeitungsdatum DESC LIMIT ".mysqli_real_escape_string($sqli, $_GET['recent']);
+
 	}
     if ($_GET['mostviewed']) {
-        $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) ORDER BY visits DESC LIMIT ".mysqli_real_escape_string($sqli, $_GET['mostviewed']);
+        $sql="SELECT fotografen.id, fotografen.geschlecht, fotografen.bearbeitungsdatum, fotografen.geburtsdatum, fotografen.gen_geburtsdatum, fotografen.todesdatum, fotografen.gen_todesdatum, fotografen.autorIn<>'' AS biog, fotografen.showkurzbio, fotografen.unpubliziert, namen.nachname, namen.vorname, namen.namenszusatz, namen.titel, fotografen.pnd, bearbeitungsdatum FROM fotografen INNER JOIN namen ON fotografen.id=namen.fotografen_id WHERE (fotografen.unpubliziert=0) GROUP BY fotografen.id ORDER BY visits DESC LIMIT ".mysqli_real_escape_string($sqli, $_GET['mostviewed']);
     }
 	//$out['sql']=$sql;  // debug
 	$result = mysqli_query ($sqli, $sql);
