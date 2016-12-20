@@ -585,6 +585,8 @@ class StreamedSearch
                 $assoc['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$assoc['fotografengattungen_set']);
                 $assoc['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$assoc['bildgattungen_set']);
             }
+            $assoc['dateofbirth'] = formdatesimp ( $assoc ['geburtsdatum'], $assoc ['gen_geburtsdatum'] );
+            $assoc['dateofdeath'] = formdatesimp ( $assoc ['todesdatum'], $assoc ['gen_todesdatum'] );
             array_push($this->results['photographer_results'], $assoc);
         }
         $this->results['photographer_count'] = count($this->results['photographer_results']);
