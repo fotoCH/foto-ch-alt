@@ -122,13 +122,14 @@ class Filters
                         "id" => $possible,
                         "value" => $stock['name']
                     ));
+                    $sortValues[] = $stock{'name'};
                 }
             }
         }
         if ($desc) {
-            rsort($this->filters['possible_values']);
+            array_multisort($values, SORT_DESC, $this->filters['possible_values']);
         } else {
-            sort($this->filters['possible_values']);
+            array_multisort($sortValues, SORT_ASC, $this->filters['possible_values']);
         }
     }
 
@@ -181,7 +182,7 @@ class Filters
     {
         $this->type = $type;
         $cacheObj = new fotoCache($this->cachePrefix . '_' . $this->language);
-        if($cacheObj->isCached($this->type)){
+        if($cacheObj->isCached($this->type) && !isset($_GET['cache']) ){
             $this->filters = $cacheObj->getCache($this->type);
         }else {
             switch ($this->type) {
