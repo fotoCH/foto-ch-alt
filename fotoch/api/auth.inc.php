@@ -63,7 +63,6 @@ function getAuthFromHeader(){
 	} else {
 		$headers = apache_request_headers(); 
 	}
-
 	if (array_key_exists('X-AuthToken', $headers) && $headers['X-AuthToken']){
 		$authToken = $headers['X-AuthToken'];
 	    $at=$headers['X-AuthToken'];

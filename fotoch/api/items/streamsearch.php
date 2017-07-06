@@ -568,15 +568,17 @@ class StreamedSearch
         if ($this->sorting) {
             $sql .= " ORDER BY " . $this->sorting . ' ' . $this->sortDirection;
         } else {
-            $sql .= " ORDER BY nachname, vorname asc";
-            //$sql.= " ORDER BY (CASE WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ELSE 0 END) DESC";
+            //$sql .= " ORDER BY nachname, vorname asc";
+            $sql.= " ORDER BY ( CASE ";
+            $sql.= "  WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ";
+            $sql.= "  WHEN namen.vorname LIKE '".$q[0]."%' THEN 80 "; 
+            $sql.= " ELSE 0 END) DESC";
         }
         $sql .= " LIMIT " . $this->limitResults;
         $sql .= " OFFSET " . $this->offset;
 
         //echo $sql;
-
-        // TODO: Add prioritazion with "order by (case when x = 'hello' then 1 else 2 end)"
+        
         $result = mysqli_query($sqli, $sql);
         $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
         $this->results['photographer_results'] = array();

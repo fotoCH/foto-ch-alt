@@ -25,6 +25,7 @@ if(!in_array($clanguage ,$supported_langs)) $clanguage = "de";
 //setcookie("lang", $language, (time() + (60*60*24*183)));
 //put this not before the initial language setting
 //define action
+
 include("fotofunc.inc.php");
 include("foto-ch.inc.php");
 include("fotocache.inc.php");
@@ -54,12 +55,15 @@ $actions=array(
     "filters",
     "request",
     "year",
-    "usermanagement");
+    "usermanagement",
+    "projects"
+);
 if ($action=='fotograph') $action='photographer';
 if (!in_array($action,$actions)) $action='photographer';  // default Startseite
 
 $glob['LANG']=$language;
 //choose content sites
+
 include("items/".$action.".php");
 
 ?>

@@ -47,10 +47,17 @@ while($fetch=@mysqli_fetch_assoc($result)){
 	$fetch['bildgattungen_s'] = array();
 
 	$translationsGattungen = getTranslationsGattungen();
-	$baseLang = $glob['LANG'];;
+
+	// CHANGED BY Silas Mächler > 03.07.2017 since $glob['LANG'] is the current Language. Base Lang is now fixed to "de".
+	$baseLang = 'de';
 
 	foreach ($fetch['availableLanguages'] as $lang){
-		$fetch['fotografengattungen_s'][$lang] = implode(', ', explode(',', str_replace($translationsGattungen['fotografengattungen_uebersetzungen'][$baseLang],$translationsGattungen['fotografengattungen_uebersetzungen'][$lang],$fetch['fotografengattungen_set'])));
+		$fetch['fotografengattungen_s'][$lang] = implode(', ', 
+			explode(',', 
+				str_replace($translationsGattungen['fotografengattungen_uebersetzungen'][$baseLang],
+					$translationsGattungen['fotografengattungen_uebersetzungen'][$lang],
+					$fetch['fotografengattungen_set']
+		)));
 		$fetch['bildgattungen_s'][$lang] = implode(', ', explode(',',str_replace($translationsGattungen['bildgattungen_uebersetzungen'][$baseLang],$translationsGattungen['bildgattungen_uebersetzungen'][$lang],$fetch['bildgattungen_set'])));
 	}
 
