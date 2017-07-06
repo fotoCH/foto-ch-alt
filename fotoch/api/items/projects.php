@@ -51,6 +51,10 @@ class ProjectManagement {
         }
 
         $selectQuery = "SELECT * FROM projects WHERE id=".mysqli_real_escape_string($this->sqli, $id);
+        if(! $this->allowedToEdit()) {
+            $selectQuery.= " AND published = '1'";
+        }
+
         $result = mysqli_query($this->sqli, $selectQuery);
         while($row = mysqli_fetch_assoc($result)) {
             $row = $this->addUrl($row);
@@ -78,16 +82,19 @@ class ProjectManagement {
 
     private function urlify($name) {
         $fromArray = [
-            ':',' ','ä','ö','ü','^','\'','.',',','!','?'
+            ':',' ','ä','ö','ü','^','\'','.',',','!','?','é','è','à'
         ];
         $toArray = [
-            '','-','ae','oe','ue','','','','','',''
+            '','-','ae','oe','ue','','','','','','','e','e','a'
         ];
         return str_replace($fromArray, $toArray, strtolower($name));
     }
 
     private function getList() {
-        $selectQuery = "SELECT * FROM projects";
+        $selectQuery = "SELECT * FROM projects ";
+        if(! $this->allowedToEdit()) {
+            $selectQuery.= " WHERE published = '1'";
+        }
         $result = mysqli_query($this->sqli, $selectQuery);
         $data = [];
         while($row = mysqli_fetch_assoc($result)) {
@@ -122,8 +129,8 @@ class ProjectManagement {
             jsonout(['PERMISSION' => 'NOPE']);
             return;
         }
-        $values = ['title', 'author', 'description', 'text', 'text_secondary', 'literature', 'people', 'images', 'exhibitions'];
-        $insertQuery = "INSERT INTO projects (`title`, `author`, `description`, `text`, `text_secondary`, `literature`, `people`, `images`, `exhibitions`)";
+        $values = ['title', 'author', 'description', 'text', 'text_secondary', 'literature', 'people', 'images', 'exhibitions', 'published'];
+        $insertQuery = "INSERT INTO projects (`title`, `author`, `description`, `text`, `text_secondary`, `literature`, `people`, `images`, `exhibitions`, `published`)";
         $insertQuery.= " VALUES (";
         $vals = [];
 
@@ -162,7 +169,7 @@ class ProjectManagement {
             return;
         }
 
-        $values = ['title', 'author', 'description', 'text', 'literature', 'people', 'images', 'text_secondary', 'exhibitions'];
+        $values = ['title', 'author', 'description', 'text', 'literature', 'people', 'images', 'text_secondary', 'exhibitions', 'published'];
         $updateQuery = "UPDATE projects ";
 
         foreach($values as $v) {
