@@ -135,7 +135,7 @@ class ProjectManagement {
             if(array_key_exists($v, $data)) {
                 $vals[] = "'".str_replace("_", " " , mysqli_real_escape_string($this->sqli, $data[$v]))."'";
             } else {
-                $vals[] = NULL;
+                $vals[] = 'NULL';
             }
         }
         $insertQuery.= implode(", ", $vals ).") ";
