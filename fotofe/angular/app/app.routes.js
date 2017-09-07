@@ -119,7 +119,7 @@ app.config(
                     url: '/timeline',
                     templateUrl: 'app/components/views/timeline.html',
                     controller: 'TimelineCtrl'
-                })
+                });
 
             // meta tags default values
             ngMetaProvider.setDefaultTitle('fotoCH');

@@ -74,7 +74,7 @@ class UserManagement
 
     private function changeUserLevel()
     {
-	global sqli;
+	global $sqli;
         if (is_numeric($_GET['id']) && is_numeric($_GET['level'])) {
             $update_query = "UPDATE users SET level=" . $_GET['level'] . " WHERE id=" . $_GET['id'];
 

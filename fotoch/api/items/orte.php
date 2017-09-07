@@ -26,7 +26,7 @@ class Venue{
      */
     public function getPhotographers(){
         if($this->searchPhotographers){
-            $query = "SELECT *, '' as dc_right, '' as image_path FROM arbeitsorte WHERE lat<>0";
+            $query = "SELECT *, '' as dc_right, '' as image_path, 'arbeitsort' as type FROM arbeitsorte WHERE lat<>0";
 
             if($this->term){
                $query .= " AND name LIKE '%" . $this->term . "%'";
@@ -44,7 +44,7 @@ class Venue{
      */
     public function getPhotos(){
         if($this->searchPhotos){
-            $query = "SELECT *, CONCAT(dcterms_spatial,': ', dc_title) as name, 'fotoquery' as swissname FROM fotos WHERE lat<>0";
+            $query = "SELECT *, CONCAT(dcterms_spatial,': ', dc_title) as name, 'fotoquery' as swissname, 'foto' as type FROM fotos WHERE lat<>0";
 
             if($this->term){
                 $query .= " AND dcterms_spatial LIKE '%" . $this->term . "%'";

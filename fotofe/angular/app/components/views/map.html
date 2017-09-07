@@ -1,123 +1,60 @@
 <div class="typetable map-container">
-    <style>
-        .map-container {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .map {
-            width: 100%;
-            min-height: 400px;
-        }
-
-        .detailList {
-            position: absolute;
-            right: -320px;
-            background: #fff;
-            padding: 20px;
-            top: 100px;
-            width: 300px;
-            border-top-left-radius: 6px;
-            border-bottom-left-radius: 6px;
-            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-
-        }
-
-        .detailList.show {
-            right: 0px;
-        }
-
-        .detailList img{ max-width: 100%;}
-
-        p.checkbox {
-            height: 60px;
-            line-height: 60px;
-            margin: 0;
-        }
-
-        p.checkbox input[type=checkbox] { vertical-align: middle};
-
-        ;
-    </style>
-    <div class="filter-bar" ng-class="{loading : filtering}">
-        <div class="l-container">
-            <div class="left">
-                <div class="loading-indicator"></div>
-                <div class="textsearch" ng-class="{active : textsearch_focus}">
-                    <label for="textsearch">{{ translations.search_all }}</label>
-                    <span class="s-icon"></span>
-                    <input
-                        type="text"
-                        ng-focus="textsearchfocus()"
-                        ng-blur="textsearchblur()"
-                        ng-model="searchquery"
-                        ng-change="textsearch(searchquery)"
-                        id="textsearch">
-                </div>
-                <div class="filter">
-                    <p class="checkbox">
-                        <label><input type="checkbox" ng-model="photographer"
-                                                              ng-change="search()">&nbsp;{{translations.photographers}}</label>
-                    </p>
-                </div>
-                <div class="filter">
-                    <p class="checkbox">
-                        <label>
-                        <input type="checkbox" ng-model="photos" ng-change="search()">&nbsp;{{translations.photos}}</label>
-                    </p>
-                </div>
-                <!--
-                <div class="filter" ng-repeat="filter in realFilters track by $index">
-                <span class="title"
-                      ng-init="filterToggles[filter.key] = false"
-                      ng-click="filterToggles[filter.key] = !filterToggles[filter.key]">{{filter.title}}
-                </span>
-                    <div class="values" ng-show="filterToggles[filter.key]">
-                        <input ng-model="filterModels[filter.key]"></label>
-                        <div class="list-wrapper">
-                            <div ng-repeat="value in filter.values | filter:filterModels[filter.key]"
-                                 class="value">
-                                <a ng-if="!filter.assoc" ng-click="filterValue(value, filter.target)"
-                                   ng-class="filterActive(value, filter.target)">
-                                    <span>{{value}}</span>
-                                </a>
-                                <a ng-if="filter.assoc" ng-click="filterValue(value.id, filter.target)"
-                                   ng-class="filterActive(value.id, filter.target)">
-                                    <span>{{value.value}}</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-            </div>
-            <div class="right">
-                <a class="switchview" ng-class="currentViewClass()" ng-click="switchView()"></a>
-                <a class="reset" ng-click="reset()"></a>
-            </div>
+  <div class="filter-bar" ng-class="{loading : filtering}">
+    <div class="l-container">
+      <div class="left">
+        <div class="loading-indicator"></div>
+        <div class="textsearch" ng-class="{active : textsearch_focus}">
+          <label for="textsearch">{{ translations.search_all }}</label>
+          <span class="s-icon"></span>
+          <input
+              type="text"
+              ng-focus="textsearchfocus()"
+              ng-blur="textsearchblur()"
+              ng-model="searchquery"
+              ng-change="textsearch(searchquery)"
+              id="textsearch">
         </div>
+
+        <div class="filter">
+          <p class="checkbox">
+            <label><input type="checkbox" ng-model="photographer"
+                          ng-change="search()">&nbsp;{{translations.photographers}}</label>
+          </p>
+        </div>
+
+        <div class="filter">
+          <p class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="photos" ng-change="search()">&nbsp;{{translations.photos}}</label>
+          </p>
+        </div>
+      </div>
+
+      <div class="right">
+        <a class="switchview" ng-class="currentViewClass()" ng-click="switchView()"></a>
+        <a class="reset" ng-click="reset()"></a>
+      </div>
     </div>
-    <div id="map" class="map" ng-click="displayFeatureInfo($event)"></div>
-    <div class="detailList" ng-class="{'show': type}">
-        <!-- photo -->
-        <div ng-if="type=='photo'">
-            <a ui-sref="photoDetail( {id: '{{id}}'} )" ng-click="detail(id, 'photo')">
-                {{name}}<br/>
-                <img src="{{ image_path }}"/>
-            </a>
-            <br/>
-            {{copyr}}
-        </div>
-        <!-- photographer -->
-        <div ng-if="type=='photographer'">
-            <p class="text-intro" ng-bind="name"></p>
-            <p class="text-intro" ng-bind-html="swissname | rawHtml"></p>
-            <div ng-repeat="ap in aps" ng-if="result">
-                <!--{{ap.id}} -->
-                <a ng-click="detail(ap.id,'photographer')">{{ ap.name }}</a> {{ ap.periode }}
-            </div>
-        </div>
-    </div>
+  </div>
 
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+  <div id="map"></div>
+
+  <div class="detailList" ng-class="{'show': ort}">
+    <div ng-if="ort.type == 'foto'">
+      <a ui-sref="photoDetail( {id: '{{ort.id}}'} )" ng-click="detail(ort.id, 'photo')">
+        {{ort.name}}<br/>
+        <img src="{{ 'https://de.foto-ch.ch/' + ort.image_path }}"/>
+      </a>
+      <br/>
+      {{ort.dc_right}}
+    </div>
+    <div ng-if="ort.type == 'arbeitsort'">
+      <p class="text-intro" ng-bind="ort.name"></p>
+      <p class="text-intro" ng-bind-html="ort.swissname | rawHtml"></p>
+      <div ng-repeat="ap in aps">
+        <a ng-click="detail(ap.id,'photographer')">{{ ap.name }}</a> {{ ap.periode }}
+      </div>
+    </div>
+  </div>
 </div>
-<!--   <button type="button" class="btn btn-primary" ng-click="changephoto(1)">Fotos</button>
-        <button class="btn btn-primary" ng-click="changephoto(0)">Arbeitsorte</button>  -->
