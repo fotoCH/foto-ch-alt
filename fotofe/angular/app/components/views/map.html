@@ -44,7 +44,7 @@
     <div ng-if="ort.type == 'foto'">
       <a ui-sref="photoDetail( {id: '{{ort.id}}'} )" ng-click="detail(ort.id, 'photo')">
         {{ort.name}}<br/>
-        <img src="{{ 'https://de.foto-ch.ch/' + ort.image_path }}"/>
+        <img ng-src="{{ ort.image_path }}"/>
       </a>
       <br/>
       {{ort.dc_right}}

@@ -56,7 +56,7 @@ app.run(function($rootScope, $http, $location, $q, languages, $cacheFactory, $co
     });
     
     // Development Server API URL
-    //$rootScope.ApiUrl = 'http://localhost/fotoch/fotoch/api';
+    // $rootScope.ApiUrl = 'http://localhost:8888/foto-ch/fotoch/api';
 
     // Production Server API URL
     $rootScope.ApiUrl = 'https://'+$rootScope.lang+'.foto-ch.ch/api';
