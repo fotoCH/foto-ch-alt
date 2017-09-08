@@ -38,16 +38,16 @@ app.controller('DetailController', [
         $scope.next = false;
         $scope.type = params.type;
         $scope.id = params.id;
+        $scope.cid = params.cid;
 
         if(typeof(params.carousel) !== 'undefined') {
             $scope.carousel = params.carousel;
 
-            var requiredIndex = $scope.carousel.indexOf(params.id);
-            if(requiredIndex > 0) {
-                $scope.prev = $scope.carousel[requiredIndex-1];
+            if($scope.cid > 0) {
+                $scope.prev = $scope.carousel[$scope.cid-1];
             }
-            if(requiredIndex < $scope.carousel.length) {
-                $scope.next = $scope.carousel[requiredIndex+1];
+            if($scope.cid < $scope.carousel.length) {
+                $scope.next = $scope.carousel[$scope.cid+1];
             }
         }
 
@@ -84,6 +84,9 @@ app.controller('DetailController', [
 
                     var title = '';
                     var name = photographer.data.namen[0];
+                    if(name.titel !== '') {
+                        title+= name.titel + " ";
+                    }
                     if(name.vorname !== '') {
                         title+= name.vorname + " ";
                     }

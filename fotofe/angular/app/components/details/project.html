@@ -1,0 +1,51 @@
+<div class="l-content">
+    <div class="l-container fe-projects detail">
+        <div class="slim">
+            <h1 ng-bind="detail.title"></h1>
+            <p class="lead" ng-bind="detail.description"></p>
+            <div class="slim box" ng-if="detail.author">
+                <p ng-bind="detail.author"></p>
+            </div>
+            <div class="content" ng-bind-html="detail.text"></div>
+        </div>
+        <div class="images" ng-if="detail.images.length > 0 && detail.images[0] != ''">
+            <img 
+                ng-repeat="image in detail.images" 
+                ng-click="$root.detail(image.id, 'photo' )" 
+                ng-src="{{$root.imageRootUrl}}/thumb/{{image.image_path}}"
+            />
+        </div>
+        <div class="slim">
+            <div class="content"><p ng-bind-html="detail.text_secondary"></p></div>
+        </div>
+
+        <div class="slim people" ng-if="detail.people.length > 0 && detail.people[0] != ''">
+            <div ng-repeat="group in detail.people">
+                <h3 ng-bind="group.title"></h3>
+                <ul>
+                    <li ng-repeat="piip in group.people" >
+                        <a ng-bind="piip.namen[0].vorname + ' ' + piip.namen[0].nachname" ng-click="$root.detail(piip.id, 'photographer')"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slim literature" ng-if="detail.literature.length > 0 && detail.literature[0] != ''">
+            <h3 ng-bind="$root.translations.literature"></h3>
+            <ul>
+                <li ng-repeat="lit in detail.literature" >
+                    <a ng-bind="lit.titel" ng-click="$root.detail(lit.id, 'literature')"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="slim exhibitions" ng-if="detail.exhibitions.length > 0 && detail.exhibitions[0] != ''">
+            <h3 ng-bind="$root.translations.ausstellungen"></h3>
+            <ul>
+                <li ng-repeat="exh in detail.exhibitions" >
+                    <a ng-bind="exh.titel" ng-click="$root.detail(exh.id, 'exhibition')"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

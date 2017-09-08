@@ -2,22 +2,31 @@ app.controller('PendingCtrl', [
     '$scope',
     '$http',
     '$rootScope',
+    '$state',
     function ($scope,
               $http,
-              $rootScope) {
+              $rootScope,
+              $state) {
+
+        setTimeout(function() {
+            if( ! $rootScope.pendingAllowed() ) {
+                $state.go("home");
+            }
+        }
+        , 100);
 
         $scope.overwriting = false;
         $scope.pending = [];
         $scope.rejected = [];
         $scope.accepted = [];
         $scope.getRequests = function () {
-            $http.get($rootScope.ApiUrl + '?a=request&action=pendingList').success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=request&action=pendingList').success(function (data) {
                 $scope.pending = data;
             });
-            $http.get($rootScope.ApiUrl + '?a=request&action=rejectedList').success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=request&action=rejectedList').success(function (data) {
                 $scope.rejected = data;
             });
-            $http.get($rootScope.ApiUrl + '?a=request&action=acceptedList').success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=request&action=acceptedList').success(function (data) {
                 $scope.accepted = data;
             });
         }
@@ -33,7 +42,7 @@ app.controller('PendingCtrl', [
         }
 
         $scope.accept = function (id, value) {
-            var q = $rootScope.ApiUrl + '?a=request&action=accept&id=' + id;
+            var q = $rootScope.ApiUrl + '/?a=request&action=accept&id=' + id;
             if (typeof(value) !== 'undefined') {
                 q += '&overwrite=' + value;
             }
@@ -44,7 +53,7 @@ app.controller('PendingCtrl', [
         }
 
         $scope.reject = function (id) {
-            $http.get($rootScope.ApiUrl + '?a=request&action=reject&id=' + id).success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=request&action=reject&id=' + id).success(function (data) {
                 $rootScope.updatePendingRequests();
                 $scope.getRequests();
             });
@@ -62,7 +71,8 @@ app.controller('UserCtrl', [
     '$rootScope',
     'adminService',
     '$httpParamSerializer',
-    function ($scope, $http, $rootScope, adminService, $httpParamSerializer) {
+    '$state',
+    function ($scope, $http, $rootScope, adminService, $httpParamSerializer, $state) {
         $scope.users = {};
         $scope.stocks = {};
         $scope.currentUser = $rootScope.user;
@@ -70,12 +80,19 @@ app.controller('UserCtrl', [
 
         $scope.isLoading = true;
 
+        setTimeout(function() {
+            if( ! $rootScope.manageUsersAllowed() ) {
+                $state.go("home");
+            }
+        }
+        , 100);
+
         var loadUsers = function () {
             adminService.getStocks().then(function (result) {
                 $scope.stocks = result;
             }).catch(function () {
                 $scope.errorMsg = 'Network error.';
-                alert($scope.errorMsg);
+                console.log($scope.errorMsg);
                 $scope.isLoading = false;
             });
             $http.get($rootScope.ApiUrl + '/?a=usermanagement&action=getUsers').then(function (result) {
@@ -86,10 +103,10 @@ app.controller('UserCtrl', [
 
         $scope.changeLevel = function (userId, level, oldValue) {
             $scope.isLoading = true;
-            $http.get($rootScope.ApiUrl + '?a=usermanagement&action=changeUserLevel&id=' + userId + '&level=' + level).success(function (data) {
+            $http.get($rootScope.ApiUrl + '/?a=usermanagement&action=changeUserLevel&id=' + userId + '&level=' + level).success(function (data) {
                 $scope.isLoading = false;
                 if (data.changeUserLevel !== 'success') {
-                    alert('Level not changed: ' + data.changeUserLevel);
+                    console.log('Level not changed: ' + data.changeUserLevel);
                     level = parseInt(oldValue);
                 }
             });
@@ -99,7 +116,7 @@ app.controller('UserCtrl', [
             $scope.isLoading = true;
             var data = $httpParamSerializer({user: userId, stocks: stocks.toString()});
 
-            var url = $rootScope.ApiUrl + '?a=usermanagement&action=changeStocks&' + data;
+            var url = $rootScope.ApiUrl + '/?a=usermanagement&action=changeStocks&' + data;
             //var url = $rootScope.ApiUrl + '?a=usermanagement&action=changeStocks';
 
             $http({
@@ -163,6 +180,13 @@ app.controller('AddUserCtrl', [
         $scope.levels = $rootScope.user_levels;
         $scope.isLoading = true;
 
+        setTimeout(function() {
+            if( ! $rootScope.manageUsersAllowed() ) {
+                $state.go("home");
+            }
+        }
+        , 100);
+
         adminService.getStocks().then(function (result) {
             $scope.stocks = result;
             $scope.isLoading = false;
@@ -215,7 +239,7 @@ app.factory('adminService', function ($rootScope, $http) {
 
     var getStocks = function () {
 
-        return $http.get($rootScope.ApiUrl + '?a=usermanagement&action=getStocks').then(function (response) {
+        return $http.get($rootScope.ApiUrl + '/?a=usermanagement&action=getStocks').then(function (response) {
             return response.data;
         });
     };

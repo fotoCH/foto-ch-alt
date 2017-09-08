@@ -12,7 +12,7 @@
 <br />
 <div ng-if="swissname=='fotoquery'">
 <a ui-sref="photoDetail( {id: '{{id}}'} )">{{name}}<br />
-<img src="{{ image_path }}" width="300" /></a><br />
+<img ng-src="{{ image_path }}" width="300" /></a><br />
 {{copyr}}
 </div>
 <div ng-if="swissname!='fotoquery'">

@@ -40,7 +40,6 @@
     <!--<link rel="stylesheet" href="assets/css/angucomplete-alt.css"> -->
     <!-- <link rel="stylesheet" href="assets/css/rangeSlider.min.css"> -->
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/map.css">
     <link rel="stylesheet" href="assets/css/less/vendor/jquery.fancybox.css" type="text/css" media="screen">
 
 <script>
@@ -106,6 +105,7 @@
                     <li><a ng-class="getClass('literatur')" ui-sref="literatur">{{spr.literatur}}</a></li>
                     <li><a ng-class="getClass('photo')" ui-sref="photo">{{spr.photos}}</a></li>
                     <li><a ng-class="getClass('timeline')" ui-sref="timeline">{{spr.timeline}}</a></li>
+                    <li><a ng-class="getClass('projects')" ui-sref="projects">{{spr.projects}}</a></li>
                 </ul>
             </nav>
         </div>
@@ -116,6 +116,7 @@
                     <li class=""><a ng-class="getLclass('fr')" ng-click="setLanguage('fr')">fr</a></li>
                     <li class=""><a ng-class="getLclass('it')" ng-click="setLanguage('it')">it</a></li>
                     <li class=""><a ng-class="getLclass('en')" ng-click="setLanguage('en')">en</a></li>
+                    <li class=""><a ng-class="getLclass('rm')" ng-click="setLanguage('rm')">rm</a></li>
                 </ul>
                 <button type="button" class="btn btn--link nav-main__toggle" ng-click="toggleMobileMenu()">
                     <span class="icon-bar"></span>
@@ -141,6 +142,7 @@
                     <span class="counter" ng-if="$root.pendingRequests">{{$root.pendingRequests}}</span>
                 </a>
             </li>
+            <li ng-if="$root.manageProjectsAllowed()"><a ui-sref="manage-projects">{{spr.manageProjects}}</a></li>
             <li><a ng-click="$root.doLogout()">{{spr.logout}}</a></li>
         </ul>
     </div>
@@ -189,6 +191,10 @@
 <script src="assets/libs/analytics/angulartics.min.js"></script>
 <script src="assets/libs/analytics/angulartics-ga.js"></script>
 
+<!-- TinyMCE -->
+<script src="assets/libs/tinymce/tinymce.min.js"></script>
+<script src="assets/libs/tinymce.min.js"></script>
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="assets/libs/ui-bootstrap.min.js"></script>
@@ -209,6 +215,7 @@
 <script src="app/app.details.js"></script>
 <script src="app/app.editable.js"></script>
 <script src="app/app.timeline.js"></script>
+<script src="app/app.projects.js"></script>
 <script src="app/app.map.js"></script>
 <script src="app/app.administration.js"></script>
 </body>

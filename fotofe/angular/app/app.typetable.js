@@ -43,6 +43,13 @@ app.controller('TypeTableCtrl', [
 
         $scope.getFilterTranslation = function (target, value, key){
             for (var index in $scope.realFilters) {
+                // hack Einzelausstellung/Gruppenausstellungen
+                if(value == 'E'){
+                    return $scope.translations.einzelausstellung;
+                }
+                if(value == 'G'){
+                    return $scope.translations.gruppenausstellung;
+                }
                 if($scope.realFilters[index].target == target && typeof ($scope.realFilters[index].translations) !== 'undefined'){
                     return $scope.realFilters[index].translations[key];
                 }
@@ -340,19 +347,14 @@ app.controller('TypeTableCtrl', [
                 });
             }
             if(typeof(append) !== 'undefined') {
-                console.log('concat');
-                console.log(rows);
                 $scope.tableRows = $scope.tableRows.concat(rows);
             } else {
-                console.log('all');
-                console.log(rows);
                 $scope.tableRows = rows;
             }
         }
 
         function loadData(append) {
 
-            console.log('load data: ' + $scope.queryOffset);
             $scope.query = $rootScope.ApiUrl +
                 '/?a=streamsearch'+
                 '&type='+$scope.type +
@@ -405,10 +407,10 @@ app.controller('TypeTableCtrl', [
 
                 try {
                     var data = response.data.replace(/}{/g, "},{");
-                    console.log(data);
+                    //console.log(data);
                     var result = JSON.parse("[" + data + "]");
                     result = result[result.length - 1];
-                    console.log(result);
+                    //console.log(result);
                     setValues(result, append);
                     $scope.filtering = false;
                     $rootScope.loadednum = $scope.tableRows.length;

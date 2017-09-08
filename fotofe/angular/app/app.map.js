@@ -9,31 +9,31 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
 
   $scope.textsearch_timeout = false;
 
-  $scope.detail = function(id, type){
-    if(id && type){
-      $rootScope.detail(id,type);
+  $scope.detail = function (id, type) {
+    if (id && type) {
+      $rootScope.detail(id, type);
     }
   };
 
-  $scope.textsearchfocus = function() {
+  $scope.textsearchfocus = function () {
     $scope.textsearch_focus = true;
   };
 
-  $scope.textsearchblur = function() {
-    if($scope.searchquery && $scope.searchquery.length > 0) {
+  $scope.textsearchblur = function () {
+    if ($scope.searchquery && $scope.searchquery.length > 0) {
       $scope.textsearch_focus = true;
     } else {
       $scope.textsearch_focus = false;
     }
   };
 
-  $scope.textsearch = function(filter) {
+  $scope.textsearch = function (filter) {
     $window.scrollTo(0, 0);
     $scope.filtering = true;
-    if($scope.textsearch_timeout) {
+    if ($scope.textsearch_timeout) {
       clearTimeout($scope.textsearch_timeout);
     }
-    $scope.textsearch_timeout = setTimeout(function() {
+    $scope.textsearch_timeout = setTimeout(function () {
       loadData();
     }, 800);
   };
@@ -57,7 +57,7 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
   map.addListener('click', function () {
     $scope.$apply(function () {
       $scope.ort = null;
-      if(selectedMarker) {
+      if (selectedMarker) {
         var icon = getIcon(selectedMarker.ort.type);
         selectedMarker.setIcon(icon);
       }
@@ -74,15 +74,15 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
     markers = [];
 
     var textquery = '';
-    if(angular.isDefined($scope.searchquery)) {
-      textquery = '&query='+$scope.searchquery;
+    if (angular.isDefined($scope.searchquery)) {
+      textquery = '&query=' + $scope.searchquery;
     }
 
     var url = $rootScope.ApiUrl +
-        '/?a=orte&photographer=' +
-        $scope.photographer +
-        '&photos=' + $scope.photos
-        + textquery;
+      '/?a=orte&photographer=' +
+      $scope.photographer +
+      '&photos=' + $scope.photos
+      + textquery;
 
     $http({
       method: 'GET',
@@ -96,7 +96,7 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
     });
   }
 
-  function addMarkers (orte) {
+  function addMarkers(orte) {
 
     var spider = new OverlappingMarkerSpiderfier(map, {
       markersWontMove: true,
@@ -104,7 +104,7 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
       basicFormatEvents: true
     });
 
-    markers = orte.map(function(ort) {
+    markers = orte.map(function (ort) {
       var position = {lat: parseFloat(ort.lat), lng: parseFloat(ort.lon)};
 
       var marker = new google.maps.Marker({
@@ -116,7 +116,7 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
 
       marker.addListener('spider_click', function () {
         openPopup(marker);
-        if(selectedMarker) {
+        if (selectedMarker) {
           var icon = getIcon(selectedMarker.ort.type);
           selectedMarker.setIcon(icon);
         }
@@ -166,14 +166,14 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
-    map.addListener('bounds_changed', function() {
+    map.addListener('bounds_changed', function () {
       searchBox.setBounds(map.getBounds());
     });
 
     var searchMarkers = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
-    searchBox.addListener('places_changed', function() {
+    searchBox.addListener('places_changed', function () {
       var places = searchBox.getPlaces();
 
       if (places.length == 0) {
@@ -181,14 +181,14 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
       }
 
       // Clear out the old searchMarkers.
-      searchMarkers.forEach(function(marker) {
+      searchMarkers.forEach(function (marker) {
         marker.setMap(null);
       });
       searchMarkers = [];
 
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
-      places.forEach(function(place) {
+      places.forEach(function (place) {
         if (!place.geometry) {
           console.log("Returned place contains no geometry");
           return;

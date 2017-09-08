@@ -91,6 +91,12 @@ app.config(
                     templateUrl: 'app/components/meta/userform.html',
                     controller: 'AddUserCtrl'
                 })
+                // change requests
+                .state('manage-projects', {
+                    url: '/manage-projects',
+                    templateUrl: 'app/components/meta/projects.html',
+                    controller: 'ManageProjectsCtrl'
+                })
                 // Testpage for development
                 .state('test', {
                     url: '/test?ch&photo&kanton&land',
@@ -114,12 +120,24 @@ app.config(
                     templateUrl: 'app/components/views/literatur.html',
                     controller: 'LiteraturCtrl'
                 })
-                // Literatur
+                // Timeline
                 .state('timeline', {
                     url: '/timeline',
                     templateUrl: 'app/components/views/timeline.html',
                     controller: 'TimelineCtrl'
-                });
+                })
+                // Projects
+                .state('projects', {
+                    url: '/projects',
+                    templateUrl: 'app/components/views/projects.html',
+                    controller: 'ProjectsController'
+                })
+                // Project Detail
+                .state('project-detail', {
+                    url: '/project/{project_identification}',
+                    templateUrl: 'app/components/details/project.html',
+                    controller: 'ProjectDetailController'
+                })
 
             // meta tags default values
             ngMetaProvider.setDefaultTitle('fotoCH');

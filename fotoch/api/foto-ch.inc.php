@@ -39,7 +39,6 @@ function jsonout($out, $plain = false)
     }
 
     echo $json;
-    ob_flush();
     flush();
   }
 

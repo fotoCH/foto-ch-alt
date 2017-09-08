@@ -2,6 +2,7 @@
     <div class="small-highlight">
         <h1 ng-if="!user">{{spr.login}}</h1>
         <h1 ng-if="user">{{spr.profile}}</h1>
+        <p id="error-msg" class="alert alert__error" ng-if="errorMsg" ng-bind-html="errorMsg"></p>
         <form class="form-container" ng-if="!user">
             <input 
                 type="text" 
@@ -25,12 +26,11 @@
                 placeholder="{{spr.passwort}}">
 
             <input class="btn btn--primary" type="submit" tabindex="3" ng-click="doLogin(login)" value="{{spr.login}}"></input>
-            <p id="error-msg" ng-bind-html="errorMsg"></p>
         </form>
         <form class="form-container" ng-if="user">
             <p>{{spr.logged_in_as}}: {{$root.user_data.forename}} {{$root.user_data.name}}</p>
             <input class="btn btn--primary" type="submit" tabindex="4" ng-click="doLogout()" value="{{spr.logout}}"></input>
-            <p id="error-msg" ng-bind-html="errorMsg"></p>
+            <p id="error-msg" class="alert alert__error" ng-bind-html="errorMsg"></p>
         </form>
     </div>
 </div>

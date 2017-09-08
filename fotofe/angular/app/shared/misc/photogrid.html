@@ -2,7 +2,7 @@
     <div class="grid">
         <img 
             ng-repeat="photo in photos" 
-            src="{{root}}{{photo.image_path}}" 
+            ng-src="{{root}}{{photo.image_path}}"
             ng-click="$root.detail(photo.id, 'photo' )" />
     </div>
 </div>

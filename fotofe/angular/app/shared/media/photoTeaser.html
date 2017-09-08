@@ -3,7 +3,7 @@
     <ul>
         <li class="photo-teaser__item" ng-repeat="p in photos">
             <a class="l-photo-teaser__link" ng-click="$root.detail(p.id, 'photo' )">
-                <img ng-if="p.image_path" src="{{$root.imageRootUrl}}{{p.image_path}}" alt="{{p.title}}">
+                <img ng-if="p.image_path" ng-src="{{$root.imageRootUrl}}{{p.image_path}}" alt="{{p.title}}">
             </a>
 
             <div class="photo-teaser__description">

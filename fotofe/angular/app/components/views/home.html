@@ -93,7 +93,7 @@
                         <ul>
                             <li ng-repeat="photos in result.photos_results | limitTo: photolimit" class="no-animate">
                                 <a ng-click="$root.detail(photos.id, 'photo', result.photos_ids)">
-                                    <img src="{{ imageRootUrl }}/thumb/{{photos.image_path}}" width="100%" />
+                                    <img ng-src="{{ imageRootUrl }}/thumb/{{photos.image_path}}" width="100%" />
                                 </a>
                             </li>
                         </ul>
@@ -111,7 +111,7 @@
                     <div class="flex flex--photographer-blocks">
                       <div class="photographer-block" ng-repeat="p in recent_photographer">
                         <h4>
-                            <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</a>
+                            <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span></a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
                         <small ng-if="p.fldatum" ng-bind-html="p.fldatum"></small><br />
@@ -125,7 +125,7 @@
                   <div class="flex flex--photographer-blocks">
                       <div class="photographer-block" ng-repeat="p in mostviewed_photographer">
                         <h4>
-                            <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</a>
+                            <a ng-click="$root.detail(p.id, 'photographer')">{{p.nachname}}<span ng-if="p.vorname || p.namenszusatz">, {{p.vorname}} {{p.namenszusatz}}</span></a>
                             <span ng-if="p.geschlecht" ng-class="getGenderClass(p.geschlecht)"></span>
                         </h4>
                         <small ng-if="p.fldatum" ng-bind-html="p.fldatum"></small><br />

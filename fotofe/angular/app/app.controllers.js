@@ -21,7 +21,7 @@ app.controller('MainCtrl',
 
             $rootScope.updatePendingRequests = function () {
                 if ($rootScope.user_data && $rootScope.user_data.level >= 8) {
-                    $http.get($rootScope.ApiUrl + '?a=request&action=pendingAmount').success(function (data) {
+                    $http.get($rootScope.ApiUrl + '/?a=request&action=pendingAmount').success(function (data) {
                         $rootScope.pendingRequests = data.count;
                     });
                 } else {
@@ -56,6 +56,9 @@ app.controller('MainCtrl',
             });
 
             $rootScope.pendingAllowed = function () {
+                if(typeof($rootScope.user_data) === 'undefined') {
+                    return false;
+                }
                 if ($rootScope.user_data.level >= 8) {
                     return true;
                 }
@@ -63,6 +66,26 @@ app.controller('MainCtrl',
             };
 
             $rootScope.manageUsersAllowed = function () {
+                if(typeof($rootScope.user_data) === 'undefined') {
+                    return false;
+                }
+                if ($rootScope.user_data.level >= 8) {
+                    return true;
+                }
+                return false;
+            };
+
+            $rootScope.manageProjectsAllowed = function () {
+                if(typeof($rootScope.user_data) === 'undefined') {
+                    return false;
+                }
+                if ($rootScope.user_data.level >= 8) {
+                    return true;
+                }
+                return false;
+            };
+
+            $rootScope.manageProjectsAllowed = function () {
                 if ($rootScope.user_data.level >= 8) {
                     return true;
                 }
@@ -98,7 +121,7 @@ app.controller('MainCtrl',
                 $scope.description = desciption;
             }
 
-            $rootScope.detail = function (id, type, carousel) {
+            $rootScope.detail = function (id, type, carousel, cid) {
                 $uibModalStack.dismissAll();
                 $rootScope.openNew = false;
 
@@ -117,7 +140,8 @@ app.controller('MainCtrl',
                                     return {
                                         id: id,
                                         type: type,
-                                        carousel: carousel
+                                        carousel: carousel,
+                                        cid: cid
                                     };
                                 }
                             }
@@ -586,7 +610,7 @@ app.controller('LoginCtrl', ['$scope', '$http', '$state', '$stateParams', '$root
                 $http.defaults.headers.common['X-AuthToken'] = $rootScope.authToken;
                 $state.go("profile");
             } else {
-                $scope.errorMsg = 'Bad login';
+                $scope.errorMsg = $rootScope.translations.login_error;
             }
 
         });

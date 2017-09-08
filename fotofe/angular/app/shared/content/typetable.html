@@ -25,10 +25,10 @@
                         <div ng-repeat="(key, value) in filter.values | filter:filterModels[filter.key]"
                             class="value">
                             <a ng-if="!filter.assoc" ng-click="filterValue(value, filter.target)" ng-class="filterActive(value, filter.target)">
-                                <span title="{{value}}">{{ getFilterTranslation(filter.target, value, key) }}</span>
+                                <span title="{{value.value}}">{{ getFilterTranslation(filter.target, value, key) }}</span>
                             </a>
                             <a ng-if="filter.assoc" ng-click="filterValue(value.id, filter.target)" ng-class="filterActive(value.id, filter.target)">
-                                <span title="{{value}}">{{value.value}}</span>
+                                <span title="{{value.value}}">{{value.value}}</span>
                             </a>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
             </thead>
             <tbody infinite-scroll="increaseLimit()" infinite-scroll-distance="0.1">
                 <tr ng-repeat="tr in tableRows track by $index"
-                    ng-click="$root.detail(tr.id, detailRoute, carousel)">
+                    ng-click="$root.detail(tr.id, detailRoute, carousel, $index)">
                    <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{::td}}</td>
                 </tr>
             </tbody>
@@ -63,7 +63,7 @@
             ng-class="{'has-image' : hasImage}"
             >
             <div ng-repeat="block in tableRows track by $index"
-                 ng-click="$root.detail(block.id, detailRoute, carousel)"
+                 ng-click="$root.detail(block.id, detailRoute, carousel, $index)"
                  masonry-tile
                  class="tile">
                <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{::data}}</div>
