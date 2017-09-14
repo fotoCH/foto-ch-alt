@@ -25,6 +25,10 @@ if (array_key_exists('direct', $_GET)) {
     $search->setDirectQuery($_GET['direct']);
 }
 
+if (array_key_exists('georef', $_GET)) {
+    $search->setGeoRef($_GET['georef']);
+}
+
 
 if ($search->activate()) {
     $search->query();
@@ -36,7 +40,7 @@ if ($search->activate()) {
 class StreamedSearch
 {
     private $lang = '';
-    private $limitResults = 100;
+    private $limitResults = 1000;
     private $limitPhotoResults = false;
     private $query = "";
     private $type = false;
@@ -45,6 +49,7 @@ class StreamedSearch
     private $result = array();
     private $offset = 0;
     private $direct = array();
+    private $onlyGeoRefImages = false;
 
     private $levels = array(
         'photographer' => 2,
@@ -59,6 +64,8 @@ class StreamedSearch
     {
         return array(
             "fotos.id",
+            "fotos.lat",
+            "fotos.lon",
             "fotos.dc_title as title",
             "fotos.dc_description as description",
             "fotos.dcterms_subject as descriptor",
@@ -184,14 +191,13 @@ class StreamedSearch
 
     private function photos($level)
     {
-	global $sqli;
+        global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->photoFields()) . " FROM fotos";
         $sql .= " INNER JOIN fotografen on fotografen.id = fotos.dc_creator";
         $sql .= " RIGHT JOIN namen on fotografen.id = namen.fotografen_id";
         $sql .= " INNER JOIN bestand on fotos.dcterms_ispart_of = bestand.id";
         $sql .= " INNER JOIN institution on bestand.inst_id = institution.id";
-
 
         $q = explode(" ", $this->query);
         $first = true;
@@ -229,6 +235,11 @@ class StreamedSearch
             $sql .= " AND fotografen.unpubliziert = 0";
         }
 
+        if ($this->onlyGeoRefImages) {
+            $sql .= " AND fotos.lat <> 0";
+            $this->limitResults = 1000000;
+        }
+
         $sql .= $this->appendDirectQuery();
 
         if ($this->sorting) {
@@ -237,12 +248,19 @@ class StreamedSearch
             $sql .= " ORDER BY id ASC";
         }
 
+//        if ($this->limitPhotoResults) {
+//            $sql .= " LIMIT " . $this->limitPhotoResults;
+//            $sql .= " OFFSET " . $this->offset;
+//        }
+
         if ($this->limitPhotoResults) {
             $sql .= " LIMIT " . $this->limitPhotoResults;
         } else {
             $sql .= " LIMIT " . $this->limitResults;
         }
         $sql .= " OFFSET " . $this->offset;
+
+//        echo $sql;
 
         $result = mysqli_query($sqli, $sql);
         $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
@@ -257,7 +275,7 @@ class StreamedSearch
 
     private function literature($level = 0)
     {
-	global $sqli;
+        global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->literatureFields()) . " FROM literatur";
         if ($level >= 1) {
@@ -319,7 +337,7 @@ class StreamedSearch
 
     private function exhibition($level = 0)
     {
-	global $sqli;
+        global $sqli;
         $cacheObj = new fotoCache('exhibition_');
         $key = md5($_SERVER['QUERY_STRING']);
         if ($cacheObj->isCached($key)) {
@@ -384,7 +402,7 @@ class StreamedSearch
 
     private function institution($level = 0)
     {
-	global $sqli;
+        global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->institutionFields()) . " FROM institution";
         /*if($level >= 1) {
@@ -468,7 +486,7 @@ class StreamedSearch
 
     private function stock($level = 0)
     {
-	global $sqli;
+        global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->stockFields()) . " FROM bestand";
         $sql .= " INNER JOIN institution ON bestand.inst_id = institution.id";
@@ -528,7 +546,7 @@ class StreamedSearch
 
     private function photographer($level = 0)
     {
-	global $sqli;
+        global $sqli;
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->photographerFields()) . " FROM namen";
         $sql .= " RIGHT JOIN fotografen on namen.fotografen_id = fotografen.id";
@@ -569,26 +587,26 @@ class StreamedSearch
             $sql .= " ORDER BY " . $this->sorting . ' ' . $this->sortDirection;
         } else {
             //$sql .= " ORDER BY nachname, vorname asc";
-            $sql.= " ORDER BY ( CASE ";
-            $sql.= "  WHEN namen.nachname LIKE '".$q[0]."%' THEN 100 ";
-            $sql.= "  WHEN namen.vorname LIKE '".$q[0]."%' THEN 80 "; 
-            $sql.= " ELSE 0 END) DESC";
+            $sql .= " ORDER BY ( CASE ";
+            $sql .= "  WHEN namen.nachname LIKE '" . $q[0] . "%' THEN 100 ";
+            $sql .= "  WHEN namen.vorname LIKE '" . $q[0] . "%' THEN 80 ";
+            $sql .= " ELSE 0 END) DESC";
         }
         $sql .= " LIMIT " . $this->limitResults;
         $sql .= " OFFSET " . $this->offset;
 
         //echo $sql;
-        
+
         $result = mysqli_query($sqli, $sql);
         $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
         $this->results['photographer_results'] = array();
         while ($assoc = mysqli_fetch_assoc($result)) {
-            if ($_GET['lang']!='de'){
-                $assoc['fotografengattungen_set']=setuebersetzungen('fotografengattungen_uebersetzungen',$assoc['fotografengattungen_set']);
-                $assoc['bildgattungen_set']=setuebersetzungen('bildgattungen_uebersetzungen',$assoc['bildgattungen_set']);
+            if ($_GET['lang'] != 'de') {
+                $assoc['fotografengattungen_set'] = setuebersetzungen('fotografengattungen_uebersetzungen', $assoc['fotografengattungen_set']);
+                $assoc['bildgattungen_set'] = setuebersetzungen('bildgattungen_uebersetzungen', $assoc['bildgattungen_set']);
             }
-            $assoc['dateofbirth'] = formdatesimp ( $assoc ['geburtsdatum'], $assoc ['gen_geburtsdatum'] );
-            $assoc['dateofdeath'] = formdatesimp ( $assoc ['todesdatum'], $assoc ['gen_todesdatum'] );
+            $assoc['dateofbirth'] = formdatesimp($assoc ['geburtsdatum'], $assoc ['gen_geburtsdatum']);
+            $assoc['dateofdeath'] = formdatesimp($assoc ['todesdatum'], $assoc ['gen_todesdatum']);
             array_push($this->results['photographer_results'], $assoc);
         }
         $this->results['photographer_count'] = count($this->results['photographer_results']);
@@ -683,6 +701,11 @@ class StreamedSearch
                 'value' => $where[1]
             ));
         }
+    }
+
+    public function setGeoRef($value)
+    {
+        $this->onlyGeoRefImages = boolval($value);
     }
 
     public function setSortDirection($direction)

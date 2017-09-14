@@ -1,389 +1,397 @@
 app.controller('TypeTableCtrl', [
-    '$scope',
-    '$http', 
-    '$location', 
-    '$state', 
-    '$stateParams', 
-    '$rootScope',
-    '$window',
-    function($scope, $http, $location, $state, $stateParams, $rootScope, $window) {
-        $scope.sortDirection = 'desc';
-        $scope.sortParameter = false;
-        $scope.grid = $scope.display == 'grid' ? true : false;
-        $scope.realFilters = [];
+  '$scope',
+  '$http',
+  '$location',
+  '$state',
+  '$stateParams',
+  '$rootScope',
+  '$window',
+  function ($scope, $http, $location, $state, $stateParams, $rootScope, $window) {
+    $scope.sortDirection = 'desc';
+    $scope.sortParameter = false;
+    $scope.realFilters = [];
 
-        $scope.filterModels = {};
-        $scope.filterToggles = {};
-        $scope.directFilters = [];
+    $scope.filterModels = {};
+    $scope.filterToggles = {};
+    $scope.directFilters = [];
 
-        $scope.queryLimit = 30;
-        $scope.queryOffset = 0;
+    $scope.queryLimit = 30;
+    $scope.queryOffset = 0;
 
-        $scope.tableHead = [];
-        $scope.tableRows = [];
+    $scope.tableHead = [];
+    $scope.tableRows = [];
 
-        $scope.totalcnt = 0;
+    $scope.totalcnt = 0;
 
-        $scope.hasImage = false;
+    $scope.hasImage = false;
 
-        $scope.fields_obj = JSON.parse($scope.fields);
-        $scope.textquery = $rootScope.textualSearch;
-        $scope.searchquery = $scope.textquery;
-        $scope.textsearch_timeout = false;
-        $scope.textsearch_focus = false;
-        $scope.carousel = [];
-        $scope.translations = $rootScope.translations;
-        setTimeout(function() {
-            $scope.translations = $rootScope.translations;
-            $scope.setHeadings();
-        }, 500);
+    $scope.fields_obj = JSON.parse($scope.fields);
+    $scope.textquery = $rootScope.textualSearch;
+    $scope.searchquery = $scope.textquery;
+    $scope.textsearch_timeout = false;
+    $scope.textsearch_focus = false;
+    $scope.carousel = [];
+    $scope.translations = $rootScope.translations;
+    setTimeout(function () {
+      $scope.translations = $rootScope.translations;
+      $scope.setHeadings();
+    }, 500);
+    $scope.filtering = true;
+
+    $scope.orte = [];
+
+    loadData();
+
+    $scope.getFilterTranslation = function (target, value, key) {
+      for (var index in $scope.realFilters) {
+        // hack Einzelausstellung/Gruppenausstellungen
+        if (value == 'E') {
+          return $scope.translations.einzelausstellung;
+        }
+        if (value == 'G') {
+          return $scope.translations.gruppenausstellung;
+        }
+        if ($scope.realFilters[index].target == target && typeof ($scope.realFilters[index].translations) !== 'undefined') {
+          return $scope.realFilters[index].translations[key];
+        }
+      }
+      return value;
+    };
+
+    $scope.filterValue = function (value, target) {
+      $scope.filtering = true;
+      var toFilter = target + ":" + value;
+      if ($scope.directFilters.indexOf(toFilter) == -1) {
+        $scope.directFilters.push(toFilter);
+      } else {
+        $scope.directFilters.splice($scope.directFilters.indexOf(toFilter), 1);
+      }
+      $scope.queryOffset = 0;
+      loadData();
+    };
+
+    $scope.filterActive = function (value, target) {
+      var toFilter = target + ":" + value;
+      if ($scope.directFilters.indexOf(toFilter) == -1) {
+        return '';
+      } else {
+        return 'active';
+      }
+    };
+
+    $scope.setFilter = function (key, index) {
+      $http.get($rootScope.ApiUrl + '/?a=filters&type=' + key + '&lang=' + $rootScope.lang).success(function (data) {
+        var sourceFilter = $scope.filters;
+        if (typeof(sourceFilter) == 'string') {
+          sourceFilter = JSON.parse(sourceFilter);
+        }
+        var filter = {};
+        filter.title = $scope.translations[key];
+        if (typeof(filter.title) == 'undefined') {
+          var lang_key = sourceFilter[index][key];
+          if (lang_key.indexOf(".") > 0) {
+            lang_key = lang_key.split(".");
+            lang_key = lang_key[1];
+          }
+          filter.title = $scope.translations[lang_key]
+        }
+        filter.key = key;
+        filter.target = sourceFilter[index][key];
+        if (typeof(data.possible_values[0]) == 'object') {
+          filter.assoc = true;
+        } else {
+          filter.assoc = false;
+        }
+        filter.values = data.possible_values;
+        filter.translations = data.translations;
+        $scope.realFilters[index] = filter;
+      });
+    };
+
+    $scope.prepareFilters = function () {
+      if (typeof($scope.filters) !== 'undefined') {
+        $scope.filters = JSON.parse($scope.filters);
+        for (var filterIndex = 0; filterIndex < $scope.filters.length; filterIndex++) {
+          for (key in $scope.filters[filterIndex]) {
+            $scope.setFilter(key, filterIndex);
+          }
+        }
+      }
+    };
+    $scope.prepareFilters();
+
+    $scope.currentViewClass = function () {
+      if ($scope.display == 'grid') {
+        return 'to-table';
+      } else if ($scope.display == 'list') {
+        return 'to-grid';
+      }
+      return 'to-grid';
+    };
+
+    var toggleStyles = ['grid', 'list'];
+
+    $scope.switchView = function (style) {
+      if (style == 'toggle') {
+        var index = (toggleStyles.indexOf($scope.display) + 1) % toggleStyles.length;
+        $scope.display = toggleStyles[index];
+      }
+      else {
+        $scope.display = style;
+      }
+    };
+
+    $scope.increaseLimit = function () {
+      if ($scope.tableRows.length >= $scope.queryOffset + $scope.queryLimit) {
         $scope.filtering = true;
+        $scope.queryOffset += $scope.queryLimit;
+        // load data, but append to current dataset.
+        loadData(true);
+      }
+    };
 
+    $scope.setHeadings = function () {
+      if (typeof($scope.translations) == 'undefined') {
+        $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
+          $rootScope.translations = data;
+          $scope.translations = data;
+          $scope.setHeadings();
+        });
+      } else {
+        var sortings = $scope.sortings.split(", ");
+        var index = 0;
+        $scope.tableHead = [];
+        for (var key in $scope.fields_obj) {
+          $scope.tableHead.push({
+            key: key,
+            title: $scope.translations[key],
+            sort: sortings[index]
+          });
+          index++;
+        }
+      }
+    }
+    $scope.setHeadings();
+
+    $scope.reset = function () {
+      $scope.textquery = '';
+      $scope.searchquery = '';
+      $scope.queryOffset = 0;
+      $scope.textsearchblur();
+      $scope.directFilters = [];
+      loadData();
+    }
+
+    $scope.thisSortingClass = function (cell) {
+      if ($scope.sortParameter == cell) {
+        return "sort-active " + $scope.sortDirection;
+      }
+      return "";
+    }
+
+    $scope.updateSorting = function (parameter) {
+      $scope.filtering = true;
+      $scope.queryOffset = 0;
+      if ($scope.sortDirection == 'desc') {
+        $scope.sortDirection = 'asc';
+      } else {
+        $scope.sortDirection = 'desc';
+      }
+      $scope.sortParameter = parameter;
+      $scope.tableRows = {};
+      loadData();
+    }
+
+    $scope.textsearchfocus = function () {
+      $scope.textsearch_focus = true;
+    }
+
+    $scope.textsearchblur = function () {
+      if ($scope.textquery.length > 0) {
+        $scope.textsearch_focus = true;
+      } else {
+        $scope.textsearch_focus = false;
+      }
+    }
+
+    $scope.textsearch = function (filter) {
+      $window.scrollTo(0, 0);
+      $scope.filtering = true;
+      $scope.textquery = filter;
+      $scope.queryOffset = 0;
+      if ($scope.textsearch_timeout)
+        clearTimeout($scope.textsearch_timeout);
+      $scope.tableRows = [];
+      $scope.textsearch_timeout = setTimeout(function () {
+        $scope.queryOffset = 0;
         loadData();
+      }, 800);
+    }
 
-        $scope.getFilterTranslation = function (target, value, key){
-            for (var index in $scope.realFilters) {
-                // hack Einzelausstellung/Gruppenausstellungen
-                if(value == 'E'){
-                    return $scope.translations.einzelausstellung;
-                }
-                if(value == 'G'){
-                    return $scope.translations.gruppenausstellung;
-                }
-                if($scope.realFilters[index].target == target && typeof ($scope.realFilters[index].translations) !== 'undefined'){
-                    return $scope.realFilters[index].translations[key];
-                }
+    $scope.parseCellValue = function (type, value) {
+      if (type == "date") {
+        return $scope.parseDate(value);
+      }
+      if (type == "shortenBySplit" || type == "shorten") {
+        return $scope.shortenBySplit(value);
+      }
+      if (type == 'nobreak') {
+        return '<span class="nobreak">' + value + '</span>';
+      }
+      if (type == 'image') {
+        $scope.hasImage = true;
+        return '<img src="' + $rootScope.imageRootUrl + '/thumb/' + value + '" />';
+      }
+      return value;
+    }
+
+    $scope.parseDate = function (value) {
+      if (value == '0000-01-01' || value == '0000-00-00') {
+        return '-';
+      } else if (value.indexOf('-00-00') != -1) {
+        return value.substring(0, 4);
+      } else {
+        var date = new Date(value);
+        return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear();
+      }
+    }
+
+    $scope.shortenBySplit = function (value) {
+      if (value == null)
+        return '';
+      var valueArray = value.split(",");
+      if (valueArray.length > 2) {
+        // display the first two...
+        // the rest goes in to mouseover popup
+        var firsts = [valueArray[0], valueArray[1]];
+        var result = '<div class="cropped">';
+        result += firsts.join(", ");
+        result += '<ul>';
+        for (var index = 2; index < valueArray.length; index++) {
+          result += '<li>' + valueArray[index] + '</li>';
+        }
+        result += '</ul>';
+        result += '</div>';
+        return result;
+      } else {
+        return valueArray.join(", ");
+      }
+    }
+
+    function setValues(data, append) {
+      if (typeof($scope.fields_obj) !== 'object') {
+        $scope.fields_obj = JSON.parse($scope.fields_obj);
+      }
+      var rows = [];
+
+      var regex = /({([^}]+)+})/g;
+      var match;
+
+      $scope.totalcnt = data[$scope.type + '_total_count'];
+
+      $scope.carousel = [];
+      for (var rowNo = 0; rowNo < data[$scope.type + '_results'].length; rowNo++) {
+        // fill all ids in the carousel array for the detail overlay
+        $scope.carousel.push(data[$scope.type + '_results'][rowNo].id);
+
+        var completeRow = data[$scope.type + '_results'][rowNo];
+        var rowId = completeRow.id;
+        var row = [];
+        for (var wanted_column in $scope.fields_obj) {
+          var rowValue = '';
+          var hasMatch = false;
+          var hasAtleastOneValue = false;
+          while ((match = regex.exec($scope.fields_obj[wanted_column])) !== null) {
+            if (!hasMatch)
+              hasMatch = '';
+            if (match.index === regex.lastIndex) {
+              regex.lastIndex++;
             }
-            return value;
-        };
-
-        $scope.filterValue = function(value, target) {
-            $scope.filtering = true;
-            var toFilter = target+":"+value;
-            if($scope.directFilters.indexOf(toFilter) == -1) {
-                $scope.directFilters.push(toFilter);
+            var potentialValue = match[2];
+            var splitted = [];
+            if (potentialValue != null) {
+              splitted = potentialValue.split(":");
+            }
+            var value = '';
+            if (splitted.length > 1) {
+              // parse required
+              value = $scope.parseCellValue(splitted[0], completeRow[splitted[1]]);
             } else {
-                $scope.directFilters.splice($scope.directFilters.indexOf(toFilter), 1);
+              value = completeRow[match[2]];
             }
-            $scope.queryOffset = 0;
-            loadData();
-        };
 
-        $scope.filterActive = function(value, target) {
-            var toFilter = target+":"+value;
-            if($scope.directFilters.indexOf(toFilter) == -1) {
-                return '';
+            if (value == null || value == '') {
+              value = '';
             } else {
-                return 'active';
+              hasAtleastOneValue = true;
             }
-        };
-
-        $scope.setFilter = function(key, index) {
-            $http.get($rootScope.ApiUrl + '/?a=filters&type=' + key + '&lang=' + $rootScope.lang).success(function (data) {
-                var sourceFilter = $scope.filters;
-                if(typeof(sourceFilter) == 'string') {
-                    sourceFilter = JSON.parse(sourceFilter);
-                }
-                var filter = {};
-                filter.title = $scope.translations[key];
-                if(typeof(filter.title) == 'undefined') {
-                    var lang_key = sourceFilter[index][key];
-                    if(lang_key.indexOf(".") > 0) {
-                        lang_key = lang_key.split(".");
-                        lang_key = lang_key[1];
-                    }
-                    filter.title = $scope.translations[lang_key]
-                }
-                filter.key = key;
-                filter.target = sourceFilter[index][key];
-                if(typeof(data.possible_values[0]) == 'object') {
-                    filter.assoc = true;
-                } else {
-                    filter.assoc = false;
-                }
-                filter.values = data.possible_values;
-                filter.translations = data.translations;
-                $scope.realFilters[index] = filter;
-            });
-        }
-
-        $scope.prepareFilters = function() {
-            if(typeof($scope.filters) !== 'undefined') {
-                $scope.filters = JSON.parse($scope.filters);
-                for(var filterIndex = 0; filterIndex < $scope.filters.length; filterIndex++) {
-                    for(key in $scope.filters[filterIndex]) {
-                        $scope.setFilter(key, filterIndex);
-                    }
-                }
-            }
-        }
-        $scope.prepareFilters();
-
-        $scope.currentViewClass = function() {
-            if($scope.grid) {
-                return 'to-table';
+            if (hasMatch == '') {
+              hasMatch = $scope.fields_obj[wanted_column].replace(match[0], value);
             } else {
-                return 'to-grid';
+              hasMatch = hasMatch.replace(match[0], value);
             }
-        }
-
-        $scope.switchView = function() {
-            if($scope.grid) {
-                $scope.grid = false;
+          }
+          if (hasMatch) {
+            if (hasAtleastOneValue) {
+              // remove comma at the end of value (if there is one, e.g. in name when vorname is not set)
+              row.push(hasMatch.trim().replace(/\,$/, ''));
             } else {
-                $scope.grid = true;
+              row.push('-');
             }
-        };
-
-        $scope.increaseLimit = function() {
-            if($scope.tableRows.length >= $scope.queryOffset + $scope.queryLimit) {
-                $scope.filtering = true;
-                $scope.queryOffset += $scope.queryLimit;
-                // load data, but append to current dataset.
-                loadData(true);
+          } else {
+            var value = '-';
+            var toCheck = completeRow[$scope.fields_obj[wanted_column]];
+            if (typeof(toCheck) != 'undefined' || toCheck != null) {
+              value = toCheck;
             }
+            row.push(value);
+          }
         }
+        rows.push({
+          id: rowId,
+          dataset: row
+        });
+      }
+      if (typeof(append) !== 'undefined') {
+        $scope.tableRows = $scope.tableRows.concat(rows);
+      } else {
+        $scope.tableRows = rows;
+      }
+    }
 
-        $scope.setHeadings = function() {
-            if(typeof($scope.translations) == 'undefined') {
-                $http.get($rootScope.ApiUrl + '/?a=sprache&lang=' + $rootScope.lang).success(function (data) {
-                    $rootScope.translations = data;
-                    $scope.translations = data;
-                    $scope.setHeadings();
-                });
-            } else {
-                var sortings = $scope.sortings.split(", ");
-                var index = 0;
-                $scope.tableHead = [];
-                for(var key in $scope.fields_obj) {
-                    $scope.tableHead.push({
-                        key : key,
-                        title : $scope.translations[key],
-                        sort: sortings[index]
-                    });
-                    index++;
-                }
-            }
-        }
-        $scope.setHeadings();
+    function loadData(append) {
+      $scope.query = $rootScope.ApiUrl +
+        '/?a=streamsearch' +
+        '&type=' + $scope.type +
+        '&limit=' + $scope.queryLimit +
+        '&offset=' + $scope.queryOffset +
+        '&lang=' + $rootScope.lang;
 
-        $scope.reset = function() {
-            $scope.textquery = '';
-            $scope.searchquery = '';
-            $scope.queryOffset = 0;
-            $scope.textsearchblur();
-            $scope.directFilters = [];
-            loadData();
-        }
+      if ($scope.directFilters.length > 0) {
+        $scope.query += '&direct=' + $scope.directFilters.join(",");
+      }
 
-        $scope.thisSortingClass = function (cell) {
-            if($scope.sortParameter == cell) {
-                return "sort-active " + $scope.sortDirection;
-            }
-            return "";
-        }
+      var textquery = '';
+      $rootScope.textualSearch = $scope.textquery;
+      if ($scope.textquery != '') {
+        textquery = '&query=' + $scope.textquery;
+      }
+      var sorting = '';
+      if ($scope.sortParameter != '') {
+        sorting = '&sort=' + $scope.sortParameter + '&sortdir=' + $scope.sortDirection;
+      }
 
-        $scope.updateSorting = function(parameter) {
-            $scope.filtering = true;
-            $scope.queryOffset = 0;
-            if($scope.sortDirection == 'desc') {
-                $scope.sortDirection = 'asc';
-            } else {
-                $scope.sortDirection = 'desc';
-            }
-            $scope.sortParameter = parameter;
-            $scope.tableRows = {};
-            loadData();
-        }
+      $scope.url = $scope.query + textquery + sorting;
 
-        $scope.textsearchfocus = function() {
-            $scope.textsearch_focus = true;
-        }
-
-        $scope.textsearchblur = function() {
-            if($scope.textquery.length > 0) {
-                $scope.textsearch_focus = true;
-            } else {
-                $scope.textsearch_focus = false;
-            }
-        }
-
-        $scope.textsearch = function(filter) {
-            $window.scrollTo(0, 0);
-            $scope.filtering = true;
-            $scope.textquery = filter;
-            $scope.queryOffset = 0;
-            if($scope.textsearch_timeout)
-                clearTimeout($scope.textsearch_timeout);
-            $scope.tableRows = [];
-            $scope.textsearch_timeout = setTimeout(function() {
-                $scope.queryOffset = 0;
-                loadData();
-            }, 800);
-        }
-
-        $scope.parseCellValue = function(type, value) {
-            if(type == "date") {
-                return $scope.parseDate(value);
-            }
-            if(type == "shortenBySplit" || type == "shorten") {
-                return $scope.shortenBySplit(value);   
-            }
-            if(type == 'nobreak') {
-                return '<span class="nobreak">'+value+'</span>';
-            }
-            if(type == 'image') {
-                $scope.hasImage = true;
-                return '<img src="'+$rootScope.imageRootUrl+'/thumb/'+value+'" />';
-            }
-            return value;
-        }
-
-        $scope.parseDate = function(value) {
-            if(value == '0000-01-01' || value == '0000-00-00') {
-                return '-';
-            } else if(value.indexOf('-00-00') != -1) {
-                return value.substring(0, 4);
-            } else {
-                var date = new Date(value);
-                return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth()+1)).slice(-2) + '.' + date.getFullYear();
-            }
-        }
-
-        $scope.shortenBySplit = function(value) {
-            if(value == null)
-                return '';
-            var valueArray = value.split(",");
-            if(valueArray.length > 2) {
-                // display the first two...
-                // the rest goes in to mouseover popup
-                var firsts = [valueArray[0], valueArray[1]];
-                var result = '<div class="cropped">';
-                result += firsts.join(", ");
-                result += '<ul>';
-                for(var index = 2; index < valueArray.length; index++) {
-                    result += '<li>'+valueArray[index]+'</li>';
-                }
-                result += '</ul>';
-                result += '</div>';
-                return result;
-            } else {
-                return valueArray.join(", ");
-            }
-        }
-
-        function setValues(data, append) {
-            if(typeof($scope.fields_obj) !== 'object') {
-                $scope.fields_obj = JSON.parse($scope.fields_obj);
-            }
-            var rows = [];
-
-            var regex = /({([^}]+)+})/g;
-            var match;
-
-            $scope.totalcnt = data[$scope.type+'_total_count'];
-
-            $scope.carousel = [];
-            for(var rowNo = 0; rowNo < data[$scope.type+'_results'].length; rowNo++) {
-                // fill all ids in the carousel array for the detail overlay
-                $scope.carousel.push(data[$scope.type+'_results'][rowNo].id);
-
-                var completeRow = data[$scope.type+'_results'][rowNo];
-                var rowId = completeRow.id;
-                var row = [];
-                for(var wanted_column in $scope.fields_obj) {
-                    var rowValue = '';
-                    var hasMatch = false;
-                    var hasAtleastOneValue = false;
-                    while ((match = regex.exec($scope.fields_obj[wanted_column])) !== null) {
-                        if(!hasMatch)
-                            hasMatch = '';
-                        if (match.index === regex.lastIndex) {
-                            regex.lastIndex++;
-                        }
-                        var potentialValue = match[2];
-                        var splitted = [];
-                        if(potentialValue != null) {
-                            splitted = potentialValue.split(":");
-                        } 
-                        var value = '';
-                        if(splitted.length > 1) {
-                            // parse required
-                            value = $scope.parseCellValue(splitted[0], completeRow[splitted[1]]);
-                        } else {
-                            value = completeRow[match[2]];
-                        }
-
-                        if(value == null || value == '') {
-                            value = '';
-                        } else {
-                            hasAtleastOneValue = true;
-                        }
-                        if(hasMatch == '') {
-                            hasMatch = $scope.fields_obj[wanted_column].replace(match[0], value);
-                        } else {
-                            hasMatch = hasMatch.replace(match[0], value);
-                        }
-                    }
-                    if(hasMatch) {
-                        if(hasAtleastOneValue) {
-                            // remove comma at the end of value (if there is one, e.g. in name when vorname is not set)
-                            row.push(hasMatch.trim().replace(/\,$/,''));
-                        } else {
-                            row.push('-');
-                        }
-                    } else {
-                        var value = '-';
-                        var toCheck = completeRow[$scope.fields_obj[wanted_column]];
-                        if(typeof(toCheck) != 'undefined' || toCheck != null) {
-                            value = toCheck;
-                        }
-                        row.push(value);
-                    }
-                }
-                rows.push({
-                    id: rowId, 
-                    dataset: row
-                });
-            }
-            if(typeof(append) !== 'undefined') {
-                $scope.tableRows = $scope.tableRows.concat(rows);
-            } else {
-                $scope.tableRows = rows;
-            }
-        }
-
-        function loadData(append) {
-
-            $scope.query = $rootScope.ApiUrl +
-                '/?a=streamsearch'+
-                '&type='+$scope.type +
-                '&limit='+$scope.queryLimit +
-                '&offset='+$scope.queryOffset  +
-                '&lang='+$rootScope.lang;
-
-            if($scope.directFilters.length > 0) {
-                $scope.query += '&direct=' + $scope.directFilters.join(",");
-            }
-
-            var textquery = '';
-            $rootScope.textualSearch = $scope.textquery;
-            if($scope.textquery != '') {
-                textquery = '&query='+$scope.textquery;
-            }
-            var sorting = '';
-            if($scope.sortParameter != '') {
-                sorting = '&sort='+$scope.sortParameter + '&sortdir='+$scope.sortDirection;
-            }
-            $http({
-                method: "GET",
-                url: $scope.query + textquery + sorting,
-                headers: {
-                   'Content-Type': "text/plain"
-                },
-                transformResponse: [function (data) {
-                  return data;
-                }]/*,
+      $http({
+        method: "GET",
+        url: $scope.url,
+        headers: {
+          'Content-Type': "text/plain"
+        },
+        transformResponse: [function (data) {
+          return data;
+        }]/*,
                 onProgress: function(event) {
                     try {
                         console.log('progress');
@@ -400,62 +408,63 @@ app.controller('TypeTableCtrl', [
                         console.log(e);
                     }
                 }*/
-            }).then(function(response) {
-                //console.log('then');
-                $scope.filtering = false;
+      }).then(function (response) {
+        //console.log('then');
+        $scope.filtering = false;
 
 
-                try {
-                    var data = response.data.replace(/}{/g, "},{");
-                    //console.log(data);
-                    var result = JSON.parse("[" + data + "]");
-                    result = result[result.length - 1];
-                    //console.log(result);
-                    setValues(result, append);
-                    $scope.filtering = false;
-                    $rootScope.loadednum = $scope.tableRows.length;
-                }
-                catch (e){
-                    console.log(e);
-                }
-
-
-            });
+        try {
+          var data = response.data.replace(/}{/g, "},{");
+          //console.log(data);
+          var result = JSON.parse("[" + data + "]");
+          result = result[result.length - 1];
+          //console.log(result);
+          // TODO remove
+          $scope.orte = result['photos_results'];
+          setValues(result, append);
+          $scope.filtering = false;
+          $rootScope.loadednum = $scope.tableRows.length;
+        }
+        catch (e) {
+          console.log(e);
         }
 
-        if($scope.searchquery != '') {
-            $scope.textsearchfocus();
-        }
+      });
     }
+
+    if ($scope.searchquery != '') {
+      $scope.textsearchfocus();
+    }
+  }
 ]);
 
 app.directive('typeTable', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            fields: '@',
-            detailRoute: '@',
-            type: '@',
-            sortings: '@',
-            display : '@',
-            filters: '@'
-        },
-        templateUrl: 'app/shared/content/typetable.html',
-        controller: 'TypeTableCtrl'
-    }
+  return {
+    restrict: 'E',
+    scope: {
+      fields: '@',
+      detailRoute: '@',
+      type: '@',
+      sortings: '@',
+      display: '@',
+      filters: '@'
+    },
+    templateUrl: 'app/shared/content/typetable.html',
+    controller: 'TypeTableCtrl'
+  }
 });
 
-app.filter('orderObjectBy', function() {
-  return function(items, field, reverse) {
+app.filter('orderObjectBy', function () {
+  return function (items, field, reverse) {
     console.log(items, field);
     var filtered = [];
-    angular.forEach(items, function(item) {
+    angular.forEach(items, function (item) {
       filtered.push(item);
     });
     filtered.sort(function (a, b) {
       return (a[field] > b[field] ? 1 : -1);
     });
-    if(reverse) filtered.reverse();
+    if (reverse) filtered.reverse();
     return filtered;
   };
 });

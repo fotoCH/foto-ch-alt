@@ -1,4 +1,4 @@
-<scroll-to-top button-text="{{ translations.scrolltop }}" loaded-text="{{ translations.loaded }}" loadednum="{{ tableRows.length }}" totalcnt="{{ totalcnt }}" loading="filtering"></scroll-to-top>
+<scroll-to-top ng-if="display != 'map'" button-text="{{ translations.scrolltop }}" loaded-text="{{ translations.loaded }}" loadednum="{{ tableRows.length }}" totalcnt="{{ totalcnt }}" loading="filtering"></scroll-to-top>
 <div class="filter-bar" ng-class="{loading : filtering}">
     <div class="l-container">
         <div class="left">
@@ -36,14 +36,18 @@
             </div>
         </div>
         <div class="right">
-            <a class="switchview" ng-class="currentViewClass()" ng-click="switchView()"></a>
+            <a ng-if="detailRoute == 'photo'" class="switchview" ng-click="switchView('map')">
+                <i class="material-icons">map</i>
+            </a>
+            <a class="switchview" ng-class="currentViewClass()" ng-click="switchView('toggle')"></a>
             <a class="reset" ng-click="reset()"></a>
         </div>
     </div>
 </div>
 <div class="table">
-    <div class="l-container">
-        <table ng-if="!grid">
+    <div class="l-container" ng-switch="display">
+        <google-maps orte="orte" url="url" ng-if="display == 'map'"></google-maps>
+        <table ng-switch-when="list">
             <thead>
                 <th ng-repeat="th in tableHead track by $index" 
                     ng-class="thisSortingClass(th.sort)"
@@ -56,7 +60,7 @@
                 </tr>
             </tbody>
         </table>
-        <div ng-if="grid" class="grid"
+        <div ng-switch-when="grid" class="grid"
             infinite-scroll="increaseLimit()" 
             infinite-scroll-distance="0.1"
             masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}'

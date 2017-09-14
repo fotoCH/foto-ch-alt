@@ -1,0 +1,10 @@
+<div class="map-container">
+    <div id="map"></div>
+    <div class="preview">
+        <ul>
+            <li ng-repeat="marker in selectedMarkers" ng-click="$root.detail(marker.ort.id, 'photo')">
+                <img ng-src="{{ $root.imageRootUrl + 'thumb/' + marker.ort.image_path }}" alt="{{ marker.ort.title }}"/>
+            </li>
+        </ul>
+    </div>
+</div>
