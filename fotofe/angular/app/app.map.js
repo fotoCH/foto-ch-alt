@@ -53,7 +53,7 @@ app.directive('googleMaps', ['$http', function ($http) {
 
             spider.addListener('spiderfy', function (spiderCluster) {
                 $scope.$apply(function () {
-                    $scope.selectedMarkers = spiderCluster;
+                    setSelectedMarkers(spiderCluster);
                 });
             });
 
@@ -62,7 +62,7 @@ app.directive('googleMaps', ['$http', function ($http) {
             });
 
             $scope.clearSelection = function () {
-                $scope.selectedMarkers = [];
+                setSelectedMarkers([]);
             };
 
             addMarkers($scope.orte);
@@ -92,6 +92,11 @@ app.directive('googleMaps', ['$http', function ($http) {
                 });
             }
 
+            function setSelectedMarkers (value) {
+                $scope.selectedMarkers = value;
+                $scope.totalDisplayed = initiallyDisplayedPreviews;
+            }
+
             function addMarkers(orte) {
                 markers = orte.map(function (ort) {
                     var position = {lat: parseFloat(ort.lat), lng: parseFloat(ort.lon)};
@@ -105,7 +110,7 @@ app.directive('googleMaps', ['$http', function ($http) {
 
                     marker.addListener('spider_click', function () {
                         $scope.$apply(function () {
-                            $scope.selectedMarkers = [marker];
+                            setSelectedMarkers([marker]);
                         });
                     });
 
@@ -114,7 +119,7 @@ app.directive('googleMaps', ['$http', function ($http) {
                     return marker;
                 });
 
-                $scope.selectedMarkers = markers;
+                setSelectedMarkers(markers);
 
                 markerCluster = new MarkerClusterer(
                     map,
@@ -124,7 +129,7 @@ app.directive('googleMaps', ['$http', function ($http) {
 
                 google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
                     $scope.$apply(function () {
-                        $scope.selectedMarkers = cluster.getMarkers();
+                        setSelectedMarkers(cluster.getMarkers());
                     });
                 });
 
@@ -135,7 +140,7 @@ app.directive('googleMaps', ['$http', function ($http) {
                     markerCluster.clearMarkers();
                 }
                 markers = [];
-                $scope.selectedMarkers = [];
+                setSelectedMarkers([]);
                 spider.removeAllMarkers();
             }
 
