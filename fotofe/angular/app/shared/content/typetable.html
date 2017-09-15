@@ -45,8 +45,8 @@
     </div>
 </div>
 <div class="table">
+    <google-maps orte="orte" url="url" ng-if="display == 'map'"></google-maps>
     <div class="l-container" ng-switch="display">
-        <google-maps orte="orte" url="url" ng-if="display == 'map'"></google-maps>
         <table ng-switch-when="list">
             <thead>
                 <th ng-repeat="th in tableHead track by $index" 

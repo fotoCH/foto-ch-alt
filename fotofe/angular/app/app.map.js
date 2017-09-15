@@ -3,14 +3,15 @@ app.directive('googleMaps', ['$http', function ($http) {
         restrict: 'E',
         replace: true,
         scope: {
-            orte: '=',
+            orte: '=',  // only used for data binding to grid/list view
             url: '='
         },
         templateUrl: 'app/shared/content/map.html',
-        link: function ($scope, $element, $attrs) {
-            $scope.ort = null;
+        link: function ($scope) {
             $scope.selectedMarkers = [];
-            var selectedMarker;
+            var initiallyDisplayedPreviews = 20;
+            $scope.totalDisplayed = initiallyDisplayedPreviews;
+            $scope.total = 0;
             var markers = [];
             var markerCluster;
             var minClusterZoom = 10;
@@ -18,35 +19,19 @@ app.directive('googleMaps', ['$http', function ($http) {
             var availableHeight = $(window).height() - $('.filter-bar').height() - $('.l-header').height() - $('.l-footer').height();
             $('#map').css('height', availableHeight + 'px');
 
-            $scope.$watch('url', function (url) {
-                // console.log(url);
-                reloadData(url);
-            });
-
-
-            $scope.detail = function (id, type) {
-                if (id && type) {
-                    $rootScope.detail(id, type);
+            var scrollCounter = 0;
+            $('.preview').scroll(function () {
+                scrollCounter++;
+                if (scrollCounter > 20) {
+                    scrollCounter = 0;
+                    $scope.$apply(updateTotalDisplayed);
                 }
-            };
+            });
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 5,
                 center: {lat: 46.956830, lng: 7.450751}
             });
-
-            map.addListener('click', function () {
-                // $scope.$apply(function () {
-                //     $scope.selectedMarkers = [];
-                //     // if (selectedMarker) {
-                //     //   selectedMarker.setIcon('assets/img/m/marker.svg');
-                //     // }
-                // });
-            });
-
-            // map.addListener('bounds_changed', function () {
-            //   $scope.$apply(updateImageStrip);
-            // });
 
             var spider = new OverlappingMarkerSpiderfier(map, {
                 markersWontMove: true,
@@ -54,9 +39,6 @@ app.directive('googleMaps', ['$http', function ($http) {
             });
 
             spider.addListener('format', function (marker, status) {
-                // console.log(marker);
-                // console.log(status);
-                // if (!(marker == selectedMarker && status == 'SPIDERFIED')) {
                 var icon = 'assets/img/m/marker.svg';
                 switch (status) {
                     case OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED:
@@ -67,8 +49,21 @@ app.directive('googleMaps', ['$http', function ($http) {
                         break;
                 }
                 marker.setIcon(icon);
-                // }
             });
+
+            spider.addListener('spiderfy', function (spiderCluster) {
+                $scope.$apply(function () {
+                    $scope.selectedMarkers = spiderCluster;
+                });
+            });
+
+            $scope.$watch('url', function (url) {
+                reloadData(url);
+            });
+
+            $scope.clearSelection = function () {
+                $scope.selectedMarkers = [];
+            };
 
             addMarkers($scope.orte);
 
@@ -86,22 +81,18 @@ app.directive('googleMaps', ['$http', function ($http) {
                         return data;
                     }]
                 }).then(function success(response) {
-                    // TODO wtf? why is response not valid json???
+                    // TODO wtf? stremasearch is a mess!
                     var result = parseResponse(response);
-                    // $scope.$apply(clearMarkers);
                     clearMarkers();
                     var orte = result['photos_results'];
+                    $scope.total = parseInt(result['photos_total_count']);
+                    $scope.totalDisplayed = initiallyDisplayedPreviews;
                     $scope.orte = orte;
                     addMarkers(orte);
-                    // updateImageStrip();
-                }, function error(response) {
-                    console.log('error');
-                    console.log(response);
                 });
             }
 
             function addMarkers(orte) {
-
                 markers = orte.map(function (ort) {
                     var position = {lat: parseFloat(ort.lat), lng: parseFloat(ort.lon)};
 
@@ -113,10 +104,9 @@ app.directive('googleMaps', ['$http', function ($http) {
                     });
 
                     marker.addListener('spider_click', function () {
-                        // selectedMarker = marker;
-                        // selectedMarker.setIcon('assets/img/m/highlight.svg');
-                        // openPopup(marker);
-                        console.log('spider click single marker oder spiderfied');
+                        $scope.$apply(function () {
+                            $scope.selectedMarkers = [marker];
+                        });
                     });
 
                     spider.addMarker(marker);
@@ -128,7 +118,6 @@ app.directive('googleMaps', ['$http', function ($http) {
 
                 markerCluster = new MarkerClusterer(
                     map,
-                    // spider.getMarkers(),
                     markers,
                     {imagePath: 'assets/img/m/', maxZoom: minClusterZoom, zoomOnClick: false}
                 );
@@ -141,12 +130,6 @@ app.directive('googleMaps', ['$http', function ($http) {
 
             }
 
-            // function openPopup(marker) {
-            //     $scope.$apply(function () {
-            //         $scope.ort = marker.ort;
-            //     });
-            // }
-
             function clearMarkers() {
                 if (markerCluster) {
                     markerCluster.clearMarkers();
@@ -154,6 +137,12 @@ app.directive('googleMaps', ['$http', function ($http) {
                 markers = [];
                 $scope.selectedMarkers = [];
                 spider.removeAllMarkers();
+            }
+
+            function updateTotalDisplayed () {
+                if ($scope.totalDisplayed < $scope.total) {
+                    $scope.totalDisplayed += 20;
+                }
             }
 
             function parseResponse(response) {
@@ -168,21 +157,12 @@ app.directive('googleMaps', ['$http', function ($http) {
                     return [];
                 }
             }
-
-            // function updateImageStrip () {
-            //   $scope.selectedMarkers = [];
-            //   for (var i = 0; i < markers.length; i++) {
-            //     var marker = markers[i];
-            //     if (map.getBounds().contains(marker.getPosition())) {
-            //       $scope.selectedMarkers.push(marker);
-            //     }
-            //   }
-            // }
         }
     };
 }]);
 
 app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootScope', '$location', 'languages', '$window', function ($scope, $http, $state, $stateParams, $rootScope, $location, languages, $window) {
+    // TODO use googleMaps directive here also
     $scope.photos = true;
     $scope.photographer = true;
 
@@ -403,5 +383,4 @@ app.controller('MapCtrl', ['$scope', '$http', '$state', '$stateParams', '$rootSc
             map.fitBounds(bounds);
         });
     }
-
 }]);

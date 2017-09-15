@@ -1,10 +1,16 @@
 <div class="map-container">
     <div id="map"></div>
     <div class="preview">
+        <div class="reset">
+            <i ng-click="clearSelection()" class="material-icons">close</i>
+        </div>
         <ul>
-            <li ng-repeat="marker in selectedMarkers" ng-click="$root.detail(marker.ort.id, 'photo')">
+            <li ng-repeat="marker in selectedMarkers | limitTo:totalDisplayed" ng-click="$root.detail(marker.ort.id, 'photo')">
                 <img ng-src="{{ $root.imageRootUrl + 'thumb/' + marker.ort.image_path }}" alt="{{ marker.ort.title }}"/>
             </li>
         </ul>
+        <div class="stats">
+            <span><b>{{  selectedMarkers.length }}</b> / <b>{{ total }}</b> {{ $root.translations.selected }}</span>
+        </div>
     </div>
 </div>

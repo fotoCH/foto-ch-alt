@@ -40,7 +40,7 @@ if ($search->activate()) {
 class StreamedSearch
 {
     private $lang = '';
-    private $limitResults = 1000;
+    private $limitResults = 100;
     private $limitPhotoResults = false;
     private $query = "";
     private $type = false;
@@ -221,9 +221,7 @@ class StreamedSearch
                 $sql .= " OR namen.vorname LIKE '%" . $term . "%'";
                 $sql .= " OR namen.nachname LIKE '%" . $term . "%'";
                 $sql .= " OR bestand.name" . " LIKE '%" . $term . "%'";
-                //$sql .= " OR bestand.name" . $this->lang . " LIKE '%" . $term . "%'";
                 $sql .= " OR institution.name" . " LIKE '%" . $term . "%'";
-                //$sql .= " OR institution.name" . $this->lang . " LIKE '%" . $term . "%'";
             }
             if ($level >= 2) {
                 $sql .= " OR fotos.dcterms_medium LIKE '%" . $term . "%'";
@@ -237,7 +235,7 @@ class StreamedSearch
 
         if ($this->onlyGeoRefImages) {
             $sql .= " AND fotos.lat <> 0";
-            $this->limitResults = 1000000;
+            $this->limitResults = 9999999;
         }
 
         $sql .= $this->appendDirectQuery();
@@ -248,19 +246,12 @@ class StreamedSearch
             $sql .= " ORDER BY id ASC";
         }
 
-//        if ($this->limitPhotoResults) {
-//            $sql .= " LIMIT " . $this->limitPhotoResults;
-//            $sql .= " OFFSET " . $this->offset;
-//        }
-
         if ($this->limitPhotoResults) {
             $sql .= " LIMIT " . $this->limitPhotoResults;
         } else {
             $sql .= " LIMIT " . $this->limitResults;
         }
         $sql .= " OFFSET " . $this->offset;
-
-//        echo $sql;
 
         $result = mysqli_query($sqli, $sql);
         $count_result = mysqli_query($sqli, "Select FOUND_ROWS() as total_count");
