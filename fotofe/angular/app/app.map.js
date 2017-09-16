@@ -124,7 +124,7 @@ app.directive('googleMaps', ['$http', function ($http) {
                 markerCluster = new MarkerClusterer(
                     map,
                     markers,
-                    {imagePath: 'assets/img/m/', maxZoom: minClusterZoom, zoomOnClick: false}
+                    getClusterOptions()
                 );
 
                 google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
@@ -142,6 +142,52 @@ app.directive('googleMaps', ['$http', function ($http) {
                 markers = [];
                 setSelectedMarkers([]);
                 spider.removeAllMarkers();
+            }
+
+            function getClusterOptions () {
+                var style = [{
+                    url: 'assets/img/m/1.png',
+                    height: 53,
+                    width: 53,
+                    anchor: [0, 0],
+                    textColor: '#ffffff',
+                    textSize: 10
+                }, {
+                    url: 'assets/img/m/2.png',
+                    height: 56,
+                    width: 56,
+                    anchor: [0, 0],
+                    textColor: '#ffffff',
+                    textSize: 11
+                }, {
+                    url: 'assets/img/m/3.png',
+                    height: 66,
+                    width: 66,
+                    anchor: [0, 0],
+                    textColor: '#ffffff',
+                    textSize: 11
+                }, {
+                    url: 'assets/img/m/4.png',
+                    height: 78,
+                    width: 78,
+                    anchor: [0, 0],
+                    textColor: '#ffffff',
+                    textSize: 11
+                }, {
+                    url: 'assets/img/m/5.png',
+                    height: 90,
+                    width: 90,
+                    anchor: [0, 0],
+                    textColor: '#ffffff',
+                    textSize: 11
+                }];
+
+                return {
+                    imagePath: 'assets/img/m/',
+                    maxZoom: minClusterZoom,
+                    zoomOnClick: false,
+                    styles: style
+                };
             }
 
             function updateTotalDisplayed () {
