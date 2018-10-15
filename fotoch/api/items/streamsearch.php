@@ -240,6 +240,8 @@ class StreamedSearch
 
         $sql .= $this->appendDirectQuery();
 
+        $sql .= " GROUP BY fotos.id ";
+
         if ($this->sorting) {
             $sql .= " ORDER BY " . $this->sorting . ' ' . $this->sortDirection;
         } else {
