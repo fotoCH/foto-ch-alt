@@ -61,10 +61,10 @@ if ($id == '') {
 	}
 	if (!empty($where)){
 		$query.=" WHERE $where";
-        if($rand && is_numeric($rand)) {
-        	$query.=" GROUP BY f.id";
-		}
 	}
+
+    $query.=" GROUP BY f.id";
+
 	$result=mysqli_query($sqli, $query);
 	$rowCount = mysqli_num_rows($result);
 	$out['result_count']= $rowCount;
