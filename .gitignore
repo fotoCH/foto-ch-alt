@@ -1,5 +1,2 @@
-# /fotoch/
-/fotoch/mysql.inc.php
-
-# /fotoch/api/
-/fotoch/api/mysql.inc.php
+# secrets
+api/mysql.inc.php
