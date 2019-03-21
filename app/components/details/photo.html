@@ -85,7 +85,7 @@
                 entry="photo.id" />
 
             <dt ng-if="photo.img_url">{{spr.img_url}}</dt>
-            <dd ng-if="photo.img_url" ng-bind-html="photo.img_url | rawHtml" style="word-wrap: break-word;"></dd>
+            <dd ng-if="photo.img_url"><a ng-href="{{photo.img_url}}">{{photo.img_url}}</a></dd>
             <dt ng-if="photo.supp_id">{{spr.supp_id}}</dt>
             <dd ng-if="photo.supp_id" ng-bind-html="photo.supp_id | rawHtml"></dd>
             <dt ng-if="photo.supp_id">ID-Foto</dt>
@@ -187,7 +187,7 @@
             <dt ng-if="photo.medium">{{spr.medium}}</dt>
             <dd ng-if="photo.medium" ng-bind-html="photo.medium | rawHtml"></dd>
             <dt ng-if="photo.img_url">{{spr.img_url}}</dt>
-            <dd ng-if="photo.img_url" ng-bind-html="photo.img_url | rawHtml" style="word-wrap: break-word;"></dd>
+            <dd ng-if="photo.img_url"><a ng-href="{{photo.img_url}}">{{photo.img_url}}</a></dd>
             <dt ng-if="photo.supp_id">{{spr.supp_id}}</dt>
             <dd ng-if="photo.supp_id" ng-bind-html="photo.supp_id | rawHtml"></dd>
             <dt ng-if="photo.supp_id">ID-Foto</dt>
