@@ -1,2 +1,14 @@
 # secrets
 api/mysql.inc.php
+
+# images
+delacour/
+feuerstein/
+images/
+psimage/
+schaer/
+thumb/
+
+# icache
+api/icache/*
+!api/icache/.gitkeep
