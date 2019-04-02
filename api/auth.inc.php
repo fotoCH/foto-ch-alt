@@ -8,7 +8,8 @@ define("USER_WORKER", 8);
 define("USER_SUPER_USER", 9);
 
 function auth_level($level){
-	global $userlevel;
+  global $userlevel;
+  print_r($userlevel);
 	return ($userlevel >= $level);
 }
 

@@ -46,7 +46,7 @@ while($fetch = mysqli_fetch_array($result)){
 			$spatr[$fetch['name']]=$tr;
 		}
 	} else {
-		$spr[$fetch['name']]=$fetch[$language];
+	  $spr[$fetch['name']]=$fetch[$language];
 	}
 }
 
