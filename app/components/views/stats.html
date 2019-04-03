@@ -1,0 +1,27 @@
+<div class="l-content">
+  <div class="l-container">
+    <h1>{{numberOfFotografen}} Fotograf*innen in {{numberOfOrte}} Gemeinden und {{numberOfKantone}} Kantonen</h1>
+    <uib-accordion close-others="oneAtATime">
+      <div uib-accordion-group class="panel-default" heading="{{kanton.name}} ({{kanton.orte.length}} Gemeinden)" ng-repeat="kanton in stats">
+        <div class="left-spaced-lg" style="margin-left: 20px">
+          <uib-accordion close-others="oneAtATime">
+            <div uib-accordion-group class="panel-default" heading="{{ort.name}} ({{ort.fotografen.length}} Fotograf*innen)" ng-repeat="ort in kanton.orte">
+              <ul>
+                <li ng-repeat="fotograf in ort.fotografen">
+                  <a ng-click="$root.detail(fotograf.id, 'photographer' )">
+                    {{fotograf.vorname}} {{fotograf.nachname}}
+                    <span ng-show="fotograf.geburtsdatum !== '0000-00-00' || fotograf.todesdatum !== '0000-00-00'">(</span>
+                    <span ng-show="fotograf.geburtsdatum !== '0000-00-00'">* {{fotograf.geburtsdatum | date : 'dd.MM.yyyy'}}</span>
+                    <span ng-show="fotograf.geburtsdatum !== '0000-00-00' && fotograf.todesdatum !== '0000-00-00'">, </span>
+                    <span ng-show="fotograf.todesdatum !== '0000-00-00'">† {{fotograf.todesdatum | date : 'dd.MM.yyyy'}}</span>
+                    <span ng-show="fotograf.geburtsdatum !== '0000-00-00' || fotograf.todesdatum !== '0000-00-00'">)</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </uib-accordion>
+        </div>
+      </div>
+    </uib-accordion>
+    </div>
+</div>

@@ -56,7 +56,8 @@ $actions=array(
     "request",
     "year",
     "usermanagement",
-    "projects"
+    "projects",
+    "stats"
 );
 if ($action=='fotograph') $action='photographer';
 if (!in_array($action,$actions)) $action='photographer';  // default Startseite
