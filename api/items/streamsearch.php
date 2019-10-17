@@ -610,7 +610,11 @@ class StreamedSearch
     {
         $returnable = '';
         foreach ($this->direct as $direct) {
-            $returnable .= " AND " . $direct['field'] . " LIKE '%" . $direct['value'] . "%' ";
+	    if(is_numeric($direct['value'])) {
+                $returnable .= " AND " . $direct['field'] . " = " . $direct['value'];
+	    } else {
+                $returnable .= " AND " . $direct['field'] . " LIKE '%" . $direct['value'] . "%' ";
+            }
         }
         return $returnable;
     }

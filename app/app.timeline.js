@@ -114,7 +114,7 @@ app.controller('YearHightlightController', [
 
         $scope.showComplete = function() {
             $scope.bloading = true;
-            $http.get($rootScope.ApiUrl + '?a=year&wanted='+$scope.year+'&nolimit=true').success(function(data) {
+            $http.get($rootScope.ApiUrl + '/?a=year&wanted='+$scope.year+'&nolimit=true').success(function(data) {
                 $scope.bloading = false;
                 $scope.complete = true;
                 $scope.data = data[$scope.year];
