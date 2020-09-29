@@ -1,5 +1,6 @@
 # secrets
 api/mysql.inc.php
+SRU/mysql.inc.php
 
 # images
 delacour/
@@ -12,3 +13,7 @@ thumb/
 # icache
 api/icache/*
 !api/icache/.gitkeep
+SRU/icache/*
+
+#logs
+SRU/sru.log

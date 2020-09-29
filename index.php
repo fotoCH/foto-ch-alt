@@ -1,3 +1,6 @@
+<?php
+header('Expires: Wed, 21 Oct 2015 07:28:00 GMT'); // 1 hour
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>
 <html class="lt-ie10 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -54,6 +57,33 @@
   ga('send', 'pageview');
 
 </script>
+
+<script>
+  // ugly ugly fix for directlinks
+  var l = window.location.href;
+  if (l.search("%23detail")>0){
+    var newl = l.replace("%23detail", "#detail");
+    window.location.href = newl;
+  }
+</script>
+
+
+<!-- Matomo -->
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.foto-ch.ch/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
 
     <!--[if lt IE 10]>
 
