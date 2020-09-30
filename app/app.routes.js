@@ -156,6 +156,8 @@ app
           controller: "StatsController"
         });
 
+      $locationProvider.html5Mode(true);
+
       // meta tags default values
       ngMetaProvider.setDefaultTitle("fotoCH");
       ngMetaProvider.setDefaultTag(
