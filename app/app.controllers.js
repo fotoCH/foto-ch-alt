@@ -80,8 +80,8 @@ app.controller("MainCtrl", [
 
     $rootScope.currentDetail = "";
     $rootScope.$on("$locationChangeSuccess", function() {
-      if ($location.hash().indexOf("detail") >= 0) {
-        checkHashForModal();
+      if ($location.search().detail !== undefined) {
+        checkSearchParamsForModal();
       } else {
         $uibModalStack.dismissAll();
         $rootScope.currentDetail = "";
@@ -163,7 +163,7 @@ app.controller("MainCtrl", [
       if ($rootScope.currentDetail != "detail=" + id + "&type=" + type) {
         $rootScope.openNew = true;
         $rootScope.currentDetail = "detail=" + id + "&type=" + type;
-        $location.hash("detail=" + id + "&type=" + type);
+        $location.search({ detail: id, type: type });
         setTimeout(function() {
           $rootScope.detailModal = $uibModal
             .open({
@@ -186,7 +186,7 @@ app.controller("MainCtrl", [
               function() {},
               function() {
                 if (!$rootScope.openNew) {
-                  $location.hash("!");
+                  $location.search({});
                   $rootScope.currentDetail = "";
                 }
               }
@@ -195,26 +195,17 @@ app.controller("MainCtrl", [
       }
     };
 
-    function checkHashForModal() {
-      var hash = $location.hash();
-      hash = hash.split("&");
-      if (hash.length > 1) {
-        var id = 0;
-        var type = "unknown";
-        for (index = 0; index < hash.length; index++) {
-          var split = hash[index].split("=");
-          if (index == 0 && split[0] == "detail") {
-            id = split[1];
-          }
-          if (index == 1 && split[0] == "type") {
-            type = split[1];
-          }
-        }
+    function checkSearchParamsForModal() {
+      var searchParams = $location.search();
+      var id = searchParams.detail;
+      var type = searchParams.type;
+
+      if (id !== undefined && type !== undefined) {
         $rootScope.detail(id, type);
       }
     }
 
-    checkHashForModal();
+    checkSearchParamsForModal();
 
     loadTranslation();
 
@@ -242,7 +233,7 @@ app.controller("MainCtrl", [
             hosta.join(".") +
             port +
             window.location.pathname +
-            window.location.hash;
+            window.location.search;
         }
       }
 
