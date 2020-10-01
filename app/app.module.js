@@ -1,3 +1,9 @@
+var get_current_url = function() {
+  return (
+    location.protocol + "//" + location.hostname + ":" + location.port + "/"
+  );
+};
+
 var app = angular.module("fotochWebApp", [
   "ui.router",
   "ngAnimate",
@@ -71,13 +77,16 @@ app.run(function(
   });
 
   // Development Server API URL
-  // $rootScope.ApiUrl = "http://localhost:8888/foto-ch-alt/api";
+  // $rootScope.ApiUrl = 'http://raeffu.local:8888/fotoch/api';
 
   // Production Server API URL
   // DEV
   //$rootScope.ApiUrl = 'http://foto-ch.dev/api/api';
   // PROD
-  $rootScope.ApiUrl = "https://" + $rootScope.lang + ".foto-ch.ch/api";
+  //$rootScope.ApiUrl = 'https://'+$rootScope.lang+'.foto-ch.ch/api';
+
+  //$rootScope.ApiUrl = 'http://localhost:8020/api';
+  $rootScope.ApiUrl = get_current_url() + "api";
 
   var token = window.sessionStorage.authToken;
   $http.defaults.headers.common["X-AuthToken"] = token;
@@ -105,7 +114,9 @@ app.run(function(
 app.service("fotochService", [
   "$http",
   function($http) {
-    var urlBase = "https://foto-ch.ch/api/";
+    //var urlBase = 'https://foto-ch.ch/api/';
+    //var urlBase = 'http://localhost:8020/api/';
+    var urlBase = get_current_url + "api/";
 
     this.getFotografs = function(anf) {
       return $http.get(urlBase + "?anf=" + anf);
