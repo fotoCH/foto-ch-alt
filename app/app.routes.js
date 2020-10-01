@@ -19,6 +19,7 @@ app
       $httpProvider
     ) {
       $urlRouterProvider.otherwise("/home");
+      $locationProvider.html5Mode(true);
 
       $stateProvider
         // Homepage
@@ -155,8 +156,6 @@ app
           templateUrl: "app/components/views/stats.html",
           controller: "StatsController"
         });
-
-      $locationProvider.html5Mode(true);
 
       // meta tags default values
       ngMetaProvider.setDefaultTitle("fotoCH");
