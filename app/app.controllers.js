@@ -139,7 +139,7 @@ app.controller("MainCtrl", [
           $rootScope.userLevel = 0;
           $rootScope.authToken = "";
           $rootScope.instComment = 0;
-          $http.defaults.headers.common["X-AuthToken"] = undefined;
+          $http.defaults.headers.common["X-Authtoken"] = undefined;
           $rootScope.user_data = false;
           $window.sessionStorage.authToken = undefined;
           $window.sessionStorage.removeItem("user_data");
@@ -814,7 +814,7 @@ app.controller("LoginCtrl", [
             $rootScope.authToken = data.token;
 
             $window.sessionStorage.authToken = data.token;
-            $http.defaults.headers.common["X-AuthToken"] = $rootScope.authToken;
+            $http.defaults.headers.common["X-Authtoken"] = $rootScope.authToken;
             $state.go("profile");
           } else {
             $scope.errorMsg = $rootScope.translations.login_error;

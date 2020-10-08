@@ -89,7 +89,7 @@ app.run(function(
   $rootScope.ApiUrl = get_current_url() + "api";
 
   var token = window.sessionStorage.authToken;
-  $http.defaults.headers.common["X-AuthToken"] = token;
+  $http.defaults.headers.common["X-Authtoken"] = token;
 
   $rootScope.userInfoCall = $q.defer();
   if (token !== undefined && $rootScope.authToken != token) {
@@ -102,7 +102,7 @@ app.run(function(
           $rootScope.userLevel = parseInt(data.level);
           $rootScope.instComment = parseInt(data.inst_comment);
           $rootScope.authToken = token;
-          $http.defaults.headers.common["X-AuthToken"] = token;
+          $http.defaults.headers.common["X-Authtoken"] = token;
           $rootScope.userInfoCall.resolve();
         }
       });
