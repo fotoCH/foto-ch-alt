@@ -101,7 +101,7 @@ class StreamedSearch
             "fotografen.fotografengattungen_set",
             "fotografen.bildgattungen_set",
             "fotografen.kanton",
-            "(SELECT GROUP_CONCAT(DISTINCT arbeitsort) FROM arbeitsperioden WHERE fotografen.id = arbeitsperioden.fotografen_id) as arbeitsorte"
+            "GROUP_CONCAT(DISTINCT ao.name) AS arbeitsorte"
         );
     }
 
@@ -543,10 +543,10 @@ class StreamedSearch
         $sql = '';
         $sql .= "SELECT SQL_CALC_FOUND_ROWS DISTINCT " . implode(", ", $this->photographerFields()) . " FROM namen";
         $sql .= " RIGHT JOIN fotografen on namen.fotografen_id = fotografen.id";
-        /* removed due to performance...
-        if($level >= 1) {
-            $sql.= " LEFT JOIN arbeitsperioden on arbeitsperioden.fotografen_id = fotografen.id";
-        }*/
+
+        $sql.= " LEFT JOIN arbeitsperioden on arbeitsperioden.fotografen_id = fotografen.id";
+        $sql.= " LEFT JOIN arbeitsorte as ao on arbeitsperioden.arbeitsort_id = ao.id";
+
         $q = explode(" ", $this->query);
         $first = true;
         foreach ($q as $term) {
@@ -575,6 +575,8 @@ class StreamedSearch
         $sql .= " AND fotografen.unpubliziert = 0";
 
         $sql .= $this->appendDirectQuery();
+
+        $sql .= " GROUP BY fotografen.id";
 
         if ($this->sorting) {
             $sql .= " ORDER BY " . $this->sorting . ' ' . $this->sortDirection;

@@ -1,22 +1,23 @@
 <div class="typetable">
-    <type-table 
-        type='photographer'
-        display="list"
-        detail-route='photographer'
-        sortings='nachname, geburtsdatum, todesdatum, arbeitsorte, kanton, fotografengattungen_set, bildgattungen_set'
-        fields='{
-            "name":"{nachname}, {vorname} {namenszusatz}",
-            "geburtsdatum": "{dateofbirth}",
-            "todesdatum": "{dateofdeath}",
-            "arbeitsorte" : "{shorten:arbeitsorte}",
-            "kanton": "{shorten:kanton}",
-            "fotografengattungen" : "{shorten:fotografengattungen_set}",
-            "bildgattungen": "{shorten:bildgattungen_set}"
-        }'
-        filters='[
-            {"fotografen_kanton" : "kanton"},
-            {"fotografengattungen" : "fotografengattungen_set"},
-            {"bildgattungen" : "bildgattungen_set"}
-        ]'>
-    </type-table>
+  <type-table
+    type='photographer'
+    display="list"
+    detail-route='photographer'
+    sortings='nachname, geburtsdatum, todesdatum, arbeitsorte, kanton, fotografengattungen_set, bildgattungen_set'
+    fields='{
+          "name":"{nachname}, {vorname} {namenszusatz}",
+          "geburtsdatum": "{dateofbirth}",
+          "todesdatum": "{dateofdeath}",
+          "arbeitsorte" : "{shorten:arbeitsorte}",
+          "kanton": "{shorten:kanton}",
+          "fotografengattungen" : "{shorten:fotografengattungen_set}",
+          "bildgattungen": "{shorten:bildgattungen_set}"
+          }'
+    filters='[
+          {"arbeitsorte": "arbeitsort"},
+          {"fotografen_kanton" : "kanton"},
+          {"fotografengattungen" : "fotografengattungen_set"},
+          {"bildgattungen" : "bildgattungen_set"}
+          ]'>
+  </type-table>
 </div>

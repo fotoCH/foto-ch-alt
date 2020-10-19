@@ -1,77 +1,80 @@
 <scroll-to-top ng-if="display != 'map'" button-text="{{ translations.scrolltop }}" loaded-text="{{ translations.loaded }}" loadednum="{{ tableRows.length }}" totalcnt="{{ totalcnt }}" loading="filtering"></scroll-to-top>
 <div class="filter-bar" ng-class="{loading : filtering}">
-    <div class="l-container">
-        <div class="left">
-            <div class="loading-indicator"></div>
-            <div class="textsearch" ng-class="{active : textsearch_focus}">
-                <label for="textsearch" >{{ translations.search_all }}</label>
-                <span class="s-icon"></span>
-                <input 
-                    type="text"
-                    ng-focus="textsearchfocus()"
-                    ng-blur="textsearchblur()"
-                    ng-model="searchquery"
-                    ng-change="textsearch(searchquery)"
-                    id="textsearch">
+  <div class="l-container">
+    <div class="left">
+      <div class="loading-indicator"></div>
+      <div class="textsearch" ng-class="{active : textsearch_focus}">
+        <label for="textsearch" >{{ translations.search_all }}</label>
+        <span class="s-icon"></span>
+        <input 
+          type="text"
+          ng-focus="textsearchfocus()"
+          ng-blur="textsearchblur()"
+          ng-model="searchquery"
+          ng-change="textsearch(searchquery)"
+          id="textsearch">
+      </div>
+      <div class="filter" ng-repeat="filter in realFilters track by $index" ng-class="{'medium-hidden' : $index != 0}">
+        <span class="title" 
+          ng-init="filterToggles[filter.key] = false"
+          ng-click="filterToggles[filter.key] = !filterToggles[filter.key]">{{filter.title}}
+        </span>
+        <div class="values" ng-show="filterToggles[filter.key]">
+          <input
+            ng-model="filterModels[filter.key]"
+            ng-change="filterDropdown(filter.key, $index)"
+          />
+          <div class="list-wrapper">
+            <div ng-repeat="(key, value) in filter.values | filter:filterModels[filter.key]"
+              class="value">
+              <a ng-if="!filter.assoc" ng-click="filterValue(value, filter.target)" ng-class="filterActive(value, filter.target)">
+                <span title="{{value.value}}">{{ getFilterTranslation(filter.target, value, key) }}</span>
+              </a>
+              <a ng-if="filter.assoc" ng-click="filterValue(value.id, filter.target)" ng-class="filterActive(value.id, filter.target)">
+                <span title="{{value.value}}">{{value.value}}</span>
+              </a>
             </div>
-            <div class="filter" ng-repeat="filter in realFilters track by $index" ng-class="{'medium-hidden' : $index != 0}">
-                <span class="title" 
-                    ng-init="filterToggles[filter.key] = false"
-                    ng-click="filterToggles[filter.key] = !filterToggles[filter.key]">{{filter.title}}
-                </span>
-                <div class="values" ng-show="filterToggles[filter.key]">
-                    <input ng-model="filterModels[filter.key]"></label>
-                    <div class="list-wrapper">
-                        <div ng-repeat="(key, value) in filter.values | filter:filterModels[filter.key]"
-                            class="value">
-                            <a ng-if="!filter.assoc" ng-click="filterValue(value, filter.target)" ng-class="filterActive(value, filter.target)">
-                                <span title="{{value.value}}">{{ getFilterTranslation(filter.target, value, key) }}</span>
-                            </a>
-                            <a ng-if="filter.assoc" ng-click="filterValue(value.id, filter.target)" ng-class="filterActive(value.id, filter.target)">
-                                <span title="{{value.value}}">{{value.value}}</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="right">
-            <a ng-if="detailRoute == 'photo'" class="switchview" ng-click="switchView('map')">
-                <i class="material-icons">map</i>
-            </a>
-            <a class="switchview" ng-class="currentViewClass()" ng-click="switchView('toggle')"></a>
-            <a class="reset" ng-click="reset()"></a>
-        </div>
+      </div>
     </div>
+    <div class="right">
+      <a ng-if="detailRoute == 'photo'" class="switchview" ng-click="switchView('map')">
+        <i class="material-icons">map</i>
+      </a>
+      <a class="switchview" ng-class="currentViewClass()" ng-click="switchView('toggle')"></a>
+      <a class="reset" ng-click="reset()"></a>
+    </div>
+  </div>
 </div>
 <div class="table">
-    <google-maps orte="orte" url="url" ng-if="display == 'map'"></google-maps>
-    <div class="l-container" ng-switch="display">
-        <table ng-switch-when="list">
-            <thead>
-                <th ng-repeat="th in tableHead track by $index" 
-                    ng-class="thisSortingClass(th.sort)"
-                    ng-click="updateSorting(th.sort)">{{th.title}}</th>
-            </thead>
-            <tbody infinite-scroll="increaseLimit()" infinite-scroll-distance="0.1">
-                <tr ng-repeat="tr in tableRows track by $index"
-                    ng-click="$root.detail(tr.id, detailRoute, carousel, $index)">
-                   <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{::td}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <div ng-switch-when="grid" class="grid"
-            infinite-scroll="increaseLimit()" 
-            infinite-scroll-distance="0.1"
-            masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}'
-            ng-class="{'has-image' : hasImage}"
-            >
-            <div ng-repeat="block in tableRows track by $index"
-                 ng-click="$root.detail(block.id, detailRoute, carousel, $index)"
-                 masonry-tile
-                 class="tile">
-               <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{::data}}</div>
-            </div>
-        </div>
+  <google-maps orte="orte" url="url" ng-if="display == 'map'"></google-maps>
+  <div class="l-container" ng-switch="display">
+    <table ng-switch-when="list">
+      <thead>
+        <th ng-repeat="th in tableHead track by $index" 
+          ng-class="thisSortingClass(th.sort)"
+          ng-click="updateSorting(th.sort)">{{th.title}}</th>
+      </thead>
+      <tbody infinite-scroll="increaseLimit()" infinite-scroll-distance="0.1">
+        <tr ng-repeat="tr in tableRows track by $index"
+          ng-click="$root.detail(tr.id, detailRoute, carousel, $index)">
+          <td ng-repeat=" td in tr.dataset track by $index" ng-bind-html="td">{{::td}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div ng-switch-when="grid" class="grid"
+      infinite-scroll="increaseLimit()" 
+      infinite-scroll-distance="0.1"
+      masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}'
+      ng-class="{'has-image' : hasImage}"
+    >
+      <div ng-repeat="block in tableRows track by $index"
+        ng-click="$root.detail(block.id, detailRoute, carousel, $index)"
+        masonry-tile
+        class="tile">
+        <div ng-repeat=" data in block.dataset track by $index" ng-bind-html="data">{{::data}}</div>
+      </div>
     </div>
+  </div>
 </div>
