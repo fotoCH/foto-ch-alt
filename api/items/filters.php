@@ -135,7 +135,8 @@ class Filters
 
   private function arbeitsorte()
   {
-    $this->distinctFieldValues("arbeitsort", "arbeitsperioden");
+    $where = " WHERE name LIKE '".$_GET['search']."%'";
+    $this->distinctFieldValues("name", "arbeitsorte", $where);
   }
 
   private function verlag()
