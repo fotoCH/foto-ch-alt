@@ -81,7 +81,15 @@ app.controller('TypeTableCtrl', [
       $scope.filtering = true;
       var toFilter = target + ':' + value;
 
-      if ($scope.directFilters.indexOf(toFilter) == -1) {
+      var arbeitsortFilterIndex = $scope.directFilters.findIndex(function(
+        filter
+      ) {
+        return filter.indexOf('arbeitsort') > -1;
+      });
+
+      if (arbeitsortFilterIndex > -1) {
+        $scope.directFilters.splice(arbeitsortFilterIndex, 1, toFilter);
+      } else if ($scope.directFilters.indexOf(toFilter) == -1) {
         $scope.directFilters.push(toFilter);
       } else {
         $scope.directFilters.splice($scope.directFilters.indexOf(toFilter), 1);
