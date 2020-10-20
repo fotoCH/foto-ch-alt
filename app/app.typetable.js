@@ -87,13 +87,14 @@ app.controller('TypeTableCtrl', [
         return filter.indexOf('arbeitsort') > -1;
       });
 
-      if (arbeitsortFilterIndex > -1) {
-        $scope.directFilters.splice(arbeitsortFilterIndex, 1, toFilter);
-      } else if ($scope.directFilters.indexOf(toFilter) == -1) {
-        $scope.directFilters.push(toFilter);
-      } else {
+      if ($scope.directFilters.indexOf(toFilter) > -1) {
         $scope.directFilters.splice($scope.directFilters.indexOf(toFilter), 1);
+      } else if (arbeitsortFilterIndex > -1) {
+        $scope.directFilters.splice(arbeitsortFilterIndex, 1, toFilter);
+      } else {
+        $scope.directFilters.push(toFilter);
       }
+
       $scope.queryOffset = 0;
       loadData();
     };
