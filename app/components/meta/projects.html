@@ -1,81 +1,81 @@
 <div class="l-container">
-    <div class="manage-projects">
-        <div class="heading">
-            <h2>{{$root.translations.manageProjects}}</h2>
-            <div class="actions">
-                <a  href="javascript://" 
-                    ng-init="createProjectToggle = false" 
-                    ng-click="createProjectToggle = true; prepareCreateForm()"
-                    class="fancy-button-black">
-                    {{$root.translations.create}}
-                </a>
-            </div>
-        </div>
-        <div class="create-box" ng-show="createProjectToggle">
-            <h3 ng-bind="formTitle"></h3>
-            <form class="form-container" name="createProjectForm" ng-submit="processForm()">
-                <input type="hidden" id="id" name="id" ng-model="formData.id" />
-                <div class="form-group">
-                    <label for="title">{{$root.translations.title}}</label>
-                    <input type="text" name="title" id="title" ng-model="formData.title" />
-                </div>
-                <div class="form-group">
-                    <label for="description">{{$root.translations.description}}</label>
-                    <input type="text" name="description" id="description" ng-model="formData.description" />
-                </div>
-                <div class="form-group">
-                    <label for="text">{{$root.translations.text}}</label>
-                    <textarea type="text" name="text" id="text" ui-tinymce ng-model="formData.text"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="author">{{$root.translations.author}}</label>
-                    <input type="text" name="author" id="author" ng-model="formData.author" />
-                </div>
-                <div class="form-group">
-                    <label for="images">{{$root.translations.images}}</label>
-                    <input type="text" name="images" id="images" ng-model="formData.images" />
-                </div>
-                <div class="form-group">
-                    <label for="text_secondary">{{$root.translations.text_secondary}}</label>
-                    <textarea type="text_secondary" name="text_secondary" id="text_secondary" ng-model="formData.text_secondary"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="literature">{{$root.translations.literature}}</label>
-                    <input type="text" name="literature" id="literature" ng-model="formData.literature" />
-                </div>
-                <div class="form-group">
-                    <label for="people">{{$root.translations.people}}</label>
-                    <input type="text" name="people" id="people" ng-model="formData.people" />
-                </div>
-                <div class="form-group">
-                    <label for="exhibitions">{{$root.translations.ausstellungen}}</label>
-                    <input type="text" name="exhibitions" id="exhibitions" ng-model="formData.exhibitions" />
-                </div>
-                <div class="form-group">
-                    <label for="published">{{$root.translations.published}}</label>
-                    <input type="checkbox" name="published" id="published" ng-model="formData.published" />
-                </div>
-                <input 
-                    class="btn btn--primary" 
-                    type="submit" 
-                    ng-click="createProjectToggle = !createProjectToggle" 
-                    value="{{formActionValue}}"
-                />
-                <a class="btn" type="" ng-click="createProjectToggle = !createProjectToggle" ng-bind="$root.translations.close"></a>
-            </form>
-        </div>
-        <ul class="project-list">
-            <li ng-repeat="project in projects">
-                <div class="infos">
-                    <h3>{{project.title}}</h3>
-                    <p>{{project.description}}</p>
-                    <span>{{project.author}}</span>
-                </div>
-                <div class="actions">
-                    <a href="javascript://" class="edit" ng-click="editProject(project.id)">{{$root.translations.edit}}</a>
-                    <a href="javascript://" class="delete" ng-click="deleteProject(project.id, project.title)"></a>
-                </div>
-            </li>
-        </ul>
+  <div class="manage-projects">
+    <div class="heading">
+      <h2>{{$root.translations.manageProjects}}</h2>
+      <div class="actions">
+        <a  href="javascript://" 
+          ng-init="createProjectToggle = false" 
+          ng-click="createProjectToggle = true; prepareCreateForm()"
+          class="fancy-button-black">
+          {{$root.translations.create}}
+        </a>
+      </div>
     </div>
+    <div class="create-box" ng-show="createProjectToggle">
+      <h3 ng-bind="formTitle"></h3>
+      <form class="form-container" name="createProjectForm" ng-submit="processForm()">
+        <input type="hidden" id="id" name="id" ng-model="formData.id" />
+        <div class="form-group">
+          <label for="title">{{$root.translations.title}}</label>
+          <input type="text" name="title" id="title" ng-model="formData.title" />
+        </div>
+        <div class="form-group">
+          <label for="description">{{$root.translations.description}}</label>
+          <input type="text" name="description" id="description" ng-model="formData.description" />
+        </div>
+        <div class="form-group">
+          <label for="text">{{$root.translations.text}}</label>
+          <textarea type="text" name="text" id="text" ui-tinymce ng-model="formData.text"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="author">{{$root.translations.author}}</label>
+          <input type="text" name="author" id="author" ng-model="formData.author" />
+        </div>
+        <div class="form-group">
+          <label for="images">{{$root.translations.images}}</label>
+          <input type="text" name="images" id="images" ng-model="formData.images" />
+        </div>
+        <div class="form-group">
+          <label for="text_secondary">{{$root.translations.text_secondary}}</label>
+          <textarea type="text_secondary" name="text_secondary" id="text_secondary" ng-model="formData.text_secondary"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="literature">{{$root.translations.literature}}</label>
+          <input type="text" name="literature" id="literature" ng-model="formData.literature" />
+        </div>
+        <div class="form-group">
+          <label for="people">{{$root.translations.people}}</label>
+          <input type="text" name="people" id="people" ng-model="formData.people" />
+        </div>
+        <div class="form-group">
+          <label for="exhibitions">{{$root.translations.ausstellungen}}</label>
+          <input type="text" name="exhibitions" id="exhibitions" ng-model="formData.exhibitions" />
+        </div>
+        <div class="form-group">
+          <label for="published">{{$root.translations.published}}</label>
+          <input type="checkbox" name="published" id="published" ng-model="formData.published" />
+        </div>
+        <input 
+          class="btn btn--primary" 
+          type="submit" 
+          ng-click="createProjectToggle = !createProjectToggle" 
+          value="{{formActionValue}}"
+        />
+        <a class="btn" type="" ng-click="createProjectToggle = !createProjectToggle" ng-bind="$root.translations.close"></a>
+      </form>
+    </div>
+    <ul class="project-list">
+      <li ng-repeat="project in projects">
+        <div class="infos">
+          <h3>{{project.title}}</h3>
+          <p>{{project.description}}</p>
+          <span>{{project.author}}</span>
+        </div>
+        <div class="actions">
+          <a href="javascript://" class="edit" ng-click="editProject(project.id)">{{$root.translations.edit}}</a>
+          <a href="javascript://" class="delete" ng-click="deleteProject(project.id, project.title)"></a>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

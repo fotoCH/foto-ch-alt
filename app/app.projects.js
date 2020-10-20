@@ -1,10 +1,10 @@
-app.controller("ProjectsController", [
-  "$scope",
-  "$http",
-  "$rootScope",
-  "$window",
-  "$state",
-  "$timeout",
+app.controller('ProjectsController', [
+  '$scope',
+  '$http',
+  '$rootScope',
+  '$window',
+  '$state',
+  '$timeout',
   function($scope, $http, $rootScope, $window, $state, $timeout) {
     $scope.projects = [];
 
@@ -12,7 +12,7 @@ app.controller("ProjectsController", [
     $scope.updateProjectList = function() {
       $scope.projects = [];
       $http
-        .get($rootScope.ApiUrl + "/?a=projects&type=list")
+        .get($rootScope.ApiUrl + '/?a=projects&type=list')
         .success(function(data) {
           $timeout(function() {
             $scope.projects = data;
@@ -23,19 +23,19 @@ app.controller("ProjectsController", [
   }
 ]);
 
-app.controller("ProjectDetailController", [
-  "$scope",
-  "$http",
-  "$rootScope",
-  "$window",
-  "$state",
-  "$timeout",
-  "$stateParams",
+app.controller('ProjectDetailController', [
+  '$scope',
+  '$http',
+  '$rootScope',
+  '$window',
+  '$state',
+  '$timeout',
+  '$stateParams',
   function($scope, $http, $rootScope, $window, $state, $timeout, $stateParams) {
     $http
       .get(
         $rootScope.ApiUrl +
-          "/?a=projects&type=get&title=" +
+          '/?a=projects&type=get&title=' +
           $stateParams.project_identification
       )
       .success(function(data) {
@@ -44,21 +44,21 @@ app.controller("ProjectDetailController", [
   }
 ]);
 
-app.controller("ManageProjectsCtrl", [
-  "$scope",
-  "$http",
-  "$rootScope",
-  "$state",
-  "$timeout",
+app.controller('ManageProjectsCtrl', [
+  '$scope',
+  '$http',
+  '$rootScope',
+  '$state',
+  '$timeout',
   function($scope, $http, $rootScope, $state, $timeout) {
     $scope.formData = {};
     $scope.projects = [];
-    $scope.formTitle = "";
+    $scope.formTitle = '';
     $scope.formActionValue = $rootScope.translations.create;
 
     $timeout(function() {
       if (!$rootScope.manageProjectsAllowed()) {
-        $state.go("home");
+        $state.go('home');
       }
       $scope.formTitle = $rootScope.translations.createProject;
     }, 0);
@@ -73,7 +73,7 @@ app.controller("ManageProjectsCtrl", [
     $scope.updateProjectList = function() {
       $scope.projects = [];
       $http
-        .get($rootScope.ApiUrl + "/?a=projects&type=list")
+        .get($rootScope.ApiUrl + '/?a=projects&type=list')
         .success(function(data) {
           $timeout(function() {
             $scope.projects = data;
@@ -88,7 +88,7 @@ app.controller("ManageProjectsCtrl", [
       $scope.formActionValue = $rootScope.translations.update;
 
       $http
-        .get($rootScope.ApiUrl + "/?a=projects&type=get&id=" + id)
+        .get($rootScope.ApiUrl + '/?a=projects&type=get&id=' + id)
         .success(function(data) {
           $timeout(function() {
             $scope.formData = data;
@@ -101,9 +101,9 @@ app.controller("ManageProjectsCtrl", [
     };
 
     $scope.deleteProject = function(id, name) {
-      if (confirm("Delete Project " + name + "?")) {
+      if (confirm('Delete Project ' + name + '?')) {
         $http
-          .get($rootScope.ApiUrl + "/?a=projects&type=delete&id=" + id)
+          .get($rootScope.ApiUrl + '/?a=projects&type=delete&id=' + id)
           .success(function(data) {
             $timeout(function() {
               $scope.updateProjectList();
@@ -114,10 +114,10 @@ app.controller("ManageProjectsCtrl", [
 
     $scope.processForm = function() {
       console.log($scope.formData);
-      if (typeof $scope.formData.id === "undefined") {
+      if (typeof $scope.formData.id === 'undefined') {
         $http({
-          method: "POST",
-          url: $rootScope.ApiUrl + "/?a=projects&type=create",
+          method: 'POST',
+          url: $rootScope.ApiUrl + '/?a=projects&type=create',
           data: $scope.formData
         }).then(
           function(response) {
@@ -131,8 +131,8 @@ app.controller("ManageProjectsCtrl", [
         );
       } else {
         $http({
-          method: "POST",
-          url: $rootScope.ApiUrl + "/?a=projects&type=update",
+          method: 'POST',
+          url: $rootScope.ApiUrl + '/?a=projects&type=update',
           data: $scope.formData
         }).then(
           function(response) {
