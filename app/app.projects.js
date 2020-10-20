@@ -31,7 +31,17 @@ app.controller('ProjectDetailController', [
   '$state',
   '$timeout',
   '$stateParams',
-  function($scope, $http, $rootScope, $window, $state, $timeout, $stateParams) {
+  '$sce',
+  function(
+    $scope,
+    $http,
+    $rootScope,
+    $window,
+    $state,
+    $timeout,
+    $stateParams,
+    $sce
+  ) {
     $http
       .get(
         $rootScope.ApiUrl +
@@ -40,6 +50,7 @@ app.controller('ProjectDetailController', [
       )
       .success(function(data) {
         $scope.detail = data;
+        $scope.detail.text = $sce.trustAsHtml($scope.detail.text);
       });
   }
 ]);
@@ -88,21 +99,15 @@ function initTinyMce() {
     importcss_append: true,
     templates: [
       {
-        title: 'New Table',
-        description: 'creates a new table',
-        content:
-          '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
+        title: 'Lead text',
+        description: 'Einführungstext (grosse Schrift)',
+        content: '<div class="mceTmpl"><p class="lead">Lead Text</p></div>'
       },
       {
-        title: 'Starting my story',
-        description: 'A cure for writers block',
-        content: 'Once upon a time...'
-      },
-      {
-        title: 'New list with dates',
-        description: 'New List with dates',
+        title: 'Autor Box',
+        description: 'Graue Box',
         content:
-          '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'
+          '<div class="mceTmpl"><div class="slim box"><p>Markus Sch&uuml;rpf</p></div></div>'
       }
     ],
     template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
