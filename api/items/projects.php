@@ -174,7 +174,7 @@ class ProjectManagement {
 
         foreach($values as $v) {
             if(array_key_exists($v, $data)) {
-                $vals[] = "`".$v."` = '".str_replace("_", " " , mysqli_real_escape_string($this->sqli, $data[$v]))."'";
+                $vals[] = "`".$v."` = '".mysqli_real_escape_string($this->sqli, $data[$v])."'";
             }
         }
         $updateQuery.= "SET ".implode(", ", $vals )." WHERE id=".$data['id'];
