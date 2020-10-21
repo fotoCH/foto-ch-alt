@@ -56,8 +56,6 @@ app.controller('ProjectDetailController', [
 ]);
 
 function initTinyMce() {
-  var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
   tinymce.init({
     selector: 'textarea#projectText',
     plugins:
@@ -108,6 +106,36 @@ function initTinyMce() {
         description: 'Graue Box',
         content:
           '<div class="mceTmpl"><div class="slim box"><p>Markus Sch&uuml;rpf</p></div></div>'
+      },
+      {
+        title: 'Beteiligte',
+        description: 'Beteiligte Personen',
+        content:
+          '<div class="mceTmpl"><div class="slim people"><h3>Beteiligte</h3><ul><li><a href="photographer?detail=1700&amp;type=photographer" aria-invalid="true">Adolphe Braun</a></li></ul></div></div>'
+      },
+      {
+        title: 'Literatur',
+        description: 'Literatur',
+        content:
+          '<div class="mceTmpl"><div class="slim literature"><h3>Literatur</h3><ul><li><a href="literatur?detail=17893&amp;type=literature" aria-invalid="true">Christoffel Album</a></li></ul></div></div>'
+      },
+      {
+        title: 'Bildstreifen',
+        description: 'Bilder horizontal',
+        content:
+          '<div class="mceTmpl"><div class="images"><img src="https://de.foto-ch.ch/thumb/images/christoffel/004457284_0030_m.jpg"><img src="https://de.foto-ch.ch/thumb/images/christoffel/004457284_0028_m.jpg"><img src="https://de.foto-ch.ch/thumb/images/christoffel/004457284_0032_m.jpg"></div></div>'
+      },
+      {
+        title: 'Textabschnitt',
+        description: 'Schmalere Seitenbreite',
+        content:
+          '<div class="mceTmpl"><div class="slim">Textabschnitt</div></div>'
+      },
+      {
+        title: 'Hauptcontainer',
+        description: 'Container für gesamten Projektinhalt',
+        content:
+          '<div class="mceTmpl"><div class="l-container fe-projects detail">Hier Titel, Lead, Autor, Textabschnitt, Bildstreifen etc. einfügen.</div></div>'
       }
     ],
     template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
@@ -123,8 +151,8 @@ function initTinyMce() {
     content_style: '.mymention{ color: gray; }',
     contextmenu: 'link image imagetools table configurepermanentpen',
     a11y_advanced_options: true,
-    skin: useDarkMode ? 'oxide-dark' : 'oxide',
-    content_css: useDarkMode ? 'dark' : 'default'
+    skin: 'oxide',
+    content_css: '../assets/css/main.css'
     /*
     The following settings require more configuration than shown here.
     For information on configuring the mentions plugin, see:
