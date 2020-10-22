@@ -140,7 +140,7 @@ class ProjectManagement {
 
         foreach($values as $v) {
             if(array_key_exists($v, $data)) {
-                $vals[] = "'".str_replace("_", " " , mysqli_real_escape_string($this->sqli, $data[$v]))."'";
+                $vals[] = "'".mysqli_real_escape_string($this->sqli, $data[$v])."'";
             } else {
                 $vals[] = 'NULL';
             }
