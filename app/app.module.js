@@ -22,8 +22,7 @@ var app = angular.module("fotochWebApp", [
   "angulartics",
   "angulartics.google.analytics",
   "ngMeta",
-  "seo",
-  "ui.tinymce"
+  "seo"
 ]);
 
 app.run(function(
