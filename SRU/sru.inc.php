@@ -1,5 +1,7 @@
 <?php
 
+include_once('sru.datecheck.inc.php');
+
 function photographerHasFotos($id){
     global $sqli;
     $sql='SELECT count(id) FROM `fotos` WHERE dc_creator='.$id;
@@ -204,62 +206,72 @@ $records.=resultExample('Entry 3');
 return(expandRecords($records, 1, 8));
 }
 
-function toSRUfromStreamresultFotograf($results, &$xmlresults, $scount){
+function toSRUfromStreamresultFotograf($results, &$xmlresults, $scount, $datearray){
     $position=$scount;
     $mycount=0;
     foreach ($results as $r){
         if ($mycount<20){
-            $xmlresults.=resultFromRecordFotograf($r, $position++);
-            $mycount++;
+    	    if (photographerMatchesDateQuery($r,$datearray)){
+                $xmlresults.=resultFromRecordFotograf($r, $position++);
+	        $mycount++;
+	    }
         }
     }
     return($mycount);
 }
 
-function toSRUfromStreamresultBestand($results, &$xmlresults, $scount){
+function toSRUfromStreamresultBestand($results, &$xmlresults, $scount, $datearray){
     $position=$scount;
     $mycount=0;
     foreach ($results as $r){
         if ($mycount<10){
-            $xmlresults.=resultFromRecordBestand($r, $position++);
-            $mycount++;
+//            $o=print_r($datearray, true)." ".print_r($r, true);
+//            writeToLog($o);
+    	    if (stockMatchesDateQuery($r,$datearray)){
+                $xmlresults.=resultFromRecordBestand($r, $position++);
+	        $mycount++;
+	    }
         }
    }
     return($mycount);
 }
 
-function toSRUfromStreamresultAusstellung($results, &$xmlresults, $scount){
+function toSRUfromStreamresultAusstellung($results, &$xmlresults, $scount, $datearray){
     $position=$scount;
     $mycount=0;
     foreach ($results as $r){
         if ($mycount<10){
-            $xmlresults.=resultFromRecordAusstellung($r, $position++);
-            $mycount++;
+    	    if (exhibitionMatchesDateQuery($r,$datearray)){
+                $xmlresults.=resultFromRecordAusstellung($r, $position++);
+                $mycount++;
+            }
         }
     }
     return($mycount);
 }
 
-function toSRUfromStreamresultFoto($results, &$xmlresults, $scount){
+function toSRUfromStreamresultFoto($results, &$xmlresults, $scount, $datearray){
     $position=$scount;
     $mycount=0;
     foreach ($results as $r){
         if ($mycount<10){
-            $xmlresults.=resultFromRecordFoto($r, $position++);
-            $mycount++;
+    	    if (photoMatchesDateQuery($r,$datearray)){
+                $xmlresults.=resultFromRecordFoto($r, $position++);
+	        $mycount++;
+	    }
         }
     }
     return($mycount);
 }
 
 
-function toSRUfromStreamresults($results){
+function toSRUfromStreamresults($results,$datearray){
 $count=0;
 $xmlresults="";
-$count+=toSRUfromStreamresultFotograf($results['photographer_results'], $xmlresults, $count+1);
-$count+=toSRUfromStreamresultBestand($results['stock_results'], $xmlresults, $count+1);
-$count+=toSRUfromStreamresultAusstellung($results['exhibition_results'], $xmlresults, $count+1);
-$count+=toSRUfromStreamresultFoto($results['photos_results'], $xmlresults, $count+1);
+$count+=toSRUfromStreamresultFotograf($results['photographer_results'], $xmlresults, $count+1,$datearray);
+$count+=toSRUfromStreamresultBestand($results['stock_results'], $xmlresults, $count+1,$datearray);
+$count+=toSRUfromStreamresultAusstellung($results['exhibition_results'], $xmlresults, $count+1,$datearray);
+$count+=toSRUfromStreamresultFoto($results['photos_results'], $xmlresults, $count+1,$datearray);
 return (expandRecords($xmlresults, $count, 0));
 }
 
@@ -278,7 +290,7 @@ function getStreamResults($queryarray, $datearray, $maxresults=50){
     $search->setQuery($query);
     $search->query();
     //print_r($search->results);
-    return(toSRUfromStreamresults($search->results));
+    return(toSRUfromStreamresults($search->results, $datearray));
 }
 
 ?>
