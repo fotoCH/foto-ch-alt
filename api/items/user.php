@@ -45,6 +45,7 @@ if ($b=='login'){
 	
 } elseif ($b=='logout') {
 	
+	global $sqli;
 	$query = "SELECT * FROM auth WHERE token=?";
 	$stmt = mysqli_prepare($sqli, $query);
 	mysqli_stmt_bind_param($stmt, "s", $tok);
