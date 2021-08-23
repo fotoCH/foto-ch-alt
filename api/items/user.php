@@ -44,17 +44,6 @@ if ($b=='login'){
 	
 	
 } elseif ($b=='logout') {
-	
-	global $sqli;
-	$query = "SELECT * FROM auth WHERE token=?";
-	$stmt = mysqli_prepare($sqli, $query);
-	mysqli_stmt_bind_param($stmt, "s", $tok);
-	mysqli_stmt_execute($stmt);
-	mysqli_stmt_bind_result($stmt, $result);
-	mysqli_stmt_fetch($stmt);
-
-	$out['result'] = $result;
-
 	$out['status']=(logOff($tok)?'ok':'nok');
 } elseif ($b=='info'){
 	$out=getTokenInfo($tok);
