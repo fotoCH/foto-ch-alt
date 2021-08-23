@@ -44,7 +44,7 @@ if ($b=='login'){
 	
 	
 } elseif ($b=='logout'){
-	$out['status']=(logOff($authToken)?'ok':'nok');
+	$out['status']=(logOff($tok)?'ok':'nok');
 } elseif ($b=='info'){
 	$out=getTokenInfo($tok);
 }
